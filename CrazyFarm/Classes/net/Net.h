@@ -1,7 +1,7 @@
 #ifndef __NET_H__
 #define __NET_H__
 #include "cocos2d.h"
-#include "FishManage.h"
+#include "fish/FishManage.h"
 using namespace cocos2d;
 
 #define NET_TYPE_0 0

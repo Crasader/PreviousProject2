@@ -1,5 +1,5 @@
-#include "LevelLayer.h"
-#include "GameScene.h"
+#include "level/LevelLayer.h"
+#include "core/GameScene.h"
 USING_NS_CC;
 
   

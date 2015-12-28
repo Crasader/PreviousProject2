@@ -1,7 +1,7 @@
-#include "LobbyScene.h"
-#include "GameScene.h"
-#include "LevelScene.h"
-#include "Chinese.h"
+#include "lobby/LobbyScene.h"
+#include "core/GameScene.h"
+#include "level/LevelScene.h"
+#include "utill/Chinese.h"
 
 Scene* LobbyScene::createScene()
 {

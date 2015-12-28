@@ -1,4 +1,4 @@
-#include "GAMEDATA.h"
+#include "data/GAMEDATA.h"
 #include "cocos2d.h"
 using namespace cocos2d;
 

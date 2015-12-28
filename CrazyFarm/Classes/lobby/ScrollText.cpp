@@ -1,8 +1,8 @@
-#include "ScrollText.h"
-#include "CallAndroidMethod.h"
-#include "Chinese.h"
-#include "GameState.h"
-#include "GameData.h"
+#include "lobby/ScrollText.h"
+#include "utill/CallAndroidMethod.h"
+#include "utill/Chinese.h"
+#include "data/GameState.h"
+#include "data/GameData.h"
 
 USING_NS_CC;
 #define IF_RETURN(cont,p) if ((cont)){return (p);}

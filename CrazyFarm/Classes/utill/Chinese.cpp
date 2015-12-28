@@ -1,4 +1,4 @@
-#include "Chinese.h"
+#include "utill/Chinese.h"
 std::string ChineseWord(const char* wordId)
 {
 	ValueVector txt_vec = FileUtils::getInstance()->getValueVectorFromFile("ChineseWords.plist");

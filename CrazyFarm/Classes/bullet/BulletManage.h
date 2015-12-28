@@ -1,6 +1,6 @@
 #ifndef __BULLET_MANAGE_H__
 #define __BULLET_MANAGE_H__
-#include "Bullet.h"
+#include "bullet/Bullet.h"
 
 class BulletManage{
 public:

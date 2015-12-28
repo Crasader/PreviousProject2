@@ -1,5 +1,5 @@
-#include "LevelScene.h"
-#include "LevelLayer.h"
+#include "level/LevelScene.h"
+#include "level/LevelLayer.h"
 
 bool LevelScene::init(){
 

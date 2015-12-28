@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "LobbyScene.h"
+#include "lobby/LobbyScene.h"
 
 USING_NS_CC;
 

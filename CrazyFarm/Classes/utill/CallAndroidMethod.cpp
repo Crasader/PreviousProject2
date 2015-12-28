@@ -2,8 +2,8 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "platform\android\jni\JniHelper.h"
 #endif
-#include "GameData.h"
-#include "Audio.h"
+#include "data/GameData.h"
+#include "utill/Audio.h"
 
 CallAndroidMethod* CallAndroidMethod::_instance = 0;
 CallAndroidMethod::CallAndroidMethod(){

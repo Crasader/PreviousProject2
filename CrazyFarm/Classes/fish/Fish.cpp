@@ -1,4 +1,4 @@
-#include "Fish.h"
+#include "fish/Fish.h"
 
 bool Fish::init(){
 	if (!Sprite::init())

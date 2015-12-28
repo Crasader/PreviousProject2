@@ -1,6 +1,6 @@
-#include "GameGuiLayer.h"
-#include "GamePauseLayer.h"
-#include "GameResultScene.h"
+#include "core/GameGuiLayer.h"
+#include "pause/GamePauseLayer.h"
+#include "result/GameResultScene.h"
 bool GameGuiLayer::init(){
 	if ( !Layer::init() )
 	{

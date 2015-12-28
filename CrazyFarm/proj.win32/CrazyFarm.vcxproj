@@ -73,7 +73,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..\Classes\bullet;..\Classes\core;..\Classes\data;..\Classes\fish;..\Classes\level;..\Classes\lobby;..\Classes\net;..\Classes\pause;..\Classes\result;..\Classes\turret;..\Classes\utill;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -138,58 +138,58 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\Audio.cpp" />
-    <ClCompile Include="..\Classes\Bullet.cpp" />
-    <ClCompile Include="..\Classes\BulletManage.cpp" />
-    <ClCompile Include="..\Classes\CallAndroidMethod.cpp" />
-    <ClCompile Include="..\Classes\Chinese.cpp" />
-    <ClCompile Include="..\Classes\CircleBy.cpp" />
-    <ClCompile Include="..\Classes\Fish.cpp" />
-    <ClCompile Include="..\Classes\FishManage.cpp" />
-    <ClCompile Include="..\Classes\FunUtil.cpp" />
-    <ClCompile Include="..\Classes\GameData.cpp" />
-    <ClCompile Include="..\Classes\GameGuiLayer.cpp" />
-    <ClCompile Include="..\Classes\GameLayer.cpp" />
-    <ClCompile Include="..\Classes\GamePauseLayer.cpp" />
-    <ClCompile Include="..\Classes\GameResultLayer.cpp" />
-    <ClCompile Include="..\Classes\GameResultScene.cpp" />
-    <ClCompile Include="..\Classes\GameScene.cpp" />
-    <ClCompile Include="..\Classes\GameState.cpp" />
-    <ClCompile Include="..\Classes\LevelLayer.cpp" />
-    <ClCompile Include="..\Classes\LevelScene.cpp" />
-    <ClCompile Include="..\Classes\LevelSelectPage.cpp" />
-    <ClCompile Include="..\Classes\LobbyScene.cpp" />
-    <ClCompile Include="..\Classes\Net.cpp" />
-    <ClCompile Include="..\Classes\ScrollText.cpp" />
-    <ClCompile Include="..\Classes\Turret.cpp" />
+    <ClCompile Include="..\Classes\bullet\Bullet.cpp" />
+    <ClCompile Include="..\Classes\bullet\BulletManage.cpp" />
+    <ClCompile Include="..\Classes\core\GameGuiLayer.cpp" />
+    <ClCompile Include="..\Classes\core\GameLayer.cpp" />
+    <ClCompile Include="..\Classes\core\GameScene.cpp" />
+    <ClCompile Include="..\Classes\data\GameData.cpp" />
+    <ClCompile Include="..\Classes\data\GameState.cpp" />
+    <ClCompile Include="..\Classes\fish\Fish.cpp" />
+    <ClCompile Include="..\Classes\fish\FishManage.cpp" />
+    <ClCompile Include="..\Classes\level\LevelLayer.cpp" />
+    <ClCompile Include="..\Classes\level\LevelScene.cpp" />
+    <ClCompile Include="..\Classes\level\LevelSelectPage.cpp" />
+    <ClCompile Include="..\Classes\lobby\LobbyScene.cpp" />
+    <ClCompile Include="..\Classes\lobby\ScrollText.cpp" />
+    <ClCompile Include="..\Classes\net\Net.cpp" />
+    <ClCompile Include="..\Classes\pause\GamePauseLayer.cpp" />
+    <ClCompile Include="..\Classes\result\GameResultLayer.cpp" />
+    <ClCompile Include="..\Classes\result\GameResultScene.cpp" />
+    <ClCompile Include="..\Classes\turret\Turret.cpp" />
+    <ClCompile Include="..\Classes\utill\Audio.cpp" />
+    <ClCompile Include="..\Classes\utill\CallAndroidMethod.cpp" />
+    <ClCompile Include="..\Classes\utill\Chinese.cpp" />
+    <ClCompile Include="..\Classes\utill\CircleBy.cpp" />
+    <ClCompile Include="..\Classes\utill\FunUtil.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\Audio.h" />
-    <ClInclude Include="..\Classes\Bullet.h" />
-    <ClInclude Include="..\Classes\BulletManage.h" />
-    <ClInclude Include="..\Classes\CallAndroidMethod.h" />
-    <ClInclude Include="..\Classes\Chinese.h" />
-    <ClInclude Include="..\Classes\CircleBy.h" />
-    <ClInclude Include="..\Classes\Fish.h" />
-    <ClInclude Include="..\Classes\FishManage.h" />
-    <ClInclude Include="..\Classes\FunUtil.h" />
-    <ClInclude Include="..\Classes\GameData.h" />
-    <ClInclude Include="..\Classes\GameGuiLayer.h" />
-    <ClInclude Include="..\Classes\GameLayer.h" />
-    <ClInclude Include="..\Classes\GamePauseLayer.h" />
-    <ClInclude Include="..\Classes\GameResultLayer.h" />
-    <ClInclude Include="..\Classes\GameResultScene.h" />
-    <ClInclude Include="..\Classes\GameScene.h" />
-    <ClInclude Include="..\Classes\GameState.h" />
-    <ClInclude Include="..\Classes\LevelLayer.h" />
-    <ClInclude Include="..\Classes\LevelScene.h" />
-    <ClInclude Include="..\Classes\LevelSelectPage.h" />
-    <ClInclude Include="..\Classes\LobbyScene.h" />
-    <ClInclude Include="..\Classes\Net.h" />
-    <ClInclude Include="..\Classes\ScrollText.h" />
-    <ClInclude Include="..\Classes\Turret.h" />
+    <ClInclude Include="..\Classes\bullet\Bullet.h" />
+    <ClInclude Include="..\Classes\bullet\BulletManage.h" />
+    <ClInclude Include="..\Classes\core\GameGuiLayer.h" />
+    <ClInclude Include="..\Classes\core\GameLayer.h" />
+    <ClInclude Include="..\Classes\core\GameScene.h" />
+    <ClInclude Include="..\Classes\data\GameData.h" />
+    <ClInclude Include="..\Classes\data\GameState.h" />
+    <ClInclude Include="..\Classes\fish\Fish.h" />
+    <ClInclude Include="..\Classes\fish\FishManage.h" />
+    <ClInclude Include="..\Classes\level\LevelLayer.h" />
+    <ClInclude Include="..\Classes\level\LevelScene.h" />
+    <ClInclude Include="..\Classes\level\LevelSelectPage.h" />
+    <ClInclude Include="..\Classes\lobby\LobbyScene.h" />
+    <ClInclude Include="..\Classes\lobby\ScrollText.h" />
+    <ClInclude Include="..\Classes\net\Net.h" />
+    <ClInclude Include="..\Classes\pause\GamePauseLayer.h" />
+    <ClInclude Include="..\Classes\result\GameResultLayer.h" />
+    <ClInclude Include="..\Classes\result\GameResultScene.h" />
+    <ClInclude Include="..\Classes\turret\Turret.h" />
+    <ClInclude Include="..\Classes\utill\Audio.h" />
+    <ClInclude Include="..\Classes\utill\CallAndroidMethod.h" />
+    <ClInclude Include="..\Classes\utill\Chinese.h" />
+    <ClInclude Include="..\Classes\utill\CircleBy.h" />
+    <ClInclude Include="..\Classes\utill\FunUtil.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

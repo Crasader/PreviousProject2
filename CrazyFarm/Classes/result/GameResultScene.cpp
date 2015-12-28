@@ -1,5 +1,5 @@
-#include "GameResultScene.h"
-#include "GameResultLayer.h"
+#include "result/GameResultScene.h"
+#include "result/GameResultLayer.h"
 
 bool GameResultScene::init(){
 if ( !Scene::init() )

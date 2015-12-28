@@ -1,7 +1,7 @@
-#include "GameScene.h"
-#include "GameLayer.h"
-#include "GameGuiLayer.h"
-#include "LevelScene.h"
+#include "core/GameScene.h"
+#include "core/GameLayer.h"
+#include "core/GameGuiLayer.h"
+#include "level/LevelScene.h"
 
 bool GameScene::init(){
 	if ( !Scene::init() )

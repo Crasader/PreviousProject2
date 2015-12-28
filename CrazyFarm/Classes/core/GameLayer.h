@@ -1,10 +1,10 @@
 #ifndef __GAME_LAYER_H__
 #define __GAME_LAYER_H__
 #include "cocos2d.h"
-#include "FishManage.h"
-#include "BulletManage.h"
-#include "Turret.h"
-#include "Net.h"
+#include "fish/FishManage.h"
+#include "bullet/BulletManage.h"
+#include "turret/Turret.h"
+#include "net/Net.h"
 
 
 USING_NS_CC;

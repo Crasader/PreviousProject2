@@ -2,7 +2,7 @@
 #define __FISHMANAGE_H__
 
 #include "cocos2d.h"
-#include "Fish.h"
+#include "fish/Fish.h"
 using namespace cocos2d;
 
 #define BORDER_LEFT 0

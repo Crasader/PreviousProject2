@@ -1,5 +1,5 @@
-#include "Net.h"
-#include "FunUtil.h"
+#include "net/Net.h"
+#include "utill/FunUtil.h"
 bool Net::init(){
 	if (!Sprite::init()){
 		return false;

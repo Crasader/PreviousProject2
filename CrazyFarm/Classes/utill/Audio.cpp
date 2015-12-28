@@ -1,6 +1,6 @@
-#include "Audio.h"
+#include "utill/Audio.h"
 #include "SimpleAudioEngine.h"
-#include "GameData.h"
+#include "data/GameData.h"
 
 
 Audio* Audio::m_instance = nullptr;

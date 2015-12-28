@@ -1,7 +1,7 @@
-#include "GameResultLayer.h"
-#include "GameData.h"
-#include "LobbyScene.h"
-#include "GameScene.h"
+#include "result/GameResultLayer.h"
+#include "data/GameData.h"
+#include "lobby/LobbyScene.h"
+#include "core/GameScene.h"
 
 bool GameResultLayer::init(){
 	if ( !Layer::init() )

@@ -1,7 +1,7 @@
 #ifndef __FISH_H__
 #define __FISH_H__
 #include "cocos2d.h"
-#include "CircleBy.h"
+#include "utill/CircleBy.h"
 
 using namespace cocos2d;
 

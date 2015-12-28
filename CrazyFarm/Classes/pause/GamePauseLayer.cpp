@@ -1,4 +1,4 @@
-#include "GamePauseLayer.h"
+#include "pause/GamePauseLayer.h"
 
 
 GamePauseLayer* GamePauseLayer::create(){
