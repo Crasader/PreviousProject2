@@ -37,27 +37,18 @@
     <Filter Include="src\net">
       <UniqueIdentifier>{f6bac813-7be3-4613-9b92-52345b4f9969}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utill">
+      <UniqueIdentifier>{3e7aa1be-6ec0-416f-b2a9-8cc69053eda9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\data">
+      <UniqueIdentifier>{e69ddaf4-b32d-4701-a94a-5a7e8626646c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Audio.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameData.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Chinese.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\CallAndroidMethod.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameState.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\FishManage.cpp">
@@ -108,14 +99,29 @@
     <ClCompile Include="..\Classes\BulletManage.cpp">
       <Filter>src\bullet</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\CircleBy.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Net.cpp">
       <Filter>src\net</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Audio.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CallAndroidMethod.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Chinese.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CircleBy.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\FunUtil.cpp">
-      <Filter>src</Filter>
+      <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameData.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameState.cpp">
+      <Filter>src\data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,21 +129,6 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Audio.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameData.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Chinese.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\CallAndroidMethod.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameState.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Fish.h">
@@ -188,14 +179,29 @@
     <ClInclude Include="..\Classes\BulletManage.h">
       <Filter>src\bullet</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\CircleBy.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Net.h">
       <Filter>src\net</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Audio.h">
+      <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CallAndroidMethod.h">
+      <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Chinese.h">
+      <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CircleBy.h">
+      <Filter>src\utill</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\FunUtil.h">
-      <Filter>src</Filter>
+      <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameState.h">
+      <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameData.h">
+      <Filter>src\data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
