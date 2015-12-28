@@ -34,7 +34,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	glview->setFrameSize(1136, 640);
 	glview->setDesignResolutionSize(1136, 640, ResolutionPolicy::EXACT_FIT);
 #endif
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	if (visibleSize.width / visibleSize.height > 800.0 / 480.0){
 		glview->setDesignResolutionSize(800, 480, ResolutionPolicy::EXACT_FIT);

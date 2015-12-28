@@ -1,5 +1,7 @@
 #include "CallAndroidMethod.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "platform\android\jni\JniHelper.h"
+#endif
 #include "GameData.h"
 #include "Audio.h"
 
