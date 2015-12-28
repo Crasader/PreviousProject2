@@ -92,14 +92,14 @@ void LevelLayer::openscene_callback()
 
 void LevelLayer::goToCurrNode()
 {
-	this->runAction(MoveTo::create(0.4f, Point::Vec2(-curPageNode * WINDOW_WIDTH, 0)));
+	this->runAction(MoveTo::create(0.4f, Vec2(-curPageNode * WINDOW_WIDTH, 0)));
 }
 
 void LevelLayer::addNode(Node *level)
 {
     if (level)
     {
-        level->setContentSize(Size::Size(WINDOW_WIDTH, WINDOW_HEIGHT));
+        level->setContentSize(Size(WINDOW_WIDTH, WINDOW_HEIGHT));
         level->setPosition(Point(WINDOW_WIDTH * pageNode, 0));
         this->addChild(level);
         pageNode++;
@@ -117,7 +117,7 @@ void LevelLayer::onTouchMoved(Touch *touch, Event  *event)
 {
     Point touchPoint = touch->getLocation();
     auto currX = this->getPositionX() + touchPoint.x - touchCurPoint.x;
-	Point posPoint = Point::Vec2(currX, getPositionY());
+	Point posPoint = Vec2(currX, getPositionY());
     auto dis= fabsf(touchPoint.x - touchCurPoint.x);
     if (dis >= SHORTEST_SLIDE_LENGTH ) {
         setPosition(posPoint);
