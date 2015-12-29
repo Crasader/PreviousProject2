@@ -17,15 +17,15 @@ AIManager* AIManager::getInstance(){
     return _instance;
 }
 
-AI AIManager::getAI(int aiType, int aiLevel, int maxTurrentLevel) {
-    AIMolo molo;
+AI* AIManager::getAI(int aiType, int aiLevel, int maxTurrentLevel) {
+    AIMolo* molo = new AIMolo();
     if(maxTurrentLevel > 0) {
-        molo.setMaxTurrentLevel(maxTurrentLevel);
+        molo->setMaxTurrentLevel(maxTurrentLevel);
     }else {
-        molo.setMaxTurrentLevel(1);
+        molo->setMaxTurrentLevel(1);
     }
     
-    molo.setReqSteps(1.0f);
+    molo->setReqSteps(1.0f);
     return molo;
 }
 
