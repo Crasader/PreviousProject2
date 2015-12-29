@@ -157,6 +157,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\pause\GamePauseLayer.cpp" />
     <ClCompile Include="..\Classes\result\GameResultLayer.cpp" />
     <ClCompile Include="..\Classes\result\GameResultScene.cpp" />
+    <ClCompile Include="..\Classes\RoomManager.cpp" />
+    <ClCompile Include="..\Classes\RoomPlayer.cpp" />
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp" />
     <ClCompile Include="..\Classes\turret\Turret.cpp" />
     <ClCompile Include="..\Classes\User.cpp" />
@@ -190,6 +192,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\pause\GamePauseLayer.h" />
     <ClInclude Include="..\Classes\result\GameResultLayer.h" />
     <ClInclude Include="..\Classes\result\GameResultScene.h" />
+    <ClInclude Include="..\Classes\RoomManager.h" />
+    <ClInclude Include="..\Classes\RoomPlayer.h" />
     <ClInclude Include="..\Classes\turret\PlayerTurret.h" />
     <ClInclude Include="..\Classes\turret\Turret.h" />
     <ClInclude Include="..\Classes\User.h" />

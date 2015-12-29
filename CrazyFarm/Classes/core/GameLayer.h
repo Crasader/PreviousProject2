@@ -5,7 +5,7 @@
 #include "bullet/BulletManage.h"
 #include "turret/PlayerTurret.h"
 #include "net/Net.h"
-
+#include "RoomManager.h"
 
 USING_NS_CC;
 
@@ -14,7 +14,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(GameLayer);
 private:
-	void createTurret(int type);//按照类型生成炮塔
+	void createTurret();//按照类型生成炮塔
 	void addTouchEvent();
 	bool onTouchBegan(Touch *touch, Event  *event);
 	void onTouchMoved(Touch *touch, Event  *event);
@@ -26,7 +26,11 @@ private:
 	float getTurretRotation(Point pos1,Point pos2);//获取炮塔需要旋转的角度
 	void rotateTurret(float degree);//旋转炮塔
 	void update(float dt);
-	
+	void createPlayerCoin();
+	void calculateFreeChair();
 	PlayerTurret* myTurret;
+	std::vector<RoomPlayer> players;
+	int m_index = -1;
+
 };
 #endif

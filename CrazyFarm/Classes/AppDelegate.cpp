@@ -53,6 +53,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	std::vector<std::string> paths;
 	paths.push_back("gamelayer");
 	paths.push_back("ani");
+	paths.push_back("num");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand((unsigned)time(nullptr));
 

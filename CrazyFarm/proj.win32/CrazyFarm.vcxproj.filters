@@ -141,6 +141,12 @@
     <ClCompile Include="..\Classes\utill\AnimationUtil.cpp">
       <Filter>src\utill</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\RoomManager.cpp">
+      <Filter>src\playinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RoomPlayer.cpp">
+      <Filter>src\playinfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -238,6 +244,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utill\AnimationUtil.h">
       <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RoomManager.h">
+      <Filter>src\playinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RoomPlayer.h">
+      <Filter>src\playinfo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

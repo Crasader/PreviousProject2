@@ -3,17 +3,21 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
+class skillCell :public Sprite
+{
+public:
+		virtual bool init(char* spName,int propNum);
+		static skillCell* create(char* spName, int propNum);
+};
+
+
+
 class GameGuiLayer: public cocos2d::Layer{
 public:
 	virtual bool init();
 	CREATE_FUNC(GameGuiLayer);
-	//static const int Map_1[];
 private :
-	void pauseGame();
-	void initTime();
-	void update(float dt);
-	void gotoResult();
-	float passTime;
+
 	 
 };
 #endif

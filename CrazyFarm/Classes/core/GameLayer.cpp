@@ -2,6 +2,10 @@
 #include "net/Net.h"
 #include "utill/FunUtil.h"
 #include "utill/AnimationUtil.h"
+#include "User.h"
+#define kTagBaseturret 10
+
+
 
 bool GameLayer::init(){
 	if (!Layer::init())
@@ -15,11 +19,16 @@ bool GameLayer::init(){
 	this->addChild(game_bg);
 	game_bg->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniWater")));
 	//TODO 游戏核心界面
-	createTurret(0);
+	
 	//TODO 产生鱼
 	schedule(schedule_selector(GameLayer::createFish), 1, 100, 0);
 	scheduleUpdate();
-	addTouchEvent();
+	addTouchEvent();	
+
+	players = RoomManager::getInstance()->initRoomConfig();
+	calculateFreeChair();
+	createPlayerCoin();
+	createTurret();
 	return true;
 }
 
@@ -31,36 +40,39 @@ void GameLayer::createFish(float dt){
 	this->addChild(fish);
 }
 
-void GameLayer::createTurret(int type){
-	//添加一个炮塔用于测试
+void GameLayer::createTurret(){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	auto vec = players;
+	auto user = User::getInstance();
+
 	myTurret = PlayerTurret::create();
-	myTurret->initWithType(0);
+	const Point turretPos[4] =
+	{
+		Vec2(visibleSize.width *0.3, myTurret->getBoundingBox().size.height / 2),
+		Vec2(visibleSize.width *0.7, myTurret->getBoundingBox().size.height / 2),
+		Vec2(visibleSize.width *0.7, visibleSize.height - myTurret->getBoundingBox().size.height / 2),
+		Vec2(visibleSize.width *0.3, visibleSize.height - myTurret->getBoundingBox().size.height / 2)
+	};
+	myTurret->initWithType(100);
 	myTurret->setUpgradeButton();
+	myTurret->setMaxLevel(100);
 	myTurret->setAnchorPoint(ccp(0.5, 0.5));
-	myTurret->setPosition(ccp(visibleSize.width *0.25, myTurret->getBoundingBox().size.height/2));
+	myTurret->setPosition(turretPos[m_index]);
 	this->addChild(myTurret, 2);
 
-	auto otherTurret = PlayerTurret::create();
-	otherTurret->initWithType(1);
-	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-	otherTurret->setPosition(ccp(visibleSize.width *0.75, otherTurret->getBoundingBox().size.height/2));
-	addChild(otherTurret, 2);
-
-	otherTurret = PlayerTurret::create();
-	otherTurret->initWithType(2);
-	otherTurret->setRotation(180);
-	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-	otherTurret->setPosition(ccp(visibleSize.width *0.25, visibleSize.height - otherTurret->getBoundingBox().size.height/2));
-	addChild(otherTurret, 2);
-
-	otherTurret = PlayerTurret::create();
-	otherTurret->initWithType(3);
-	otherTurret->setRotation(180);
-	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-	otherTurret->setPosition(ccp(visibleSize.width *0.75, visibleSize.height - otherTurret->getBoundingBox().size.height/2 ));
-	addChild(otherTurret, 2);
-
+	for (auto player:vec)
+	{
+		auto otherTurret = PlayerTurret::create();
+		otherTurret->initWithType(player.getTurretLevel());
+		otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+		otherTurret->setMaxLevel(player.getTurretLevel());
+		otherTurret->setPosition(turretPos[player.getRoomPosition()]);
+		if (player.getRoomPosition()>1)
+		{
+			otherTurret->setRotation(180);
+		}
+		addChild(otherTurret, 2, kTagBaseturret+player.getRoomPosition());
+	}
 	
 }
 
@@ -176,4 +188,75 @@ void GameLayer::createNet(int type, Point pos){
 	fishNet->checkCatchFish();
 }
 
+void GameLayer::createPlayerCoin()
+{
+	Point coinPos[4] =
+	{
+		Vec2(85, 45),
+		Vec2(875, 45),
+		Vec2(85, 495),
+		Vec2(875, 495)
+	};
 
+
+
+	auto vec = players;
+	for (auto player : vec)
+	{
+		auto spCoinBG = Sprite::create("coinAnddiamondBG.png");
+		spCoinBG->setPosition(coinPos[player.getRoomPosition()]);
+		addChild(spCoinBG, 10, player.getRoomPosition());
+
+		auto coinLabel = LabelAtlas::create(Value(player.getCoins()).asString().c_str(), "prop_num.png", 19, 23, '0');
+		coinLabel->setPosition(spCoinBG->getContentSize().width*0.9 , spCoinBG->getContentSize().height*0.29);
+		coinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+		spCoinBG->addChild(coinLabel);
+
+		auto diamondLabel = LabelAtlas::create(Value(player.getDiamonds()).asString().c_str(), "prop_num.png", 19, 23, '0');
+		diamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
+		diamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+		spCoinBG->addChild(diamondLabel);
+		
+	}
+	//构建自己的位置	
+	int freeIndex = m_index;
+	auto user = User::getInstance();
+	auto spCoinBG = Sprite::create("coinAnddiamondBG.png");
+	spCoinBG->setPosition(coinPos[freeIndex]);
+	addChild(spCoinBG, 10, freeIndex);
+
+	auto coinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "prop_num.png", 19, 23, '0');
+	coinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.29);
+	coinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	spCoinBG->addChild(coinLabel);
+
+	auto diamondLabel = LabelAtlas::create(Value(user->getDiamonds()).asString().c_str(), "prop_num.png", 19, 23, '0');
+	diamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
+	diamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	spCoinBG->addChild(diamondLabel);
+
+}
+
+void GameLayer::calculateFreeChair()
+{
+	std::map<int, bool> findFreeTable;
+	for (int i = 0; i < 4; i++)
+	{
+		findFreeTable[i] = true;
+	}
+	for (auto player : players)
+	{
+		findFreeTable[player.getRoomPosition()] = false;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		if (findFreeTable[i])
+		{
+			m_index = i;
+			break;
+		}
+
+	}
+	
+
+}

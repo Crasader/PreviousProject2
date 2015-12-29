@@ -72,3 +72,4 @@ Device-Debug/
 Device-Release/
 /proj.android/local.properties
 /proj.android/libs/armeabi/libcocos2dcpp.so
+CrazyFarm/Classes/RoomManager.cpp

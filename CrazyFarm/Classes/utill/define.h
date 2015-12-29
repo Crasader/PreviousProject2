@@ -10,3 +10,11 @@ struct playerInfo
 
 	
 };
+
+enum 
+{
+	kTagCoinFrame0 = 0,
+	kTagCoinFrame1 = 1,
+	kTagCoinFrame2 = 2,
+	kTagCoinFrame3 = 3,
+};

@@ -11,10 +11,12 @@ public:
 	  void initWithType(int type);
 	  void setUpgradeButton();
 	  void rorateTurret(float angle);
+	  void setMaxLevel(int maxlevel);
 private:
 		Turret* m_turret;
 	  int turretType;
 	  void upgradeTurret(Ref* psend);
 	  void degradeTurret(Ref* psend);
+	  LabelAtlas* nMaxLevel;
 
 };
