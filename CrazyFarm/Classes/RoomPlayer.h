@@ -34,7 +34,10 @@ public:
     
     CC_SYNTHESIZE(char*, userName, UserName);
     CC_SYNTHESIZE(int, level, Level);
-    CC_SYNTHESIZE(int, turretLevel, TurretLevel);
+    CC_SYNTHESIZE(int, maxturretLevel, MaxTurretLevel);
+    
+    CC_SYNTHESIZE(int, aiType, AiType);
+    CC_SYNTHESIZE(int, aiLevel, aiLevel);
 
 
 private:

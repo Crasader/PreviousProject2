@@ -57,10 +57,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	srand((unsigned)time(nullptr));
 
 	// create a scene. it's an autorelease object
-	auto scene = LobbyScene::createScene();
+//	auto scene = LobbyScene::createScene();
 
 	// run
-	director->runWithScene(scene);
+//	director->runWithScene(scene);
 
 
 	return true;

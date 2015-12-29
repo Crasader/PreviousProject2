@@ -1,7 +1,5 @@
 #include "RoomManager.h"
 
-using namespace cocos2d;
-
 RoomManager* RoomManager::_instance = NULL;
 
 RoomManager::RoomManager(){
@@ -20,7 +18,7 @@ RoomManager* RoomManager::getInstance(){
 }
 
 std::vector<RoomPlayer> RoomManager::initRoomConfig() {
-    int userPosition = rand()%4;
+    int userPosition = rand()%2;
     roomPlayers.clear();
     
     for(int i=0;i<4;i++) {
@@ -31,8 +29,10 @@ std::vector<RoomPlayer> RoomManager::initRoomConfig() {
             player.setLevel(2);
             player.setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
             player.setRoomPosition(i);
-            player.setTurretLevel(3);
+            player.setMaxTurretLevel(i+1);
             player.setUserName("player_n_20120");
+            player.setAiType(0);
+            player.setaiLevel(0);
             roomPlayers.push_back(player);
         }
         
@@ -53,7 +53,7 @@ std::vector<RoomPlayer> RoomManager::updateRoomConfig() {
                     roomPlayers.at(j).setLevel(2);
                     roomPlayers.at(j).setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
                     roomPlayers.at(j).setRoomPosition(i);
-                    roomPlayers.at(j).setTurretLevel(3);
+                    roomPlayers.at(j).setMaxTurretLevel(i+1);
                     roomPlayers.at(j).setUserName("player_u_40140");
                 }
             }else {
@@ -63,7 +63,7 @@ std::vector<RoomPlayer> RoomManager::updateRoomConfig() {
                     roomPlayers.at(j).setLevel(2);
                     roomPlayers.at(j).setPlayerState(RoomPlayer::PLAYERSTATE_STANDUP);
                     roomPlayers.at(j).setRoomPosition(i);
-                    roomPlayers.at(j).setTurretLevel(3);
+                    roomPlayers.at(j).setMaxTurretLevel(i+1);
                     roomPlayers.at(j).setUserName("player_u_40140");
                 }else {
                     roomPlayers.at(j).setPlayerState(RoomPlayer::PLAYERSTATE_KEEP);

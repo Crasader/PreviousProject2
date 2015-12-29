@@ -14,12 +14,16 @@ public:
     const char* KEY_COINS = "KEY_COINS";
     const char* KEY_DIAMONDS = "KEY_DIAMONDS";
     const char* KEY_EXP = "KEY_EXP";
+    const char* KEY_M_TURRENT = "KEY_M_TURRENT";
 
 	int addCoins(int coins);
 	int getCoins();
     
 	int addDiamonds(int diamond);
 	int getDiamonds();
+    
+    int getMaxTurrentLevel();
+    bool setMaxTurrentLevel(int maxTurrentLevel);
 
     /**
      * return true, level up!! else, return false.
