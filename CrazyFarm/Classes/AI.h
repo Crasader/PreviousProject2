@@ -9,7 +9,7 @@ class AI {
 
 public:
     
-    PlayerWork nextStep(int currentCoins);
+   virtual PlayerWork nextStep(int currentCoins);
     
     CC_SYNTHESIZE(int, maxTurrentLevel, MaxTurrentLevel);
     CC_SYNTHESIZE(float, reqSteps, ReqSteps);

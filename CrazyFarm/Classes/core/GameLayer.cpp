@@ -3,6 +3,7 @@
 #include "utill/FunUtil.h"
 #include "utill/AnimationUtil.h"
 #include "User.h"
+#include "AIManager.h"
 #define kTagBaseturret 10
 
 
@@ -29,6 +30,7 @@ bool GameLayer::init(){
 	calculateFreeChair();
 	createPlayerCoin();
 	createTurret();
+	createAI();
 	return true;
 }
 
@@ -63,26 +65,28 @@ void GameLayer::createTurret(){
 	for (auto player:vec)
 	{
 		auto otherTurret = PlayerTurret::create();
-		otherTurret->initWithType(player.getTurretLevel());
+		otherTurret->initWithType(player.getMaxTurretLevel());
 		otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-		otherTurret->setMaxLevel(player.getTurretLevel());
+		otherTurret->setMaxLevel(player.getMaxTurretLevel());
 		otherTurret->setPosition(turretPos[player.getRoomPosition()]);
 		if (player.getRoomPosition()>1)
 		{
 			otherTurret->setRotation(180);
 		}
+		otherTurrets.pushBack(otherTurret);
 		addChild(otherTurret, 2, kTagBaseturret+player.getRoomPosition());
+		
 	}
 	
 }
 
 
 
-void GameLayer::shoot(float degree){
+void GameLayer::shoot(float degree, PlayerTurret* turret){
 	//添加一颗子弹用于测试
 	auto bullet = BulletManage::getInstance()->createBullet(rand()%8, 90);
 	bullet->setRotation(degree);
-	bullet->setPosition(myTurret->getPosition());
+	bullet->setPosition(turret->getPosition());
 	this->addChild(bullet);
 }
 
@@ -99,8 +103,8 @@ void GameLayer::addTouchEvent(){
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
 	float degree = getTurretRotation(myTurret->getPosition(), touch->getLocation());
-	rotateTurret(degree);
-	shoot(degree);
+	rotateTurret(degree,myTurret);
+	myTurret->shoot(degree);
 	return true;
 }
 
@@ -141,8 +145,8 @@ float GameLayer::getTurretRotation(Point start_pos, Point pos){
 	return angle;
 }
 
-void GameLayer::rotateTurret(float degree){
-	myTurret->rorateTurret(degree);
+void GameLayer::rotateTurret(float degree,PlayerTurret* turret){
+	turret->rorateTurret(degree);
 }
 
 void GameLayer::update(float dt){
@@ -259,4 +263,20 @@ void GameLayer::calculateFreeChair()
 	}
 	
 
+}
+
+void GameLayer::AiUpdata(float dt)
+{
+	
+}
+
+void GameLayer::createAI()
+{
+	
+	for (auto otherT:otherTurrets)
+	{
+		auto aiinfo = AIManager::getInstance()->getAI(0, 0, otherT->getnMaxLevel());
+		otherT->setAIinfo(aiinfo);
+	}
+	
 }

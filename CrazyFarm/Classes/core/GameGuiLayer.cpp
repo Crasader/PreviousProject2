@@ -19,9 +19,10 @@ skillCell* skillCell::create(char* spName, int propNum)
 	}
 }
 
-bool init(char* spName, int propNum);
-
-
+bool skillCell::init(char* spName, int propNum)
+{
+	return true;
+}
 
 
 bool GameGuiLayer::init(){
