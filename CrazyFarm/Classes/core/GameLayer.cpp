@@ -1,7 +1,7 @@
 #include "core/GameLayer.h"
 #include "net/Net.h"
 #include "utill/FunUtil.h"
-
+#include "utill/AnimationUtil.h"
 
 bool GameLayer::init(){
 	if (!Layer::init())
@@ -13,13 +13,13 @@ bool GameLayer::init(){
 	Sprite* game_bg = Sprite::create("lobby_bg.jpg");
 	game_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(game_bg);
+	game_bg->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniWater")));
 	//TODO 游戏核心界面
 	createTurret(0);
 	//TODO 产生鱼
 	schedule(schedule_selector(GameLayer::createFish), 1, 100, 0);
 	scheduleUpdate();
 	addTouchEvent();
-
 	return true;
 }
 

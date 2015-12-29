@@ -1,16 +1,16 @@
 #include "Turret/PlayerTurret.h"
 
 bool PlayerTurret::init(){
-	if (!Sprite::initWithSpriteFrameName("gun_under.png")){
+	if (!Sprite::initWithFile("turretBg.png")){
 		return false;
 	}
 	return true;
 }
 void PlayerTurret::setUpgradeButton()
 {
-	auto upgradeButton = MenuItemImage::create("btn_icon_plus.png", "btn_icon_plus.png", CC_CALLBACK_1(PlayerTurret::upgradeTurret, this));
+	auto upgradeButton = MenuItemImage::create("add_nor.png", "add_click.png", CC_CALLBACK_1(PlayerTurret::upgradeTurret, this));
 	upgradeButton->setPosition(this->getContentSize().width*0, this->getContentSize().height*0.2);
-	auto degradeButton = MenuItemImage::create("btn_icon_minus.png", "btn_icon_minus.png", CC_CALLBACK_1(PlayerTurret::degradeTurret, this));
+	auto degradeButton = MenuItemImage::create("minus_nor.png", "minus_click.png", CC_CALLBACK_1(PlayerTurret::degradeTurret, this));
 	degradeButton->setPosition(this->getContentSize().width*1, this->getContentSize().height*0.2);
 	auto menu = Menu::create(upgradeButton, degradeButton, nullptr);
 	menu->setPosition(Point::ZERO);

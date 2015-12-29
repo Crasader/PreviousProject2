@@ -2,7 +2,7 @@
 #include "core/GameScene.h"
 #include "level/LevelScene.h"
 #include "utill/Chinese.h"
-
+#include "utill/AnimationUtil.h"
 Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
@@ -119,8 +119,67 @@ void LobbyScene::loadResource(){
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("batch_frame_bullet.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("gun_frame.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("batch_frame_net.plist");
-	//add lobby frame
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("gift_frame.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("game_scene_frame.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("unlock_cannon_frame.plist");
+	///load ani
+	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/water/aniWater%d.jpg","aniWater",2.0f,20);
+
+}
+
+
+void LobbyScene::createRoomLayer()
+{
+
+}
+
+
+void LobbyScene::tableCellTouched(TableView* table, TableViewCell* cell)
+{
+	CCLOG("cell touched at index: %ld", cell->getIdx());
+}
+
+Size LobbyScene::tableCellSizeForIndex(TableView *table, ssize_t idx)
+{
+	return Size(500, 200);
+}
+
+TableViewCell* LobbyScene::tableCellAtIndex(TableView *table, ssize_t idx)
+{
+	CCString *nameString = CCString::createWithFormat("cell_%d.png", idx);
+
+	TableViewCell *cell = table->dequeueCell();
+
+	if (!cell)
+	{
+
+		cell = new TableViewCell();
+
+		cell->autorelease();
+
+		//ÉèÖÃµ±Ç°cellÍ¼Æ¬
+		CCSprite *iconSprite = CCSprite::create(nameString->getCString());
+		iconSprite->setAnchorPoint(Point::ZERO);
+		iconSprite->setPosition(ccp(0, 0));
+		iconSprite->setTag(123);
+		cell->addChild(iconSprite);
+
+	}
+	else
+	{
+		CCTexture2D *aTexture = CCTextureCache::sharedTextureCache()->addImage(nameString->getCString());
+
+		CCSprite *pSprite = (CCSprite *)cell->getChildByTag(123);
+
+		pSprite->setTexture(aTexture);
+
+	}
+
+
+	return cell;
+}
+
+ssize_t LobbyScene::numberOfCellsInTableView(TableView *table)
+{
+	return 4;
 }

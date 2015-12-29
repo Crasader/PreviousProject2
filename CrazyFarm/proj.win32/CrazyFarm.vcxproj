@@ -73,7 +73,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;$(EngineRoot);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -140,6 +140,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\bullet\Bullet.cpp" />
     <ClCompile Include="..\Classes\bullet\BulletManage.cpp" />
+    <ClCompile Include="..\Classes\ConfigExp.cpp" />
     <ClCompile Include="..\Classes\core\GameGuiLayer.cpp" />
     <ClCompile Include="..\Classes\core\GameLayer.cpp" />
     <ClCompile Include="..\Classes\core\GameScene.cpp" />
@@ -158,6 +159,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\result\GameResultScene.cpp" />
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp" />
     <ClCompile Include="..\Classes\turret\Turret.cpp" />
+    <ClCompile Include="..\Classes\User.cpp" />
+    <ClCompile Include="..\Classes\user\UserInfoLayer.cpp" />
+    <ClCompile Include="..\Classes\utill\AnimationUtil.cpp" />
     <ClCompile Include="..\Classes\utill\Audio.cpp" />
     <ClCompile Include="..\Classes\utill\CallAndroidMethod.cpp" />
     <ClCompile Include="..\Classes\utill\Chinese.cpp" />
@@ -169,6 +173,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\bullet\Bullet.h" />
     <ClInclude Include="..\Classes\bullet\BulletManage.h" />
+    <ClInclude Include="..\Classes\ConfigExp.h" />
     <ClInclude Include="..\Classes\core\GameGuiLayer.h" />
     <ClInclude Include="..\Classes\core\GameLayer.h" />
     <ClInclude Include="..\Classes\core\GameScene.h" />
@@ -187,10 +192,14 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\result\GameResultScene.h" />
     <ClInclude Include="..\Classes\turret\PlayerTurret.h" />
     <ClInclude Include="..\Classes\turret\Turret.h" />
+    <ClInclude Include="..\Classes\User.h" />
+    <ClInclude Include="..\Classes\user\UserInfoLayer.h" />
+    <ClInclude Include="..\Classes\utill\AnimationUtil.h" />
     <ClInclude Include="..\Classes\utill\Audio.h" />
     <ClInclude Include="..\Classes\utill\CallAndroidMethod.h" />
     <ClInclude Include="..\Classes\utill\Chinese.h" />
     <ClInclude Include="..\Classes\utill\CircleBy.h" />
+    <ClInclude Include="..\Classes\utill\define.h" />
     <ClInclude Include="..\Classes\utill\FunUtil.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

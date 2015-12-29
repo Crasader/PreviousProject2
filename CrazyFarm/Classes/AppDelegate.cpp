@@ -49,6 +49,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);
 
+
+	std::vector<std::string> paths;
+	paths.push_back("gamelayer");
+	paths.push_back("ani");
+	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
+	srand((unsigned)time(nullptr));
+
 	// create a scene. it's an autorelease object
 	auto scene = LobbyScene::createScene();
 

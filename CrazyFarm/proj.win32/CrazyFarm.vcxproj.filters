@@ -43,6 +43,9 @@
     <Filter Include="src\data">
       <UniqueIdentifier>{e69ddaf4-b32d-4701-a94a-5a7e8626646c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\playinfo">
+      <UniqueIdentifier>{068aa058-9dd9-4afa-a88e-cf960f135e2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -126,6 +129,18 @@
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp">
       <Filter>src\turret</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ConfigExp.cpp">
+      <Filter>src\playinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\User.cpp">
+      <Filter>src\playinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\user\UserInfoLayer.cpp">
+      <Filter>src\playinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utill\AnimationUtil.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -208,6 +223,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\turret\PlayerTurret.h">
       <Filter>src\turret</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\define.h">
+      <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ConfigExp.h">
+      <Filter>src\playinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\User.h">
+      <Filter>src\playinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\user\UserInfoLayer.h">
+      <Filter>src\playinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\AnimationUtil.h">
+      <Filter>src\utill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

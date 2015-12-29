@@ -10,7 +10,8 @@ bool Turret::init(){
 }
 
 void Turret::initWithType(int type){
-	this->initWithSpriteFrameName(getSrcByType(type));
+	initWithFile("turret_01.png"); 
+	/*this->initWithSpriteFrameName(getSrcByType(type));*/
 }
 
 string Turret::getSrcByType(int type){
