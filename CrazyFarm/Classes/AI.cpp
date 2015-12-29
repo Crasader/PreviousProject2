@@ -17,4 +17,5 @@ PlayerWork AI::nextStep(int currentCoins){
 
 	playerWork.setAngle(0);
 	return playerWork;
+
 }

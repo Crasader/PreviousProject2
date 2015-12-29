@@ -18,7 +18,11 @@ AIManager* AIManager::getInstance(){
 }
 
 AI* AIManager::getAI(int aiType, int aiLevel, int maxTurrentLevel) {
+<<<<<<< HEAD
     AIMolo* molo = new AIMolo();
+=======
+    AI* molo = new AIMolo();
+>>>>>>> origin/master
     if(maxTurrentLevel > 0) {
         molo->setMaxTurrentLevel(maxTurrentLevel);
     }else {

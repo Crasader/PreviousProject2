@@ -11,7 +11,7 @@ class AIManager {
 public:
     static AIManager* getInstance();
     
-    AI getAI(int aiType, int aiLevel, int maxTurrentLevel);
+    AI* getAI(int aiType, int aiLevel, int maxTurrentLevel);
     
     
 private:
