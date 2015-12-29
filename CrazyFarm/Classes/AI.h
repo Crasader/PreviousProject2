@@ -12,7 +12,7 @@ public:
     PlayerWork nextStep(int currentCoins);
     
     CC_SYNTHESIZE(int, maxTurrentLevel, MaxTurrentLevel);
-    CC_SYNTHESIZE(int, reqSteps, ReqSteps);
+    CC_SYNTHESIZE(float, reqSteps, ReqSteps);
     
 private:
     

@@ -25,7 +25,7 @@ AI AIManager::getAI(int aiType, int aiLevel, int maxTurrentLevel) {
         molo.setMaxTurrentLevel(1);
     }
     
-    molo.setReqSteps(1000);
+    molo.setReqSteps(1.0f);
     return molo;
 }
 
