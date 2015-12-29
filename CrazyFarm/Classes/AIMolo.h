@@ -9,8 +9,7 @@ using namespace cocos2d;
 class AIMolo : public AI {
 
 public:
-    
-    virtual PlayerWork nextStep(int currentCoins);
+    PlayerWork nextStep(int currentCoins);
     
     
 private:
