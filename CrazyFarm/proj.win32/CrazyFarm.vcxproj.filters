@@ -46,6 +46,9 @@
     <Filter Include="src\playinfo">
       <UniqueIdentifier>{068aa058-9dd9-4afa-a88e-cf960f135e2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\AI">
+      <UniqueIdentifier>{bc11c115-20d7-4246-b5f2-fed33e1d0c85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -146,6 +149,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\RoomPlayer.cpp">
       <Filter>src\playinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AIManager.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AIMolo.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AI.cpp">
+      <Filter>src\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +262,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\RoomPlayer.h">
       <Filter>src\playinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AI.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AIManager.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AIMolo.h">
+      <Filter>src\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 #include "Turret/PlayerTurret.h"
-
+#include "bullet/BulletManage.h"
 bool PlayerTurret::init(){
 	if (!Sprite::initWithFile("turretBg.png")){
 		return false;
@@ -48,4 +48,29 @@ void PlayerTurret::rorateTurret(float angle)
 void PlayerTurret::setMaxLevel(int maxlevel)
 {
 	nMaxLevel->setString(Value(maxlevel).asString().c_str());
+	setnMaxLevel(maxlevel);
+}
+
+void PlayerTurret::shoot(float degree){
+	//添加一颗子弹用于测试
+	auto bullet = BulletManage::getInstance()->createBullet(rand() % 8, 90);
+	bullet->setRotation(degree);
+	bullet->setPosition(this->getPosition());
+	getParent()->addChild(bullet);
+}
+
+void PlayerTurret::setAIinfo(AI info)
+{
+	/*unschedule(schedule_selector(doAIthing));*/
+	m_aiinfo = info;
+	schedule(schedule_selector(PlayerTurret::doAIthing), info.getReqSteps() , CC_REPEAT_FOREVER, 0);
+}
+
+void PlayerTurret::doAIthing(float dt)
+{
+	auto walk = m_aiinfo.nextStep(10);
+	if (walk.getFire())
+	{
+		shoot(walk.getAngle());
+	}
 }
