@@ -8,7 +8,7 @@ User::User(){
 }
 
 void User::init(){
-
+    // TODO : first use init user name and id
 }
 
 User* User::getInstance(){
@@ -16,6 +16,16 @@ User* User::getInstance(){
 		_instance = new User();
 	}
 	return _instance;
+}
+
+char* User::getUserId() {
+    // TODO : wait impl
+    return "kj_20151229";
+}
+
+char* User::getUserName() {
+    // TODO : wait impl
+    return "weason_hu";
 }
 
 int User::getCoins() {

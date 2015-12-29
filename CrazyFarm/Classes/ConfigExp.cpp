@@ -9,7 +9,7 @@ ConfigExp::ConfigExp(){
 }
 
 void ConfigExp::init(){
-    
+    // TODO : read file from json
 }
 
 ConfigExp* ConfigExp::getInstance(){

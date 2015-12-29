@@ -8,6 +8,9 @@ class User{
 public:
 	static User* getInstance();
     
+    char* getUserId();
+    char* getUserName();
+    
     const char* KEY_COINS = "KEY_COINS";
     const char* KEY_DIAMONDS = "KEY_DIAMONDS";
     const char* KEY_EXP = "KEY_EXP";
@@ -24,7 +27,6 @@ public:
     bool addExp(int exp);
     int getLevel();
     char* getLevelDesc();
-
 
 private:
 	User();
