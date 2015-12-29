@@ -7,7 +7,7 @@ using namespace cocos2d;
 class RoomPlayer{
 
 public:
-    RoomPlayer();
+    
     /**
      * **3**************2**
      * *                  *
