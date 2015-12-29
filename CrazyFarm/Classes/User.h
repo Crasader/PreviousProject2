@@ -12,12 +12,15 @@ public:
     const char* KEY_DIAMONDS = "KEY_DIAMONDS";
     const char* KEY_EXP = "KEY_EXP";
 
-	void addCoins(int coins);
+	int addCoins(int coins);
 	int getCoins();
     
-	void addDiamonds(int diamond);
+	int addDiamonds(int diamond);
 	int getDiamonds();
 
+    /**
+     * return true, level up!! else, return false.
+     */
     bool addExp(int exp);
     int getLevel();
     char* getLevelDesc();

@@ -18,27 +18,41 @@ User* User::getInstance(){
 	return _instance;
 }
 
-void User::addCoins(int coins) {
-    UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, coins);
-}
-
 int User::getCoins() {
     return UserDefault::getInstance()->getIntegerForKey(User::KEY_COINS, 0);
 }
 
-void User::addDiamonds(int diamonds) {
-    UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS, diamonds);
+int User::addCoins(int coins) {
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS,
+            this->getCoins() + coins);
+    if(this->getCoins() < 0 ) {
+        UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 0);
+    }
+    return this->getCoins();
 }
 
 int User::getDiamonds() {
     return UserDefault::getInstance()->getIntegerForKey(User::KEY_DIAMONDS, 0);
 }
 
+int User::addDiamonds(int diamonds) {
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS,
+            this->getDiamonds() + diamonds);
+    if(this->getDiamonds() < 0 ) {
+        UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS, 0);
+    }
+    return this->getDiamonds();
+}
+
+
 bool User::addExp(int exp) {
     if(exp > 0) {
+        int currentLevel = this->getLevel();
         UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP,
                 UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0) + exp);
-        return true;
+        if(this->getLevel() > currentLevel) {
+            return true;
+        }
     }
     return false;
 }
