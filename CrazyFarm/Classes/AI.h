@@ -8,7 +8,7 @@ using namespace cocos2d;
 class AI {
 
 public:
-    
+
     virtual PlayerWork nextStep(int currentCoins) = 0;
     
     CC_SYNTHESIZE(int, maxTurrentLevel, MaxTurrentLevel);
