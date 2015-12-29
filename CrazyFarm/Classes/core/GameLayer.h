@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 #include "fish/FishManage.h"
 #include "bullet/BulletManage.h"
-#include "turret/Turret.h"
+#include "turret/PlayerTurret.h"
 #include "net/Net.h"
 
 
@@ -27,6 +27,6 @@ private:
 	void rotateTurret(float degree);//Ğı×ªÅÚËş
 	void update(float dt);
 	
-	Turret* myTurret;
+	PlayerTurret* myTurret;
 };
 #endif

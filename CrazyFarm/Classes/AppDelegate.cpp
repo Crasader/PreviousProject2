@@ -31,7 +31,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		director->setOpenGLView(glview);
 	}
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	glview->setFrameSize(1136, 640);
+	glview->setFrameSize(1280, 800);
 	glview->setDesignResolutionSize(960, 540, ResolutionPolicy::EXACT_FIT);
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

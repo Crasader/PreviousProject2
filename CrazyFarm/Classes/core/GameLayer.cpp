@@ -34,11 +34,34 @@ void GameLayer::createFish(float dt){
 void GameLayer::createTurret(int type){
 	//添加一个炮塔用于测试
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	myTurret = Turret::create();
+	myTurret = PlayerTurret::create();
 	myTurret->initWithType(0);
+	myTurret->setUpgradeButton();
 	myTurret->setAnchorPoint(ccp(0.5, 0.5));
-	myTurret->setPosition(ccp(visibleSize.width / 2, myTurret->getBoundingBox().size.height / 2));
+	myTurret->setPosition(ccp(visibleSize.width *0.25, myTurret->getBoundingBox().size.height/2));
 	this->addChild(myTurret, 2);
+
+	auto otherTurret = PlayerTurret::create();
+	otherTurret->initWithType(1);
+	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+	otherTurret->setPosition(ccp(visibleSize.width *0.75, otherTurret->getBoundingBox().size.height/2));
+	addChild(otherTurret, 2);
+
+	otherTurret = PlayerTurret::create();
+	otherTurret->initWithType(2);
+	otherTurret->setRotation(180);
+	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+	otherTurret->setPosition(ccp(visibleSize.width *0.25, visibleSize.height - otherTurret->getBoundingBox().size.height/2));
+	addChild(otherTurret, 2);
+
+	otherTurret = PlayerTurret::create();
+	otherTurret->initWithType(3);
+	otherTurret->setRotation(180);
+	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+	otherTurret->setPosition(ccp(visibleSize.width *0.75, visibleSize.height - otherTurret->getBoundingBox().size.height/2 ));
+	addChild(otherTurret, 2);
+
+	
 }
 
 
@@ -107,8 +130,7 @@ float GameLayer::getTurretRotation(Point start_pos, Point pos){
 }
 
 void GameLayer::rotateTurret(float degree){
-	auto rotate = RotateTo::create(0.1, degree);
-	myTurret->runAction(rotate);
+	myTurret->rorateTurret(degree);
 }
 
 void GameLayer::update(float dt){

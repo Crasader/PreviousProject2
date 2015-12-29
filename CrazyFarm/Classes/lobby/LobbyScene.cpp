@@ -122,4 +122,5 @@ void LobbyScene::loadResource(){
 	//add lobby frame
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("gift_frame.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("game_scene_frame.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("unlock_cannon_frame.plist");
 }

@@ -16,10 +16,13 @@ class Turret: public Sprite{
 public:
       virtual bool init();
 	  CREATE_FUNC(Turret);
-	  void initWithType(int type);
+	  void initWithType(int type); 
+	  void upgradeTurret();
+	  void degradeTurret();
 private:
 	  int turretType;
 	  string getSrcByType(int type);
+	  
 
 };
 #endif

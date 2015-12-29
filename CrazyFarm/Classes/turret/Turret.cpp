@@ -4,6 +4,8 @@ bool Turret::init(){
 	if (!Sprite::init()){
 		return false;
 	}
+	
+
 	return true;
 }
 
@@ -29,4 +31,14 @@ string Turret::getSrcByType(int type){
 	default:
 		return "gun_c_2.png";
 	}
+}
+
+
+void Turret::upgradeTurret()
+{
+	///Éı¼¶ÅÚËş
+}
+void Turret::degradeTurret()
+{
+	///½µ¼¶ÅÚËş
 }

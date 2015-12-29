@@ -123,6 +123,9 @@
     <ClCompile Include="..\Classes\turret\Turret.cpp">
       <Filter>src\turret</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\turret\PlayerTurret.cpp">
+      <Filter>src\turret</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -201,6 +204,9 @@
       <Filter>src\result</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\turret\Turret.h">
+      <Filter>src\turret</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\turret\PlayerTurret.h">
       <Filter>src\turret</Filter>
     </ClInclude>
   </ItemGroup>
