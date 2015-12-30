@@ -1,0 +1,87 @@
+    {
+        "describe": "炮台配置" ,
+        "item_list": [
+                      {
+                      "turrent_id"	:	1,
+                      "show_level"	:	"1",
+                      "unlock_type"	:	2,
+                      "unlock_price"	:	2,
+                      "multiple"	:	1,
+                      "reward_list" : [
+                                       ]
+                      },
+                      {
+                      "turrent_id"	:	2,
+                      "show_level"	:	"2",
+                      "unlock_type"	:	2,
+                      "unlock_price"	:	4,
+                      "multiple"	:	2,
+                      "reward_list" : [
+                                       {
+                                       "item_id" : 1001,
+                                       "num" : 200
+                                       }
+                                       ]
+                      },
+                      {
+                      "turrent_id"	:	3,
+                      "show_level"	:	"3",
+                      "unlock_type"	:	2,
+                      "unlock_price"	:	6,
+                      "multiple"	:	3,
+                      "reward_list" : [
+                                       {
+                                       "item_id" : 1001,
+                                       "num" : 500
+                                       },
+                                       {
+                                       "item_id" : 1003,
+                                       "num" : 1
+                                       }
+                                       ]
+                      },
+                      {
+                      "turrent_id"	:	4,
+                      "show_level"	:	"4",
+                      "unlock_type"	:	2,
+                      "unlock_price"	:	8,
+                      "multiple"	:	4,
+                      "reward_list" : [
+                                       {
+                                       "item_id" : 1001,
+                                       "num" : 1000
+                                       }
+                                       ]
+                      },
+                      {
+                      "turrent_id"	:	5,
+                      "show_level"	:	"5",
+                      "unlock_type"	:	2,
+                      "unlock_price"	:	10,
+                      "multiple"	:	5,
+                      "reward_list" : [
+                                       {
+                                       "item_id" : 1001,
+                                       "num" : 3000
+                                       }
+                                       ]
+                      },
+                      {
+                      "turrent_id"	:	6,
+                      "show_level"	:	"10",
+                      "unlock_type"	:	2,
+                      "unlock_price"	:	20,
+                      "multiple"	:	10,
+                      "reward_list" : [
+                                       {
+                                       "item_id" : 1001,
+                                       "num" : 5000
+                                       }
+                                       ]
+                      }
+                      
+                      ]
+    }
+
+
+
