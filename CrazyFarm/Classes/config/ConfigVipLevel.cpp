@@ -16,7 +16,7 @@ bool ConfigVipLevel::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 
-		std::string filename = "config/config_uset_viplevel.json";
+		std::string filename = "config/config_user_viplevel.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{

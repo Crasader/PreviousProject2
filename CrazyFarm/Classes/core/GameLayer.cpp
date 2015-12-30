@@ -28,7 +28,6 @@ bool GameLayer::init(){
 
 	players = RoomManager::getInstance()->initRoomConfig();
 	calculateFreeChair();
-	createPlayerCoin();
 	createTurret();
 	createAI();
 	return true;
@@ -55,9 +54,8 @@ void GameLayer::createTurret(){
 		Vec2(visibleSize.width *0.7, visibleSize.height - myTurret->getBoundingBox().size.height / 2),
 		Vec2(visibleSize.width *0.3, visibleSize.height - myTurret->getBoundingBox().size.height / 2)
 	};
-	myTurret->initWithType(100);
-	myTurret->setUpgradeButton();
-	myTurret->setMaxLevel(100);
+	
+	myTurret->initWithDate(user, m_index);
 	myTurret->setAnchorPoint(ccp(0.5, 0.5));
 	myTurret->setPosition(turretPos[m_index]);
 	this->addChild(myTurret, 2);
@@ -65,14 +63,9 @@ void GameLayer::createTurret(){
 	for (auto player:vec)
 	{
 		auto otherTurret = PlayerTurret::create();
-		otherTurret->initWithType(player.getMaxTurretLevel());
 		otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-		otherTurret->setMaxLevel(player.getMaxTurretLevel());
 		otherTurret->setPosition(turretPos[player.getRoomPosition()]);
-		if (player.getRoomPosition()>1)
-		{
-			otherTurret->setRotation(180);
-		}
+		otherTurret->initWithDate(&player);
 		otherTurrets.pushBack(otherTurret);
 		addChild(otherTurret, 2, kTagBaseturret+player.getRoomPosition());
 		
@@ -169,7 +162,7 @@ void GameLayer::update(float dt){
 				bullet->removeFromParent();
 				it2 = allBullets.erase(it2);
 				//TODO´ò¿ªÓæÍø
-				createNet(bullet->getType(), bullet->getPosition());
+				createNet(bullet);
 			}
 			else{
 				it2++;
@@ -184,12 +177,12 @@ void GameLayer::update(float dt){
 }
 
 
-void GameLayer::createNet(int type, Point pos){
+void GameLayer::createNet(Bullet *bullet){
 	Net* fishNet = Net::create();
-	fishNet->setPosition(pos);
-	fishNet->initNetByType(type);
+	fishNet->setPosition(bullet->getPosition());
+	fishNet->initNetByType(bullet->getType());
 	this->addChild(fishNet, 3);
-	fishNet->checkCatchFish();
+	fishNet->checkCatchFish(bullet);
 }
 
 void GameLayer::createPlayerCoin()

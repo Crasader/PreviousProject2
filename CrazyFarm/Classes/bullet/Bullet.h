@@ -1,7 +1,8 @@
 #ifndef __BULLET_H__
 #define __BULLET_H__
 #include "cocos2d.h" 
-
+#include "turret/PlayerTurret.h"
+#include "fish/Fish.h"
 using namespace cocos2d;
 using namespace std;
 
@@ -14,13 +15,15 @@ using namespace std;
 #define BULLETTYPE_7 6
 #define BULLETTYPE_8 7
 
-
 class Bullet:public Sprite{
 public:
 	virtual bool init();
 	CREATE_FUNC(Bullet);
 	void initBullet(int bulletType,float rotation);
 	int getType();
+	CC_SYNTHESIZE(PlayerTurret*, pPlayerTurret, PlayerTurret);
+	void getCoinForFish(Vector<Fish*> fishs);
+
 private:
 	int bulletSpeed;
 	int bulletType;

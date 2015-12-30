@@ -58,6 +58,9 @@
     <Filter Include="src\Interface\bag">
       <UniqueIdentifier>{0e1f7e5f-0df7-4e9a-8d03-6178bfa50fff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Interface\vip">
+      <UniqueIdentifier>{58e47fa3-9657-45d9-8dc1-7da651bd5aab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -182,6 +185,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\BagManager.cpp">
       <Filter>src\Interface\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigVipLevel.cpp">
+      <Filter>src\Interface\vip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BagManager.h">
       <Filter>src\Interface\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigVipLevel.h">
+      <Filter>src\Interface\vip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

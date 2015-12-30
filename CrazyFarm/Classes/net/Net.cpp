@@ -31,7 +31,7 @@ void Net::destroySelf(float dt){
 	this->removeFromParent();
 }
 
-void Net::checkCatchFish(){
+void Net::checkCatchFish(Bullet*bullet){
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
 	Vector<Fish*> fishNeedRemove;
 	for (Fish* fish : allFish){
@@ -43,6 +43,7 @@ void Net::checkCatchFish(){
 			fish->removeFromParent();
 		}
 	}
+	bullet->getCoinForFish(fishNeedRemove);
 	for (Fish* fish : fishNeedRemove){
 		FishManage::getInstance()->removeFish(fish);
 	}

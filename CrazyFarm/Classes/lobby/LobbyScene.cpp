@@ -4,6 +4,7 @@
 #include "utill/Chinese.h"
 #include "utill/AnimationUtil.h"
 #include "ConfigItem.h"
+#include "config/ConfigVipLevel.h"
 Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
@@ -129,6 +130,7 @@ void LobbyScene::loadResource(){
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/bubble/aniBubble%d.png", "aniBubble", 2.0f, 19);
 	//load json
 	ConfigItem::getInstance()->LoadConfig();
+	ConfigVipLevel::getInstance()->LoadConfig();
 }
 
 

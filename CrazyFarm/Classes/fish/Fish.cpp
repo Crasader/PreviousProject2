@@ -76,7 +76,7 @@ int Fish::getFishExperienceByType(int type){
 
 
 float Fish::getFishSpeedByType(int type){
-	return 1;
+	return 100;
 }
 
 void Fish::move(int moveType){
@@ -97,7 +97,7 @@ void Fish::move(int moveType){
 
 void Fish::moveFishStraight(float dt){
 	//TODO 鱼的直线移动
-	Point nextPos = getNextPostion(this->getPosition(), this->speed, this->getRotation());
+	Point nextPos = getNextPostion(getPosition(), dt*speed, this->getRotation());
 	auto move = MoveBy::create(dt, nextPos);
 	this->runAction(move);
 }

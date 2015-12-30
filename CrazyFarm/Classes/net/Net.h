@@ -2,6 +2,7 @@
 #define __NET_H__
 #include "cocos2d.h"
 #include "fish/FishManage.h"
+#include "bullet/Bullet.h"
 using namespace cocos2d;
 
 #define NET_TYPE_0 0
@@ -15,7 +16,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(Net);
 	void initNetByType(int type);
-	void checkCatchFish();
+	void checkCatchFish(Bullet* bullet);
 private:
 	void destroySelf(float dt);
 	std::string getFrameNameByType(int type);

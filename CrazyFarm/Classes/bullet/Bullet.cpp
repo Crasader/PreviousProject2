@@ -54,29 +54,29 @@ int Bullet::getSpeedByType(int type){
 	switch (type)
 	{
 	case BULLETTYPE_1:
-		return 2;
+		return 200;
 	case BULLETTYPE_2:
-		return 2;
+		return 200;
 	case BULLETTYPE_3:
-		return 2;
+		return 200;
 	case BULLETTYPE_4:
-		return 2;
+		return 200;
 	case BULLETTYPE_5:
-		return 2;
+		return 200;
 	case BULLETTYPE_6:
-		return 2;
+		return 200;
 	case BULLETTYPE_7:
-		return 2;
+		return 200;
 	case BULLETTYPE_8:
-		return 2;
+		return 200;
 	default:
-		return 2;
+		return 200;
 	}
 }
 bool test = true;
 void Bullet::update(float dt){
 	//×Óµ¯ÔË¶¯
-	Point nextPos = getNextPostion(this->getPosition(), this->bulletSpeed, this->getRotation());
+	Point nextPos = getNextPostion(getPosition(), bulletSpeed*dt, this->getRotation());
 	auto move = MoveBy::create(dt, nextPos);
 	this->runAction(move);
 }
@@ -115,4 +115,12 @@ bool Bullet::checkWidthBorder(float x){
 		return true;
 	}
 	return false;
+}
+
+void Bullet::getCoinForFish(Vector<Fish*> fishs)
+{
+	for each (auto var in fishs)
+	{
+		pPlayerTurret->getCoinByFish(var);
+	}
 }
