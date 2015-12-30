@@ -1,7 +1,7 @@
 #include "core/GameGuiLayer.h"
 #include "RoomManager.h"
 #include "utill/define.h"
-
+#include "utill/SkillButton.h"
 
 enum 
 {
@@ -41,27 +41,35 @@ bool GameGuiLayer::init(){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
-	addChild(menu);
-	auto sprbg = Sprite::create("unlockBg.png");
-	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	sprbg->setPosition(visibleSize.width, visibleSize.height*0.45);
-	addChild(sprbg);
-
-	auto  buttonPlay = MenuItemImage::create("UpgradeButton.png", "UpgradeButton.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
-	buttonPlay->setPosition(sprbg->getPosition());
+	addChild(menu,10);
+	
+	auto  buttonPlay = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
+	buttonPlay->setPosition(visibleSize.width, visibleSize.height*0.60);	
 	menu->addChild(buttonPlay);
+	auto sprbg = Sprite::create("UpgradeButton.png");
+	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	sprbg->setPosition(buttonPlay->getContentSize().width *0.3, buttonPlay->getContentSize().height*0.52);
+	buttonPlay->addChild(sprbg);
 
-	auto sprbg1 = Sprite::create("unlockBg.png");
-	sprbg1->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	sprbg1->setPosition(visibleSize.width, visibleSize.height*0.45);
-	addChild(sprbg1);
-
-	auto buttonPlay1 = MenuItemImage::create("EarnCoins.png", "EarnCoins.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
-	buttonPlay1->setPosition(sprbg1->getPosition());
+	auto  buttonPlay1 = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
+	buttonPlay1->setPosition(visibleSize.width, visibleSize.height*0.40);
 	menu->addChild(buttonPlay1);
+	auto sprbg1 = Sprite::create("EarnCoins.png");
+	sprbg1->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	sprbg1->setPosition(buttonPlay1->getContentSize().width *0.3, buttonPlay1->getContentSize().height / 2);
+	buttonPlay1->addChild(sprbg1);
+
+	auto skillbutton = SkillButton::createSkillButton(2.0f, "skillStencil.png", "prop_freeze.png", "prop_freeze.png", 9);
+	skillbutton->setPosition(visibleSize.width*0.45, visibleSize.height*0.073);
+	addChild(skillbutton);
+
+	skillbutton = SkillButton::createSkillButton(2.0f, "skillStencil.png", "prop_lock.png", "prop_lock.png", 9);
+	skillbutton->setPosition(visibleSize.width*0.55, visibleSize.height*0.073);
+	addChild(skillbutton);
 	return true;
+
 }
 void GameGuiLayer::ButtentouchEvent(Ref *pSender)
 {
-
+	CCLOG("TODO CALLBAK");
 }

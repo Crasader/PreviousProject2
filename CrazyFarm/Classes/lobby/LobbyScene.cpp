@@ -3,6 +3,7 @@
 #include "level/LevelScene.h"
 #include "utill/Chinese.h"
 #include "utill/AnimationUtil.h"
+#include "ConfigItem.h"
 Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
@@ -95,7 +96,7 @@ bool LobbyScene::init()
 }
 
 void LobbyScene::startGame(){
-	Director::getInstance()->replaceScene(TransitionFade::create(1,LevelScene::create()));
+	Director::getInstance()->replaceScene(TransitionFade::create(1,GameScene::create()));
 }
 
 void LobbyScene::rechargeGold(){
@@ -124,7 +125,9 @@ void LobbyScene::loadResource(){
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("unlock_cannon_frame.plist");
 	///load ani
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/water/aniWater%d.jpg","aniWater",2.0f,20);
-
+	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/shootFire/aniShoot%d.png", "aniShoot", 0.5f, 5);
+	//load json
+	ConfigItem::getInstance()->LoadConfig();
 }
 
 

@@ -43,11 +43,17 @@
     <Filter Include="src\data">
       <UniqueIdentifier>{e69ddaf4-b32d-4701-a94a-5a7e8626646c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\playinfo">
-      <UniqueIdentifier>{068aa058-9dd9-4afa-a88e-cf960f135e2a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\AI">
       <UniqueIdentifier>{bc11c115-20d7-4246-b5f2-fed33e1d0c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Interface">
+      <UniqueIdentifier>{345f2edd-22db-4925-b3ae-b4af8300efb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Interface\item">
+      <UniqueIdentifier>{218af3c8-aa56-44b0-95ab-0410ba9a60e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Interface\playinfo">
+      <UniqueIdentifier>{068aa058-9dd9-4afa-a88e-cf960f135e2a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -133,22 +139,22 @@
       <Filter>src\turret</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ConfigExp.cpp">
-      <Filter>src\playinfo</Filter>
+      <Filter>src\Interface\playinfo</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\User.cpp">
-      <Filter>src\playinfo</Filter>
+      <Filter>src\Interface\playinfo</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\user\UserInfoLayer.cpp">
-      <Filter>src\playinfo</Filter>
+      <Filter>src\Interface\playinfo</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\utill\AnimationUtil.cpp">
       <Filter>src\utill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\RoomManager.cpp">
-      <Filter>src\playinfo</Filter>
+      <Filter>src\Interface\playinfo</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\RoomPlayer.cpp">
-      <Filter>src\playinfo</Filter>
+      <Filter>src\Interface\playinfo</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AIManager.cpp">
       <Filter>src\AI</Filter>
@@ -158,6 +164,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\AI.cpp">
       <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utill\SkillButton.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ConfigItem.cpp">
+      <Filter>src\Interface\item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\playerInfoLayer.cpp">
+      <Filter>src\lobby</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,22 +261,22 @@
       <Filter>src\utill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ConfigExp.h">
-      <Filter>src\playinfo</Filter>
+      <Filter>src\Interface\playinfo</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\User.h">
-      <Filter>src\playinfo</Filter>
+      <Filter>src\Interface\playinfo</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\user\UserInfoLayer.h">
-      <Filter>src\playinfo</Filter>
+      <Filter>src\Interface\playinfo</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utill\AnimationUtil.h">
       <Filter>src\utill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\RoomManager.h">
-      <Filter>src\playinfo</Filter>
+      <Filter>src\Interface\playinfo</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\RoomPlayer.h">
-      <Filter>src\playinfo</Filter>
+      <Filter>src\Interface\playinfo</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AI.h">
       <Filter>src\AI</Filter>
@@ -271,6 +286,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AIMolo.h">
       <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\SkillButton.h">
+      <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ConfigItem.h">
+      <Filter>src\Interface\item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\playerInfoLayer.h">
+      <Filter>src\lobby</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

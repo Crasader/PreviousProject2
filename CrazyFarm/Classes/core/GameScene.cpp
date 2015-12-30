@@ -19,13 +19,13 @@ bool GameScene::init(){
 	gui_layer->setPosition(0,0);
 	gui_layer->setAnchorPoint(ccp(0,0));
 	this->addChild(gui_layer,1);
-	//测试用方法
-	Size visibleSzie = Director::getInstance()->getVisibleSize();
-	MenuItemImage* gotoLevelScene = MenuItemImage::create("content.png", "content.png", CC_CALLBACK_0(GameScene::gotoLevelScene, this));
-	gotoLevelScene->setScale(0.2);
-	auto menu = Menu::create(gotoLevelScene, NULL);
-	menu->setPosition(ccp(visibleSzie.width-100, visibleSzie.height-100));
-	this->addChild(menu);
+	////测试用方法
+	//Size visibleSzie = Director::getInstance()->getVisibleSize();
+	//MenuItemImage* gotoLevelScene = MenuItemImage::create("content.png", "content.png", CC_CALLBACK_0(GameScene::gotoLevelScene, this));
+	//gotoLevelScene->setScale(0.2);
+	//auto menu = Menu::create(gotoLevelScene, NULL);
+	//menu->setPosition(ccp(visibleSzie.width-100, visibleSzie.height-100));
+	//this->addChild(menu);
 
 	return true;
 }

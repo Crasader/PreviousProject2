@@ -31,7 +31,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		director->setOpenGLView(glview);
 	}
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	glview->setFrameSize(1280, 800);
+	glview->setFrameSize(960, 540);
 	glview->setDesignResolutionSize(960, 540, ResolutionPolicy::EXACT_FIT);
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -54,6 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("gamelayer");
 	paths.push_back("ani");
 	paths.push_back("num");
+	paths.push_back("config");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand((unsigned)time(nullptr));
 

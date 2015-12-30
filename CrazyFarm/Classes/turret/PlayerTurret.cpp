@@ -1,5 +1,6 @@
 #include "Turret/PlayerTurret.h"
 #include "bullet/BulletManage.h"
+#include "utill/AnimationUtil.h"
 bool PlayerTurret::init(){
 	if (!Sprite::initWithFile("turretBg.png")){
 		return false;
@@ -57,11 +58,15 @@ void PlayerTurret::shoot(float degree){
 	bullet->setRotation(degree);
 	bullet->setPosition(this->getPosition());
 	getParent()->addChild(bullet);
+
+	auto aniNode = Node::create();
+	aniNode->setPosition(getPosition());
+	getParent()->addChild(aniNode);
+	aniNode->runAction(AnimationUtil::getInstance()->getAnimate("aniShoot"));
 }
 
 void PlayerTurret::setAIinfo(AI*info)
 {
-	/*unschedule(schedule_selector(doAIthing));*/
 	m_aiinfo = info;
 	schedule(schedule_selector(PlayerTurret::doAIthing), info->getReqSteps() , CC_REPEAT_FOREVER, 0);
 }
