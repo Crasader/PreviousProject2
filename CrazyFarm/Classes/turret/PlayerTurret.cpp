@@ -59,10 +59,10 @@ void PlayerTurret::shoot(float degree){
 	bullet->setPosition(this->getPosition());
 	getParent()->addChild(bullet);
 
-	auto aniNode = Node::create();
-	aniNode->setPosition(getPosition());
-	getParent()->addChild(aniNode);
-	aniNode->runAction(AnimationUtil::getInstance()->getAnimate("aniShoot"));
+	auto aniNode = Sprite::create();
+	aniNode->setPosition(m_turret->getContentSize().width/2,m_turret->getContentSize().height*1.2);
+	m_turret->addChild(aniNode, 5);
+	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"),RemoveSelf::create(1),nullptr));
 }
 
 void PlayerTurret::setAIinfo(AI*info)

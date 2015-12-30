@@ -126,6 +126,7 @@ void LobbyScene::loadResource(){
 	///load ani
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/water/aniWater%d.jpg","aniWater",2.0f,20);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/shootFire/aniShoot%d.png", "aniShoot", 0.5f, 5);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/bubble/aniBubble%d.png", "aniBubble", 2.0f, 19);
 	//load json
 	ConfigItem::getInstance()->LoadConfig();
 }

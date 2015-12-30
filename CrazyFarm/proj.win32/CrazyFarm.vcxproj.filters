@@ -55,6 +55,9 @@
     <Filter Include="src\Interface\playinfo">
       <UniqueIdentifier>{068aa058-9dd9-4afa-a88e-cf960f135e2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Interface\bag">
+      <UniqueIdentifier>{0e1f7e5f-0df7-4e9a-8d03-6178bfa50fff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -173,6 +176,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\lobby\playerInfoLayer.cpp">
       <Filter>src\lobby</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BagItem.cpp">
+      <Filter>src\Interface\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BagManager.cpp">
+      <Filter>src\Interface\bag</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +304,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\playerInfoLayer.h">
       <Filter>src\lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BagItem.h">
+      <Filter>src\Interface\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BagManager.h">
+      <Filter>src\Interface\bag</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
