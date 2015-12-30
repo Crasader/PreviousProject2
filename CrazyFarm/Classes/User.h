@@ -2,6 +2,8 @@
 #define _USER_H_
 #include "cocos2d.h"
 
+#include "config/ConfigVipLevel.h"
+
 using namespace cocos2d;
 
 class User{
@@ -15,6 +17,8 @@ public:
     const char* KEY_DIAMONDS = "KEY_DIAMONDS";
     const char* KEY_EXP = "KEY_EXP";
     const char* KEY_M_TURRENT = "KEY_M_TURRENT";
+    
+    const char* KEY_CHARGE_MONEY = "KEY_CHARGE_MONEY";
 
 	int addCoins(int coins);
 	int getCoins();
@@ -25,6 +29,11 @@ public:
     int getMaxTurrentLevel();
     bool setMaxTurrentLevel(int maxTurrentLevel);
 
+    int getVipLevel();
+    
+    bool addChargeMoney(int money);
+    int getChargeMoney();
+    
     /**
      * return true, level up!! else, return false.
      */

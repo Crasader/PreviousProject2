@@ -90,5 +90,22 @@ char* User::getLevelDesc() {
             UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0) );
 }
 
+int User::getVipLevel() {
+    int chargeMoney = getChargeMoney();
+    return ConfigVipLevel::getInstance()->getLevel(chargeMoney);
+}
+
+bool User::addChargeMoney(int money) {
+    if(money > 0) {
+        UserDefault::getInstance()->setIntegerForKey(User::KEY_CHARGE_MONEY, getChargeMoney() + money);
+        return true;
+    }
+    return false;
+}
+
+int User::getChargeMoney() {
+    return UserDefault::getInstance()->getIntegerForKey(User::KEY_CHARGE_MONEY, 0);
+}
+
 
 

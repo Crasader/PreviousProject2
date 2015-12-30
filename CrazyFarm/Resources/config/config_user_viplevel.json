@@ -1,0 +1,43 @@
+{	
+	"describe": "用户vip等级配置信息;目前只配置了4个测试值" ,
+	"item_list": [
+                  {
+                    "vip_level"	:	0,
+                    "charge_money"	:	0,
+                    "title" : "普通用户",
+                    "desc_title"	:	"",
+                    "desc_content"	:	""
+                  },
+                  {
+                    "vip_level"	:	1,
+                    "charge_money"	:	20,
+                    "title" : "VIP1",
+                    "desc_title"	:	"紫色火焰",
+                    "desc_content"	:	"每日登陆奖励翻倍"
+                  },
+                  {
+                    "vip_level"	:	2,
+                    "charge_money"	:	200,
+                    "title" : "VIP2",
+                    "desc_title"	:	"紫色幻影",
+                    "desc_content"	:	"开启核弹模式"
+                  },
+                  {
+                    "vip_level"	:	3,
+                    "charge_money"	:	500,
+                    "title" : "VIP3",
+                    "desc_title"	:	"青蛇之牙",
+                    "desc_content"	:	"充值金币额外赠送10%"
+                  },
+                  {
+                  "vip_level"	:	4,
+                  "charge_money"	:	1000,
+                  "title" : "VIP4",
+                  "desc_title"	:	"火力风暴",
+                  "desc_content"	:	"开启狂暴技能"
+                  }
+	]
+}
+
+
+
