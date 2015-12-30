@@ -141,6 +141,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AIManager.cpp" />
     <ClCompile Include="..\Classes\AIMolo.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\BagItem.cpp" />
+    <ClCompile Include="..\Classes\BagManager.cpp" />
     <ClCompile Include="..\Classes\bullet\Bullet.cpp" />
     <ClCompile Include="..\Classes\bullet\BulletManage.cpp" />
     <ClCompile Include="..\Classes\ConfigExp.cpp" />
@@ -182,6 +184,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AIManager.h" />
     <ClInclude Include="..\Classes\AIMolo.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\BagItem.h" />
+    <ClInclude Include="..\Classes\BagManager.h" />
     <ClInclude Include="..\Classes\bullet\Bullet.h" />
     <ClInclude Include="..\Classes\bullet\BulletManage.h" />
     <ClInclude Include="..\Classes\ConfigExp.h" />

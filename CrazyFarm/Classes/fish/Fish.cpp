@@ -98,7 +98,7 @@ void Fish::move(int moveType){
 void Fish::moveFishStraight(float dt){
 	//TODO 鱼的直线移动
 	Point nextPos = getNextPostion(this->getPosition(), this->speed, this->getRotation());
-	auto move = MoveTo::create(dt, nextPos);
+	auto move = MoveBy::create(dt, nextPos);
 	this->runAction(move);
 }
 
@@ -128,18 +128,22 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 	if (rotation < 90){
 		pos.x += abs(next_x);
 		pos.y -= abs(next_y);
+		return Vec2(next_x, -next_y);
 	}
 	else if (rotation >= 90 && rotation < 180){
 		pos.x -= abs(next_x);
 		pos.y -= abs(next_y);
+		return Vec2(-next_x, -next_y);
 	}
 	else if (rotation >= 180 && rotation < 270){
 		pos.x -= abs(next_x);
 		pos.y += abs(next_y);
+		return Vec2(-next_x, next_y);
 	}
 	else if (rotation >= 270 && rotation < 360){
 		pos.x += abs(next_x);
 		pos.y += abs(next_y);
+		return Vec2(next_x, next_y);
 	}
 	return  Point(pos.x, pos.y);
 }

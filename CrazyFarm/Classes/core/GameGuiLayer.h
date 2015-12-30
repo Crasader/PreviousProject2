@@ -20,6 +20,7 @@ public:
 	CREATE_FUNC(GameGuiLayer);
 private :
 	void ButtentouchEvent(Ref *pSender);
+	void showRandonBubbleAni();
 	 
 };
 #endif

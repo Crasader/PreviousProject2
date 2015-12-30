@@ -77,7 +77,7 @@ bool test = true;
 void Bullet::update(float dt){
 	//×Óµ¯ÔË¶¯
 	Point nextPos = getNextPostion(this->getPosition(), this->bulletSpeed, this->getRotation());
-	auto move = MoveTo::create(dt, nextPos);
+	auto move = MoveBy::create(dt, nextPos);
 	this->runAction(move);
 }
 
@@ -97,7 +97,7 @@ Point Bullet::getNextPostion(Point pos, float speed, float degree){
 		next_x = pos.x + speed*sin(CC_DEGREES_TO_RADIANS(this->getRotation()));
 		next_y = pos.y + speed*cos(CC_DEGREES_TO_RADIANS(this->getRotation()));
 	}
-	return  Point(next_x, next_y);
+	return  Point(speed*sin(CC_DEGREES_TO_RADIANS(this->getRotation())), speed*cos(CC_DEGREES_TO_RADIANS(this->getRotation())));
 }
 
 
