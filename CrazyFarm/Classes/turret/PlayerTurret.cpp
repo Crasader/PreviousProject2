@@ -59,16 +59,16 @@ void PlayerTurret::shoot(float degree){
 	getParent()->addChild(bullet);
 }
 
-void PlayerTurret::setAIinfo(AI info)
+void PlayerTurret::setAIinfo(AI*info)
 {
 	/*unschedule(schedule_selector(doAIthing));*/
 	m_aiinfo = info;
-	schedule(schedule_selector(PlayerTurret::doAIthing), info.getReqSteps() , CC_REPEAT_FOREVER, 0);
+	schedule(schedule_selector(PlayerTurret::doAIthing), info->getReqSteps() , CC_REPEAT_FOREVER, 0);
 }
 
 void PlayerTurret::doAIthing(float dt)
 {
-	auto walk = m_aiinfo.nextStep(10);
+	auto walk = m_aiinfo->nextStep(10);
 	if (walk.getFire())
 	{
 		shoot(walk.getAngle());

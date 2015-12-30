@@ -16,7 +16,7 @@ public:
 	  void shoot(float);
 
 	  //AI
-	  void setAIinfo(AI info);
+	  void setAIinfo(AI* info);
 	  void doAIthing(float dt);
 private:
 	 Turret* m_turret;
@@ -26,7 +26,7 @@ private:
 	  LabelAtlas* nMaxLevel;
 	  
 
-	  AI m_aiinfo;
+	  AI* m_aiinfo;
 	  CC_SYNTHESIZE(int, nMaxlevel, nMaxLevel);
 
 };
