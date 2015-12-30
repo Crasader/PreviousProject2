@@ -8,13 +8,22 @@ PlayerWork AIMolo::nextStep(int currentCoins) {
     playerWork.setTurrentLevel(this->getMaxTurrentLevel());
     
     int fire = rand()%100;
-    if(fire < 40) { // TODO : just test value
+    if(fire < 20) { // TODO : just test value
+        angle = 90 - rand()%180;
+        playerWork.setAngle((float)angle);
         playerWork.setFire(true);
     }else {
         playerWork.setFire(false);
+        int turn = rand()%100;
+        if(turn < 20) {
+            angle = 90 - rand()%180;
+            playerWork.setAngle((float)angle);
+        }else {
+            playerWork.setAngle(angle);
+        }
     }
     
-    playerWork.setAngle(0);
+    
     return playerWork;
     
 }
