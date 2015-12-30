@@ -58,6 +58,10 @@ std::map<int, VipLevel> ConfigVipLevel::getVipLevels() {
     return vipLevels;
 }
 
+VipLevel ConfigVipLevel::getVipLevel(int level) {
+    return vipLevels[level];
+}
+
 int ConfigVipLevel::getLevel(int chargeMoney) {
     if(chargeMoney <= 0) {
         return 0;

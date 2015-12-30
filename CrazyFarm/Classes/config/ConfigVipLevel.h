@@ -25,6 +25,7 @@ public:
 	bool LoadConfig();
     
 	std::map<int, VipLevel> getVipLevels();
+    VipLevel getVipLevel(int level);
     
     int getLevel(int chargeMoney);
     
