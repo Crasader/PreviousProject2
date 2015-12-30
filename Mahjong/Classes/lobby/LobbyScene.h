@@ -13,14 +13,6 @@ public:
 
     void startGame();
 
-	void rechargeGold();
-
-	void showSettingLayer();
-
-	void autoStartGame(float dt);
-
-	void updateScene(float dt);
-
 
     CREATE_FUNC(LobbyScene);
 };
