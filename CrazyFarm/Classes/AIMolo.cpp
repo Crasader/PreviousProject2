@@ -13,8 +13,8 @@ PlayerWork AIMolo::nextStep(int currentCoins) {
     }else {
         playerWork.setFire(false);
     }
-    
-    playerWork.setAngle(0);
+	int angle = rand() % 180 - 90;
+    playerWork.setAngle((float)(angle));
     return playerWork;
     
 }

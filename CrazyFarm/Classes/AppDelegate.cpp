@@ -40,7 +40,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		glview->setDesignResolutionSize(960, 540, ResolutionPolicy::EXACT_FIT);
 	}
 	else{
-		glview->setDesignResolutionSize(960, 540, ResolutionPolicy::NO_BORDER);
+		glview->setDesignResolutionSize(960, 540, ResolutionPolicy::EXACT_FIT);
 	}
 #endif
 	// turn on display FPS
@@ -55,6 +55,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("ani");
 	paths.push_back("num");
 	paths.push_back("config");
+	paths.push_back("lobbylayer");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand((unsigned)time(nullptr));
 

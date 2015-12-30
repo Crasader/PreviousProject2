@@ -27,7 +27,7 @@ bool LobbyScene::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	//add game bg to layer
-	Sprite* lobby_bg = Sprite::create("lobby_bg.jpg");
+	Sprite* lobby_bg = Sprite::create("lobbyBG.png");
 	lobby_bg->setPosition(visibleSize.width/2,visibleSize.height/2);
 	this->addChild(lobby_bg,-1);
 	//add statr menu to layer

@@ -27,6 +27,8 @@ private:
 	void rotateTurret(float degree, PlayerTurret* turret);//Ğı×ªÅÚËş
 
 	void AiUpdata(float dt);
+
+	void collisionUpdate(float dt);
 	void update(float dt);
 	void createAI();
 	void createPlayerCoin();

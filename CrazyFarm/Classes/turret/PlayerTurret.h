@@ -39,4 +39,6 @@ private:
 	  CC_SYNTHESIZE(int, nMaxlevel, nMaxLevel);
 	  bool isRobot = true;
 
+	  int nChairNoIndex = -1;
+
 };

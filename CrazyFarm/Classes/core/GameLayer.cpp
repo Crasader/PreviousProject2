@@ -30,6 +30,7 @@ bool GameLayer::init(){
 	calculateFreeChair();
 	createTurret();
 	createAI();
+	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	return true;
 }
 
@@ -143,37 +144,7 @@ void GameLayer::rotateTurret(float degree,PlayerTurret* turret){
 }
 
 void GameLayer::update(float dt){
-	//TODO 碰撞逻辑
-	//step1 获取子弹列表
-	auto allBullets = BulletManage::getInstance()->getAllBullets();
-	//step2 获取鱼的列表
-	auto allFish = FishManage::getInstance()->getAllFishInPool();
-	//step3 碰撞检查
-	Vector<Fish*>::iterator it;
-	Vector<Bullet*> bulletNeedRemove;
-	for (it = allFish.begin(); it != allFish.end(); it++){
-		Vector<Bullet*>::iterator it2;
-		for (it2 = allBullets.begin(); it2 != allBullets.end();){
-			Fish* fish = *it;
-			Bullet* bullet = *it2;
-			if (collision(fish,bullet)){
-				//发生碰撞,移除子弹
-				bulletNeedRemove.pushBack(bullet);
-				bullet->removeFromParent();
-				it2 = allBullets.erase(it2);
-				//TODO打开渔网
-				createNet(bullet);
-			}
-			else{
-				it2++;
-			}
-			if (bulletNeedRemove.size() > 0){
-				for (Bullet* bullet : bulletNeedRemove){
-					BulletManage::getInstance()->removeBullet(bullet);
-				}
-			}
-		}
-	}
+	
 }
 
 
@@ -272,4 +243,41 @@ void GameLayer::createAI()
 		otherT->setAIinfo(aiinfo);
 	}
 	
+}
+
+void GameLayer::collisionUpdate(float dt)
+{
+
+	CCLOG("collision update");
+	//TODO 碰撞逻辑
+	//step1 获取子弹列表
+	auto allBullets = BulletManage::getInstance()->getAllBullets();
+	//step2 获取鱼的列表
+	auto allFish = FishManage::getInstance()->getAllFishInPool();
+	//step3 碰撞检查
+	Vector<Fish*>::iterator it;
+	Vector<Bullet*> bulletNeedRemove;
+	for (it = allFish.begin(); it != allFish.end(); it++){
+		Vector<Bullet*>::iterator it2;
+		for (it2 = allBullets.begin(); it2 != allBullets.end();){
+			Fish* fish = *it;
+			Bullet* bullet = *it2;
+			if (collision(fish, bullet)){
+				//发生碰撞,移除子弹
+				bulletNeedRemove.pushBack(bullet);
+				bullet->removeFromParent();
+				it2 = allBullets.erase(it2);
+				//TODO打开渔网
+				createNet(bullet);
+			}
+			else{
+				it2++;
+			}
+			if (bulletNeedRemove.size() > 0){
+				for (Bullet* bullet : bulletNeedRemove){
+					BulletManage::getInstance()->removeBullet(bullet);
+				}
+			}
+		}
+	}
 }

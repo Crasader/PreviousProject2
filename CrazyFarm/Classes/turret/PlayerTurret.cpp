@@ -48,6 +48,10 @@ void PlayerTurret::degradeTurret(Ref* psend)
 
 void PlayerTurret::rorateTurret(float angle)
 {
+	if (nChairNoIndex > 1)
+	{
+		angle -= 180;
+	}
 	auto rotate = RotateTo::create(0.1, angle);
 	m_turret->runAction(rotate);
 }
@@ -60,6 +64,10 @@ void PlayerTurret::setMaxLevel(int maxlevel)
 }
 
 void PlayerTurret::shoot(float degree){
+	if (nChairNoIndex>1)
+	{
+		degree -= 180;
+	}
 	auto bullet = BulletManage::getInstance()->createBullet(rand() % 8, 90);
 	bullet->setRotation(degree);
 	bullet->setPosition(this->getPosition());
@@ -97,9 +105,10 @@ void PlayerTurret::setAIinfo(AI*info)
 void PlayerTurret::doAIthing(float dt)
 {
 	auto walk = m_aiinfo->nextStep(10);
+	rorateTurret(walk.getAngle());
 	if (walk.getFire())
 	{
-		shoot(walk.getAngle());
+		shoot(m_turret->getRotation());
 	}
 }
 Point coinPos[4] =
@@ -146,6 +155,11 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 	m_DiamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.29);
 	m_DiamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_DiamondLabel);
+
+	if (user->getRoomPosition()>1)
+	{
+		spCoinBG->setRotation(180);
+	}
 }
 
 
@@ -156,10 +170,11 @@ void PlayerTurret::initWithDate(User* user,int index)
 	setUpgradeButton();
 	setMaxLevel(100);
 	createPlayerCoin(user,index);
-	
+	nChairNoIndex = index;
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
 {
+	nChairNoIndex = user->getRoomPosition();
 	initWithType(user->getMaxTurretLevel());
 	setMaxLevel(user->getMaxTurretLevel());
 	createPlayerCoin(user);
