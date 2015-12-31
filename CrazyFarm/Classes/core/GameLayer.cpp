@@ -22,7 +22,7 @@ bool GameLayer::init(){
 	//TODO 游戏核心界面
 	
 	//TODO 产生鱼
-	schedule(schedule_selector(GameLayer::createFish), 1, CC_REPEAT_FOREVER, 0);
+	schedule(schedule_selector(GameLayer::createFish), 0.3f, CC_REPEAT_FOREVER, 0);
 	scheduleUpdate();
 	addTouchEvent();	
 

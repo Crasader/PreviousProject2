@@ -64,6 +64,9 @@
     <Filter Include="src\Interface\turret">
       <UniqueIdentifier>{f9ea56d4-347a-47a5-96ef-846a062b55df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Interface\fish">
+      <UniqueIdentifier>{be04d475-8e25-4105-a0dd-0ad39f4582ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -180,9 +183,6 @@
     <ClCompile Include="..\Classes\ConfigItem.cpp">
       <Filter>src\Interface\item</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\lobby\playerInfoLayer.cpp">
-      <Filter>src\lobby</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\BagItem.cpp">
       <Filter>src\Interface\bag</Filter>
     </ClCompile>
@@ -194,6 +194,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\config\ConfigTurrent.cpp">
       <Filter>src\Interface\turret</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigFish.cpp">
+      <Filter>src\Interface\fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\bagLayer.cpp">
+      <Filter>src\lobby</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,9 +320,6 @@
     <ClInclude Include="..\Classes\ConfigItem.h">
       <Filter>src\Interface\item</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\lobby\playerInfoLayer.h">
-      <Filter>src\lobby</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\BagItem.h">
       <Filter>src\Interface\bag</Filter>
     </ClInclude>
@@ -328,6 +331,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigTurrent.h">
       <Filter>src\Interface\turret</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigFish.h">
+      <Filter>src\Interface\fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\bagLayer.h">
+      <Filter>src\lobby</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

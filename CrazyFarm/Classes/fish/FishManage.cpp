@@ -20,7 +20,7 @@ Vector<Fish*> FishManage::getAllFishInPool(){
 
 Fish* FishManage::createFishSingle(){
 	auto fish = Fish::create();
-	int randType = rand() % 8;
+	int randType = rand() % 8+1;
 	fish->initFish(randType);
 	fishPool.pushBack(fish);
 	return fish;

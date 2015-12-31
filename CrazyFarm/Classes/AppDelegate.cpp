@@ -56,6 +56,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("num");
 	paths.push_back("config");
 	paths.push_back("lobbylayer");
+	paths.push_back("bagLayer");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand((unsigned)time(nullptr));
 

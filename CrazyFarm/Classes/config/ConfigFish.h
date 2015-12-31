@@ -7,7 +7,7 @@
 
 USING_NS_CC;
 
-struct Fish {
+struct FishData {
     int fishId;
     int fishType;   // 0 基础鱼；1 礼品鱼；2 Boss鱼;
     double probability; // [0, 0.5]
@@ -24,13 +24,13 @@ public:
     
 	bool LoadConfig();
     
-	std::map<int, Fish> getFishes();
-    Fish getFish(int fishId);
+	std::map<int, FishData> getFishes();
+	FishData getFish(int fishId);
 
     
 private:
 	static ConfigFish* _instance;
 	
-    std::map<int, Fish> fishes;
+	std::map<int, FishData> fishes;
 };
 

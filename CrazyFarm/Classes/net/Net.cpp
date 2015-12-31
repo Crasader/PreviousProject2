@@ -38,9 +38,14 @@ void Net::checkCatchFish(Bullet*bullet){
 		if (collision(this,fish)){
 			//进行捕获判断
 			//TODO 添加捕获概率
-			fishNeedRemove.pushBack(fish);
+			int k = rand() % 10 + 1;
+			if (k>(fish->getGrabProbability()*10))
+			{
+				fishNeedRemove.pushBack(fish);
 			//ui移除
-			fish->removeFromParent();
+				fish->removeFromParent();
+			}
+			
 		}
 	}
 	bullet->getCoinForFish(fishNeedRemove);

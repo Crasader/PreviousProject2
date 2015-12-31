@@ -147,6 +147,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\bullet\BulletManage.cpp" />
     <ClCompile Include="..\Classes\ConfigExp.cpp" />
     <ClCompile Include="..\Classes\ConfigItem.cpp" />
+    <ClCompile Include="..\Classes\config\ConfigFish.cpp" />
     <ClCompile Include="..\Classes\config\ConfigTurrent.cpp" />
     <ClCompile Include="..\Classes\config\ConfigVipLevel.cpp" />
     <ClCompile Include="..\Classes\core\GameGuiLayer.cpp" />
@@ -159,8 +160,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\level\LevelLayer.cpp" />
     <ClCompile Include="..\Classes\level\LevelScene.cpp" />
     <ClCompile Include="..\Classes\level\LevelSelectPage.cpp" />
+    <ClCompile Include="..\Classes\lobby\bagLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp" />
-    <ClCompile Include="..\Classes\lobby\playerInfoLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\ScrollText.cpp" />
     <ClCompile Include="..\Classes\net\Net.cpp" />
     <ClCompile Include="..\Classes\pause\GamePauseLayer.cpp" />
@@ -192,6 +193,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\bullet\BulletManage.h" />
     <ClInclude Include="..\Classes\ConfigExp.h" />
     <ClInclude Include="..\Classes\ConfigItem.h" />
+    <ClInclude Include="..\Classes\config\ConfigFish.h" />
     <ClInclude Include="..\Classes\config\ConfigTurrent.h" />
     <ClInclude Include="..\Classes\config\ConfigVipLevel.h" />
     <ClInclude Include="..\Classes\core\GameGuiLayer.h" />
@@ -204,8 +206,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\level\LevelLayer.h" />
     <ClInclude Include="..\Classes\level\LevelScene.h" />
     <ClInclude Include="..\Classes\level\LevelSelectPage.h" />
+    <ClInclude Include="..\Classes\lobby\bagLayer.h" />
     <ClInclude Include="..\Classes\lobby\LobbyScene.h" />
-    <ClInclude Include="..\Classes\lobby\playerInfoLayer.h" />
     <ClInclude Include="..\Classes\lobby\ScrollText.h" />
     <ClInclude Include="..\Classes\net\Net.h" />
     <ClInclude Include="..\Classes\pause\GamePauseLayer.h" />

@@ -22,10 +22,7 @@ PlayerWork AIMolo::nextStep(int currentCoins) {
             playerWork.setAngle(angle);
         }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 	int angle = rand() % 180 - 90;
     playerWork.setAngle((float)(angle));
 

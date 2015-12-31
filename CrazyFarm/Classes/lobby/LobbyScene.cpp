@@ -5,7 +5,9 @@
 #include "ConfigItem.h"
 #include "config/ConfigVipLevel.h"
 #include "config/ConfigTurrent.h"
+#include "config/ConfigFish.h"
 #include "User.h"
+#include "lobby/bagLayer.h"
 Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
@@ -63,8 +65,9 @@ bool LobbyScene::init()
 
 	auto viplevelFrame = Sprite::create("viplevelFrame.png");
 	viplevelFrame->setPosition(sssize.width * 1.05, sssize.height*0.88);
-	auto viplevel = LabelTTF::create(Value(user->getVipLevel()).asString().c_str(), "arial", 20);
-	viplevel->setPosition(Vec2(viplevelFrame->getContentSize() / 2)+Vec2(0,2));
+	auto viplevel = LabelAtlas::create(Value(user->getVipLevel()).asString().c_str(), "vipLevelNum.png", 11,16,'0');
+	viplevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	viplevel->setPosition(Vec2(viplevelFrame->getContentSize() / 2));
 	viplevelFrame->addChild(viplevel);
 	spHeadFrame->addChild(viplevelFrame);
 
@@ -115,10 +118,17 @@ bool LobbyScene::init()
 	adddiamond->setPosition(diamondFrame->getPositionX() + sssize.width*0.48, diamondFrame->getPositionY());
 
 
+	
 
-	auto menu = Menu::create(addCoin, adddiamond, nullptr);
+
+	//背包
+	auto bag = MenuItemImage::create("bag.png", "bag.png", CC_CALLBACK_1(LobbyScene::bagButtonCallback, this));
+	bag->setPosition(visibleSize.width*0.3, visibleSize.height*0.1);
+
+	auto menu = Menu::create(addCoin, adddiamond, bag, nullptr);
 	menu->setPosition(Point::ZERO);
 	addChild(menu);
+	createRoomLayer();
 	//添加系统返回键监听
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
@@ -162,11 +172,20 @@ void LobbyScene::loadResource(){
 	ConfigItem::getInstance()->LoadConfig();
 	ConfigVipLevel::getInstance()->LoadConfig();
 	ConfigTurrent::getInstance()->LoadConfig();
+	ConfigFish::getInstance()->LoadConfig();
 }
 
 
 void LobbyScene::createRoomLayer()
 {
+	auto visibisize = Director::getInstance()->getVisibleSize();
+	auto cell = MenuItemImage::create("level_1.png", "level_1.png", CC_CALLBACK_1(LobbyScene::beginGameCallback, this));
+	cell->setPosition(visibisize / 2);
+	auto menu = Menu::create(cell, nullptr);
+	menu->setPosition(0, 0);
+	addChild(menu);
+
+	
 
 }
 
@@ -178,4 +197,13 @@ void LobbyScene::payCoinCallback(Ref*psend)
 void LobbyScene::payDiamondCallback(Ref*psend)
 {
 
+}
+void LobbyScene::beginGameCallback(Ref*psend)
+{
+	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
+}
+
+void LobbyScene::bagButtonCallback(Ref*psend)
+{
+	Director::getInstance()->pushScene(BagLayer::createScene());
 }

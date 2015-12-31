@@ -40,7 +40,7 @@ bool ConfigFish::LoadConfig() {
 
 			const rapidjson::Value &val = itemList[i];
             
-			Fish fish;
+			FishData fish;
 			fish.fishId	= val["fish_id"].GetInt();
             fish.fishType = val["fish_type"].GetInt();
             fish.probability = val["probability"].GetDouble();
@@ -55,11 +55,11 @@ bool ConfigFish::LoadConfig() {
 }
 
 
-std::map<int, Fish> ConfigFish::getFishes() {
+std::map<int, FishData> ConfigFish::getFishes() {
     return fishes;
 }
 
-Fish ConfigFish::getFish(int fishId) {
+FishData ConfigFish::getFish(int fishId) {
     return fishes[fishId];
 }
 

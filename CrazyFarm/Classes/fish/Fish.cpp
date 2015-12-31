@@ -10,10 +10,12 @@ bool Fish::init(){
 }
 
 void Fish::initFish(int fishType){
+	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
+	fishGold = fishdata.baseReward;
+	this->grabProbability = fishdata.probability;
 	this->fishType = fishType;
 	this->speed = getFishSpeedByType(fishType);;
 	this->experience = getFishExperienceByType(fishType);
-	this->fishGold = getFishGoldByType(fishType);
 	this->resoureName = getSrcByType(fishType);///2_02.png
 	initFishAnim(resoureName, 0);
 }

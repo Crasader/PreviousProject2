@@ -54,23 +54,23 @@ int Bullet::getSpeedByType(int type){
 	switch (type)
 	{
 	case BULLETTYPE_1:
-		return 200;
+		return 300;
 	case BULLETTYPE_2:
-		return 200;
+		return 300;
 	case BULLETTYPE_3:
-		return 200;
+		return 300;
 	case BULLETTYPE_4:
-		return 200;
+		return 300;
 	case BULLETTYPE_5:
-		return 200;
+		return 300;
 	case BULLETTYPE_6:
-		return 200;
+		return 300;
 	case BULLETTYPE_7:
-		return 200;
+		return 300;
 	case BULLETTYPE_8:
-		return 200;
+		return 300;
 	default:
-		return 200;
+		return 300;
 	}
 }
 bool test = true;

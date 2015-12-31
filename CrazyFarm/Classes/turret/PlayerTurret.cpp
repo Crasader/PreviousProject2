@@ -74,7 +74,7 @@ void PlayerTurret::shoot(float degree){
 	{
 		degree = 180+degree;
 	}
-	auto bullet = BulletManage::getInstance()->createBullet(rand() % 8, 90);
+	auto bullet = BulletManage::getInstance()->createBullet(1, 90);
 	bullet->setRotation(degree);
 	bullet->setPosition(this->getPosition());
 	getParent()->addChild(bullet);
@@ -202,13 +202,13 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 	///需要鱼的配置属性
 	if (isRobot)
 	{
-		auto num = 100 * m_turretdata.multiple;
+		auto num = fish->getFishGold() * m_turretdata.multiple;
 		auto nowNum = Value(m_CoinLabel->getString()).asInt();
 		m_CoinLabel->setString(Value(nowNum + num).asString().c_str());
 	}
 	else
 	{
-		auto num = 100 * m_turretdata.multiple;
+		auto num = fish->getFishGold()* m_turretdata.multiple;
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
 	}
 }

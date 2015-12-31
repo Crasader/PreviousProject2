@@ -2,17 +2,17 @@
 #define __FISH_H__
 #include "cocos2d.h"
 #include "utill/CircleBy.h"
-
+#include "config/ConfigFish.h"
 using namespace cocos2d;
 
-#define FISHTYPE_1 0
-#define FISHTYPE_2 1
-#define FISHTYPE_3 2
-#define FISHTYPE_4 3
-#define FISHTYPE_5 4
-#define FISHTYPE_6 5
-#define FISHTYPE_7 6
-#define FISHTYPE_8 7
+#define FISHTYPE_1 1
+#define FISHTYPE_2 2
+#define FISHTYPE_3 3
+#define FISHTYPE_4 4
+#define FISHTYPE_5 5
+#define FISHTYPE_6 6
+#define FISHTYPE_7 7
+#define FISHTYPE_8 8
 
 using namespace std;
 
@@ -23,7 +23,10 @@ public:
 	void initFish(int fishType);
 	void move(int moveType);
 	Sprite* getRectSprite();
+	int getFishGold(){ return fishGold; }
+	float getGrabProbability(){ return grabProbability; }
 private:
+	float grabProbability;
 	int speed;//鱼的移动速度
 	int fishType;//鱼的类型
 	int experience;//鱼的经验值
