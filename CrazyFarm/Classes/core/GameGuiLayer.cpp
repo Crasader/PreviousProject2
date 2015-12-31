@@ -79,7 +79,6 @@ void GameGuiLayer::ButtentouchEvent(Ref *pSender)
 
 void GameGuiLayer::showRandonBubbleAni()
 {
-	CCLOG("SHOW BUBBLE ANI");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(rand() % ((int)(visibleSize.width)), rand() % ((int)(visibleSize.height)));

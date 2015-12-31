@@ -61,6 +61,9 @@
     <Filter Include="src\Interface\vip">
       <UniqueIdentifier>{58e47fa3-9657-45d9-8dc1-7da651bd5aab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Interface\turret">
+      <UniqueIdentifier>{f9ea56d4-347a-47a5-96ef-846a062b55df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -188,6 +191,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\config\ConfigVipLevel.cpp">
       <Filter>src\Interface\vip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigTurrent.cpp">
+      <Filter>src\Interface\turret</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +325,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigVipLevel.h">
       <Filter>src\Interface\vip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigTurrent.h">
+      <Filter>src\Interface\turret</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

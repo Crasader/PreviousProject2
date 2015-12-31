@@ -1,10 +1,11 @@
 #include "lobby/LobbyScene.h"
 #include "core/GameScene.h"
-#include "level/LevelScene.h"
 #include "utill/Chinese.h"
 #include "utill/AnimationUtil.h"
 #include "ConfigItem.h"
 #include "config/ConfigVipLevel.h"
+#include "config/ConfigTurrent.h"
+#include "User.h"
 Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
@@ -24,59 +25,100 @@ bool LobbyScene::init()
 	}
     //add all fish plsit
 	loadResource();
-
+	auto user = User::getInstance();
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	//add game bg to layer
 	Sprite* lobby_bg = Sprite::create("lobbyBG.png");
 	lobby_bg->setPosition(visibleSize.width/2,visibleSize.height/2);
-	this->addChild(lobby_bg,-1);
-	//add statr menu to layer
+	addChild(lobby_bg,-1);
 
-	MenuItemImage* start_btn = MenuItemImage::create("start_game_normal.png","start_game_pressed.png",CC_CALLBACK_0(LobbyScene::startGame,this));
-	Menu* start_game = Menu::create(start_btn,NULL);
-	start_game->setPosition(visibleSize.width/2,visibleSize.height/4);
-	this->addChild(start_game);
+	
 
-    //金币显示的背景框
-	Sprite* playerGold = Sprite::create("fish_gold.png");
-	playerGold->setPosition(ccp(visibleSize.width-150,visibleSize.height-50));
-	this->addChild(playerGold);
-	//金币数字显示
-	LabelAtlas* playerGoldNum = LabelAtlas::create("200", "player_gold_num.png", 14, 19, '0');
-	playerGoldNum->setPosition(ccp(visibleSize.width - 120, visibleSize.height - 60));
-	this->addChild(playerGoldNum);
+	//头像框
+	auto spHeadFrame = Sprite::create("HeadFrame.png");
+	spHeadFrame->setPosition(visibleSize.width*0.14, visibleSize.height*0.9);
+	addChild(spHeadFrame);
+	auto sssize = spHeadFrame->getContentSize();
 
-	//金币充值按钮
-	MenuItemImage* recharge_image = MenuItemImage::create("fish_gold.png", "fish_gold.png", CC_CALLBACK_0(LobbyScene::rechargeGold, this));
-	Menu* recharge = Menu::create(recharge_image,NULL);
-	recharge->setPosition(ccp(visibleSize.width -50, visibleSize.height - 50));
-	this->addChild(recharge);
+	auto spHead = Sprite::create();
+	int sex = rand() % 2;
+	if (sex)
+	{
+		spHead->setTexture("headMan.png");
+	}
+	else
+	{
+		spHead->setTexture("headWomen.png");
+	}
+	spHead->setPosition(sssize.width*0.14, sssize.height*0.63);
+	spHeadFrame->addChild(spHead);
 
-	//设置按钮
-	MenuItemImage* settting_img = MenuItemImage::create("btn_setting.png", "btn_setting.png", CC_CALLBACK_0(LobbyScene::showSettingLayer, this));
-	Menu* settting = Menu::create(settting_img, NULL);
-	settting->setPosition(ccp(50,100));
-	this->addChild(settting);
+	auto userName = LabelTTF::create(user->getUserName(), "arial", 20);
+	userName->setPosition(sssize.width*0.6, sssize.height*0.87);
+	spHeadFrame->addChild(userName);
 
-	//公告底图
-	auto bgk = Sprite::createWithSpriteFrameName("input_bg.png");
-	bgk->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 150));
-	addChild(bgk);
+	auto userlevel = LabelTTF::create(Value(user->getLevel()).asString().c_str(), "arial", 20);
+	userlevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	userlevel->setPosition(sssize.width*0.245, sssize.height *0.17);
+	spHeadFrame->addChild(userlevel);
 
-	// 公告上的喇叭
-	auto bgv = Sprite::createWithSpriteFrameName("bt_paste.png");
-	bgv->setPosition(Vec2(visibleSize.width / 2-150, visibleSize.height / 2 + 150));
-	addChild(bgv);
+	auto viplevelFrame = Sprite::create("viplevelFrame.png");
+	viplevelFrame->setPosition(sssize.width * 1.05, sssize.height*0.88);
+	auto viplevel = LabelTTF::create(Value(user->getVipLevel()).asString().c_str(), "arial", 20);
+	viplevel->setPosition(Vec2(viplevelFrame->getContentSize() / 2)+Vec2(0,2));
+	viplevelFrame->addChild(viplevel);
+	spHeadFrame->addChild(viplevelFrame);
+
+	auto exeDescribe = LabelTTF::create(user->getLevelDesc(), "arial", 17);
+	exeDescribe->setPosition(sssize.width*0.63, sssize.height*0.47);
+	spHeadFrame->addChild(exeDescribe);
+
+	//金币
+	auto coinFrame = Sprite::create("coinFrame.png");
+	coinFrame->setPosition(visibleSize.width*0.45, visibleSize.height*0.95);
+	addChild(coinFrame);
+	sssize = coinFrame->getContentSize();
+	auto coin = Sprite::create("coin.png");
+	coin->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	coin->setPosition(3, sssize.height *0.49);
+	coinFrame->addChild(coin);
+
+	auto userCoin = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
+	userCoin->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	userCoin->setPosition(sssize.width*0.85, sssize.height *0.5);
+	userCoin->setColor(Color3B(254,248,52));
+	coinFrame->addChild(userCoin);
+
+	auto addCoin = MenuItemImage::create("addBtn_nor.png", "addBtn_click.png", CC_CALLBACK_1(LobbyScene::payCoinCallback,this));
+	addCoin->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	addCoin->setPosition(coinFrame->getPositionX() + sssize.width*0.48, coinFrame->getPositionY());
 
 
-	//公告 赢取话费
-	auto post = Label::create();
-	post->setSystemFontSize(24);
-	post->setString(ChineseWord("post"));
-	post->setPosition(Vec2(visibleSize.width/2+50,visibleSize.height/2+150));
-	addChild(post);
+	//钻石
+	auto diamondFrame = Sprite::create("coinFrame.png");
+	diamondFrame->setPosition(visibleSize.width*0.74, visibleSize.height*0.95);
+	addChild(diamondFrame);
+	sssize = diamondFrame->getContentSize();
+	auto diamond = Sprite::create("diamond.png");
+	diamond->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	diamond->setPosition(1, sssize.height *0.495);
+	diamond->setScale(0.8);
+	diamondFrame->addChild(diamond);
+
+	auto userdiamond = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
+	userdiamond->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	userdiamond->setPosition(sssize.width*0.85, sssize.height *0.5);
+	userdiamond->setColor(Color3B(254, 248, 52));
+	diamondFrame->addChild(userdiamond);
+
+	auto adddiamond = MenuItemImage::create("addBtn_nor.png", "addBtn_click.png", CC_CALLBACK_1(LobbyScene::payDiamondCallback, this));
+	adddiamond->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	adddiamond->setPosition(diamondFrame->getPositionX() + sssize.width*0.48, diamondFrame->getPositionY());
 
 
+
+	auto menu = Menu::create(addCoin, adddiamond, nullptr);
+	menu->setPosition(Point::ZERO);
+	addChild(menu);
 	//添加系统返回键监听
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
@@ -94,18 +136,6 @@ bool LobbyScene::init()
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 	return true;
-}
-
-void LobbyScene::startGame(){
-	Director::getInstance()->replaceScene(TransitionFade::create(1,GameScene::create()));
-}
-
-void LobbyScene::rechargeGold(){
-	//TODO 弹出计费点
-}
-
-void LobbyScene::showSettingLayer(){
-	//TODO 弹出设置界面
 }
 
 
@@ -131,6 +161,7 @@ void LobbyScene::loadResource(){
 	//load json
 	ConfigItem::getInstance()->LoadConfig();
 	ConfigVipLevel::getInstance()->LoadConfig();
+	ConfigTurrent::getInstance()->LoadConfig();
 }
 
 
@@ -140,52 +171,11 @@ void LobbyScene::createRoomLayer()
 }
 
 
-void LobbyScene::tableCellTouched(TableView* table, TableViewCell* cell)
+void LobbyScene::payCoinCallback(Ref*psend)
 {
-	CCLOG("cell touched at index: %ld", cell->getIdx());
+
 }
-
-Size LobbyScene::tableCellSizeForIndex(TableView *table, ssize_t idx)
+void LobbyScene::payDiamondCallback(Ref*psend)
 {
-	return Size(500, 200);
-}
 
-TableViewCell* LobbyScene::tableCellAtIndex(TableView *table, ssize_t idx)
-{
-	CCString *nameString = CCString::createWithFormat("cell_%d.png", idx);
-
-	TableViewCell *cell = table->dequeueCell();
-
-	if (!cell)
-	{
-
-		cell = new TableViewCell();
-
-		cell->autorelease();
-
-		//设置当前cell图片
-		CCSprite *iconSprite = CCSprite::create(nameString->getCString());
-		iconSprite->setAnchorPoint(Point::ZERO);
-		iconSprite->setPosition(ccp(0, 0));
-		iconSprite->setTag(123);
-		cell->addChild(iconSprite);
-
-	}
-	else
-	{
-		CCTexture2D *aTexture = CCTextureCache::sharedTextureCache()->addImage(nameString->getCString());
-
-		CCSprite *pSprite = (CCSprite *)cell->getChildByTag(123);
-
-		pSprite->setTexture(aTexture);
-
-	}
-
-
-	return cell;
-}
-
-ssize_t LobbyScene::numberOfCellsInTableView(TableView *table)
-{
-	return 4;
 }

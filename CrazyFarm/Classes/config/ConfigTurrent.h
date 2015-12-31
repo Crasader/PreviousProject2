@@ -19,7 +19,6 @@ struct Turrent {
     int unlockPrice;
     int multiple;
     std::vector<Reward> rewardList;
-
 };
 
 

@@ -55,7 +55,7 @@ int User::addDiamonds(int diamonds) {
 }
 
 int User::getMaxTurrentLevel() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_M_TURRENT, 1);
+    return UserDefault::getInstance()->getIntegerForKey(User::KEY_M_TURRENT, 3);
 }
 
 bool User::setMaxTurrentLevel(int maxTurrentLevel) {

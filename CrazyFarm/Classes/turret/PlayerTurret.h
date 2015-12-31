@@ -5,6 +5,7 @@
 #include "user.h"
 #include "RoomPlayer.h"
 #include "fish/Fish.h"
+#include "config/ConfigTurrent.h"
 USING_NS_CC;
 class PlayerTurret : public Sprite{
 public:
@@ -27,7 +28,7 @@ public:
 	  void setAIinfo(AI* info);
 	  void doAIthing(float dt);
 private:
-	 Turret* m_turret;
+	Turrent  m_turretdata;
 	  int turretType;
 	  void upgradeTurret(Ref* psend);
 	  void degradeTurret(Ref* psend);
@@ -39,6 +40,7 @@ private:
 	  CC_SYNTHESIZE(int, nMaxlevel, nMaxLevel);
 	  bool isRobot = true;
 
+	  Turret* m_turret;
 	  int nChairNoIndex = -1;
 
 };

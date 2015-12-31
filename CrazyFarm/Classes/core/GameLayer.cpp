@@ -248,7 +248,6 @@ void GameLayer::createAI()
 void GameLayer::collisionUpdate(float dt)
 {
 
-	CCLOG("collision update");
 	//TODO 碰撞逻辑
 	//step1 获取子弹列表
 	auto allBullets = BulletManage::getInstance()->getAllBullets();

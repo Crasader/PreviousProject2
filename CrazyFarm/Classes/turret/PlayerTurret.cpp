@@ -34,24 +34,30 @@ void PlayerTurret::initWithType(int type){
 
 void PlayerTurret::upgradeTurret(Ref* psend)
 {
-
-	auto nowlevel = Value(nCurLevel->getString().c_str()).asInt();
-	nCurLevel->setString(Value(++nowlevel).asString());
+	auto nowlevel = m_turretdata.turrentId;
+	if (++nowlevel>nMaxlevel)
+	{
+		--nowlevel;
+	}
+	
+	m_turretdata = ConfigTurrent::getInstance()->getTurrent(nowlevel);
+	nCurLevel->setString(Value(m_turretdata.showLevel).asString());
 	m_turret->upgradeTurret();
 }
 void PlayerTurret::degradeTurret(Ref* psend)
 {
-	auto nowlevel = Value(nCurLevel->getString().c_str()).asInt();
-	nCurLevel->setString(Value(--nowlevel).asString());
+	auto nowlevel = m_turretdata.turrentId;
+	if (--nowlevel < 0)
+	{
+		++nowlevel;
+	}
+	m_turretdata = ConfigTurrent::getInstance()->getTurrent(nowlevel);
+	nCurLevel->setString(Value(m_turretdata.showLevel).asString());
 	m_turret->degradeTurret();
 }
 
 void PlayerTurret::rorateTurret(float angle)
 {
-	if (nChairNoIndex > 1)
-	{
-		angle -= 180;
-	}
 	auto rotate = RotateTo::create(0.1, angle);
 	m_turret->runAction(rotate);
 }
@@ -64,9 +70,9 @@ void PlayerTurret::setMaxLevel(int maxlevel)
 }
 
 void PlayerTurret::shoot(float degree){
-	if (nChairNoIndex>1)
+	if (nChairNoIndex > 1)
 	{
-		degree -= 180;
+		degree = 180+degree;
 	}
 	auto bullet = BulletManage::getInstance()->createBullet(rand() % 8, 90);
 	bullet->setRotation(degree);
@@ -83,14 +89,14 @@ void PlayerTurret::shoot(float degree){
 	//花费金币
 	if (isRobot)
 	{
-		auto num = Value(nCurLevel->getString()).asInt();
+		auto num = Value(m_turretdata.multiple).asInt();
 		auto nowNum = Value(m_CoinLabel->getString()).asInt();
 		m_CoinLabel->setString(Value(nowNum-num).asString().c_str());
 	}
 	else
 	{
-	auto num = Value(nCurLevel->getString()).asInt();
-	m_CoinLabel->setString(Value(User::getInstance()->addCoins(-num)).asString().c_str());
+		auto num = Value(m_turretdata.multiple).asInt();
+		m_CoinLabel->setString(Value(User::getInstance()->addCoins(-num)).asString().c_str());
 	}
 	
 
@@ -104,11 +110,15 @@ void PlayerTurret::setAIinfo(AI*info)
 
 void PlayerTurret::doAIthing(float dt)
 {
+	
 	auto walk = m_aiinfo->nextStep(10);
 	rorateTurret(walk.getAngle());
+	
+	
 	if (walk.getFire())
 	{
-		shoot(m_turret->getRotation());
+		runAction(Sequence::create(DelayTime::create(0.10f), CallFunc::create([&]{shoot(m_turret->getRotation()); }), nullptr));
+		
 	}
 }
 Point coinPos[4] =
@@ -166,14 +176,16 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 
 void PlayerTurret::initWithDate(User* user,int index)
 {
-	initWithType(100);
+	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurrentLevel());
+	initWithType(user->getMaxTurrentLevel());
 	setUpgradeButton();
-	setMaxLevel(100);
+	setMaxLevel(user->getMaxTurrentLevel());
 	createPlayerCoin(user,index);
 	nChairNoIndex = index;
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
 {
+	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurretLevel());
 	nChairNoIndex = user->getRoomPosition();
 	initWithType(user->getMaxTurretLevel());
 	setMaxLevel(user->getMaxTurretLevel());
@@ -190,13 +202,13 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 	///需要鱼的配置属性
 	if (isRobot)
 	{
-		auto num = 100;
+		auto num = 100 * m_turretdata.multiple;
 		auto nowNum = Value(m_CoinLabel->getString()).asInt();
 		m_CoinLabel->setString(Value(nowNum + num).asString().c_str());
 	}
 	else
 	{
-		auto num = 100;
+		auto num = 100 * m_turretdata.multiple;
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
 	}
 }
