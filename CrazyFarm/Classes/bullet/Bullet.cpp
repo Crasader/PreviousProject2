@@ -119,7 +119,7 @@ bool Bullet::checkWidthBorder(float x){
 
 void Bullet::getCoinForFish(Vector<Fish*> fishs)
 {
-	for each (auto var in fishs)
+	for(auto var : fishs)
 	{
 		pPlayerTurret->getCoinByFish(var);
 	}
