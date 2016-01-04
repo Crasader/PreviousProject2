@@ -7,6 +7,7 @@ class Jong :public Node{
 public:
 	virtual bool init();
 	void showJong(int bType,int cType);
+	Rect getJongBoundingBox();
 	//CC_SYNTHESIZE(int, jongType, JongType);
 	CREATE_FUNC(Jong);
 private:

@@ -16,8 +16,11 @@ public:
 	void drawPlayerRight();
 	void drawPlayerOpposite();
 	void drawHeadPortrait(HeadPortrait* headPortrait);
+	bool onTouchBegan(Touch *touch, Event  *event);
+	void onTouchMoved(Touch *touch, Event  *event);
+	void onTouchEnded(Touch *touch, Event  *event);
 	CREATE_FUNC(MahjongView);
 
-	Vector<Jong*> jongs;//麻将牌队列
+	Vector<Jong*> selfJongs;//麻将牌队列
 };
 #endif

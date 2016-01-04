@@ -16,6 +16,17 @@ void Jong::showJong(int bType, int cType){
 	drawContent(cType);
 }
 
+Rect Jong::getJongBoundingBox(){
+	Rect rect;
+	//CCLOG("scale = %f",getScale());
+	//CCLOG("width = %f", content->getBoundingBox().size.width);
+	rect.setRect(this->getPositionX() - content->getBoundingBox().size.width  * getScale() / 2,
+		this->getPositionY() - content->getBoundingBox().size.height  * getScale() / 2,
+		content->getBoundingBox().size.width  * getScale(),
+		content->getBoundingBox().size.height  * getScale());
+	return rect;
+}
+
 
 void Jong::drawBackGround(int bType){
 	backGround->setTexture("gamemj/xiali.png");
