@@ -23,8 +23,8 @@ public:
 private:
 	Vector<Jong*> selfJongs;//麻将牌队列
 	Jong* selectJong;//选中的牌
-	Point touchDownPoint;
-	Point touchUpPoint;
-	Point touchCurPoint;
+	void resetJongPos();//回复牌的位置
+	void resetAllJong();//回复牌的位置
+
 };
 #endif

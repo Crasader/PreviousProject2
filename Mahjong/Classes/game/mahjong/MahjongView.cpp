@@ -123,6 +123,7 @@ void MahjongView::onTouchMoved(Touch *touch, Event  *event){
 	{
 		if (selfJongs.at(i)->getJongBoundingBox().containsPoint(touch->getLocation())){
 			selectJong = selfJongs.at(i);
+			resetJongPos();
 			break;
 		}
 		selectJong = nullptr;
@@ -131,6 +132,9 @@ void MahjongView::onTouchMoved(Touch *touch, Event  *event){
 	if (touch->getLocation().y - touch->getPreviousLocation().y > 0 && nullptr != selectJong){
 		selectJong->setPosition(ccp(selectJong->getPositionX(),selectJong->getPositionY() + 
 			(touch->getLocation().y - touch->getPreviousLocation().y)));
+	}
+	if (nullptr != selectJong && selectJong->getPositionY() > 150){
+		selectJong->setPosition(ccp(selectJong->getPositionX(), 150));
 	}
 
 	//if ()
@@ -152,6 +156,24 @@ void MahjongView::onTouchMoved(Touch *touch, Event  *event){
 
 
 void MahjongView::onTouchEnded(Touch *touch, Event  *event){
+	//高度检查,超出高度后当弃选
+	resetAllJong();
+}
 
+void MahjongView::resetAllJong(){
+	for (int i = 0; i < selfJongs.size(); i++)
+	{
+		selfJongs.at(i)->setPosition(ccp(selfJongs.at(i)->getPositionX(), 100));
+	}
+}
 
+void MahjongView::resetJongPos(){
+	if (nullptr != selectJong){
+		for (int i = 0; i < selfJongs.size(); i++)
+		{
+			if (selfJongs.at(i) != selectJong){
+				selfJongs.at(i)->setPosition(ccp(selfJongs.at(i)->getPositionX(), 100));
+			}
+		}
+	}
 }
