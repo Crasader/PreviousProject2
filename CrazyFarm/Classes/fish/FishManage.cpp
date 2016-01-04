@@ -40,28 +40,51 @@ void FishManage::decideFishPos(Fish* fish){
 		//获取鱼的大小
 		auto x = fish->getBoundingBox().size.width;
 		auto y = rand() % (int)(visibleSize.height);
-		fish->setRotation(270);
+		fish->setRotation(0);
 		fish->setPosition(ccp(-x, y));
+		fish->setDirection(RIGHT);
 		break; }
 	case BORDER_TOP:{
 		auto x = rand() % (int)(visibleSize.width);
 		auto y = fish->getBoundingBox().size.width;
 		fish->setPosition(ccp(x, visibleSize.height + y));
-		fish->setRotation(0);
+		fish->setRotation(90);
+		fish->setDirection(DOWN);
 		break;
 	}
 	case BORDER_RIGHT:{
 		auto x = fish->getBoundingBox().size.width;
 		auto y = rand() % (int)(visibleSize.height);
 		fish->setPosition(ccp(visibleSize.width + x, y));
-		fish->setRotation(90);
+		fish->setRotation(180);
+		fish->setDirection(LEFT);
 		break; }
 	case BORDER_BOTTOM:{
 		auto x = rand() % (int)(visibleSize.width);
 		auto y = fish->getBoundingBox().size.width;
 		fish->setPosition(ccp(x, -y));
-		fish->setRotation(180);
+		fish->setRotation(270);
+		fish->setDirection(UP);
 		break; }
 	}
 }
 
+void FishManage::removeFishWhichSwimOut()
+{
+	auto visibisize = Director::getInstance()->getVisibleSize();
+	Rect rect = Rect(-200, -100, visibisize.width + 400, visibisize.height+ 200);
+	Vector<Fish*> needRemoveFishs;
+	for (auto fish:fishPool)
+	{
+		auto pos = fish->getPosition();
+		if (!rect.containsPoint(pos))
+		{
+			needRemoveFishs.pushBack(fish);
+		}
+	}
+	for (auto fish:needRemoveFishs)
+	{
+		fishPool.eraseObject(fish);
+		fish->removeFromParentAndCleanup(1);
+	}
+}

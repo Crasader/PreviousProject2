@@ -38,7 +38,7 @@ bool GameLayer::init(){
 void GameLayer::createFish(float dt){
 	Fish* fish = FishManage::getInstance()->createFishSingle();
 	FishManage::getInstance()->decideFishPos(fish);
-	fish->move(1);
+	fish->move(3);
 	this->addChild(fish);
 }
 
@@ -279,4 +279,6 @@ void GameLayer::collisionUpdate(float dt)
 			}
 		}
 	}
+
+	FishManage::getInstance()->removeFishWhichSwimOut();
 }

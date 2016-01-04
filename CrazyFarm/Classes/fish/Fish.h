@@ -14,6 +14,16 @@ using namespace cocos2d;
 #define FISHTYPE_7 7
 #define FISHTYPE_8 8
 
+
+enum swimDirection
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+};
+
+
 using namespace std;
 
 class Fish :public Sprite{
@@ -25,7 +35,9 @@ public:
 	Sprite* getRectSprite();
 	int getFishGold(){ return fishGold; }
 	float getGrabProbability(){ return grabProbability; }
+	
 private:
+	void update(float);
 	float grabProbability;
 	int speed;//鱼的移动速度
 	int fishType;//鱼的类型
@@ -37,13 +49,18 @@ private:
 	int getFishGoldByType(int type);
 	int getFishExperienceByType(int type);
 	float getFishSpeedByType(int type);
-	void initFishAnim(string name, int startIndex);
+	void initFishAnim(int fishType);
 	void moveFishStraight(float dt);//直线移动
 	void moveFishCircle(float dt);//圆周运动
-	void moveFishRandom(float dt);//随机运动
+	void moveFishRandomStraight(float dt);//随机直线运动
+	void moveFishRandomCurve(float dt);//随机曲线运动
 	Point getNextPostion(Point pos,float speed,float degree);
+	Point getRandomPostion(float speed, swimDirection direction,float &angle);
 	bool checkOutBorder();
 	Sprite* image;
+
+	CC_SYNTHESIZE(swimDirection, nDirection, Direction);
+	Point LastPos;
 };
 
 #endif

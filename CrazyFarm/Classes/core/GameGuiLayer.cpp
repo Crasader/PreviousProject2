@@ -81,7 +81,7 @@ void GameGuiLayer::showRandonBubbleAni()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto aniNode = Sprite::create();
-	aniNode->setPosition(rand() % ((int)(visibleSize.width)), rand() % ((int)(visibleSize.height)));
+	aniNode->setPosition(rand() % ((int)(visibleSize.width)), rand() % ((int)(visibleSize.height/2)));
 	addChild(aniNode, 5);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniBubble"), RemoveSelf::create(1), nullptr));
 	int k = rand() % 30 + 50;

@@ -156,6 +156,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\data\GameData.cpp" />
     <ClCompile Include="..\Classes\data\GameState.cpp" />
     <ClCompile Include="..\Classes\fish\Fish.cpp" />
+    <ClCompile Include="..\Classes\fish\FishAniMannage.cpp" />
     <ClCompile Include="..\Classes\fish\FishManage.cpp" />
     <ClCompile Include="..\Classes\level\LevelLayer.cpp" />
     <ClCompile Include="..\Classes\level\LevelScene.cpp" />
@@ -202,6 +203,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\data\GameData.h" />
     <ClInclude Include="..\Classes\data\GameState.h" />
     <ClInclude Include="..\Classes\fish\Fish.h" />
+    <ClInclude Include="..\Classes\fish\FishAniMannage.h" />
     <ClInclude Include="..\Classes\fish\FishManage.h" />
     <ClInclude Include="..\Classes\level\LevelLayer.h" />
     <ClInclude Include="..\Classes\level\LevelScene.h" />

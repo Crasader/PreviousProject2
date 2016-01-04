@@ -8,6 +8,7 @@
 #include "config/ConfigFish.h"
 #include "User.h"
 #include "lobby/bagLayer.h"
+#include "fish/FishAniMannage.h"
 Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
@@ -169,6 +170,18 @@ void LobbyScene::loadResource(){
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/water/aniWater%d.jpg","aniWater",2.0f,20);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/shootFire/aniShoot%d.png", "aniShoot", 0.5f, 5);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/bubble/aniBubble%d.png", "aniBubble", 2.0f, 19);
+	//load fish ani
+	int i = 1;
+	while (1)
+	{
+		auto jsonPath = String::createWithFormat("fish/fish_frame_%d.json", i);
+		auto plistPath = String::createWithFormat("fish/fish_frame_%d.plist", i);
+		if (!FishAniMannage::getInstance()->loadAniByJsonAndPlist(jsonPath->getCString(), plistPath->getCString()))
+		{
+			break;
+		}
+		i++;
+	}
 	//load json
 	ConfigItem::getInstance()->LoadConfig();
 	ConfigVipLevel::getInstance()->LoadConfig();

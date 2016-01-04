@@ -18,6 +18,7 @@ public:
 	void removeFish(Fish* fish);
 	void decideFishPos(Fish* fish);//决定鱼的出生位置
 	Vector<Fish*> getAllFishInPool();
+	void removeFishWhichSwimOut();///移除屏幕外的鱼
 private :
 	FishManage();
 	static FishManage* _instance;

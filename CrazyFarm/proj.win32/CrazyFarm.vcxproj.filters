@@ -201,6 +201,9 @@
     <ClCompile Include="..\Classes\lobby\bagLayer.cpp">
       <Filter>src\lobby</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\fish\FishAniMannage.cpp">
+      <Filter>src\fish</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -337,6 +340,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\bagLayer.h">
       <Filter>src\lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\fish\FishAniMannage.h">
+      <Filter>src\fish</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,11 @@
 #include "fish/Fish.h"
-
+#include "fish/FishAniMannage.h"
 bool Fish::init(){
 	if (!Sprite::init())
 	{
 		return false;
 	}
-
+	this->scheduleUpdate();
 	return true;
 }
 
@@ -17,30 +17,29 @@ void Fish::initFish(int fishType){
 	this->speed = getFishSpeedByType(fishType);;
 	this->experience = getFishExperienceByType(fishType);
 	this->resoureName = getSrcByType(fishType);///2_02.png
-	initFishAnim(resoureName, 0);
+	initFishAnim(fishType);
 }
 
-void Fish::initFishAnim(string name, int startIndex){
-	initWithSpriteFrameName(name + "1.png");
-	
-	Vector<SpriteFrame*> animFrames;
-	int i = startIndex;
-	do {
-		SpriteFrame* frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(name + String::createWithFormat("%d", i + 1)->_string + ".png");
-		if (frame) {
-			animFrames.pushBack(frame);
-		}
-		else {
-			break;
-		}
+void Fish::initFishAnim(int fishType){
+	initWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(fishType));
 
-	} while (++i);
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-	auto action = RepeatForever::create(Animate::create(animation));
-	runAction(action);
+	auto acName = String::createWithFormat("swim_%d", fishType);
+	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+	runAction(ac);
+}
+void Fish::update(float dt)
+{
+	//if (getPosition().distance(LastPos) > 0)
+	//{
+	//	auto raroAngle = 1.5*3.1415926f - (getPosition() - LastPos).getAngle();
+	//	setRotation(CC_RADIANS_TO_DEGREES(raroAngle)+90);
+	//	LastPos = getPosition();
+
+	//}
 }
 
 string Fish::getSrcByType(int type){
+	/*return FishAniMannage::getInstance()->getSpriteById(type);*/
 	switch (type)
 	{
 	case FISHTYPE_1:
@@ -92,7 +91,7 @@ void Fish::move(int moveType){
 		schedule(schedule_selector(Fish::moveFishCircle), 0, 0, 0);
 		break;
 	default:
-		schedule(schedule_selector(Fish::moveFishRandom), 0, CC_REPEAT_FOREVER, 0);
+		schedule(schedule_selector(Fish::moveFishRandomStraight), rand()%3+2, CC_REPEAT_FOREVER, 0);
 		break;
 	}
 }
@@ -111,11 +110,26 @@ void Fish::moveFishCircle(float dt){
 	this->runAction(cirlce);
 }
 
-void Fish::moveFishRandom(float dt){
-	//TOOD 鱼的随机运动
-
+void Fish::moveFishRandomStraight(float dt){
+	//TOOD 鱼的随机直线运动
+	float angle = 0;
+	float randnum = (rand() % 4+8)/10.0f;
+	Point nextPos = getRandomPostion(dt*speed*randnum, this->getDirection(), angle);
+	auto move = MoveBy::create(dt, nextPos);
+	
+	runAction(move);
+	runAction(RotateTo::create(0.1, 360-angle));
 }
 
+void Fish::moveFishRandomCurve(float dt)
+{
+	float angle = 0;
+	Point nextPos = getRandomPostion(dt*speed, this->getDirection(), angle);
+	auto move = MoveBy::create(dt, nextPos);
+	this->runAction(EaseSineOut::create(move));
+
+	runAction(RotateTo::create(0.1, 360 - angle));
+}
 
 Point Fish::getNextPostion(Point pos, float speed, float degree){
 	//TODO 完善鱼的直线移动
@@ -123,7 +137,6 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 		degree += 360;
 	}
 	//图片自身朝下
-	degree += 90;
 	float next_x = speed*cos(CC_DEGREES_TO_RADIANS(degree));
 	float next_y = speed*sin(CC_DEGREES_TO_RADIANS(degree));
 	int rotation = (int)degree % 360;
@@ -140,15 +153,43 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 	else if (rotation >= 180 && rotation < 270){
 		pos.x -= abs(next_x);
 		pos.y += abs(next_y);
-		return Vec2(-next_x, next_y);
+		return Vec2(next_x, next_y);
 	}
 	else if (rotation >= 270 && rotation < 360){
 		pos.x += abs(next_x);
 		pos.y += abs(next_y);
-		return Vec2(next_x, next_y);
+		return Vec2(next_x, -next_y);
 	}
 	return  Point(pos.x, pos.y);
 }
+
+Point Fish::getRandomPostion(float speed, swimDirection direction, float &angle)
+{
+	
+	switch (direction)
+	{
+	case DOWN:
+		angle = rand() % 90+225;
+		break;
+	case LEFT:
+		angle = rand() % 90 + 135;
+		break;
+	case RIGHT:
+		angle = rand() % 90 - 45;
+		break;
+	case UP:
+		angle = rand() % 90+45 ;
+		break;
+	default:
+		return Vec2(0, 0);
+	}
+	return Vec2(speed*cos(CC_DEGREES_TO_RADIANS(angle)), speed*sin(CC_DEGREES_TO_RADIANS(angle)));
+
+}
+
+
+
+
 
 bool Fish::checkOutBorder(){
 	return false;
