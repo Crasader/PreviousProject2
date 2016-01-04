@@ -26,6 +26,7 @@ bool BagLayer::init()
 		bg->setPosition(visibleSize / 2);
 		addChild(bg,-1);
 		auto user = User::getInstance();
+		auto leveldata = user->getLevelData();
 		auto bagFram = Sprite::create("bagFrame.png");
 		bagFram->setPosition(visibleSize.width/2, visibleSize.height*0.45);
 		addChild(bagFram);
@@ -66,7 +67,7 @@ bool BagLayer::init()
 		auto spLV = Sprite::create("LV.png");
 		spLV->setPosition(sssize2.width*0.385, sssize2.height*0.74);
 		playinfoFram->addChild(spLV);
-		auto userlevel = LabelAtlas::create(Value(user->getLevel()).asString().c_str(), "levelnum.png", 12,17,'0');
+		auto userlevel = LabelAtlas::create(Value(leveldata.levelId).asString().c_str(), "levelnum.png", 12, 17, '0');
 		userlevel->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		userlevel->setPosition(spLV->getPositionX()+spLV->getContentSize().width, spLV->getPositionY());
 		playinfoFram->addChild(userlevel);
@@ -87,7 +88,8 @@ bool BagLayer::init()
 		viplevel->setPosition(sssize2.width*0.65, sssize2.height *0.37);
 		playinfoFram->addChild(viplevel);
 		//О­бщ
-		auto exeDescribe = LabelTTF::create(user->getLevelDesc(), "arial", 17);
+		//////////////////////////////////////////////////////////
+		auto exeDescribe = LabelTTF::create("100/200", "arial", 17);
 		exeDescribe->setPosition(sssize2.width*0.72, sssize2.height*0.74);
 		playinfoFram->addChild(exeDescribe);
 

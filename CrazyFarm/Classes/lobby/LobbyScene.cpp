@@ -28,6 +28,7 @@ bool LobbyScene::init()
     //add all fish plsit
 	loadResource();
 	auto user = User::getInstance();
+	auto leveldata = user->getLevelData();
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* lobby_bg = Sprite::create("lobbyBG.png");
 	lobby_bg->setPosition(visibleSize.width/2,visibleSize.height/2);
@@ -58,7 +59,7 @@ bool LobbyScene::init()
 	userName->setPosition(sssize.width*0.6, sssize.height*0.87);
 	spHeadFrame->addChild(userName);
 
-	auto userlevel = LabelTTF::create(Value(user->getLevel()).asString().c_str(), "arial", 20);
+	auto userlevel = LabelTTF::create(Value(leveldata.levelId).asString().c_str(), "arial", 20);
 	userlevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	userlevel->setPosition(sssize.width*0.245, sssize.height *0.17);
 	spHeadFrame->addChild(userlevel);
@@ -70,8 +71,8 @@ bool LobbyScene::init()
 	viplevel->setPosition(Vec2(viplevelFrame->getContentSize() / 2));
 	viplevelFrame->addChild(viplevel);
 	spHeadFrame->addChild(viplevelFrame);
-
-	auto exeDescribe = LabelTTF::create(user->getLevelDesc(), "arial", 17);
+	////////////////////////////////////////////////
+	auto exeDescribe = LabelTTF::create("100/200", "arial", 17);
 	exeDescribe->setPosition(sssize.width*0.63, sssize.height*0.47);
 	spHeadFrame->addChild(exeDescribe);
 
