@@ -92,7 +92,7 @@ void MahjongView::drawHeadPortrait(HeadPortrait* headPortrait){
 
 
 bool MahjongView::onTouchBegan(Touch *touch, Event  *event){
-	//被选中的牌跟随手指移动,检测移动距离
+	//被选中的牌跟随手指移动
 	CCLOG("current pos === %f,%f", touch->getLocation().x, touch->getLocation().y);
 	
 	for (int i = 0; i < selfJongs.size(); i++)
@@ -104,16 +104,48 @@ bool MahjongView::onTouchBegan(Touch *touch, Event  *event){
 		//CCLOG("JongBoundingBox y2 === %f", selfJongs.at(i)->getJongBoundingBox().getMaxY());
 		if (selfJongs.at(i)->getJongBoundingBox().containsPoint(touch->getLocation())){
 			CCLOG("find the jong");
+			selectJong = selfJongs.at(i);
+			return true;
 		}
 	}
-
-	//判断是都属于玩家回合,是:打出,不是:回复
+	selectJong = nullptr;
 	return true;
 }
 
 
 void MahjongView::onTouchMoved(Touch *touch, Event  *event){
+	//TODO 添加牌的动效
+	//区域判断（允许区域=正常的宽*1.5倍的高）
+	//touch->getPreviousLocation();
+	//touch->getLocation();
+	//区域检查
+	for (int i = 0; i < selfJongs.size(); i++)
+	{
+		if (selfJongs.at(i)->getJongBoundingBox().containsPoint(touch->getLocation())){
+			selectJong = selfJongs.at(i);
+			break;
+		}
+		selectJong = nullptr;
+	}
 
+	if (touch->getLocation().y - touch->getPreviousLocation().y > 0 && nullptr != selectJong){
+		selectJong->setPosition(ccp(selectJong->getPositionX(),selectJong->getPositionY() + 
+			(touch->getLocation().y - touch->getPreviousLocation().y)));
+	}
+
+	//if ()
+	//if (rect.containsPoint(touch->getLocation())){
+	//	//if (touch->getLocation())
+	//
+	//}
+	//当前是否轮到自己出牌
+	//if (true){
+	//	selectJong->setOpacity(100);
+	//	//设置子节点的透明度随父节点变化
+	//	selectJong->setCascadeColorEnabled(true);
+	//	selectJong->setCascadeOpacityEnabled(true);
+	//}
+	//selectJong->setPosition(touch->getLocation());
 
 }
 

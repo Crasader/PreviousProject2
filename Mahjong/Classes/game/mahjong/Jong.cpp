@@ -8,6 +8,7 @@ bool Jong::init(){
 	this->addChild(backGround);
 	content = Sprite::create();
 	this->addChild(content);
+
 	return true;
 }
 
@@ -26,6 +27,14 @@ Rect Jong::getJongBoundingBox(){
 		content->getBoundingBox().size.height  * getScale());
 	return rect;
 }
+
+//
+//void Jong::setOpacity(){
+//
+//	content->setOpacity(100);
+//	backGround->setOpacity(100);
+//
+//}
 
 
 void Jong::drawBackGround(int bType){

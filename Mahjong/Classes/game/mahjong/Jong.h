@@ -8,6 +8,7 @@ public:
 	virtual bool init();
 	void showJong(int bType,int cType);
 	Rect getJongBoundingBox();
+	//void setOpacity();
 	//CC_SYNTHESIZE(int, jongType, JongType);
 	CREATE_FUNC(Jong);
 private:

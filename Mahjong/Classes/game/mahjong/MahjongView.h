@@ -20,7 +20,11 @@ public:
 	void onTouchMoved(Touch *touch, Event  *event);
 	void onTouchEnded(Touch *touch, Event  *event);
 	CREATE_FUNC(MahjongView);
-
+private:
 	Vector<Jong*> selfJongs;//麻将牌队列
+	Jong* selectJong;//选中的牌
+	Point touchDownPoint;
+	Point touchUpPoint;
+	Point touchCurPoint;
 };
 #endif
