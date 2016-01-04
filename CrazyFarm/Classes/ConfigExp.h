@@ -4,17 +4,25 @@
 
 using namespace cocos2d;
 
+struct LevelData {
+    int levelId;
+    int haveExp;
+    int passNeedExp;
+};
+
 class ConfigExp{
 public:
 	static ConfigExp* getInstance();
+
     
-    int getLevel(int exp);
-    char* getLevelDesc(int exp);
+    LevelData getLevelData(int exp);
 
 private:
 	ConfigExp();
 	void init();
 	static ConfigExp* _instance;
+    
+    int getLevelId(int exp);
 
 };
 

@@ -19,13 +19,16 @@ ConfigExp* ConfigExp::getInstance(){
     return _instance;
 }
 
-int ConfigExp::getLevel(int exp) {
+int ConfigExp::getLevelId(int exp) {
     // TODO : wait impl
     return 1;
 }
 
-char* ConfigExp::getLevelDesc(int exp) {
-    // TODO : wait impl
-    return "0/200";
+LevelData ConfigExp::getLevelData(int exp) {
+    LevelData levelData;
+    levelData.levelId = getLevelId(exp);
+    levelData.haveExp = 20;
+    levelData.passNeedExp = 200;
+    return levelData;
 }
 

@@ -2,6 +2,7 @@
 #define _USER_H_
 #include "cocos2d.h"
 
+#include "ConfigExp.h"
 #include "config/ConfigVipLevel.h"
 
 using namespace cocos2d;
@@ -38,8 +39,8 @@ public:
      * return true, level up!! else, return false.
      */
     bool addExp(int exp);
-    int getLevel();
-    char* getLevelDesc();
+    
+    LevelData getLevelData();
 
 private:
 	User();

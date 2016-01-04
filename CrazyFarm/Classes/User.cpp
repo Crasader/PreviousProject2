@@ -1,5 +1,5 @@
 #include "User.h"
-#include "ConfigExp.h"
+
 
 User* User::_instance = NULL;
 
@@ -70,23 +70,18 @@ bool User::setMaxTurrentLevel(int maxTurrentLevel) {
 
 bool User::addExp(int exp) {
     if(exp > 0) {
-        int currentLevel = this->getLevel();
+        int currentLevel = this->getLevelData().levelId;
         UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP,
                 UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0) + exp);
-        if(this->getLevel() > currentLevel) {
+        if(this->getLevelData().levelId > currentLevel) {
             return true;
         }
     }
     return false;
 }
 
-int User::getLevel() {
-    return ConfigExp::getInstance()->getLevel(
-            UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0) );
-}
-
-char* User::getLevelDesc() {
-    return ConfigExp::getInstance()->getLevelDesc( 
+LevelData User::getLevelData() {
+    return ConfigExp::getInstance()->getLevelData(
             UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0) );
 }
 
