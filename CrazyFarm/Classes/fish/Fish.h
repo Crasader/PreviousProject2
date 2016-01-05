@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "utill/CircleBy.h"
 #include "config/ConfigFish.h"
+#include "fish/FishRouteData.h"
 using namespace cocos2d;
 
 #define FISHTYPE_1 1
@@ -32,6 +33,7 @@ public:
 	CREATE_FUNC(Fish);
 	void initFish(int fishType);
 	void move(int moveType);
+	void setRoute(int routeTag);
 	Sprite* getRectSprite();
 	int getFishGold(){ return fishGold; }
 	float getGrabProbability(){ return grabProbability; }
@@ -61,6 +63,10 @@ private:
 
 	CC_SYNTHESIZE(swimDirection, nDirection, Direction);
 	Point LastPos;
+
+
+	//Â·¾¶
+	Route m_Route;
 };
 
 #endif

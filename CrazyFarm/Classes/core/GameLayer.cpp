@@ -2,6 +2,7 @@
 #include "net/Net.h"
 #include "utill/FunUtil.h"
 #include "utill/AnimationUtil.h"
+#include "utill/CircleMoveAct.h"
 #include "User.h"
 #include "AIManager.h"
 #define kTagBaseturret 10
@@ -22,7 +23,7 @@ bool GameLayer::init(){
 	//TODO 游戏核心界面
 	
 	//TODO 产生鱼
-	schedule(schedule_selector(GameLayer::createFish), 0.3f, CC_REPEAT_FOREVER, 0);
+	//schedule(schedule_selector(GameLayer::createFish), 0.3f, CC_REPEAT_FOREVER, 0);
 	scheduleUpdate();
 	addTouchEvent();	
 
@@ -31,6 +32,12 @@ bool GameLayer::init(){
 	createTurret();
 	createAI();
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
+
+
+	auto fish = Sprite::create("16_02.png");
+	fish->setPosition(480, 240);
+	addChild(fish);
+	fish->runAction(CircleMoveBy::create(10, Vec2(200, 200), 0.0f, 1800));
 	return true;
 }
 

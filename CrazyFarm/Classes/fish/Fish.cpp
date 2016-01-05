@@ -106,7 +106,7 @@ void Fish::moveFishStraight(float dt){
 void Fish::moveFishCircle(float dt){
 	//TODO 鱼的圆形移动
 	Point circlePoint = this->getPosition();
-	auto cirlce = CircleBy::create(circlePoint, 2, 360, 2, true);
+	auto cirlce = CircleBy::create(circlePoint, 2, 360, 10, true);
 	this->runAction(cirlce);
 }
 
@@ -186,10 +186,60 @@ Point Fish::getRandomPostion(float speed, swimDirection direction, float &angle)
 	return Vec2(speed*cos(CC_DEGREES_TO_RADIANS(angle)), speed*sin(CC_DEGREES_TO_RADIANS(angle)));
 
 }
+void Fish::setRoute(int routeTag)
+{
+	m_Route = FishRouteData::getInstance()->getRouteBytag(routeTag);
 
+	auto actionArray = Vector<FiniteTimeAction*>();
 
+	auto RepetActionArray = Vector<FiniteTimeAction*>();
+	
+	RoutePoint* p = m_Route.head;
+	while (p != nullptr)
+	{
+		Vector<FiniteTimeAction*> *acArray;
+		if (p->isRepeat)
+		{
+			acArray = &RepetActionArray;
+		}
+		else
+		{
+			acArray = &actionArray;
+		}
+		acArray->pushBack(DelayTime::create(p->delay));
+		switch (p->moveState)
+		{
+		case 1:
+			acArray->pushBack(CardinalSplineBy::create(p->time, p->pointarray, 0));
+			break;
+		case 2:
+		{
+			//圆周运动
+		}
+		break;
+		case 3:
+		{
+			acArray->pushBack(FishAniMannage::getInstance()->getAnimate(p->aniName.c_str()));
+		}
+		break;
+		default:
+			break;
+		}
 
+		p = p->next;
+	}
+	auto acNoRepeat = Sequence::create(actionArray);
+	acNoRepeat->setTag(888);
+	this->runAction(acNoRepeat);
+	auto delay = DelayTime::create(acNoRepeat->getDuration());
+	if (RepetActionArray.size() > 0)
+	{
+		this->runAction(Sequence::create(delay, CallFunc::create([&](){
+		runAction(RepeatForever::create(Sequence::create(RepetActionArray)));
+		}), nullptr));
 
+	}
+}
 
 bool Fish::checkOutBorder(){
 	return false;

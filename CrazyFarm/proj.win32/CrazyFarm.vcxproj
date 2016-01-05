@@ -158,6 +158,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\fish\Fish.cpp" />
     <ClCompile Include="..\Classes\fish\FishAniMannage.cpp" />
     <ClCompile Include="..\Classes\fish\FishManage.cpp" />
+    <ClCompile Include="..\Classes\fish\FishRouteData.cpp" />
     <ClCompile Include="..\Classes\level\LevelLayer.cpp" />
     <ClCompile Include="..\Classes\level\LevelScene.cpp" />
     <ClCompile Include="..\Classes\level\LevelSelectPage.cpp" />
@@ -179,6 +180,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\utill\CallAndroidMethod.cpp" />
     <ClCompile Include="..\Classes\utill\Chinese.cpp" />
     <ClCompile Include="..\Classes\utill\CircleBy.cpp" />
+    <ClCompile Include="..\Classes\utill\CircleMoveAct.cpp" />
     <ClCompile Include="..\Classes\utill\FunUtil.cpp" />
     <ClCompile Include="..\Classes\utill\SkillButton.cpp" />
     <ClCompile Include="main.cpp" />
@@ -205,6 +207,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\fish\Fish.h" />
     <ClInclude Include="..\Classes\fish\FishAniMannage.h" />
     <ClInclude Include="..\Classes\fish\FishManage.h" />
+    <ClInclude Include="..\Classes\fish\FishRouteData.h" />
     <ClInclude Include="..\Classes\level\LevelLayer.h" />
     <ClInclude Include="..\Classes\level\LevelScene.h" />
     <ClInclude Include="..\Classes\level\LevelSelectPage.h" />
@@ -226,6 +229,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\utill\CallAndroidMethod.h" />
     <ClInclude Include="..\Classes\utill\Chinese.h" />
     <ClInclude Include="..\Classes\utill\CircleBy.h" />
+    <ClInclude Include="..\Classes\utill\CircleMoveAct.h" />
     <ClInclude Include="..\Classes\utill\define.h" />
     <ClInclude Include="..\Classes\utill\FunUtil.h" />
     <ClInclude Include="..\Classes\utill\SkillButton.h" />

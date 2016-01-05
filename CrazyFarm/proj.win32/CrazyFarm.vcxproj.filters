@@ -204,6 +204,12 @@
     <ClCompile Include="..\Classes\fish\FishAniMannage.cpp">
       <Filter>src\fish</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\fish\FishRouteData.cpp">
+      <Filter>src\fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utill\CircleMoveAct.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -343,6 +349,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\fish\FishAniMannage.h">
       <Filter>src\fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\fish\FishRouteData.h">
+      <Filter>src\fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\CircleMoveAct.h">
+      <Filter>src\utill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

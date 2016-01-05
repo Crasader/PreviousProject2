@@ -67,6 +67,7 @@ void FishManage::decideFishPos(Fish* fish){
 		fish->setDirection(UP);
 		break; }
 	}
+	/*fish->setPosition(ccp(visibleSize.width/2 ,visibleSize.height/2));*/
 }
 
 void FishManage::removeFishWhichSwimOut()

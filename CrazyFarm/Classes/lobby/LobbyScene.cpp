@@ -7,6 +7,7 @@
 #include "config/ConfigTurrent.h"
 #include "config/ConfigFish.h"
 #include "User.h"
+#include "fish/FishRouteData.h"
 #include "lobby/bagLayer.h"
 #include "fish/FishAniMannage.h"
 Scene* LobbyScene::createScene()
@@ -187,6 +188,7 @@ void LobbyScene::loadResource(){
 	ConfigVipLevel::getInstance()->LoadConfig();
 	ConfigTurrent::getInstance()->LoadConfig();
 	ConfigFish::getInstance()->LoadConfig();
+	FishRouteData::getInstance()->loadRouteConfig();
 }
 
 
