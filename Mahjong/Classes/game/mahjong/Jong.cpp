@@ -15,6 +15,7 @@ bool Jong::init(){
 void Jong::showJong(int bType, int cType){
 	drawBackGround(bType);
 	drawContent(cType);
+	this->setJongType(cType);
 }
 
 Rect Jong::getJongBoundingBox(){

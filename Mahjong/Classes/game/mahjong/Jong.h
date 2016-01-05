@@ -9,7 +9,7 @@ public:
 	void showJong(int bType,int cType);
 	Rect getJongBoundingBox();
 	//void setOpacity();
-	//CC_SYNTHESIZE(int, jongType, JongType);
+	CC_SYNTHESIZE(int, jongType, JongType);
 	CREATE_FUNC(Jong);
 private:
 	Sprite* content;
