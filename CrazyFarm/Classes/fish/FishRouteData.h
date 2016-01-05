@@ -15,7 +15,8 @@ struct RoutePoint  //”„µƒ‘À––πÏº£µ„
 	PointArray * pointarray;
 	//‘≤≈‰÷√
 	Vec2 centrePos;
-	int cicrleTime;
+	float circleAngle;
+	float ScaleDiff;
 	//∂Øª≠≈‰÷√
 	std::string aniName;
 	
@@ -31,7 +32,7 @@ class FishRouteData{
 public:
 	static FishRouteData* getInstance();
 	static void destroyInstance();
-	bool loadRouteConfig();
+	bool loadConfig();
 	Route getRouteBytag(int tag); 
 private:
 	std::map<int,Route> map_TagToRoute;

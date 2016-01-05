@@ -1,5 +1,6 @@
 #include "fish/Fish.h"
 #include "fish/FishAniMannage.h"
+#include "utill/CircleMoveTo.h"
 bool Fish::init(){
 	if (!Sprite::init())
 	{
@@ -29,13 +30,13 @@ void Fish::initFishAnim(int fishType){
 }
 void Fish::update(float dt)
 {
-	//if (getPosition().distance(LastPos) > 0)
-	//{
-	//	auto raroAngle = 1.5*3.1415926f - (getPosition() - LastPos).getAngle();
-	//	setRotation(CC_RADIANS_TO_DEGREES(raroAngle)+90);
-	//	LastPos = getPosition();
+	if (getPosition().distance(LastPos) > 0)
+	{
+		auto raroAngle = 1.5*3.1415926f - (getPosition() - LastPos).getAngle();
+		setRotation(CC_RADIANS_TO_DEGREES(raroAngle)+90);
+		LastPos = getPosition();
 
-	//}
+	}
 }
 
 string Fish::getSrcByType(int type){
@@ -192,7 +193,7 @@ void Fish::setRoute(int routeTag)
 
 	auto actionArray = Vector<FiniteTimeAction*>();
 
-	auto RepetActionArray = Vector<FiniteTimeAction*>();
+	RepetActionArray = Vector<FiniteTimeAction*>();
 	
 	RoutePoint* p = m_Route.head;
 	while (p != nullptr)
@@ -215,11 +216,13 @@ void Fish::setRoute(int routeTag)
 		case 2:
 		{
 			//Ô²ÖÜÔË¶¯
+			acArray->pushBack(CircleMoveTo::create(p->time, p->centrePos, p->ScaleDiff, p->circleAngle));
 		}
 		break;
 		case 3:
 		{
-			acArray->pushBack(FishAniMannage::getInstance()->getAnimate(p->aniName.c_str()));
+			auto str = String::createWithFormat("%s_%d", p->aniName.c_str(), fishType);
+			acArray->pushBack(FishAniMannage::getInstance()->getAnimate(str->getCString()));
 		}
 		break;
 		default:

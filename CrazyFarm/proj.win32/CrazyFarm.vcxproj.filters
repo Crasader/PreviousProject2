@@ -207,8 +207,11 @@
     <ClCompile Include="..\Classes\fish\FishRouteData.cpp">
       <Filter>src\fish</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utill\CircleMoveAct.cpp">
+    <ClCompile Include="..\Classes\utill\CircleMoveTo.cpp">
       <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\fish\FishGroupData.cpp">
+      <Filter>src\fish</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -353,8 +356,11 @@
     <ClInclude Include="..\Classes\fish\FishRouteData.h">
       <Filter>src\fish</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\utill\CircleMoveAct.h">
+    <ClInclude Include="..\Classes\utill\CircleMoveTo.h">
       <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\fish\FishGroupData.h">
+      <Filter>src\fish</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

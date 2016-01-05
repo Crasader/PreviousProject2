@@ -1,7 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 USING_NS_CC;
-class CircleMoveBy :
+class CircleMoveTo :
 	public ActionInterval
 {
 	public:
@@ -9,7 +9,7 @@ class CircleMoveBy :
 		virtual void startWithTarget(cocos2d::CCNode *pTarget);
 		virtual void update(float time);
 	public:
-		static CircleMoveBy* create(float duration, const cocos2d::CCPoint& center, float scale, float angle);
+		static CircleMoveTo* create(float duration, const cocos2d::CCPoint& center, float scale, float angle);
 
 	protected:
 

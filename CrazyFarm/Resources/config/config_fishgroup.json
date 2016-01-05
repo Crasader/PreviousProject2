@@ -1,0 +1,30 @@
+{
+    "description" :"”„»∫…Ë÷√",
+    "fishGroupConfig": [
+        {
+            "tag": 1,
+            "fishgroup":
+             [
+                {
+                    "fishID": 1,
+                    "fishRoute": 1,
+                    "fishCount":  10,
+                    "IntervalCreateTime": 0.1,
+                    "startPosX": 480,
+                    "startPosY": 280
+
+                },
+                {
+                    "fishID": 1	,
+                    "fishRoute": 2,
+                    "fishCount": 10,
+                    "IntervalCreateTime": 0.1,
+                    "startPosX": 480,
+                    "startPosY": 280
+                }
+            ]
+        
+            
+        }
+    ]
+}

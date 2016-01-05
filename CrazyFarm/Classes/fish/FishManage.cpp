@@ -1,5 +1,5 @@
 #include "fish/FishManage.h"
-
+#include "fish/FishGroupData.h"
 
 FishManage* FishManage::_instance = 0;
 
@@ -24,6 +24,22 @@ Fish* FishManage::createFishSingle(){
 	fish->initFish(randType);
 	fishPool.pushBack(fish);
 	return fish;
+}
+Fish* FishManage::createFishSingle(int type){
+	auto fish = Fish::create();
+	fish->initFish(type);
+	fishPool.pushBack(fish);
+	return fish;
+}
+Vector<Fish*> FishManage::createFishGroup(int grouptag)
+{
+	auto gp = FishGroupData::getInstance()->getGroupBytag(grouptag);
+	for (auto singlegp : gp.singleTypefishGroups)
+	{
+
+	}
+	Vector<Fish*> a;
+	return a;
 }
 
 void FishManage::removeFish(Fish* fish){

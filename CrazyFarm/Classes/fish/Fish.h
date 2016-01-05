@@ -64,7 +64,7 @@ private:
 	CC_SYNTHESIZE(swimDirection, nDirection, Direction);
 	Point LastPos;
 
-
+	Vector<FiniteTimeAction*> RepetActionArray;
 	//Â·¾¶
 	Route m_Route;
 };

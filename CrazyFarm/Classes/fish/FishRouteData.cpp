@@ -17,7 +17,7 @@ void FishRouteData::destroyInstance(){
 		_pInstance = NULL;
 	}
 }
-bool FishRouteData::loadRouteConfig()
+bool FishRouteData::loadConfig()
 {
 	std::string filename = "config_route.json";
 	rapidjson::Document doc;
@@ -62,7 +62,9 @@ bool FishRouteData::loadRouteConfig()
 				p->time = dict["time"].GetDouble();
 				p->delay = dict["delay"].GetDouble();
 				auto &arraypoints = dict["ArrayPos"];
+				auto size = arraypoints.Size();
 				p->pointarray = PointArray::create(arraypoints.Size());
+				p->pointarray->retain();
 				for (unsigned int k = 0; k < arraypoints.Size();k++)
 				{
 					p->pointarray->addControlPoint(Vec2(arraypoints[k]["x"].GetDouble(), arraypoints[k]["y"].GetDouble()));
@@ -75,7 +77,8 @@ bool FishRouteData::loadRouteConfig()
 				p->isRepeat = dict["isRepet"].GetInt();
 				p->time = dict["time"].GetDouble();
 				p->delay = dict["delay"].GetDouble();
-				p->cicrleTime = dict["circleTimes"].GetInt();
+				p->circleAngle = dict["circleAngle"].GetInt();
+				p->ScaleDiff = dict["ScaleDiff"].GetInt();
 				p->centrePos = Vec2(dict["circleX"].GetInt(), dict["circleY"].GetInt());
 			}
 			break;

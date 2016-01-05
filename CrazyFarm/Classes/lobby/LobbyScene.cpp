@@ -10,6 +10,7 @@
 #include "fish/FishRouteData.h"
 #include "lobby/bagLayer.h"
 #include "fish/FishAniMannage.h"
+#include "fish/FishGroupData.h"
 Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
@@ -188,7 +189,9 @@ void LobbyScene::loadResource(){
 	ConfigVipLevel::getInstance()->LoadConfig();
 	ConfigTurrent::getInstance()->LoadConfig();
 	ConfigFish::getInstance()->LoadConfig();
-	FishRouteData::getInstance()->loadRouteConfig();
+	FishRouteData::getInstance()->loadConfig();
+	FishGroupData::getInstance()->loadConfig();
+
 }
 
 

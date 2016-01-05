@@ -21,6 +21,7 @@ private:
 	void onTouchEnded(Touch *touch, Event  *event);
 	//发射子弹
 	void createFish(float dt);//产生鱼
+	void createFishGroup(float dt);//产生鱼群
 	void shoot(float degree, PlayerTurret* turret);//发射子弹
 	void createNet(Bullet *bullet);//打开渔网
 	float getTurretRotation(Point pos1,Point pos2);//获取炮塔需要旋转的角度

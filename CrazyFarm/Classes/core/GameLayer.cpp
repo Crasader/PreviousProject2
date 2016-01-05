@@ -2,9 +2,10 @@
 #include "net/Net.h"
 #include "utill/FunUtil.h"
 #include "utill/AnimationUtil.h"
-#include "utill/CircleMoveAct.h"
+#include "utill/CircleMoveTo.h"
 #include "User.h"
 #include "AIManager.h"
+#include "fish/FishGroupData.h"
 #define kTagBaseturret 10
 
 
@@ -23,21 +24,24 @@ bool GameLayer::init(){
 	//TODO 游戏核心界面
 	
 	//TODO 产生鱼
-	//schedule(schedule_selector(GameLayer::createFish), 0.3f, CC_REPEAT_FOREVER, 0);
+	//schedule(schedule_selector(GameLayer::createFish), 0.3f, 2, 0);
 	scheduleUpdate();
 	addTouchEvent();	
 
 	players = RoomManager::getInstance()->initRoomConfig();
 	calculateFreeChair();
 	createTurret();
-	createAI();
+	//createAI();
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
+	createFishGroup(1);
 
-	auto fish = Sprite::create("16_02.png");
-	fish->setPosition(480, 240);
-	addChild(fish);
-	fish->runAction(CircleMoveBy::create(10, Vec2(200, 200), 0.0f, 1800));
+	////test
+	//auto fish = Sprite::create("16_02.png");
+	//fish->setPosition(480, 240);
+	//addChild(fish);
+	//fish->runAction(CircleMoveTo::create(10, Vec2(200, 200), 0.0f, 1800));
+
 	return true;
 }
 
@@ -47,6 +51,27 @@ void GameLayer::createFish(float dt){
 	FishManage::getInstance()->decideFishPos(fish);
 	fish->move(3);
 	this->addChild(fish);
+	static int k = 0;
+	CCLOG("%d", k++);
+}
+void GameLayer::createFishGroup(float dt)
+{
+	auto gp = FishGroupData::getInstance()->getGroupBytag(1);
+	for (int i = 0; i < gp.singleTypefishGroups.size();i++)
+	{
+		auto singlegp = gp.singleTypefishGroups[i];
+		for (int j = 0; j < singlegp.fishCount;j++)
+		{
+			runAction(Sequence::create(DelayTime::create(j*singlegp.IntervalCreateTime), CallFunc::create([=]{
+				Fish* fish = FishManage::getInstance()->createFishSingle(singlegp.fishID);
+				fish->setRoute(singlegp.fishRoute);
+				fish->setPosition(singlegp.startPos);
+				addChild(fish);
+			}), nullptr));
+		}
+		
+	}
+	
 }
 
 void GameLayer::createTurret(){

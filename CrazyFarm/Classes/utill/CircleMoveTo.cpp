@@ -1,17 +1,17 @@
-#include "CircleMoveBy.h"
+#include "CircleMoveTo.h"
 
 
 
-CircleMoveBy* CircleMoveBy::create(float duration, const CCPoint& center, float scale, float angle)
+CircleMoveTo* CircleMoveTo::create(float duration, const CCPoint& center, float scale, float angle)
 {
-	CircleMoveBy *pRet = new CircleMoveBy();
+	CircleMoveTo *pRet = new CircleMoveTo();
 	pRet->initWithDuration(duration, center, scale, angle);
 	pRet->autorelease();
 
 	return pRet;
 }
 
-bool CircleMoveBy::initWithDuration(float duration, const CCPoint& center, float scaleDiff, float angle)
+bool CircleMoveTo::initWithDuration(float duration, const CCPoint& center, float scaleDiff, float angle)
 {
 	if (CCActionInterval::initWithDuration(duration))
 	{
@@ -31,12 +31,12 @@ bool CircleMoveBy::initWithDuration(float duration, const CCPoint& center, float
 	return false;
 }
 
-void CircleMoveBy::startWithTarget(CCNode *pTarget)
+void CircleMoveTo::startWithTarget(CCNode *pTarget)
 {
 	CCActionInterval::startWithTarget(pTarget);
 	m_initPos = pTarget->getPosition();
 }
-void CircleMoveBy::update(float time)
+void CircleMoveTo::update(float time)
 {
 	m_frameCnts++;
 	m_currScale += m_scaleDiff;
@@ -46,11 +46,11 @@ void CircleMoveBy::update(float time)
 	newPos = diff * m_currScale + m_center;
 
 	getTarget()->setPosition(newPos);
-
+	getTarget()->setRotation(m_frameCnts * m_anglePreFrame);
 	
 
 	//debug
-#if 1
+#if 0
 	CCLOG("circle pos x:%f y:%f", newPos.x, newPos.y);
 	CCDrawNode *node = CCDrawNode::create();
 	node->drawDot(newPos, 3, ccc4f(128, 128, 128, 128));
