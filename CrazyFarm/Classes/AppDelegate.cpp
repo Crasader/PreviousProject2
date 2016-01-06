@@ -30,7 +30,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		glview = GLViewImpl::create("CrazyFarm");
 		director->setOpenGLView(glview);
 	}
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	glview->setFrameSize(960, 540);
 	glview->setDesignResolutionSize(960, 540, ResolutionPolicy::EXACT_FIT);
 #endif
@@ -43,6 +43,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		glview->setDesignResolutionSize(960, 540, ResolutionPolicy::EXACT_FIT);
 	}
 #endif
+    
 	// turn on display FPS
 	director->setDisplayStats(true);
 
