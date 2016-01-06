@@ -3,6 +3,7 @@
 #include "utill/define.h"
 #include "utill/SkillButton.h"
 #include "utill/AnimationUtil.h"
+#include "lobby/LobbyScene.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
@@ -59,6 +60,20 @@ bool GameGuiLayer::init(){
 	sprbg1->setPosition(buttonPlay1->getContentSize().width *0.3, buttonPlay1->getContentSize().height / 2);
 	buttonPlay1->addChild(sprbg1);
 
+	auto exitButton = MenuItemImage::create("exit_1.png", "exit_2.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
+	exitButton->setPosition(visibleSize.width / 2, visibleSize.height*0.8);
+	menu->addChild(exitButton);
+
+
+
+
+
+
+
+
+
+
+
 	///¶³½á
 	auto skillbutton = SkillButton::createSkillButton(2.0f, "skillStencil.png", "prop_freeze.png", "prop_freeze.png", 9);
 	skillbutton->setPosition(visibleSize.width*0.45, visibleSize.height*0.073);
@@ -68,6 +83,10 @@ bool GameGuiLayer::init(){
 	skillbutton->setPosition(visibleSize.width*0.55, visibleSize.height*0.073);
 	addChild(skillbutton);
 
+
+
+
+
 	showRandonBubbleAni();
 	return true;
 
@@ -75,6 +94,10 @@ bool GameGuiLayer::init(){
 void GameGuiLayer::ButtentouchEvent(Ref *pSender)
 {
 	CCLOG("TODO CALLBAK");
+}
+void GameGuiLayer::exitCallback(Ref *pSender)
+{
+	Director::getInstance()->replaceScene(LobbyScene::createScene());
 }
 
 void GameGuiLayer::showRandonBubbleAni()

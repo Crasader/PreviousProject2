@@ -21,6 +21,7 @@ int Bullet::getType(){
 }
 
 string Bullet::getSrcByType(int type){
+	
 	switch (type)
 	{
 	case BULLETTYPE_1:
@@ -46,7 +47,8 @@ string Bullet::getSrcByType(int type){
 }
 
 void Bullet::initBulletFrame(string name){
-	this->initWithSpriteFrameName(name + "01.png");
+	/*this->initWithSpriteFrameName(name + "01.png");*/
+	initWithFile("bullet1.png");
 }
 
 

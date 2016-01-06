@@ -8,7 +8,8 @@ bool Net::init(){
 }
 
 void Net::initNetByType(int type){
-	this->initWithSpriteFrameName(getFrameNameByType(type));
+	/*this->initWithSpriteFrameName(getFrameNameByType(type));*/
+	initWithFile("netFrame.png");
 	schedule(schedule_selector(Net::destroySelf),0,0,1);
 }
 

@@ -71,6 +71,146 @@
 			"probability"	:	0.01,
 			"baseReward"	:	1000,
 			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	11,
+			"fish_type"	:	0,
+			"probability"	:	0.45,
+			"baseReward"	:	10,
+			"maxHitTime"	:	3
+		},
+		{
+			"fish_id"	:	12,
+			"fish_type"	:	0,
+			"probability"	:	0.4,
+			"baseReward"	:	20,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	13,
+			"fish_type"	:	0,
+			"probability"	:	0.35,
+			"baseReward"	:	30,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	14,
+			"fish_type"	:	0,
+			"probability"	:	0.3,
+			"baseReward"	:	35,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	15,
+			"fish_type"	:	0,
+			"probability"	:	0.25,
+			"baseReward"	:	40,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	16,
+			"fish_type"	:	0,
+			"probability"	:	0.25,
+			"baseReward"	:	50,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	17,
+			"fish_type"	:	0,
+			"probability"	:	0.4,
+			"baseReward"	:	1,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	18,
+			"fish_type"	:	0,
+			"probability"	:	0.1,
+			"baseReward"	:	200,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	19,
+			"fish_type"	:	0,
+			"probability"	:	0.05,
+			"baseReward"	:	400,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	20,
+			"fish_type"	:	0,
+			"probability"	:	0.02,
+			"baseReward"	:	1000,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	21,
+			"fish_type"	:	0,
+			"probability"	:	0.45,
+			"baseReward"	:	10,
+			"maxHitTime"	:	3
+		},
+		{
+			"fish_id"	:	22,
+			"fish_type"	:	0,
+			"probability"	:	0.4,
+			"baseReward"	:	20,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	23,
+			"fish_type"	:	0,
+			"probability"	:	0.35,
+			"baseReward"	:	30,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	24,
+			"fish_type"	:	0,
+			"probability"	:	0.3,
+			"baseReward"	:	35,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	25,
+			"fish_type"	:	0,
+			"probability"	:	0.25,
+			"baseReward"	:	40,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	26,
+			"fish_type"	:	0,
+			"probability"	:	0.25,
+			"baseReward"	:	50,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	27,
+			"fish_type"	:	0,
+			"probability"	:	0.4,
+			"baseReward"	:	1,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	28,
+			"fish_type"	:	0,
+			"probability"	:	0.1,
+			"baseReward"	:	200,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	29,
+			"fish_type"	:	0,
+			"probability"	:	0.05,
+			"baseReward"	:	400,
+			"maxHitTime"	:	30
+		},
+		{
+			"fish_id"	:	30,
+			"fish_type"	:	0,
+			"probability"	:	0.02,
+			"baseReward"	:	1000,
+			"maxHitTime"	:	30
 		}
 			
 	]
