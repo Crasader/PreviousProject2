@@ -12,9 +12,9 @@ ConfigOnemoment* ConfigOnemoment::getInstance(){
 	return _instance;
 }
 
-std::map<int, OneMoment> ConfigOnemoment::LoadConfig(std::string filename) {
+std::list<OneMoment> ConfigOnemoment::LoadConfig(std::string filename) {
     
-    std::map<int, OneMoment> oneMoments;
+    std::list<OneMoment> oneMoments;
     
 	bool bRet = false;
 	while (!bRet) {
@@ -52,7 +52,7 @@ std::map<int, OneMoment> ConfigOnemoment::LoadConfig(std::string filename) {
             oneMoment.end_position_y = val["end_position_y"].GetInt();
             oneMoment.move_type = val["move_type"].GetInt();
             
-			oneMoments[i] = oneMoment;
+			oneMoments.push_back(oneMoment);
 		}
 		
 		return oneMoments;

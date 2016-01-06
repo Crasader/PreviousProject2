@@ -4,36 +4,36 @@
 		{
 			"fishgroup_id"		:	1,
 			"start_time"		:	0,
-			"end_time"			:	0.15,
+			"end_time"			:	5,
 			"start_position_x"	:	0,
 			"start_position_y"	:	270,
-			"end_position_x"	:	0,
-			"end_position_y"	:	3,
-			"move_type"			:	1,
+			"end_position_x"	:	300,
+			"end_position_y"	:	0,
+			"move_type"			:	2,
 			"move_parameter"	: {
 			}
 		},
 		{
 			"fishgroup_id"		:	1,
 			"start_time"		:	1.0,
-			"end_time"			:	0.15,
+			"end_time"			:	6,
 			"start_position_x"	:	0,
 			"start_position_y"	:	270,
-			"end_position_x"	:	0,
-			"end_position_y"	:	3,
-			"move_type"			:	1,
+			"end_position_x"	:	300,
+			"end_position_y"	:	0,
+			"move_type"			:	2,
 			"move_parameter"	: {
 			}
 		},
 		{
 			"fishgroup_id"		:	1,
 			"start_time"		:	3.0,
-			"end_time"			:	0.15,
+			"end_time"			:	7,
 			"start_position_x"	:	0,
 			"start_position_y"	:	270,
-			"end_position_x"	:	0,
-			"end_position_y"	:	3,
-			"move_type"			:	1,
+			"end_position_x"	:	300,
+			"end_position_y"	:	0,
+			"move_type"			:	2,
 			"move_parameter"	: {
 			}
 		},

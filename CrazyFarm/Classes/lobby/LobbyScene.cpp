@@ -11,6 +11,7 @@
 #include "lobby/bagLayer.h"
 #include "fish/FishAniMannage.h"
 #include "fish/FishGroupData.h"
+#include "config/ConfigOnemoment.h"
 Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
@@ -191,6 +192,7 @@ void LobbyScene::loadResource(){
 	ConfigVipLevel::getInstance()->LoadConfig();
 	ConfigTurrent::getInstance()->LoadConfig();
 	ConfigFish::getInstance()->LoadConfig();
+	
 	FishRouteData::getInstance()->loadConfig();
 	FishGroupData::getInstance()->loadConfig();
 

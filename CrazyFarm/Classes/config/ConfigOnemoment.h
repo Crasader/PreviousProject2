@@ -26,7 +26,7 @@ public:
 	ConfigOnemoment();
 	static ConfigOnemoment* getInstance();
     
-	std::map<int, OneMoment> LoadConfig(std::string filename);
+	std::list<OneMoment> LoadConfig(std::string filename);
 
     
 private:

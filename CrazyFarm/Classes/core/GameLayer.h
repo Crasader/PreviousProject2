@@ -13,6 +13,7 @@ class GameLayer: public cocos2d::Layer{
 public:
 	virtual bool init();
 	CREATE_FUNC(GameLayer);
+	void loadNewMonent();
 private:
 	void createTurret();//按照类型生成炮塔
 	void addTouchEvent();
@@ -39,7 +40,7 @@ private:
 	Vector<PlayerTurret*> otherTurrets;
 	std::vector<RoomPlayer> players;
 	int m_index = -1;
-	void loadNewMonent();
+	
 	MomentController* m_nowMonentController;
 };
 #endif

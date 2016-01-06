@@ -216,6 +216,15 @@
     <ClCompile Include="..\Classes\ai\AIMolo.cpp">
       <Filter>src\AI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MomentController.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MomentControllerOne.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigOnemoment.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -367,6 +376,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ai\AIMolo.h">
       <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MomentController.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MomentControllerOne.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigOnemoment.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

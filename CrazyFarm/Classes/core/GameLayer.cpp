@@ -26,8 +26,8 @@ bool GameLayer::init(){
 	//TODO 游戏核心界面
 	
 	//TODO 产生鱼
-	schedule(schedule_selector(GameLayer::createFish), 0.3f,CC_REPEAT_FOREVER, 20.0f);
-	schedule(schedule_selector(GameLayer::createFishGroup), 180.0f, CC_REPEAT_FOREVER, 2.0f);
+	/*schedule(schedule_selector(GameLayer::createFish), 0.3f,CC_REPEAT_FOREVER, 20.0f);
+	schedule(schedule_selector(GameLayer::createFishGroup), 180.0f, CC_REPEAT_FOREVER, 2.0f);*/
 	scheduleUpdate();
 	addTouchEvent();	
 
@@ -37,13 +37,15 @@ bool GameLayer::init(){
 	createAI();
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
-
+	loadNewMonent();
 	////test
 	//auto fish = Sprite::create("16_02.png");
 	//fish->setPosition(480, 240);
 	//addChild(fish);
 	//fish->runAction(CircleMoveTo::create(10, Vec2(200, 200), 0.0f, 1800));
 
+
+	FishManage::getInstance()->setlayer(this);
 	return true;
 }
 
@@ -189,7 +191,7 @@ void GameLayer::rotateTurret(float degree,PlayerTurret* turret){
 }
 
 void GameLayer::update(float dt){
-	
+	FishManage::getInstance()->UpdateWhenController(dt);
 }
 
 
@@ -336,6 +338,5 @@ void GameLayer::onExit()
 
 void GameLayer::loadNewMonent()
 {
-	m_nowMonentController = new MomentControllerOne();
-
+	FishManage::getInstance()->LoadOnement(ConfigOnemoment::getInstance()->LoadConfig("config/config_onemoment_1.json"));
 }

@@ -121,3 +121,30 @@ void FishManage::cleanVector()
 {
 	fishPool.clear();
 }
+
+
+void FishManage::LoadOnement(std::list<OneMoment> oneMoment)
+{
+	m_nowMonentController = new MomentControllerOne();
+	m_nowMonentController->initController(oneMoment);
+}
+
+void FishManage::UpdateWhenController(float dt)
+{
+	if (m_nowMonentController)
+	{
+		if (m_nowMonentController->updata(dt))
+		{
+			m_layer->loadNewMonent();
+		}
+		
+	}
+}
+
+void FishManage::createFishByOneMonet(int fishGroupId, int costTime, Vec2 startPos, Vec2 endPos, int movetype)
+{
+	auto fish = createFishSingle(fishGroupId);
+	fish->setPosition(startPos);
+	fish->runAction(MoveTo::create(costTime, endPos));
+	m_layer->addChild(fish);
+}
