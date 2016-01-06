@@ -52,17 +52,16 @@ void MahjongView::drawPlayerSelf(){
 	HeadPortrait* head = new HeadPortrait();
 	drawHeadPortrait(head);
 	//ÅÆµÄ»æÖÆ
-	ValueVector pai;
 	for (int t = 1; t < 15; t++){
-		pai.push_back(Value(t));
+		Jong* jong = Jong::create();
+		jong->setScale(0.5);
+		jong->showJong(0, t);
+		selfHandJongs.pushBack(jong);
 	}
-	for (int i = 0; i < pai.size(); i++){
-		Jong* Jong = Jong::create();
-		Jong->setScale(0.5);
-		Jong->setPosition(ccp(140 + 56 * i, JONG_POS_Y));
-		Jong->showJong(0, pai.at(i).asInt());
-		this->addChild(Jong);
-		selfHandJongs.pushBack(Jong);
+	selfHandJongs = upsetJongs(selfHandJongs);
+	for (int i = 0; i < selfHandJongs.size(); i++){
+		selfHandJongs.at(i)->setPosition(ccp(140 + 56 * i, JONG_POS_Y));
+		this->addChild(selfHandJongs.at(i));
 	}
 }
 
@@ -258,5 +257,22 @@ Point MahjongView::getSmallJongsPos(int index){
 
 float MahjongView::distance(Point pos1,Point pos2){
 	return sqrt(pow(pos1.x - pos2.x, 2) + pow(pos1.y - pos2.y, 2));
+}
+
+
+Vector<Jong*>  MahjongView::sortJongs(Vector<Jong*> jongs){
+	Vector<Jong*> newJongs;
+	return newJongs;
+}
+
+Vector<Jong*> MahjongView::upsetJongs(Vector<Jong*> jongs){
+	Vector<Jong*> newJongs;
+	int size = jongs.size();
+	for (int i = 0; i < size; i++){
+		int current = random()%jongs.size();
+		newJongs.pushBack(jongs.at(current));
+		jongs.erase(current);
+	}
+	return newJongs;
 }
 

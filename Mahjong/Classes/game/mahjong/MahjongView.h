@@ -34,5 +34,7 @@ private:
 	void resetAllJong();//回复所有牌的位置
 	float distance(Point pos1, Point pos2);
 	Point getSmallJongsPos(int index);//获得打出去的牌的停留坐标
+	Vector<Jong*>  sortJongs(Vector<Jong*> jongs);//对手牌进行排序
+	Vector<Jong*>  upsetJongs(Vector<Jong*> jongs);//打乱排序
 };
 #endif
