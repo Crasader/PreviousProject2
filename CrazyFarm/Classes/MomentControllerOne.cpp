@@ -10,7 +10,7 @@ void MomentControllerOne::initController(std::list<OneMoment> oneMoment)
 bool MomentControllerOne::updata(float dt)
 {
 	nNowTime += dt;
-	if (nNowTime>60)//TODO
+	if (nNowTime>60)    //TODO : need update 60s by config
 	{
 		return true;
 	}

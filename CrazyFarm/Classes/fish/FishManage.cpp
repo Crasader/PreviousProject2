@@ -143,8 +143,21 @@ void FishManage::UpdateWhenController(float dt)
 
 void FishManage::createFishByOneMonet(int fishGroupId, int costTime, Vec2 startPos, Vec2 endPos, int movetype)
 {
-	auto fish = createFishSingle(fishGroupId);
-	fish->setPosition(startPos);
-	fish->runAction(MoveTo::create(costTime, endPos));
-	m_layer->addChild(fish);
+    if(movetype == 2) {
+        auto fish = createFishSingle(fishGroupId);
+        fish->setPosition(startPos);
+        fish->runAction(MoveTo::create(costTime, endPos));
+        m_layer->addChild(fish);
+    }else if(movetype == 1) {
+        // TODO : need support any postion ;
+        Fish* fish = createFishSingle(fishGroupId);
+        fish->setRotation(0);
+        fish->setDirection(RIGHT);
+        fish->setPosition(startPos);
+        fish->move(3);
+        m_layer->addChild(fish);
+    }else if(movetype == 3) {
+        // TODO :
+    }
+	
 }
