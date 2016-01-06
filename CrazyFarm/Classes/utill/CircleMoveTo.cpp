@@ -25,7 +25,7 @@ bool CircleMoveTo::initWithDuration(float duration, const CCPoint& center, float
 		/* 计算每次update调用时需要转动的弧度                                   */
 		/************************************************************************/
 		auto fps = Director::sharedDirector()->getAnimationInterval();
-		this->m_anglePreFrame = angle / duration * 0.016666666 / (180 / M_PI);
+		this->m_anglePreFrame = angle / duration * fps / (180 / M_PI);
 		this->m_frameCnts = 0;
 		return true;
 	}

@@ -24,17 +24,17 @@ bool GameLayer::init(){
 	//TODO 游戏核心界面
 	
 	//TODO 产生鱼
-	//schedule(schedule_selector(GameLayer::createFish), 0.3f, 2, 0);
+	schedule(schedule_selector(GameLayer::createFish), 0.3f,CC_REPEAT_FOREVER, 0);
+	schedule(schedule_selector(GameLayer::createFishGroup), 60.0f, CC_REPEAT_FOREVER,10.0f);
 	scheduleUpdate();
 	addTouchEvent();	
 
 	players = RoomManager::getInstance()->initRoomConfig();
 	calculateFreeChair();
 	createTurret();
-	//createAI();
+	createAI();
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
-	createFishGroup(1);
 
 	////test
 	//auto fish = Sprite::create("16_02.png");
@@ -51,12 +51,11 @@ void GameLayer::createFish(float dt){
 	FishManage::getInstance()->decideFishPos(fish);
 	fish->move(3);
 	this->addChild(fish);
-	static int k = 0;
-	CCLOG("%d", k++);
+
 }
 void GameLayer::createFishGroup(float dt)
 {
-	auto gp = FishGroupData::getInstance()->getGroupBytag(2);
+	auto gp = FishGroupData::getInstance()->getGroupBytag(rand()%3+1);
 	for (int i = 0; i < gp.singleTypefishGroups.size();i++)
 	{
 		struct timeval tv;

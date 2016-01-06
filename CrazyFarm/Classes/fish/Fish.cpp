@@ -6,7 +6,7 @@ bool Fish::init(){
 	{
 		return false;
 	}
-	schedule(schedule_selector(Fish::update), 0, CC_REPEAT_FOREVER, 0);
+	scheduleUpdate();
 	return true;
 }
 
@@ -85,6 +85,7 @@ float Fish::getFishSpeedByType(int type){
 
 void Fish::move(int moveType){
 	//选择鱼的移动模式
+	unscheduleUpdate();
 	switch (moveType)
 	{
 	case 1:

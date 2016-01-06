@@ -75,6 +75,7 @@ bool LobbyScene::init()
 	viplevelFrame->addChild(viplevel);
 	spHeadFrame->addChild(viplevelFrame);
 	////////////////////////////////////////////////
+	/*auto leveldata = user->getLevelData();*/
 	auto exeDescribe = LabelTTF::create("100/200", "arial", 17);
 	exeDescribe->setPosition(sssize.width*0.63, sssize.height*0.47);
 	spHeadFrame->addChild(exeDescribe);
@@ -89,7 +90,7 @@ bool LobbyScene::init()
 	coin->setPosition(3, sssize.height *0.49);
 	coinFrame->addChild(coin);
 
-	auto userCoin = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
+	userCoin = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
 	userCoin->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	userCoin->setPosition(sssize.width*0.85, sssize.height *0.5);
 	userCoin->setColor(Color3B(254,248,52));
@@ -111,7 +112,7 @@ bool LobbyScene::init()
 	diamond->setScale(0.8);
 	diamondFrame->addChild(diamond);
 
-	auto userdiamond = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
+	userdiamond = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
 	userdiamond->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	userdiamond->setPosition(sssize.width*0.85, sssize.height *0.5);
 	userdiamond->setColor(Color3B(254, 248, 52));
@@ -211,11 +212,13 @@ void LobbyScene::createRoomLayer()
 
 void LobbyScene::payCoinCallback(Ref*psend)
 {
-
+	auto coin = User::getInstance()->addCoins(1000);
+	userCoin->setString(Value(coin).asString().c_str());
 }
 void LobbyScene::payDiamondCallback(Ref*psend)
 {
-
+	auto diamonds = User::getInstance()->addDiamonds(1000);
+	userdiamond->setString(Value(diamonds).asString().c_str());
 }
 void LobbyScene::beginGameCallback(Ref*psend)
 {

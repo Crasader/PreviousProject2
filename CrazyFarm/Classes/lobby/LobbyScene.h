@@ -34,5 +34,8 @@ private:
 
 	//关卡选择界面
 	loopList* listHead;
+private:
+	LabelTTF* userdiamond;
+	LabelTTF* userCoin;
 };
 #endif

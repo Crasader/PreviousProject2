@@ -50,17 +50,20 @@ void FishManage::removeFish(Fish* fish){
 void FishManage::decideFishPos(Fish* fish){
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	//决定进入屏幕的边界
-	int border = rand() % 4;
+	int border = rand() % 10;
 	switch (border){
-	case BORDER_LEFT:{
-		//获取鱼的大小
+	case 0:
+	case 1:
+	case 2:
+	case 3:
+	{
 		auto x = fish->getBoundingBox().size.width;
 		auto y = rand() % (int)(visibleSize.height);
 		fish->setRotation(0);
 		fish->setPosition(ccp(-x, y));
 		fish->setDirection(RIGHT);
 		break; }
-	case BORDER_TOP:{
+	case 4:{
 		auto x = rand() % (int)(visibleSize.width);
 		auto y = fish->getBoundingBox().size.width;
 		fish->setPosition(ccp(x, visibleSize.height + y));
@@ -68,14 +71,17 @@ void FishManage::decideFishPos(Fish* fish){
 		fish->setDirection(DOWN);
 		break;
 	}
-	case BORDER_RIGHT:{
+	case 5:
+	case 6:
+	case 7:
+	case 8:{
 		auto x = fish->getBoundingBox().size.width;
 		auto y = rand() % (int)(visibleSize.height);
 		fish->setPosition(ccp(visibleSize.width + x, y));
 		fish->setRotation(180);
 		fish->setDirection(LEFT);
 		break; }
-	case BORDER_BOTTOM:{
+	case 9:{
 		auto x = rand() % (int)(visibleSize.width);
 		auto y = fish->getBoundingBox().size.width;
 		fish->setPosition(ccp(x, -y));
@@ -83,7 +89,6 @@ void FishManage::decideFishPos(Fish* fish){
 		fish->setDirection(UP);
 		break; }
 	}
-	/*fish->setPosition(ccp(visibleSize.width/2 ,visibleSize.height/2));*/
 }
 
 void FishManage::removeFishWhichSwimOut()
@@ -94,7 +99,7 @@ void FishManage::removeFishWhichSwimOut()
 	for (auto fish : fishPool)
 	{
 		auto box = ((Fish*)fish)->getBoundingBox();
-		Rect rect = Rect(-box.size.width, -box.size.height, visibisize.width + box.size.width, visibisize.height + box.size.height);
+		Rect rect = Rect(-100-box.size.width, -100-box.size.height, visibisize.width + box.size.width+200, visibisize.height + box.size.height+200);
 		auto pos = fish->getPosition();
 		if (!rect.containsPoint(pos))
 		{
