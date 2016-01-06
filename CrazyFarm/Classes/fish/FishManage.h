@@ -13,6 +13,7 @@ using namespace cocos2d;
 class FishManage {
 public:
 	static FishManage* getInstance();
+	void cleanVector();
 	Fish* createFishSingle();
 	Fish* createFishSingle(int type);
 	Vector<Fish*> createFishGroup(int grouptag);

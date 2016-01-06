@@ -24,7 +24,7 @@ int FishManage::getAllFishInPoolCount() {
 
 Fish* FishManage::createFishSingle(){
 	auto fish = Fish::create();
-	int randType = rand() % 8+1;
+	int randType = rand() % 27+1;
 	fish->initFish(randType);
 	fishPool.pushBack(fish);
 	return fish;
@@ -115,4 +115,9 @@ void FishManage::removeFishWhichSwimOut()
 		fishPool.eraseObject(fish);
 		fish->removeFromParentAndCleanup(1);
 	}
+}
+
+void FishManage::cleanVector()
+{
+	fishPool.clear();
 }

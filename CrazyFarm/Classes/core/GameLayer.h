@@ -20,6 +20,7 @@ private:
 	void onTouchMoved(Touch *touch, Event  *event);
 	void onTouchEnded(Touch *touch, Event  *event);
 	//发射子弹
+
 	void createFish(float dt);//产生鱼
 	void createFishGroup(float dt);//产生鱼群
 	void shoot(float degree, PlayerTurret* turret);//发射子弹
@@ -28,7 +29,7 @@ private:
 	void rotateTurret(float degree, PlayerTurret* turret);//旋转炮塔
 
 	void AiUpdata(float dt);
-
+	void onExit();
 	void collisionUpdate(float dt);
 	void update(float dt);
 	void createAI();

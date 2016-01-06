@@ -46,17 +46,21 @@ bool GameLayer::init(){
 }
 
 
+
+
+
 void GameLayer::createFish(float dt){
-    if(FishManage::getInstance()->getAllFishInPoolCount() < 30) {
-        int create = rand()%100;
-        if(create < 80) {
-            Fish* fish = FishManage::getInstance()->createFishSingle();
-            FishManage::getInstance()->decideFishPos(fish);
-            fish->move(3);
-            this->addChild(fish);
-        }
-    }
+	if (FishManage::getInstance()->getAllFishInPoolCount() < 30) {
+		int create = rand() % 100;
+		if (create < 80) {
+			Fish* fish = FishManage::getInstance()->createFishSingle();
+			FishManage::getInstance()->decideFishPos(fish);
+			fish->move(3);
+			this->addChild(fish);
+		}
+	}
 }
+
 
 void GameLayer::createFishGroup(float dt)
 {
@@ -320,4 +324,10 @@ void GameLayer::collisionUpdate(float dt)
 	}
 
 	FishManage::getInstance()->removeFishWhichSwimOut();
+}
+
+void GameLayer::onExit()
+{
+	Layer::onExit();
+	FishManage::getInstance()->cleanVector();
 }

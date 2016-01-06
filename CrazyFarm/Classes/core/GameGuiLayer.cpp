@@ -60,8 +60,8 @@ bool GameGuiLayer::init(){
 	sprbg1->setPosition(buttonPlay1->getContentSize().width *0.3, buttonPlay1->getContentSize().height / 2);
 	buttonPlay1->addChild(sprbg1);
 
-	auto exitButton = MenuItemImage::create("exit_1.png", "exit_2.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
-	exitButton->setPosition(visibleSize.width / 2, visibleSize.height*0.8);
+	auto exitButton = MenuItemImage::create("settingBG.png", "settingBG.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
+	exitButton->setPosition(visibleSize.width / 2, visibleSize.height*1.0+30);
 	menu->addChild(exitButton);
 
 
