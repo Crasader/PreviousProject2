@@ -1,0 +1,56 @@
+{	
+	"describe": "鱼群产生配置x[0,960],y[0,540][type,1,随机;2,直线;3,曲线??]" ,
+	"item_list": [
+		{
+			"fishgroup_id"		:	1,
+			"start_time"		:	0,
+			"end_time"			:	0.15,
+			"start_position_x"	:	0,
+			"start_position_y"	:	270,
+			"end_position_x"	:	0,
+			"end_position_y"	:	3,
+			"move_type"			:	1,
+			"move_parameter"	: {
+			}
+		},
+		{
+			"fishgroup_id"		:	1,
+			"start_time"		:	1.0,
+			"end_time"			:	0.15,
+			"start_position_x"	:	0,
+			"start_position_y"	:	270,
+			"end_position_x"	:	0,
+			"end_position_y"	:	3,
+			"move_type"			:	1,
+			"move_parameter"	: {
+			}
+		},
+		{
+			"fishgroup_id"		:	1,
+			"start_time"		:	3.0,
+			"end_time"			:	0.15,
+			"start_position_x"	:	0,
+			"start_position_y"	:	270,
+			"end_position_x"	:	0,
+			"end_position_y"	:	3,
+			"move_type"			:	1,
+			"move_parameter"	: {
+			}
+		},
+		{
+			"fishgroup_id"		:	1,
+			"start_time"		:	5.0,
+			"end_time"			:	0.15,
+			"start_position_x"	:	0,
+			"start_position_y"	:	270,
+			"end_position_x"	:	0,
+			"end_position_y"	:	3,
+			"move_type"			:	1,
+			"move_parameter"	: {
+			}
+		}	
+	]
+}
+
+
+
