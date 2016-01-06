@@ -39,7 +39,6 @@ void Net::checkCatchFish(Bullet*bullet){
 			//进行捕获判断
 			//TODO 添加捕获概率
 			int k = rand() % 100 + 1;
-			CCLOG("k:%d,P:%f", k,fish->getGrabProbability() * 100);	
 			if (k>(100-fish->getGrabProbability()*100))
 			{
 				fishNeedRemove.pushBack(fish);
