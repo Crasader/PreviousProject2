@@ -63,7 +63,7 @@ bool FishRouteData::loadConfig()
 				p->delay = dict["delay"].GetDouble();
 				auto &arraypoints = dict["ArrayPos"];
 				auto size = arraypoints.Size();
-				p->pointarray = PointArray::create(arraypoints.Size());
+				p->pointarray = PointArray::create(30);
 				p->pointarray->retain();
 				for (unsigned int k = 0; k < arraypoints.Size();k++)
 				{
@@ -80,6 +80,7 @@ bool FishRouteData::loadConfig()
 				p->circleAngle = dict["circleAngle"].GetInt();
 				p->ScaleDiff = dict["ScaleDiff"].GetInt();
 				p->centrePos = Vec2(dict["circleX"].GetInt(), dict["circleY"].GetInt());
+				p->isClockwise = dict["isClockwise"].GetBool();
 			}
 			break;
 			case 3:

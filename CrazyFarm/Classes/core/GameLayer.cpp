@@ -56,9 +56,12 @@ void GameLayer::createFish(float dt){
 }
 void GameLayer::createFishGroup(float dt)
 {
-	auto gp = FishGroupData::getInstance()->getGroupBytag(1);
+	auto gp = FishGroupData::getInstance()->getGroupBytag(2);
 	for (int i = 0; i < gp.singleTypefishGroups.size();i++)
 	{
+		struct timeval tv;
+		gettimeofday(&tv, NULL);
+		CCLOG("i:%d  time:%f", i, tv.tv_sec * 1000 + tv.tv_usec / 1000);
 		auto singlegp = gp.singleTypefishGroups[i];
 		for (int j = 0; j < singlegp.fishCount;j++)
 		{

@@ -2,16 +2,16 @@
 
 
 
-CircleMoveTo* CircleMoveTo::create(float duration, const CCPoint& center, float scale, float angle)
+CircleMoveTo* CircleMoveTo::create(float duration, const CCPoint& center, float scale, float angle,bool isClockwise)
 {
 	CircleMoveTo *pRet = new CircleMoveTo();
-	pRet->initWithDuration(duration, center, scale, angle);
+	pRet->initWithDuration(duration, center, scale, angle, isClockwise);
 	pRet->autorelease();
 
 	return pRet;
 }
 
-bool CircleMoveTo::initWithDuration(float duration, const CCPoint& center, float scaleDiff, float angle)
+bool CircleMoveTo::initWithDuration(float duration, const CCPoint& center, float scaleDiff, float angle, bool isClockwise)
 {
 	if (CCActionInterval::initWithDuration(duration))
 	{
@@ -20,11 +20,12 @@ bool CircleMoveTo::initWithDuration(float duration, const CCPoint& center, float
 		this->m_scaleDiff = scaleDiff;
 		this->m_currScale = 1.0f;
 		this->m_angle = angle;
-
+		this->m_isClockwise = isClockwise;
 		/************************************************************************/
 		/* 计算每次update调用时需要转动的弧度                                   */
 		/************************************************************************/
-		this->m_anglePreFrame = angle / duration * CCDirector::sharedDirector()->getAnimationInterval() / (180 / M_PI);
+		auto fps = Director::sharedDirector()->getAnimationInterval();
+		this->m_anglePreFrame = angle / duration * 0.016666666 / (180 / M_PI);
 		this->m_frameCnts = 0;
 		return true;
 	}
@@ -38,7 +39,15 @@ void CircleMoveTo::startWithTarget(CCNode *pTarget)
 }
 void CircleMoveTo::update(float time)
 {
-	m_frameCnts++;
+	
+	if (m_isClockwise)
+	{
+		m_frameCnts--;
+	}
+	else
+	{
+		m_frameCnts++;
+	}
 	m_currScale += m_scaleDiff;
 
 	CCPoint newPos = ccpRotateByAngle(m_initPos, m_center, m_frameCnts * m_anglePreFrame);

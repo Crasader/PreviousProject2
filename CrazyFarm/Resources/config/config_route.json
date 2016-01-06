@@ -5,22 +5,15 @@
             "tag": 1,
             "routePoint": [
                 {
-                    "moveState": 1,
-                    "tension"   :  1,
-                    "ArrayPos": [{ "x": 0,"y":0 },{ "x": -100,"y":20 },{ "x": 50,"y":30 }],
-                    "isRepet": 0,   
-                    "delay": 0,
-                    "time": 5
-                },
-                {
                     "moveState": 2,
-                    "circleX":  700, 
-                    "circleY":  240, 
+                    "circleX":  600, 
+                    "circleY":  270, 
                     "ScaleDiff":  0, 
-                    "circleAngle": 360, 
+                    "circleAngle": 3600, 
+                    "isClockwise": true,
                     "isRepet": 1,   
                     "delay": 0,
-                    "time": 10
+                    "time": 30
                 }
             ]
         },
@@ -28,22 +21,15 @@
             "tag": 2,
             "routePoint": [
                 {
-                    "moveState": 1,
-                    "tension"  :   0.1,
-                    "ArrayPos": [{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 }],
-                    "isRepet": 0,   
-                    "delay": 0,
-                    "time": 3
-                },
-                {
                      "moveState": 2,
-                    "circleX":  100, 
-                    "circleY":  100,
+                    "circleX":  360, 
+                    "circleY":  270,
                      "ScaleDiff":  0, 
-                    "circleAngle": 360, 
-                    "isRepet": 0,   
+                    "circleAngle": 3600, 
+                    "isClockwise": false,
+                    "isRepet": 1,   
                     "delay": 0,
-                    "time": 3
+                    "time": 30
                 }
             ]
         },
@@ -51,31 +37,81 @@
             "tag": 3,
             "routePoint": [
                 {
-                		"tension"   :  0.5,
-                    "moveState": 1,
-                    "ArrayPos": [{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 },{ "x": 0,"y":0 }],
-                    "isRepet": 0,   
+                     "moveState": 2,
+                    "circleX":  670, 
+                    "circleY":  270,
+                     "ScaleDiff":  0, 
+                    "circleAngle": 3600, 
+                    "isClockwise": true,
+                    "isRepet": 1,   
                     "delay": 0,
-                    "time": 3
-                },
-                {
-                    "moveState": 3,
-                    "doNextTime": -1,
-                    "aniName":"dead",
-                    "isRepet": 0,
-                    "delay": 0
-                },
-                {
-                    "moveState": 2,
-                    "circleX":  100, 
-                    "circleY":  100,
-                    "ScaleDiff":  0, 
-                    "circleAngle": 1500,  
-                    "isRepet": 0,   
-                    "delay": 0,
-                    "time": 3
+                    "time": 30
                 }
             ]
+        },
+        {
+            "tag": 4,
+            "routePoint": [
+                {
+                     "moveState": 2,
+                    "circleX":  290, 
+                    "circleY":  270,
+                     "ScaleDiff":  0, 
+                    "circleAngle": 3600, 
+                    "isClockwise": false,
+                    "isRepet": 1,   
+                    "delay": 0,
+                    "time": 30
+                }
+            ]
+        
+        },
+        {
+            "tag": 5,
+            "routePoint": [
+                {
+                     "moveState": 2,
+                    "circleX":  720, 
+                    "circleY":  270,
+                     "ScaleDiff":  0, 
+                    "circleAngle": 3600, 
+                    "isClockwise": true,
+                    "isRepet": 1,   
+                    "delay": 0,
+                    "time": 30
+                }
+            ]
+        },
+        {
+            "tag": 6,
+            "routePoint": [
+                {
+                     "moveState": 2,
+                    "circleX":  240, 
+                    "circleY":  270,
+                     "ScaleDiff":  0, 
+                    "circleAngle": 3600, 
+                    "isClockwise": false,
+                    "isRepet": 1,   
+                    "delay": 0,
+                    "time": 30
+                }
+            ]
+        
+        }
+        ,
+        {
+            "tag": 7,
+            "routePoint": [
+                {
+                     "moveState": 1,
+                    "ArrayPos":[{"x":0,"y":0},{"x":0,"y":700}],
+                    "isRepet": 0,   
+                    "delay": 0,
+                    "time": 10
+                }
+            ]
+        
         }
     ]
 }

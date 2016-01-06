@@ -6,7 +6,7 @@ bool Fish::init(){
 	{
 		return false;
 	}
-	this->scheduleUpdate();
+	schedule(schedule_selector(Fish::update), 0, CC_REPEAT_FOREVER, 0);
 	return true;
 }
 
@@ -30,6 +30,8 @@ void Fish::initFishAnim(int fishType){
 }
 void Fish::update(float dt)
 {
+
+	/*CCLOG("x:%f y:%f",getPositionX(), getPositionY());*/
 	if (getPosition().distance(LastPos) > 0)
 	{
 		auto raroAngle = 1.5*3.1415926f - (getPosition() - LastPos).getAngle();
@@ -211,12 +213,16 @@ void Fish::setRoute(int routeTag)
 		switch (p->moveState)
 		{
 		case 1:
-			acArray->pushBack(CardinalSplineBy::create(p->time, p->pointarray, 0));
+		{	
+			p->pointarray->retain();
+			acArray->pushBack(CardinalSplineBy::create(p->time, p->pointarray, 1));
+		}
 			break;
+		
 		case 2:
 		{
 			//Ô²ÖÜÔË¶¯
-			acArray->pushBack(CircleMoveTo::create(p->time, p->centrePos, p->ScaleDiff, p->circleAngle));
+			acArray->pushBack(CircleMoveTo::create(p->time, p->centrePos, p->ScaleDiff, p->circleAngle,p->isClockwise));
 		}
 		break;
 		case 3:
@@ -231,10 +237,18 @@ void Fish::setRoute(int routeTag)
 
 		p = p->next;
 	}
-	auto acNoRepeat = Sequence::create(actionArray);
-	acNoRepeat->setTag(888);
-	this->runAction(acNoRepeat);
-	auto delay = DelayTime::create(acNoRepeat->getDuration());
+	DelayTime*delay;
+	if (actionArray.size()>0)
+	{
+		auto acNoRepeat = Sequence::create(actionArray);
+		acNoRepeat->setTag(888);
+		this->runAction(acNoRepeat);
+		delay = DelayTime::create(acNoRepeat->getDuration());
+	}
+	else
+	{
+		delay = DelayTime::create(0);
+	}
 	if (RepetActionArray.size() > 0)
 	{
 		this->runAction(Sequence::create(delay, CallFunc::create([&](){

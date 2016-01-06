@@ -89,17 +89,19 @@ void FishManage::decideFishPos(Fish* fish){
 void FishManage::removeFishWhichSwimOut()
 {
 	auto visibisize = Director::getInstance()->getVisibleSize();
-	Rect rect = Rect(-200, -100, visibisize.width + 400, visibisize.height+ 200);
+	
 	Vector<Fish*> needRemoveFishs;
-	for (auto fish:fishPool)
+	for (auto fish : fishPool)
 	{
+		auto box = ((Fish*)fish)->getBoundingBox();
+		Rect rect = Rect(-box.size.width, -box.size.height, visibisize.width + box.size.width, visibisize.height + box.size.height);
 		auto pos = fish->getPosition();
 		if (!rect.containsPoint(pos))
 		{
 			needRemoveFishs.pushBack(fish);
 		}
 	}
-	for (auto fish:needRemoveFishs)
+	for (auto fish : needRemoveFishs)
 	{
 		fishPool.eraseObject(fish);
 		fish->removeFromParentAndCleanup(1);

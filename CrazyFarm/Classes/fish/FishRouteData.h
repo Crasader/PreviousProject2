@@ -17,6 +17,7 @@ struct RoutePoint  //鱼的运行轨迹点
 	Vec2 centrePos;
 	float circleAngle;
 	float ScaleDiff;
+	bool isClockwise;
 	//动画配置
 	std::string aniName;
 	

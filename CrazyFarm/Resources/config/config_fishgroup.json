@@ -1,5 +1,5 @@
 {
-    "description" :"鱼群设置",
+    "description" :"鱼群及轨迹设置",
     "fishGroupConfig": [
         {
             "tag": 1,
@@ -8,23 +8,81 @@
                 {
                     "fishID": 1,
                     "fishRoute": 1,
-                    "fishCount":  10,
-                    "IntervalCreateTime": 0.1,
-                    "startPosX": 480,
+                    "fishCount":  8,
+                    "IntervalCreateTime": 0.40,
+                    "startPosX": 510,
                     "startPosY": 280
 
                 },
                 {
                     "fishID": 1	,
                     "fishRoute": 2,
-                    "fishCount": 10,
-                    "IntervalCreateTime": 0.1,
+                    "fishCount": 8,
+                    "IntervalCreateTime": 0.40,
+                    "startPosX": 450,
+                    "startPosY": 280
+                },
+                {
+                    "fishID": 2,
+                    "fishRoute": 3,
+                    "fishCount":  15,
+                    "IntervalCreateTime": 0.3,
+                    "startPosX": 500,
+                    "startPosY": 280
+
+                },
+                {
+                    "fishID": 2,
+                    "fishRoute": 4,
+                    "fishCount": 15,
+                    "IntervalCreateTime": 0.3,
+                    "startPosX": 460,
+                    "startPosY": 280
+                },  
+                {
+                    "fishID": 3,
+                    "fishRoute": 5,
+                    "fishCount":  15,
+                    "IntervalCreateTime": 0.2,
+                    "startPosX": 480,
+                    "startPosY": 280
+
+                },
+                {
+                    "fishID": 3,
+                    "fishRoute": 6,
+                    "fishCount": 15,
+                    "IntervalCreateTime": 0.2,
                     "startPosX": 480,
                     "startPosY": 280
                 }
             ]
         
             
+        },
+        {
+            "tag": 2,
+            "fishgroup":
+             [
+                {
+                    "fishID": 5,
+                    "fishRoute": 7,
+                    "fishCount":  15,
+                    "IntervalCreateTime": 0.4,
+                    "startPosX": 460,
+                    "startPosY": -20
+
+                },
+                {
+                    "fishID": 5,
+                    "fishRoute": 7,
+                    "fishCount":  15,
+                    "IntervalCreateTime": 0.4,
+                    "startPosX": 500,
+                    "startPosY": -20
+
+                }
+            ]     
         }
     ]
 }

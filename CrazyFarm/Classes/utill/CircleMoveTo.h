@@ -5,11 +5,11 @@ class CircleMoveTo :
 	public ActionInterval
 {
 	public:
-		bool initWithDuration(float duration, const cocos2d::CCPoint& center, float scaleDiff, float angle);
+		bool initWithDuration(float duration, const cocos2d::CCPoint& center, float scaleDiff, float angle, bool isClockwise);
 		virtual void startWithTarget(cocos2d::CCNode *pTarget);
 		virtual void update(float time);
 	public:
-		static CircleMoveTo* create(float duration, const cocos2d::CCPoint& center, float scale, float angle);
+		static CircleMoveTo* create(float duration, const cocos2d::CCPoint& center, float scale, float angle, bool isClockwise);
 
 	protected:
 
@@ -21,5 +21,6 @@ class CircleMoveTo :
 		float m_anglePreFrame;
 		int m_frameCnts;
 		Point m_initPos;
+		bool m_isClockwise;
 };
 
