@@ -6,6 +6,7 @@
 #include "User.h"
 #include "AIManager.h"
 #include "fish/FishGroupData.h"
+#include "MomentControllerOne.h"
 #define kTagBaseturret 10
 
 
@@ -15,6 +16,7 @@ bool GameLayer::init(){
 	{
 		return false;
 	}
+	m_nowMonentController = nullptr;
 	//add game bg to this layer
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* game_bg = Sprite::create("lobby_bg.jpg");
@@ -330,4 +332,10 @@ void GameLayer::onExit()
 {
 	Layer::onExit();
 	FishManage::getInstance()->cleanVector();
+}
+
+void GameLayer::loadNewMonent()
+{
+	m_nowMonentController = new MomentControllerOne();
+
 }
