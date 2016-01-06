@@ -12,6 +12,7 @@ struct FishData {
     int fishType;   // 0 基础鱼；1 礼品鱼；2 Boss鱼;
     double probability; // [0, 0.5]
     int baseReward;
+    int maxHitTime;
     // TODO : 等待加入礼品鱼的奖励列表
 };
 
