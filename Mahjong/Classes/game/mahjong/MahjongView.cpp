@@ -53,7 +53,7 @@ void MahjongView::drawPlayerSelf(){
 	drawHeadPortrait(head);
 	//牌的绘制
 	ValueVector pai;
-	for (int t = 0; t < 14; t++){
+	for (int t = 1; t < 15; t++){
 		pai.push_back(Value(t));
 	}
 	for (int i = 0; i < pai.size(); i++){
@@ -203,7 +203,7 @@ void MahjongView::onTouchEnded(Touch *touch, Event  *event){
 		virtualJong->removeFromParentAndCleanup(true);
 		//step4
 		Point startPoint = outJong->getPosition();
-		Point endPoint = ccp(100, 100);
+		Point endPoint = getSmallJongsPos(selfSmallJongs.size());
 		float sx = startPoint.x;
 		float sy = startPoint.y;
 		float ex = endPoint.x + 50;
@@ -215,6 +215,7 @@ void MahjongView::onTouchEnded(Touch *touch, Event  *event){
 		bezier.endPosition = ccp(endPoint.x - 30, endPoint.y + h); // 结束位置     
 		BezierTo *actionMove = BezierTo::create(0.5f,bezier);
 		outJong->runAction(actionMove);
+		selfSmallJongs.pushBack(outJong);
 	}
 }
 
@@ -236,8 +237,19 @@ void MahjongView::resetJongPos(){
 	}
 }
 
-Point MahjongView::smallJongsPos(int index){
-
+Point MahjongView::getSmallJongsPos(int index){
+	int row = index / 6;
+	int line = index % 6;
+	Point originPos = ccp(400,300);
+	if (row == 1){
+		return ccp(originPos.x + 30 * line, originPos.y);
+	}
+	else if (row == 2){
+		return ccp(originPos.x + 30 * line, originPos.y - 50 * (row-1));
+	}
+	else {
+		return ccp(originPos.x + 30 * line, originPos.y - 50 * (row - 1));
+	}
 
 
 }

@@ -33,6 +33,6 @@ private:
 	void resetJongPos();//回复除选中牌以外牌的位置
 	void resetAllJong();//回复所有牌的位置
 	float distance(Point pos1, Point pos2);
-	Point smallJongsPos(int index);//获得打出去的牌的停留坐标
+	Point getSmallJongsPos(int index);//获得打出去的牌的停留坐标
 };
 #endif
