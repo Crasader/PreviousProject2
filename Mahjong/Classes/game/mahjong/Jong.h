@@ -20,7 +20,7 @@ private:
 
 enum JongEnum
 {
-	wan_1, wan_2, wan_3, wan_4, wan_5, wan_6, wan_7, wan_8, wan_9,
+	wan_1 = 1, wan_2, wan_3, wan_4, wan_5, wan_6, wan_7, wan_8, wan_9,
 	tong_1,tong_2,tong_3,tong_4,tong_5,tong_6,tong_7,tong_8,tong_9,
 	tiao_1,tiao_2,tiao_3,tiao_4,tiao_5,tiao_6,tiao_7,tiao_8,tiao_9,
 	east,south,west,north,zhong,fa,bai,
