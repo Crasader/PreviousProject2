@@ -29,7 +29,7 @@ bool MahjongView::init(){
 		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-			//TODO 展示退出界面
+			// TODO 展示退出界面
 			break;
 		default:
 			break;
@@ -45,7 +45,6 @@ void MahjongView::drawPlayerSelf(){
 	//HeadPortrait* head = new HeadPortrait();
 	//drawHeadPortrait(head);
 	//牌的绘制
-
 	ValueVector pai;
 	for (int t = 0; t < 14; t++){
 		pai.push_back(Value(t));
@@ -56,7 +55,7 @@ void MahjongView::drawPlayerSelf(){
 		Jong->setPosition(ccp(120 + 56 * i, JONG_POS_Y));
 		Jong->showJong(0, pai.at(i).asInt());
 		this->addChild(Jong);
-		selfJongs.pushBack(Jong);
+		selfHandJongs.pushBack(Jong);
 	}
 }
 
@@ -95,16 +94,16 @@ bool MahjongView::onTouchBegan(Touch *touch, Event  *event){
 	//被选中的牌跟随手指移动
 	CCLOG("current pos === %f,%f", touch->getLocation().x, touch->getLocation().y);
 	virtualJong = nullptr;
-	for (int i = 0; i < selfJongs.size(); i++)
+	for (int i = 0; i < selfHandJongs.size(); i++)
 	{
 		//TODO
-		CCLOG("JongBoundingBox x1 === %f", selfJongs.at(i)->getJongBoundingBox().getMinX());
-		CCLOG("JongBoundingBox x2 === %f", selfJongs.at(i)->getJongBoundingBox().getMaxX());
+		CCLOG("JongBoundingBox x1 === %f", selfHandJongs.at(i)->getJongBoundingBox().getMinX());
+		CCLOG("JongBoundingBox x2 === %f", selfHandJongs.at(i)->getJongBoundingBox().getMaxX());
 		//CCLOG("JongBoundingBox y1 === %f", selfJongs.at(i)->getJongBoundingBox().getMinY());
 		//CCLOG("JongBoundingBox y2 === %f", selfJongs.at(i)->getJongBoundingBox().getMaxY());
-		if (selfJongs.at(i)->getJongBoundingBox().containsPoint(touch->getLocation())){
+		if (selfHandJongs.at(i)->getJongBoundingBox().containsPoint(touch->getLocation())){
 			CCLOG("find the jong");
-			selectJong = selfJongs.at(i);
+			selectJong = selfHandJongs.at(i);
 			return true;
 		}
 	}
@@ -116,10 +115,10 @@ bool MahjongView::onTouchBegan(Touch *touch, Event  *event){
 void MahjongView::onTouchMoved(Touch *touch, Event  *event){
 	//判断手指在移动的过程中是否选中牌
 	if (nullptr == virtualJong){
-		for (int i = 0; i < selfJongs.size(); i++)
+		for (int i = 0; i < selfHandJongs.size(); i++)
 		{
-			if (selfJongs.at(i)->getJongBoundingBox().containsPoint(touch->getLocation())){
-				selectJong = selfJongs.at(i);
+			if (selfHandJongs.at(i)->getJongBoundingBox().containsPoint(touch->getLocation())){
+				selectJong = selfHandJongs.at(i);
 				virtualJong = nullptr;
 				resetJongPos();
 				break;
@@ -178,31 +177,61 @@ void MahjongView::onTouchMoved(Touch *touch, Event  *event){
 
 
 void MahjongView::onTouchEnded(Touch *touch, Event  *event){
-	//高度检查,超出高度后当弃选
 	resetAllJong();
-	if (nullptr != virtualJong){
+	if (nullptr != virtualJong){	
+		//step1 缩小虚牌并逐渐移除透明度
+		ScaleTo* scale = ScaleTo::create(0.2f, 0.5f);
+		CallFunc* callBakc = CallFunc::create([=]{
+			virtualJong->setOpacity(255);
+		});
+		Sequence* seq = Sequence::create(scale, callBakc, NULL);
+		virtualJong->runAction(seq);
+		//step2
+		Jong* outJong = Jong::create();
+		outJong->showJong(0, virtualJong->getJongType());
+		outJong->setPosition(virtualJong->getPosition());
+		outJong->setScale(0.3);
+		this->addChild(outJong);
+		//step3
 		virtualJong->removeFromParentAndCleanup(true);
+		//step4
+		Point startPoint = outJong->getPosition();
+		Point endPoint = ccp(100, 100);
+		float sx = startPoint.x;
+		float sy = startPoint.y;
+		float ex = endPoint.x + 50;
+		float ey = endPoint.y + 150;
+		int h = outJong->getBoundingBox().size.height*0.5;
+		ccBezierConfig bezier; // 创建贝塞尔曲线  
+		bezier.controlPoint_1 = ccp(sx, sy); // 起始点  
+		bezier.controlPoint_2 = ccp(sx + (ex - sx)*0.5, sy + (ey - sy)*0.5 + 200); //控制点  
+		bezier.endPosition = ccp(endPoint.x - 30, endPoint.y + h); // 结束位置     
+		BezierTo *actionMove = BezierTo::create(0.5f,bezier);
+		outJong->runAction(actionMove);
 	}
 }
 
 void MahjongView::resetAllJong(){
-	for (int i = 0; i < selfJongs.size(); i++)
+	for (int i = 0; i < selfHandJongs.size(); i++)
 	{
-		selfJongs.at(i)->setPosition(ccp(selfJongs.at(i)->getPositionX(), JONG_POS_Y));
+		selfHandJongs.at(i)->setPosition(ccp(selfHandJongs.at(i)->getPositionX(), JONG_POS_Y));
 	}
 }
 
 void MahjongView::resetJongPos(){
 	if (nullptr != selectJong){
-		for (int i = 0; i < selfJongs.size(); i++)
+		for (int i = 0; i < selfHandJongs.size(); i++)
 		{
-			if (selfJongs.at(i) != selectJong){
-				selfJongs.at(i)->setPosition(ccp(selfJongs.at(i)->getPositionX(), JONG_POS_Y));
+			if (selfHandJongs.at(i) != selectJong){
+				selfHandJongs.at(i)->setPosition(ccp(selfHandJongs.at(i)->getPositionX(), JONG_POS_Y));
 			}
 		}
 	}
 }
 
+
+
 float MahjongView::distance(Point pos1,Point pos2){
 	return sqrt(pow(pos1.x - pos2.x, 2) + pow(pos1.y - pos2.y, 2));
 }
+

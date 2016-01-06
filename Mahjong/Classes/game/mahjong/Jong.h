@@ -8,7 +8,6 @@ public:
 	virtual bool init();
 	void showJong(int bType,int cType);
 	Rect getJongBoundingBox();
-	//void setOpacity();
 	CC_SYNTHESIZE(int, jongType, JongType);
 	CREATE_FUNC(Jong);
 private:
@@ -28,5 +27,13 @@ enum JongEnum
 	spring, summer, autumn, winter, mei, lan, zhu, ju
 };
 
+
+//视觉类型
+enum JongView
+{
+	hand,//手牌
+	selfSmall,//自己打出的牌
+	selfSpec//自己吃碰的牌
+};
 
 #endif

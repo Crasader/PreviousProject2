@@ -25,14 +25,13 @@ public:
 	void onTouchEnded(Touch *touch, Event  *event);
 	CREATE_FUNC(MahjongView);
 private:
-	Vector<Jong*> selfJongs;//麻将牌队列
+	Vector<Jong*> selfHandJongs;//自己的手牌
+	Vector<Jong*> selfSmallJongs;//自己的出牌牌堆
+	Vector<Jong*> selfSpecialJongs;//自己的碰和吃牌堆
 	Jong* selectJong;//选中的牌
 	Jong* virtualJong;//虚牌(轮到自己打牌时才会出现)
-	bool isNeedCheck;
-	int playerTurn;
-	void resetJongPos();//回复牌的位置
-	void resetAllJong();//回复牌的位置
+	void resetJongPos();//回复除选中牌以外牌的位置
+	void resetAllJong();//回复所有牌的位置
 	float distance(Point pos1, Point pos2);
-
 };
 #endif

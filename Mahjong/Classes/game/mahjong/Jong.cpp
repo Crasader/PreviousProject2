@@ -29,13 +29,6 @@ Rect Jong::getJongBoundingBox(){
 	return rect;
 }
 
-//
-//void Jong::setOpacity(){
-//
-//	content->setOpacity(100);
-//	backGround->setOpacity(100);
-//
-//}
 
 
 void Jong::drawBackGround(int bType){
