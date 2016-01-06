@@ -75,8 +75,9 @@ bool LobbyScene::init()
 	viplevelFrame->addChild(viplevel);
 	spHeadFrame->addChild(viplevelFrame);
 	////////////////////////////////////////////////
-	/*auto leveldata = user->getLevelData();*/
-	auto exeDescribe = LabelTTF::create("100/200", "arial", 17);
+	auto leveldataa = user->getLevelData();
+	auto levelDes = String::createWithFormat("%d / %d", leveldataa.haveExp, leveldataa.passNeedExp);
+	auto exeDescribe = LabelTTF::create(levelDes->getCString(), "arial", 17);
 	exeDescribe->setPosition(sssize.width*0.63, sssize.height*0.47);
 	spHeadFrame->addChild(exeDescribe);
 

@@ -171,9 +171,6 @@
     <ClCompile Include="..\Classes\AIManager.cpp">
       <Filter>src\AI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AIMolo.cpp">
-      <Filter>src\AI</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\AI.cpp">
       <Filter>src\AI</Filter>
     </ClCompile>
@@ -212,6 +209,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\fish\FishGroupData.cpp">
       <Filter>src\fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ai\AIHu.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ai\AIMolo.cpp">
+      <Filter>src\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,9 +326,6 @@
     <ClInclude Include="..\Classes\AIManager.h">
       <Filter>src\AI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\AIMolo.h">
-      <Filter>src\AI</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\utill\SkillButton.h">
       <Filter>src\utill</Filter>
     </ClInclude>
@@ -361,6 +361,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\fish\FishGroupData.h">
       <Filter>src\fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ai\AIHu.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ai\AIMolo.h">
+      <Filter>src\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
