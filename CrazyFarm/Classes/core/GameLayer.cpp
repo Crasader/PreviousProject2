@@ -24,8 +24,8 @@ bool GameLayer::init(){
 	//TODO 游戏核心界面
 	
 	//TODO 产生鱼
-	schedule(schedule_selector(GameLayer::createFish), 0.3f,CC_REPEAT_FOREVER, 0);
-	schedule(schedule_selector(GameLayer::createFishGroup), 60.0f, CC_REPEAT_FOREVER,10.0f);
+	schedule(schedule_selector(GameLayer::createFish), 0.3f,CC_REPEAT_FOREVER, 20.0f);
+	schedule(schedule_selector(GameLayer::createFishGroup), 180.0f, CC_REPEAT_FOREVER, 2.0f);
 	scheduleUpdate();
 	addTouchEvent();	
 
@@ -47,12 +47,17 @@ bool GameLayer::init(){
 
 
 void GameLayer::createFish(float dt){
-	Fish* fish = FishManage::getInstance()->createFishSingle();
-	FishManage::getInstance()->decideFishPos(fish);
-	fish->move(3);
-	this->addChild(fish);
-
+    if(FishManage::getInstance()->getAllFishInPoolCount() < 30) {
+        int create = rand()%100;
+        if(create < 80) {
+            Fish* fish = FishManage::getInstance()->createFishSingle();
+            FishManage::getInstance()->decideFishPos(fish);
+            fish->move(3);
+            this->addChild(fish);
+        }
+    }
 }
+
 void GameLayer::createFishGroup(float dt)
 {
 	auto gp = FishGroupData::getInstance()->getGroupBytag(rand()%3+1);

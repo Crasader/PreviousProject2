@@ -18,6 +18,10 @@ Vector<Fish*> FishManage::getAllFishInPool(){
 	return fishPool;
 }
 
+int FishManage::getAllFishInPoolCount() {
+    return fishPool.size();
+}
+
 Fish* FishManage::createFishSingle(){
 	auto fish = Fish::create();
 	int randType = rand() % 8+1;
