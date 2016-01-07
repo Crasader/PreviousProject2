@@ -1,7 +1,7 @@
 #ifndef __PLAYER_LEFT__
 #define __PLAYER_LEFT__
 #include "cocos2d.h"
-#include "game/domian/HeadPortrait.h"
+#include "game/headportrait/HeadPortrait.h"
 USING_NS_CC;
 
 class PlayerLeft :  public Sprite{
