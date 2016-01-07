@@ -113,14 +113,42 @@ void GameGuiLayer::showRandonBubbleAni()
 
 void GameGuiLayer::createSettingBoard()
 {
+	auto menuset = Menu::create();
+	menuset->setPosition(Point::ZERO);
+	addChild(menuset);
+
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
-	addChild(menu);
+	menuset->addChild(menu);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto exitButton = MenuItemImage::create("exit_1.png", "exit_1.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
-	exitButton->setPosition(visibleSize.width / 2, visibleSize.height*1.0 + 20);
+	exitButton->setPosition(33.33,60);
 	menu->addChild(exitButton);
 
+	auto settingButton = MenuItemImage::create("setting_button1.png", "setting_button1.png", CC_CALLBACK_1(GameGuiLayer::settingCallback, this));
+	settingButton->setPosition(100, 60);
+	menu->addChild(settingButton);
+
+	auto showFishButton = MenuItemImage::create("fish_button1.png", "fish_button1.png", CC_CALLBACK_1(GameGuiLayer::showFishCallback, this));
+	settingButton->setPosition(200 - 33.3, 60);
+	menu->addChild(showFishButton);
+
+	auto setttingBoard = MenuItemImage::create("settingBG.png", "settingBG.png", CC_CALLBACK_1(GameGuiLayer::showSettingCallback, this));
+
+
+
+}
+
+
+void GameGuiLayer::settingCallback(Ref *pSender)
+{
+}
+void GameGuiLayer::showFishCallback(Ref *pSender)
+{
+
+}
+void GameGuiLayer::showSettingCallback(Ref*pSender)
+{
 
 }

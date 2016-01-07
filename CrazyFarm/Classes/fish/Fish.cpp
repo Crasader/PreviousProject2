@@ -18,7 +18,7 @@ void Fish::initFish(int fishType){
 	this->speed = getFishSpeedByType(fishType);;
 	this->experience = getFishExperienceByType(fishType);
 	this->resoureName = getSrcByType(fishType);///2_02.png
-	initFishAnim(fishType);
+	initFishAnim(fishdata.uiId);
 }
 
 void Fish::initFishAnim(int fishType){
