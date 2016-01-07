@@ -2,15 +2,10 @@
 #define __LOBBY_SCENE_H__
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "network/HttpClient.h"
+
+using namespace cocos2d::network;
 USING_NS_CC;
-USING_NS_CC_EXT;
-
-
-struct loopList
-{
-	MenuItemImage* cell;
-	loopList* next;
-};
 
 class LobbyScene : public cocos2d::Layer
 {
@@ -22,6 +17,8 @@ public:
 	
     CREATE_FUNC(LobbyScene);
 
+
+	void onHttpRequestCompleted(HttpClient *sender, HttpResponse *response);
 private:
 	void loadResource();
 	void createRoomLayer();
@@ -31,9 +28,9 @@ private:
 	void payDiamondCallback(Ref*psend);
 	void beginGameCallback(Ref*psend);
 	void bagButtonCallback(Ref*psend);
+	
 
-	//关卡选择界面
-	loopList* listHead;
+
 private:
 	LabelTTF* userdiamond;
 	LabelTTF* userCoin;

@@ -246,6 +246,9 @@
     <ClCompile Include="..\Classes\moment\MomentThree.cpp">
       <Filter>src\moment</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\HttpClientUtill.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -424,6 +427,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\moment\MomentThree.h">
       <Filter>src\moment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HttpClientUtill.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

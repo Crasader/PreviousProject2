@@ -23,9 +23,9 @@ bool GameLayer::init(){
 	game_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(game_bg);
 	game_bg->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniWater")));
-	//TODO ÓÎÏ·ºËÐÄ½çÃæ
+	//TODO æ¸¸æˆæ ¸å¿ƒç•Œé¢
 	
-	//TODO ²úÉúÓã
+	//TODO äº§ç”Ÿé±¼
 	/*schedule(schedule_selector(GameLayer::createFish), 0.3f,CC_REPEAT_FOREVER, 20.0f);
 	schedule(schedule_selector(GameLayer::createFishGroup), 180.0f, CC_REPEAT_FOREVER, 2.0f);*/
 	scheduleUpdate();
@@ -121,7 +121,7 @@ void GameLayer::createTurret(){
 
 
 void GameLayer::shoot(float degree, PlayerTurret* turret){
-	//Ìí¼ÓÒ»¿Å×Óµ¯ÓÃÓÚ²âÊÔ
+	//æ·»åŠ ä¸€é¢—å­å¼¹ç”¨äºŽæµ‹è¯•
 	auto bullet = BulletManage::getInstance()->createBullet(rand()%8, 90);
 	bullet->setRotation(degree);
 	bullet->setPosition(turret->getPosition());
@@ -148,7 +148,7 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 
 void GameLayer::onTouchMoved(Touch *touch, Event  *event)
 {
-	//TODO ÐèÒªÌí¼Ó×Óµ¯¼ä¸ô
+	//TODO éœ€è¦æ·»åŠ å­å¼¹é—´éš”
 	//float degree = getTurretRotation(myTurret->getPosition(), touch->getLocation());
 	//rotateTurret(degree);
 	//shoot(degree);
@@ -157,12 +157,12 @@ void GameLayer::onTouchMoved(Touch *touch, Event  *event)
 
 void  GameLayer::onTouchEnded(Touch *touch, Event  *event)
 {
-	//ÔÝÊ±²»×ö´¦Àí
+	//æš‚æ—¶ä¸åšå¤„ç†
 }
 
 
 float GameLayer::getTurretRotation(Point start_pos, Point pos){
-	//¼ÆËãÁ½µãÖ®¼äµÄ½Ç¶È
+	//è®¡ç®—ä¸¤ç‚¹ä¹‹é—´çš„è§’åº¦
 	double len_y = pos.y - start_pos.y;
 	double len_x = pos.x - start_pos.x;
 
@@ -244,12 +244,12 @@ void GameLayer::createAI()
 void GameLayer::collisionUpdate(float dt)
 {
 
-	//TODO Åö×²Âß¼­
-	//step1 »ñÈ¡×Óµ¯ÁÐ±í
+	//TODO ç¢°æ’žé€»è¾‘
+	//step1 èŽ·å–å­å¼¹åˆ—è¡¨
 	auto allBullets = BulletManage::getInstance()->getAllBullets();
-	//step2 »ñÈ¡ÓãµÄÁÐ±í
+	//step2 èŽ·å–é±¼çš„åˆ—è¡¨
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
-	//step3 Åö×²¼ì²é
+	//step3 ç¢°æ’žæ£€æŸ¥
 	Vector<Fish*>::iterator it;
 	Vector<Bullet*> bulletNeedRemove;
 	for (it = allFish.begin(); it != allFish.end(); it++){
@@ -258,11 +258,11 @@ void GameLayer::collisionUpdate(float dt)
 			Fish* fish = *it;
 			Bullet* bullet = *it2;
 			if (collision(fish, bullet)){
-				//·¢ÉúÅö×²,ÒÆ³ý×Óµ¯
+				//å‘ç”Ÿç¢°æ’ž,ç§»é™¤å­å¼¹
 				bulletNeedRemove.pushBack(bullet);
 				bullet->removeFromParent();
 				it2 = allBullets.erase(it2);
-				//TODO´ò¿ªÓæÍø
+				//TODOæ‰“å¼€æ¸”ç½‘
 				createNet(bullet);
 			}
 			else{

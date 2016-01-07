@@ -22,6 +22,7 @@ private :
 	void ButtentouchEvent(Ref *pSender);
 	void showRandonBubbleAni();
 	void exitCallback(Ref *pSender);
+	void createSettingBoard();
 	 
 };
 #endif

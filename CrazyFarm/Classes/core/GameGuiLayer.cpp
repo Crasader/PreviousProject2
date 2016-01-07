@@ -60,9 +60,7 @@ bool GameGuiLayer::init(){
 	sprbg1->setPosition(buttonPlay1->getContentSize().width *0.3, buttonPlay1->getContentSize().height / 2);
 	buttonPlay1->addChild(sprbg1);
 
-	auto exitButton = MenuItemImage::create("settingBG.png", "settingBG.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
-	exitButton->setPosition(visibleSize.width / 2, visibleSize.height*1.0+30);
-	menu->addChild(exitButton);
+	
 
 
 
@@ -110,4 +108,19 @@ void GameGuiLayer::showRandonBubbleAni()
 	int k = rand() % 30 + 50;
 	float nexttime = ((float)k) / 10;
 	runAction(Sequence::create(DelayTime::create(nexttime), CallFunc::create(CC_CALLBACK_0(GameGuiLayer::showRandonBubbleAni, this)), nullptr));
+}
+
+
+void GameGuiLayer::createSettingBoard()
+{
+	auto menu = Menu::create();
+	menu->setPosition(Point::ZERO);
+	addChild(menu);
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+
+	auto exitButton = MenuItemImage::create("exit_1.png", "exit_1.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
+	exitButton->setPosition(visibleSize.width / 2, visibleSize.height*1.0 + 20);
+	menu->addChild(exitButton);
+
+
 }

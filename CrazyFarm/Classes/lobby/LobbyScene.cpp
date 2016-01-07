@@ -12,6 +12,7 @@
 #include "fish/FishAniMannage.h"
 #include "fish/FishGroupData.h"
 #include "config/ConfigOnemoment.h"
+#include "HttpClientUtill.h"
 Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
@@ -33,6 +34,14 @@ bool LobbyScene::init()
 	loadResource();
 	auto user = User::getInstance();
 	auto leveldata = user->getLevelData();
+
+	//if (user->getUserId() == "guest")
+	//{
+	//	HttpClientUtill::getInstance()->onGetHttp("http://114.119.39.150:1701/user/hello", CC_CALLBACK_2(LobbyScene::onHttpRequestCompleted, this));
+	//}
+
+
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* lobby_bg = Sprite::create("lobbyBG.png");
 	lobby_bg->setPosition(visibleSize.width/2,visibleSize.height/2);
@@ -152,6 +161,9 @@ bool LobbyScene::init()
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
+
+
+	
 	return true;
 }
 
@@ -177,15 +189,14 @@ void LobbyScene::loadResource(){
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/bubble/aniBubble%d.png", "aniBubble", 2.0f, 19);
 	//load fish ani
 	int i = 1;
-	while (1)
+	for (int i = 1; i < 100; i++)
 	{
 		auto jsonPath = String::createWithFormat("fish/fish_frame_%d.json", i);
 		auto plistPath = String::createWithFormat("fish/fish_frame_%d.plist", i);
-		if (!FishAniMannage::getInstance()->loadAniByJsonAndPlist(jsonPath->getCString(), plistPath->getCString()))
+		if (!FishAniMannage::getInstance()->loadAniByJsonAndPlist(jsonPath->getCString(),plistPath->getCString()))
 		{
-			break;
+		
 		}
-		i++;
 	}
 	//load json
 	ConfigItem::getInstance()->LoadConfig();
@@ -217,6 +228,8 @@ void LobbyScene::payCoinCallback(Ref*psend)
 {
 	auto coin = User::getInstance()->addCoins(1000);
 	userCoin->setString(Value(coin).asString().c_str());
+	/*HttpClientUtill::getInstance()->onPostHttp("66666","http://114.119.39.150:1701/user/hello", CC_CALLBACK_2(LobbyScene::onHttpRequestCompleted, this));*/
+	
 }
 void LobbyScene::payDiamondCallback(Ref*psend)
 {
@@ -231,4 +244,31 @@ void LobbyScene::beginGameCallback(Ref*psend)
 void LobbyScene::bagButtonCallback(Ref*psend)
 {
 	Director::getInstance()->pushScene(BagLayer::createScene());
+}
+
+void LobbyScene::onHttpRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+	if (!response)
+	{
+		return;
+	}
+
+	long statusCode = response->getResponseCode();
+	char statusString[64] = {};
+	// dump data
+	std::vector<char> *buffer = response->getResponseData();
+	auto temp = std::string(buffer->begin(), buffer->end());
+	log("error buffer: %s", response->getErrorBuffer());
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	if (doc.HasParseError())
+	{
+		log("get json data err!");;
+	}
+	User::getInstance()->setUserID(doc["user_name"].GetString());
+	//User::getInstance()->setSession_id(doc["session_id"].GetString());
+	log("error_code:%d", doc["error_code"].GetInt());
+	log("error_msg:%s", doc["error_msg"].GetString());
+	log("user_name:%s", doc["user_name"].GetString());
+	log("session_id:%s", doc["session_id"].GetString());
 }

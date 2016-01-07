@@ -18,9 +18,12 @@ User* User::getInstance(){
 	return _instance;
 }
 
-char* User::getUserId() {
-    // TODO : wait impl
-    return "kj_20151229";
+std::string User::getUserId() {
+	return UserDefault::getInstance()->getStringForKey(User::KEY_USER_ID, "guest");
+}
+void User::setUserID(std::string userId)
+{
+	UserDefault::getInstance()->setStringForKey(User::KEY_USER_ID, userId);
 }
 
 char* User::getUserName() {

@@ -11,14 +11,21 @@ class User{
 public:
 	static User* getInstance();
     
-    char* getUserId();
+	std::string getUserId();
+	void setUserID(std::string userId);
+
+
+	std::string getSession_id();
+	void setSession_id(std::string userId);
+
     char* getUserName();
     
     const char* KEY_COINS = "KEY_COINS";
     const char* KEY_DIAMONDS = "KEY_DIAMONDS";
     const char* KEY_EXP = "KEY_EXP";
     const char* KEY_M_TURRENT = "KEY_M_TURRENT";
-    
+	const char* KEY_USER_ID = "KEY_USER_ID";
+
     const char* KEY_CHARGE_MONEY = "KEY_CHARGE_MONEY";
 
 	int addCoins(int coins);
