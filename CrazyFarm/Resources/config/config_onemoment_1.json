@@ -5,11 +5,11 @@
 			"fishgroup_id"		:	1,
 			"start_time"		:	0,
 			"end_time"			:	5,
-			"start_position_x"	:	0,
+			"start_position_x"	:	960,
 			"start_position_y"	:	270,
 			"end_position_x"	:	300,
 			"end_position_y"	:	0,
-			"move_type"			:	2,
+			"move_type"			:	1,
 			"move_parameter"	: {
 			}
 		},
@@ -17,11 +17,11 @@
 			"fishgroup_id"		:	1,
 			"start_time"		:	1.0,
 			"end_time"			:	6,
-			"start_position_x"	:	0,
+			"start_position_x"	:	960,
 			"start_position_y"	:	270,
 			"end_position_x"	:	960,
 			"end_position_y"	:	270,
-			"move_type"			:	2,
+			"move_type"			:	1,
 			"move_parameter"	: {
 			}
 		},
@@ -33,7 +33,7 @@
 			"start_position_y"	:	270,
 			"end_position_x"	:	960,
 			"end_position_y"	:	270,
-			"move_type"			:	2,
+			"move_type"			:	1,
 			"move_parameter"	: {
 			}
 		},

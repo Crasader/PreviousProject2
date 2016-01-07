@@ -67,6 +67,9 @@
     <Filter Include="src\Interface\fish">
       <UniqueIdentifier>{be04d475-8e25-4105-a0dd-0ad39f4582ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\moment">
+      <UniqueIdentifier>{0efef279-d50b-4d5e-9238-b6c796d342c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -216,14 +219,17 @@
     <ClCompile Include="..\Classes\ai\AIMolo.cpp">
       <Filter>src\AI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MomentController.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MomentControllerOne.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\config\ConfigOnemoment.cpp">
       <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\moment\Moment.cpp">
+      <Filter>src\moment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\moment\MomentManager.cpp">
+      <Filter>src\moment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\moment\MomentOne.cpp">
+      <Filter>src\moment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -377,14 +383,17 @@
     <ClInclude Include="..\Classes\ai\AIMolo.h">
       <Filter>src\AI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MomentController.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MomentControllerOne.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigOnemoment.h">
       <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\moment\Moment.h">
+      <Filter>src\moment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\moment\MomentManager.h">
+      <Filter>src\moment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\moment\MomentOne.h">
+      <Filter>src\moment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

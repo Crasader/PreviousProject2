@@ -31,7 +31,7 @@ public:
 
 	void UpdateWhenController(float dt);
 	void LoadOnement();
-	void createFishByOneMonet(int fishGroupId,int costTime,Vec2 startPos,Vec2 endPos,int movetype);
+	void createFishByOneMonet(OneMoment onemonent);
 private :
 	FishManage();
 	static FishManage* _instance;

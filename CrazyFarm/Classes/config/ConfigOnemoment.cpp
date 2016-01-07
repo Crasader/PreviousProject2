@@ -51,7 +51,7 @@ std::list<OneMoment> ConfigOnemoment::LoadConfig(std::string filename) {
             oneMoment.end_position_x = val["end_position_x"].GetInt();
             oneMoment.end_position_y = val["end_position_y"].GetInt();
             oneMoment.move_type = val["move_type"].GetInt();
-            
+
 			oneMoments.push_back(oneMoment);
 		}
 		

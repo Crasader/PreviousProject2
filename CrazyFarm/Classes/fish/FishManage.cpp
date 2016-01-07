@@ -1,6 +1,6 @@
 #include "fish/FishManage.h"
 #include "fish/FishGroupData.h"
-
+#include "utill/FunUtil.h"
 FishManage* FishManage::_instance = 0;
 
 FishManage* FishManage::getInstance(){
@@ -32,7 +32,8 @@ Fish* FishManage::createFishSingle(){
 Fish* FishManage::createFishSingle(int type){
 	auto fish = Fish::create();
 	fish->initFish(type);
-	fishPool.pushBack(fish);
+	fishPool.pushBack(fish);	
+	fish->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	return fish;
 }
 Vector<Fish*> FishManage::createFishGroup(int grouptag)
@@ -140,23 +141,34 @@ void FishManage::UpdateWhenController(float dt)
 	}
 }
 
-void FishManage::createFishByOneMonet(int fishGroupId, int costTime, Vec2 startPos, Vec2 endPos, int movetype)
+void FishManage::createFishByOneMonet(OneMoment onemonent)
 {
-    if(movetype == 2) {
-        auto fish = createFishSingle(fishGroupId);
-        fish->setPosition(startPos);
-        fish->runAction(MoveTo::create(costTime, endPos));
-        m_layer->addChild(fish);
-    }else if(movetype == 1) {
-        // TODO : need support any postion ;
-        Fish* fish = createFishSingle(fishGroupId);
-        fish->setRotation(0);
-        fish->setDirection(RIGHT);
-        fish->setPosition(startPos);
-        fish->move(3);
-        m_layer->addChild(fish);
-    }else if(movetype == 3) {
-        // TODO :
-    }
-	
+
+	switch (onemonent.move_type)
+	{
+	case 1:
+		{
+			Fish* fish = createFishSingle(onemonent.fishgroup_id);
+			fish->setDirection(getDirectionByPosition(Vec2(onemonent.start_position_x,onemonent.start_position_y)));
+			fish->setPosition(Vec2(onemonent.start_position_x,onemonent.start_position_y));
+			fish->move(3);
+			m_layer->addChild(fish);
+		}
+		break;
+	case 2:
+		{
+			auto fish = createFishSingle(onemonent.fishgroup_id);
+			fish->setPosition(onemonent.start_position_x, onemonent.start_position_y);
+			fish->runAction(MoveTo::create(onemonent.end_time - onemonent.start_time, Vec2(onemonent.end_position_x, onemonent.end_position_y)));
+			m_layer->addChild(fish);
+		}
+		break;
+	case 3:
+		{
+			//TODO:  ÇúÏßÔË¶¯
+		}
+		break;
+	default:
+	break;
+	}
 }

@@ -1,13 +1,13 @@
-#include "moment/MomentOne.h"
+#include "moment/MomentTwo.h"
 
 
-void MomentOne::init()
+void MomentTwo::init()
 {
-	m_oneMoment = ConfigOnemoment::getInstance()->LoadConfig("config/config_onemoment_1.json");
+	
 
 }
 
-bool MomentOne::updata(float dt)
+bool MomentTwo::updata(float dt)
 {
 	nNowTime += dt;
 	if (nNowTime>10)    //TODO : need update 60s by config
