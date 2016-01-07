@@ -4,7 +4,7 @@
 #include "fish/FishManage.h"
 using namespace cocos2d;
 
-class MomentTwo : public MomentIntervalCreate {
+class MomentThree : public MomentIntervalCreate {
 
 public:
 	virtual void initData();

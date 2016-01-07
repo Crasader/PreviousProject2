@@ -6,7 +6,9 @@
 
 #include "moment/Moment.h"
 #include "moment/MomentOne.h"
-
+#include "moment/MomentTwo.h"
+#include "moment/MomentThree.h"
+#include "moment/MomentFour.h"
 
 using namespace cocos2d;
 

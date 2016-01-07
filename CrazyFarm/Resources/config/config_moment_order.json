@@ -2,11 +2,19 @@
 	"describe": "配置moment序列",
 	"item_list": [
 		{
-			"moment_id"	:	1
+			"moment_id"	:	2
 		},
 		{
-			"moment_id"	:	1
+			"moment_id"	: 3
+		}
+		,
+		{
+			"moment_id"	:	4
 		}	
+		,
+		{
+			"moment_id"	:	1
+		}		
 	]
 }
 

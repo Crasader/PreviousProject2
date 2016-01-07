@@ -231,6 +231,21 @@
     <ClCompile Include="..\Classes\moment\MomentOne.cpp">
       <Filter>src\moment</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\moment\MomentTwo.cpp">
+      <Filter>src\moment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigMomentOrder.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\moment\MomentIntervalCreate.cpp">
+      <Filter>src\moment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\moment\MomentFour.cpp">
+      <Filter>src\moment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\moment\MomentThree.cpp">
+      <Filter>src\moment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -393,6 +408,21 @@
       <Filter>src\moment</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\moment\MomentOne.h">
+      <Filter>src\moment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\moment\MomentTwo.h">
+      <Filter>src\moment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigMomentOrder.h">
+      <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\moment\MomentIntervalCreate.h">
+      <Filter>src\moment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\moment\MomentFour.h">
+      <Filter>src\moment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\moment\MomentThree.h">
       <Filter>src\moment</Filter>
     </ClInclude>
   </ItemGroup>

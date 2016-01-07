@@ -21,7 +21,7 @@ public:
 	void cleanVector();
 	Fish* createFishSingle();
 	Fish* createFishSingle(int type);
-	Vector<Fish*> createFishGroup(int grouptag);
+	void createFishGroup(int grouptag);
 	void removeFish(Fish* fish);
 	void decideFishPos(Fish* fish);//决定鱼的出生位置
 	Vector<Fish*> getAllFishInPool();

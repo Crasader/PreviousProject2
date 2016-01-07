@@ -36,15 +36,24 @@ Fish* FishManage::createFishSingle(int type){
 	fish->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	return fish;
 }
-Vector<Fish*> FishManage::createFishGroup(int grouptag)
+void FishManage::createFishGroup(int grouptag)
 {
 	auto gp = FishGroupData::getInstance()->getGroupBytag(grouptag);
-	for (auto singlegp : gp.singleTypefishGroups)
+	for (int i = 0; i < gp.singleTypefishGroups.size(); i++)
 	{
+		auto singlegp = gp.singleTypefishGroups[i];
+		for (int j = 0; j < singlegp.fishCount; j++)
+		{
+			m_layer->runAction(Sequence::create(DelayTime::create(j*singlegp.IntervalCreateTime), CallFunc::create([=]{
+				Fish* fish = FishManage::getInstance()->createFishSingle(singlegp.fishID);
+				fish->setRoute(singlegp.fishRoute);
+				fish->setPosition(singlegp.startPos);
+				m_layer->addChild(fish);
+			}), nullptr));
+		}
 
 	}
-	Vector<Fish*> a;
-	return a;
+
 }
 
 void FishManage::removeFish(Fish* fish){
@@ -120,6 +129,7 @@ void FishManage::removeFishWhichSwimOut()
 
 void FishManage::cleanVector()
 {
+	m_layer = nullptr; 
 	fishPool.clear();
 }
 

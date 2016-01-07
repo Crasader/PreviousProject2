@@ -16,6 +16,7 @@ bool GameLayer::init(){
 	{
 		return false;
 	}
+	FishManage::getInstance()->setlayer(this);
 	//add game bg to this layer
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* game_bg = Sprite::create("lobby_bg.jpg");
@@ -44,7 +45,7 @@ bool GameLayer::init(){
 	//fish->runAction(CircleMoveTo::create(10, Vec2(200, 200), 0.0f, 1800));
 
 
-	FishManage::getInstance()->setlayer(this);
+	
 	return true;
 }
 
@@ -70,9 +71,6 @@ void GameLayer::createFishGroup(float dt)
 	auto gp = FishGroupData::getInstance()->getGroupBytag(rand()%3+1);
 	for (int i = 0; i < gp.singleTypefishGroups.size();i++)
 	{
-		struct timeval tv;
-		gettimeofday(&tv, NULL);
-		CCLOG("i:%d  time:%f", i, tv.tv_sec * 1000 + tv.tv_usec / 1000);
 		auto singlegp = gp.singleTypefishGroups[i];
 		for (int j = 0; j < singlegp.fishCount;j++)
 		{

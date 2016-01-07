@@ -29,6 +29,35 @@ Moment* MomentManager::getNewMomentByType(int momentType) {
         moment->init();
         return moment;
     }
+	switch (momentType)
+	{
+	case 1:
+	{
+		Moment* moment = new MomentOne();
+		moment->init();
+		return moment;
+	}
+	case 2:
+	{
+		Moment* moment = new MomentTwo();
+		moment->init();
+		return moment;
+	}
+	case 3:
+	{
+		Moment* moment = new MomentThree();
+		moment->init();
+		return moment;
+	}
+	case 4:
+	{
+		Moment* moment = new MomentFour();
+		moment->init();
+		return moment;
+	}
+	default:
+		break;
+	}
     
     Moment* moment = new MomentOne();
     moment->init();
