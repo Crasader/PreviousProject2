@@ -3,26 +3,27 @@
 
 void MomentOne::init()
 {
-	m_oneMoment = ConfigOnemoment::getInstance()->LoadConfig("config/config_onemoment_1.json");
+	oneMomentList = ConfigOnemoment::getInstance()->LoadConfig("config/config_onemoment_1.json");
+    nNowTime = 0;
 
 }
 
 bool MomentOne::updata(float dt)
 {
 	nNowTime += dt;
-	if (nNowTime>10)    //TODO : need update 60s by config
+	if (nNowTime>oneMomentList.life_time)    //TODO : need update 60s by config
 	{
 		return true;
 	}
 
-	for (auto iter = m_oneMoment.begin(); iter != m_oneMoment.end();)
+	for (auto iter = oneMomentList.oneMoments.begin(); iter != oneMomentList.oneMoments.end();)
 	{
 		if (nNowTime>(iter->start_time))
 		{
 			auto k = *iter;
 			
 			FishManage::getInstance()->createFishByOneMonet(*iter);
-			iter = m_oneMoment.erase(iter);
+			iter = oneMomentList.oneMoments.erase(iter);
 			
 		}
 		else
@@ -30,5 +31,6 @@ bool MomentOne::updata(float dt)
 			return false;
 		}
 	}
+    return false;
 
 }

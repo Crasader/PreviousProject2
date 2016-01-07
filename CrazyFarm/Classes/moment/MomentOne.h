@@ -9,7 +9,7 @@ class MomentOne	:	public Moment {
 public:
 	virtual void init();
     virtual bool updata(float dt);
-	std::list<OneMoment> m_oneMoment;
+	OneMomentList oneMomentList;
 private:
 	float nNowTime = 0;
 };

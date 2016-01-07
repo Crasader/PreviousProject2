@@ -12,9 +12,9 @@ ConfigOnemoment* ConfigOnemoment::getInstance(){
 	return _instance;
 }
 
-std::list<OneMoment> ConfigOnemoment::LoadConfig(std::string filename) {
+OneMomentList ConfigOnemoment::LoadConfig(std::string filename) {
     
-    std::list<OneMoment> oneMoments;
+    OneMomentList oneMomentList;
     
 	bool bRet = false;
 	while (!bRet) {
@@ -32,6 +32,9 @@ std::list<OneMoment> ConfigOnemoment::LoadConfig(std::string filename) {
 			log("get json data err!");
 			break;
 		}
+        oneMomentList.version = doc["version"].GetInt();
+        oneMomentList.life_time = doc["life_time"].GetInt();
+        
 		rapidjson::Value& itemList = doc["item_list"];
 		if (!itemList.IsArray())
 		{
@@ -52,11 +55,11 @@ std::list<OneMoment> ConfigOnemoment::LoadConfig(std::string filename) {
             oneMoment.end_position_y = val["end_position_y"].GetInt();
             oneMoment.move_type = val["move_type"].GetInt();
 
-			oneMoments.push_back(oneMoment);
+			oneMomentList.oneMoments.push_back(oneMoment);
 		}
 		
-		return oneMoments;
+		return oneMomentList;
 	}
-    return oneMoments;
+    return oneMomentList;
 }
 

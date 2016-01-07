@@ -19,6 +19,13 @@ struct OneMoment {
 //  TODO : wait impl move_parameter read
 };
 
+struct OneMomentList {
+    int version;
+    int life_time;
+    std::list<OneMoment> oneMoments;
+
+};
+
 
 class ConfigOnemoment {
     
@@ -26,7 +33,7 @@ public:
 	ConfigOnemoment();
 	static ConfigOnemoment* getInstance();
     
-	std::list<OneMoment> LoadConfig(std::string filename);
+	OneMomentList LoadConfig(std::string filename);
 
     
 private:
