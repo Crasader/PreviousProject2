@@ -1,4 +1,4 @@
-#include "game/domian/HeadPortrait.h"
+#include "game/headportrait/HeadPortrait.h"
 HeadPortrait::HeadPortrait()
 {
 }

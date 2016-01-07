@@ -1,7 +1,7 @@
 #ifndef __PLAYER_OPPOSSITE__
 #define __PLAYER_OPPOSSITE__
 #include "cocos2d.h"
-#include "game/domian/HeadPortrait.h"
+#include "game/headportrait/HeadPortrait.h"
 USING_NS_CC;
 
 class PlayerOpposite : public Sprite{

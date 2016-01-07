@@ -1,6 +1,6 @@
-#include "game/mahjong/player/PlayerOpposite.h"
+#include "game/mahjong/otherplayer/PlayerRight.h"
 
-bool PlayerOpposite::init(){
+bool PlayerRight::init(){
 	if (!Sprite::init()){
 
 		return false;
@@ -13,10 +13,10 @@ bool PlayerOpposite::init(){
 
 
 //绘制玩家的头像
-void PlayerOpposite::drawHeadPortrait(HeadPortrait* headPortrait){
+void PlayerRight::drawHeadPortrait(HeadPortrait* headPortrait){
 	//绘制背景
 	Sprite* head_bg = Sprite::create("headportrait/touxiangheidi.png");
 	head_bg->setScale(0.5);
-	head_bg->setPosition(ccp(300, 460));
+	head_bg->setPosition(ccp(910, 360));
 	this->addChild(head_bg);
 }
