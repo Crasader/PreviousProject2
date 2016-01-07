@@ -202,54 +202,6 @@ void GameLayer::createNet(Bullet *bullet){
 	fishNet->checkCatchFish(bullet);
 }
 
-void GameLayer::createPlayerCoin()
-{
-	Point coinPos[4] =
-	{
-		Vec2(85, 45),
-		Vec2(875, 45),
-		Vec2(85, 495),
-		Vec2(875, 495)
-	};
-
-
-
-	auto vec = players;
-	for (auto player : vec)
-	{
-		auto spCoinBG = Sprite::create("coinAnddiamondBG.png");
-		spCoinBG->setPosition(coinPos[player.getRoomPosition()]);
-		addChild(spCoinBG, 10, player.getRoomPosition());
-
-		auto coinLabel = LabelAtlas::create(Value(player.getCoins()).asString().c_str(), "prop_num.png", 19, 23, '0');
-		coinLabel->setPosition(spCoinBG->getContentSize().width*0.9 , spCoinBG->getContentSize().height*0.29);
-		coinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-		spCoinBG->addChild(coinLabel);
-
-		auto diamondLabel = LabelAtlas::create(Value(player.getDiamonds()).asString().c_str(), "prop_num.png", 19, 23, '0');
-		diamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
-		diamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-		spCoinBG->addChild(diamondLabel);
-		
-	}
-	//构建自己的位置	
-	int freeIndex = m_index;
-	auto user = User::getInstance();
-	auto spCoinBG = Sprite::create("coinAnddiamondBG.png");
-	spCoinBG->setPosition(coinPos[freeIndex]);
-	addChild(spCoinBG, 10, freeIndex);
-
-	auto coinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "prop_num.png", 19, 23, '0');
-	coinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.29);
-	coinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	spCoinBG->addChild(coinLabel);
-
-	auto diamondLabel = LabelAtlas::create(Value(user->getDiamonds()).asString().c_str(), "prop_num.png", 19, 23, '0');
-	diamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
-	diamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	spCoinBG->addChild(diamondLabel);
-
-}
 
 void GameLayer::calculateFreeChair()
 {
@@ -333,6 +285,8 @@ void GameLayer::onExit()
 {
 	Layer::onExit();
 	FishManage::getInstance()->cleanVector();
+	myTurret = nullptr;
+	otherTurrets.clear();
 }
 
 void GameLayer::loadNewMonent()

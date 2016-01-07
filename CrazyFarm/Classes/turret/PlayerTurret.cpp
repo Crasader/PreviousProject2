@@ -77,8 +77,9 @@ void PlayerTurret::shoot(float degree){
 	auto bullet = BulletManage::getInstance()->createBullet(1, 90);
 	bullet->setRotation(degree);
 	bullet->setPosition(this->getPosition());
-	getParent()->addChild(bullet);
 	bullet->setPlayerTurret(this);
+	getParent()->addChild(bullet);
+	
 
 	//¿ª»ð¶¯»­
 	auto aniNode = Sprite::create();
