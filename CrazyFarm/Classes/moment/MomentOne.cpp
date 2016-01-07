@@ -1,13 +1,13 @@
-#include "MomentControllerOne.h"
+#include "moment/MomentOne.h"
 
 
-void MomentControllerOne::initController(std::list<OneMoment> oneMoment)
+void MomentOne::init()
 {
-	m_oneMoment = oneMoment;
+	m_oneMoment = ConfigOnemoment::getInstance()->LoadConfig("config/config_onemoment_1.json");
 
 }
 
-bool MomentControllerOne::updata(float dt)
+bool MomentOne::updata(float dt)
 {
 	nNowTime += dt;
 	if (nNowTime>60)    //TODO : need update 60s by config

@@ -5,7 +5,9 @@
 #include "fish/Fish.h"
 #include "core/GameLayer.h"
 #include "config/ConfigOnemoment.h"
-#include "MomentControllerOne.h"
+#include "moment/Moment.h"
+#include "moment/MomentManager.h"
+
 using namespace cocos2d;
 
 #define BORDER_LEFT 0
@@ -28,13 +30,13 @@ public:
 
 
 	void UpdateWhenController(float dt);
-	void LoadOnement(std::list<OneMoment> oneMoment);
+	void LoadOnement();
 	void createFishByOneMonet(int fishGroupId,int costTime,Vec2 startPos,Vec2 endPos,int movetype);
 private :
 	FishManage();
 	static FishManage* _instance;
 	Vector<Fish*> fishPool;
-	MomentController* m_nowMonentController;
+	Moment* m_nowMonent;
 	CC_SYNTHESIZE(GameLayer*, m_layer, layer);
  };
 #endif

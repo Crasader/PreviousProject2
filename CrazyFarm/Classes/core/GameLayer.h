@@ -6,7 +6,7 @@
 #include "turret/PlayerTurret.h"
 #include "net/Net.h"
 #include "RoomManager.h"
-#include "MomentController.h"
+
 USING_NS_CC;
 
 class GameLayer: public cocos2d::Layer{
@@ -41,6 +41,5 @@ private:
 	std::vector<RoomPlayer> players;
 	int m_index = -1;
 	
-	MomentController* m_nowMonentController;
 };
 #endif

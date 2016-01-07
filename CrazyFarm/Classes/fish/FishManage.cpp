@@ -123,17 +123,16 @@ void FishManage::cleanVector()
 }
 
 
-void FishManage::LoadOnement(std::list<OneMoment> oneMoment)
+void FishManage::LoadOnement()
 {
-	m_nowMonentController = new MomentControllerOne();
-	m_nowMonentController->initController(oneMoment);
+    m_nowMonent = MomentManager::getInstance()->getNewMoment();
 }
 
 void FishManage::UpdateWhenController(float dt)
 {
-	if (m_nowMonentController)
+	if (m_nowMonent)
 	{
-		if (m_nowMonentController->updata(dt))
+		if (m_nowMonent->updata(dt))
 		{
 			m_layer->loadNewMonent();
 		}
