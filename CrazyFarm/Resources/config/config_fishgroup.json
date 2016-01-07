@@ -1,5 +1,6 @@
 {
-    "description" :"”„»∫º∞πÏº£…Ë÷√",
+    "description" :"È±ºÁæ§ÈÖçÁΩÆ",
+    "version" : 1,
     "fishGroupConfig": [
         {
             "tag": 1,
@@ -15,7 +16,7 @@
 
                 },
                 {
-                    "fishID": 1	,
+                    "fishID": 1 ,
                     "fishRoute": 2,
                     "fishCount": 11,
                     "IntervalCreateTime": 0.60,

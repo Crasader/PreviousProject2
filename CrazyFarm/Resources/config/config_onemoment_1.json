@@ -1,5 +1,6 @@
 {	
 	"describe": "鱼群产生配置x[0,960],y[0,540][type,1,随机;2,直线;3,曲线??]" ,
+	"version" : 1,
 	"item_list": [
 		{
 			"fishgroup_id"		:	1,
