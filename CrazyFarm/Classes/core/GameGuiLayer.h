@@ -22,6 +22,9 @@ private :
 	void ButtentouchEvent(Ref *pSender);
 	void showRandonBubbleAni();
 	void exitCallback(Ref *pSender);
+	void settingCallback(Ref *pSender);
+	void showFishCallback(Ref *pSender);
+	void showSettingCallback(Ref*pSender);
 	void createSettingBoard();
 	 
 };
