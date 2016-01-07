@@ -1,5 +1,6 @@
 {
-    "description" :"movestate¡¤¡¤  1£º±íÊ¾°´ÕÕ¹ì¼£µãÔË¶¯£¬tension±íÊ¾ÔËÐÐ¹ì¼£ÈáºÍ¶È 0Îª×îÈáºÍ£¬1Î»ÇúÏß     2£ºÔ²ÖÜÔË¶¯£ºÐèÌîÐ´²ÎÊýÔË¶¯Ô²ÐÄ£¬Ô²ÖÜ´ÎÊý£¬Ëõ·ÅÏµÊý(ÎÞËõ·ÅÌî0) 3£º²¥·Å¶¯»­£ºÐèÌîÐ´¶¯»­Ãû³Æ",
+    "description" :"1ï¼šè¡¨ç¤ºæŒ‰ç…§è½¨è¿¹ç‚¹è¿åŠ¨ï¼Œtensionè¡¨ç¤ºè¿è¡Œè½¨è¿¹æŸ”å’Œåº¦ 0ä¸ºæœ€æŸ”å’Œï¼Œ1ä½æ›²çº¿ 2ï¼šåœ†å‘¨è¿åŠ¨ï¼šéœ€å¡«å†™å‚æ•°è¿åŠ¨åœ†å¿ƒï¼Œåœ†å‘¨æ¬¡æ•°ï¼Œç¼©æ”¾ç³»æ•°(æ— ç¼©æ”¾å¡«0) 3ï¼šæ’­æ”¾åŠ¨ç”»ï¼šéœ€å¡«å†™åŠ¨ç”»åç§°",
+    "version" : 1,
     "MotionConfig": [
         {
             "tag": 1,

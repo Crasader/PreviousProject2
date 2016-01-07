@@ -1,5 +1,6 @@
 {	
 	"describe": "用户vip等级配置信息;目前只配置了4个测试值" ,
+  "version" : 1,
 	"item_list": [
                   {
                     "vip_level"	:	0,

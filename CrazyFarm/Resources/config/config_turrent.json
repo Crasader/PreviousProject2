@@ -1,5 +1,6 @@
     {
         "describe": "炮台配置" ,
+        "version" : 1,
         "item_list": [
                       {
                       "turrent_id"	:	1,

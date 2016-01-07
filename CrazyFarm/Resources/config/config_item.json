@@ -1,5 +1,6 @@
 {	
 	"describe": "道具配置列表.buy_type,0不支持购买[限金币和钻石两种];1金币;2钻石;" ,
+	"version" : 1,
 	"item_list": [
 		{
 			"item_id"	:	1001,

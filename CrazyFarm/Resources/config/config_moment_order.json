@@ -1,5 +1,6 @@
 {	
 	"describe": "配置moment序列",
+	"version" : 1,
 	"item_list": [
 		{
 			"moment_id"	:	1
