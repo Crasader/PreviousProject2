@@ -249,6 +249,9 @@
     <ClCompile Include="..\Classes\HttpClientUtill.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\core\showFishLayer.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -430,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\HttpClientUtill.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\showFishLayer.h">
+      <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

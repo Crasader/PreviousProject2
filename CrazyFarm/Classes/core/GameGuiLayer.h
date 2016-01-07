@@ -26,6 +26,7 @@ private :
 	void showFishCallback(Ref *pSender);
 	void showSettingCallback(Ref*pSender);
 	void createSettingBoard();
+	MenuItemImage* setttingBoard;
 	 
 };
 #endif

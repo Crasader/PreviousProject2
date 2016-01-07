@@ -213,3 +213,12 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
 	}
 }
+
+void PlayerTurret::onExit()
+{
+	Sprite::onExit();
+	m_CoinLabel->removeFromParentAndCleanup(true);
+	m_DiamondLabel->removeFromParentAndCleanup(true);
+	m_turret->removeFromParentAndCleanup(true);
+	
+}

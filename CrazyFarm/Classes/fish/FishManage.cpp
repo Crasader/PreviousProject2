@@ -159,7 +159,10 @@ void FishManage::createFishByOneMonet(OneMoment onemonent)
 	case 1:
 		{
 			Fish* fish = createFishSingle(onemonent.fishgroup_id);
-			fish->setDirection(getDirectionByPosition(Vec2(onemonent.start_position_x,onemonent.start_position_y)));
+			auto k = getAngleByPos(Vec2(onemonent.start_position_x, onemonent.start_position_y));
+			fish->setMoveAngle(k);
+			/*fish->setRotation(getAngleByPos(Vec2(onemonent.start_position_x, onemonent.start_position_y)));*/
+			/*fish->setDirection(getDirectionByPosition(Vec2(onemonent.start_position_x,onemonent.start_position_y)));*/
 			fish->setPosition(Vec2(onemonent.start_position_x,onemonent.start_position_y));
 			fish->move(3);
 			m_layer->addChild(fish);

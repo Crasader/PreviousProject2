@@ -32,7 +32,7 @@ private:
 	  int turretType;
 	  void upgradeTurret(Ref* psend);
 	  void degradeTurret(Ref* psend);
-
+	  void onExit();
 	  LabelAtlas* nCurLevel;
 	  LabelAtlas*m_CoinLabel;
 	  LabelAtlas*m_DiamondLabel;

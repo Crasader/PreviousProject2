@@ -95,7 +95,11 @@ void Fish::move(int moveType){
 		schedule(schedule_selector(Fish::moveFishCircle), 0, 0, 0);
 		break;
 	default:
-		schedule(schedule_selector(Fish::moveFishRandomStraight), rand()%3+2, CC_REPEAT_FOREVER, 0);
+	{
+		schedule(schedule_selector(Fish::moveFishRandomStraight), 0, CC_REPEAT_FOREVER, 0);
+	}
+
+		
 		break;
 	}
 }
@@ -116,13 +120,14 @@ void Fish::moveFishCircle(float dt){
 
 void Fish::moveFishRandomStraight(float dt){
 	//TOOD 鱼的随机直线运动
-	float angle = 0;
-	float randnum = (rand() % 4+8)/10.0f;
-	Point nextPos = getRandomPostion(dt*speed*randnum, this->getDirection(), angle);
-	auto move = MoveBy::create(dt, nextPos);
 	
+	float randnum = (rand() % 4+8)/10.0f;
+
+	Point nextPos = getRandomPostion(dt*speed*randnum, this->getDirection(), fMoveAngle);
+	auto move = MoveBy::create(dt, nextPos);	
 	runAction(move);
-	runAction(RotateTo::create(0.1, 360-angle));
+	update(dt);
+	/*runAction(RotateTo::create(0.1, 360-angle));*/
 }
 
 void Fish::moveFishRandomCurve(float dt)
@@ -169,24 +174,26 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 
 Point Fish::getRandomPostion(float speed, swimDirection direction, float &angle)
 {
-	
-	switch (direction)
+	float diffAngle = (rand() % 20 - 10) / 10.0f;
+	angle += diffAngle;
+
+	/*switch (direction)
 	{
 	case DOWN:
-		angle = rand() % 90+225;
-		break;
+	angle = rand() % 5+225;
+	break;
 	case LEFT:
-		angle = rand() % 90 + 135;
-		break;
+	angle = rand() % 90 + 135;
+	break;
 	case RIGHT:
-		angle = rand() % 90 - 45;
-		break;
+	angle = rand() % 90 - 45;
+	break;
 	case UP:
-		angle = rand() % 90+45 ;
-		break;
+	angle = rand() % 90+45 ;
+	break;
 	default:
-		return Vec2(0, 0);
-	}
+	return Vec2(0, 0);
+	}*/
 	return Vec2(speed*cos(CC_DEGREES_TO_RADIANS(angle)), speed*sin(CC_DEGREES_TO_RADIANS(angle)));
 
 }

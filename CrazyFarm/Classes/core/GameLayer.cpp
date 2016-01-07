@@ -283,6 +283,7 @@ void GameLayer::onExit()
 {
 	Layer::onExit();
 	FishManage::getInstance()->cleanVector();
+	BulletManage::getInstance()->ClearManage();
 	myTurret = nullptr;
 	otherTurrets.clear();
 }

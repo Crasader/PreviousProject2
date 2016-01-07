@@ -42,3 +42,13 @@ swimDirection getDirectionByPosition(Vec2 pos)
 	}
 
 }
+
+float  getAngleByPos(Vec2 pos)
+{
+	auto k = (pos.y - 270.0) / (pos.x - 480);
+	if (pos.x>480)
+	{
+		return 180+CC_RADIANS_TO_DEGREES(atan(k));
+	}
+	return CC_RADIANS_TO_DEGREES(atan(k));
+}

@@ -84,7 +84,7 @@ bool GameGuiLayer::init(){
 
 
 
-
+	createSettingBoard();
 	showRandonBubbleAni();
 	return true;
 
@@ -116,26 +116,28 @@ void GameGuiLayer::createSettingBoard()
 	auto menuset = Menu::create();
 	menuset->setPosition(Point::ZERO);
 	addChild(menuset);
-
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	setttingBoard = MenuItemImage::create("settingBG.png", "settingBG.png", CC_CALLBACK_1(GameGuiLayer::showSettingCallback, this));
+	setttingBoard->setPosition(visibleSize.width / 2, visibleSize.height + 20);
+	menuset->addChild(setttingBoard);
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
-	menuset->addChild(menu);
-	auto visibleSize = Director::getInstance()->getVisibleSize();
+	setttingBoard->addChild(menu);
+	
 
 	auto exitButton = MenuItemImage::create("exit_1.png", "exit_1.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
-	exitButton->setPosition(33.33,60);
+	exitButton->setPosition(50,65);
 	menu->addChild(exitButton);
 
 	auto settingButton = MenuItemImage::create("setting_button1.png", "setting_button1.png", CC_CALLBACK_1(GameGuiLayer::settingCallback, this));
-	settingButton->setPosition(100, 60);
+	settingButton->setPosition(114, 65);
 	menu->addChild(settingButton);
 
 	auto showFishButton = MenuItemImage::create("fish_button1.png", "fish_button1.png", CC_CALLBACK_1(GameGuiLayer::showFishCallback, this));
-	settingButton->setPosition(200 - 33.3, 60);
+	showFishButton->setPosition(178, 65);
 	menu->addChild(showFishButton);
-
-	auto setttingBoard = MenuItemImage::create("settingBG.png", "settingBG.png", CC_CALLBACK_1(GameGuiLayer::showSettingCallback, this));
-
+	
+	
 
 
 }
@@ -143,6 +145,7 @@ void GameGuiLayer::createSettingBoard()
 
 void GameGuiLayer::settingCallback(Ref *pSender)
 {
+	;
 }
 void GameGuiLayer::showFishCallback(Ref *pSender)
 {
@@ -150,5 +153,13 @@ void GameGuiLayer::showFishCallback(Ref *pSender)
 }
 void GameGuiLayer::showSettingCallback(Ref*pSender)
 {
-
+	setttingBoard->setEnabled(false);
+	setttingBoard->runAction(MoveBy::create(0.2, Vec2(0, -70)));
+	setttingBoard->runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]
+	{
+		if (setttingBoard->isEnabled() == false)
+		{
+			setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }),nullptr));
+		}
+	}),nullptr));
 }

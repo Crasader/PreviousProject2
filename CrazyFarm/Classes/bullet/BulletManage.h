@@ -8,6 +8,7 @@ public:
 	Bullet* createBullet(int type, int rotation);
 	void removeBullet(Bullet* bullet);
 	Vector<Bullet*> getAllBullets();
+	void ClearManage();
 private:
 	BulletManage();
 	static BulletManage* _instance;

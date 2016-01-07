@@ -14,6 +14,10 @@ BulletManage::BulletManage(){
 
 }
 
+void BulletManage::ClearManage()
+{
+	bulletPool.clear();
+}
 Bullet* BulletManage::createBullet(int type,int rotation){
 	auto bullet = Bullet::create();
 	bullet->initBullet(type,rotation);

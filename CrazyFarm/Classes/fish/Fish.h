@@ -64,6 +64,7 @@ private:
 	CC_SYNTHESIZE(swimDirection, nDirection, Direction);
 	Point LastPos;
 
+	CC_SYNTHESIZE(float, fMoveAngle, MoveAngle);
 	Vector<FiniteTimeAction*> RepetActionArray;
 	//Â·¾¶
 	Route m_Route;
