@@ -1,4 +1,4 @@
-#include "ConfigExp.h"
+#include "config/ConfigExp.h"
 
 using namespace cocos2d;
 

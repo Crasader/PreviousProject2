@@ -2,7 +2,7 @@
 #define _USER_H_
 #include "cocos2d.h"
 
-#include "ConfigExp.h"
+#include "config/ConfigExp.h"
 #include "config/ConfigVipLevel.h"
 
 using namespace cocos2d;
