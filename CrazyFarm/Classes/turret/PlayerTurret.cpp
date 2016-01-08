@@ -2,6 +2,8 @@
 #include "bullet/BulletManage.h"
 #include "utill/AnimationUtil.h"
 #include "user.h"
+#include "config/ConfigRoom.h"
+#include "data/GameData.h"
 bool PlayerTurret::init(){
 	if (!Sprite::initWithFile("turretBg.png")){
 		return false;
@@ -35,7 +37,7 @@ void PlayerTurret::initWithType(int type){
 void PlayerTurret::upgradeTurret(Ref* psend)
 {
 	auto nowlevel = m_turretdata.turrentId;
-	if (++nowlevel>nMaxlevel)
+	if (++nowlevel>User::getInstance()->getMaxTurrentLevel())
 	{
 		--nowlevel;
 	}
@@ -47,7 +49,7 @@ void PlayerTurret::upgradeTurret(Ref* psend)
 void PlayerTurret::degradeTurret(Ref* psend)
 {
 	auto nowlevel = m_turretdata.turrentId;
-	if (--nowlevel < 0)
+	if (--nowlevel < ConfigRoom::getInstance()->getRoombyId(GAMEDATA::getInstance()->getRoomID()).unlock_turrent_level)
 	{
 		++nowlevel;
 	}
@@ -65,7 +67,7 @@ void PlayerTurret::rorateTurret(float angle)
 void PlayerTurret::setMaxLevel(int maxlevel)
 {
 	
-	nCurLevel->setString(Value(maxlevel).asString().c_str());
+
 	setnMaxLevel(maxlevel);
 }
 
@@ -180,6 +182,7 @@ void PlayerTurret::initWithDate(User* user,int index)
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurrentLevel());
 	initWithType(user->getMaxTurrentLevel());
 	setUpgradeButton();
+	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
 	setMaxLevel(user->getMaxTurrentLevel());
 	createPlayerCoin(user,index);
 	nChairNoIndex = index;
@@ -189,6 +192,7 @@ void PlayerTurret::initWithDate(RoomPlayer* user)
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurretLevel());
 	nChairNoIndex = user->getRoomPosition();
 	initWithType(user->getMaxTurretLevel());
+	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
 	setMaxLevel(user->getMaxTurretLevel());
 	createPlayerCoin(user);
 	if (user->getRoomPosition() > 1)
@@ -209,8 +213,13 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 	}
 	else
 	{
+		//获得金币
 		auto num = fish->getFishGold()* m_turretdata.multiple;
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
+		//获得经验
+		num = fish->getFishExperience();
+		User::getInstance()->addExp(num);
+
 	}
 }
 

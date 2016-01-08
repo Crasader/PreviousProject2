@@ -4,8 +4,8 @@
 	"ani_list": [
 		{
 			"ani_name"	:	"swim",
-			"ani_img"		:	["41_0.png","41_1.png","41_2.png","41_3.png","41_4.png","41_5.png","41_6.png","41_7.png","41_8.png"],
-			"ani_time"	:	1
+			"ani_img"		:	["41_0.png","41_1.png","41_2.png","41_3.png","41_4.png","41_5.png","41_6.png","41_7.png","41_8.png","41_9.png","41_10.png","41_11.png"],
+			"ani_time"	:	1.2
 		},
 		{
 			"ani_name"	:	"dead",

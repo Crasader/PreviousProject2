@@ -21,11 +21,11 @@ public:
 	static ConfigRoom* getInstance();
     
 	bool LoadConfig();
-    std::map<int, Room> getRooms();
-
+	std::vector<Room> getRooms();
+	Room getRoombyId(int nId);
     
 private:
 	static ConfigRoom* _instance;
-    std::map<int, Room> rooms;
+    std::vector<Room> rooms;
 };
 

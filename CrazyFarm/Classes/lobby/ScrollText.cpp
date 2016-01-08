@@ -149,11 +149,8 @@ return ret;
 }
 
 bool ScrollText::onTouchBegan(Touch *touch, Event *event) {
-if (pMask->getBoundingBox().containsPoint(touch->getLocation())) {} else {}
-if (GAMEDATA::getInstance()->getScore() > 5 && !ishowDialog) {
-	CallAndroidMethod::getInstance()->showHotDialog();
-	ishowDialog = true;
-}
+
+
 return false;
 
 }

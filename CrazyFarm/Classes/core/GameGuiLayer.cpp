@@ -4,6 +4,7 @@
 #include "utill/SkillButton.h"
 #include "utill/AnimationUtil.h"
 #include "lobby/LobbyScene.h"
+#include "User.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
@@ -91,6 +92,19 @@ bool GameGuiLayer::init(){
 }
 void GameGuiLayer::ButtentouchEvent(Ref *pSender)
 {
+	auto node = (Node*)pSender;
+	switch (node->getTag())
+	{
+		case kTagUpgradeTurret:
+			User::getInstance()->setMaxTurrentLevel(User::getInstance()->getMaxTurrentLevel() + 1);
+			break;
+		case  kTagEarnCoins:
+			User::getInstance()->addCoins(1000);
+			break;
+	default:
+		break;
+	}
+
 	CCLOG("TODO CALLBAK");
 }
 void GameGuiLayer::exitCallback(Ref *pSender)

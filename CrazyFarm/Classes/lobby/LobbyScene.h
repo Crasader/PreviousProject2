@@ -7,6 +7,20 @@
 using namespace cocos2d::network;
 USING_NS_CC;
 
+
+class  roomCell:public MenuItemImage
+{
+public:
+	static roomCell * createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback);
+	CC_SYNTHESIZE(int, minEnterLevel, MinEnterLevel);
+	CC_SYNTHESIZE(bool, isLock, Islock);
+	CC_SYNTHESIZE(int, roomid, Roomid);
+};
+
+
+
+
+
 class LobbyScene : public cocos2d::Layer
 {
 public:
@@ -20,8 +34,13 @@ public:
 
 	void onHttpRequestCompleted(HttpClient *sender, HttpResponse *response);
 private:
+	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
+
 	void loadResource();
 	void createRoomLayer();
+	void lockTheRoom();
+	void moveRoomRight();
+	void moveRoomLeft();
 
 	///°´Å¥»Øµ÷
 	void payCoinCallback(Ref*psend);
@@ -34,5 +53,7 @@ private:
 private:
 	LabelTTF* userdiamond;
 	LabelTTF* userCoin;
+
+	Vector<roomCell*> roomCells;
 };
 #endif

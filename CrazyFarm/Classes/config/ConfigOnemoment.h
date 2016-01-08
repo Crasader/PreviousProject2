@@ -16,6 +16,7 @@ struct OneMoment {
     int end_position_x;
     int end_position_y;
     int move_type;
+	double startAngle;
 //  TODO : wait impl move_parameter read
 };
 

@@ -8,8 +8,28 @@
 #include "fish/FishAniMannage.h"
 #include "fish/FishGroupData.h"
 #include "HttpClientUtill.h"
-
+#include "config/ConfigRoom.h"
+#include "data/GameData.h"
 #include "config/ConfigManager.h"
+
+
+
+
+
+const Vec2 roomPos[5] = { Vec2(-300, 270), Vec2(192, 270), Vec2(480, 270), Vec2(768, 270), Vec2(960+300, 270)};
+
+roomCell * roomCell::createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback)
+{
+	roomCell *ret = new (std::nothrow) roomCell();
+	if (ret && ret->initWithNormalImage(normalImage, selectedImage,"", callback))
+	{
+		ret->autorelease();
+		return ret;
+	}
+	CC_SAFE_DELETE(ret);
+	return nullptr;
+}
+
 
 Scene* LobbyScene::createScene()
 {
@@ -85,6 +105,13 @@ bool LobbyScene::init()
 	////////////////////////////////////////////////
 	auto leveldataa = user->getLevelData();
 	auto levelDes = String::createWithFormat("%d / %d", leveldataa.haveExp, leveldataa.passNeedExp);
+	auto exeMur = (leveldataa.haveExp*1.0) / (1.0*leveldataa.passNeedExp);
+	auto exeBar = Sprite::create("exeBar.png");
+	exeBar->setScaleX(150.0 / exeBar->getContentSize().width*exeMur);
+	exeBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	exeBar->setPosition(sssize.width*0.33, sssize.height*0.47);
+		spHeadFrame->addChild(exeBar);
+
 	auto exeDescribe = LabelTTF::create(levelDes->getCString(), "arial", 17);
 	exeDescribe->setPosition(sssize.width*0.63, sssize.height*0.47);
 	spHeadFrame->addChild(exeDescribe);
@@ -159,22 +186,16 @@ bool LobbyScene::init()
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
+	auto listenr1 = EventListenerTouchOneByOne::create();
+	listenr1->onTouchBegan = CC_CALLBACK_2(LobbyScene::onTouchBegan, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
 
-
-	
+	createRoomLayer();
 	return true;
 }
 
 
 void LobbyScene::loadResource(){
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("fish_frame_0.plist");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("fish_frame_2.plist");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("fish_frame_5.plist");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("fish_frame_8.plist");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("fish_frame_10.plist");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("fish_frame_11.plist");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("fish_frame_14.plist");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("fish_frame_16.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("batch_frame_bullet.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("gun_frame.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("batch_frame_net.plist");
@@ -208,13 +229,49 @@ void LobbyScene::loadResource(){
 void LobbyScene::createRoomLayer()
 {
 	auto visibisize = Director::getInstance()->getVisibleSize();
-	auto cell = MenuItemImage::create("level_1.png", "level_1.png", CC_CALLBACK_1(LobbyScene::beginGameCallback, this));
-	cell->setPosition(visibisize / 2);
-	auto menu = Menu::create(cell, nullptr);
-	menu->setPosition(0, 0);
-	addChild(menu);
 
-	
+	auto roomDatas = ConfigRoom::getInstance()->getRooms();
+	auto menu = Menu::create();
+	menu->setPosition(Point::ZERO);
+	addChild(menu);
+	for (auto room:roomDatas)
+	{
+		auto spPath = String::createWithFormat("level_%d.png", room.ui_id);
+		auto cell = roomCell::createCell(spPath->getCString(), spPath->getCString(), CC_CALLBACK_1(LobbyScene::beginGameCallback, this));
+		cell->setMinEnterLevel(room.unlock_turrent_level);
+		cell->setTag(room.room_id);
+		cell->setRoomid(room.room_id);
+		cell->setPosition(roomPos[room.room_id]);
+		roomCells.pushBack(cell);
+		menu->addChild(cell);
+
+
+		switch (room.room_id)
+		{
+		case 4:
+			cell->setVisible(false);
+			break;
+		case 1:
+			cell->setEnabled(false);
+			cell->setScale(0.8);
+			cell->setColor(Color3B(128, 128, 128));
+			break;
+		case 2:
+			cell->setScale(1);
+			cell->setEnabled(true);
+			cell->setColor(Color3B(255, 255, 255));
+			break;
+		case 3:
+			cell->setEnabled(false);
+			cell->setScale(0.8);
+			cell->setColor(Color3B(128, 128, 128));
+			break;
+		default:
+			break;
+		}
+
+	}
+	lockTheRoom();
 
 }
 
@@ -223,7 +280,7 @@ void LobbyScene::payCoinCallback(Ref*psend)
 {
 	auto coin = User::getInstance()->addCoins(1000);
 	userCoin->setString(Value(coin).asString().c_str());
-	/*HttpClientUtill::getInstance()->onPostHttp("66666","http://114.119.39.150:1701/user/hello", CC_CALLBACK_2(LobbyScene::onHttpRequestCompleted, this));*/
+
 	
 }
 void LobbyScene::payDiamondCallback(Ref*psend)
@@ -233,6 +290,8 @@ void LobbyScene::payDiamondCallback(Ref*psend)
 }
 void LobbyScene::beginGameCallback(Ref*psend)
 {
+	auto cell = (roomCell*)psend;
+	GAMEDATA::getInstance()->setRoomID(cell->getRoomid());
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
 }
 
@@ -261,9 +320,138 @@ void LobbyScene::onHttpRequestCompleted(HttpClient *sender, HttpResponse *respon
 		log("get json data err!");;
 	}
 	User::getInstance()->setUserID(doc["user_name"].GetString());
-	//User::getInstance()->setSession_id(doc["session_id"].GetString());
 	log("error_code:%d", doc["error_code"].GetInt());
 	log("error_msg:%s", doc["error_msg"].GetString());
 	log("user_name:%s", doc["user_name"].GetString());
 	log("session_id:%s", doc["session_id"].GetString());
 }
+
+bool LobbyScene::onTouchBegan(Touch *touch, Event *unused_event)
+{
+	auto pos = touch->getLocation();
+	if (pos.y>100&&pos.y<440)
+	{
+		if (pos.x>480)
+		{
+			moveRoomRight();
+		}
+		else
+		{
+			moveRoomLeft();
+		}
+	}
+	return false;
+}
+
+void LobbyScene::moveRoomLeft()
+{
+	for (auto cell:roomCells)
+	{
+		cell->setVisible(true);
+		auto tag = cell->getTag();
+		if (--tag<1)
+		{
+			tag = 4;
+		}
+		cell->setTag(tag);
+
+		
+		switch (tag)
+		{
+		case 4:
+			cell->setVisible(false);
+			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
+			break;
+		case 1:
+			cell->setEnabled(false);
+			cell->setScale(0.8);
+			cell->setColor(Color3B(128, 128, 128));
+			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
+			break;
+		case 2:
+			cell->setScale(1);
+			if (!cell->getIslock())
+			{
+				cell->setEnabled(true);
+			}
+			cell->setColor(Color3B(255,255,255));
+			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
+			break;
+		case 3:
+			cell->setPosition(roomPos[4]);
+			cell->setEnabled(false);
+			cell->setScale(0.8);
+			cell->setColor(Color3B(128, 128, 128));
+			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
+			break;
+		default:
+			break;
+		}
+	}
+}
+void LobbyScene::moveRoomRight()
+{
+
+	for (auto cell : roomCells)
+	{
+		cell->setVisible(true);
+		auto tag = cell->getTag();
+		if (++tag >4)
+		{
+			tag = 1;
+		}
+		cell->setTag(tag);
+
+
+		switch (tag)
+		{
+		case 4:
+			cell->setVisible(false);
+			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
+			break;
+		case 1:
+			cell->setEnabled(false);
+			cell->setScale(0.8);
+			cell->setColor(Color3B(128, 128, 128));
+			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
+			break;
+		case 2:
+			cell->setScale(1);
+			if (!cell->getIslock())
+			{
+				cell->setEnabled(true);
+			}
+			cell->setColor(Color3B(255, 255, 255));
+			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
+			break;
+		case 3:
+			cell->setPosition(roomPos[4]);
+			cell->setEnabled(false);
+			cell->setScale(0.8);
+			cell->setColor(Color3B(128, 128, 128));
+			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void LobbyScene::lockTheRoom()
+{
+	for (auto cell : roomCells)
+	{
+		cell->setIslock(false);
+		auto minLevel = cell->getMinEnterLevel();
+		auto userLevel = User::getInstance()->getMaxTurrentLevel();
+		if (userLevel<minLevel)
+		{
+			cell->setIslock(true);
+			cell->setEnabled(false);
+			auto lock = Sprite::create("lock.png");
+			lock->setPosition(cell->getContentSize().width*0.2, cell->getContentSize().height*0.8);
+			cell->addChild(lock);
+		}
+	}
+}
+

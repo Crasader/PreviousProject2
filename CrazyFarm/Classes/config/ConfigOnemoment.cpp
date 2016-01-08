@@ -54,7 +54,7 @@ OneMomentList ConfigOnemoment::LoadConfig(std::string filename) {
             oneMoment.end_position_x = val["end_position_x"].GetInt();
             oneMoment.end_position_y = val["end_position_y"].GetInt();
             oneMoment.move_type = val["move_type"].GetInt();
-
+			oneMoment.startAngle = val["star_angle"].GetDouble();
 			oneMomentList.oneMoments.push_back(oneMoment);
 		}
 		

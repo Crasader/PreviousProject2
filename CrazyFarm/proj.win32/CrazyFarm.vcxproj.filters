@@ -153,9 +153,6 @@
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp">
       <Filter>src\turret</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ConfigExp.cpp">
-      <Filter>src\Interface\playinfo</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\User.cpp">
       <Filter>src\Interface\playinfo</Filter>
     </ClCompile>
@@ -252,6 +249,15 @@
     <ClCompile Include="..\Classes\core\showFishLayer.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigRoom.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigManager.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigExp.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -337,9 +343,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utill\define.h">
       <Filter>src\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ConfigExp.h">
-      <Filter>src\Interface\playinfo</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\User.h">
       <Filter>src\Interface\playinfo</Filter>
@@ -436,6 +439,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\core\showFishLayer.h">
       <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigManager.h">
+      <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigRoom.h">
+      <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigExp.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

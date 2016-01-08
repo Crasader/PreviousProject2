@@ -18,7 +18,7 @@ bool GameResultLayer::init(){
 	result_title->setPosition(240,600);
 	this->addChild(result_title);
 	//get score from gamedata
-	int score = GAMEDATA::getInstance()->getScore();
+
 	//add btn
 	MenuItemImage* continue_game = MenuItemImage::create("game_start_another.png","game_start_another.png",CC_CALLBACK_0(GameResultLayer::continueGame,this));
 	continue_game->setPosition(240,200);

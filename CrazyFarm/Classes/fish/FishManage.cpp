@@ -160,7 +160,7 @@ void FishManage::createFishByOneMonet(OneMoment onemonent)
 		{
 			Fish* fish = createFishSingle(onemonent.fishgroup_id);
 			auto k = getAngleByPos(Vec2(onemonent.start_position_x, onemonent.start_position_y));
-			fish->setMoveAngle(k);
+			fish->setMoveAngle(onemonent.startAngle);
 			auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width);
 			fish->setPosition(startPos);
 			fish->move(3);

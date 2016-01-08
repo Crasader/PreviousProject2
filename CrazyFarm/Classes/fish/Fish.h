@@ -37,7 +37,7 @@ public:
 	Sprite* getRectSprite();
 	int getFishGold(){ return fishGold; }
 	float getGrabProbability(){ return grabProbability; }
-	
+	int getFishExperience(){ return experience; };
 private:
 	void update(float);
 	float grabProbability;
@@ -65,6 +65,7 @@ private:
 	Point LastPos;
 
 	CC_SYNTHESIZE(float, fMoveAngle, MoveAngle);
+	CC_SYNTHESIZE(int, nUiID, uiId);
 	Vector<FiniteTimeAction*> RepetActionArray;
 	//Â·¾¶
 	Route m_Route;
