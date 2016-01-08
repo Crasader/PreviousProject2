@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 #include "PlayerWork.h"
 #include "AI.h"
-#include "FishManage.h"
+#include "fish/FishManage.h"
 
 using namespace cocos2d;
 

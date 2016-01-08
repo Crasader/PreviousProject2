@@ -18,6 +18,7 @@ void Fish::initFish(int fishType){
 	this->speed = getFishSpeedByType(fishType);;
 	this->experience = getFishExperienceByType(fishType);
 	this->resoureName = getSrcByType(fishType);///2_02.png
+	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
 }
 
@@ -31,7 +32,7 @@ void Fish::initFishAnim(int fishType){
 void Fish::update(float dt)
 {
 
-	/*CCLOG("x:%f y:%f",getPositionX(), getPositionY());*/
+	
 	if (getPosition().distance(LastPos) > 0)
 	{
 		auto raroAngle = 1.5*3.1415926f - (getPosition() - LastPos).getAngle();
@@ -75,7 +76,7 @@ int Fish::getFishGoldByType(int type){
 
 int Fish::getFishExperienceByType(int type){
 	//TODO
-	return 0;
+	return ConfigFish::getInstance()->getFish(type).exp;
 }
 
 
@@ -96,7 +97,7 @@ void Fish::move(int moveType){
 		break;
 	default:
 	{
-		schedule(schedule_selector(Fish::moveFishRandomStraight), 0, CC_REPEAT_FOREVER, 0);
+		schedule(schedule_selector(Fish::moveFishRandomStraight), Director::getInstance()->getAnimationInterval(), CC_REPEAT_FOREVER, 0);
 	}
 
 		
@@ -126,7 +127,8 @@ void Fish::moveFishRandomStraight(float dt){
 	Point nextPos = getRandomPostion(dt*speed*randnum, this->getDirection(), fMoveAngle);
 	auto move = MoveBy::create(dt, nextPos);	
 	runAction(move);
-	update(dt);
+	/*update(dt);*/
+	setRotation(360 - fMoveAngle);
 	/*runAction(RotateTo::create(0.1, 360-angle));*/
 }
 
@@ -174,7 +176,7 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 
 Point Fish::getRandomPostion(float speed, swimDirection direction, float &angle)
 {
-	float diffAngle = (rand() % 20 - 10) / 10.0f;
+	float diffAngle = (rand() % 70 - 30) / 100.0f;
 	angle += diffAngle;
 
 	/*switch (direction)

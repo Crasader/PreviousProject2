@@ -44,7 +44,7 @@ bool ConfigRoom::LoadConfig() {
             room.ui_id	= val["ui_id"].GetInt();
             room.unlock_turrent_level	= val["unlock_turrent_level"].GetInt();
             
-            rooms[i] = room;
+			rooms.push_back(room);
         }
         
         return true;
@@ -52,7 +52,17 @@ bool ConfigRoom::LoadConfig() {
     return true;
 }
 
-std::map<int, Room> ConfigRoom::getRooms() {
-    return rooms;
+std::vector<Room> ConfigRoom::getRooms() {
+	return rooms;
 }
 
+Room ConfigRoom::getRoombyId(int nId)
+{
+	for (auto room : rooms)
+	{
+		if (room.room_id == nId)
+		{
+			return room;
+		}
+	}
+}

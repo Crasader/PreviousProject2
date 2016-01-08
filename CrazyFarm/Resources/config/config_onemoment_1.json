@@ -1,7 +1,7 @@
 {	
 	"describe"	: 	"鱼群产生配置x[0,960],y[0,540][type,1,随机;2,直线;3,曲线??]" ,
 	"version"	: 	1,
-	"life_time" : 	20,
+	"life_time" : 	10,
 	"item_list"	:	[
 		{
 			"fishgroup_id"		:	1,
@@ -11,7 +11,8 @@
 			"start_position_y"	:	540,
 			"end_position_x"	:	300,
 			"end_position_y"	:	0,
-			"move_type"			:	2,
+			"star_angle":     30,
+			"move_type"			:	1,
 			"move_parameter"	: {
 			}
 		},
@@ -23,7 +24,8 @@
 			"start_position_y"	:	0,
 			"end_position_x"	:	0,
 			"end_position_y"	:	270,
-			"move_type"			:	2,
+				"star_angle":     30,
+			"move_type"			:	1,
 			"move_parameter"	: {
 			}
 		},
@@ -35,7 +37,8 @@
 			"start_position_y"	:	540,
 			"end_position_x"	:	960,
 			"end_position_y"	:	270,
-			"move_type"			:	2,
+				"star_angle":     30,
+			"move_type"			:	1,
 			"move_parameter"	: {
 			}
 		},
@@ -47,7 +50,8 @@
 			"start_position_y"	:	540,
 			"end_position_x"	:	960,
 			"end_position_y"	:	0,
-			"move_type"			:	2,
+				"star_angle":     30,
+			"move_type"			:	1,
 			"move_parameter"	: {
 			}
 		},
@@ -59,7 +63,8 @@
 			"start_position_y"	:	0,
 			"end_position_x"	:	0,
 			"end_position_y"	:	270,
-			"move_type"			:	2,
+				"star_angle":     30,
+			"move_type"			:	1,
 			"move_parameter"	: {
 			}
 		},
@@ -71,7 +76,8 @@
 			"start_position_y"	:	270,
 			"end_position_x"	:	700,
 			"end_position_y"	:	0,
-			"move_type"			:	2,
+				"star_angle":     30,
+			"move_type"			:	1,
 			"move_parameter"	: {
 			}
 		}

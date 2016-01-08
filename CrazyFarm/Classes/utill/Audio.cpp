@@ -13,18 +13,11 @@ Audio* Audio::getInstance(){
 
 void Audio::playBGM(char* soundName){
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(soundName,true);
-	
-	if(GAMEDATA::getInstance()->getMusicState()){
-		  CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic(); 
-	}else{
-	  CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic(); 
-	}
+
 }
 
 void Audio::playSound(char* soundName){
-	if(GAMEDATA::getInstance()->getMusicState()){
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(soundName,false);
-	}
+
 }
 
 void Audio::prepare(){

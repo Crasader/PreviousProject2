@@ -8,8 +8,9 @@ USING_NS_CC;
 class showFishCell :public cocos2d::Sprite
 {
 public:
-	virtual bool init(int type);
-	static showFishCell* createCell(int type);
+	virtual bool init();
+	static showFishCell* createCell();
+	void setData(int fishid);
 private:
 
 };
