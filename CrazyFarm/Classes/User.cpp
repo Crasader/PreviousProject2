@@ -105,5 +105,9 @@ int User::getChargeMoney() {
     return UserDefault::getInstance()->getIntegerForKey(User::KEY_CHARGE_MONEY, 0);
 }
 
+void User::resetInfo() {
+    
+}
+
 
 
