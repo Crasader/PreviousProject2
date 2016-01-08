@@ -48,6 +48,9 @@ bool ConfigFish::LoadConfig() {
             fish.maxHitTime = val["maxHitTime"].GetInt();
             fish.protectedTime = val["protectedTime"].GetInt();
             fish.uiId = val["ui_id"].GetInt();
+            fish.catch_ui_type = val["catch_ui_type"].GetInt();
+            fish.exp = val["exp"].GetInt();
+            fish.be_hit_logic = val["be_hit_logic"].GetInt();
 			fishes[fish.fishId] = fish;
 		}
 		

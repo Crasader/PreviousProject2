@@ -1,16 +1,19 @@
-{	
+{
 	"describe": "鱼数值列表" ,
 	"version" : 1,
 	"item_list": [
 
 		{
-			"fish_id"	:	1,
-			"fish_type"	:	0,
-			"probability"	:	0.15,
-			"baseReward"	:	10,
-			"maxHitTime"	:	30,
+			"fish_id"				:	1,
+			"fish_type"			:	0,
+			"probability"		:	0.15,
+			"baseReward"		:	10,
+			"maxHitTime"		:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	1
+			"ui_id"					:	1,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	2,
@@ -19,7 +22,10 @@
 			"baseReward"	:	20,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	2
+			"ui_id"			:	2,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	3,
@@ -28,7 +34,10 @@
 			"baseReward"	:	30,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	3
+			"ui_id"			:	3,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	4,
@@ -37,7 +46,10 @@
 			"baseReward"	:	35,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	4
+			"ui_id"			:	4,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	5,
@@ -46,7 +58,10 @@
 			"baseReward"	:	40,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	5
+			"ui_id"			:	5,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	6,
@@ -55,7 +70,10 @@
 			"baseReward"	:	50,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	6
+			"ui_id"			:	6,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	7,
@@ -64,7 +82,10 @@
 			"baseReward"	:	1,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	7
+			"ui_id"			:	7,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	8,
@@ -73,7 +94,10 @@
 			"baseReward"	:	200,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	8
+			"ui_id"			:	8,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	9,
@@ -82,7 +106,10 @@
 			"baseReward"	:	400,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	9
+			"ui_id"			:	9,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	10,
@@ -91,7 +118,10 @@
 			"baseReward"	:	1000,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	10
+			"ui_id"			:	10,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	11,
@@ -100,7 +130,10 @@
 			"baseReward"	:	10,
 			"maxHitTime"	:	3,
 			"protectedTime"	:	0,
-			"ui_id"			:	11
+			"ui_id"			:	11,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	12,
@@ -109,7 +142,10 @@
 			"baseReward"	:	20,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	12
+			"ui_id"			:	12,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	13,
@@ -118,7 +154,10 @@
 			"baseReward"	:	30,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	13
+			"ui_id"			:	13,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	14,
@@ -127,7 +166,10 @@
 			"baseReward"	:	35,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	14
+			"ui_id"			:	14,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	15,
@@ -136,7 +178,10 @@
 			"baseReward"	:	40,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	15
+			"ui_id"			:	15,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	16,
@@ -145,7 +190,10 @@
 			"baseReward"	:	50,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	16
+			"ui_id"			:	16,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	17,
@@ -154,7 +202,10 @@
 			"baseReward"	:	1,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	17
+			"ui_id"			:	17,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	18,
@@ -163,7 +214,10 @@
 			"baseReward"	:	200,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	18
+			"ui_id"			:	18,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	19,
@@ -172,7 +226,10 @@
 			"baseReward"	:	400,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	19
+			"ui_id"			:	19,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	20,
@@ -181,7 +238,10 @@
 			"baseReward"	:	1000,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	20
+			"ui_id"			:	20,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	21,
@@ -190,7 +250,10 @@
 			"baseReward"	:	10,
 			"maxHitTime"	:	3,
 			"protectedTime"	:	0,
-			"ui_id"			:	21
+			"ui_id"			:	21,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	22,
@@ -199,7 +262,10 @@
 			"baseReward"	:	20,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	22
+			"ui_id"			:	22,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	23,
@@ -208,7 +274,10 @@
 			"baseReward"	:	30,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	23
+			"ui_id"			:	23,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	24,
@@ -217,7 +286,10 @@
 			"baseReward"	:	35,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	24
+			"ui_id"			:	24,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	25,
@@ -226,7 +298,10 @@
 			"baseReward"	:	40,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	25
+			"ui_id"			:	25,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	26,
@@ -235,7 +310,10 @@
 			"baseReward"	:	50,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	26
+			"ui_id"			:	26,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	27,
@@ -244,7 +322,10 @@
 			"baseReward"	:	1,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	27
+			"ui_id"			:	27,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	28,
@@ -253,7 +334,10 @@
 			"baseReward"	:	200,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	28
+			"ui_id"			:	28,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	29,
@@ -262,7 +346,10 @@
 			"baseReward"	:	400,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	29
+			"ui_id"			:	29,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		},
 		{
 			"fish_id"	:	30,
@@ -271,11 +358,11 @@
 			"baseReward"	:	1000,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	30
+			"ui_id"			:	30,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
 		}
-			
+
 	]
 }
-
-
-

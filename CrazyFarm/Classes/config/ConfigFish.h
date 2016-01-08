@@ -15,7 +15,9 @@ struct FishData {
     int maxHitTime;
     int protectedTime;
     int uiId;
-    // TODO : 等待加入礼品鱼的奖励列表
+    int catch_ui_type;  // 捕获鱼的效果
+    int exp;            // 捕获鱼的经验
+    int be_hit_logic;   // 受击中反应
 };
 
 
