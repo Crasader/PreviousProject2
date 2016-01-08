@@ -161,9 +161,8 @@ void FishManage::createFishByOneMonet(OneMoment onemonent)
 			Fish* fish = createFishSingle(onemonent.fishgroup_id);
 			auto k = getAngleByPos(Vec2(onemonent.start_position_x, onemonent.start_position_y));
 			fish->setMoveAngle(k);
-			/*fish->setRotation(getAngleByPos(Vec2(onemonent.start_position_x, onemonent.start_position_y)));*/
-			/*fish->setDirection(getDirectionByPosition(Vec2(onemonent.start_position_x,onemonent.start_position_y)));*/
-			fish->setPosition(Vec2(onemonent.start_position_x,onemonent.start_position_y));
+			auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width);
+			fish->setPosition(startPos);
 			fish->move(3);
 			m_layer->addChild(fish);
 		}
@@ -171,8 +170,10 @@ void FishManage::createFishByOneMonet(OneMoment onemonent)
 	case 2:
 		{
 			auto fish = createFishSingle(onemonent.fishgroup_id);
-			fish->setPosition(onemonent.start_position_x, onemonent.start_position_y);
-			fish->runAction(MoveTo::create(onemonent.end_time - onemonent.start_time, Vec2(onemonent.end_position_x, onemonent.end_position_y)));
+			auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y),fish->getContentSize().width);
+			fish->setPosition(startPos);
+			auto endpos = CalculateDiffMarginPos(Vec2(onemonent.end_position_x, onemonent.end_position_y), fish->getContentSize().width + 150);
+			fish->runAction(Sequence::create(MoveTo::create(onemonent.end_time - onemonent.start_time+5, endpos), nullptr));
 			m_layer->addChild(fish);
 		}
 		break;

@@ -52,3 +52,27 @@ float  getAngleByPos(Vec2 pos)
 	}
 	return CC_RADIANS_TO_DEGREES(atan(k));
 }
+
+
+Vec2 CalculateDiffMarginPos(Vec2 pos,float diff)
+{
+	if (pos.x<=0)
+	{
+		return Vec2(pos.x - diff, pos.y);
+	}
+	if (pos.x>=960)
+	{
+		return Vec2(pos.x + diff, pos.y);
+	}
+	if (pos.y>=540)
+	{
+		return Vec2(pos.x, pos.y + diff);
+	}
+	if (pos.y<=0)
+	{
+		return Vec2(pos.x, pos.y - diff);
+	}
+
+	return pos;
+}
+

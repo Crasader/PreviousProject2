@@ -1,9 +1,6 @@
 #include "core/showFishLayer.h"
 
-bool showFishCell::init(int type)
-{
-	return false;
-}
+
 showFishCell* showFishCell::createCell(int type)
 {
 	auto cell = new showFishCell();
@@ -20,19 +17,29 @@ showFishCell* showFishCell::createCell(int type)
 
 }
 
-//bool  showFishCell::init(int type)
-//{	
-//	Node::init();
-//	bool bRet = false;
-//	while (0)
-//	{
-//	}
-//}
+bool  showFishCell::init(int type)
+{
+	Node::init();
+	bool bRet = false;
+	do
+	{
+
+		auto visibilesize = Director::getInstance()->getVisibleSize();
+		auto sp = Sprite::create("showFishAniFrame.png");
+		sp->setPosition(visibilesize.width*0.27, visibilesize.height*0.6);
+		addChild(sp);
+		sp = Sprite::create("showFishInfoFrame");
+		sp->setPosition(visibilesize.width*0.7, visibilesize.height*0.6);
+		addChild(sp);
+
+	} while (0);
 
 
+	return true
 
 
-
+		;
+}
 
 
 

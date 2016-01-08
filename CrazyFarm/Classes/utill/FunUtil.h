@@ -7,3 +7,5 @@ USING_NS_CC;
 bool collision(Sprite*spA, Sprite*spB);
 swimDirection getDirectionByPosition(Vec2 pos);
 float  getAngleByPos(Vec2 pos);
+
+Vec2 CalculateDiffMarginPos(Vec2 pos,float diff);
