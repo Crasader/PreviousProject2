@@ -10,6 +10,9 @@ bool PlayerHero::init(){
 	}
     //添加自定义事件的监听
 	addCoustomListener();
+	//添加点击事件的监听
+	addTouchListener();
+	drawPlayerHero();
 	return true;
 }
 
@@ -223,10 +226,10 @@ Vector<Jong*> PlayerHero::upsetJongs(Vector<Jong*> jongs){
 
 
 void PlayerHero::addCoustomListener(){
-	auto dealJongListener = EventListenerCustom::create("deal_listener", [=](EventCustom* event){
+	//auto dealJongListener = EventListenerCustom::create("deal_listener", [=](EventCustom* event){
 
-	});
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(dealJongListener, 1);
+	//});
+	//Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(dealJongListener, 1);
 }
 
 
