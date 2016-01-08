@@ -18,6 +18,7 @@ struct Turrent {
     int unlockPrice;
     int multiple;
     std::vector<Reward> rewardList;
+
 };
 
 
@@ -32,7 +33,9 @@ public:
 	std::map<int, Turrent> getTurrent();
     Turrent getTurrent(int turrentId);
 
-    
+	Turrent getNextTurrent(int turrentId);
+	Turrent getLastTurrent(int turrentId);
+
 private:
 	static ConfigTurrent* _instance;
 	

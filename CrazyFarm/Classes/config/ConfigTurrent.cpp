@@ -71,7 +71,48 @@ std::map<int, Turrent> ConfigTurrent::getTurrent() {
 }
 
 Turrent ConfigTurrent::getTurrent(int turrentId) {
-    return turrents[turrentId];
+	for (int i = 0; i < turrents.size();i++)
+	{
+		if (turrents[i].turrentId == turrentId)
+		{
+			return turrents[i];
+		}
+	}
+}
+
+Turrent ConfigTurrent::getNextTurrent(int turrentId)
+{
+	for (int i = 0; i < turrents.size(); i++)
+	{
+		if (turrents[i].turrentId == turrentId)
+		{
+			if ((i + 1)<turrents.size())
+			{
+				return turrents[i+1];
+			}
+			else
+			{
+				return turrents[i];
+			}
+		}
+	}
+}
+Turrent ConfigTurrent::getLastTurrent(int turrentId)
+{
+	for (int i = 0; i < turrents.size(); i++)
+	{
+		if (turrents[i].turrentId == turrentId)
+		{
+			if (i - 1 >= 0)
+			{
+				return turrents[i - 1];
+			}
+			else
+			{
+				return turrents[i];
+			}
+		}
+	}
 }
 
 

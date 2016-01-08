@@ -38,6 +38,7 @@ public:
 	int getFishGold(){ return fishGold; }
 	float getGrabProbability(){ return grabProbability; }
 	int getFishExperience(){ return experience; };
+
 private:
 	void update(float);
 	float grabProbability;

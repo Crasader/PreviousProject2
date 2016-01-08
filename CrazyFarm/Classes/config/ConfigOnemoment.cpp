@@ -18,7 +18,7 @@ OneMomentList ConfigOnemoment::LoadConfig(std::string filename) {
     
 	bool bRet = false;
 	while (!bRet) {
-
+		
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{
