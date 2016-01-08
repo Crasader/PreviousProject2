@@ -46,7 +46,8 @@ bool GameGuiLayer::init(){
 	addChild(menu,10);
 	
 	auto  buttonPlay = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
-	buttonPlay->setPosition(visibleSize.width, visibleSize.height*0.60);	
+	buttonPlay->setPosition(visibleSize.width, visibleSize.height*0.60);
+	buttonPlay->setTag(kTagUpgradeTurret);
 	menu->addChild(buttonPlay);
 	auto sprbg = Sprite::create("UpgradeButton.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -55,6 +56,7 @@ bool GameGuiLayer::init(){
 
 	auto  buttonPlay1 = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
 	buttonPlay1->setPosition(visibleSize.width, visibleSize.height*0.40);
+	buttonPlay1->setTag(kTagEarnCoins);
 	menu->addChild(buttonPlay1);
 	auto sprbg1 = Sprite::create("EarnCoins.png");
 	sprbg1->setAnchorPoint(Point::ANCHOR_MIDDLE);

@@ -35,6 +35,9 @@ public:
 	int getDiamonds();
     
     int getMaxTurrentLevel();
+
+
+	///TODO :需要改成addMaxTurrentLevel
     bool setMaxTurrentLevel(int maxTurrentLevel);
 
     int getVipLevel();

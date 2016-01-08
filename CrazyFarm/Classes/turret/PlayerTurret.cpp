@@ -37,7 +37,11 @@ void PlayerTurret::initWithType(int type){
 void PlayerTurret::upgradeTurret(Ref* psend)
 {
 	auto nowlevel = m_turretdata.turrentId;
-		m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(nowlevel);
+	m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(nowlevel);
+	if (m_turretdata.turrentId>User::getInstance()->getMaxTurrentLevel())
+	{
+		m_turretdata = ConfigTurrent::getInstance()->getLastTurrent(m_turretdata.turrentId);
+	}
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
 	m_turret->upgradeTurret();
 }
@@ -45,6 +49,11 @@ void PlayerTurret::degradeTurret(Ref* psend)
 {
 	auto nowlevel = m_turretdata.turrentId;
 	m_turretdata = ConfigTurrent::getInstance()->getLastTurrent(nowlevel);
+	auto room = ConfigRoom::getInstance()->getRoombyId(GAMEDATA::getInstance()->getRoomID());
+	if (m_turretdata.turrentId < room.unlock_turrent_level)
+	{
+		m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(m_turretdata.turrentId);
+	}
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
 	m_turret->degradeTurret();
 }

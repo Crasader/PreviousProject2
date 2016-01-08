@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "lobby/LobbyScene.h"
-
+#include "config/ConfigDebugTest.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -24,6 +24,7 @@ void AppDelegate::initGLContextAttrs()
 
 bool AppDelegate::applicationDidFinishLaunching() {
 	// initialize director
+	ConfigDebugTest::getInstance()->LoadConfig();
 	auto director = Director::getInstance();
 	auto glview = director->getOpenGLView();
 	if (!glview) {

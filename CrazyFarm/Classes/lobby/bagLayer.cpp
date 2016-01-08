@@ -89,12 +89,30 @@ bool BagLayer::init()
 		playinfoFram->addChild(viplevel);
 		//О­бщ
 		//////////////////////////////////////////////////////////
-		auto exeDescribe = LabelTTF::create("100/200", "arial", 17);
+		
+
+		auto leveldataa = user->getLevelData();
+		auto levelDes = String::createWithFormat("%d / %d", leveldataa.haveExp, leveldataa.passNeedExp);
+		
+
+		auto exeMur = (leveldataa.haveExp*1.0) / (1.0*leveldataa.passNeedExp);
+		auto exeBarLeft = Sprite::create("exe_left.png");
+		exeBarLeft->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		exeBarLeft->setPosition(sssize2.width*0.51, sssize2.height*0.745);
+		playinfoFram->addChild(exeBarLeft);
+		auto exeBarMid = Sprite::create("exe_mid.png");
+		exeBarMid->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		exeBarMid->setScaleX(140.0 / exeBarMid->getContentSize().width*exeMur);
+		exeBarMid->setPosition(exeBarLeft->getContentSize().width, exeBarLeft->getContentSize().height / 2);
+		exeBarLeft->addChild(exeBarMid);
+		auto exeBarRight = Sprite::create("exe_right.png");
+		exeBarRight->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		exeBarRight->setPosition(exeBarMid->getBoundingBox().size.width, exeBarMid->getContentSize().height / 2);
+		exeBarMid->addChild(exeBarRight);
+
+		auto exeDescribe = LabelTTF::create(levelDes->getCString(), "arial", 17);
 		exeDescribe->setPosition(sssize2.width*0.72, sssize2.height*0.74);
 		playinfoFram->addChild(exeDescribe);
-
-
-
 
 
 

@@ -110,7 +110,7 @@ void User::resetInfo() {
     setUserID("guest");
     UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 0);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS, 0);
-    UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP, 0);
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP, 200);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_M_TURRENT, 1);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_CHARGE_MONEY, 0);
 #endif

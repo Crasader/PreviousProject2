@@ -105,12 +105,30 @@ bool LobbyScene::init()
 	////////////////////////////////////////////////
 	auto leveldataa = user->getLevelData();
 	auto levelDes = String::createWithFormat("%d / %d", leveldataa.haveExp, leveldataa.passNeedExp);
+
+
 	auto exeMur = (leveldataa.haveExp*1.0) / (1.0*leveldataa.passNeedExp);
-	auto exeBar = Sprite::create("exeBar.png");
-	exeBar->setScaleX(150.0 / exeBar->getContentSize().width*exeMur);
-	exeBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-	exeBar->setPosition(sssize.width*0.33, sssize.height*0.47);
-		spHeadFrame->addChild(exeBar);
+	auto exeBarLeft = Sprite::create("exe_left.png");
+	exeBarLeft->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	exeBarLeft->setPosition(sssize.width*0.33, sssize.height*0.47);
+	spHeadFrame->addChild(exeBarLeft);
+	auto exeBarMid = Sprite::create("exe_mid.png");
+	exeBarMid->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	exeBarMid->setScaleX(140.0 / exeBarMid->getContentSize().width*exeMur);
+	exeBarMid->setPosition(exeBarLeft->getContentSize().width, exeBarLeft->getContentSize().height / 2);
+	exeBarLeft->addChild(exeBarMid);
+	auto exeBarRight = Sprite::create("exe_right.png");
+	exeBarRight->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	exeBarRight->setPosition(exeBarMid->getBoundingBox().size.width, exeBarMid->getContentSize().height/2);
+	exeBarMid->addChild(exeBarRight);
+
+
+	//
+	//auto exeBar = Sprite::create("exeBar.png");
+	//exeBar->setScaleX(150.0 / exeBar->getContentSize().width*exeMur);
+	//exeBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	//exeBar->setPosition(sssize.width*0.33, sssize.height*0.47);
+	//	spHeadFrame->addChild(exeBar);
 
 	auto exeDescribe = LabelTTF::create(levelDes->getCString(), "arial", 17);
 	exeDescribe->setPosition(sssize.width*0.63, sssize.height*0.47);
