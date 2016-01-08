@@ -2,7 +2,7 @@
 
 bool DealJongAnim::init(){
 	if (!Layer::init()){
-	  
+
 		return false;
 	}
 	initPosition();
@@ -11,16 +11,18 @@ bool DealJongAnim::init(){
 }
 
 void DealJongAnim::showDealJong(){
-	
-	dealHero();
-
+	for (int i = 0; i < 3; i++){
+		dealHero();
+		rounds++;
+	}
 }
 
 void DealJongAnim::initPosition(){
-	 heroStarPos =  Point(300,100);
-	 leftStarPos =  Point(300, 100);
-	 rightStarPos =  Point(300, 100);
-	 oppositeStarPos =  Point(300, 100);
+	rounds = 0;
+	heroStarPos = Point(300, 100);
+	leftStarPos = Point(300, 100);
+	rightStarPos = Point(300, 100);
+	oppositeStarPos = Point(300, 100);
 }
 
 void DealJongAnim::dealHero(){
@@ -43,14 +45,14 @@ void DealJongAnim::dealHero(){
 	total->addChild(pai4);
 	this->addChild(total);
 	ScaleTo* scale = ScaleTo::create(0.2f, 1.0f);
-	MoveTo* move1 = MoveTo::create(0.2f, ccp(300, 100));
+	MoveTo* move1 = MoveTo::create(0.2f, caluMove2Pos(0));
 	Spawn* spawn1 = Spawn::create(scale, move1, NULL);
 	total->runAction(spawn1);
 }
 
 Point DealJongAnim::caluMove2Pos(int type){
 	if (type == JongDirection::hero){
-	
+		return Point(heroStarPos.x+100*rounds, heroStarPos.y);
 	}
 	else if (type == JongDirection::left){
 
@@ -62,7 +64,8 @@ Point DealJongAnim::caluMove2Pos(int type){
 	else if (type == JongDirection::opposite){
 
 
-	}else{	
+	}
+	else{
 		CCLOG("DealJongAnim -> caluMove2Pos : error");
 	}
 

@@ -13,6 +13,7 @@ public:
 	void dealRight();//发牌给右边的玩家
 	void dealOpposite();//发牌给对面
 private:
+	int rounds;//发牌回合数
 	Point heroStarPos;//主角发牌的初始位置
 	Point leftStarPos;//左边发牌的初始位置
 	Point rightStarPos;//右边发牌的初始位置
@@ -21,7 +22,7 @@ private:
 	Point caluMove2Pos(int type);//计算牌堆发往的坐标
 };
 
-enum Direction
+enum JongDirection
 {
 	hero,
 	left,
