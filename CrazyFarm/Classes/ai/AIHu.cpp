@@ -1,9 +1,18 @@
 #include "ai/AIHu.h"
 
 PlayerWork AIHu::nextStep(int currentCoins) {
+    
+    
     PlayerWork playerWork;
     
     playerWork.setTurrentLevel(this->getMaxTurrentLevel());
+    
+    if(FishManage::getInstance()->getAllFishInPoolCount() < 2) {
+        playerWork.setAngle((float)angle);
+        playerWork.setFire(false);
+        return playerWork;
+    }
+    
     int fire = rand()%100;
     
     if(fire < 10) { // TODO : just test value

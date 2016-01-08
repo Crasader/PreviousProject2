@@ -5,6 +5,13 @@ PlayerWork AIMolo::nextStep(int currentCoins) {
 //    int turrentLevel = rand()%this->getMaxTurrentLevel();
 //    playerWork.setTurrentLevel(turrentLevel);
     
+    if(FishManage::getInstance()->getAllFishInPoolCount() < 2) {
+        playerWork.setAngle((float)angle);
+        playerWork.setFire(false);
+        lastFire = false;
+        return playerWork;
+    }
+    
     if(count == 0) {
         nextCountReset = 60 + rand()%100;
         fireLevel = baseFireLevel + rand()%10;
