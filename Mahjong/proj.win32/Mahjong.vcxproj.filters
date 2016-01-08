@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\lobby">
+      <UniqueIdentifier>{bbeb8e7c-d256-4a04-8c1c-140a87fffd40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\splash">
+      <UniqueIdentifier>{f4ea2867-1965-48d1-bc8e-9ee15726ef01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game">
+      <UniqueIdentifier>{95d32b13-bcc8-4a0d-9f9f-418aa873cfea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game\mahjong">
+      <UniqueIdentifier>{72f2f348-72ef-4e21-8a57-92189b5a4161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game\mahjong\otherplayer">
+      <UniqueIdentifier>{14fdc929-fa8b-4fa7-8238-f9894cb63fde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game\headportrait">
+      <UniqueIdentifier>{545c3d9e-e370-4d35-aa64-fa737116647b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game\mahjong\anim">
+      <UniqueIdentifier>{71168c8a-a6c4-45b9-8687-5c3f6fa7254d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\LobbyScene.cpp">
+      <Filter>src\lobby</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\splash\SplashScene.cpp">
+      <Filter>src\splash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\MahjongView.cpp">
+      <Filter>src\game\mahjong</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\MjGameScene.cpp">
+      <Filter>src\game\mahjong</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\Jong.cpp">
+      <Filter>src\game\mahjong</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\PlayerHero.cpp">
+      <Filter>src\game\mahjong</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerLeft.cpp">
+      <Filter>src\game\mahjong\otherplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerOpposite.cpp">
+      <Filter>src\game\mahjong\otherplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerRight.cpp">
+      <Filter>src\game\mahjong\otherplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\headportrait\HeadPortrait.cpp">
+      <Filter>src\game\headportrait</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\anim\DealJongAnim.cpp">
+      <Filter>src\game\mahjong\anim</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\LobbyScene.h">
+      <Filter>src\lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\splash\SplashScene.h">
+      <Filter>src\splash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\MahjongView.h">
+      <Filter>src\game\mahjong</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\MjGameScene.h">
+      <Filter>src\game\mahjong</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\Jong.h">
+      <Filter>src\game\mahjong</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\PlayerHero.h">
+      <Filter>src\game\mahjong</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerLeft.h">
+      <Filter>src\game\mahjong\otherplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerOpposite.h">
+      <Filter>src\game\mahjong\otherplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerRight.h">
+      <Filter>src\game\mahjong\otherplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\headportrait\HeadPortrait.h">
+      <Filter>src\game\headportrait</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\anim\DealJongAnim.h">
+      <Filter>src\game\mahjong\anim</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

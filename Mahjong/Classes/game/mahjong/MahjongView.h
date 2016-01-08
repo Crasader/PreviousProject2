@@ -21,11 +21,9 @@ public:
 private:
 	void addTouchListener();//添加屏幕的触摸事件
 	void addCoustomListener();//添加自定义监听事件
-	void dealJongs();//发牌功能
-	void dealJongsAnim();//发牌动画
+	void dealJongs();//发牌
 	void testButton();
 	void testEvent();
-	Vector<Sprite*> across;
-	Vector<Sprite*> vertical;
+
 };
 #endif
