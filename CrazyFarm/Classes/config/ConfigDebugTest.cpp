@@ -1,5 +1,5 @@
 #include "config/ConfigVipLevel.h"
-
+#include "User.h"
 ConfigVipLevel* ConfigVipLevel::_instance = NULL;
 
 ConfigVipLevel::ConfigVipLevel(){
@@ -34,7 +34,7 @@ bool ConfigVipLevel::LoadConfig() {
 		auto isReset = doc["isResetData"].GetBool();
 		if (isReset)
 		{
-			UserDefault::getInstance()->
+			User::getInstance()->resetInfo();
 		}
 		
 		return true;
