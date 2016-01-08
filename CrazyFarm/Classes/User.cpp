@@ -21,8 +21,8 @@ User* User::getInstance(){
 std::string User::getUserId() {
 	return UserDefault::getInstance()->getStringForKey(User::KEY_USER_ID, "guest");
 }
-void User::setUserID(std::string userId)
-{
+
+void User::setUserID(std::string userId) {
 	UserDefault::getInstance()->setStringForKey(User::KEY_USER_ID, userId);
 }
 
@@ -58,7 +58,7 @@ int User::addDiamonds(int diamonds) {
 }
 
 int User::getMaxTurrentLevel() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_M_TURRENT, 3);
+    return UserDefault::getInstance()->getIntegerForKey(User::KEY_M_TURRENT, 1);
 }
 
 bool User::setMaxTurrentLevel(int maxTurrentLevel) {
@@ -106,7 +106,14 @@ int User::getChargeMoney() {
 }
 
 void User::resetInfo() {
-    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    setUserID("guest");
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 0);
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS, 0);
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP, 0);
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_M_TURRENT, 1);
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_CHARGE_MONEY, 0);
+#endif
 }
 
 
