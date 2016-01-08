@@ -48,6 +48,8 @@ public:
     bool addExp(int exp);
     
     LevelData getLevelData();
+    
+    void resetInfo();
 
 private:
 	User();

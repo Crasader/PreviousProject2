@@ -276,4 +276,8 @@ Sprite* Fish::getRectSprite(){
 	return image;
 }
 
+int Fish::getFishType() {
+    return fishType;
+}
+
 

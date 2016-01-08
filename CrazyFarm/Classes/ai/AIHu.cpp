@@ -1,6 +1,6 @@
 #include "ai/AIHu.h"
 
-PlayerWork AIHu::nextStep(int currentCoins) {
+PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
     
     
     PlayerWork playerWork;
@@ -15,11 +15,11 @@ PlayerWork AIHu::nextStep(int currentCoins) {
     
     int fire = rand()%100;
     
-    if(fire < 10) { // TODO : just test value
+    if(fire < 6) { // TODO : just test value
         angle = 60 - rand()%120;
         
         playerWork.setAngle((float)angle);
-        if(fire < 5) {
+        if(fire < 3) {
             playerWork.setFire(true);
         }else {
             playerWork.setFire(false);
