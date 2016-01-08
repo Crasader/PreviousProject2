@@ -37,6 +37,7 @@ public:
 	Sprite* getRectSprite();
 	int getFishGold(){ return fishGold; }
 	float getGrabProbability(){ return grabProbability; }
+    int getFishType();
 	
 private:
 	void update(float);

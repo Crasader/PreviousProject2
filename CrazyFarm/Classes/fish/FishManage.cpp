@@ -22,9 +22,24 @@ int FishManage::getAllFishInPoolCount() {
     return fishPool.size();
 }
 
+Point FishManage::getBestRewardPostion() {
+    Point point;
+    point.x = 480;
+    point.y = 270;
+    int current_id = 0;
+    
+    for(int i=0; i<fishPool.size(); i++) {
+        if(current_id < fishPool.at(i)->getFishType()) {
+            point = fishPool.at(i)->getPosition();
+        }
+    }
+    return point ;
+    
+}
+
 Fish* FishManage::createFishSingle(){
 	auto fish = Fish::create();
-	int randType = rand() % 27+1;
+	int randType = rand() % 27+1;   // TODO : change 27 to config by fish list numbers
 	fish->initFish(randType);
 	fishPool.pushBack(fish);
 	return fish;
@@ -63,7 +78,7 @@ void FishManage::removeFish(Fish* fish){
 
 void FishManage::decideFishPos(Fish* fish){
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-	//¾ö¶¨½øÈëÆÁÄ»µÄ±ß½ç
+	//Ã¦Ë†âˆ‚Â®Î©Â¯Â»Ãâˆ†Â¡Æ’ÂªÂµÆ’Â±ï¬‚Î©Ã
 	int border = rand() % 10;
 	switch (border){
 	case 0:
@@ -179,7 +194,7 @@ void FishManage::createFishByOneMonet(OneMoment onemonent)
 		break;
 	case 3:
 		{
-			//TODO:  ÇúÏßÔË¶¯
+			//TODO:  Â«Ë™Å“ï¬‚â€˜Ã€âˆ‚Ã˜
 		}
 		break;
 	default:

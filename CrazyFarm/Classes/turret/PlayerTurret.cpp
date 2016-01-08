@@ -112,7 +112,7 @@ void PlayerTurret::setAIinfo(AI*info)
 void PlayerTurret::doAIthing(float dt)
 {
 	
-	auto walk = m_aiinfo->nextStep(10);
+	auto walk = m_aiinfo->nextStep(10, getPosition());
 	rorateTurret(walk.getAngle());
 	
 	
