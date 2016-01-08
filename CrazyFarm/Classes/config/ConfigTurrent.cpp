@@ -41,7 +41,6 @@ bool ConfigTurrent::LoadConfig() {
 			rapidjson::Value &val = itemList[i];
 			Turrent turrent;
 			turrent.turrentId	= val["turrent_id"].GetInt();
-            turrent.showLevel = val["show_level"].GetString();
             turrent.unlockType = val["unlock_type"].GetInt();
             turrent.unlockPrice = val["unlock_price"].GetInt();
             turrent.multiple = val["multiple"].GetInt();
@@ -59,7 +58,7 @@ bool ConfigTurrent::LoadConfig() {
             }
             turrent.rewardList = rewardList;
 
-			turrents[turrent.turrentId] = turrent;
+			turrents[i] = turrent;
 		}
 		
 		return true;

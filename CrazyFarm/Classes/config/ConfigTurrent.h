@@ -14,7 +14,6 @@ struct Reward {
 
 struct Turrent {
     int turrentId;
-    std::string showLevel;
     int unlockType;
     int unlockPrice;
     int multiple;

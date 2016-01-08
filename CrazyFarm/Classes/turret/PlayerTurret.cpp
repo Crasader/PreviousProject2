@@ -41,7 +41,7 @@ void PlayerTurret::upgradeTurret(Ref* psend)
 	}
 	
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(nowlevel);
-	nCurLevel->setString(Value(m_turretdata.showLevel).asString());
+	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
 	m_turret->upgradeTurret();
 }
 void PlayerTurret::degradeTurret(Ref* psend)
@@ -52,7 +52,7 @@ void PlayerTurret::degradeTurret(Ref* psend)
 		++nowlevel;
 	}
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(nowlevel);
-	nCurLevel->setString(Value(m_turretdata.showLevel).asString());
+	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
 	m_turret->degradeTurret();
 }
 

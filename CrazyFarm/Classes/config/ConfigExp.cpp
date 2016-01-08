@@ -81,7 +81,7 @@ LevelData ConfigExp::getLevelData(int exp) {
     LevelData levelData;
     levelData.levelId = getLevelId(exp);
     levelData.haveExp = exp - getLevelExp(levelData.levelId);
-    levelData.passNeedExp = getLevelExp(levelData.levelId+1) - exp;
+    levelData.passNeedExp = getLevelExp(levelData.levelId+1) - getLevelExp(levelData.levelId);
     return levelData;
 }
 
