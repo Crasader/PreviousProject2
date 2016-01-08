@@ -2,17 +2,15 @@
 #include "core/GameScene.h"
 #include "utill/Chinese.h"
 #include "utill/AnimationUtil.h"
-#include "ConfigItem.h"
-#include "config/ConfigVipLevel.h"
-#include "config/ConfigTurrent.h"
-#include "config/ConfigFish.h"
 #include "User.h"
 #include "fish/FishRouteData.h"
 #include "lobby/bagLayer.h"
 #include "fish/FishAniMannage.h"
 #include "fish/FishGroupData.h"
-#include "config/ConfigOnemoment.h"
 #include "HttpClientUtill.h"
+
+#include "config/ConfigManager.h"
+
 Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
@@ -198,11 +196,8 @@ void LobbyScene::loadResource(){
 		
 		}
 	}
-	//load json
-	ConfigItem::getInstance()->LoadConfig();
-	ConfigVipLevel::getInstance()->LoadConfig();
-	ConfigTurrent::getInstance()->LoadConfig();
-	ConfigFish::getInstance()->LoadConfig();
+    
+    ConfigManager::getInstance()->LoadConfig();
 	
 	FishRouteData::getInstance()->loadConfig();
 	FishGroupData::getInstance()->loadConfig();
