@@ -20,7 +20,7 @@ public:
 	ConfigRoom();
 	static ConfigRoom* getInstance();
     
-	void LoadConfig();
+	bool LoadConfig();
     std::map<int, Room> getRooms();
 
     

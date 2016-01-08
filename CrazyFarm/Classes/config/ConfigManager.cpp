@@ -25,7 +25,7 @@ void ConfigManager::LoadConfig() {
     ConfigTurrent::getInstance()->LoadConfig();
     ConfigFish::getInstance()->LoadConfig();
     
-//    ConfigRoom::getInstance()->LoadConfig();
+    ConfigRoom::getInstance()->LoadConfig();
 }
 
 
