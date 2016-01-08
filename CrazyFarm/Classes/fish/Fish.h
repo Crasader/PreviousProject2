@@ -39,11 +39,7 @@ public:
 	float getGrabProbability(){ return grabProbability; }
     int getFishType();
 	int getFishExperience(){ return experience; };
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> origin/master
 private:
 	void update(float);
 	float grabProbability;

@@ -147,6 +147,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\bullet\Bullet.cpp" />
     <ClCompile Include="..\Classes\bullet\BulletManage.cpp" />
     <ClCompile Include="..\Classes\ConfigItem.cpp" />
+    <ClCompile Include="..\Classes\config\ConfigDebugTest.cpp" />
     <ClCompile Include="..\Classes\config\ConfigExp.cpp" />
     <ClCompile Include="..\Classes\config\ConfigFish.cpp" />
     <ClCompile Include="..\Classes\config\ConfigManager.cpp" />
@@ -211,6 +212,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\bullet\Bullet.h" />
     <ClInclude Include="..\Classes\bullet\BulletManage.h" />
     <ClInclude Include="..\Classes\ConfigItem.h" />
+    <ClInclude Include="..\Classes\config\ConfigDebugTest.h" />
     <ClInclude Include="..\Classes\config\ConfigExp.h" />
     <ClInclude Include="..\Classes\config\ConfigFish.h" />
     <ClInclude Include="..\Classes\config\ConfigManager.h" />

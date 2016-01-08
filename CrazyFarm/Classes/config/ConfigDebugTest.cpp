@@ -1,18 +1,18 @@
-#include "config/ConfigVipLevel.h"
+#include "config/ConfigDebugTest.h"
 #include "User.h"
-ConfigVipLevel* ConfigVipLevel::_instance = NULL;
+ConfigDebugTest* ConfigDebugTest::_instance = NULL;
 
-ConfigVipLevel::ConfigVipLevel(){
+ConfigDebugTest::ConfigDebugTest(){
 }
 
-ConfigVipLevel* ConfigVipLevel::getInstance(){
+ConfigDebugTest* ConfigDebugTest::getInstance(){
 	if (_instance == NULL){
-		_instance = new ConfigVipLevel();
+		_instance = new ConfigDebugTest();
 	}
 	return _instance;
 }
 
-bool ConfigVipLevel::LoadConfig() {
+bool ConfigDebugTest::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 

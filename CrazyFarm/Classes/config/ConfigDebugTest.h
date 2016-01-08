@@ -8,14 +8,14 @@
 USING_NS_CC;
 
 
-class ConfigVipLevel {
+class ConfigDebugTest {
     
 public:
-	ConfigVipLevel();
-	static ConfigVipLevel* getInstance();   
+	ConfigDebugTest();
+	static ConfigDebugTest* getInstance();
 	bool LoadConfig();
 private:
-	static ConfigVipLevel* _instance;
+	static ConfigDebugTest* _instance;
 
 };
 
