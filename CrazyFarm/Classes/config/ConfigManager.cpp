@@ -5,6 +5,7 @@
 #include "config/ConfigTurrent.h"
 #include "config/ConfigFish.h"
 #include "config/ConfigRoom.h"
+#include "config/ConfigExp.h"
 
 ConfigManager* ConfigManager::_instance = NULL;
 
@@ -20,12 +21,15 @@ ConfigManager* ConfigManager::getInstance(){
 
 void ConfigManager::LoadConfig() {
     //load json
+    ConfigExp::getInstance()->LoadConfig();
+    
     ConfigItem::getInstance()->LoadConfig();
     ConfigVipLevel::getInstance()->LoadConfig();
     ConfigTurrent::getInstance()->LoadConfig();
     ConfigFish::getInstance()->LoadConfig();
     
     ConfigRoom::getInstance()->LoadConfig();
+    
 }
 
 
