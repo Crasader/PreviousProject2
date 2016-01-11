@@ -11,10 +11,11 @@ bool MahjongView::init(){
 		return false;
 	}
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Sprite* view_bg = Sprite::create("gamemj/mjzhuobu.jpg");
-	view_bg->setScale(0.5);
+	Sprite* view_bg = Sprite::create("gamemj/mj_background.jpg");
 	view_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-	this->addChild(view_bg);
+	this->addChild(view_bg,-1);
+
+	drawMenu();
 
 	//添加玩家到位置上
 	drawPlayerLeft();
@@ -27,6 +28,21 @@ bool MahjongView::init(){
 	//测试方法
 	testButton();
 	return true;
+}
+
+void MahjongView::drawMenu(){
+	auto chatButton = MenuItemImage::create("gamemj/button_chat_1.png","gamemj/button_chat_2.png",CC_CALLBACK_0(MahjongView::chatButton,this));
+	auto billingButton = MenuItemImage::create("gamemj/button_billing_1.png", "gamemj/button_billing_2.png", CC_CALLBACK_0(MahjongView::billingButton, this));
+	auto packageButton = MenuItemImage::create("gamemj/button_package_1.png", "gamemj/button_package_2.png", CC_CALLBACK_0(MahjongView::packageButton, this));
+	Menu* myMenu = Menu::create(chatButton, billingButton, packageButton,NULL);
+	myMenu->setPosition(ccp(210,25));
+	myMenu->alignItemsHorizontallyWithPadding(15);
+	this->addChild(myMenu);
+
+	auto quitButton = MenuItemImage::create("gamemj/button_quit_1.png", "gamemj/button_quit_2.png", CC_CALLBACK_0(MahjongView::quitButton, this));
+	Menu* quit = Menu::create(quitButton,NULL);
+	quit->setPosition(ccp(35,505));
+	this->addChild(quit);
 }
 
 //绘制主角
@@ -63,9 +79,38 @@ void MahjongView::dealJongs(){
 	this->addChild(dealJongAnim);
 }
 
+//聊天按钮
+void MahjongView::chatButton(){
+
+
+}
 
 
 
+//账单按钮
+void MahjongView::billingButton(){
+
+
+
+}
+
+
+//背包按钮
+void MahjongView::packageButton(){
+
+
+
+
+}
+
+//退出按钮
+void  MahjongView::quitButton(){
+
+
+}
+
+
+//自定义事件监听
 void MahjongView::addCoustomListener(){
 	auto dealJongListener = EventListenerCustom::create("deal_listener", [=](EventCustom* event){
 		dealJongs();

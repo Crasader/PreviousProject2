@@ -1,14 +1,14 @@
-#ifndef __HEAD_PORTRAIT__
-#define __HEAD_PORTRAIT__
+#ifndef __PLAYER_INFO_H__
+#define __PLAYER_INFO_H__
 #include "cocos2d.h"
 using namespace std;
 USING_NS_CC;
 
-class HeadPortrait
+class PlayerInfo
 {
 public:
-	HeadPortrait();
-	~HeadPortrait();
+	PlayerInfo();
+	~PlayerInfo();
 	CC_SYNTHESIZE(Point, pos, Position);
 	CC_SYNTHESIZE(int, type, Type);
 	CC_SYNTHESIZE(string, nickName, Nickname);

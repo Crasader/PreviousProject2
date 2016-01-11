@@ -13,6 +13,10 @@ public:
     
     CC_SYNTHESIZE(int, maxTurrentLevel, MaxTurrentLevel);
     CC_SYNTHESIZE(float, reqSteps, ReqSteps);
+
+    CC_SYNTHESIZE(int, coins, Coins);
+    CC_SYNTHESIZE(int, diamonds, Diamonds);
+
     
 private:
     
