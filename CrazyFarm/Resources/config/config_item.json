@@ -37,6 +37,14 @@
 			"buy_type"	:	1,
 			"buy_price"	:	5
 		}
+		,
+		{
+			"item_id"	:	1006,
+			"item_name"	:	"狂暴",
+			"item_desc"	:	"发射威力强大的激光!记得对准鱼多的地方哦!",
+			"buy_type"	:	1,
+			"buy_price"	:	5
+		}
 			
 	]
 }
