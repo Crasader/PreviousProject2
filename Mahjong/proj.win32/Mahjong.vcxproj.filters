@@ -31,6 +31,9 @@
     <Filter Include="src\game\mahjong\anim">
       <UniqueIdentifier>{71168c8a-a6c4-45b9-8687-5c3f6fa7254d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\socket">
+      <UniqueIdentifier>{638c7b61-b917-4730-a702-2faa3f615ac2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,6 +75,12 @@
     <ClCompile Include="..\Classes\game\mahjong\anim\DealJongAnim.cpp">
       <Filter>src\game\mahjong\anim</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\socket\ODSocket.cpp">
+      <Filter>src\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\socket\stdafx.cpp">
+      <Filter>src\socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -112,6 +121,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\game\mahjong\anim\DealJongAnim.h">
       <Filter>src\game\mahjong\anim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\socket\ODSocket.h">
+      <Filter>src\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\socket\stdafx.h">
+      <Filter>src\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\socket\targetver.h">
+      <Filter>src\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\socket\tchar.h">
+      <Filter>src\socket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
