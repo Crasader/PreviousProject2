@@ -14,6 +14,7 @@
 #include "config/ConfigSign.h"
 #include "signlayer/SignInLayer.h"
 #include "utill/Toast.h"
+#include "lobby/shop/paylayer.h"
 
 
 
@@ -300,7 +301,9 @@ void LobbyScene::payCoinCallback(Ref*psend)
 	auto coin = User::getInstance()->addCoins(1000);
 	userCoin->setString(Value(coin).asString().c_str());
 
-	
+	auto paylayer = payLayer::create();
+	paylayer->setPosition(Point::ZERO);
+	addChild(paylayer);
 }
 void LobbyScene::payDiamondCallback(Ref*psend)
 {

@@ -19,7 +19,7 @@ bool GameLayer::init(){
 	FishManage::getInstance()->setlayer(this);
 	//add game bg to this layer
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Sprite* game_bg = Sprite::create("lobby_bg.jpg");
+	Sprite* game_bg = Sprite::create("ani/water/aniWater1.jpg");
 	game_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(game_bg);
 	game_bg->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniWater")));

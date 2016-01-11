@@ -10,12 +10,14 @@ class PayCell : public Sprite{
 public:
       virtual bool init();
 	  CREATE_FUNC(PayCell);
-	  void setValue(int propId,int num);
+	  void setValue(int goodId);
+	  void setDiamondValue(int goodId);
 	  void IsBeToued();
 private:
 	CC_SYNTHESIZE(int, m_nCellId, propID);
 	CC_SYNTHESIZE(int, m_nCellNum,propNum );
-	Sprite* propSprite;
-	LabelAtlas* propNum;
+	Sprite* paySprite;
+	Sprite* propNum;
+	Sprite* giftNum;
 
 };

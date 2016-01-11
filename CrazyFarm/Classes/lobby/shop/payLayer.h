@@ -1,24 +1,24 @@
 #pragma once
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "lobby/bag/BagCell.h"
+#include "payCell.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 
-class CustomTableViewCell : public TableViewCell
+class payTableViewCell : public TableViewCell
 {
 public:
-	CREATE_FUNC(CustomTableViewCell);
+	CREATE_FUNC(payTableViewCell);
 	virtual bool init();
 	void setPayValue(int idx);
 private:
-	BagCell* cell0;
-	BagCell* cell1;
-	BagCell* cell2;
+	PayCell* cell0;
+	PayCell* cell1;
+	PayCell* cell2;
 };
 
 
-class BagView :public TableViewDelegate
+class payView :public TableViewDelegate
 	, public TableViewDataSource
 {
 public:
@@ -45,19 +45,19 @@ private:
 
 
 
-
-class BagLayer : public cocos2d::Layer
+class payLayer : public cocos2d::Layer
 {
 public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
 
-	CREATE_FUNC(BagLayer);
+	CREATE_FUNC(payLayer);
+
+	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return false; };
 
 private:
 	void closeButtonCallBack(Ref*psend);
 
-	void chankanCallBack(Ref*);
-	BagView* tableviewDelegate;
+	payView* tableviewDelegate;
 };

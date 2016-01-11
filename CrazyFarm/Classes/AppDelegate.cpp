@@ -63,6 +63,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("fish");
 	paths.push_back("showfish");
 	paths.push_back("signLayer");
+	paths.push_back("payShop");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand((unsigned)time(nullptr));
 

@@ -5,24 +5,42 @@ bool PayCell::init(){
 		return false;
 	}
 	auto size = getContentSize();
-	propSprite = Sprite::create();
-	propSprite->setPosition(size / 2);
-	addChild(propSprite);
+	paySprite = Sprite::create();
+	paySprite->setPosition(size.width *0.2, size.height / 2);
+	addChild(paySprite);
 
-	propNum = LabelAtlas::create("0", "bagPropNum.png", 18, 26, '0');
-	propNum->setPosition(size.width*0.7, size.height*0.1);
+	propNum = Sprite::create();
+	propNum->setPosition(size.width*0.7, size.height*0.8);
 	addChild(propNum);
+
+	giftNum = Sprite::create();
+	giftNum->setPosition(size.width*0.7, size.height*0.25);
+	addChild(giftNum);
+
 	return true;
 }
 
-void PayCell::setValue(int propId, int num)
+void PayCell::setValue(int goodId)
 {
-	setpropID(propId);
-	setpropNum(num);
-	auto spPath = String::createWithFormat("prop_%d.png", propId);
-	propSprite->setTexture(spPath->getCString());
-	propNum->setString(Value(num).asString().c_str());
+	auto spPath = String::createWithFormat("coin_%d.png", goodId);
+	paySprite->setTexture(spPath->getCString());
+	spPath = String::createWithFormat("coinPropNum_%d.png", goodId);
+	propNum->setTexture(spPath->getCString());
+	spPath = String::createWithFormat("coinGiftNum_%d.png", goodId);
+	giftNum->setTexture(spPath->getCString());
 }
+
+
+void PayCell::setDiamondValue(int goodId)
+{
+	auto spPath = String::createWithFormat("diamond_%d.png", goodId);
+	paySprite->setTexture(spPath->getCString());
+	spPath = String::createWithFormat("diamondPropNum_%d.png", goodId);
+	propNum->setTexture(spPath->getCString());
+	spPath = String::createWithFormat("diamondGiftNum_%d.png", goodId);
+	giftNum->setTexture(spPath->getCString());
+}
+
 
 void PayCell::IsBeToued()
 {
