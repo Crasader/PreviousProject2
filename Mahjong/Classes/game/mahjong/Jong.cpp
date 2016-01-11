@@ -7,13 +7,12 @@ bool Jong::init(){
 	backGround = Sprite::create();
 	this->addChild(backGround);
 	content = Sprite::create();
-	content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y-10));
 	this->addChild(content);
-
 	return true;
 }
 
 void Jong::showJong(int bType, int cType){
+	this->setBType(bType);
 	drawBackGround(bType);
 	drawContent(cType);
 	this->setJongType(cType);
@@ -33,12 +32,27 @@ Rect Jong::getJongBoundingBox(){
 
 
 void Jong::drawBackGround(int bType){
-	backGround->setTexture("gamemj/xiali.png");
+	switch (bType)
+	{
+	case 0:
+		backGround->setTexture("gamemj/xiali.png");
+		break;
+	case 1:
+		backGround->setTexture("gamemj/xiatang2.png");
+		break;
+	case 2:
+		backGround->setTexture("gamemj/xiatang2.png");
+		break;
+	default:
+		break;
+	}
+	
 }
 
 
 void Jong::drawContent(int cType){
-
+	setJongScale(this->getBType());
+	setJongPosition(this->getBType());
 	switch (cType)
 	{
 	case JongEnum::wan_1:
@@ -97,5 +111,23 @@ void Jong::drawContent(int cType){
 		break;
 	default:
 		break;
+	}
+}
+
+
+void Jong::setJongScale(int bType){
+	if (bType == 2){
+		content->setScale(0.5f);
+	}
+}
+
+
+void Jong::setJongPosition(int bType){
+	if (bType == 2){
+		content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y));
+	}
+	else{
+		content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y - 10));
+	
 	}
 }

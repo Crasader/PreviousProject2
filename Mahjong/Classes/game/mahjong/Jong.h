@@ -9,12 +9,15 @@ public:
 	void showJong(int bType,int cType);
 	Rect getJongBoundingBox();
 	CC_SYNTHESIZE(int, jongType, JongType);
+	CC_SYNTHESIZE(int, bType, BType);
 	CREATE_FUNC(Jong);
 private:
 	Sprite* content;
 	Sprite* backGround;
 	void drawContent(int cType);
 	void drawBackGround(int bType);
+	void setJongScale(int bType);
+	void setJongPosition(int bType);
 };
 
 

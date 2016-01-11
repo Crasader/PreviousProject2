@@ -93,7 +93,6 @@ void PlayerHero::onTouchMoved(Touch *touch, Event  *event){
 				if (true){
 					if (virtualJong == nullptr){
 						virtualJong = Jong::create();
-						virtualJong->setScale(0.5);
 						virtualJong->setPosition(selectJong->getPosition());
 						virtualJong->showJong(0, selectJong->getJongType());
 						//设置子节点的透明度随父节点变化
@@ -140,9 +139,8 @@ void PlayerHero::onTouchEnded(Touch *touch, Event  *event){
 		virtualJong->runAction(seq);
 		//step2
 		Jong* outJong = Jong::create();
-		outJong->showJong(0, virtualJong->getJongType());
+		outJong->showJong(2, virtualJong->getJongType());
 		outJong->setPosition(virtualJong->getPosition());
-		outJong->setScale(0.3f);
 		this->addChild(outJong);
 		//step3
 		virtualJong->removeFromParentAndCleanup(true);
