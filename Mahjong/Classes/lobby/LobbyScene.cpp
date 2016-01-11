@@ -9,8 +9,7 @@ bool LobbyScene::init()
 	{
 		return false;
 	}
-	connectServer();//连接服务器
-
+	//connectServer();//连接服务器
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	//add game bg to layer
 	Sprite* lobby_bg = Sprite::create("main/mainbk.jpg");
