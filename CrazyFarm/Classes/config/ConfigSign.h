@@ -27,6 +27,10 @@ public:
 	std::vector<SignRewardItem> getRewardsByDay(int day);
 	void onHttpRequestCompleted(HttpClient *sender, HttpResponse *response);
 	bool isGetDataSuccess(){ return bIsGetDataSuccess; };
+	//Ç©µ½Âß¼­
+	const char* KEY_LASTSIGNDAY = "KEY_LASTSIGNDAY";
+	const char* KEY_SEQSIGNDAY = "KEY_SEQSIGNDAY";
+	int CalculateTheDayToSign();
 private:
 	static ConfigSign* _instance;
 	bool bIsGetDataSuccess = false;

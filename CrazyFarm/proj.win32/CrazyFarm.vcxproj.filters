@@ -73,6 +73,9 @@
     <Filter Include="src\widget">
       <UniqueIdentifier>{0af25dfa-75b1-4a04-bc3b-88c398dd467c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\lobby\pay">
+      <UniqueIdentifier>{e5138f8e-fec4-4732-a717-d247670cdab9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -198,9 +201,6 @@
     <ClCompile Include="..\Classes\config\ConfigFish.cpp">
       <Filter>src\Interface\fish</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\lobby\bagLayer.cpp">
-      <Filter>src\lobby</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\fish\FishAniMannage.cpp">
       <Filter>src\fish</Filter>
     </ClCompile>
@@ -281,6 +281,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\utill\Toast.cpp">
       <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\signlayer\SpliceCell.cpp">
+      <Filter>src\lobby</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\signlayer\SignCell.cpp">
+      <Filter>src\lobby</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\bag\bagLayer.cpp">
+      <Filter>src\lobby</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,9 +419,6 @@
     <ClInclude Include="..\Classes\config\ConfigFish.h">
       <Filter>src\Interface\fish</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\lobby\bagLayer.h">
-      <Filter>src\lobby</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\fish\FishAniMannage.h">
       <Filter>src\fish</Filter>
     </ClInclude>
@@ -493,6 +499,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utill\Toast.h">
       <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\signlayer\SignCell.h">
+      <Filter>src\lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\signlayer\SpliceCell.h">
+      <Filter>src\lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\bag\bagLayer.h">
+      <Filter>src\lobby</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

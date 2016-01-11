@@ -2,6 +2,7 @@
 proj.winp8-xaml/
 proj.win8.1-universal/
 proj.linux/
+imgResource/
 proj.ios_mac/
 cocos2d/
 bin/

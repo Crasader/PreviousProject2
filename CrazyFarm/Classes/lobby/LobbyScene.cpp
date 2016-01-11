@@ -4,7 +4,7 @@
 #include "utill/AnimationUtil.h"
 #include "User.h"
 #include "fish/FishRouteData.h"
-#include "lobby/bagLayer.h"
+#include "lobby/bag/bagLayer.h"
 #include "fish/FishAniMannage.h"
 #include "fish/FishGroupData.h"
 #include "HttpClientUtill.h"
@@ -13,7 +13,7 @@
 #include "config/ConfigManager.h"
 #include "config/ConfigSign.h"
 #include "signlayer/SignInLayer.h"
-
+#include "utill/Toast.h"
 
 
 
@@ -105,7 +105,7 @@ bool LobbyScene::init()
 	spHeadFrame->addChild(viplevelFrame);
 	////////////////////////////////////////////////
 	auto leveldataa = user->getLevelData();
-	auto levelDes = String::createWithFormat("%d / %d", leveldataa.haveExp, leveldataa.passNeedExp);
+	auto levelDes = String::createWithFormat("%d:%d", leveldataa.haveExp, leveldataa.passNeedExp);
 
 
 	auto exeMur = (leveldataa.haveExp*1.0) / (1.0*leveldataa.passNeedExp);
@@ -124,14 +124,9 @@ bool LobbyScene::init()
 	exeBarMid->addChild(exeBarRight);
 
 
-	//
-	//auto exeBar = Sprite::create("exeBar.png");
-	//exeBar->setScaleX(150.0 / exeBar->getContentSize().width*exeMur);
-	//exeBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-	//exeBar->setPosition(sssize.width*0.33, sssize.height*0.47);
-	//	spHeadFrame->addChild(exeBar);
 
-	auto exeDescribe = LabelTTF::create(levelDes->getCString(), "arial", 17);
+	auto exeDescribe = LabelAtlas::create(levelDes->getCString(), "exeNum.png", 12,18,'0');
+	exeDescribe->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	exeDescribe->setPosition(sssize.width*0.63, sssize.height*0.47);
 	spHeadFrame->addChild(exeDescribe);
 
@@ -326,9 +321,25 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
-	auto sign = SignInLayer::create();
-	sign->setPosition(Point::ZERO);
-	addChild(sign);
+
+	auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
+	if (seqday==0)
+	{
+		//已经签过
+		Toast::show("already signed", 3, this);
+	}
+	else if (seqday==-1)
+	{
+		//无效数据
+		Toast::show("time out", 3, this);
+	}
+	else
+	{
+		auto sign = SignInLayer::createLayer(seqday);
+		sign->setPosition(Point::ZERO);
+		addChild(sign);
+	}
+	
 }
 
 

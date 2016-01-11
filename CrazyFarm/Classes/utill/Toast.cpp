@@ -34,7 +34,7 @@ bool Toast::init(const char* string ,int duration)
 		label->setColor(Color3B::RED);
 		auto c9s = Scale9Sprite::create("toast_bg.png");
 	    Size labelSize = label->getContentSize();
-		label->setPosition(ccp(700, 10));
+		label->setPosition(ccp(480, 10));
 		label->setAnchorPoint(ccp(0.5,0.5));
 		Size c9sSize = CCSizeMake(labelSize.width + 100, 45);
 		c9s->setContentSize(c9sSize);

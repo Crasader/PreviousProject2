@@ -1,5 +1,5 @@
 #include "config/ConfigSign.h"
-
+#include "utill/dayUtil.h"
 #define SIGNURL "http://114.119.39.150:1701/sign/config"
 ConfigSign* ConfigSign::_instance = NULL;
 
@@ -66,4 +66,37 @@ void ConfigSign::onHttpRequestCompleted(HttpClient *sender, HttpResponse *respon
 std::vector<SignRewardItem> ConfigSign::getRewardsByDay(int day)
 {
 	return dayToRewards[day];
+}
+
+int ConfigSign::CalculateTheDayToSign()
+{
+	if (!ConfigSign::getInstance()->isGetDataSuccess())
+	{
+		return -1;
+	}
+	auto str = UserDefault::getInstance()->getStringForKey(KEY_LASTSIGNDAY, "-1");
+	auto sToday = ConfigSign::getInstance()->getToday();
+	if (str == "-1")
+	{
+		return 1;
+	}
+	else if (str == sToday)
+	{
+		return 0;
+	}
+	SystemTime* lastDay = new SystemTime(str);
+	SystemTime* toDay = new SystemTime(sToday);
+	bool isContinue = SystemTime::isContinuousByAandB(lastDay, toDay);
+	if (isContinue)
+	{
+		int dayCout = UserDefault::getInstance()->getIntegerForKey(KEY_SEQSIGNDAY, 0);
+		return (dayCout + 1) > 7 ? 1 : dayCout + 1;
+	}
+	else
+	{
+		return 1;
+	}
+
+
+
 }
