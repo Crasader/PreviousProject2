@@ -24,7 +24,6 @@ void PlayerHero::drawPlayerHero(){
 	//牌的绘制
 	for (int t = 1; t < 15; t++){
 		Jong* jong = Jong::create();
-		jong->setScale(0.5);
 		jong->showJong(0, t);
 		selfHandJongs.pushBack(jong);
 	}
@@ -39,8 +38,7 @@ void PlayerHero::drawPlayerHero(){
 //绘制玩家的头像
 void PlayerHero::drawHeadPortrait(HeadPortrait* headPortrait){
 	//绘制背景
-	Sprite* head_bg = Sprite::create("headportrait/touxiangheidi.png");
-	head_bg->setScale(0.5);
+	Sprite* head_bg = Sprite::create("gamemj/head_bg.png");
 	head_bg->setPosition(ccp(50, 120));
 	this->addChild(head_bg);
 }

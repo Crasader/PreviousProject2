@@ -7,6 +7,7 @@ bool Jong::init(){
 	backGround = Sprite::create();
 	this->addChild(backGround);
 	content = Sprite::create();
+	content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y-10));
 	this->addChild(content);
 
 	return true;
@@ -41,58 +42,58 @@ void Jong::drawContent(int cType){
 	switch (cType)
 	{
 	case JongEnum::wan_1:
-		content->setTexture("majiang/yiwan.png");
+		content->setTexture("jongs/wan_1.png");
 		break;
 	case JongEnum::wan_2:
-		content->setTexture("majiang/erwan.png");
+		content->setTexture("jongs/wan_2.png");
 		break;
 	case JongEnum::wan_3:
-		content->setTexture("majiang/sanwan.png");
+		content->setTexture("jongs/wan_3.png");
 		break;
 	case JongEnum::wan_4:
-		content->setTexture("majiang/siwan.png");
+		content->setTexture("jongs/wan_4.png");
 		break;
 	case JongEnum::wan_5:
-		content->setTexture("majiang/wuwan.png");
+		content->setTexture("jongs/wan_5.png");
 		break;
 	case JongEnum::wan_6:
-		content->setTexture("majiang/liuwan.png");
+		content->setTexture("jongs/wan_6.png");
 		break;
 	case JongEnum::wan_7:
-		content->setTexture("majiang/qiwan.png");
+		content->setTexture("jongs/wan_7.png");
 		break;
 	case JongEnum::wan_8:
-		content->setTexture("majiang/bawan.png");
+		content->setTexture("jongs/wan_8.png");
 		break;
 	case JongEnum::wan_9:
-		content->setTexture("majiang/jiuwan.png");
+		content->setTexture("jongs/wan_9.png");
 		break;
 	case JongEnum::tong_1:
-		content->setTexture("majiang/yitong.png");
+		content->setTexture("jongs/tong_1.png");
 		break;
 	case JongEnum::tong_2:
-		content->setTexture("majiang/ertong.png");
+		content->setTexture("jongs/tong_2.png");
 		break;
 	case JongEnum::tong_3:
-		content->setTexture("majiang/santong.png");
+		content->setTexture("jongs/tong_3.png");
 		break;
 	case JongEnum::tong_4:
-		content->setTexture("majiang/sitong.png");
+		content->setTexture("jongs/tong_4.png");
 		break;
 	case JongEnum::tong_5:
-		content->setTexture("majiang/wutong.png");
+		content->setTexture("jongs/tong_5.png");
 		break;
 	case JongEnum::tong_6:
-		content->setTexture("majiang/liutong.png");
+		content->setTexture("jongs/tong_6.png");
 		break;
 	case JongEnum::tong_7:
-		content->setTexture("majiang/qitong.png");
+		content->setTexture("jongs/tong_7.png");
 		break;
 	case JongEnum::tong_8:
-		content->setTexture("majiang/batong.png");
+		content->setTexture("jongs/tong_8.png");
 		break;
 	case JongEnum::tong_9:
-		content->setTexture("majiang/jiutong.png");
+		content->setTexture("jongs/tong_9.png");
 		break;
 	default:
 		break;

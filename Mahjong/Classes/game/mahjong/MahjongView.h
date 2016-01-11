@@ -17,11 +17,16 @@ public:
 	void drawPlayerLeft();
 	void drawPlayerRight();
 	void drawPlayerOpposite();
+	void drawMenu();
 	CREATE_FUNC(MahjongView);
 private:
 	void addTouchListener();//添加屏幕的触摸事件
 	void addCoustomListener();//添加自定义监听事件
 	void dealJongs();//发牌
+	void chatButton();//聊天按钮
+	void billingButton();//账单按钮
+	void packageButton();//背包按钮
+	//测试方法
 	void testButton();
 	void testEvent();
 
