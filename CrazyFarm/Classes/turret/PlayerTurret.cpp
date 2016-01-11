@@ -76,9 +76,12 @@ void PlayerTurret::shoot(float degree){
 	{
 		degree = 180+degree;
 	}
+	const int dd = 20;
 	auto bullet = BulletManage::getInstance()->createBullet(1, 90);
 	bullet->setRotation(degree);
-	bullet->setPosition(this->getPosition());
+	auto pos = m_turret->getTampionPos();
+	CCLOG("shoot x:%f,y:%f,angle%f", pos.x, pos.y,degree);
+	bullet->setPosition(/*this->getPosition()*/m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
 	getParent()->addChild(bullet);
 	

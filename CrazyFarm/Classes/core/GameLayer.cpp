@@ -141,8 +141,12 @@ void GameLayer::addTouchEvent(){
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
 	float degree = getTurretRotation(myTurret->getPosition(), touch->getLocation());
-	rotateTurret(degree,myTurret);
-	myTurret->shoot(degree);
+	rotateTurret(degree, myTurret);
+	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([&]{
+		CCLOG("turret rotate%f", myTurret->getRarote());
+		myTurret->shoot(myTurret->getRarote()); 
+	}), nullptr));
+	
 	return true;
 }
 
