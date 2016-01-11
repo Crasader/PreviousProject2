@@ -148,6 +148,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerRight.cpp" />
     <ClCompile Include="..\Classes\game\mahjong\PlayerHero.cpp" />
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp" />
+    <ClCompile Include="..\Classes\socket\ODSocket.cpp" />
+    <ClCompile Include="..\Classes\socket\stdafx.cpp" />
     <ClCompile Include="..\Classes\splash\SplashScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -163,6 +165,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerRight.h" />
     <ClInclude Include="..\Classes\game\mahjong\PlayerHero.h" />
     <ClInclude Include="..\Classes\lobby\LobbyScene.h" />
+    <ClInclude Include="..\Classes\socket\ODSocket.h" />
+    <ClInclude Include="..\Classes\socket\stdafx.h" />
+    <ClInclude Include="..\Classes\socket\targetver.h" />
+    <ClInclude Include="..\Classes\socket\tchar.h" />
     <ClInclude Include="..\Classes\splash\SplashScene.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
