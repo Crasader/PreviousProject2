@@ -29,7 +29,7 @@ void PlayerHero::drawPlayerHero(){
 	}
 	selfHandJongs = upsetJongs(selfHandJongs);
 	for (int i = 0; i < selfHandJongs.size(); i++){
-		selfHandJongs.at(i)->setPosition(ccp(140 + 56 * i, JONG_POS_Y));
+		selfHandJongs.at(i)->setPosition(ccp(140 + 59 * i, JONG_POS_Y));
 		this->addChild(selfHandJongs.at(i));
 	}
 }
@@ -183,15 +183,15 @@ void PlayerHero::resetJongPos(){
 Point PlayerHero::getSmallJongsPos(int index){
 	int row = index / 6;
 	int line = index % 6;
-	Point originPos = ccp(400, 300);
-	if (row == 1){
-		return ccp(originPos.x + 30 * line, originPos.y);
+	Point originPos = ccp(440, 226);
+	if (row == 0){
+		return ccp(originPos.x + 27 * line, originPos.y);
 	}
-	else if (row == 2){
-		return ccp(originPos.x + 30 * line, originPos.y - 50 * (row - 1));
+	else if (row == 1){
+		return ccp(originPos.x + 27 * line, originPos.y-38);
 	}
 	else {
-		return ccp(originPos.x + 30 * line, originPos.y - 50 * (row - 1));
+		return ccp(originPos.x + 27 * (index-12), originPos.y - 38 * 2);
 	}
 
 

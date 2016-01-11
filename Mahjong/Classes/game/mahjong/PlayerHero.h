@@ -12,7 +12,7 @@ using namespace std;
 class PlayerHero : public cocos2d::Layer
 {
 public:
-	const int JONG_POS_Y = 100;
+	const int JONG_POS_Y = 85;
 	const int JONG_SEL_POS_Y = 150;
 	virtual bool init();
 	bool onTouchBegan(Touch *touch, Event  *event);
