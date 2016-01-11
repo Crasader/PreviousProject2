@@ -38,6 +38,11 @@ void MahjongView::drawMenu(){
 	myMenu->setPosition(ccp(210,25));
 	myMenu->alignItemsHorizontallyWithPadding(15);
 	this->addChild(myMenu);
+
+	auto quitButton = MenuItemImage::create("gamemj/button_quit_1.png", "gamemj/button_quit_2.png", CC_CALLBACK_0(MahjongView::quitButton, this));
+	Menu* quit = Menu::create(quitButton,NULL);
+	quit->setPosition(ccp(35,505));
+	this->addChild(quit);
 }
 
 //绘制主角
@@ -98,8 +103,14 @@ void MahjongView::packageButton(){
 
 }
 
+//退出按钮
+void  MahjongView::quitButton(){
 
 
+}
+
+
+//自定义事件监听
 void MahjongView::addCoustomListener(){
 	auto dealJongListener = EventListenerCustom::create("deal_listener", [=](EventCustom* event){
 		dealJongs();

@@ -19,7 +19,7 @@ bool PlayerHero::init(){
 //绘制自己
 void PlayerHero::drawPlayerHero(){
 	//头像的绘制
-	HeadPortrait* head = new HeadPortrait();
+	PlayerInfo* head = new PlayerInfo();
 	drawHeadPortrait(head);
 	//牌的绘制
 	for (int t = 1; t < 15; t++){
@@ -36,7 +36,7 @@ void PlayerHero::drawPlayerHero(){
 
 
 //绘制玩家的头像
-void PlayerHero::drawHeadPortrait(HeadPortrait* headPortrait){
+void PlayerHero::drawHeadPortrait(PlayerInfo* headPortrait){
 	//绘制背景
 	Sprite* head_bg = Sprite::create("gamemj/head_bg.png");
 	head_bg->setPosition(ccp(50, 120));

@@ -25,14 +25,14 @@
     <Filter Include="src\game\mahjong\otherplayer">
       <UniqueIdentifier>{14fdc929-fa8b-4fa7-8238-f9894cb63fde}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\game\headportrait">
-      <UniqueIdentifier>{545c3d9e-e370-4d35-aa64-fa737116647b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\game\mahjong\anim">
       <UniqueIdentifier>{71168c8a-a6c4-45b9-8687-5c3f6fa7254d}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\socket">
       <UniqueIdentifier>{638c7b61-b917-4730-a702-2faa3f615ac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game\playerinfo">
+      <UniqueIdentifier>{545c3d9e-e370-4d35-aa64-fa737116647b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,9 +69,6 @@
     <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerRight.cpp">
       <Filter>src\game\mahjong\otherplayer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\game\headportrait\HeadPortrait.cpp">
-      <Filter>src\game\headportrait</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\game\mahjong\anim\DealJongAnim.cpp">
       <Filter>src\game\mahjong\anim</Filter>
     </ClCompile>
@@ -80,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\socket\stdafx.cpp">
       <Filter>src\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\playerinfo\PlayerInfo.cpp">
+      <Filter>src\game\playerinfo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +116,6 @@
     <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerRight.h">
       <Filter>src\game\mahjong\otherplayer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\game\headportrait\HeadPortrait.h">
-      <Filter>src\game\headportrait</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\game\mahjong\anim\DealJongAnim.h">
       <Filter>src\game\mahjong\anim</Filter>
     </ClInclude>
@@ -133,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\socket\tchar.h">
       <Filter>src\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\playerinfo\PlayerInfo.h">
+      <Filter>src\game\playerinfo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
