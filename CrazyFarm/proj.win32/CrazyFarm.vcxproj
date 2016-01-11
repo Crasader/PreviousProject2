@@ -154,6 +154,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\config\ConfigMomentOrder.cpp" />
     <ClCompile Include="..\Classes\config\ConfigOnemoment.cpp" />
     <ClCompile Include="..\Classes\config\ConfigRoom.cpp" />
+    <ClCompile Include="..\Classes\config\ConfigSign.cpp" />
     <ClCompile Include="..\Classes\config\ConfigTurrent.cpp" />
     <ClCompile Include="..\Classes\config\ConfigVipLevel.cpp" />
     <ClCompile Include="..\Classes\core\GameGuiLayer.cpp" />
@@ -175,6 +176,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\lobby\bag\BagCell.cpp" />
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp" />
     <ClCompile Include="..\Classes\lobby\ScrollText.cpp" />
+    <ClCompile Include="..\Classes\lobby\signlayer\SignInLayer.cpp" />
     <ClCompile Include="..\Classes\moment\Moment.cpp" />
     <ClCompile Include="..\Classes\moment\MomentFour.cpp" />
     <ClCompile Include="..\Classes\moment\MomentIntervalCreate.cpp" />
@@ -198,8 +200,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\utill\Chinese.cpp" />
     <ClCompile Include="..\Classes\utill\CircleBy.cpp" />
     <ClCompile Include="..\Classes\utill\CircleMoveTo.cpp" />
+    <ClCompile Include="..\Classes\utill\dayUtil.cpp" />
     <ClCompile Include="..\Classes\utill\FunUtil.cpp" />
     <ClCompile Include="..\Classes\utill\SkillButton.cpp" />
+    <ClCompile Include="..\Classes\utill\Toast.cpp" />
     <ClCompile Include="..\Classes\widget\MyTableView.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -221,6 +225,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\config\ConfigMomentOrder.h" />
     <ClInclude Include="..\Classes\config\ConfigOnemoment.h" />
     <ClInclude Include="..\Classes\config\ConfigRoom.h" />
+    <ClInclude Include="..\Classes\config\ConfigSign.h" />
     <ClInclude Include="..\Classes\config\ConfigTurrent.h" />
     <ClInclude Include="..\Classes\config\ConfigVipLevel.h" />
     <ClInclude Include="..\Classes\core\GameGuiLayer.h" />
@@ -242,6 +247,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\lobby\bag\BagCell.h" />
     <ClInclude Include="..\Classes\lobby\LobbyScene.h" />
     <ClInclude Include="..\Classes\lobby\ScrollText.h" />
+    <ClInclude Include="..\Classes\lobby\signlayer\SignInLayer.h" />
     <ClInclude Include="..\Classes\moment\Moment.h" />
     <ClInclude Include="..\Classes\moment\MomentFour.h" />
     <ClInclude Include="..\Classes\moment\MomentIntervalCreate.h" />
@@ -265,9 +271,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\utill\Chinese.h" />
     <ClInclude Include="..\Classes\utill\CircleBy.h" />
     <ClInclude Include="..\Classes\utill\CircleMoveTo.h" />
+    <ClInclude Include="..\Classes\utill\dayUtil.h" />
     <ClInclude Include="..\Classes\utill\define.h" />
     <ClInclude Include="..\Classes\utill\FunUtil.h" />
     <ClInclude Include="..\Classes\utill\SkillButton.h" />
+    <ClInclude Include="..\Classes\utill\Toast.h" />
     <ClInclude Include="..\Classes\widget\MyTableView.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

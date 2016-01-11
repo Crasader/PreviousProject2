@@ -47,7 +47,7 @@ private:
 	void payDiamondCallback(Ref*psend);
 	void beginGameCallback(Ref*psend);
 	void bagButtonCallback(Ref*psend);
-	
+	void changeRewardCallback(Ref*psend);
 
 
 private:

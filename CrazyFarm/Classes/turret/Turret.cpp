@@ -10,7 +10,11 @@ bool Turret::init(){
 }
 
 void Turret::initWithType(int type){
-	initWithFile("turret_01.png"); 
+	initWithFile("turret_01.png");
+	emptySp = Sprite::create();
+	emptySp->setPosition(getContentSize().width/2, getContentSize().height*0.9);
+	addChild(emptySp);
+	 
 	/*this->initWithSpriteFrameName(getSrcByType(type));*/
 }
 

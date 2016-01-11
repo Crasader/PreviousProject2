@@ -9,3 +9,5 @@ swimDirection getDirectionByPosition(Vec2 pos);
 float  getAngleByPos(Vec2 pos);
 
 Vec2 CalculateDiffMarginPos(Vec2 pos,float diff);
+
+

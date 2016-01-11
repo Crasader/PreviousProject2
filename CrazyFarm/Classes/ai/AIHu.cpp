@@ -7,11 +7,11 @@ PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
     
     playerWork.setTurrentLevel(this->getMaxTurrentLevel());
     
-    if(FishManage::getInstance()->getAllFishInPoolCount() < 2) {
+    /*if(FishManage::getInstance()->getAllFishInPoolCount() < 2) {
         playerWork.setAngle((float)angle);
         playerWork.setFire(false);
         return playerWork;
-    }
+    }*/
     
     int fire = rand()%100;
     

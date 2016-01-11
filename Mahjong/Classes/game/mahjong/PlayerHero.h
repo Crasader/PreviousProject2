@@ -1,7 +1,7 @@
 #ifndef __PLAYER_HERO__
 #define __PLAYER_HERO__
 #include "cocos2d.h"
-#include "game/headportrait/HeadPortrait.h"
+#include "game/playerinfo/PlayerInfo.h"
 #include "game/mahjong/Jong.h"
 USING_NS_CC;
 using namespace std;
@@ -26,7 +26,7 @@ private:
 	Jong* selectJong;//选中的牌
 	Jong* virtualJong;//虚牌(轮到自己打牌时才会出现)
 	void drawPlayerHero();//绘制自己
-	void drawHeadPortrait(HeadPortrait* headPortrait);//绘制头像
+	void drawHeadPortrait(PlayerInfo* playerInfo);//绘制头像
 	void resetJongPos();//回复除选中牌以外牌的位置
 	void resetAllJong();//回复所有牌的位置
 	float distance(Point pos1, Point pos2);//计算2点间的间距

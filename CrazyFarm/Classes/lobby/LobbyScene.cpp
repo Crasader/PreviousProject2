@@ -11,7 +11,8 @@
 #include "config/ConfigRoom.h"
 #include "data/GameData.h"
 #include "config/ConfigManager.h"
-
+#include "config/ConfigSign.h"
+#include "signlayer/SignInLayer.h"
 
 
 
@@ -184,7 +185,11 @@ bool LobbyScene::init()
 	auto bag = MenuItemImage::create("bag.png", "bag.png", CC_CALLBACK_1(LobbyScene::bagButtonCallback, this));
 	bag->setPosition(visibleSize.width*0.3, visibleSize.height*0.1);
 
-	auto menu = Menu::create(addCoin, adddiamond, bag, nullptr);
+	//»»½±Æ·
+	auto changeReward = MenuItemImage::create("changeReward.png", "changeReward.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
+	changeReward->setPosition(visibleSize.width*0.4, visibleSize.height*0.1);
+
+	auto menu = Menu::create(addCoin, adddiamond, bag, changeReward,nullptr);
 	menu->setPosition(Point::ZERO);
 	addChild(menu);
 	createRoomLayer();
@@ -238,6 +243,7 @@ void LobbyScene::loadResource(){
     
     ConfigManager::getInstance()->LoadConfig();
 	
+	ConfigSign::getInstance()->LoadConfig();
 	FishRouteData::getInstance()->loadConfig();
 	FishGroupData::getInstance()->loadConfig();
 
@@ -317,6 +323,14 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 {
 	Director::getInstance()->pushScene(BagLayer::createScene());
 }
+
+void LobbyScene::changeRewardCallback(Ref*psend)
+{
+	auto sign = SignInLayer::create();
+	sign->setPosition(Point::ZERO);
+	addChild(sign);
+}
+
 
 void LobbyScene::onHttpRequestCompleted(HttpClient *sender, HttpResponse *response)
 {

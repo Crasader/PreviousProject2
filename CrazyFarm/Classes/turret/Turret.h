@@ -19,9 +19,11 @@ public:
 	  void initWithType(int type); 
 	  void upgradeTurret();
 	  void degradeTurret();
+	  Point getTampionPos(){ return emptySp->convertToWorldSpace(Point(0, 0)); }
 private:
 	  int turretType;
 	  string getSrcByType(int type);
+	  Sprite* emptySp;
 	  
 
 };
