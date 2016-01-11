@@ -29,7 +29,7 @@ void PlayerHero::drawPlayerHero(){
 	}
 	selfHandJongs = upsetJongs(selfHandJongs);
 	for (int i = 0; i < selfHandJongs.size(); i++){
-		selfHandJongs.at(i)->setPosition(ccp(140 + 56 * i, JONG_POS_Y));
+		selfHandJongs.at(i)->setPosition(ccp(140 + 59 * i, JONG_POS_Y));
 		this->addChild(selfHandJongs.at(i));
 	}
 }
@@ -93,7 +93,6 @@ void PlayerHero::onTouchMoved(Touch *touch, Event  *event){
 				if (true){
 					if (virtualJong == nullptr){
 						virtualJong = Jong::create();
-						virtualJong->setScale(0.5);
 						virtualJong->setPosition(selectJong->getPosition());
 						virtualJong->showJong(0, selectJong->getJongType());
 						//设置子节点的透明度随父节点变化
@@ -140,9 +139,8 @@ void PlayerHero::onTouchEnded(Touch *touch, Event  *event){
 		virtualJong->runAction(seq);
 		//step2
 		Jong* outJong = Jong::create();
-		outJong->showJong(0, virtualJong->getJongType());
+		outJong->showJong(2, virtualJong->getJongType());
 		outJong->setPosition(virtualJong->getPosition());
-		outJong->setScale(0.3f);
 		this->addChild(outJong);
 		//step3
 		virtualJong->removeFromParentAndCleanup(true);
@@ -185,15 +183,15 @@ void PlayerHero::resetJongPos(){
 Point PlayerHero::getSmallJongsPos(int index){
 	int row = index / 6;
 	int line = index % 6;
-	Point originPos = ccp(400, 300);
-	if (row == 1){
-		return ccp(originPos.x + 30 * line, originPos.y);
+	Point originPos = ccp(440, 226);
+	if (row == 0){
+		return ccp(originPos.x + 27 * line, originPos.y);
 	}
-	else if (row == 2){
-		return ccp(originPos.x + 30 * line, originPos.y - 50 * (row - 1));
+	else if (row == 1){
+		return ccp(originPos.x + 27 * line, originPos.y-38);
 	}
 	else {
-		return ccp(originPos.x + 30 * line, originPos.y - 50 * (row - 1));
+		return ccp(originPos.x + 27 * (index-12), originPos.y - 38 * 2);
 	}
 
 
