@@ -183,6 +183,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\lobby\signlayer\SignCell.cpp" />
     <ClCompile Include="..\Classes\lobby\signlayer\SignInLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\signlayer\SpliceCell.cpp" />
+    <ClCompile Include="..\Classes\lobby\viplayer\VipCell.cpp" />
+    <ClCompile Include="..\Classes\lobby\viplayer\VipLayer.cpp" />
     <ClCompile Include="..\Classes\moment\Moment.cpp" />
     <ClCompile Include="..\Classes\moment\MomentFour.cpp" />
     <ClCompile Include="..\Classes\moment\MomentIntervalCreate.cpp" />
@@ -260,6 +262,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\lobby\signlayer\SignCell.h" />
     <ClInclude Include="..\Classes\lobby\signlayer\SignInLayer.h" />
     <ClInclude Include="..\Classes\lobby\signlayer\SpliceCell.h" />
+    <ClInclude Include="..\Classes\lobby\viplayer\VipCell.h" />
+    <ClInclude Include="..\Classes\lobby\viplayer\VipLayer.h" />
     <ClInclude Include="..\Classes\moment\Moment.h" />
     <ClInclude Include="..\Classes\moment\MomentFour.h" />
     <ClInclude Include="..\Classes\moment\MomentIntervalCreate.h" />

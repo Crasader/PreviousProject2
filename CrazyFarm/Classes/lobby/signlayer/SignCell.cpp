@@ -24,10 +24,17 @@ bool SignCell::init(int propID, int propNum)
 	while (!bRet)
 	{
 
-		auto num = LabelTTF::create(Value(propNum).asString().c_str(), "arail", 20);
-		num->setPosition(getContentSize().width*0.8, getContentSize().height*0.2);
+		auto num = LabelAtlas::create(Value(propNum).asString().c_str(),"payNum.png", 16,24,'0');
+		num->setPosition(getContentSize().width*0.6, getContentSize().height*0.1);
 		addChild(num);
 		bRet = true;
 	}
 	return bRet;
+}
+
+void SignCell::setVipX2()
+{
+	auto sp = Sprite::create("x2.png");
+	sp->setPosition(getContentSize().width*0.8, getContentSize().height*0.7);
+	addChild(sp);
 }

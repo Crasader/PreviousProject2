@@ -21,7 +21,6 @@ void BulletManage::ClearManage()
 Bullet* BulletManage::createBullet(int type,int rotation){
 	auto bullet = Bullet::create();
 	bullet->initBullet(type,rotation);
-	bullet->setPosition(ccp(400,20));
 	bulletPool.pushBack(bullet);
 	return bullet;
 }

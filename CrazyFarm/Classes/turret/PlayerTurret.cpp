@@ -4,6 +4,8 @@
 #include "user.h"
 #include "config/ConfigRoom.h"
 #include "data/GameData.h"
+#include "config/ConfigVipTurrent.h"
+#include "config/ConfigNormalTurrent.h"
 bool PlayerTurret::init(){
 	if (!Sprite::initWithFile("turretBg.png")){
 		return false;
@@ -27,9 +29,23 @@ void PlayerTurret::setUpgradeButton()
 	menu->setPosition(Point::ZERO);
 	addChild(menu);
 }
-void PlayerTurret::initWithType(int type){
+void PlayerTurret::initTurretWithType(){
+	auto vipLevel = User::getInstance()->getVipLevel();
+	if (vipLevel == 0)
+	{
+		auto var = ConfigNormalTurrent::getInstance()->getNormalTurrent(User::getInstance()->getMaxTurrentLevel());
+		turretdata.init(var.normal_turrent_id, var.turrent_ui_id, var.net_per, var.ui_type, var.net_type);
+	}
+	else
+	{
+		auto var = ConfigVipTurrent::getInstance()->getVipTurrent(User::getInstance()->getVipLevel());
+		turretdata.init(var.vip_turrent_id, var.turrent_ui_id, var.net_per, var.ui_type, var.net_type);
+	}
+
+
+
 	m_turret = Turret::create();
-	m_turret->initWithType(type);
+	m_turret->initWithType(turretdata.turrent_ui_id);
 	m_turret->setPosition(getContentSize().width/2,getContentSize().height*0.6);
 	addChild(m_turret);
 }
@@ -80,7 +96,6 @@ void PlayerTurret::shoot(float degree){
 	auto bullet = BulletManage::getInstance()->createBullet(1, 90);
 	bullet->setRotation(degree);
 	auto pos = m_turret->getTampionPos();
-	CCLOG("shoot x:%f,y:%f,angle%f", pos.x, pos.y,degree);
 	bullet->setPosition(/*this->getPosition()*/m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
 	getParent()->addChild(bullet);
@@ -183,7 +198,7 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 void PlayerTurret::initWithDate(User* user,int index)
 {
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurrentLevel());
-	initWithType(user->getMaxTurrentLevel());
+	initTurretWithType();
 	setUpgradeButton();
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
 	setMaxLevel(user->getMaxTurrentLevel());
@@ -194,7 +209,7 @@ void PlayerTurret::initWithDate(RoomPlayer* user)
 {
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurretLevel());
 	nChairNoIndex = user->getRoomPosition();
-	initWithType(user->getMaxTurretLevel());
+	initTurretWithType();
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
 	setMaxLevel(user->getMaxTurretLevel());
 	createPlayerCoin(user);

@@ -76,6 +76,15 @@
     <Filter Include="src\lobby\pay">
       <UniqueIdentifier>{e5138f8e-fec4-4732-a717-d247670cdab9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\lobby\sign">
+      <UniqueIdentifier>{a82699f0-fab4-49fa-a8a6-1dc87e115e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\lobby\bag">
+      <UniqueIdentifier>{3e5ad3d3-f14f-42c0-bd64-c889b14bd95a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\lobby\viplayer">
+      <UniqueIdentifier>{72392fda-5c1d-484c-a28e-0543f67a92f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -264,14 +273,8 @@
     <ClCompile Include="..\Classes\config\ConfigDebugTest.cpp">
       <Filter>src\Interface</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\lobby\bag\BagCell.cpp">
-      <Filter>src\lobby</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\widget\MyTableView.cpp">
       <Filter>src\widget</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\lobby\signlayer\SignInLayer.cpp">
-      <Filter>src\lobby</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\config\ConfigSign.cpp">
       <Filter>src\Interface</Filter>
@@ -281,15 +284,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\utill\Toast.cpp">
       <Filter>src\utill</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\lobby\signlayer\SpliceCell.cpp">
-      <Filter>src\lobby</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\lobby\signlayer\SignCell.cpp">
-      <Filter>src\lobby</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\lobby\bag\bagLayer.cpp">
-      <Filter>src\lobby</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\lobby\shop\payLayer.cpp">
       <Filter>src\lobby\pay</Filter>
@@ -302,6 +296,27 @@
     </ClCompile>
     <ClCompile Include="..\Classes\config\ConfigVipTurrent.cpp">
       <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\bag\bagLayer.cpp">
+      <Filter>src\lobby\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\bag\BagCell.cpp">
+      <Filter>src\lobby\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\signlayer\SignCell.cpp">
+      <Filter>src\lobby\sign</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\signlayer\SignInLayer.cpp">
+      <Filter>src\lobby\sign</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\signlayer\SpliceCell.cpp">
+      <Filter>src\lobby\sign</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\viplayer\VipCell.cpp">
+      <Filter>src\lobby\viplayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\viplayer\VipLayer.cpp">
+      <Filter>src\lobby\viplayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -494,14 +509,8 @@
     <ClInclude Include="..\Classes\config\ConfigDebugTest.h">
       <Filter>src\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\lobby\bag\BagCell.h">
-      <Filter>src\lobby</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\widget\MyTableView.h">
       <Filter>src\widget</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\lobby\signlayer\SignInLayer.h">
-      <Filter>src\lobby</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigSign.h">
       <Filter>src\Interface</Filter>
@@ -511,15 +520,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utill\Toast.h">
       <Filter>src\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\lobby\signlayer\SignCell.h">
-      <Filter>src\lobby</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\lobby\signlayer\SpliceCell.h">
-      <Filter>src\lobby</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\lobby\bag\bagLayer.h">
-      <Filter>src\lobby</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\shop\payLayer.h">
       <Filter>src\lobby\pay</Filter>
@@ -532,6 +532,27 @@
     </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigVipTurrent.h">
       <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\bag\bagLayer.h">
+      <Filter>src\lobby\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\bag\BagCell.h">
+      <Filter>src\lobby\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\signlayer\SignCell.h">
+      <Filter>src\lobby\sign</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\signlayer\SignInLayer.h">
+      <Filter>src\lobby\sign</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\signlayer\SpliceCell.h">
+      <Filter>src\lobby\sign</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\viplayer\VipCell.h">
+      <Filter>src\lobby\viplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\viplayer\VipLayer.h">
+      <Filter>src\lobby\viplayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

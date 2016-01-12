@@ -4,6 +4,7 @@
 #include "utill/Toast.h"
 #include "SignCell.h"
 #include "SpliceCell.h"
+#include "User.h"
 bool SignInLayer::init(int seqday)
 {
 	if (!Layer::init()){
@@ -38,6 +39,10 @@ bool SignInLayer::init(int seqday)
 		{
 			auto reward = getRewardInVectorByProbability(ConfigSign::getInstance()->getRewardsByDay(nSeqSignDay));
 			auto sp = SignCell::create(reward.propID,reward.propNum);
+			if (User::getInstance()->getVipLevel()>0)
+			{
+				sp->setVipX2();
+			}
 			sp->setPosition(90.28 / 2 + (i - 1)*90.28, 71);
 			frame->addChild(sp);
 		}

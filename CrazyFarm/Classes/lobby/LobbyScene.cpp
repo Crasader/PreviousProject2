@@ -14,6 +14,7 @@
 #include "config/ConfigSign.h"
 #include "signlayer/SignInLayer.h"
 #include "utill/Toast.h"
+#include "viplayer/VipLayer.h"
 #include "lobby/shop/paylayer.h"
 
 
@@ -339,7 +340,9 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
-	
+	auto layer = VIPLayer::create();
+	layer->setPosition(Point::ZERO);
+	addChild(layer);
 }
 void LobbyScene::refreshCoinLabel()
 {
