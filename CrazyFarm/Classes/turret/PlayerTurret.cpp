@@ -207,6 +207,7 @@ void PlayerTurret::initWithDate(User* user,int index)
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
 {
+	auto a = user->getMaxTurretLevel();
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurretLevel());
 	nChairNoIndex = user->getRoomPosition();
 	initTurretWithType();

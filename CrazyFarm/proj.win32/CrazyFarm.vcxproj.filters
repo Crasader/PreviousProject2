@@ -318,6 +318,9 @@
     <ClCompile Include="..\Classes\lobby\viplayer\VipLayer.cpp">
       <Filter>src\lobby\viplayer</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigSkill.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -553,6 +556,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\viplayer\VipLayer.h">
       <Filter>src\lobby\viplayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigSkill.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

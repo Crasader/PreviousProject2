@@ -2,13 +2,13 @@
 #include "ConfigItem.h"
 #include "User.h"
 #include "widget/MyTableView.h"
-
+#include "utill/Chinese.h"
 
 void VIPView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
 Size VIPView::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx){
-	return CCSizeMake(200, 243);
+	return CCSizeMake(250, 600);
 }
 cocos2d::extension::TableViewCell* VIPView::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx){
 	VipCell *cell = (VipCell*)table->dequeueCell();
@@ -75,6 +75,63 @@ bool VIPLayer::init()
 		bg->setPosition(visibleSize / 2);
 		addChild(bg);
 
+		////再充值XX元成为VIP
+		auto nowVip = User::getInstance()->getVipLevel();
+		auto nowChargeMoney = User::getInstance()->getChargeMoney();
+		auto vipConfig = ConfigVipLevel::getInstance();
+		auto nextVip = vipConfig->getVipLevel(nowVip + 1);
+	
+
+
+	
+		
+
+		auto VipExpFram = Sprite::create("VIP_exp.png");
+		VipExpFram->setPosition(visibleSize.width*0.5, visibleSize.height*0.2);
+		addChild(VipExpFram);
+
+		auto VIPtitle = Sprite::create("VIPtxt.png");
+		VIPtitle->setPosition(visibleSize.width*0.2, visibleSize.height*0.2);
+		addChild(VIPtitle);
+
+		auto VIPTTF = LabelAtlas::create(Value(nowVip).asString(), "VIPnum.png", 31, 43, '0');
+		VIPTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		VIPTTF->setPosition(visibleSize.width*0.2 + 60, visibleSize.height*0.2);
+		addChild(VIPTTF);
+
+		auto scale = ((float)nowChargeMoney) / ((float)nextVip.charge_money);
+
+		auto VipExpBar = Sprite::create("VIP_expBar.png");
+		VipExpBar->setPosition(VipExpFram->getContentSize() / 2);
+		VipExpBar->setScaleX(scale*(302.0 / 100.0));
+		VipExpFram->addChild(VipExpBar);
+
+		auto VIPtitle1 = Sprite::create("VIPtxt.png");
+		VIPtitle1->setPosition(visibleSize.width*0.8, visibleSize.height*0.2);
+		addChild(VIPtitle1);
+
+		auto VIPTTF1 = LabelAtlas::create(Value(nowVip+1).asString(), "VIPnum.png", 31, 43, '0');
+		VIPTTF1->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		VIPTTF1->setPosition(visibleSize.width*0.8 + 60, visibleSize.height*0.2);
+		addChild(VIPTTF1);
+
+
+/*
+		auto frame = Sprite::create("txtPriceDes.png");
+		frame->setScaleX(3);
+		frame->setPosition(visibleSize.width*0.4, visibleSize.height*0.1);
+		addChild(frame);*/
+
+		
+		auto chinaword = ChineseWord("VIPdes");
+		auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
+		auto ttf = LabelTTF::create(strdec->getCString(), "Airal", 20);
+		ttf->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		ttf->setPosition(visibleSize.width*0.5, visibleSize.height*0.1);
+		addChild(ttf);
+
+
+		
 
 
 
@@ -82,134 +139,10 @@ bool VIPLayer::init()
 
 
 
-
-		//auto user = User::getInstance();
-		//auto leveldata = user->getLevelData();
-		//auto bagFram = Sprite::create("bagFrame.png");
-		//bagFram->setPosition(visibleSize.width/2, visibleSize.height*0.45);
-		//addChild(bagFram);
-		//auto sssize = bagFram->getContentSize();
-		////标题
-		//auto titleFram = Sprite::create("redframe.png");
-		//titleFram->setPosition(sssize.width / 2, sssize.height*0.95);
-		//auto title = Sprite::create("bagTitle.png");
-		//title->setPosition(titleFram->getContentSize().width*0.5,titleFram->getContentSize().height*0.6);
-		//titleFram->addChild(title);
-		//bagFram->addChild(titleFram);
-
-
-		////人物信息框
-		//auto playinfoFram = Sprite::create("playinfoFram.png");
-		//playinfoFram->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		//playinfoFram->setPosition(15, sssize.height*0.45);
-		//bagFram->addChild(playinfoFram);
-		//auto sssize2 = playinfoFram->getContentSize();
-		//auto spHead = Sprite::create();
-		//int sex = rand() % 2;
-		//if (sex)
-		//{
-		//	spHead->setTexture("bagMale.png");
-		//}
-		//else
-		//{
-		//	spHead->setTexture("bagFamale.png");
-		//}
-		//spHead->setPosition(sssize2.width*0.19, sssize2.height*0.82);
-		//playinfoFram->addChild(spHead);
-		////昵称
-		//auto userName = LabelTTF::create(user->getUserName(), "arial", 20);
-		//userName->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
-		//userName->setPosition(sssize2.width*0.62, sssize2.height*0.83);
-		//playinfoFram->addChild(userName);
-		////等级
-		//auto spLV = Sprite::create("LV.png");
-		//spLV->setPosition(sssize2.width*0.385, sssize2.height*0.74);
-		//playinfoFram->addChild(spLV);
-		//auto userlevel = LabelAtlas::create(Value(leveldata.levelId).asString().c_str(), "levelnum.png", 12, 17, '0');
-		//userlevel->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		//userlevel->setPosition(spLV->getPositionX()+spLV->getContentSize().width, spLV->getPositionY());
-		//playinfoFram->addChild(userlevel);
-		////金币
-		//auto userCoin = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
-		//userCoin->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		//userCoin->setPosition(sssize2.width*0.65, sssize2.height *0.60);
-		//userCoin->setColor(Color3B::WHITE);
-		//playinfoFram->addChild(userCoin);
-		////钻石
-		//auto userdiamond = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
-		//userdiamond->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		//userdiamond->setPosition(sssize2.width*0.65, sssize2.height *0.485);
-		//userdiamond->setColor(Color3B::WHITE);
-		//playinfoFram->addChild(userdiamond);
-		////VIP
-		//auto viplevel = LabelTTF::create(Value(user->getVipLevel()).asString().c_str(), "arial", 20);
-		//viplevel->setPosition(sssize2.width*0.65, sssize2.height *0.37);
-		//playinfoFram->addChild(viplevel);
-		////经验
-		////////////////////////////////////////////////////////////
-		//
-
-		//auto leveldataa = user->getLevelData();
-		//auto levelDes = String::createWithFormat("%d:%d", leveldataa.haveExp, leveldataa.passNeedExp);
-		//
-
-		//auto exeMur = (leveldataa.haveExp*1.0) / (1.0*leveldataa.passNeedExp);
-		//auto exeBarLeft = Sprite::create("exe_left.png");
-		//exeBarLeft->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		//exeBarLeft->setPosition(sssize2.width*0.51, sssize2.height*0.745);
-		//playinfoFram->addChild(exeBarLeft);
-		//auto exeBarMid = Sprite::create("exe_mid.png");
-		//exeBarMid->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		//exeBarMid->setScaleX(140.0 / exeBarMid->getContentSize().width*exeMur);
-		//exeBarMid->setPosition(exeBarLeft->getContentSize().width, exeBarLeft->getContentSize().height / 2);
-		//exeBarLeft->addChild(exeBarMid);
-		//auto exeBarRight = Sprite::create("exe_right.png");
-		//exeBarRight->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		//exeBarRight->setPosition(exeBarMid->getBoundingBox().size.width, exeBarMid->getContentSize().height / 2);
-		//exeBarMid->addChild(exeBarRight);
-
-
-		//auto exeDescribe = LabelAtlas::create(levelDes->getCString(), "exeNum.png", 12, 18, '0');
-		//exeDescribe->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		//exeDescribe->setPosition(sssize2.width*0.72, sssize2.height*0.74);
-		//playinfoFram->addChild(exeDescribe);
-
-
-
-
-
-
-		////背包信息框
-		//auto baginfoFram = Sprite::create("baginFrame.png");
-		//baginfoFram->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-		//baginfoFram->setPosition(sssize.width-15, sssize.height*0.45);
-		//bagFram->addChild(baginfoFram);
-
-
-
-		//auto chakan = MenuItemImage::create("btn_small_1.png", "btn_small_2.png", CC_CALLBACK_1(BagLayer::chankanCallBack, this));
-		//chakan->setPosition(visibleSize.width*0.48, visibleSize.height * 0.3103);
-		//auto chakan1 = MenuItemImage::create("btn_small_1.png", "btn_small_2.png", CC_CALLBACK_1(BagLayer::chankanCallBack, this));
-		//chakan1->setPosition(visibleSize.width*0.48, visibleSize.height * 0.2303);
-		//auto setname = MenuItemImage::create("btn_big_1.png", "btn_big_2.png", CC_CALLBACK_1(BagLayer::chankanCallBack, this));
-		//setname->setPosition(visibleSize.width*0.30, visibleSize.height * 0.125);
-
-
-		//auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(BagLayer::closeButtonCallBack, this));
-		//close->setPosition(sssize.width/2 + bagFram->getPositionX(), sssize.height);
-		//auto menu = Menu::create(close, chakan,chakan1,setname,nullptr);
-		//menu->setPosition(Point::ZERO); 
-		//addChild(menu);
-
-
-
-
-
-		//背包
-		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(700,300));
-		tableView->setAnchorPoint(Point::ZERO);
+		//tableview
+		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(800,500));
 		tableView->setDirection(ScrollView::Direction::HORIZONTAL);
-		tableView->setPosition(60,200);
+		tableView->setPosition(60,170);
 		tableView->setDelegate(tableviewDelegate);
 		addChild(tableView);
 		tableView->reloadData();
@@ -222,7 +155,11 @@ bool VIPLayer::init()
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
 
 
-
+		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(VIPLayer::closeButtonCallBack, this));
+		close->setPosition(800, 480);
+		auto menu = Menu::create(close, nullptr);
+		menu->setPosition(Point::ZERO);
+		addChild(menu);
 
 
 	//添加系统返回键监听
@@ -249,7 +186,7 @@ bool VIPLayer::init()
 
 void VIPLayer::closeButtonCallBack(Ref*psend)
 {
-	Director::getInstance()->popScene();
+	removeFromParentAndCleanup(1);
 }
 
 void VIPLayer::chankanCallBack(Ref*pesend)

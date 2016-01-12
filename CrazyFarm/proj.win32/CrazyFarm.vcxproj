@@ -156,6 +156,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\config\ConfigOnemoment.cpp" />
     <ClCompile Include="..\Classes\config\ConfigRoom.cpp" />
     <ClCompile Include="..\Classes\config\ConfigSign.cpp" />
+    <ClCompile Include="..\Classes\config\ConfigSkill.cpp" />
     <ClCompile Include="..\Classes\config\ConfigTurrent.cpp" />
     <ClCompile Include="..\Classes\config\ConfigVipLevel.cpp" />
     <ClCompile Include="..\Classes\config\ConfigVipTurrent.cpp" />
@@ -235,6 +236,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\config\ConfigOnemoment.h" />
     <ClInclude Include="..\Classes\config\ConfigRoom.h" />
     <ClInclude Include="..\Classes\config\ConfigSign.h" />
+    <ClInclude Include="..\Classes\config\ConfigSkill.h" />
     <ClInclude Include="..\Classes\config\ConfigTurrent.h" />
     <ClInclude Include="..\Classes\config\ConfigVipLevel.h" />
     <ClInclude Include="..\Classes\config\ConfigVipTurrent.h" />

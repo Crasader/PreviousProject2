@@ -9,6 +9,14 @@
   <key>payVIPdes</key>
   <string>再充值%d元，即可升级到VIP%d</string>
   
+  <key>VIPdes</key>
+  <string>再充值%d元，即可升级到VIP%d高级VIP可同时享受低级特权</string>
+  
+  
+  
+  <key>priceVIPdes</key>
+  <string>累计充值%d元</string>
+  
   </dict>
 
 </array>

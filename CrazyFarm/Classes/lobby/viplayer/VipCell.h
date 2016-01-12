@@ -14,6 +14,7 @@ public:
 	  void IsBeToued();
 private:
 	LabelAtlas* VIPTTF;
+	LabelTTF* PriceDecTTF;
 	Sprite* VIPtitle;
 	Sprite* propSprite;
 	Sprite* VIPname;

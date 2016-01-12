@@ -1,9 +1,9 @@
 #include "VipCell.h"
-
+#include "utill/Chinese.h"
 bool VipCell::init(){
 
 	auto bg = Sprite::create("VIPFrame.png");
-	bg->setPosition(88, 121.5);
+	bg->setPosition(88, 142.5);
 	addChild(bg);
 	auto size = bg->getContentSize();
 
@@ -13,32 +13,38 @@ bool VipCell::init(){
 
 	auto bottomFrame = Sprite::create("VIPbottomFrame.png");
 	bottomFrame->setAnchorPoint(Point::ZERO);
-	bottomFrame->setPosition(0, 0);
+	bottomFrame->setPosition(0,41);
 	addChild(bottomFrame);
 
 
-	 VIPtitle = Sprite::create("VIP.png");
-	VIPtitle->setPosition(size.width*0.47, size.height*0.8);
+	 VIPtitle = Sprite::create("VIPtxt.png");
+	VIPtitle->setPosition(size.width*0.45, size.height*0.8+21);
 	addChild(VIPtitle);
 	
 	VIPTTF = LabelAtlas::create("0", "VIPnum.png", 31, 43, '0');
-	VIPTTF->setPosition(size.width*0.75, size.height*0.8);
+	VIPTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	VIPTTF->setPosition(size.width*0.75, size.height*0.8+21);
 	addChild(VIPTTF);
 
 
 
 	VIPname = Sprite::create();
-	VIPname->setPosition(size.width / 2, size.height*0.23);
+	VIPname->setPosition(size.width / 2, size.height*0.23+36);
 	addChild(VIPname);
 
 	VIPdec = Sprite::create();
-	VIPdec->setPosition(size.width *0.51, size.height*0.1);
+	VIPdec->setPosition(size.width *0.51, size.height*0.1+36);
 	addChild(VIPdec);
-	
 
+
+	PriceDecTTF = LabelTTF::create("0", "arial", 20);
+	PriceDecTTF->setPosition(size.width *0.51, size.height*0.1-10);
+	addChild(PriceDecTTF);
 
 	return true;
 }
+
+int VIPprice[9] = { 20, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000 };
 
 void VipCell::setValue(int vipLevel)
 {
@@ -50,6 +56,9 @@ void VipCell::setValue(int vipLevel)
 	VIPdec->setTexture(spPath->getCString());
 
 	VIPTTF->setString(Value(vipLevel).asString().c_str());
+
+	auto dec = String::createWithFormat(ChineseWord("priceVIPdes").c_str(), VIPprice[vipLevel]);
+	PriceDecTTF->setString(dec->getCString());
 }
 
 void VipCell::IsBeToued()
