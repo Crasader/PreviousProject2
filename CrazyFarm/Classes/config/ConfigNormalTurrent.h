@@ -7,9 +7,11 @@
 
 USING_NS_CC;
 
-struct VipTurrent {
-    int vip_turrent_id;
+
+struct NormalTurrent {
+    int normal_turrent_id;
     int turrent_ui_id; // 显示ui
+    int unlock_turrent_level;   // 解锁炮的等级
     double net_per; // 打击面积系数
     double catch_per; // 捕获概率系数
     int ui_type; // 1火焰;2冰冻
@@ -17,20 +19,19 @@ struct VipTurrent {
 };
 
 
-class ConfigVipTurrent {
+class ConfigNormalTurrent {
     
 public:
-	ConfigVipTurrent();
-	static ConfigVipTurrent* getInstance();
+	ConfigNormalTurrent();
+	static ConfigNormalTurrent* getInstance();
     
 	bool LoadConfig();
     
-	std::map<int, VipTurrent> getVipTurrents();
-    VipTurrent getVipTurrent(int level);
+    NormalTurrent getNormalTurrent(int maxTurrentLevel);
     
 private:
-	static ConfigVipTurrent* _instance;
+	static ConfigNormalTurrent* _instance;
 	
-    std::map<int, VipTurrent> vipTurrents;
+    std::map<int, NormalTurrent> normalTurrents;
 };
 

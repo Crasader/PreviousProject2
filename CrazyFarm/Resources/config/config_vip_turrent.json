@@ -4,6 +4,7 @@
   "item_list": [
     {
       "vip_turrent_id"    :	1,
+      "turrent_ui_id"     : 3,    // 炮台ui显示效果Id
       "net_per"	          :	1.5,  // 打击面积系数
       "catch_per"         :	1.02, // 捕获概率系数
       "ui_type"           : 1,    // 1火焰;2冰冻
@@ -11,6 +12,7 @@
     },
     {
       "vip_turrent_id"    : 2,
+      "turrent_ui_id"     : 4,
       "net_per"           : 2.0,
       "catch_per"         : 1.02,
       "ui_type"           : 1,  
@@ -18,6 +20,7 @@
     },
     {
       "vip_turrent_id"    : 3,
+      "turrent_ui_id"     : 5,
       "net_per"           : 2.0,
       "catch_per"         : 1.04,
       "ui_type"           : 1,  
@@ -25,6 +28,7 @@
     },
     {
       "vip_turrent_id"    : 4,
+      "turrent_ui_id"     : 6,
       "net_per"           : 2.0,
       "catch_per"         : 1.06,
       "ui_type"           : 2,  
@@ -32,6 +36,7 @@
     },
     {
       "vip_turrent_id"    : 5,
+      "turrent_ui_id"     : 7,
       "net_per"           : 2.0,
       "catch_per"         : 1.08,
       "ui_type"           : 2,  
@@ -39,6 +44,7 @@
     },
     {
       "vip_turrent_id"    : 6,
+      "turrent_ui_id"     : 8,
       "net_per"           : 2.0,
       "catch_per"         : 1.10,
       "ui_type"           : 2,  
@@ -46,6 +52,7 @@
     },
     {
       "vip_turrent_id"    : 7,
+      "turrent_ui_id"     : 9,
       "net_per"           : 2.0,
       "catch_per"         : 1.12,
       "ui_type"           : 2,  
@@ -53,6 +60,7 @@
     },
     {
       "vip_turrent_id"    : 8,
+      "turrent_ui_id"     : 10,
       "net_per"           : 2.0,
       "catch_per"         : 1.14,
       "ui_type"           : 2,  
@@ -60,6 +68,7 @@
     },
     {
       "vip_turrent_id"    : 9,
+      "turrent_ui_id"     : 11,
       "net_per"           : 2.0,
       "catch_per"         : 1.16,
       "ui_type"           : 2,  

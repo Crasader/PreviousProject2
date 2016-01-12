@@ -41,6 +41,7 @@ bool ConfigVipTurrent::LoadConfig() {
 			const rapidjson::Value &val = itemList[i];
 			VipTurrent vipTurrent;
 			vipTurrent.vip_turrent_id	= val["vip_turrent_id"].GetInt();
+            vipTurrent.turrent_ui_id	= val["turrent_ui_id"].GetInt();
             vipTurrent.net_per = val["net_per"].GetDouble();
             vipTurrent.catch_per = val["catch_per"].GetDouble();
             vipTurrent.ui_type = val["ui_type"].GetInt();
