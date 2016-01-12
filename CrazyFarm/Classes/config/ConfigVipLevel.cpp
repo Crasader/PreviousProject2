@@ -40,13 +40,19 @@ bool ConfigVipLevel::LoadConfig() {
 
 			const rapidjson::Value &val = itemList[i];
 			VipLevel viplevel;
-			viplevel.level	= val["vip_level"].GetInt();
-            viplevel.chargeMoney = val["charge_money"].GetInt();
+			viplevel.vip_level	= val["vip_level"].GetInt();
+            viplevel.charge_money = val["charge_money"].GetInt();
             viplevel.title = val["title"].GetString();
-            viplevel.descTitle = val["desc_title"].GetString();
-            viplevel.descContent = val["desc_content"].GetString();
+            viplevel.desc_title = val["desc_title"].GetString();
+            viplevel.desc_content = val["desc_content"].GetString();
+            viplevel.vip_turrent_id = val["vip_turrent_id"].GetDouble();   // VIP炮ID
+            viplevel.double_login_reward = val["double_login_reward"].GetDouble();  // 登陆奖励翻倍系数
+            viplevel.pay_reward = val["pay_reward"].GetDouble();          // 充值奖励百分比
+            viplevel.kill_per_add = val["kill_per_add"].GetInt();           // 击杀概率系数
+            viplevel.send_coins_over = val["send_coins_over"].GetInt();         // 金币补足金额
+            viplevel.send_coins_over_day_time = val["send_coins_over_day_time"].GetInt(); // 每日金币补足次数
 
-			vipLevels[viplevel.level] = viplevel;
+			vipLevels[i] = viplevel;
 		}
 		
 		return true;
@@ -68,8 +74,8 @@ int ConfigVipLevel::getLevel(int chargeMoney) {
     }
     
     for( auto item = vipLevels.end(); item != vipLevels.begin(); item-- ) {
-        if(chargeMoney > item->second.chargeMoney) {
-            return item->second.level;
+        if(chargeMoney > item->second.charge_money) {
+            return item->second.vip_level;
         }
     }
 }

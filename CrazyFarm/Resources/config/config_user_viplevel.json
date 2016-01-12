@@ -1,41 +1,136 @@
 {	
-	"describe": "用户vip等级配置信息;目前只配置了4个测试值" ,
+	"describe": "用户vip等级配置信息;" ,
   "version" : 1,
 	"item_list": [
                   {
                     "vip_level"	:	0,
                     "charge_money"	:	0,
-                    "title" : "普通用户",
-                    "desc_title"	:	"",
-                    "desc_content"	:	""
+                    "title" : "普通用户",   // VIP名称
+                    "desc_title"	:	"",    // 显示标题
+                    "desc_content"	:	"",  // 显示描述
+                    "vip_turrent_id" : 0,   // VIP炮ID
+                    "double_login_reward" : 1,  // 登陆奖励翻倍系数
+                    "pay_reward" : 1.0,           // 充值奖励百分比
+                    "kill_per_add" : 1.0,           // 击杀概率系数
+                    "send_coins_over" : 0,          // 金币补足金额
+                    "send_coins_over_day_time" : 0  // 每日金币补足次数
                   },
                   {
                     "vip_level"	:	1,
                     "charge_money"	:	20,
                     "title" : "VIP1",
-                    "desc_title"	:	"紫色火焰",
-                    "desc_content"	:	"每日登陆奖励翻倍"
+                    "desc_title"	:	"青月飞虹",
+                    "desc_content"	:	"每日登陆奖励翻倍",
+                    "vip_turrent_id" : 1,
+                    "double_login_reward" : 2,
+                    "pay_reward" : 1.0,
+                    "kill_per_add" : 1.0,
+                    "send_coins_over" : 0,
+                    "send_coins_over_day_time" : 0
                   },
                   {
                     "vip_level"	:	2,
                     "charge_money"	:	200,
                     "title" : "VIP2",
-                    "desc_title"	:	"紫色幻影",
-                    "desc_content"	:	"开启核弹模式"
+                    "desc_title"	:	"神威烈炎",
+                    "desc_content"	:	"开启激光炮模式",
+                    "vip_turrent_id" : 2,
+                    "double_login_reward" : 2,
+                    "pay_reward" : 1.0,
+                    "kill_per_add" : 1.0,
+                    "send_coins_over" : 0,
+                    "send_coins_over_day_time" : 0
                   },
                   {
                     "vip_level"	:	3,
                     "charge_money"	:	500,
                     "title" : "VIP3",
-                    "desc_title"	:	"青蛇之牙",
-                    "desc_content"	:	"充值金币额外赠送10%"
+                    "desc_title"	:	"火龙怒焰",
+                    "desc_content"	:	"开启核弹模式",
+                    "vip_turrent_id" : 3,
+                    "double_login_reward" : 2,
+                    "pay_reward" : 1.0,
+                    "kill_per_add" : 1.0,
+                    "send_coins_over" : 0,
+                    "send_coins_over_day_time" : 0
                   },
                   {
-                  "vip_level"	:	4,
-                  "charge_money"	:	1000,
-                  "title" : "VIP4",
-                  "desc_title"	:	"火力风暴",
-                  "desc_content"	:	"开启狂暴技能"
+                    "vip_level" : 4,
+                    "charge_money"  : 1000,
+                    "title" : "VIP4",
+                    "desc_title"  : "凝雪寒霜",
+                    "desc_content"  : "充值返利10%",
+                    "vip_turrent_id" : 4,
+                    "double_login_reward" : 2,
+                    "pay_reward" : 1.1,
+                    "kill_per_add" : 1.0,
+                    "send_coins_over" : 0,
+                    "send_coins_over_day_time" : 0
+                  },
+                  {
+                    "vip_level" : 5,
+                    "charge_money"  : 2000,
+                    "title" : "VIP5",
+                    "desc_title"  : "诛神魔舞",
+                    "desc_content"  : "开启冰冻延时模式",
+                    "vip_turrent_id" : 5,
+                    "double_login_reward" : 2,
+                    "pay_reward" : 1.1,
+                    "kill_per_add" : 1.0,
+                    "send_coins_over" : 0,
+                    "send_coins_over_day_time" : 0
+                  },
+                  {
+                    "vip_level" : 6,
+                    "charge_money"  : 2000,
+                    "title" : "VIP6",
+                    "desc_title"  : "掠影惊雷",
+                    "desc_content"  : "充值返利20%",
+                    "vip_turrent_id" : 6,
+                    "double_login_reward" : 2,
+                    "pay_reward" : 1.2,
+                    "kill_per_add" : 1.0,
+                    "send_coins_over" : 0,
+                    "send_coins_over_day_time" : 0
+                  },
+                  {
+                    "vip_level" : 7,
+                    "charge_money"  : 5000,
+                    "title" : "VIP7",
+                    "desc_title"  : "龙啸穿云",
+                    "desc_content"  : "击杀概率5%",
+                    "vip_turrent_id" : 6,
+                    "double_login_reward" : 2,
+                    "pay_reward" : 1.2,
+                    "kill_per_add" : 1.05,
+                    "send_coins_over" : 500000,
+                    "send_coins_over_day_time" : 1
+                  },
+                  {
+                    "vip_level" : 8,
+                    "charge_money"  : 10000,
+                    "title" : "VIP8",
+                    "desc_title"  : "碧海狂灵",
+                    "desc_content"  : "击杀概率10%",
+                    "vip_turrent_id" : 6,
+                    "double_login_reward" : 2,
+                    "pay_reward" : 1.2,
+                    "kill_per_add" : 1.1,
+                    "send_coins_over" : 1000000,
+                    "send_coins_over_day_time" : 1
+                  },
+                  {
+                    "vip_level" : 9,
+                    "charge_money"  : 20000,
+                    "title" : "VIP8",
+                    "desc_title"  : "冥魂魔焰",
+                    "desc_content"  : "击杀概率20%",
+                    "vip_turrent_id" : 6,
+                    "double_login_reward" : 2,
+                    "pay_reward" : 1.2,
+                    "kill_per_add" : 1.2,
+                    "send_coins_over" : 1000000,
+                    "send_coins_over_day_time" : 1
                   }
 	]
 }
