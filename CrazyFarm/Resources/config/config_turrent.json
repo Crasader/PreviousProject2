@@ -10,7 +10,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 0
+          "num"     : 100
         }
       ]
     },
@@ -18,7 +18,7 @@
       "turrent_id"  :	2,
       "unlock_type" :	2,
       "unlock_price"	:	2,
-      "multiple"      :	1,
+      "multiple"      :	2,
       "reward_list" : [
         {
           "item_id" : 1001,
@@ -30,7 +30,7 @@
       "turrent_id"  :	3,
       "unlock_type" :	2,
       "unlock_price"	:	3,
-      "multiple"      :	1,
+      "multiple"      :	3,
       "reward_list" : [
         {
           "item_id" : 1001,
@@ -42,11 +42,11 @@
       "turrent_id"  :	4,
       "unlock_type" :	2,
       "unlock_price"	:	3,
-      "multiple"      :	1,
+      "multiple"      :	4,
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 100
+          "num"     : 150
         }
       ]
     },
@@ -54,47 +54,383 @@
       "turrent_id"  :	5,
       "unlock_type" :	2,
       "unlock_price"	:	3,
-      "multiple"      :	1,
+      "multiple"      :	5,
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 100
+          "num"     : 150
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 6,
+      "unlock_type" : 2,
+      "unlock_price"  : 5,
+      "multiple"      : 6,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 200
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 7,
+      "unlock_type" : 2,
+      "unlock_price"  : 5,
+      "multiple"      : 7,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 200
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 8,
+      "unlock_type" : 2,
+      "unlock_price"  : 5,
+      "multiple"      : 8,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 200
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 9,
+      "unlock_type" : 2,
+      "unlock_price"  : 5,
+      "multiple"      : 9,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 200
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 10,
+      "unlock_type" : 2,
+      "unlock_price"  : 8,
+      "multiple"      : 10,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 500
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 15,
+      "unlock_type" : 2,
+      "unlock_price"  : 8,
+      "multiple"      : 15,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 1000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 20,
+      "unlock_type" : 2,
+      "unlock_price"  : 8,
+      "multiple"      : 20,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 1000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 25,
+      "unlock_type" : 2,
+      "unlock_price"  : 10,
+      "multiple"      : 25,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 1000
         }
       ]
     },
     {
       "turrent_id"  :	30,
       "unlock_type" :	2,
-      "unlock_price"	:6,
-      "multiple"      :	1,
+      "unlock_price"	:10,
+      "multiple"      :	30,
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 100
+          "num"     : 1000
         }
       ]
     },
     {
-      "turrent_id"  :	100,
-      "unlock_type" :	2,
-      "unlock_price"	:	10,
-      "multiple"      :	1,
+      "turrent_id"  : 35,
+      "unlock_type" : 2,
+      "unlock_price"  :12,
+      "multiple"      : 35,
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 100
+          "num"     : 1500
         }
       ]
     },
     {
-      "turrent_id"  :	300,
-      "unlock_type" :	2,
-      "unlock_price"	:	20,
-      "multiple"      :	1,
+      "turrent_id"  : 40,
+      "unlock_type" : 2,
+      "unlock_price"  :12,
+      "multiple"      : 40,
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 100
+          "num"     : 1500
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 45,
+      "unlock_type" : 2,
+      "unlock_price"  :15,
+      "multiple"      : 45,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 1500
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 50,
+      "unlock_type" : 2,
+      "unlock_price"  :15,
+      "multiple"      : 40,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 1800
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 60,
+      "unlock_type" : 2,
+      "unlock_price"  :15,
+      "multiple"      : 40,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 1800
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 70,
+      "unlock_type" : 2,
+      "unlock_price"  :20,
+      "multiple"      : 70,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 2000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 80,
+      "unlock_type" : 2,
+      "unlock_price"  :20,
+      "multiple"      : 80,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 2000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 90,
+      "unlock_type" : 2,
+      "unlock_price"  :20,
+      "multiple"      : 90,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 2000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 100,
+      "unlock_type" : 2,
+      "unlock_price"  :25,
+      "multiple"      : 100,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 2500
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 150,
+      "unlock_type" : 2,
+      "unlock_price"  :50,
+      "multiple"      : 150,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 5000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 200,
+      "unlock_type" : 2,
+      "unlock_price"  :50,
+      "multiple"      : 200,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 5000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 250,
+      "unlock_type" : 2,
+      "unlock_price"  :50,
+      "multiple"      : 250,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 5000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 300,
+      "unlock_type" : 2,
+      "unlock_price"  :80,
+      "multiple"      : 300,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 8000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 350,
+      "unlock_type" : 2,
+      "unlock_price"  :80,
+      "multiple"      : 350,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 8000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 400,
+      "unlock_type" : 2,
+      "unlock_price"  :80,
+      "multiple"      : 400,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 8000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 450,
+      "unlock_type" : 2,
+      "unlock_price"  :100,
+      "multiple"      : 450,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 10000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 500,
+      "unlock_type" : 2,
+      "unlock_price"  :100,
+      "multiple"      : 500,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 10000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 600,
+      "unlock_type" : 2,
+      "unlock_price"  :100,
+      "multiple"      : 600,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 10000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 700,
+      "unlock_type" : 2,
+      "unlock_price"  :200,
+      "multiple"      : 700,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 20000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 800,
+      "unlock_type" : 2,
+      "unlock_price"  :200,
+      "multiple"      : 800,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 20000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 900,
+      "unlock_type" : 2,
+      "unlock_price"  :300,
+      "multiple"      : 900,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 30000
+        }
+      ]
+    },
+    {
+      "turrent_id"  : 1000,
+      "unlock_type" : 2,
+      "unlock_price"  :300,
+      "multiple"      : 1000,
+      "reward_list" : [
+        {
+          "item_id" : 1001,
+          "num"     : 30000
         }
       ]
     }
