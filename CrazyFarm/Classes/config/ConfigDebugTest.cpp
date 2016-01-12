@@ -27,7 +27,7 @@ bool ConfigDebugTest::LoadConfig() {
 		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
 		if (doc.HasParseError())
 		{
-			log("get json data err!");
+			log("ConfigDebugTest get json data err!");
 			break;
 		}
 		
