@@ -4,11 +4,11 @@
   "item_list": [
     {
       "vip_turrent_id"    :	1,
-      "turrent_ui_id"     : 3,    // 炮台ui显示效果Id
-      "net_per"	          :	1.5,  // 打击面积系数
-      "catch_per"         :	1.02, // 捕获概率系数
-      "ui_type"           : 1,    // 1火焰;2冰冻
-      "net_type"          : 2     // 1,1张网;2,2张;3,三张
+      "turrent_ui_id"     : 3,    
+      "net_per"	          :	1.5,  
+      "catch_per"         :	1.02, 
+      "ui_type"           : 1,   
+      "net_type"          : 2     
     },
     {
       "vip_turrent_id"    : 2,

@@ -5,6 +5,12 @@
 using namespace cocos2d;
 USING_NS_CC_EXT;
 
+struct Good
+{
+	int RMB;
+	int count;
+	Good(int r, int c){ RMB = r, count = c; }
+};
 
 class PayCell : public Sprite{
 public:

@@ -3,6 +3,7 @@
 #include "utill/define.h"
 #include "utill/SkillButton.h"
 #include "utill/AnimationUtil.h"
+#include "utill/Audio.h"
 #include "lobby/LobbyScene.h"
 #include "User.h"
 enum 
@@ -40,11 +41,13 @@ bool GameGuiLayer::init(){
 	{
 		return false;
 	}
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
 	addChild(menu,10);
 	
+	Audio::getInstance()->playBGM(BACKGORUNDMUSIC);
 	auto  buttonPlay = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
 	buttonPlay->setPosition(visibleSize.width, visibleSize.height*0.60);
 	buttonPlay->setTag(kTagUpgradeTurret);
@@ -157,7 +160,11 @@ void GameGuiLayer::createSettingBoard()
 
 
 }
-
+void GameGuiLayer::onExit()
+{
+	Layer::onExit();
+	Audio::getInstance()->pauseBGM();
+}
 
 void GameGuiLayer::settingCallback(Ref *pSender)
 {

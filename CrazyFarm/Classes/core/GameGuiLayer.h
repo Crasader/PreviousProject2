@@ -18,6 +18,7 @@ class GameGuiLayer: public cocos2d::Layer{
 public:
 	virtual bool init();
 	CREATE_FUNC(GameGuiLayer);
+	
 private :
 	void ButtentouchEvent(Ref *pSender);
 	void showRandonBubbleAni();
@@ -26,6 +27,7 @@ private :
 	void showFishCallback(Ref *pSender);
 	void showSettingCallback(Ref*pSender);
 	void createSettingBoard();
+	virtual void onExit();
 	MenuItemImage* setttingBoard;
 	 
 };
