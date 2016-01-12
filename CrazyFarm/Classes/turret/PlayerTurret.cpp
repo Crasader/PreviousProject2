@@ -65,7 +65,7 @@ void PlayerTurret::degradeTurret(Ref* psend)
 {
 	auto nowlevel = m_turretdata.turrentId;
 	m_turretdata = ConfigTurrent::getInstance()->getLastTurrent(nowlevel);
-	auto room = ConfigRoom::getInstance()->getRoombyId(GAMEDATA::getInstance()->getRoomID());
+	auto room = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
 	if (m_turretdata.turrentId < room.unlock_turrent_level)
 	{
 		m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(m_turretdata.turrentId);
@@ -213,6 +213,7 @@ void PlayerTurret::initWithDate(RoomPlayer* user)
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
 	setMaxLevel(user->getMaxTurretLevel());
 	createPlayerCoin(user);
+    setAIinfo(user->getAi());
 	if (user->getRoomPosition() > 1)
 	{
 		setRotation(180);

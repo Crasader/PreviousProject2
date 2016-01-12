@@ -2,6 +2,8 @@
 #define _ROOMPLAYER_H_
 #include "cocos2d.h"
 
+#include "AI.h"
+
 using namespace cocos2d;
 
 class RoomPlayer{
@@ -36,8 +38,7 @@ public:
     CC_SYNTHESIZE(int, level, Level);
     CC_SYNTHESIZE(int, maxturretLevel, MaxTurretLevel);
     
-    CC_SYNTHESIZE(int, aiType, AiType);
-    CC_SYNTHESIZE(int, aiLevel, aiLevel);
+    CC_SYNTHESIZE(AI*, ai, Ai);
 
 
 private:

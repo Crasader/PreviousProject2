@@ -329,7 +329,7 @@ void LobbyScene::payDiamondCallback(Ref*psend)
 void LobbyScene::beginGameCallback(Ref*psend)
 {
 	auto cell = (roomCell*)psend;
-	GAMEDATA::getInstance()->setRoomID(cell->getRoomid());
+	GameData::getInstance()->setRoomID(cell->getRoomid());
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
 }
 

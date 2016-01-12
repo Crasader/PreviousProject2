@@ -2,19 +2,19 @@
 #include "cocos2d.h"
 using namespace cocos2d;
 
-GAMEDATA* GAMEDATA::_instance = 0;
+GameData* GameData::_instance = 0;
 
-GAMEDATA::GAMEDATA(){
+GameData::GameData(){
 	this->init();
 }
 
-void GAMEDATA::init(){
+void GameData::init(){
 	setRoomID(-1);
 }
 
-GAMEDATA* GAMEDATA::getInstance(){
+GameData* GameData::getInstance(){
 	if(_instance == 0){
-		_instance = new GAMEDATA();
+		_instance = new GameData();
 	}
 	return _instance;
 }

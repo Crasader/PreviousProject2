@@ -3,15 +3,15 @@
 #include "cocos2d.h"
 using namespace cocos2d;
 
-class GAMEDATA{
+class GameData {
 public:
-	static GAMEDATA* getInstance();
+	static GameData* getInstance();
 
 
 private:
-	GAMEDATA();
+	GameData();
 	void init();
-	static GAMEDATA* _instance;
+	static GameData* _instance;
 	CC_SYNTHESIZE(int, nRoomId, RoomID);
 
 };

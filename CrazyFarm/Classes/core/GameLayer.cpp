@@ -6,6 +6,8 @@
 #include "User.h"
 #include "AIManager.h"
 #include "fish/FishGroupData.h"
+#include "data/GameData.h"
+#include "config/ConfigRoom.h"
 
 #define kTagBaseturret 10
 
@@ -30,11 +32,10 @@ bool GameLayer::init(){
 	schedule(schedule_selector(GameLayer::createFishGroup), 180.0f, CC_REPEAT_FOREVER, 2.0f);*/
 	scheduleUpdate();
 	addTouchEvent();	
-
-	players = RoomManager::getInstance()->initRoomConfig();
+    auto roominfo = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
+	players = RoomManager::getInstance()->initRoomConfig(roominfo.unlock_turrent_level);
 	calculateFreeChair();
 	createTurret();
-	createAI();
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
 	loadNewMonent();
@@ -231,17 +232,6 @@ void GameLayer::calculateFreeChair()
 
 void GameLayer::AiUpdata(float dt)
 {
-	
-}
-
-void GameLayer::createAI()
-{
-	
-	for (auto otherT:otherTurrets)
-	{
-		auto aiinfo = AIManager::getInstance()->getAI(0, 0, otherT->getnMaxLevel());
-		otherT->setAIinfo(aiinfo);
-	}
 	
 }
 
