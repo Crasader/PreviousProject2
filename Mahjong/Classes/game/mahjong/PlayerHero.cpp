@@ -21,13 +21,13 @@ void PlayerHero::drawPlayerHero(){
 	//头像的绘制
 	PlayerInfo* head = new PlayerInfo();
 	drawHeadPortrait(head);
-	//牌的绘制
-	for (int t = 1; t < 15; t++){
+	//牌的绘制 TODO:test方法
+	for (int t = 1; t < 14; t++){
 		Jong* jong = Jong::create();
 		jong->showJong(0, t);
 		selfHandJongs.pushBack(jong);
 	}
-	selfHandJongs = upsetJongs(selfHandJongs);
+	//selfHandJongs = upsetJongs(selfHandJongs);
 	for (int i = 0; i < selfHandJongs.size(); i++){
 		selfHandJongs.at(i)->setPosition(ccp(140 + 59 * i, JONG_POS_Y));
 		this->addChild(selfHandJongs.at(i));
@@ -47,12 +47,12 @@ void PlayerHero::drawHeadPortrait(PlayerInfo* headPortrait){
 
 bool PlayerHero::onTouchBegan(Touch *touch, Event  *event){
 	//被选中的牌跟随手指移动
-	CCLOG("current pos === %f,%f", touch->getLocation().x, touch->getLocation().y);
+	//CCLOG("current pos === %f,%f", touch->getLocation().x, touch->getLocation().y);
 	virtualJong = nullptr;
 	for (int i = 0; i < selfHandJongs.size(); i++)
 	{
-		CCLOG("JongBoundingBox x1 === %f", selfHandJongs.at(i)->getJongBoundingBox().getMinX());
-		CCLOG("JongBoundingBox x2 === %f", selfHandJongs.at(i)->getJongBoundingBox().getMaxX());
+		//CCLOG("JongBoundingBox x1 === %f", selfHandJongs.at(i)->getJongBoundingBox().getMinX());
+		//CCLOG("JongBoundingBox x2 === %f", selfHandJongs.at(i)->getJongBoundingBox().getMaxX());
 		if (selfHandJongs.at(i)->getJongBoundingBox().containsPoint(touch->getLocation())){
 			CCLOG("find the jong");
 			selectJong = selfHandJongs.at(i);
@@ -60,7 +60,7 @@ bool PlayerHero::onTouchBegan(Touch *touch, Event  *event){
 		}
 	}
 	selectJong = nullptr;
-	return true;
+	return false;
 }
 
 
@@ -159,8 +159,74 @@ void PlayerHero::onTouchEnded(Touch *touch, Event  *event){
 		BezierTo *actionMove = BezierTo::create(0.5f, bezier);
 		outJong->runAction(actionMove);
 		selfSmallJongs.pushBack(outJong);
+		//移除手牌
+		selectJong->setVisible(false);
+		reArrangeJongs();
+		selectJong->removeFromParentAndCleanup(true);
 	}
 }
+
+
+//手牌整理动画
+void PlayerHero::reArrangeJongs(){
+	//摸什么打什么,不需要重排
+	if (currentJong == selectJong){
+		return;
+	}
+	//step1 获取打出去的那张牌的位置
+	Point pos = selectJong->getPosition();
+	//step2 获取打掉的牌的序列号
+	int index = 0;
+	for (int i = 0; i < selfHandJongs.size(); i++){
+		if (selectJong == selfHandJongs.at(i)){
+			index = i;
+		}
+	}
+	//step3 判断是在空位的左边还是右边
+	bool isMoved = false;
+	if (currentJong->getJongType() >= selectJong->getJongType()){
+		//右边
+		for (int j = index+1; j < selfHandJongs.size(); j++){
+			if (selfHandJongs.at(j)->getJongType() >= currentJong->getJongType()){	
+				if (!isMoved){
+					currentJong->setPosition(ccp(selfHandJongs.at(j)->getPositionX() - 59, JONG_POS_Y));
+					isMoved = true;
+				}
+
+			}
+			else{
+				if (j == selfHandJongs.size() - 1){
+					if (!isMoved){
+						currentJong->setPosition(ccp(selfHandJongs.at(j - 1)->getPositionX(), JONG_POS_Y));
+					}
+				}
+				else{
+					selfHandJongs.at(j)->setPosition(ccp(selfHandJongs.at(j)->getPositionX() - 59, JONG_POS_Y));
+				}
+				
+			}
+		}
+
+	}
+	else{
+		//左边
+		for (int k =index-1; k >0; k--){
+			if (selfHandJongs.at(k)->getJongType()<= currentJong->getJongType()){
+				if (!isMoved){
+					currentJong->setPosition(ccp(selfHandJongs.at(k)->getPositionX() + 59, JONG_POS_Y));
+					isMoved = true;
+				}
+			}
+			else{		
+				selfHandJongs.at(k)->setPosition(ccp(selfHandJongs.at(k)->getPositionX() + 59, JONG_POS_Y));
+			}
+		}
+	}
+
+}
+
+
+
 
 void PlayerHero::resetAllJong(){
 	for (int i = 0; i < selfHandJongs.size(); i++)
@@ -205,9 +271,18 @@ float PlayerHero::distance(Point pos1, Point pos2){
 
 
 Vector<Jong*>  PlayerHero::sortJongs(Vector<Jong*> jongs){
-	Vector<Jong*> newJongs;
-	return newJongs;
+	int size = jongs.size();
+	for (int i = 0; i < size-1; i++){
+		for (int j = size - 1; j > i; j--)
+		{
+			if (jongs.at(j)->getJongType() < jongs.at(j - 1)->getJongType()){
+				jongs.swap(jongs.at(j), jongs.at(j - 1));
+			}
+		}
+	}
+	return jongs;
 }
+
 
 Vector<Jong*> PlayerHero::upsetJongs(Vector<Jong*> jongs){
 	Vector<Jong*> newJongs;
@@ -222,11 +297,18 @@ Vector<Jong*> PlayerHero::upsetJongs(Vector<Jong*> jongs){
 
 
 void PlayerHero::addCoustomListener(){
-	//auto dealJongListener = EventListenerCustom::create("deal_listener", [=](EventCustom* event){
-
-	//});
-	//Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(dealJongListener, 1);
+	auto dealJongListener = EventListenerCustom::create("player_hero_turn", [=](EventCustom* event){
+		//轮到自己打牌,获取牌的信息
+		Jong* jong = Jong::create();
+		jong->showJong(0, 5);
+		selfHandJongs.pushBack(jong);
+		jong->setPosition(ccp(915,JONG_POS_Y));
+		currentJong = jong;
+		this->addChild(jong);
+	});
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(dealJongListener, 1);
 }
+
 
 
 void PlayerHero::addTouchListener(){

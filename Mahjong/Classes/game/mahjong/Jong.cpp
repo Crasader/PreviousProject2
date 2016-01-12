@@ -109,6 +109,33 @@ void Jong::drawContent(int cType){
 	case JongEnum::tong_9:
 		content->setTexture("jongs/tong_9.png");
 		break;
+	case JongEnum::tiao_1:
+		content->setTexture("jongs/tiao_1.png");
+		break;
+	case JongEnum::tiao_2:
+		content->setTexture("jongs/tiao_2.png");
+		break;
+	case JongEnum::tiao_3:
+		content->setTexture("jongs/tiao_3.png");
+		break;
+	case JongEnum::tiao_4:
+		content->setTexture("jongs/tiao_4.png");
+		break;
+	case JongEnum::tiao_5:
+		content->setTexture("jongs/tiao_5.png");
+		break;
+	case JongEnum::tiao_6:
+		content->setTexture("jongs/tiao_6.png");
+		break;
+	case JongEnum::tiao_7:
+		content->setTexture("jongs/tiao_7.png");
+		break;
+	case JongEnum::tiao_8:
+		content->setTexture("jongs/tiao_8.png");
+		break;
+	case JongEnum::tiao_9:
+		content->setTexture("jongs/tiao_9.png");
+		break;
 	default:
 		break;
 	}

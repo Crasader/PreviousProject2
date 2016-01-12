@@ -39,8 +39,8 @@ void MahjongView::drawMenu(){
 	myMenu->alignItemsHorizontallyWithPadding(15);
 	this->addChild(myMenu);
 
-	auto quitButton = MenuItemImage::create("gamemj/button_quit_1.png", "gamemj/button_quit_2.png", CC_CALLBACK_0(MahjongView::quitButton, this));
-	Menu* quit = Menu::create(quitButton,NULL);
+	auto quitBut = MenuItemImage::create("gamemj/button_quit_1.png", "gamemj/button_quit_2.png", CC_CALLBACK_0(MahjongView::quitButton, this));
+	Menu* quit = Menu::create(quitBut, NULL);
 	quit->setPosition(ccp(35,505));
 	this->addChild(quit);
 }
@@ -49,7 +49,7 @@ void MahjongView::drawMenu(){
 void MahjongView::drawPlayerHero(){
 	//TODO
 	PlayerHero* playerHero = PlayerHero::create();
-	this->addChild(playerHero);
+	this->addChild(playerHero,2);
 }
 
 //绘制左手边的玩家
@@ -82,15 +82,12 @@ void MahjongView::dealJongs(){
 //聊天按钮
 void MahjongView::chatButton(){
 
-
 }
 
 
 
 //账单按钮
 void MahjongView::billingButton(){
-
-
 
 }
 
@@ -99,14 +96,12 @@ void MahjongView::billingButton(){
 void MahjongView::packageButton(){
 
 
-
-
 }
 
 //退出按钮
 void  MahjongView::quitButton(){
-
-
+	EventCustom event("player_hero_turn");
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }
 
 
@@ -140,15 +135,15 @@ void MahjongView::addTouchListener(){
 
 //测试方法
 void MahjongView::testEvent(){
-	EventCustom event("deal_listener");
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	//EventCustom event("deal_listener");
+	//Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }
 
 
 //测试方法
 void MahjongView::testButton(){
-	MenuItemImage* image = MenuItemImage::create("gamemj/test.png", "gamemj/test.png", CC_CALLBACK_0(MahjongView::testEvent, this));
-	Menu* testMenu = Menu::create(image, NULL);
-	testMenu->setPosition(ccp(480, 270));
-	this->addChild(testMenu, 1);
+	//MenuItemImage* image = MenuItemImage::create("gamemj/test.png", "gamemj/test.png", CC_CALLBACK_0(MahjongView::testEvent, this));
+	//Menu* testMenu = Menu::create(image, NULL);
+	//testMenu->setPosition(ccp(480, 270));
+	//this->addChild(testMenu, 1);
 }
