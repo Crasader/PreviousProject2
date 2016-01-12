@@ -11,7 +11,7 @@ public:
 	static SignInLayer * createLayer(int seqday);
 	const char* KEY_LASTSIGNDAY = "KEY_LASTSIGNDAY";
 	const char* KEY_SEQSIGNDAY = "KEY_SEQSIGNDAY";
-	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return false; };
+	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return true; };
 	void updata(float dt);
 private:
 	void gainRewardsCallback(Ref* psend);

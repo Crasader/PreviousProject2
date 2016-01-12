@@ -42,6 +42,8 @@ private:
 	void moveRoomRight();
 	void moveRoomLeft();
 
+
+	void showSign(float dt);
 	///°´Å¥»Øµ÷
 	void payCoinCallback(Ref*psend);
 	void payDiamondCallback(Ref*psend);

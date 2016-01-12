@@ -25,7 +25,8 @@ public:
     const char* KEY_EXP = "KEY_EXP";
     const char* KEY_M_TURRENT = "KEY_M_TURRENT";
 	const char* KEY_USER_ID = "KEY_USER_ID";
-
+	const char* KEY_LASTSIGNDAY = "KEY_LASTSIGNDAY";
+	const char* KEY_SEQSIGNDAY = "KEY_SEQSIGNDAY";
     const char* KEY_CHARGE_MONEY = "KEY_CHARGE_MONEY";
 
 	int addCoins(int coins);

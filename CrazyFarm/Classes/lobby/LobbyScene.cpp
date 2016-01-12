@@ -55,10 +55,7 @@ bool LobbyScene::init()
 	auto user = User::getInstance();
 	auto leveldata = user->getLevelData();
 
-	//if (user->getUserId() == "guest")
-	//{
-	//	HttpClientUtill::getInstance()->onGetHttp("http://114.119.39.150:1701/user/hello", CC_CALLBACK_2(LobbyScene::onHttpRequestCompleted, this));
-	//}
+
 
 
 
@@ -177,6 +174,8 @@ bool LobbyScene::init()
 	
 
 
+
+
 	//背包
 	auto bag = MenuItemImage::create("bag.png", "bag.png", CC_CALLBACK_1(LobbyScene::bagButtonCallback, this));
 	bag->setPosition(visibleSize.width*0.3, visibleSize.height*0.1);
@@ -208,11 +207,29 @@ bool LobbyScene::init()
 	auto listenr1 = EventListenerTouchOneByOne::create();
 	listenr1->onTouchBegan = CC_CALLBACK_2(LobbyScene::onTouchBegan, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
-
+	
 	createRoomLayer();
+	this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);
 	return true;
 }
+void LobbyScene::showSign(float dt)
+{
+	auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
+	if (seqday == 0)
+	{
 
+	}
+	else if (seqday == -1)
+	{
+
+	}
+	else
+	{
+		auto sign = SignInLayer::createLayer(seqday);
+		sign->setPosition(Point::ZERO);
+		addChild(sign);
+	}
+}
 
 void LobbyScene::loadResource(){
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("batch_frame_bullet.plist");
@@ -298,17 +315,15 @@ void LobbyScene::createRoomLayer()
 
 void LobbyScene::payCoinCallback(Ref*psend)
 {
-	auto coin = User::getInstance()->addCoins(1000);
-	userCoin->setString(Value(coin).asString().c_str());
-
-	auto paylayer = payLayer::create();
+	auto paylayer = payLayer::createLayer(1);
 	paylayer->setPosition(Point::ZERO);
 	addChild(paylayer);
 }
 void LobbyScene::payDiamondCallback(Ref*psend)
 {
-	auto diamonds = User::getInstance()->addDiamonds(1000);
-	userdiamond->setString(Value(diamonds).asString().c_str());
+	auto paylayer = payLayer::createLayer(2);
+	paylayer->setPosition(Point::ZERO);
+	addChild(paylayer);
 }
 void LobbyScene::beginGameCallback(Ref*psend)
 {
@@ -325,23 +340,23 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
 
-	auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
-	if (seqday==0)
-	{
-		//已经签过
-		Toast::show("already signed", 3, this);
-	}
-	else if (seqday==-1)
-	{
-		//无效数据
-		Toast::show("time out", 3, this);
-	}
-	else
-	{
-		auto sign = SignInLayer::createLayer(seqday);
-		sign->setPosition(Point::ZERO);
-		addChild(sign);
-	}
+	//auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
+	//if (seqday==0)
+	//{
+	//	//已经签过
+	//	Toast::show("already signed", 3, this);
+	//}
+	//else if (seqday==-1)
+	//{
+	//	//无效数据
+	//	Toast::show("time out", 3, this);
+	//}
+	//else
+	//{
+	//	auto sign = SignInLayer::createLayer(seqday);
+	//	sign->setPosition(Point::ZERO);
+	//	addChild(sign);
+	//}
 	
 }
 
@@ -379,11 +394,11 @@ bool LobbyScene::onTouchBegan(Touch *touch, Event *unused_event)
 	{
 		if (pos.x>480)
 		{
-			moveRoomRight();
+			moveRoomLeft();
 		}
 		else
 		{
-			moveRoomLeft();
+			moveRoomRight();
 		}
 	}
 	return false;

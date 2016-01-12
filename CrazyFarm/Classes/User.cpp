@@ -113,6 +113,8 @@ void User::resetInfo() {
     UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP, 200);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_M_TURRENT, 1);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_CHARGE_MONEY, 0);
+	UserDefault::getInstance()->setIntegerForKey(User::KEY_LASTSIGNDAY, -1);
+	UserDefault::getInstance()->setIntegerForKey(User::KEY_SEQSIGNDAY, 0);
 #endif
 }
 

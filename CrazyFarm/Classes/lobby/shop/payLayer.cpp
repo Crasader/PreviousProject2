@@ -3,6 +3,7 @@
 #include "BagManager.h"
 #include "User.h"
 #include "widget/MyTableView.h"
+#include "utill/Chinese.h"
 enum 
 {
 	kDesignTagCell1,
@@ -11,16 +12,39 @@ enum
 };
 
 
-void payTableViewCell::setPayValue(int idx)
+void payTableViewCell::setCoinValue(int idx)
 {
-	auto bagData = BagManager::getInstance();
+	if (idx == 0)
+	{
+		auto node = (PayCell*)getChildByTag(kDesignTagCell1);
+		node->setVipValue();
+	}
+	else
+	{
+		auto node = (PayCell*)getChildByTag(kDesignTagCell1);
+		node->setValue(idx * 2 + 0);
+	}
+	
 
-	auto node = (PayCell*)getChildByTag(kDesignTagCell1);
-	node->setDiamondValue(idx*2+1);
+	auto node = (PayCell*)getChildByTag(kDesignTagCell2);
+	node->setValue(idx * 2 + 1);
+}
+void payTableViewCell::setDiamondValue(int idx)
+{
+	if (idx == 0)
+	{
+		auto node = (PayCell*)getChildByTag(kDesignTagCell1);
+		node->setVipValue();
+	}
+	else
+	{
+		auto node = (PayCell*)getChildByTag(kDesignTagCell1);
+		node->setDiamondValue(idx * 2 + 0);
+	}
 
-	node = (PayCell*)getChildByTag(kDesignTagCell2);
-	node->setDiamondValue(idx * 2 + 2);
 
+	auto node = (PayCell*)getChildByTag(kDesignTagCell2);
+	node->setDiamondValue(idx * 2 + 1);
 }
 
 bool payTableViewCell::init()
@@ -29,8 +53,8 @@ bool payTableViewCell::init()
 	do
 	{
 
-		float startX = 30;
-		float offsetX = 280;
+		float startX = 35;
+		float offsetX = 290;
 		float offsetY = -10;
 		cell0 = PayCell::create();
 		cell0->setAnchorPoint(Point::ZERO);
@@ -82,44 +106,37 @@ cocos2d::extension::TableViewCell* payView::tableCellAtIndex(cocos2d::extension:
 	{
 
 	}
-	cell->setPayValue(idx);
+	if (m_shopType == 1)
+	{
+		cell->setCoinValue(idx);
+	}
+	else
+	{
+		cell->setDiamondValue(idx);
+	}
+	
 	return cell;
 }
 ssize_t payView::numberOfCellsInTableView(cocos2d::extension::TableView *table){
-	return 6;
+	return 3;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Scene* payLayer::createScene()
+payLayer * payLayer::createLayer(int payType)
 {
-	auto scene = Scene::create();
-
-	auto layer = payLayer::create();
-
-	scene->addChild(layer);
-
-	return scene;
+	payLayer *ret = new  payLayer();
+	if (ret && ret->init(payType))
+	{
+		ret->autorelease();
+		return ret;
+	}
+	CC_SAFE_DELETE(ret);
+	return nullptr;
 }
 
-bool payLayer::init()
+
+
+bool payLayer::init(int payType)
 {
 	if ( !Layer::init() )
 	{
@@ -128,19 +145,42 @@ bool payLayer::init()
 	bool bRet = false;
 	do 
 	{
+		auto colorlayer = LayerColor::create();
+		colorlayer->setColor(ccc3(0, 0, 0));
+		colorlayer->setOpacity(180);
+		addChild(colorlayer,-1);
 		tableviewDelegate = new payView();
+		tableviewDelegate->setShopType(payType);
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		auto bg = Sprite::create("paybg.png");
 		bg->setPosition(visibleSize / 2);
-		addChild(bg,-1);
+		addChild(bg);
 	
 		auto bottomframe = Sprite::create("bottomFrame.png");
-		bottomframe->setPosition(visibleSize.width / 2, visibleSize.height*0.5);
+		bottomframe->setPosition(visibleSize.width / 2, visibleSize.height*0.38);
 		addChild(bottomframe);
 	
+		auto topFrame = Sprite::create("TopFrame.png");
+		topFrame->setPosition(visibleSize.width / 2, visibleSize.height*0.73);
+		addChild(topFrame);
+
+
+		if (payType == 1)
+		{
+			auto title = Sprite::create("coinShop.png");
+			title->setPosition(visibleSize.width / 2, visibleSize.height*0.88);
+			addChild(title);
+
+		}
+		else
+		{
+			auto title = Sprite::create("diamondShop.png");
+			title->setPosition(visibleSize.width / 2, visibleSize.height*0.88);
+			addChild(title);
+		}
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(payLayer::closeButtonCallBack, this));
-		close->setPosition(700,400);
+		close->setPosition(800,480);
 		auto menu = Menu::create(close,nullptr);
 		menu->setPosition(Point::ZERO); 
 		addChild(menu);
@@ -154,7 +194,7 @@ bool payLayer::init()
 		tableView->setAnchorPoint(Point::ZERO);
 		tableView->setDirection(ScrollView::Direction::VERTICAL);
 		tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
-		tableView->setPosition(5,10);
+		tableView->setPosition(0,0);
 		tableView->setDelegate(tableviewDelegate);
 		bottomframe->addChild(tableView);
 		tableView->reloadData();
@@ -162,7 +202,24 @@ bool payLayer::init()
 
 
 
+		////再充值XX元成为VIP
+		auto nowVip = User::getInstance()->getVipLevel();
+		auto nowChargeMoney = User::getInstance()->getChargeMoney();
+		auto vipConfig = ConfigVipLevel::getInstance();
+		auto nextVip =  vipConfig->getVipLevel(nowVip + 1);
+		auto topTip = Sprite::create("TopTip.png");
+		topTip->setPosition(topFrame->getContentSize() / 2);
+		topFrame->addChild(topTip);
+		auto size = topTip->getContentSize();
+		auto tipfish = Sprite::create("TipFish.png");
+		tipfish->setPosition(0, size.height*0.5);
+		topTip->addChild(tipfish);
 
+		auto chinaword = ChineseWord("payVIPdes");
+		auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.chargeMoney - nowChargeMoney, nextVip.level);
+		auto ttf = LabelTTF::create(strdec->getCString(), "Airal", 30);
+		ttf->setPosition(size.width*0.5, size.height / 2);
+		topTip->addChild(ttf);
 
 		//屏蔽向下触摸
 		auto listenr1 = EventListenerTouchOneByOne::create();
@@ -195,6 +252,6 @@ bool payLayer::init()
 
 void payLayer::closeButtonCallBack(Ref*psend)
 {
-	Director::getInstance()->popScene();
+	removeFromParentAndCleanup(1);
 }
 

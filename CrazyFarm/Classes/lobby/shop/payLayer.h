@@ -10,7 +10,8 @@ class payTableViewCell : public TableViewCell
 public:
 	CREATE_FUNC(payTableViewCell);
 	virtual bool init();
-	void setPayValue(int idx);
+	void setCoinValue(int idx);
+	void setDiamondValue(int idx);
 private:
 	PayCell* cell0;
 	PayCell* cell1;
@@ -29,6 +30,7 @@ public:
 	virtual cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx);
 	virtual ssize_t numberOfCellsInTableView(cocos2d::extension::TableView *table);
 private:
+	CC_SYNTHESIZE(int, m_shopType, ShopType);////1金币2钻石
 
 
 };
@@ -48,15 +50,13 @@ private:
 class payLayer : public cocos2d::Layer
 {
 public:
-    static cocos2d::Scene* createScene();
+	//1 金币 2钻石
+	static payLayer * createLayer(int payType);
 
-    virtual bool init();
+	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return true; };
 
-	CREATE_FUNC(payLayer);
-
-	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return false; };
-
-private:
+private: 
+	virtual bool init(int payType);
 	void closeButtonCallBack(Ref*psend);
 
 	payView* tableviewDelegate;

@@ -6,7 +6,9 @@
   <key>post</key>
   <string>在游戏中获得五元话费</string>
 
-
+  <key>payVIPdes</key>
+  <string>再充值%d元，即可升级到VIP%d</string>
+  
   </dict>
 
 </array>

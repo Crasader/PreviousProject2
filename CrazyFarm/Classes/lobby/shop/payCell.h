@@ -12,10 +12,11 @@ public:
 	  CREATE_FUNC(PayCell);
 	  void setValue(int goodId);
 	  void setDiamondValue(int goodId);
+	  void setVipValue();
 	  void IsBeToued();
 private:
-	CC_SYNTHESIZE(int, m_nCellId, propID);
-	CC_SYNTHESIZE(int, m_nCellNum,propNum );
+	CC_SYNTHESIZE(int, m_nGoodId, goodID);
+	int m_PayType;
 	Sprite* paySprite;
 	Sprite* propNum;
 	Sprite* giftNum;
