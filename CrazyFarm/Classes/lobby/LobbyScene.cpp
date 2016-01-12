@@ -16,7 +16,8 @@
 #include "utill/Toast.h"
 #include "viplayer/VipLayer.h"
 #include "lobby/shop/paylayer.h"
-
+#include "utill/dayUtil.h"
+#include "lobby/Nobility/NobilityLayer.h"
 
 
 const Vec2 roomPos[5] = { Vec2(-300, 270), Vec2(192, 270), Vec2(480, 270), Vec2(768, 270), Vec2(960+300, 270)};
@@ -185,7 +186,11 @@ bool LobbyScene::init()
 	auto changeReward = MenuItemImage::create("changeReward.png", "changeReward.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
 	changeReward->setPosition(visibleSize.width*0.4, visibleSize.height*0.1);
 
-	auto menu = Menu::create(addCoin, adddiamond, bag, changeReward,nullptr);
+	auto guizu = MenuItemImage::create("guizu.png", "guizu.png", CC_CALLBACK_1(LobbyScene::guizuCallback, this));
+	guizu->setPosition(visibleSize.width*0.07, visibleSize.height*0.6);
+
+
+		auto menu = Menu::create(addCoin, adddiamond, bag, guizu,changeReward, nullptr);
 	menu->setPosition(Point::ZERO);
 	addChild(menu);
 	createRoomLayer();
@@ -507,3 +512,11 @@ void LobbyScene::lockTheRoom()
 	}
 }
 
+
+
+void LobbyScene::guizuCallback(Ref*psend)
+{
+	auto guizulayer = NobilityLayer::createLayer();
+	guizulayer->setPosition(Point::ZERO);
+	addChild(guizulayer);
+}

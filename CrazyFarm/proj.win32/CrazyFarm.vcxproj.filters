@@ -85,6 +85,12 @@
     <Filter Include="src\lobby\viplayer">
       <UniqueIdentifier>{72392fda-5c1d-484c-a28e-0543f67a92f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\lobby\Nobility">
+      <UniqueIdentifier>{5faed638-280b-441b-af10-fbb07ea86d32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mannager">
+      <UniqueIdentifier>{29af085d-e1bd-4ecb-8bb6-dfd34a8695da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -320,6 +326,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\config\ConfigSkill.cpp">
       <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\Nobility\NobilityLayer.cpp">
+      <Filter>src\lobby\Nobility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\nobility\NobilityManager.cpp">
+      <Filter>src\mannager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -559,6 +571,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigSkill.h">
       <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\Nobility\NobilityLayer.h">
+      <Filter>src\lobby\Nobility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\nobility\NobilityManager.h">
+      <Filter>src\mannager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

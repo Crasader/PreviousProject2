@@ -16,10 +16,13 @@ public:
     
     
     bool isNobility();// 是否为贵族
+	int  RemainingNobilityday();
     std::vector<NobilityRewadItem> getNobilityRewadItems(); // TODO : 获取单日奖励列表
-    bool addNewDay(std::string day);                        // 添加一个新的签到日期
+	void addStepsDay(int dayNum);                        // 添加一个新的签到日期
     bool isGetRewardToday();                                // 今日是否领取过礼物
-    
+	const char* KEY_STARTDAY = "KEY_STARTDAY";
+	const char* KEY_STEPS = "KEY_STEPS";
+	const char* KEY_ISGETGIFTINTODAY = "KEY_ISGETGIFTINTODAY";
 private:
     NobilityManager();
     void init();

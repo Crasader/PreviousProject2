@@ -11,6 +11,7 @@ public:
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return true; };
 	void updata(float dt);
 private:
-	
+	void quickPayCallback(Ref* psend);
+	void closeButtonCallBack(Ref*psend);
 };
 

@@ -166,6 +166,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\core\showFishLayer.cpp" />
     <ClCompile Include="..\Classes\data\GameData.cpp" />
     <ClCompile Include="..\Classes\data\GameState.cpp" />
+    <ClCompile Include="..\Classes\domain\nobility\NobilityManager.cpp" />
     <ClCompile Include="..\Classes\fish\Fish.cpp" />
     <ClCompile Include="..\Classes\fish\FishAniMannage.cpp" />
     <ClCompile Include="..\Classes\fish\FishGroupData.cpp" />
@@ -178,6 +179,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\lobby\bag\BagCell.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\bagLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp" />
+    <ClCompile Include="..\Classes\lobby\Nobility\NobilityLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\ScrollText.cpp" />
     <ClCompile Include="..\Classes\lobby\shop\payCell.cpp" />
     <ClCompile Include="..\Classes\lobby\shop\payLayer.cpp" />
@@ -246,6 +248,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\core\showFishLayer.h" />
     <ClInclude Include="..\Classes\data\GameData.h" />
     <ClInclude Include="..\Classes\data\GameState.h" />
+    <ClInclude Include="..\Classes\domain\nobility\NobilityManager.h" />
     <ClInclude Include="..\Classes\fish\Fish.h" />
     <ClInclude Include="..\Classes\fish\FishAniMannage.h" />
     <ClInclude Include="..\Classes\fish\FishGroupData.h" />
@@ -258,6 +261,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\lobby\bag\BagCell.h" />
     <ClInclude Include="..\Classes\lobby\bag\bagLayer.h" />
     <ClInclude Include="..\Classes\lobby\LobbyScene.h" />
+    <ClInclude Include="..\Classes\lobby\Nobility\NobilityLayer.h" />
     <ClInclude Include="..\Classes\lobby\ScrollText.h" />
     <ClInclude Include="..\Classes\lobby\shop\payCell.h" />
     <ClInclude Include="..\Classes\lobby\shop\payLayer.h" />
