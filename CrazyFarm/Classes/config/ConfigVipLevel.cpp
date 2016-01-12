@@ -74,7 +74,7 @@ int ConfigVipLevel::getLevel(int chargeMoney) {
     }
     
     for( auto item = vipLevels.end(); item != vipLevels.begin(); item-- ) {
-        if(chargeMoney > item->second.charge_money) {
+        if(chargeMoney >= item->second.charge_money) {
             return item->second.vip_level;
         }
     }
