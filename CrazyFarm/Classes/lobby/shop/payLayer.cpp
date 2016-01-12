@@ -216,7 +216,7 @@ bool payLayer::init(int payType)
 		topTip->addChild(tipfish);
 
 		auto chinaword = ChineseWord("payVIPdes");
-		auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.chargeMoney - nowChargeMoney, nextVip.level);
+		auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
 		auto ttf = LabelTTF::create(strdec->getCString(), "Airal", 30);
 		ttf->setPosition(size.width*0.5, size.height / 2);
 		topTip->addChild(ttf);
