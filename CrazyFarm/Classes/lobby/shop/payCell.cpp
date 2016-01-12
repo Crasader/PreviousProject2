@@ -1,5 +1,6 @@
 #include "payCell.h"
 #include "User.h"
+#include "lobby/LobbyScene.h"
 bool PayCell::init(){
 	if (!Sprite::initWithFile("payframe.png")){
 		return false;
@@ -23,7 +24,7 @@ bool PayCell::init(){
 void PayCell::setValue(int goodId)
 {
 	setgoodID(goodId);
-	m_PayType == 1;
+	m_PayType = 1;
 	auto spPath = String::createWithFormat("coin_%d.png", goodId);
 	paySprite->setTexture(spPath->getCString());
 	spPath = String::createWithFormat("coinPropNum_%d.png", goodId);
@@ -36,7 +37,7 @@ void PayCell::setValue(int goodId)
 void PayCell::setDiamondValue(int goodId)
 {
 	setgoodID(goodId);
-	m_PayType == 2;
+	m_PayType = 2;
 	auto spPath = String::createWithFormat("diamond_%d.png", goodId);
 	paySprite->setTexture(spPath->getCString());
 	spPath = String::createWithFormat("diamondPropNum_%d.png", goodId);
@@ -47,27 +48,32 @@ void PayCell::setDiamondValue(int goodId)
 
 void PayCell::setVipValue()
 {
-	m_PayType == 3;
+	m_PayType = 3;
 	paySprite->setTexture("payVip.png");
 	propNum->setTexture("payVipNum.png");
 	giftNum->setTexture("payVipGift.png");
 }
 
-int coingood[5] = { 4,9, 19, 29, 54 };
-int diamondGood[5] = { 180, 418, 650, 1348, 4768 };
+Good coingood[7] = {Good(8, 40000), Good(18, 90000), Good(38, 1900000), Good(58, 290000), Good(108, 540000), Good(388, 1940000), Good(688, 3440000) };
+Good diamondGood[5] = { Good(18, 180), Good(38, 380), Good(58, 580), Good(108, 1080), Good(388, 3880) };
 void PayCell::IsBeToued()
 {
 	switch (m_PayType)
 	{
 	case 1:
-		User::getInstance()->addCoins(coingood[m_nGoodId + 1]);
+		User::getInstance()->addCoins(coingood[m_nGoodId - 1].count);
+		User::getInstance()->addChargeMoney(coingood[m_nGoodId - 1].RMB);
 		break;
 	case 2:
-		User::getInstance()->addCoins(diamondGood[m_nGoodId + 1]);
+		User::getInstance()->addDiamonds(diamondGood[m_nGoodId - 1].count);
+		User::getInstance()->addChargeMoney(diamondGood[m_nGoodId - 1].RMB);
 		break;
 	case 3:
 		break;
 	default:
 		break;
 	}
+	auto node = Director::getInstance()->getRunningScene()->getChildByTag(888);
+	((LobbyScene*)node)->refreshCoinLabel();
+	
 }

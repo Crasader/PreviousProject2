@@ -9,6 +9,12 @@ bool SignInLayer::init(int seqday)
 	if (!Layer::init()){
 		return false;
 	}	
+
+
+	auto colorlayer = LayerColor::create();
+	colorlayer->setColor(ccc3(0, 0, 0));
+	colorlayer->setOpacity(180);
+	addChild(colorlayer, -1);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
 	nSeqSignDay = seqday;

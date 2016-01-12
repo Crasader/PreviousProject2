@@ -118,7 +118,14 @@ cocos2d::extension::TableViewCell* payView::tableCellAtIndex(cocos2d::extension:
 	return cell;
 }
 ssize_t payView::numberOfCellsInTableView(cocos2d::extension::TableView *table){
-	return 3;
+	if (m_shopType==1)
+	{
+		return 4;
+	}
+	else
+	{
+		return 3;
+	}
 }
 
 

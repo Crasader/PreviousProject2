@@ -5,11 +5,11 @@
     {
       "normal_turrent_id" :	1,
       "turrent_ui_id"     : 1,
-      "unlock_turrent_level" : 1, // 解锁炮台等级
-      "net_per"	          :	1.0,  // 打击面积系数
-      "catch_per"         :	1.0, // 捕获概率系数
-      "ui_type"           : 1,    // 1火焰;2冰冻
-      "net_type"          : 1     // 1,1张网;2,2张;3,三张
+      "unlock_turrent_level" : 1, 
+      "net_per"	          :	1.0,  
+      "catch_per"         :	1.0, 
+      "ui_type"           : 1,    
+      "net_type"          : 1   
     },
     {
       "normal_turrent_id"    : 2,

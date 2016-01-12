@@ -297,6 +297,12 @@
     <ClCompile Include="..\Classes\lobby\shop\payCell.cpp">
       <Filter>src\lobby\pay</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigNormalTurrent.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigVipTurrent.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -520,6 +526,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\shop\payCell.h">
       <Filter>src\lobby\pay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigNormalTurrent.h">
+      <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigVipTurrent.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

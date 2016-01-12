@@ -39,7 +39,7 @@ Scene* LobbyScene::createScene()
 
 	auto layer = LobbyScene::create();
 
-	scene->addChild(layer);
+	scene->addChild(layer,0,888);
 
 	return scene;
 }
@@ -339,25 +339,13 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
-
-	//auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
-	//if (seqday==0)
-	//{
-	//	//已经签过
-	//	Toast::show("already signed", 3, this);
-	//}
-	//else if (seqday==-1)
-	//{
-	//	//无效数据
-	//	Toast::show("time out", 3, this);
-	//}
-	//else
-	//{
-	//	auto sign = SignInLayer::createLayer(seqday);
-	//	sign->setPosition(Point::ZERO);
-	//	addChild(sign);
-	//}
 	
+}
+void LobbyScene::refreshCoinLabel()
+{
+	auto user = User::getInstance();
+	userdiamond->setString(Value(user->getDiamonds()).asString());
+	userCoin->setString(Value(user->getCoins()).asString());
 }
 
 
