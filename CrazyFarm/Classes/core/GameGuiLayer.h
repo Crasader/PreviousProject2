@@ -27,7 +27,7 @@ private :
 	void showFishCallback(Ref *pSender);
 	void showSettingCallback(Ref*pSender);
 	void createSettingBoard();
-	
+	virtual void onExit();
 	MenuItemImage* setttingBoard;
 	 
 };

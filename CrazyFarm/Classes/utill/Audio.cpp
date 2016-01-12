@@ -15,6 +15,10 @@ void Audio::playBGM(char* soundName){
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(soundName,true);
 
 }
+void Audio::pauseBGM()
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+}
 
 void Audio::playSound(char* soundName){
 

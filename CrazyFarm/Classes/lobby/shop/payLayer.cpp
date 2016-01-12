@@ -224,7 +224,7 @@ bool payLayer::init(int payType)
 
 		auto chinaword = ChineseWord("payVIPdes");
 		auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
-		auto ttf = LabelTTF::create(strdec->getCString(), "Airal", 30);
+		 ttf = LabelTTF::create(strdec->getCString(), "Airal", 30);
 		ttf->setPosition(size.width*0.5, size.height / 2);
 		topTip->addChild(ttf);
 
@@ -249,6 +249,7 @@ bool payLayer::init(int payType)
 			break;
 		}
 	};
+	scheduleUpdate();
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 		bRet = true;
 	} while (0);
@@ -257,6 +258,18 @@ bool payLayer::init(int payType)
 	return bRet;
 }
 
+void payLayer::update(float delta)
+{
+	auto nowVip = User::getInstance()->getVipLevel();
+	auto nowChargeMoney = User::getInstance()->getChargeMoney();
+	auto vipConfig = ConfigVipLevel::getInstance();
+	auto nextVip = vipConfig->getVipLevel(nowVip + 1);
+
+	auto chinaword = ChineseWord("payVIPdes");
+	auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
+	ttf->setString(strdec->getCString());
+	
+}
 void payLayer::closeButtonCallBack(Ref*psend)
 {
 	removeFromParentAndCleanup(1);

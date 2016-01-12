@@ -58,17 +58,19 @@ Good coingood[7] = {Good(8, 40000), Good(18, 90000), Good(38, 1900000), Good(58,
 Good diamondGood[5] = { Good(18, 180), Good(38, 380), Good(58, 580), Good(108, 1080), Good(388, 3880) };
 void PayCell::IsBeToued()
 {
+	auto level =  ConfigVipLevel::getInstance()->getVipLevel(User::getInstance()->getVipLevel());
 	switch (m_PayType)
 	{
 	case 1:
-		User::getInstance()->addCoins(coingood[m_nGoodId - 1].count);
+		User::getInstance()->addCoins(coingood[m_nGoodId - 1].count*level.pay_reward);
 		User::getInstance()->addChargeMoney(coingood[m_nGoodId - 1].RMB);
 		break;
 	case 2:
-		User::getInstance()->addDiamonds(diamondGood[m_nGoodId - 1].count);
+		User::getInstance()->addDiamonds(diamondGood[m_nGoodId - 1].count*level.pay_reward);
 		User::getInstance()->addChargeMoney(diamondGood[m_nGoodId - 1].RMB);
 		break;
 	case 3:
+
 		break;
 	default:
 		break;

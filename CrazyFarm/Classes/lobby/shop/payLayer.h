@@ -55,9 +55,10 @@ public:
 
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return true; };
 
-private: 
+private:
+	void update(float delta);
 	virtual bool init(int payType);
 	void closeButtonCallBack(Ref*psend);
-
+	LabelTTF*ttf;
 	payView* tableviewDelegate;
 };

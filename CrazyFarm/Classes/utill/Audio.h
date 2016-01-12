@@ -2,7 +2,7 @@
 #define _AUDIO_H_
 #include <string>
 
-#define BACKGORUNDMUSIC "music/game_bgm.ogg"
+#define BACKGORUNDMUSIC "audio/bgm_opening.mp3"
 #define COUNTDOWN "music/count_down.ogg"
 #define CLICK "music/click.ogg"
 #define FINISHTASK "music/finish_task.ogg"
@@ -18,6 +18,7 @@ public:
 	static Audio* getInstance();
 	void playBGM(char* soundName);
 	void playSound(char* soundName);
+	void pauseBGM();
 	void prepare();
 private:
 	static Audio* m_instance;
