@@ -27,13 +27,13 @@ bool ConfigFish::LoadConfig() {
 		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
 		if (doc.HasParseError())
 		{
-			log("get json data err!");
+			log("ConfigFish get json data err!");
 			break;
 		}
 		rapidjson::Value& itemList = doc["item_list"];
 		if (!itemList.IsArray())
 		{
-			log("The data is not json");
+			log("ConfigFish The data is not json");
 				break;
 		}
 		for (unsigned int i = 0; i < itemList.Size(); ++i) {

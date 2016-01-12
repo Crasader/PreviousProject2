@@ -9,6 +9,7 @@
 #include "config/ConfigVipTurrent.h"
 #include "config/ConfigNormalTurrent.h"
 #include "config/ConfigSkill.h"
+#include "config/ConfigBankrupt.h"
 
 ConfigManager* ConfigManager::_instance = NULL;
 
@@ -35,6 +36,7 @@ void ConfigManager::LoadConfig() {
     ConfigVipTurrent::getInstance()->LoadConfig();
     ConfigNormalTurrent::getInstance()->LoadConfig();
     ConfigSkill::getInstance()->LoadConfig();
+    ConfigBankrupt::getInstance()->LoadConfig();
     
 }
 

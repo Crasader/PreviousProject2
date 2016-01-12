@@ -29,7 +29,7 @@ OneMomentList ConfigOnemoment::LoadConfig(std::string filename) {
 		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
 		if (doc.HasParseError())
 		{
-			log("get json data err!");
+			log("ConfigOnemoment get json data err!");
 			break;
 		}
         oneMomentList.version = doc["version"].GetInt();
@@ -38,7 +38,7 @@ OneMomentList ConfigOnemoment::LoadConfig(std::string filename) {
 		rapidjson::Value& itemList = doc["item_list"];
 		if (!itemList.IsArray())
 		{
-			log("The data is not json");
+			log("ConfigOnemoment The data is not json");
 				break;
 		}
 		for (unsigned int i = 0; i < itemList.Size(); ++i) {

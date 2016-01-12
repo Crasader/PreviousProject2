@@ -34,8 +34,8 @@
       "skill_id"  : 5,
       "item_id" : 1007,
       "desc"    : "激光炮",
-      "unlock_use_turrent_level"  : 1,
-      "unlock_buy_turrent_level"  : 2
-    },
+      "unlock_buy_type"  : 1,
+      "unlock_buy_level"  : 2
+    }
   ]
 }
