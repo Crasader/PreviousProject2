@@ -33,7 +33,7 @@ private:
 	void onExit();
 	void collisionUpdate(float dt);
 	void update(float dt);
-	void createAI();
+    
 	void calculateFreeChair();
 	PlayerTurret* myTurret;
 	Vector<PlayerTurret*> otherTurrets;

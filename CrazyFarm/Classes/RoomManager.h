@@ -9,7 +9,7 @@ class RoomManager{
 public:
 	static RoomManager* getInstance();
     
-    std::vector<RoomPlayer> initRoomConfig();
+    std::vector<RoomPlayer> initRoomConfig(int roomMinTurrentLevel);
     std::vector<RoomPlayer> updateRoomConfig();
 
 private:
@@ -24,6 +24,16 @@ private:
     
     std::vector<RoomPlayer> roomPlayers;
     int userPosition = 0;
+    int minTurrentLevel = 1;
+    
+    int getInitMaxTurrentLevelByMinTurrentLevel(int roomMinLevel);
+    
+    int getInitCoinsByMinTurrentLevel(int maxLevel);
+    int getInitDiamondsByMinTurrentLevel(int maxLevel);
+    int getInitPlayerLevelByMinTurrentLevel(int maxLevel);
+    
+    
+    
 };
 
 #endif
