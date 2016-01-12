@@ -6,6 +6,7 @@
 #include "config/ConfigFish.h"
 #include "config/ConfigRoom.h"
 #include "config/ConfigExp.h"
+#include "config/ConfigVipTurrent.h"
 
 ConfigManager* ConfigManager::_instance = NULL;
 
@@ -29,6 +30,7 @@ void ConfigManager::LoadConfig() {
     ConfigFish::getInstance()->LoadConfig();
     
     ConfigRoom::getInstance()->LoadConfig();
+    ConfigVipTurrent::getInstance()->LoadConfig();
     
 }
 

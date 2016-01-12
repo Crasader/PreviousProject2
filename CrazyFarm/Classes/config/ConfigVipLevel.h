@@ -8,11 +8,17 @@
 USING_NS_CC;
 
 struct VipLevel {
-    int level;
-    int chargeMoney;
-    std::string title;
-    std::string descTitle;
-    std::string descContent;
+    int vip_level;
+    int charge_money;
+    std::string title;      // VIP名称
+    std::string desc_title; // 显示标题
+    std::string desc_content;// 显示描述
+    int vip_turrent_id;   // VIP炮ID
+    double double_login_reward;  // 登陆奖励翻倍系数
+    double pay_reward;           // 充值奖励百分比
+    double kill_per_add;           // 击杀概率系数
+    int send_coins_over;         // 金币补足金额
+    int send_coins_over_day_time;  // 每日金币补足次数
 };
 
 
