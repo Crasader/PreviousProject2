@@ -10,3 +10,21 @@ bool PlayerLeft::init(){
 	return true;
 }
 
+
+void PlayerLeft::drawHandJong(){
+	//TODO gamemj/zuoli.png
+	
+
+
+
+}
+
+
+
+void PlayerLeft::drawPlayedJong(){
+	//TODO
+
+
+
+
+}

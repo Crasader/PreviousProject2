@@ -9,6 +9,7 @@ bool LobbyScene::init()
 	{
 		return false;
 	}
+	PositionInfoUtil::getInstance();
 	//connectServer();//连接服务器
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	//add game bg to layer

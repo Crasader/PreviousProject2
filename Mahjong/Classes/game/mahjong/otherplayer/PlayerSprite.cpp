@@ -12,7 +12,7 @@ void PlayerSprite::drawHeadPortrait(PlayerInfo* playerInfo){
 	head_bg = Sprite::create("gamemj/head_bg.png");
 	this->addChild(head_bg);
 	//ªÊ÷∆Í«≥∆
-	nickName =  Label::create("houzi", "Arial", 18);
+	nickName = Label::create("Monkey", "Arial", 16);
 	this->addChild(nickName);
 	//ªÊ÷∆Õº∆¨
 	headimage = Sprite::create("gamemj/head_4.png");
