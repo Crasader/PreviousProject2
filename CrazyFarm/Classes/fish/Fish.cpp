@@ -81,7 +81,7 @@ int Fish::getFishExperienceByType(int type){
 
 
 float Fish::getFishSpeedByType(int type){
-	return 100;
+	return 80;
 }
 
 void Fish::move(int moveType){

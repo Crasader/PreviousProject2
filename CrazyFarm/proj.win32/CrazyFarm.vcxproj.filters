@@ -360,6 +360,9 @@
     <ClCompile Include="..\Classes\domain\skill\SkillSummonButton.cpp">
       <Filter>src\skill</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigChest.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -628,6 +631,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\skill\SkillSummonButton.h">
       <Filter>src\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigChest.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

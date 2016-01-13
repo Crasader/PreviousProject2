@@ -46,8 +46,9 @@ void skillManager::useSkillFreeze()
 void skillManager::useSkillSummon()
 {
 	auto fish = FishManage::getInstance()->createFishSingle(40 + rand() % 5);
-	fish->setPosition(Vec2(800, 600));
-	fish->runAction(MoveTo::create(10.0f, Vec2(-100, -100)));
+	fish->setPosition(Vec2(-100, 150+rand()%200));
+	fish->setMoveAngle(0);
+	fish->move(3);
 	m_gamelayer->addChild(fish);
 }
 

@@ -41,10 +41,7 @@ bool GameLayer::init(){
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
 	loadNewMonent();
-	//test
-	//auto fish = FishManage::getInstance()->createFishArrange(101);
-	//fish->setPosition(480, 240);
-	//addChild(fish);
+
 
 
 
