@@ -41,11 +41,11 @@ void PlayerHero::drawPlayerHero(){
 
 
 //绘制玩家的头像
-void PlayerHero::drawHeadPortrait(PlayerInfo* headPortrait){
-	//绘制背景
-	Sprite* head_bg = Sprite::create("gamemj/head_bg.png");
-	head_bg->setPosition(ccp(50, 120));
-	this->addChild(head_bg);
+void PlayerHero::drawHeadPortrait(PlayerInfo* playerInfo){
+	PlayerSprite* playerSprite = PlayerSprite::create();
+	playerSprite->drawHeadPortrait(playerInfo);
+	playerSprite->setHeadPostion(ccp(50,120));
+	this->addChild(playerSprite);
 }
 
 
