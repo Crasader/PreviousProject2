@@ -8,7 +8,6 @@
 #include "fish/FishAniMannage.h"
 #include "fish/FishGroupData.h"
 #include "HttpClientUtill.h"
-#include "config/ConfigRoom.h"
 #include "data/GameData.h"
 #include "config/ConfigManager.h"
 #include "config/ConfigSign.h"
@@ -273,23 +272,24 @@ void LobbyScene::createRoomLayer()
 {
 	auto visibisize = Director::getInstance()->getVisibleSize();
 
-	auto roomDatas = ConfigRoom::getInstance()->getRooms();
+	auto maxlevl = User::getInstance()->getMaxTurrentLevel();
+	auto k = sortRoomByMaxlevel(300);
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
 	addChild(menu);
-	for (auto room:roomDatas)
+	for (size_t i = 0; i < k.size(); i++)
 	{
-		auto spPath = String::createWithFormat("level_%d.png", room.ui_id);
+		auto spPath = String::createWithFormat("level_%d.png", k[i].ui_id);
 		auto cell = roomCell::createCell(spPath->getCString(), spPath->getCString(), CC_CALLBACK_1(LobbyScene::beginGameCallback, this));
-		cell->setMinEnterLevel(room.unlock_turrent_level);
-		cell->setTag(room.room_id);
-		cell->setRoomid(room.room_id);
-		cell->setPosition(roomPos[room.room_id]);
+		cell->setMinEnterLevel(k[i].unlock_turrent_level);
+		cell->setTag(i+1);
+		cell->setRoomid(k[i].room_id);
+		cell->setPosition(roomPos[i+1]);
 		roomCells.pushBack(cell);
 		menu->addChild(cell);
 
 
-		switch (room.room_id)
+		switch (i+1)
 		{
 		case 4:
 			cell->setVisible(false);
@@ -312,6 +312,8 @@ void LobbyScene::createRoomLayer()
 		default:
 			break;
 		}
+	
+		
 
 	}
 	lockTheRoom();
@@ -520,3 +522,52 @@ void LobbyScene::guizuCallback(Ref*psend)
 	guizulayer->setPosition(Point::ZERO);
 	addChild(guizulayer);
 }
+
+std::vector<Room> LobbyScene::sortRoomByMaxlevel(int maxLevel)
+{
+	auto roomDatas = ConfigRoom::getInstance()->getRooms();
+    ///获得最大可进房间ID
+	int i = roomDatas.size()-1;
+	for (; i > 0; i--)
+	{
+		if (roomDatas[i].unlock_turrent_level<=maxLevel)
+		{
+			break;
+		}
+	}
+	std::vector<Room> curData;
+	curData.resize(roomDatas.size());
+	int maxRoomId = i;
+	int j = 1;
+	for (; j < curData.size(); j++)
+	{
+		curData[j] = roomDatas[i];
+		i++;
+		if (i >=roomDatas.size())
+		{
+			break;
+		}
+	}
+	int k = 0;
+	for (; k < maxRoomId-1; k++)
+	{
+		j++;
+		curData[j] = roomDatas[k];
+		
+	}
+	if (k == 0)
+	{
+		k = roomDatas.size() - 1;
+	}
+	curData[0] = roomDatas[k];
+
+	return curData;
+}
+
+
+//
+//struct Room {
+//	int room_id;
+//	int ui_id;
+//	int unlock_turrent_level;
+//};

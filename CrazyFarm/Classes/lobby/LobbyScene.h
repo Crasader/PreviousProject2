@@ -2,6 +2,7 @@
 #define __LOBBY_SCENE_H__
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "config/ConfigRoom.h"
 #include "network/HttpClient.h"
 
 using namespace cocos2d::network;
@@ -43,6 +44,7 @@ private:
 	void moveRoomLeft();
 
 
+	std::vector<Room> sortRoomByMaxlevel(int maxLevel);
 	void showSign(float dt);
 	///°´Å¥»Øµ÷
 	void payCoinCallback(Ref*psend);
