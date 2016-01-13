@@ -81,6 +81,9 @@
     <ClCompile Include="..\Classes\game\playerinfo\PlayerInfo.cpp">
       <Filter>src\game\playerinfo</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerSprite.cpp">
+      <Filter>src\game\mahjong\otherplayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\game\playerinfo\PlayerInfo.h">
       <Filter>src\game\playerinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerSprite.h">
+      <Filter>src\game\mahjong\otherplayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

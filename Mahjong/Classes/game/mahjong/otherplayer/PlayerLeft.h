@@ -2,13 +2,13 @@
 #define __PLAYER_LEFT__
 #include "cocos2d.h"
 #include "game/playerinfo/PlayerInfo.h"
+#include "game/mahjong/otherplayer/PlayerSprite.h"
 USING_NS_CC;
 
-class PlayerLeft :  public Sprite{
+class PlayerLeft :  public PlayerSprite{
 
 public:
 	virtual bool init();
 	CREATE_FUNC(PlayerLeft);
-	void drawHeadPortrait(PlayerInfo* playerInfo);
 };
 #endif 

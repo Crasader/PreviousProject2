@@ -13,5 +13,6 @@ public:
 	CC_SYNTHESIZE(int, type, Type);
 	CC_SYNTHESIZE(string, nickName, Nickname);
 	CC_SYNTHESIZE(int, money, Money);
+	CC_SYNTHESIZE(bool,sex,Sex);
 };
 #endif

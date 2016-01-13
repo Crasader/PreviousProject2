@@ -16,6 +16,11 @@ bool PlayerHero::init(){
 	return true;
 }
 
+
+void PlayerHero::initData(){
+	isAllowPlay = false;
+}
+
 //绘制自己
 void PlayerHero::drawPlayerHero(){
 	//头像的绘制
@@ -43,6 +48,199 @@ void PlayerHero::drawHeadPortrait(PlayerInfo* headPortrait){
 	this->addChild(head_bg);
 }
 
+
+
+void PlayerHero::resetAllJong(){
+	for (int i = 0; i < selfHandJongs.size(); i++)
+	{
+		selfHandJongs.at(i)->setPosition(ccp(selfHandJongs.at(i)->getPositionX(), JONG_POS_Y));
+	}
+}
+
+void PlayerHero::resetJongPos(){
+	if (nullptr != selectJong){
+		for (int i = 0; i < selfHandJongs.size(); i++)
+		{
+			if (selfHandJongs.at(i) != selectJong){
+				selfHandJongs.at(i)->setPosition(ccp(selfHandJongs.at(i)->getPositionX(), JONG_POS_Y));
+			}
+		}
+	}
+}
+
+Point PlayerHero::getSmallJongsPos(int index){
+	int row = index / 6;
+	int line = index % 6;
+	Point originPos = ccp(440, 226);
+	if (row == 0){
+		return ccp(originPos.x + 27 * line, originPos.y);
+	}
+	else if (row == 1){
+		return ccp(originPos.x + 27 * line, originPos.y - 38);
+	}
+	else {
+		return ccp(originPos.x + 27 * (index - 12), originPos.y - 38 * 2);
+	}
+
+
+}
+
+
+
+float PlayerHero::distance(Point pos1, Point pos2){
+	return sqrt(pow(pos1.x - pos2.x, 2) + pow(pos1.y - pos2.y, 2));
+}
+
+
+Vector<Jong*>  PlayerHero::sortJongs(Vector<Jong*> jongs){
+	int size = jongs.size();
+	for (int i = 0; i < size - 1; i++){
+		for (int j = size - 1; j > i; j--)
+		{
+			if (jongs.at(j)->getPositionX() < jongs.at(j - 1)->getPositionX()){
+				jongs.swap(jongs.at(j), jongs.at(j - 1));
+			}
+		}
+	}
+	return jongs;
+}
+
+
+Vector<Jong*> PlayerHero::upsetJongs(Vector<Jong*> jongs){
+	Vector<Jong*> newJongs;
+	int size = jongs.size();
+	for (int i = 0; i < size; i++){
+		int current = random() % jongs.size();
+		newJongs.pushBack(jongs.at(current));
+		jongs.erase(current);
+	}
+	return newJongs;
+}
+
+
+//手牌整理动画
+void PlayerHero::reArrangeJongs(){
+	//摸什么打什么,不需要重排
+	if (currentJong == selectJong){
+		isAllowPlay = false;
+		return;
+	}
+	Point needMovePos;//摸到的牌的移动位置
+	if (currentJong->getJongType() == selectJong->getJongType()){
+		//摸到的和打出去的牌大小一样
+		log("condition : currentJong->getJongType() == selectJong->getJongType()");
+		needMovePos = selectJong->getPosition();
+	}
+	else{
+		for (int b = 0; b < selfHandJongs.size(); b++){
+			log("selfHandJongs jong x %d = %f", b, selfHandJongs.at(b)->getPositionX());
+		}
+		//step1 获取打出去的那张牌的位置
+		Point pos = selectJong->getPosition();
+		//step2 获取打掉的牌的序列号
+		int index = 0;
+		for (int i = 0; i < selfHandJongs.size(); i++){
+			if (selectJong == selfHandJongs.at(i)){
+				index = i;
+				log("select jong index = %d", index);
+			}
+		}
+
+		//step3 获取需要移动的牌的队列以及方向
+		bool isMoved = false;
+		bool moveLeft = true;
+		Vector<Jong*> needMoveJongs;//需要移动的队列
+
+		if (currentJong->getJongType() >= selectJong->getJongType()){
+			//右边
+			moveLeft = true;
+			for (int j = index + 1; j < selfHandJongs.size(); j++){
+				if (selfHandJongs.at(j)->getJongType() >= currentJong->getJongType()){
+					if (!isMoved){
+						needMovePos = ccp(selfHandJongs.at(j)->getPositionX() - 59, JONG_POS_Y);
+						isMoved = true;
+					}
+				}
+				else{
+					//needMoveJongs.pushBack(selfHandJongs.at(j));
+					auto move = MoveTo::create(0.4f, ccp(selfHandJongs.at(j)->getPositionX() - 59, JONG_POS_Y));
+					selfHandJongs.at(j)->runAction(move);
+				}
+			}
+
+		}
+		else{
+			//左边
+			moveLeft = false;
+			for (int k = index - 1; k > 0; k--){
+				if (selfHandJongs.at(k)->getJongType() <= currentJong->getJongType()){
+					if (!isMoved){
+						needMovePos = ccp(selfHandJongs.at(k)->getPositionX() + 59, JONG_POS_Y);
+						isMoved = true;
+					}
+				}
+				else{
+					//needMoveJongs.pushBack(selfHandJongs.at(k));
+					auto move = MoveTo::create(0.4f, ccp(selfHandJongs.at(k)->getPositionX() + 59, JONG_POS_Y));
+					selfHandJongs.at(k)->runAction(move);
+				}
+			}
+		}
+		//step 4 按方向移动手牌
+		if (moveLeft){
+			for (int a = 0; a < needMoveJongs.size(); a++){
+				auto move = MoveTo::create(0.4f, ccp(needMoveJongs.at(a)->getPositionX() - 59, JONG_POS_Y));
+				needMoveJongs.at(a)->runAction(move);
+			}
+		}
+		else{
+			for (int a = 0; a < needMoveJongs.size(); a++){
+				auto move = MoveTo::create(0.4f, ccp(needMoveJongs.at(a)->getPositionX() + 59, JONG_POS_Y));
+				needMoveJongs.at(a)->runAction(move);
+			}
+		}
+
+
+
+	}
+	//移动摸到的牌
+	ccBezierConfig bezier; // 创建贝塞尔曲线  
+	bezier.controlPoint_1 = currentJong->getPosition(); // 起始点  
+	bezier.controlPoint_2 = ccp(needMovePos.x + (currentJong->getPositionX() - needMovePos.x)*0.5, JONG_POS_Y + 50); //控制点  
+	bezier.endPosition = ccp(needMovePos.x, needMovePos.y); // 结束位置    
+	BezierTo *actionMove = BezierTo::create(0.5f, bezier);
+	currentJong->runAction(actionMove);
+	isAllowPlay = false;
+}
+
+
+
+void PlayerHero::addCoustomListener(){
+	auto dealJongListener = EventListenerCustom::create("player_hero_turn", [=](EventCustom* event){
+		//轮到自己打牌,获取牌的信息
+		Jong* jong = Jong::create();
+		jong->showJong(0, 5);
+		selfHandJongs.pushBack(jong);
+		jong->setPosition(ccp(915, JONG_POS_Y));
+		currentJong = jong;
+		this->addChild(jong);
+		isAllowPlay = true;
+	});
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(dealJongListener, 1);
+}
+
+
+
+void PlayerHero::addTouchListener(){
+	//设置点击事件监听
+	auto touchListener = EventListenerTouchOneByOne::create();
+	touchListener->setSwallowTouches(true);
+	touchListener->onTouchBegan = CC_CALLBACK_2(PlayerHero::onTouchBegan, this);
+	touchListener->onTouchMoved = CC_CALLBACK_2(PlayerHero::onTouchMoved, this);
+	touchListener->onTouchEnded = CC_CALLBACK_2(PlayerHero::onTouchEnded, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener,
+		this);
+}
 
 
 bool PlayerHero::onTouchBegan(Touch *touch, Event  *event){
@@ -76,7 +274,6 @@ void PlayerHero::onTouchMoved(Touch *touch, Event  *event){
 				break;
 			}
 			selectJong = nullptr;
-
 		}
 		//选中的牌跟随手指移动
 		if (nullptr != selectJong){
@@ -90,7 +287,7 @@ void PlayerHero::onTouchMoved(Touch *touch, Event  *event){
 			if (selectJong->getPositionY() > JONG_SEL_POS_Y){
 				selectJong->setPosition(ccp(selectJong->getPositionX(), JONG_SEL_POS_Y));
 				//判断当前是否轮到自己出牌
-				if (true){
+				if (isAllowPlay){
 					if (virtualJong == nullptr){
 						virtualJong = Jong::create();
 						virtualJong->setPosition(selectJong->getPosition());
@@ -160,184 +357,17 @@ void PlayerHero::onTouchEnded(Touch *touch, Event  *event){
 		outJong->runAction(actionMove);
 		selfSmallJongs.pushBack(outJong);
 		//移除手牌
-		selectJong->setVisible(false);	
+		selectJong->setVisible(false);
 		reArrangeJongs();
 		selectJong->removeFromParentAndCleanup(true);
 		selfHandJongs.eraseObject(selectJong);
-		selfHandJongs = sortJongs(selfHandJongs);
+		DelayTime* de = DelayTime::create(0.5f);
+		CallFunc* fuc = CallFunc::create([=](){
+			selfHandJongs = sortJongs(selfHandJongs);
+		});
+		Sequence* seq2 = Sequence::create(de, fuc, NULL);
+		this->runAction(seq2);
 	}
 }
 
 
-//手牌整理动画
-void PlayerHero::reArrangeJongs(){
-	//摸什么打什么,不需要重排
-	if (currentJong == selectJong){
-		return;
-	}
-	//step1 获取打出去的那张牌的位置
-	Point pos = selectJong->getPosition();
-	//step2 获取打掉的牌的序列号
-	int index = 0;
-	for (int i = 0; i < selfHandJongs.size(); i++){
-		if (selectJong == selfHandJongs.at(i)){
-			index = i;
-		}
-	}
-	//step3 获取需要移动的牌的队列以及方向
-	bool isMoved = false;
-	bool moveLeft = true;
-	Vector<Jong*> needMoveJongs;//需要移动的队列
-	Point needMovePos;//摸到的牌的移动位置
-	if (currentJong->getJongType() >= selectJong->getJongType()){
-		//右边
-		moveLeft = true;
-		for (int j = index + 1; j < selfHandJongs.size(); j++){
-			if (selfHandJongs.at(j)->getJongType() >= currentJong->getJongType()){
-				if (!isMoved){
-					log("J ==== %d",j);
-					needMovePos = ccp(selfHandJongs.at(j)->getPositionX() - 59, JONG_POS_Y);
-					log("aim pos %f , %f", needMovePos.x, needMovePos.y);
-					isMoved = true;
-				}
-			}
-			else{			
-				needMoveJongs.pushBack(selfHandJongs.at(j));
-			}
-		}
-
-	}
-	else{
-		//左边
-		moveLeft = false;
-		for (int k = index - 1; k > 0; k--){
-			if (selfHandJongs.at(k)->getJongType() < currentJong->getJongType()){
-				if (!isMoved){
-					needMovePos = ccp(selfHandJongs.at(k)->getPositionX() + 59, JONG_POS_Y);
-					isMoved = true;
-				}
-			}
-			else{
-				needMoveJongs.pushBack(selfHandJongs.at(k));
-			}
-		}
-	}
-	//step 4 按方向移动手牌
-	if (moveLeft){
-		for (int a = 0; a < needMoveJongs.size(); a++){
-			auto move = MoveTo::create(0.5f, ccp(needMoveJongs.at(a)->getPositionX() - 59, JONG_POS_Y));
-			needMoveJongs.at(a)->runAction(move);
-		}
-	}
-	else{
-		for (int a = 0; a < needMoveJongs.size(); a++){
-			auto move = MoveTo::create(0.5f, ccp(needMoveJongs.at(a)->getPositionX() + 59, JONG_POS_Y));
-			needMoveJongs.at(a)->runAction(move);
-		}
-	}
-	
-	//step 5 移动摸到的牌
-	ccBezierConfig bezier; // 创建贝塞尔曲线  
-	bezier.controlPoint_1 = currentJong->getPosition(); // 起始点  
-	bezier.controlPoint_2 = ccp((currentJong->getPositionX() - needMovePos.x)*0.5, JONG_POS_Y + 50); //控制点  
-	bezier.endPosition = ccp(needMovePos.x, needMovePos.y); // 结束位置     
-	BezierTo *actionMove = BezierTo::create(0.5f, bezier);
-	currentJong->runAction(actionMove);
-}
-
-
-
-
-void PlayerHero::resetAllJong(){
-	for (int i = 0; i < selfHandJongs.size(); i++)
-	{
-		selfHandJongs.at(i)->setPosition(ccp(selfHandJongs.at(i)->getPositionX(), JONG_POS_Y));
-	}
-}
-
-void PlayerHero::resetJongPos(){
-	if (nullptr != selectJong){
-		for (int i = 0; i < selfHandJongs.size(); i++)
-		{
-			if (selfHandJongs.at(i) != selectJong){
-				selfHandJongs.at(i)->setPosition(ccp(selfHandJongs.at(i)->getPositionX(), JONG_POS_Y));
-			}
-		}
-	}
-}
-
-Point PlayerHero::getSmallJongsPos(int index){
-	int row = index / 6;
-	int line = index % 6;
-	Point originPos = ccp(440, 226);
-	if (row == 0){
-		return ccp(originPos.x + 27 * line, originPos.y);
-	}
-	else if (row == 1){
-		return ccp(originPos.x + 27 * line, originPos.y - 38);
-	}
-	else {
-		return ccp(originPos.x + 27 * (index - 12), originPos.y - 38 * 2);
-	}
-
-
-}
-
-
-
-float PlayerHero::distance(Point pos1, Point pos2){
-	return sqrt(pow(pos1.x - pos2.x, 2) + pow(pos1.y - pos2.y, 2));
-}
-
-
-Vector<Jong*>  PlayerHero::sortJongs(Vector<Jong*> jongs){
-	int size = jongs.size();
-	for (int i = 0; i < size - 1; i++){
-		for (int j = size - 1; j > i; j--)
-		{
-			if (jongs.at(j)->getJongType() < jongs.at(j - 1)->getJongType()){
-				jongs.swap(jongs.at(j), jongs.at(j - 1));
-			}
-		}
-	}
-	return jongs;
-}
-
-
-Vector<Jong*> PlayerHero::upsetJongs(Vector<Jong*> jongs){
-	Vector<Jong*> newJongs;
-	int size = jongs.size();
-	for (int i = 0; i < size; i++){
-		int current = random() % jongs.size();
-		newJongs.pushBack(jongs.at(current));
-		jongs.erase(current);
-	}
-	return newJongs;
-}
-
-
-void PlayerHero::addCoustomListener(){
-	auto dealJongListener = EventListenerCustom::create("player_hero_turn", [=](EventCustom* event){
-		//轮到自己打牌,获取牌的信息
-		Jong* jong = Jong::create();
-		jong->showJong(0, 5);
-		selfHandJongs.pushBack(jong);
-		jong->setPosition(ccp(915, JONG_POS_Y));
-		currentJong = jong;
-		this->addChild(jong);
-	});
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(dealJongListener, 1);
-}
-
-
-
-void PlayerHero::addTouchListener(){
-	//设置点击事件监听
-	auto touchListener = EventListenerTouchOneByOne::create();
-	touchListener->setSwallowTouches(true);
-	touchListener->onTouchBegan = CC_CALLBACK_2(PlayerHero::onTouchBegan, this);
-	touchListener->onTouchMoved = CC_CALLBACK_2(PlayerHero::onTouchMoved, this);
-	touchListener->onTouchEnded = CC_CALLBACK_2(PlayerHero::onTouchEnded, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener,
-		this);
-}

@@ -20,6 +20,8 @@ public:
 	void onTouchEnded(Touch *touch, Event  *event);
 	CREATE_FUNC(PlayerHero);
 private:
+	void initData();
+	bool isAllowPlay;//是否允许出牌
 	Jong* currentJong;//当前获得的牌
 	Vector<Jong*> selfHandJongs;//自己的手牌
 	Vector<Jong*> selfSmallJongs;//自己的出牌牌堆

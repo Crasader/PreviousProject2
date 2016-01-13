@@ -11,6 +11,7 @@
 #include "config/ConfigSkill.h"
 #include "config/ConfigBankrupt.h"
 #include "config/ConfigOnemoment.h"
+#include "config/ConfigChest.h"
 
 ConfigManager* ConfigManager::_instance = NULL;
 
@@ -40,6 +41,7 @@ void ConfigManager::LoadConfig() {
     ConfigBankrupt::getInstance()->LoadConfig();
     
     ConfigOnemoment::getInstance()->LoadConfig();
+    ConfigChest::getInstance()->LoadConfig();
     
 }
 
