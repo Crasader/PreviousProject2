@@ -9,6 +9,7 @@
 #include "data/GameData.h"
 #include "config/ConfigRoom.h"
 #include "fish/FishArrangeOne.h"
+#include "domain/skill/skillManager.h"
 #define kTagBaseturret 10
 
 
@@ -19,6 +20,7 @@ bool GameLayer::init(){
 		return false;
 	}
 	FishManage::getInstance()->setlayer(this);
+	skillManager::getInstance()->setlayer(this);
 	//add game bg to this layer
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* game_bg = Sprite::create("ani/water/aniWater1.jpg");
@@ -192,7 +194,7 @@ void GameLayer::update(float dt){
 void GameLayer::createNet(Bullet *bullet){
 	Net* fishNet = Net::create();
 	fishNet->setPosition(bullet->getPosition());
-	fishNet->initNetByType(bullet->getUitype(),bullet->getNetType());
+	fishNet->initNetByType(bullet->getTurretdata());
 	this->addChild(fishNet, 3);
 	fishNet->checkCatchFish(bullet);
 }

@@ -36,7 +36,7 @@ SkillButton* SkillButton::createSkillButton(float cdTime, const char* stencil_fi
     return NULL;
 }
 
-bool SkillButton::init(float cdTime, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name,int propNum)
+bool SkillButton::init(float cdTime, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name, int propNum)
 {
     CCAssert(stencil_file_name, "SkillButton::init stencil_file_name != NULL");
     CCAssert(button_normal_name, "SkillButton::init button_normal_name != NULL");
@@ -71,10 +71,17 @@ bool SkillButton::init(float cdTime, const char* stencil_file_name, const char* 
 
 	auto labelPropNum = LabelAtlas::create(Value(mPropNum).asString().c_str(), "prop_num.png", 19, 23, '0');
 	labelPropNum->setPosition(12, 12);
-	addChild(labelPropNum,101);
+	addChild(labelPropNum,101,50);
+
+	
 
     mCDTime = cdTime;
     return true;
+}
+
+void SkillButton::refreshPropNumLabel()
+{
+	((LabelAtlas*)getChildByTag(50))->setString(Value(mPropNum).asString().c_str());
 }
 
 /** 技能按钮点击回调 */

@@ -169,6 +169,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\data\GameState.cpp" />
     <ClCompile Include="..\Classes\domain\bankrupt\BankruptManager.cpp" />
     <ClCompile Include="..\Classes\domain\nobility\NobilityManager.cpp" />
+    <ClCompile Include="..\Classes\domain\skill\SkillFreezeButton.cpp" />
+    <ClCompile Include="..\Classes\domain\skill\skillManager.cpp" />
+    <ClCompile Include="..\Classes\domain\skill\SkillSummonButton.cpp" />
     <ClCompile Include="..\Classes\fish\Fish.cpp" />
     <ClCompile Include="..\Classes\fish\FishAniMannage.cpp" />
     <ClCompile Include="..\Classes\fish\FishArrangeOne.cpp" />
@@ -256,6 +259,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\data\GameState.h" />
     <ClInclude Include="..\Classes\domain\bankrupt\BankruptManager.h" />
     <ClInclude Include="..\Classes\domain\nobility\NobilityManager.h" />
+    <ClInclude Include="..\Classes\domain\skill\SkillFreezeButton.h" />
+    <ClInclude Include="..\Classes\domain\skill\skillManager.h" />
+    <ClInclude Include="..\Classes\domain\skill\SkillSummonButton.h" />
     <ClInclude Include="..\Classes\fish\Fish.h" />
     <ClInclude Include="..\Classes\fish\FishAniMannage.h" />
     <ClInclude Include="..\Classes\fish\FishArrangeOne.h" />

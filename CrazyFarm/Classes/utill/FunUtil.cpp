@@ -1,6 +1,18 @@
 #include "utill/FunUtil.h"
 
 
+bool collision(Rect rectA, Rect rectB)
+{
+	const float scaleMultiple = 0.7;
+	rectA.setRect(rectA.getMinX() + rectA.size.width / 2 * (1 - scaleMultiple), rectA.getMinY() + rectA.size.height / 2 * (1 - scaleMultiple), rectA.size.width*scaleMultiple, rectA.size.height*scaleMultiple);
+
+	rectB.setRect(rectB.getMinX() + rectB.size.width / 2 * (1 - scaleMultiple), rectB.getMinY() + rectB.size.height / 2 * (1 - scaleMultiple), rectB.size.width*scaleMultiple, rectB.size.height*scaleMultiple);
+
+	return rectA.intersectsRect(rectB);
+}
+
+
+
 bool collision(Sprite*spA, Sprite*spB)
 {
 

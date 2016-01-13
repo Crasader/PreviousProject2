@@ -27,7 +27,6 @@ public:
     
     SkillConfigInfo getskillConfigInfoByItemId(int itemId);
     SkillConfigInfo getskillConfigInfoBySkillId(int skillId);
-    
 private:
 	static ConfigSkill* _instance;
 	

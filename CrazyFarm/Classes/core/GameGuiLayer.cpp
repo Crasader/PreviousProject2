@@ -6,6 +6,8 @@
 #include "utill/Audio.h"
 #include "lobby/LobbyScene.h"
 #include "User.h"
+#include "domain/skill/SkillFreezeButton.h"
+#include "domain/skill/SkillSummonButton.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
@@ -79,14 +81,17 @@ bool GameGuiLayer::init(){
 
 
 	///¶³½á
-	auto skillbutton = SkillButton::createSkillButton(2.0f, "skillStencil.png", "prop_freeze.png", "prop_freeze.png", 9);
+	auto skillbutton = SkillFreezeButton::createSkillFreezeButton();
 	skillbutton->setPosition(visibleSize.width*0.45, visibleSize.height*0.073);
 	addChild(skillbutton);
 	//Ëø¶¨
-	skillbutton = SkillButton::createSkillButton(2.0f, "skillStencil.png", "prop_lock.png", "prop_lock.png", 9);
-	skillbutton->setPosition(visibleSize.width*0.55, visibleSize.height*0.073);
-	addChild(skillbutton);
-
+	auto skillbutton1 = SkillButton::createSkillButton(2.0f, "skillStencil.png", "prop_lock.png", "prop_lock.png", 9);
+	skillbutton1->setPosition(visibleSize.width*0.55, visibleSize.height*0.073);
+	addChild(skillbutton1);
+	//ÕÙ»½
+	auto skillbutton2 = SkillSummonButton::createSkillSummonButton();
+	skillbutton2->setPosition(visibleSize.width*0.05, visibleSize.height*0.25);
+	addChild(skillbutton2);
 
 
 

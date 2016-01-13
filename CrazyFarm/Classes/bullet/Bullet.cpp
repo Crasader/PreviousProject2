@@ -8,18 +8,15 @@ bool Bullet::init(){
 	return true;
 }
 
-void Bullet::initBullet(int ui_type, int net_type, float rotation){
+void Bullet::initBullet(TurretData turretdata, float rotation){
 	this->bulletRotation = rotation;
 	this->bulletSpeed = getSpeedByType(1);
-	m_ui_type = ui_type;
-	m_net_type = net_type;
-	initWithFile(getSrcByType(ui_type,net_type));
+	m_turretdata = turretdata;
+	initWithFile(getSrcByType(turretdata.ui_type, turretdata.net_type));
 	scheduleUpdate();
 }
 
-int Bullet::getType(){
-	return bulletType;
-}
+
 
 string Bullet::getSrcByType(int ui_type, int net_type){
 	

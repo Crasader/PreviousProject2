@@ -19,19 +19,16 @@ class Bullet:public Sprite{
 public:
 	virtual bool init();
 	CREATE_FUNC(Bullet);
-	void initBullet(int ui_type, int net_type, float rotation);
-	int getType();
+	void initBullet(TurretData turretdata, float rotation);
+
 	CC_SYNTHESIZE(PlayerTurret*, pPlayerTurret, PlayerTurret);
 	void getCoinForFish(Vector<Fish*> fishs);
-	int getUitype(){ return m_ui_type; };
-	int getNetType(){ return m_net_type; };
+	TurretData getTurretdata(){ return m_turretdata; };
 private:
 	int bulletSpeed;
-	int bulletType;
 	int bulletRotation;
-	int m_ui_type; 
-	int m_net_type;
 
+	TurretData m_turretdata;
 	string getSrcByType(int ui_type, int net_type);
 	int getSpeedByType(int type);
 	void update(float);

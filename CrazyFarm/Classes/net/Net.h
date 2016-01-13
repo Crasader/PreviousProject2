@@ -15,7 +15,7 @@ class Net :public Sprite{
 public:
 	virtual bool init();
 	CREATE_FUNC(Net);
-	void initNetByType(int ui_type, int net_type);
+	void initNetByType(TurretData turretdata);
 	void checkCatchFish(Bullet* bullet);
 private:
 	void destroySelf(float dt);

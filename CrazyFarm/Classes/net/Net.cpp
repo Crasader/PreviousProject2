@@ -7,9 +7,9 @@ bool Net::init(){
 	return true;
 }
 
-void Net::initNetByType(int ui_type, int net_type){
+void Net::initNetByType(TurretData turretdata){
 	
-	initWithFile(getFrameNameByType(ui_type,net_type));
+	initWithFile(getFrameNameByType(turretdata.ui_type, turretdata.net_type));
 	schedule(schedule_selector(Net::destroySelf),0,0,1);
 }
 
@@ -26,12 +26,11 @@ void Net::destroySelf(float dt){
 void Net::checkCatchFish(Bullet*bullet){
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
 	Vector<Fish*> fishNeedRemove;
+	auto turretdata = bullet->getTurretdata();
 	for (Fish* fish : allFish){
 		if (collision(this,fish)){
-			//进行捕获判断
-			//TODO 添加捕获概率
 			int k = rand() % 100 + 1;
-			if (k>(100-fish->getGrabProbability()*100))
+			if (k>(100-fish->getGrabProbability()*100*turretdata.catch_per))
 			{
 				fishNeedRemove.pushBack(fish);
 			//ui移除

@@ -363,6 +363,84 @@
 			"exp"						: 2,
 			"be_hit_logic"	: 0
 		}
+,
+		{
+			"fish_id"	:	40,
+			"fish_type"	:	0,
+			"probability"	:	0.02,
+			"baseReward"	:	1000,
+			"maxHitTime"	:	30,
+			"protectedTime"	:	0,
+			"ui_id"			:	30,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
+		}
+,
+		{
+			"fish_id"	:	41,
+			"fish_type"	:	0,
+			"probability"	:	0.02,
+			"baseReward"	:	1000,
+			"maxHitTime"	:	30,
+			"protectedTime"	:	0,
+			"ui_id"			:	30,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
+		}
+,
+		{
+			"fish_id"	:	42,
+			"fish_type"	:	0,
+			"probability"	:	0.02,
+			"baseReward"	:	1000,
+			"maxHitTime"	:	30,
+			"protectedTime"	:	0,
+			"ui_id"			:	30,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
+		}
+,
+		{
+			"fish_id"	:	43,
+			"fish_type"	:	0,
+			"probability"	:	0.02,
+			"baseReward"	:	1000,
+			"maxHitTime"	:	30,
+			"protectedTime"	:	0,
+			"ui_id"			:	30,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
+		}
+,
+		{
+			"fish_id"	:	44,
+			"fish_type"	:	0,
+			"probability"	:	0.02,
+			"baseReward"	:	1000,
+			"maxHitTime"	:	30,
+			"protectedTime"	:	0,
+			"ui_id"			:	30,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
+		}
+,
+		{
+			"fish_id"	:45,
+			"fish_type"	:	0,
+			"probability"	:	0.02,
+			"baseReward"	:	1000,
+			"maxHitTime"	:	30,
+			"protectedTime"	:	0,
+			"ui_id"			:	30,
+			"catch_ui_type" :	0,
+			"exp"						: 2,
+			"be_hit_logic"	: 0
+		}
 
 	]
 }

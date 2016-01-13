@@ -42,12 +42,12 @@ void PlayerTurret::initTurretWithType(){
 	if (vipLevel == 0)
 	{
 		auto var = ConfigNormalTurrent::getInstance()->getNormalTurrent(User::getInstance()->getMaxTurrentLevel());
-		turretdata.init(var.normal_turrent_id, var.turrent_ui_id, var.net_per, var.ui_type, var.net_type);
+		turretdata.init(var.normal_turrent_id, var.turrent_ui_id, var.net_per, var.catch_per, var.ui_type, var.net_type);
 	}
 	else
 	{
 		auto var = ConfigVipTurrent::getInstance()->getVipTurrent(User::getInstance()->getVipLevel());
-		turretdata.init(var.vip_turrent_id, var.turrent_ui_id+2, var.net_per, var.ui_type, var.net_type);
+		turretdata.init(var.vip_turrent_id, var.turrent_ui_id+2, var.net_per, var.catch_per,var.ui_type, var.net_type);
 	}
 
 
@@ -63,7 +63,7 @@ void PlayerTurret::initTurretWithTypeForRobot(){
 	//if (viplevel == 0)
 	//{
 		auto var = ConfigNormalTurrent::getInstance()->getNormalTurrent(m_robotData->getMaxTurretLevel());
-		turretdata.init(var.normal_turrent_id, var.turrent_ui_id, var.net_per, var.ui_type, var.net_type);
+		turretdata.init(var.normal_turrent_id, var.turrent_ui_id, var.catch_per,var.net_per, var.ui_type, var.net_type);
 	//}
 	//else
 	//{
@@ -121,7 +121,7 @@ void PlayerTurret::shoot(float degree){
 	{
 		degree = 180+degree;
 	}
-	auto bullet = BulletManage::getInstance()->createBullet(turretdata.ui_type,turretdata.net_type, 90);
+	auto bullet = BulletManage::getInstance()->createBullet(turretdata, 90);
 	bullet->setRotation(degree);
 	auto pos = m_turret->getTampionPos();
 	bullet->setPosition(/*this->getPosition()*/m_turret->getTampionPos());
@@ -194,12 +194,12 @@ void PlayerTurret::createPlayerCoin(User* user, int index)
 	spCoinBG->setPosition(coinPos[index]);
 	addChild(spCoinBG, 10, index);
 
-	m_CoinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "prop_num.png", 19, 23, '0');
+	m_CoinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "multipleNum.png", 15, 21, '0');
 	m_CoinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
 	m_CoinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_CoinLabel);
 
-	m_DiamondLabel = LabelAtlas::create(Value(user->getDiamonds()).asString().c_str(), "prop_num.png", 19, 23, '0');
+	m_DiamondLabel = LabelAtlas::create(Value(user->getDiamonds()).asString().c_str(), "multipleNum.png", 15, 21, '0');
 	m_DiamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.29);
 	m_DiamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_DiamondLabel);
@@ -217,12 +217,12 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 	addChild(spCoinBG, 10, user->getRoomPosition());
 
 	nNowMoney = user->getCoins();
-	m_CoinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "prop_num.png", 19, 23, '0');
+	m_CoinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "multipleNum.png", 15, 21, '0');
 	m_CoinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
 	m_CoinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_CoinLabel);
 
-	m_DiamondLabel = LabelAtlas::create(Value(user->getDiamonds()).asString().c_str(), "prop_num.png", 19, 23, '0');
+	m_DiamondLabel = LabelAtlas::create(Value(user->getDiamonds()).asString().c_str(), "multipleNum.png", 15, 21, '0');
 	m_DiamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.29);
 	m_DiamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_DiamondLabel);

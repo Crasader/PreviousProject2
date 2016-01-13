@@ -18,9 +18,9 @@ void BulletManage::ClearManage()
 {
 	bulletPool.clear();
 }
-Bullet* BulletManage::createBullet(int ui_type, int net_type, int rotation){
+Bullet* BulletManage::createBullet(TurretData turretdata, int rotation){
 	auto bullet = Bullet::create();
-	bullet->initBullet(ui_type,net_type,rotation);
+	bullet->initBullet(turretdata, rotation);
 	bulletPool.pushBack(bullet);
 	return bullet;
 }

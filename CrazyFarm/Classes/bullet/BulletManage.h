@@ -5,7 +5,7 @@
 class BulletManage{
 public:
 	static BulletManage* getInstance();
-	Bullet* createBullet(int ui_type, int net_type, int rotation);
+	Bullet* createBullet(TurretData turretdata, int rotation);
 	void removeBullet(Bullet* bullet);
 	Vector<Bullet*> getAllBullets();
 	void ClearManage();

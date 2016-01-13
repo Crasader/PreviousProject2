@@ -17,7 +17,7 @@ struct TurretData
 	int ui_type; // 1火焰;2冰冻
 	int net_type;  // 1,1张网;2,2张;3,三张
 	TurretData(){};
-	void init(int id, int uiid, int netPer, int uiType, int netType){ turrent_id = id, turrent_ui_id = uiid, net_per = netPer, ui_type = uiType, net_type = netType; }
+	void init(int id, int uiid, double netPer, double catchper, int uiType, int netType){ turrent_id = id, turrent_ui_id = uiid, net_per = netPer, catch_per = catchper; ui_type = uiType, net_type = netType; }
 };
 
 
