@@ -13,7 +13,7 @@ void MomentManager::init(){
 MomentManager* MomentManager::getInstance(){
     if(_instance == NULL){
         _instance = new MomentManager();
-        _instance->momentOrders = ConfigMomentOrder::getInstance()->LoadConfig();
+        _instance->momentOrderItems = ConfigMomentOrder::getInstance()->LoadConfig();
     }
     return _instance;
 }
@@ -65,14 +65,22 @@ Moment* MomentManager::getNewMomentByType(int momentType) {
 }
 
 int MomentManager::getCurrentType() {
-    if(momentOrders.size() > 0) {
-        if(currentPos < momentOrders.size()) {
+    if(momentOrderItems.size() > 0) {
+        if(currentPos < momentOrderItems.size()) {
         }else {
             currentPos = 0;
         }
-        int type = momentOrders[currentPos].moment_id;
-        currentPos++;
-        return type;
+        MomentOrderItem momentOrderItem = momentOrderItems.at(currentPos);
+        int random = rand()%100;
+        int currentCount = 0;
+        for(int i=0; i<momentOrderItem.momentOrderBaseItems.size(); i++) {
+            currentCount += momentOrderItem.momentOrderBaseItems.at(i).per;
+            if(random <= currentCount) {
+                int moment_id = momentOrderItem.momentOrderBaseItems.at(i).moment_id;
+                currentPos++;
+                return moment_id;
+            }
+        }
     }
     return 1;
 }

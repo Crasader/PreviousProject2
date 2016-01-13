@@ -7,8 +7,13 @@
 
 USING_NS_CC;
 
-struct MomentOrder {
+struct MomentOrderBaseItem {
     int moment_id;
+    int per;
+};
+
+struct MomentOrderItem {
+    std::vector<MomentOrderBaseItem> momentOrderBaseItems;
 };
 
 
@@ -18,11 +23,11 @@ public:
 	ConfigMomentOrder();
 	static ConfigMomentOrder* getInstance();
     
-	std::map<int, MomentOrder> LoadConfig();
+	std::vector<MomentOrderItem> LoadConfig();
 
     
 private:
 	static ConfigMomentOrder* _instance;
-    std::map<int, MomentOrder> momentOrders;
+    std::vector<MomentOrderItem> momentOrderItems;
 };
 
