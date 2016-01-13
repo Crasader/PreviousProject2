@@ -26,7 +26,7 @@ public:
 	bool LoadConfig();
     
 	Item getItemById(int itemId);
-    
+	std::map<int, Item> getItemList(){ return items; };
 private:
 	static ConfigItem* _instance;
 	

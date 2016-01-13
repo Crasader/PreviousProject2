@@ -78,6 +78,13 @@
 			"item_desc"	:	"",
 			"buy_type"	:	0,
 			"buy_price"	:	0
+		}	,
+		{
+			"item_id"	:	1012,
+			"item_name"	:	"升级宝箱",
+			"item_desc"	:	"",
+			"buy_type"	:	0,
+			"buy_price"	:	0
 		}
 			
 	]

@@ -16,13 +16,13 @@ void CustomTableViewCell::setPayValue(int idx)
 	auto bagData = BagManager::getInstance();
 
 	auto node = (BagCell*)getChildByTag(kDesignTagCell0);
-	node->setValue(1000 + idx * 3 + 0, bagData->getItemNum(1000 + idx * 3 + 0));
+	node->setValue(bagData->getBagByIndex(idx*3+0));
 
 	node = (BagCell*)getChildByTag(kDesignTagCell1);
-	cell1->setValue(1000 + idx * 3 + 1, bagData->getItemNum(1000 + idx * 3 + 1));
+	cell1->setValue(bagData->getBagByIndex(idx * 3 + 1));
 
 	node = (BagCell*)getChildByTag(kDesignTagCell2);
-	cell2->setValue(1000 + idx * 3 + 2, bagData->getItemNum(1000 + idx * 3 + 2));
+	cell2->setValue(bagData->getBagByIndex(idx * 3 + 2));
 }
 
 bool CustomTableViewCell::init()
@@ -99,7 +99,7 @@ cocos2d::extension::TableViewCell* BagView::tableCellAtIndex(cocos2d::extension:
 	return cell;
 }
 ssize_t BagView::numberOfCellsInTableView(cocos2d::extension::TableView *table){
-	return 9;
+	return 4;
 }
 
 

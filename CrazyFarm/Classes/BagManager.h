@@ -5,6 +5,7 @@
 
 using namespace cocos2d;
 
+
 class BagManager {
 public :
 	static BagManager* getInstance();
@@ -13,12 +14,18 @@ public :
     
     bool changeItemCount(int itemId, int num);
     int getItemNum(int itemId);
-    
+
+	
+	PropType getItemType(int itemId);
     std::vector<BagItem> getBagList();
-    
+
+	
+	BagItem getBagByIndex(int index);
 private :
 	BagManager();
 	void init();
+	std::vector<BagItem> getBagListWithSort();
+	std::vector<BagItem> itemsWithSort;
 	static BagManager* _instance;
 
 };

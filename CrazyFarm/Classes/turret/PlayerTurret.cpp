@@ -58,6 +58,27 @@ void PlayerTurret::initTurretWithType(){
 	addChild(m_turret);
 }
 
+void PlayerTurret::initTurretWithTypeForRobot(){
+	//auto viplevel = rand() % 4;
+	//if (viplevel == 0)
+	//{
+		auto var = ConfigNormalTurrent::getInstance()->getNormalTurrent(m_robotData->getMaxTurretLevel());
+		turretdata.init(var.normal_turrent_id, var.turrent_ui_id, var.net_per, var.ui_type, var.net_type);
+	//}
+	//else
+	//{
+	//	auto var = ConfigVipTurrent::getInstance()->getVipTurrent(User::getInstance()->getVipLevel());
+	//	turretdata.init(var.vip_turrent_id, var.turrent_ui_id + 2, var.net_per, var.ui_type, var.net_type);
+	//}
+
+
+
+	m_turret = Turret::create();
+	m_turret->initWithType(turretdata.turrent_ui_id);
+	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
+	addChild(m_turret);
+}
+
 void PlayerTurret::upgradeTurret(Ref* psend)
 {
 	auto nowlevel = m_turretdata.turrentId;
@@ -191,6 +212,7 @@ void PlayerTurret::createPlayerCoin(User* user, int index)
 
 void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 {
+	
 	auto spCoinBG = Sprite::create("coinAnddiamondBG.png");
 	spCoinBG->setPosition(coinPos[user->getRoomPosition()]);
 	addChild(spCoinBG, 10, user->getRoomPosition());
@@ -226,10 +248,11 @@ void PlayerTurret::initWithDate(User* user,int index)
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
 {
+	m_robotData = user;
 	auto a = user->getMaxTurretLevel();
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurretLevel());
 	nChairNoIndex = user->getRoomPosition();
-	initTurretWithType();
+	initTurretWithTypeForRobot();
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
 	setMaxLevel(user->getMaxTurretLevel());
 	createPlayerCoin(user);

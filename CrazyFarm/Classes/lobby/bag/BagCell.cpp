@@ -15,13 +15,19 @@ bool BagCell::init(){
 	return true;
 }
 
-void BagCell::setValue(int propId, int num)
+void BagCell::setValue(BagItem item)
 {
-	setpropID(propId);
-	setpropNum(num);
-	auto spPath = String::createWithFormat("prop_%d.png", propId);
+	if (item.itemId==-1)
+	{
+		propSprite->setVisible(false);
+		propNum->setVisible(false);
+		return;
+	}
+	setpropID(item.itemId);
+	setpropNum(item.num);
+	auto spPath = String::createWithFormat("item_%d.png", item.itemId);
 	propSprite->setTexture(spPath->getCString());
-	propNum->setString(Value(num).asString().c_str());
+	propNum->setString(Value(item.num).asString().c_str());
 }
 
 void BagCell::IsBeToued()

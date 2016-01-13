@@ -32,6 +32,7 @@ public:
 	  void createPlayerCoin(RoomPlayer* user);
 
 	  void initTurretWithType();
+	  void initTurretWithTypeForRobot();
 	  void setUpgradeButton();
 	  void rorateTurret(float angle);
 	  void setMaxLevel(int maxlevel);
@@ -62,5 +63,6 @@ private:
 	  Turret* m_turret;
 	  int nChairNoIndex = -1;
 	  int nNowMoney;
+	  RoomPlayer* m_robotData;
 
 };
