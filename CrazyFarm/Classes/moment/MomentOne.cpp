@@ -3,7 +3,7 @@
 
 void MomentOne::init()
 {
-	oneMomentList = ConfigOnemoment::getInstance()->LoadConfig("config/config_onemoment_1.json");
+    oneMomentList = ConfigOnemoment::getInstance()->loadOneMomentListConfig();
     nNowTime = 0;
 
 }

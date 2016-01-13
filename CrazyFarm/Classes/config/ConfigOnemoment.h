@@ -27,6 +27,9 @@ struct OneMomentList {
 
 };
 
+struct OnemomentSeq {
+    std::string config_file_name;
+};
 
 class ConfigOnemoment {
     
@@ -34,10 +37,15 @@ public:
 	ConfigOnemoment();
 	static ConfigOnemoment* getInstance();
     
-	OneMomentList LoadConfig(std::string filename);
+    bool LoadConfig();
+	OneMomentList loadOneMomentListConfig();
 
     
 private:
 	static ConfigOnemoment* _instance;
+    
+    std::vector<OnemomentSeq> onemomentSeqs;
+    int pos = 0;
+    std::string getConfigFileName();
 };
 
