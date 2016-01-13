@@ -44,6 +44,7 @@ bool ConfigSkill::LoadConfig() {
             skillConfigInfo.item_id	= val["item_id"].GetInt();
             skillConfigInfo.unlock_buy_type = val["unlock_buy_type"].GetInt();
             skillConfigInfo.unlock_buy_level = val["unlock_buy_level"].GetInt();
+            skillConfigInfo.cd_time = val["cd_time"].GetInt();
             
             skillConfigInfos[i] = skillConfigInfo;
 		}
