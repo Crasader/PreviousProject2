@@ -13,6 +13,7 @@ struct SkillConfigInfo {
     int item_id; // 对应道具编号
     int unlock_buy_type; // 解锁购买类型 0,炮台等级;1，vip等级
     int unlock_buy_level;  // 结果购买等级
+    int cd_time;        // 技能持续时间。0表示不需要等待。
 };
 
 
