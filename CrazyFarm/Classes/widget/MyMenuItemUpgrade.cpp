@@ -33,7 +33,7 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 	else
 	{
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-30, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(-100, 0)));
 	}
 }
 
@@ -65,10 +65,11 @@ void MyMenuItemUpgrade::initItem()
 	unfinishedNode->setVisible(false);
 	auto size = getContentSize();
 	auto unLockTxt = Sprite::create("clickLockTXT.png");
-	unLockTxt->setPosition(size.width*0.3, size.height*0.75);
+	unLockTxt->setPosition(size.width*0.35, size.height*0.50);
 	commonNode->addChild(unLockTxt);
 	auto mutpleLabel = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
-	mutpleLabel->setPosition(size.width*0.25, size.height*0.75);
+	mutpleLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	mutpleLabel->setPosition(size.width*0.35, size.height*0.50);
 	commonNode->addChild(mutpleLabel, 1, kTagMutpleLabel);
 
 	//已经满足条件
@@ -79,15 +80,15 @@ void MyMenuItemUpgrade::initItem()
 	coinNum->setPosition(size.width*0.28, size.height*0.25);
 	nodeZeng->addChild(coinNum, 1,kTagCoinLabel);
 	auto coin = Sprite::create("smallCoin.png");
-	coin->setPosition(size.width*0.6, size.height*0.25);
-	commonNode->addChild(coin);
+	coin->setPosition(size.width*0.6, size.height*0.3);
+	nodeZeng->addChild(coin);
 	//不满足条件
 	auto diamond = Sprite::create("smallDiamond.png");
-	diamond->setPosition(size.width*0.1, size.height*0.25);
+	diamond->setPosition(size.width*0.15, size.height*0.3);
 	unfinishedNode->addChild(diamond);
 	//经验条
 	auto exeBarFrame = Sprite::create("exeBarFrameDiamond.png");
-	exeBarFrame->setPosition(size.width*0.24, size.height*0.25);
+	exeBarFrame->setPosition(size.width*0.35, size.height*0.3);
 	unfinishedNode->addChild(exeBarFrame,1,"exeFrame");
 	auto exeBar = Sprite::create("exeBarDiamond.png");
 	exeBar->setPosition(0, 0);
@@ -95,6 +96,7 @@ void MyMenuItemUpgrade::initItem()
 	exeBarFrame->addChild(exeBar,1,kTagExeBar);
 
 	auto exeDec = LabelAtlas::create("0", "bonusNumTTF.png", 14, 21, '0');
+	exeDec->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	exeDec->setPosition(exeBarFrame->getContentSize() / 2);
 	exeBarFrame->addChild(exeDec,1,kTagExeDec);
 
@@ -107,7 +109,7 @@ void MyMenuItemUpgrade::initItem()
 void MyMenuItemUpgrade::setValue()
 {
 	bool isFinish;
-	
+	commonNode->setVisible(true);
 	auto maxlevel = User::getInstance()->getMaxTurrentLevel();
 	auto turretData = ConfigTurrent::getInstance()->getNextTurrent(maxlevel);
 	auto zengList = turretData.rewardList;
