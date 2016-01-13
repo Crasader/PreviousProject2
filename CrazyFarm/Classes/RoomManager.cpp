@@ -28,7 +28,7 @@ std::vector<RoomPlayer> RoomManager::initRoomConfig(int roomMinTurrentLevel) {
             RoomPlayer player ;
             player.setMaxTurretLevel(getInitMaxTurrentLevelByMinTurrentLevel(minTurrentLevel));
             
-            player.setCoins(getInitDiamondsByMinTurrentLevel(player.getMaxTurretLevel()));
+            player.setCoins(getInitCoinsByMinTurrentLevel(player.getMaxTurretLevel()));
             player.setDiamonds(getInitDiamondsByMinTurrentLevel(player.getMaxTurretLevel()));
             player.setLevel(getInitPlayerLevelByMinTurrentLevel(player.getMaxTurretLevel()));
             player.setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
