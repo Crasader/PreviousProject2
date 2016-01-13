@@ -26,9 +26,22 @@ void User::setUserID(std::string userId) {
 	UserDefault::getInstance()->setStringForKey(User::KEY_USER_ID, userId);
 }
 
-char* User::getUserName() {
-    // TODO : wait impl
-    return "weason_hu";
+std::string User::getUserName() {
+    std::string name = UserDefault::getInstance()->getStringForKey(User::KEY_USER_NAME, "guest");
+    if( name.compare("guest") == 0) {
+        return getUserId();
+    }
+     log("guest != guest");
+    return name;
+}
+
+bool User::setUserName(std::string newUserName) {
+    std::string name = UserDefault::getInstance()->getStringForKey(User::KEY_USER_NAME, "guest");
+    if(name == "guest") {
+        UserDefault::getInstance()->setStringForKey(User::KEY_USER_NAME, newUserName);
+        return true;
+    }
+    return false;
 }
 
 int User::getCoins() {
@@ -105,6 +118,19 @@ int User::getChargeMoney() {
     return UserDefault::getInstance()->getIntegerForKey(User::KEY_CHARGE_MONEY, 0);
 }
 
+int User::getChestLevel() {
+    return UserDefault::getInstance()->getIntegerForKey(User::KEY_CHEST_LEVEL, 0);
+}
+
+bool User::setChestLevel(int chestLevel) {
+    if(chestLevel > 0 && chestLevel > getChestLevel()) {
+        UserDefault::getInstance()->setIntegerForKey(User::KEY_CHEST_LEVEL,chestLevel);
+        return true;
+    }
+    return false;
+    
+}
+
 void User::resetInfo() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     setUserID("guest");
@@ -115,6 +141,7 @@ void User::resetInfo() {
     UserDefault::getInstance()->setIntegerForKey(User::KEY_CHARGE_MONEY, 0);
 	UserDefault::getInstance()->setIntegerForKey(User::KEY_LASTSIGNDAY, -1);
 	UserDefault::getInstance()->setIntegerForKey(User::KEY_SEQSIGNDAY, 0);
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_CHEST_LEVEL, 0);
 #endif
 }
 

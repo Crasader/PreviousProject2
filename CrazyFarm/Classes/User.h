@@ -18,16 +18,19 @@ public:
 	std::string getSession_id();
 	void setSession_id(std::string userId);
 
-    char* getUserName();
+    std::string getUserName();
+    bool setUserName(std::string newUserName);
     
     const char* KEY_COINS = "KEY_COINS";
     const char* KEY_DIAMONDS = "KEY_DIAMONDS";
     const char* KEY_EXP = "KEY_EXP";
     const char* KEY_M_TURRENT = "KEY_M_TURRENT";
 	const char* KEY_USER_ID = "KEY_USER_ID";
+    const char* KEY_USER_NAME = "KEY_USER_NAME";
 	const char* KEY_LASTSIGNDAY = "KEY_LASTSIGNDAY";
 	const char* KEY_SEQSIGNDAY = "KEY_SEQSIGNDAY";
     const char* KEY_CHARGE_MONEY = "KEY_CHARGE_MONEY";
+    const char* KEY_CHEST_LEVEL = "KEY_CHEST_LEVEL";
 
 	int addCoins(int coins);
 	int getCoins();
@@ -37,14 +40,15 @@ public:
     
     int getMaxTurrentLevel();
 
-
-	///TODO :需要改成addMaxTurrentLevel
     bool setMaxTurrentLevel(int maxTurrentLevel);
 
     int getVipLevel();
     
     bool addChargeMoney(int money);
     int getChargeMoney();
+    
+    int getChestLevel();
+    bool setChestLevel(int chestLevel);
     
     /**
      * return true, level up!! else, return false.

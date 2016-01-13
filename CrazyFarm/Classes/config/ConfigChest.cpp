@@ -27,13 +27,13 @@ bool ConfigChest::LoadConfig() {
 		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
 		if (doc.HasParseError())
 		{
-			log("ConfigSkill get json data err!");
+			log("ConfigChest get json data err!");
 			break;
 		}
 		rapidjson::Value& itemList = doc["item_list"];
 		if (!itemList.IsArray())
 		{
-			log("ConfigSkill The data is not json");
+			log("ConfigChest The data is not json");
 				break;
 		}
 		for (unsigned int i = 0; i < itemList.Size(); ++i) {
@@ -61,7 +61,9 @@ Chest ConfigChest::getChestByItemId(int itemId) {
             return chests[i];
         }
     }
-    return chests[0];
+    Chest chest;
+    chest.chest_level = 0;
+    return chest;
 }
 
 Chest ConfigChest::getChestByLevel(int chestLevel) {
@@ -70,7 +72,9 @@ Chest ConfigChest::getChestByLevel(int chestLevel) {
             return chests[i];
         }
     }
-    return chests[0];
+    Chest chest;
+    chest.chest_level = 0;
+    return chest;
 }
 
 
