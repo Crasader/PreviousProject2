@@ -89,7 +89,7 @@ void PlayerHero::onTouchMoved(Touch *touch, Event  *event){
 			if (selectJong->getPositionY() > JONG_SEL_POS_Y){
 				selectJong->setPosition(ccp(selectJong->getPositionX(), JONG_SEL_POS_Y));
 				//判断当前是否轮到自己出牌
-				if (true){
+				if (nullptr!=currentJong){
 					if (virtualJong == nullptr){
 						virtualJong = Jong::create();
 						virtualJong->setPosition(selectJong->getPosition());
@@ -177,6 +177,7 @@ void PlayerHero::onTouchEnded(Touch *touch, Event  *event){
 void PlayerHero::reArrangeJongs(){
 	//摸什么打什么,不需要重排
 	if (currentJong == selectJong){
+		currentJong = nullptr;
 		return;
 	}
 	Point needMovePos;//摸到的牌的移动位置
@@ -260,10 +261,11 @@ void PlayerHero::reArrangeJongs(){
 	//移动摸到的牌
 	ccBezierConfig bezier; // 创建贝塞尔曲线  
 	bezier.controlPoint_1 = currentJong->getPosition(); // 起始点  
-	bezier.controlPoint_2 = ccp((currentJong->getPositionX() - needMovePos.x)*0.5, JONG_POS_Y + 50); //控制点  
-	bezier.endPosition = ccp(needMovePos.x, needMovePos.y); // 结束位置     
+	bezier.controlPoint_2 = ccp(needMovePos.x+(currentJong->getPositionX() - needMovePos.x)*0.5, JONG_POS_Y + 50); //控制点  
+	bezier.endPosition = ccp(needMovePos.x, needMovePos.y); // 结束位置    
 	BezierTo *actionMove = BezierTo::create(0.5f, bezier);
 	currentJong->runAction(actionMove);
+	currentJong = nullptr;
 }
 
 
