@@ -133,6 +133,26 @@ SystemTime*SystemTime::getToday()
 	return today;
 }
 
+
+int SystemTime::getNowHour()
+{
+	struct tm *ptm;
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	struct timeval now;
+	gettimeofday(&now, NULL);
+	ptm = localtime(&now.tv_sec);
+#endif
+
+#if ( CC_TARGET_PLATFORM == CC_PLATFORM_WIN32||  CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	time_t timep;
+	time(&timep);
+	ptm = localtime(&timep);
+#endif
+
+  
+	return ptm->tm_hour;
+}
 int getDayBymonthandyear(int year, int month)
 {
 	switch (month)

@@ -42,6 +42,10 @@ public:
 	  //AI
 	  void setAIinfo(AI* info);
 	  void doAIthing(float dt);
+	  void stopAI();
+	  //ÆÆ²ú
+	  void onBankrupt();
+	  void onAIResurgenceCallBack(Node* sender, void* data);
 private:
 	Turrent  m_turretdata;
 	  int turretType;
@@ -57,5 +61,6 @@ private:
 	  TurretData turretdata;
 	  Turret* m_turret;
 	  int nChairNoIndex = -1;
+	  int nNowMoney;
 
 };

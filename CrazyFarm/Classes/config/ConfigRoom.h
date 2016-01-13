@@ -30,9 +30,9 @@ private:
 	static ConfigRoom* _instance;
     std::vector<Room> rooms;
     
-    int room1Players;
-    int room2Players;
-    int room3Players;
-    int room4Players;
+    int room1Players = 0;
+    int room2Players = 0;
+    int room3Players = 0;
+    int room4Players = 0;
 };
 

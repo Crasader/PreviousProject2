@@ -273,7 +273,7 @@ void LobbyScene::createRoomLayer()
 	auto visibisize = Director::getInstance()->getVisibleSize();
 
 	auto maxlevl = User::getInstance()->getMaxTurrentLevel();
-	auto k = sortRoomByMaxlevel(300);
+	auto k = sortRoomByMaxlevel(maxlevl);
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
 	addChild(menu);
@@ -285,6 +285,37 @@ void LobbyScene::createRoomLayer()
 		cell->setTag(i+1);
 		cell->setRoomid(k[i].room_id);
 		cell->setPosition(roomPos[i+1]);
+
+
+		//加锁和人数
+		cell->setIslock(false);
+		auto minLevel = cell->getMinEnterLevel();
+		auto userLevel = User::getInstance()->getMaxTurrentLevel();
+		if (userLevel < minLevel)
+		{
+			cell->setIslock(true);
+			cell->setEnabled(false);
+			auto lock = Sprite::create("lock.png");
+			lock->setPosition(cell->getContentSize().width*0.2, cell->getContentSize().height*0.8);
+			cell->addChild(lock);
+		}
+		///设置房间人数
+
+		int nHour = SystemTime::getNowHour();
+		int nPlayerNum = ConfigRoom::getInstance()->getPlayerCounts(nHour, cell->getRoomid());
+		auto sp = Sprite::create("onLinePlayer.png");
+		sp->setPosition(cell->getContentSize().width*0.4, cell->getContentSize().height*0.14);
+		cell->addChild(sp,0,"onLinePlayer");
+		auto label = LabelAtlas::create(Value(nPlayerNum).asString().c_str(), "onLineNum.png", 13, 20, '0');
+		label->setAnchorPoint(Point::ZERO);
+		label->setPosition(sp->getContentSize().width, 3);
+		sp->addChild(label,0,"onLinePlayCount");
+
+
+
+
+
+
 		roomCells.pushBack(cell);
 		menu->addChild(cell);
 
@@ -298,16 +329,19 @@ void LobbyScene::createRoomLayer()
 			cell->setEnabled(false);
 			cell->setScale(0.8);
 			cell->setColor(Color3B(128, 128, 128));
+			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
 			break;
 		case 2:
 			cell->setScale(1);
 			cell->setEnabled(true);
 			cell->setColor(Color3B(255, 255, 255));
+			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(255, 255, 255));
 			break;
 		case 3:
 			cell->setEnabled(false);
 			cell->setScale(0.8);
 			cell->setColor(Color3B(128, 128, 128));
+			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
 			break;
 		default:
 			break;
@@ -316,7 +350,7 @@ void LobbyScene::createRoomLayer()
 		
 
 	}
-	lockTheRoom();
+	//lockTheRoom();
 
 }
 
@@ -426,6 +460,7 @@ void LobbyScene::moveRoomLeft()
 			cell->setScale(0.8);
 			cell->setColor(Color3B(128, 128, 128));
 			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
+			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
 			break;
 		case 2:
 			cell->setScale(1);
@@ -435,12 +470,14 @@ void LobbyScene::moveRoomLeft()
 			}
 			cell->setColor(Color3B(255,255,255));
 			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
+			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(255, 255, 255));
 			break;
 		case 3:
 			cell->setPosition(roomPos[4]);
 			cell->setEnabled(false);
 			cell->setScale(0.8);
 			cell->setColor(Color3B(128, 128, 128));
+			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
 			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
 			break;
 		default:
@@ -472,6 +509,7 @@ void LobbyScene::moveRoomRight()
 			cell->setEnabled(false);
 			cell->setScale(0.8);
 			cell->setColor(Color3B(128, 128, 128));
+			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
 			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
 			break;
 		case 2:
@@ -481,6 +519,7 @@ void LobbyScene::moveRoomRight()
 				cell->setEnabled(true);
 			}
 			cell->setColor(Color3B(255, 255, 255));
+			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(255, 255, 255));
 			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
 			break;
 		case 3:
@@ -488,6 +527,7 @@ void LobbyScene::moveRoomRight()
 			cell->setEnabled(false);
 			cell->setScale(0.8);
 			cell->setColor(Color3B(128, 128, 128));
+			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
 			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
 			break;
 		default:
@@ -511,6 +551,20 @@ void LobbyScene::lockTheRoom()
 			lock->setPosition(cell->getContentSize().width*0.2, cell->getContentSize().height*0.8);
 			cell->addChild(lock);
 		}
+		///设置房间人数
+
+		int nHour= SystemTime::getNowHour();
+		int nPlayerNum = ConfigRoom::getInstance()->getPlayerCounts(nHour, cell->getRoomid());
+		auto sp = Sprite::create("onLinePlayer.png");
+		sp->setPosition(cell->getContentSize().width*0.4, cell->getContentSize().height*0.15);
+		cell->addChild(sp);
+		auto label = LabelAtlas::create(Value(nPlayerNum).asString().c_str(), "onLineNum.png", 13, 20, '0');
+		label->setAnchorPoint(Point::ZERO);
+		label->setPosition(sp->getContentSize().width, 3);
+		sp->addChild(label);
+
+
+
 	}
 }
 

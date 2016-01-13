@@ -6,6 +6,14 @@
 #include "data/GameData.h"
 #include "config/ConfigVipTurrent.h"
 #include "config/ConfigNormalTurrent.h"
+#include "domain/bankrupt/BankruptManager.h"
+
+enum 
+{
+	kTagBankrupt = 20
+};
+
+
 bool PlayerTurret::init(){
 	if (!Sprite::initWithFile("turretBg.png")){
 		return false;
@@ -39,7 +47,7 @@ void PlayerTurret::initTurretWithType(){
 	else
 	{
 		auto var = ConfigVipTurrent::getInstance()->getVipTurrent(User::getInstance()->getVipLevel());
-		turretdata.init(var.vip_turrent_id, var.turrent_ui_id, var.net_per, var.ui_type, var.net_type);
+		turretdata.init(var.vip_turrent_id, var.turrent_ui_id+2, var.net_per, var.ui_type, var.net_type);
 	}
 
 
@@ -111,8 +119,12 @@ void PlayerTurret::shoot(float degree){
 	if (isRobot)
 	{
 		auto num = Value(m_turretdata.multiple).asInt();
-		auto nowNum = Value(m_CoinLabel->getString()).asInt();
-		m_CoinLabel->setString(Value(nowNum-num).asString().c_str());
+		nNowMoney -= num;
+		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
+		if (nNowMoney<=0)
+		{
+			onBankrupt();
+		}
 	}
 	else
 	{
@@ -142,6 +154,12 @@ void PlayerTurret::doAIthing(float dt)
 		
 	}
 }
+void PlayerTurret::stopAI()
+{
+	unschedule(schedule_selector(PlayerTurret::doAIthing));
+}
+
+
 Point coinPos[4] =
 {
 	Vec2(-130, 45),
@@ -177,6 +195,7 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 	spCoinBG->setPosition(coinPos[user->getRoomPosition()]);
 	addChild(spCoinBG, 10, user->getRoomPosition());
 
+	nNowMoney = user->getCoins();
 	m_CoinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "prop_num.png", 19, 23, '0');
 	m_CoinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
 	m_CoinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
@@ -250,4 +269,34 @@ void PlayerTurret::onExit()
 	m_DiamondLabel->removeFromParentAndCleanup(true);
 	m_turret->removeFromParentAndCleanup(true);
 	
+}
+
+
+void PlayerTurret::onBankrupt()
+{
+	if (Value(m_CoinLabel->getString()).asInt()>0)
+	{
+		return;
+	}
+	auto sp = Sprite::create("bankrupt.png");
+	sp->setPosition(getContentSize() / 2);
+	addChild(sp, 10, kTagBankrupt);
+	m_CoinLabel->setString("0");
+	nNowMoney = 0;
+	if (isRobot)
+	{
+		stopAI();
+		auto bankrupt = BankruptManager::getInstance()->getBankrupt();
+		int *k = new int();
+		*k = bankrupt.coins;
+		runAction(Sequence::create(DelayTime::create(bankrupt.wait_time), CallFunc::create(CC_CALLBACK_0(PlayerTurret::onAIResurgenceCallBack,this, this, k)), nullptr));
+	}
+}
+void PlayerTurret::onAIResurgenceCallBack(Node* sender, void* data)
+{
+	setAIinfo(m_aiinfo);
+	auto var = *((int*)data);
+	nNowMoney += var;
+	m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
+	getChildByTag(kTagBankrupt)->removeFromParentAndCleanup(1);
 }

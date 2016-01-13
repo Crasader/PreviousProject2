@@ -85,7 +85,7 @@ int ConfigRoom::getPlayerCounts(int currentHour, int roomId) {
             
             room1Players = int((1+base)*12000) + rand()%4000;
         }else {
-            room1Players = room1Players - (room1Players/20) + rand()%(room1Players/10);
+            room1Players = room1Players - (room1Players/20) + rand()%(room1Players/10+1);
         }
         if(room1Players <= 0) {
             room1Players =  rand()%4000;
@@ -95,7 +95,7 @@ int ConfigRoom::getPlayerCounts(int currentHour, int roomId) {
         if(room2Players == 0) {
             room2Players = int((1+base)*6000) + rand()%4000; //6000-10000
         }else {
-            room2Players = room2Players -(room2Players/20) + rand()%(room2Players/10);
+            room2Players = room2Players -(room2Players/20) + rand()%(room2Players/10+1);
         }
         if(room2Players <= 0) {
             room2Players = rand()%3000;
@@ -105,7 +105,7 @@ int ConfigRoom::getPlayerCounts(int currentHour, int roomId) {
         if(room3Players == 0) {
             room3Players = int((1+base)*4000) + rand()%4000; //4000-8000
         }else {
-            room3Players = (room3Players/20) + rand()%(room3Players/10);
+			room3Players = room3Players-(room3Players / 20) + rand() % (room3Players / 10 +1);
         }
         if(room3Players <= 0) {
             room3Players = rand()%1000;
@@ -115,7 +115,7 @@ int ConfigRoom::getPlayerCounts(int currentHour, int roomId) {
         if(room4Players == 0) {
             room4Players = int((1+base)*500) + rand()%1000; //500-1500
         }else {
-            room4Players = (room4Players/20) + rand()%(room4Players/10);
+			room4Players = room4Players-(room4Players / 20) + rand() % (room4Players / 10 + 1);
         }
         if(room4Players <= 0) {
             room4Players =  rand()%100;

@@ -336,6 +336,9 @@
     <ClCompile Include="..\Classes\config\ConfigBankrupt.cpp">
       <Filter>src\Interface</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\bankrupt\BankruptManager.cpp">
+      <Filter>src\mannager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -583,6 +586,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigBankrupt.h">
       <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\bankrupt\BankruptManager.h">
+      <Filter>src\mannager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
