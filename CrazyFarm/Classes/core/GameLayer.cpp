@@ -10,6 +10,7 @@
 #include "config/ConfigRoom.h"
 #include "fish/FishArrangeOne.h"
 #include "domain/skill/skillManager.h"
+
 #define kTagBaseturret 10
 
 
@@ -44,8 +45,8 @@ bool GameLayer::init(){
 
 
 
-
-	
+	GameData::getInstance()->setShotCount(0);
+	GameData::getInstance()->setevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
 	return true;
 }
 
@@ -134,6 +135,7 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
 	float degree = getTurretRotation(myTurret->getPosition(), touch->getLocation());
 	rotateTurret(degree, myTurret);
+	GameData::getInstance()->setShotCount(1+(GameData::getInstance()->getShotCount()));
 	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([&]{
 		CCLOG("turret rotate%f", myTurret->getRarote());
 		myTurret->shoot(myTurret->getRarote()); 
@@ -228,6 +230,8 @@ void GameLayer::AiUpdata(float dt)
 
 void GameLayer::collisionUpdate(float dt)
 {
+
+
 
 	//TODO 碰撞逻辑
 	//step1 获取子弹列表

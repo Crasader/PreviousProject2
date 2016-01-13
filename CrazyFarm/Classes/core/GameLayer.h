@@ -6,7 +6,7 @@
 #include "turret/PlayerTurret.h"
 #include "net/Net.h"
 #include "RoomManager.h"
-
+#include "domain/magnate/MagnateManager.h"
 USING_NS_CC;
 
 class GameLayer: public cocos2d::Layer{
@@ -38,6 +38,7 @@ private:
 	Vector<PlayerTurret*> otherTurrets;
 	std::vector<RoomPlayer> players;
 	int m_index = -1;
+	
 	
 };
 #endif

@@ -1,5 +1,6 @@
 #include "net/Net.h"
 #include "utill/FunUtil.h"
+#include "data/GameData.h"
 bool Net::init(){
 	if (!Sprite::init()){
 		return false;
@@ -39,6 +40,7 @@ void Net::checkCatchFish(Bullet*bullet){
 			
 		}
 	}
+
 	bullet->getCoinForFish(fishNeedRemove);
 	for (Fish* fish : fishNeedRemove){
 		FishManage::getInstance()->removeFish(fish);
