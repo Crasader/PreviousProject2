@@ -63,6 +63,7 @@ Chest ConfigChest::getChestByItemId(int itemId) {
     }
     Chest chest;
     chest.chest_level = 0;
+    chest.catch_per = 1;
     return chest;
 }
 
@@ -74,6 +75,7 @@ Chest ConfigChest::getChestByLevel(int chestLevel) {
     }
     Chest chest;
     chest.chest_level = 0;
+    chest.catch_per = 1;
     return chest;
 }
 
