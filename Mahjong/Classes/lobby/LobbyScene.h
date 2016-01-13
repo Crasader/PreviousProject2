@@ -2,6 +2,7 @@
 #define __LOBBY_SCENE_H__
 #include "cocos2d.h"
 #include "socket/ODSocket.h"
+#include "utils/PositionInfoUtil.h"
 USING_NS_CC;
 
 

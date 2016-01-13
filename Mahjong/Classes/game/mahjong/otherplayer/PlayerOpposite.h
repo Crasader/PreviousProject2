@@ -2,13 +2,13 @@
 #define __PLAYER_OPPOSSITE__
 #include "cocos2d.h"
 #include "game/playerinfo/PlayerInfo.h"
+#include "game/mahjong/otherplayer/PlayerSprite.h"
 USING_NS_CC;
 
-class PlayerOpposite : public Sprite{
+class PlayerOpposite : public PlayerSprite{
 
 public:
 	virtual bool init();
-	void drawHeadPortrait(PlayerInfo* playerInfo);
 	CREATE_FUNC(PlayerOpposite);
 };
 #endif 

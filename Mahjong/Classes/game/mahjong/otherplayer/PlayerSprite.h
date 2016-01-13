@@ -13,5 +13,9 @@ public:
 	CREATE_FUNC(PlayerSprite);
 private:
 	Sprite* head_bg;
+	Label* nickName;
+	Sprite* headimage;
+	Sprite* diamond;
+	LabelAtlas* diamondNum;
 };
 #endif

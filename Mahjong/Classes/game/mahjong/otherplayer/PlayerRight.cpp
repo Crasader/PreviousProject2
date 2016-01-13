@@ -7,15 +7,8 @@ bool PlayerRight::init(){
 	}
 	//头像的绘制
 	PlayerInfo* head = new PlayerInfo();
-	drawHeadPortrait(head);
+	this->drawHeadPortrait(head);
+	this->setHeadPostion(ccp(910, 360));
 	return true;
 }
 
-
-//绘制玩家的头像
-void PlayerRight::drawHeadPortrait(PlayerInfo* headPortrait){
-	//绘制背景
-	Sprite* head_bg = Sprite::create("gamemj/head_bg.png");
-	head_bg->setPosition(ccp(910, 360));
-	this->addChild(head_bg);
-}

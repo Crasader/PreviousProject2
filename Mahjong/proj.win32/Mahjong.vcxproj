@@ -152,6 +152,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\socket\ODSocket.cpp" />
     <ClCompile Include="..\Classes\socket\stdafx.cpp" />
     <ClCompile Include="..\Classes\splash\SplashScene.cpp" />
+    <ClCompile Include="..\Classes\utils\PositionInfoUtil.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\socket\targetver.h" />
     <ClInclude Include="..\Classes\socket\tchar.h" />
     <ClInclude Include="..\Classes\splash\SplashScene.h" />
+    <ClInclude Include="..\Classes\utils\PositionInfoUtil.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
