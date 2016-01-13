@@ -24,7 +24,7 @@ private:
     void init();
     static MomentManager* _instance;
     
-    std::map<int, MomentOrder> momentOrders;
+    std::vector<MomentOrderItem> momentOrderItems;
     int currentPos = 0;
     
     Moment* getNewMomentByType(int momentType);

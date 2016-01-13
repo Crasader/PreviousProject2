@@ -12,7 +12,7 @@ ConfigMomentOrder* ConfigMomentOrder::getInstance(){
 	return _instance;
 }
 
-std::map<int, MomentOrder> ConfigMomentOrder::LoadConfig() {
+std::vector<MomentOrderItem> ConfigMomentOrder::LoadConfig() {
     
 	bool bRet = false;
 	while (!bRet) {
@@ -37,18 +37,23 @@ std::map<int, MomentOrder> ConfigMomentOrder::LoadConfig() {
 			log("ConfigMomentOrder The data is not json");
 				break;
 		}
-		for (unsigned int i = 0; i < itemList.Size(); ++i) {
-
-			const rapidjson::Value &val = itemList[i];
+		for (unsigned int i = 0; i < itemList.Size(); i++) {
+            MomentOrderItem momentOrderItem;
+			const rapidjson::Value &orderItem = itemList[i];
             
-			MomentOrder momentOrder;
-			momentOrder.moment_id	= val["moment_id"].GetInt();
+            for (unsigned int j = 0; j < orderItem.Size(); j++) {
+                const rapidjson::Value &val = orderItem[j];
+                MomentOrderBaseItem momentOrderBaseItem;
+                momentOrderBaseItem.moment_id = val["moment_id"].GetInt();
+                momentOrderBaseItem.per = val["per"].GetInt();
+                momentOrderItem.momentOrderBaseItems.push_back(momentOrderBaseItem);
+            }
+            momentOrderItems.push_back(momentOrderItem);
             
-			momentOrders[i] = momentOrder;
 		}
 		
-		return momentOrders;
+		return momentOrderItems;
 	}
-    return momentOrders;
+    return momentOrderItems;
 }
 
