@@ -145,6 +145,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerLeft.cpp" />
     <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerOpposite.cpp" />
     <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerRight.cpp" />
+    <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerSprite.cpp" />
     <ClCompile Include="..\Classes\game\mahjong\PlayerHero.cpp" />
     <ClCompile Include="..\Classes\game\playerinfo\PlayerInfo.cpp" />
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp" />
@@ -162,6 +163,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerLeft.h" />
     <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerOpposite.h" />
     <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerRight.h" />
+    <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerSprite.h" />
     <ClInclude Include="..\Classes\game\mahjong\PlayerHero.h" />
     <ClInclude Include="..\Classes\game\playerinfo\PlayerInfo.h" />
     <ClInclude Include="..\Classes\lobby\LobbyScene.h" />

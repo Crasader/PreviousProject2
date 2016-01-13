@@ -55,6 +55,7 @@ void MahjongView::drawPlayerHero(){
 //绘制左手边的玩家
 void MahjongView::drawPlayerLeft(){
 	PlayerLeft* playerLeft = PlayerLeft::create();
+	playerLeft->setHeadPostion(ccp(50,360));
 	this->addChild(playerLeft);
 }
 
