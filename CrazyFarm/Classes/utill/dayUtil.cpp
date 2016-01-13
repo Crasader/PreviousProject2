@@ -111,7 +111,7 @@ SystemTime*SystemTime::getToday()
 {
 	struct tm *ptm;
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	struct timeval now;
 	gettimeofday(&now, NULL);
 	ptm = localtime(&now.tv_sec);
@@ -138,13 +138,13 @@ int SystemTime::getNowHour()
 {
 	struct tm *ptm;
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	struct timeval now;
 	gettimeofday(&now, NULL);
 	ptm = localtime(&now.tv_sec);
 #endif
 
-#if ( CC_TARGET_PLATFORM == CC_PLATFORM_WIN32||  CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#if ( CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	time_t timep;
 	time(&timep);
 	ptm = localtime(&timep);
