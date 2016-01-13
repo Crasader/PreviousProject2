@@ -10,6 +10,7 @@
 #include "config/ConfigNormalTurrent.h"
 #include "config/ConfigSkill.h"
 #include "config/ConfigBankrupt.h"
+#include "config/ConfigOnemoment.h"
 
 ConfigManager* ConfigManager::_instance = NULL;
 
@@ -37,6 +38,8 @@ void ConfigManager::LoadConfig() {
     ConfigNormalTurrent::getInstance()->LoadConfig();
     ConfigSkill::getInstance()->LoadConfig();
     ConfigBankrupt::getInstance()->LoadConfig();
+    
+    ConfigOnemoment::getInstance()->LoadConfig();
     
 }
 
