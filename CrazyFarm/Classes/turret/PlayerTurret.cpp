@@ -25,6 +25,7 @@ bool PlayerTurret::init(){
 	nCurLevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	nCurLevel->setPosition(levelBg->getContentSize() / 2);
 	levelBg->addChild(nCurLevel);
+	scheduleUpdate();
 	return true;
 }
 void PlayerTurret::setUpgradeButton()
@@ -57,7 +58,22 @@ void PlayerTurret::initTurretWithType(){
 	m_turret->setPosition(getContentSize().width/2,getContentSize().height*0.6);
 	addChild(m_turret);
 }
+void PlayerTurret::update(float delta)
+{
+	if (isRobot)
+	{
 
+	}
+	else
+	{
+		auto num = User::getInstance()->getCoins();
+		m_CoinLabel->setString(Value(num).asString().c_str());
+		num = User::getInstance()->getDiamonds();
+		m_DiamondLabel->setString(Value(num).asString().c_str());
+	}
+
+
+}
 void PlayerTurret::initTurretWithTypeForRobot(){
 	//auto viplevel = rand() % 4;
 	//if (viplevel == 0)

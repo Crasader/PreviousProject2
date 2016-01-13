@@ -366,6 +366,9 @@
     <ClCompile Include="..\Classes\widget\MyMenuItemUpgrade.cpp">
       <Filter>src\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -640,6 +643,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\widget\MyMenuItemUpgrade.h">
       <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h">
+      <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
