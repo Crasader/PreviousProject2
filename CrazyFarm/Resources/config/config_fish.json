@@ -371,7 +371,7 @@
 			"baseReward"	:	1000,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	30,
+			"ui_id"			:	40,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
 			"be_hit_logic"	: 0
@@ -384,7 +384,7 @@
 			"baseReward"	:	1000,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	30,
+			"ui_id"			:	41,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
 			"be_hit_logic"	: 0
@@ -397,7 +397,7 @@
 			"baseReward"	:	1000,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	30,
+			"ui_id"			:	42,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
 			"be_hit_logic"	: 0
@@ -410,7 +410,7 @@
 			"baseReward"	:	1000,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	30,
+			"ui_id"			:	43,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
 			"be_hit_logic"	: 0
@@ -423,7 +423,7 @@
 			"baseReward"	:	1000,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	30,
+			"ui_id"			:	44,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
 			"be_hit_logic"	: 0
@@ -436,7 +436,7 @@
 			"baseReward"	:	1000,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
-			"ui_id"			:	30,
+			"ui_id"			:	45,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
 			"be_hit_logic"	: 0
