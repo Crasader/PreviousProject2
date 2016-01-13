@@ -4,7 +4,7 @@
 	"life_time" : 	10,
 	"item_list"	:	[
 		{
-			"fishgroup_id"		:	1,
+			"fishgroup_id"		:	101,
 			"start_time"		:	0,
 			"end_time"			:	5,
 			"start_position_x"	:	960,
@@ -17,7 +17,7 @@
 			}
 		},
 		{
-			"fishgroup_id"		:	1,
+			"fishgroup_id"		:	101,
 			"start_time"		:	1.0,
 			"end_time"			:	6,
 			"start_position_x"	:	960,
@@ -30,7 +30,7 @@
 			}
 		},
 		{
-			"fishgroup_id"		:	1,
+			"fishgroup_id"		:	101,
 			"start_time"		:	2.0,
 			"end_time"			:	7,
 			"start_position_x"	:	0,
@@ -43,7 +43,7 @@
 			}
 		},
 		{
-			"fishgroup_id"		:	1,
+			"fishgroup_id"		:	101,
 			"start_time"		:	3.0,
 			"end_time"			:	8,
 			"start_position_x"	:	0,
@@ -56,7 +56,7 @@
 			}
 		},
 		{
-			"fishgroup_id"		:	1,
+			"fishgroup_id"		:	101,
 			"start_time"		:	0,
 			"end_time"			:	5,
 			"start_position_x"	:	540,
@@ -69,7 +69,7 @@
 			}
 		},
 		{
-			"fishgroup_id"		:	1,
+			"fishgroup_id"		:	101,
 			"start_time"		:	0,
 			"end_time"			:	5,
 			"start_position_x"	:	0,

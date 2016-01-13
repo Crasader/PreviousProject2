@@ -7,24 +7,15 @@ bool Net::init(){
 	return true;
 }
 
-void Net::initNetByType(int type){
-	/*this->initWithSpriteFrameName(getFrameNameByType(type));*/
-	initWithFile("netFrame.png");
+void Net::initNetByType(int ui_type, int net_type){
+	
+	initWithFile(getFrameNameByType(ui_type,net_type));
 	schedule(schedule_selector(Net::destroySelf),0,0,1);
 }
 
-std::string Net::getFrameNameByType(int type){
-	switch (type)
-	{
-	case NET_TYPE_0:
-		return "net0.png";
-	case NET_TYPE_1:
-		return "net1.png";
-	case NET_TYPE_2:
-		return "net2.png";
-	default:
-		return "net0.png";
-	}
+std::string Net::getFrameNameByType(int ui_type, int net_type){
+	auto str = String::createWithFormat("gamelayer/bulletAndNet/net_%d_%d.png", ui_type, net_type);
+	return str->getCString();
 }
 
 

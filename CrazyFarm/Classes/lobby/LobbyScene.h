@@ -31,7 +31,7 @@ public:
 
 	
     CREATE_FUNC(LobbyScene);
-
+void guizuCallback(Ref*psend);
 	void refreshCoinLabel();
 	void onHttpRequestCompleted(HttpClient *sender, HttpResponse *response);
 private:
@@ -52,7 +52,7 @@ private:
 	void beginGameCallback(Ref*psend);
 	void bagButtonCallback(Ref*psend);
 	void changeRewardCallback(Ref*psend);
-	void guizuCallback(Ref*psend);
+	
 
 private:
 	LabelTTF* userdiamond;

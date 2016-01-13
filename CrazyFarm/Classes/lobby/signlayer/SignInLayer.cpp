@@ -5,6 +5,7 @@
 #include "SignCell.h"
 #include "SpliceCell.h"
 #include "User.h"
+#include "lobby/LobbyScene.h"
 bool SignInLayer::init(int seqday)
 {
 	if (!Layer::init()){
@@ -95,7 +96,7 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 	}
 	UserDefault::getInstance()->setIntegerForKey(KEY_SEQSIGNDAY, nSeqSignDay + 1);
 	UserDefault::getInstance()->setStringForKey(KEY_LASTSIGNDAY,ConfigSign::getInstance()->getToday());
-
+	((LobbyScene*)getParent())->guizuCallback(nullptr);
 	this->removeFromParentAndCleanup(1);
 }
 

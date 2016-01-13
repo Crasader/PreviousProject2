@@ -121,8 +121,7 @@ void PlayerTurret::shoot(float degree){
 	{
 		degree = 180+degree;
 	}
-	const int dd = 20;
-	auto bullet = BulletManage::getInstance()->createBullet(1, 90);
+	auto bullet = BulletManage::getInstance()->createBullet(turretdata.ui_type,turretdata.net_type, 90);
 	bullet->setRotation(degree);
 	auto pos = m_turret->getTampionPos();
 	bullet->setPosition(/*this->getPosition()*/m_turret->getTampionPos());
@@ -132,7 +131,7 @@ void PlayerTurret::shoot(float degree){
 
 	//¿ª»ð¶¯»­
 	auto aniNode = Sprite::create();
-	aniNode->setPosition(m_turret->getContentSize().width/2,m_turret->getContentSize().height*1.2);
+	aniNode->setPosition(m_turret->getContentSize().width/2,m_turret->getContentSize().height*1.1);
 	m_turret->addChild(aniNode, 5);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"),RemoveSelf::create(1),nullptr));
 
@@ -322,4 +321,12 @@ void PlayerTurret::onAIResurgenceCallBack(Node* sender, void* data)
 	nNowMoney += var;
 	m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
 	getChildByTag(kTagBankrupt)->removeFromParentAndCleanup(1);
+}
+
+
+
+std::string PlayerTurret::getNetImgPath(int ui_type, int net_type)
+{
+	auto str = String::createWithFormat("bulletAndNet/net_%d_%d", ui_type, net_type);
+	return str->getCString();
 }

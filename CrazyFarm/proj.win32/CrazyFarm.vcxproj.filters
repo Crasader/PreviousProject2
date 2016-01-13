@@ -339,6 +339,15 @@
     <ClCompile Include="..\Classes\domain\bankrupt\BankruptManager.cpp">
       <Filter>src\mannager</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\fish\FishArrangeOne.cpp">
+      <Filter>src\fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\fish\FishArrangeTwo.cpp">
+      <Filter>src\fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utill\MagicEffect.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -589,6 +598,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\bankrupt\BankruptManager.h">
       <Filter>src\mannager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\fish\FishArrangeOne.h">
+      <Filter>src\fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\fish\FishArrangeTwo.h">
+      <Filter>src\fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\MagicEffect.h">
+      <Filter>src\utill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -31,7 +31,7 @@ class Fish :public Sprite{
 public:
 	virtual bool init();
 	CREATE_FUNC(Fish);
-	void initFish(int fishType);
+	virtual void initFish(int fishType);
 	void move(int moveType);
 	void setRoute(int routeTag);
 	Sprite* getRectSprite();
@@ -40,7 +40,7 @@ public:
     int getFishType();
 	int getFishExperience(){ return experience; };
 
-private:
+protected:
 	void update(float);
 	float grabProbability;
 	int speed;//鱼的移动速度

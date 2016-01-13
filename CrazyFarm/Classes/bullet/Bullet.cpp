@@ -8,11 +8,12 @@ bool Bullet::init(){
 	return true;
 }
 
-void Bullet::initBullet(int bulletType, float rotation){
-	this->bulletType = bulletType;
+void Bullet::initBullet(int ui_type, int net_type, float rotation){
 	this->bulletRotation = rotation;
-	this->bulletSpeed = getSpeedByType(bulletType);
-	initBulletFrame(getSrcByType(bulletType));
+	this->bulletSpeed = getSpeedByType(1);
+	m_ui_type = ui_type;
+	m_net_type = net_type;
+	initWithFile(getSrcByType(ui_type,net_type));
 	scheduleUpdate();
 }
 
@@ -20,36 +21,13 @@ int Bullet::getType(){
 	return bulletType;
 }
 
-string Bullet::getSrcByType(int type){
+string Bullet::getSrcByType(int ui_type, int net_type){
 	
-	switch (type)
-	{
-	case BULLETTYPE_1:
-		return "bullet02_";
-	case BULLETTYPE_2:
-		return "bullet02_";
-	case BULLETTYPE_3:
-		return "bullet02_";
-	case BULLETTYPE_4:
-		return "bullet02_";
-	case BULLETTYPE_5:
-		return "bullet03_";
-	case BULLETTYPE_6:
-		return "bullet12_";
-	case BULLETTYPE_7:
-		return "bullet13_";
-	case BULLETTYPE_8:
-		return "bullet14_";
-	default:
-		return "bullet02_";;
-	}
+	auto str = String::createWithFormat("gamelayer/bulletAndNet/bullet_%d_%d.png", ui_type, net_type);
+	return str->getCString();
 
 }
 
-void Bullet::initBulletFrame(string name){
-	/*this->initWithSpriteFrameName(name + "01.png");*/
-	initWithFile("bullet1.png");
-}
 
 
 int Bullet::getSpeedByType(int type){
@@ -75,7 +53,7 @@ int Bullet::getSpeedByType(int type){
 		return 300;
 	}
 }
-bool test = true;
+
 void Bullet::update(float dt){
 	//×Óµ¯ÔË¶¯
 	Point nextPos = getNextPostion(getPosition(), bulletSpeed*dt, this->getRotation());

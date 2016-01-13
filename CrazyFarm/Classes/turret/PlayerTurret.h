@@ -47,6 +47,7 @@ public:
 	  //ÆÆ²ú
 	  void onBankrupt();
 	  void onAIResurgenceCallBack(Node* sender, void* data);
+	  std::string getNetImgPath(int ui_type, int net_type);
 private:
 	Turrent  m_turretdata;
 	  int turretType;

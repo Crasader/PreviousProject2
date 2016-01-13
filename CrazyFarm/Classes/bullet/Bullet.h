@@ -19,21 +19,24 @@ class Bullet:public Sprite{
 public:
 	virtual bool init();
 	CREATE_FUNC(Bullet);
-	void initBullet(int bulletType,float rotation);
+	void initBullet(int ui_type, int net_type, float rotation);
 	int getType();
 	CC_SYNTHESIZE(PlayerTurret*, pPlayerTurret, PlayerTurret);
 	void getCoinForFish(Vector<Fish*> fishs);
-
+	int getUitype(){ return m_ui_type; };
+	int getNetType(){ return m_net_type; };
 private:
 	int bulletSpeed;
 	int bulletType;
 	int bulletRotation;
-	string getSrcByType(int type);
+	int m_ui_type; 
+	int m_net_type;
+
+	string getSrcByType(int ui_type, int net_type);
 	int getSpeedByType(int type);
 	void update(float);
 	bool checkHeightBorder(float y);//y边界检查
 	bool checkWidthBorder(float x);//x边界检查
-	void initBulletFrame(string name);//子弹帧动画
 	Point getNextPostion(Point pos, float speed, float degree);
 };
 #endif

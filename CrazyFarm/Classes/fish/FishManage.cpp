@@ -1,6 +1,8 @@
 #include "fish/FishManage.h"
 #include "fish/FishGroupData.h"
 #include "utill/FunUtil.h"
+#include "fish/FishArrangeOne.h"
+#include "fish/FishArrangeTwo.h"
 FishManage* FishManage::_instance = 0;
 
 FishManage* FishManage::getInstance(){
@@ -48,6 +50,25 @@ Fish* FishManage::createFishSingle(int type){
 	auto fish = Fish::create();
 	fish->initFish(type);
 	fishPool.pushBack(fish);	
+	fish->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	return fish;
+}
+Fish* FishManage::createFishArrange(int type){
+	Fish* fish ;
+	switch (type)
+	{
+	case 101:
+		fish = FishArrangeOne::create();
+		break;
+	case 102:
+		fish = FishArrangeTwo::create();
+		break;
+	default:
+		break;
+	}
+	
+	fish->initFish(type);
+	fishPool.pushBack(fish);
 	fish->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	return fish;
 }
@@ -168,6 +189,7 @@ void FishManage::UpdateWhenController(float dt)
 
 void FishManage::createFishByOneMonet(OneMoment onemonent) {
 
+
     if(onemonent.fishgroup_id < 100) {  // single fish
         switch (onemonent.move_type) {
             case 1: {
@@ -197,5 +219,14 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
                 break;
         }
     }
+	else
+	{
+		auto fish = createFishArrange(onemonent.fishgroup_id);
+		auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width);
+		fish->setPosition(startPos.x , startPos.y);
+		auto endpos = CalculateDiffMarginPos(Vec2(onemonent.end_position_x, onemonent.end_position_y), fish->getContentSize().width + 150);
+		fish->runAction(Sequence::create(MoveTo::create(onemonent.end_time - onemonent.start_time + 5, Vec2(endpos.x , endpos.y)), nullptr));
+		m_layer->addChild(fish);
+	}
 	
 }

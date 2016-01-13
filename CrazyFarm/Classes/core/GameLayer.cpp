@@ -8,7 +8,7 @@
 #include "fish/FishGroupData.h"
 #include "data/GameData.h"
 #include "config/ConfigRoom.h"
-
+#include "fish/FishArrangeOne.h"
 #define kTagBaseturret 10
 
 
@@ -39,11 +39,11 @@ bool GameLayer::init(){
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
 	loadNewMonent();
-	////test
-	//auto fish = Sprite::create("16_02.png");
+	//test
+	//auto fish = FishManage::getInstance()->createFishArrange(101);
 	//fish->setPosition(480, 240);
 	//addChild(fish);
-	//fish->runAction(CircleMoveTo::create(10, Vec2(200, 200), 0.0f, 1800));
+
 
 
 	
@@ -121,14 +121,6 @@ void GameLayer::createTurret(){
 
 
 
-void GameLayer::shoot(float degree, PlayerTurret* turret){
-	//添加一颗子弹用于测试
-	auto bullet = BulletManage::getInstance()->createBullet(rand()%8, 90);
-	bullet->setRotation(degree);
-	bullet->setPosition(turret->getPosition());
-	this->addChild(bullet);
-}
-
 
 void GameLayer::addTouchEvent(){
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -200,7 +192,7 @@ void GameLayer::update(float dt){
 void GameLayer::createNet(Bullet *bullet){
 	Net* fishNet = Net::create();
 	fishNet->setPosition(bullet->getPosition());
-	fishNet->initNetByType(bullet->getType());
+	fishNet->initNetByType(bullet->getUitype(),bullet->getNetType());
 	this->addChild(fishNet, 3);
 	fishNet->checkCatchFish(bullet);
 }
