@@ -79,7 +79,8 @@ void MahjongView::dealJongs(){
 	this->addChild(dealJongAnim);
 }
 
-//ÁÄÌì°´Å¥
+//
+Sprite* test;
 void MahjongView::chatButton(){
 
 }
