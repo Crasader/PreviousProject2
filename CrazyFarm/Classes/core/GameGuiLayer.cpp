@@ -8,6 +8,7 @@
 #include "User.h"
 #include "domain/skill/SkillFreezeButton.h"
 #include "domain/skill/SkillSummonButton.h"
+#include "widget/MyMenuItemUpgrade.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
@@ -50,14 +51,14 @@ bool GameGuiLayer::init(){
 	addChild(menu,10);
 	
 	Audio::getInstance()->playBGM(BACKGORUNDMUSIC);
-	auto  buttonPlay = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
+	/*auto  buttonPlay = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
 	buttonPlay->setPosition(visibleSize.width, visibleSize.height*0.60);
 	buttonPlay->setTag(kTagUpgradeTurret);
 	menu->addChild(buttonPlay);
 	auto sprbg = Sprite::create("UpgradeButton.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	sprbg->setPosition(buttonPlay->getContentSize().width *0.3, buttonPlay->getContentSize().height*0.52);
-	buttonPlay->addChild(sprbg);
+	buttonPlay->addChild(sprbg);*/
 
 	auto  buttonPlay1 = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
 	buttonPlay1->setPosition(visibleSize.width, visibleSize.height*0.40);
@@ -69,8 +70,9 @@ bool GameGuiLayer::init(){
 	buttonPlay1->addChild(sprbg1);
 
 	
-
-
+	auto sUpgradeTurret = MyMenuItemUpgrade::create();
+	sUpgradeTurret->setPosition(visibleSize.width, visibleSize.height*0.60);
+	menu->addChild(sUpgradeTurret);
 
 
 
@@ -135,6 +137,25 @@ void GameGuiLayer::showRandonBubbleAni()
 }
 
 
+void GameGuiLayer::createUpgradeTurret()
+{
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	auto sp = Sprite::create("UpgradeButton.png");
+	sp->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	sp->setPosition(visibleSize.width, visibleSize.height*0.60);
+	addChild(sp);
+
+
+
+	auto menuset = Menu::create();
+	menuset->setPosition(Point::ZERO);
+	addChild(menuset);
+	
+	UpgradeTurret = MenuItemImage::create("UnlockFrame_1.png", "UnlockFrame_2.png", CC_CALLBACK_1(GameGuiLayer::showUpgradeTurretgCallback, this));
+	UpgradeTurret->setPosition(visibleSize.width, visibleSize.height *0.60);
+	menuset->addChild(UpgradeTurret);
+}
+
 void GameGuiLayer::createSettingBoard()
 {
 	auto menuset = Menu::create();
@@ -150,7 +171,7 @@ void GameGuiLayer::createSettingBoard()
 	
 
 	auto exitButton = MenuItemImage::create("exit_1.png", "exit_1.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
-	exitButton->setPosition(50,65);
+	exitButton->setPosition(50, 65);
 	menu->addChild(exitButton);
 
 	auto settingButton = MenuItemImage::create("setting_button1.png", "setting_button1.png", CC_CALLBACK_1(GameGuiLayer::settingCallback, this));
@@ -160,11 +181,12 @@ void GameGuiLayer::createSettingBoard()
 	auto showFishButton = MenuItemImage::create("fish_button1.png", "fish_button1.png", CC_CALLBACK_1(GameGuiLayer::showFishCallback, this));
 	showFishButton->setPosition(178, 65);
 	menu->addChild(showFishButton);
-	
-	
+
+
 
 
 }
+
 void GameGuiLayer::onExit()
 {
 	Layer::onExit();
@@ -190,4 +212,17 @@ void GameGuiLayer::showSettingCallback(Ref*pSender)
 			setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }),nullptr));
 		}
 	}),nullptr));
+}
+
+void GameGuiLayer::showUpgradeTurretgCallback(Ref*pSender)
+{
+	setttingBoard->setEnabled(false);
+	setttingBoard->runAction(MoveBy::create(0.2, Vec2(0, -70)));
+	setttingBoard->runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]
+	{
+		if (setttingBoard->isEnabled() == false)
+		{
+			setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
+		}
+	}), nullptr));
 }

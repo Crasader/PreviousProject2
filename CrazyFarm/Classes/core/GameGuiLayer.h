@@ -27,8 +27,11 @@ private :
 	void showFishCallback(Ref *pSender);
 	void showSettingCallback(Ref*pSender);
 	void createSettingBoard();
+	void showUpgradeTurretgCallback(Ref*pSender);
+	void createUpgradeTurret();
 	virtual void onExit();
 	MenuItemImage* setttingBoard;
+	MenuItemImage* UpgradeTurret;
 	 
 };
 #endif

@@ -11,7 +11,7 @@ public:
 	static skillManager* getInstance();
     
     
-	SkillConfigInfo skillManager::getSkillInfoByID(int skillid);
+	SkillConfigInfo getSkillInfoByID(int skillid);
 	int getSKillNumById(int skillid);
 
 	void useSkillFreeze();
