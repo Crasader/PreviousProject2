@@ -24,8 +24,15 @@ public:
 	std::vector<Room> getRooms();
 	Room getRoombyId(int nId);
     
+    int getPlayerCounts(int currentHour, int roomId);
+    
 private:
 	static ConfigRoom* _instance;
     std::vector<Room> rooms;
+    
+    int room1Players;
+    int room2Players;
+    int room3Players;
+    int room4Players;
 };
 
