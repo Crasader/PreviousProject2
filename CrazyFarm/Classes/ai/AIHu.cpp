@@ -1,4 +1,5 @@
 #include "ai/AIHu.h"
+#include "AIManager.h"
 
 PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
     
@@ -6,6 +7,12 @@ PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
     PlayerWork playerWork;
     
     playerWork.setTurrentLevel(this->getMaxTurrentLevel());
+    
+    if(! AIManager::getInstance()->allowAiFire()) {
+        playerWork.setAngle((float)angle);
+        playerWork.setFire(false);
+        return playerWork;
+    }
     
 	if (FishManage::getInstance()->getAllFishInPoolCount() < 2) {
 		playerWork.setAngle((float)angle);
