@@ -1,9 +1,17 @@
 #include "ai/AIMolo.h"
+#include "AIManager.h"
 
 PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion) {
     PlayerWork playerWork;
 //    int turrentLevel = rand()%this->getMaxTurrentLevel();
 //    playerWork.setTurrentLevel(turrentLevel);
+    
+    if(! AIManager::getInstance()->allowAiFire()) {
+        playerWork.setAngle((float)angle);
+        playerWork.setFire(false);
+        lastFire = false;
+        return playerWork;
+    }
     
     if(FishManage::getInstance()->getAllFishInPoolCount() < 2) {
         playerWork.setAngle((float)angle);

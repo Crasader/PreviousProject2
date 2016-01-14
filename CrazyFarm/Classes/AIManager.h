@@ -14,12 +14,15 @@ public:
     
     AI* getAI(int maxTurrentLevel);
     
+    bool allowAiFire();
+    void setAiFire(bool allow);
     
 private:
     AIManager();
     void init();
     static AIManager* _instance;
     
+    bool aiFire = true;
 };
 
 #endif

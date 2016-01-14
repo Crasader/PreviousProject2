@@ -45,4 +45,12 @@ AI* AIManager::getAI( int maxTurrentLevel) {
     
 }
 
+bool AIManager::allowAiFire() {
+    return aiFire;
+}
+
+void AIManager::setAiFire(bool allow) {
+     aiFire = allow;
+}
+
 
