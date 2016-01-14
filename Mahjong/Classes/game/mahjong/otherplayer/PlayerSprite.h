@@ -7,9 +7,14 @@ USING_NS_CC;
 
 class PlayerSprite:public Sprite{
 public:
+	const int jongNum = 13;
+
 	virtual bool init();
+
 	void drawHeadPortrait(PlayerInfo* playerInfo);
+
 	void setHeadPostion(Point pos);
+
 	CREATE_FUNC(PlayerSprite);
 private:
 	Sprite* head_bg;

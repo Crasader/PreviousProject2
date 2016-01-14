@@ -25,8 +25,6 @@ bool MahjongView::init(){
 
 	//添加自定义事件的监听
 	addCoustomListener();
-	//测试方法
-	testButton();
 	return true;
 }
 
@@ -63,6 +61,7 @@ void MahjongView::drawPlayerLeft(){
 //绘制右手边的玩家
 void MahjongView::drawPlayerRight(){
 	PlayerRight* playerRight = PlayerRight::create();
+	playerRight->setHeadPostion(ccp(910, 360));
 	this->addChild(playerRight);
 
 }
@@ -71,6 +70,7 @@ void MahjongView::drawPlayerRight(){
 //绘制对面的玩家
 void MahjongView::drawPlayerOpposite(){
 	PlayerOpposite* playerOpposite = PlayerOpposite::create();
+	playerOpposite->setHeadPostion(ccp(285, 460));
 	this->addChild(playerOpposite);
 
 }

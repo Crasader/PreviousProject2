@@ -8,7 +8,20 @@ USING_NS_CC;
 class PlayerRight : public PlayerSprite{
 
 public:
+
 	virtual bool init();
+
 	CREATE_FUNC(PlayerRight);
+
+private:
+
+	const int RIGHT_POS_X = 820;
+
+	const int RIGHT_POS_Y = 475;
+
+	void drawHandJong();//绘制玩家的手牌
+
+	void drawPlayedJong();//绘制打出去的牌
+
 };
 #endif 
