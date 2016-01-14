@@ -157,7 +157,7 @@ void FishManage::removeFishWhichSwimOut()
 	for (auto fish : fishPool)
 	{
 		auto box = ((Fish*)fish)->getBoundingBox();
-		Rect rect = Rect(-100-box.size.width, -100-box.size.height, visibisize.width + box.size.width+200, visibisize.height + box.size.height+200);
+		Rect rect = Rect(-100-box.size.width, -100-box.size.height, visibisize.width + box.size.width+200, visibisize.height + box.size.height+400);
 		auto pos = fish->getPosition();
 		if (!rect.containsPoint(pos))
 		{
@@ -204,7 +204,7 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
                 Fish* fish = createFishSingle(onemonent.fishgroup_id);
                 auto k = getAngleByPos(Vec2(onemonent.start_position_x, onemonent.start_position_y));
                 fish->setMoveAngle(onemonent.startAngle);
-                auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width);
+                auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width/2);
                 fish->setPosition(startPos);
                 fish->move(3);
                 m_layer->addChild(fish);

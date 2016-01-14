@@ -405,6 +405,12 @@
     <ClCompile Include="..\Classes\core\NotarizeExitDialog.cpp">
       <Filter>src\core\dialog</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\mermaid\MermaidTask.cpp">
+      <Filter>src\mannager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\core\GiftTurnTable.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -715,6 +721,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\core\NotarizeExitDialog.h">
       <Filter>src\core\dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\mermaid\MermaidTask.h">
+      <Filter>src\mannager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\GiftTurnTable.h">
+      <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

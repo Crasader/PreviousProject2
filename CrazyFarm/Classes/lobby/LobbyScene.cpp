@@ -21,7 +21,7 @@
 #include "core/SettingDialog.h"
 
 
-const Vec2 roomPos[5] = { Vec2(-300, 270), Vec2(192, 270), Vec2(480, 270), Vec2(768, 270), Vec2(960+300, 270)};
+const Vec2 roomPos[5] = { Vec2(-300, 270), Vec2(212, 270), Vec2(500, 270), Vec2(788, 270), Vec2(960+300, 270)};
 
 roomCell * roomCell::createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback)
 {
@@ -185,15 +185,28 @@ bool LobbyScene::init()
 
 	//换奖品
 	auto changeReward = MenuItemImage::create("changeReward.png", "changeReward.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
-	changeReward->setPosition(visibleSize.width*0.4, visibleSize.height*0.1);
+	changeReward->setPosition(visibleSize.width*0.2, visibleSize.height*0.1);
+
+	auto rankList = MenuItemImage::create("ranklist.png", "ranklist.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
+	rankList->setPosition(visibleSize.width*0.1, visibleSize.height*0.1);
+
+
+	auto VIP = MenuItemImage::create("VIP.png", "VIP.png", CC_CALLBACK_1(LobbyScene::guizuCallback, this));
+	VIP->setPosition(visibleSize.width*0.05, visibleSize.height*0.70);
 
 	auto guizu = MenuItemImage::create("guizu.png", "guizu.png", CC_CALLBACK_1(LobbyScene::guizuCallback, this));
-	guizu->setPosition(visibleSize.width*0.07, visibleSize.height*0.6);
+	guizu->setPosition(visibleSize.width*0.05, visibleSize.height*0.55);
+
+	auto fistPay = MenuItemImage::create("firstPayGIft.png", "firstPayGIft.png", CC_CALLBACK_1(LobbyScene::guizuCallback, this));
+	fistPay->setPosition(visibleSize.width*0.05, visibleSize.height*0.40);
 
 
-		auto menu = Menu::create(addCoin, adddiamond, bag, guizu,changeReward, nullptr);
+	//快速开始
+	auto quickBegin = MenuItemImage::create("quickbegin_1.png", "quickbegin_2.png", CC_CALLBACK_1(LobbyScene::quickBeginCallback, this));
+	quickBegin->setPosition(820, 87);
+	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin,rankList,VIP,fistPay,nullptr);
 	menu->setPosition(Point::ZERO);
-	addChild(menu);
+	addChild(menu,10);
 	createRoomLayer();
 	//添加系统返回键监听
 	auto listener = EventListenerKeyboard::create();
@@ -218,7 +231,7 @@ bool LobbyScene::init()
 	createRoomLayer();
 	this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);
 
-
+	scheduleUpdate();
 	//auto cell = showTurretCell::create();
 	//cell->setPosition(400, 200);
 	//cell->setVippaoValue(1);
@@ -243,7 +256,10 @@ void LobbyScene::showSign(float dt)
 		addChild(sign);
 	}
 }
-
+void LobbyScene::update(float delta)
+{
+	refreshCoinLabel();
+}
 void LobbyScene::loadResource(){
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("batch_frame_bullet.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("gun_frame.plist");
@@ -626,10 +642,20 @@ std::vector<Room> LobbyScene::sortRoomByMaxlevel(int maxLevel)
 	return curData;
 }
 
+void LobbyScene::quickBeginCallback(Ref*psend)
+{
+	auto maxLevel = User::getInstance()->getMaxTurrentLevel();
+	auto roomDatas = ConfigRoom::getInstance()->getRooms();
+	///获得最大可进房间ID
+	int i = roomDatas.size() - 1;
+	for (; i > 0; i--)
+	{
+		if (roomDatas[i].unlock_turrent_level <= maxLevel)
+		{
+			break;
+		}
+	}
 
-//
-//struct Room {
-//	int room_id;
-//	int ui_id;
-//	int unlock_turrent_level;
-//};
+	GameData::getInstance()->setRoomID(roomDatas.at(i).room_id);
+	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
+}

@@ -75,7 +75,4 @@ void PayCell::IsBeToued()
 	default:
 		break;
 	}
-	auto node = Director::getInstance()->getRunningScene()->getChildByTag(888);
-	((LobbyScene*)node)->refreshCoinLabel();
-	
 }

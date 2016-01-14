@@ -193,6 +193,7 @@ void GameLayer::update(float dt){
 void GameLayer::createNet(Bullet *bullet){
 	Net* fishNet = Net::create();
 	fishNet->setPosition(bullet->getPosition());
+	fishNet->setRotation(bullet->getRotation());
 	fishNet->initNetByType(bullet->getTurretdata());
 	this->addChild(fishNet, 3);
 	fishNet->checkCatchFish(bullet);
