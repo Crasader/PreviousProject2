@@ -180,7 +180,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\skill\SkillSummonButton.cpp" />
     <ClCompile Include="..\Classes\fish\Fish.cpp" />
     <ClCompile Include="..\Classes\fish\FishAniMannage.cpp" />
+    <ClCompile Include="..\Classes\fish\FishArrangeFourh.cpp" />
     <ClCompile Include="..\Classes\fish\FishArrangeOne.cpp" />
+    <ClCompile Include="..\Classes\fish\FishArrangeThree.cpp" />
     <ClCompile Include="..\Classes\fish\FishArrangeTwo.cpp" />
     <ClCompile Include="..\Classes\fish\FishGroupData.cpp" />
     <ClCompile Include="..\Classes\fish\FishManage.cpp" />
@@ -277,7 +279,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\skill\SkillSummonButton.h" />
     <ClInclude Include="..\Classes\fish\Fish.h" />
     <ClInclude Include="..\Classes\fish\FishAniMannage.h" />
+    <ClInclude Include="..\Classes\fish\FishArrangeFourh.h" />
     <ClInclude Include="..\Classes\fish\FishArrangeOne.h" />
+    <ClInclude Include="..\Classes\fish\FishArrangeThree.h" />
     <ClInclude Include="..\Classes\fish\FishArrangeTwo.h" />
     <ClInclude Include="..\Classes\fish\FishGroupData.h" />
     <ClInclude Include="..\Classes\fish\FishManage.h" />

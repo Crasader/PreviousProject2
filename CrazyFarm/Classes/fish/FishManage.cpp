@@ -3,6 +3,8 @@
 #include "utill/FunUtil.h"
 #include "fish/FishArrangeOne.h"
 #include "fish/FishArrangeTwo.h"
+#include "fish/FishArrangeThree.h"
+#include "fish/FishArrangeFourh.h"
 FishManage* FishManage::_instance = 0;
 
 FishManage* FishManage::getInstance(){
@@ -62,6 +64,12 @@ Fish* FishManage::createFishArrange(int type){
 		break;
 	case 102:
 		fish = FishArrangeTwo::create();
+		break;
+	case 103:
+		fish = FishArrangeThree::create();
+		break;
+	case 104:
+		fish = FishArrangeFourh::create();
 		break;
 	default:
 		break;

@@ -381,6 +381,12 @@
     <ClCompile Include="..\Classes\domain\bonuspool\BonusPoolManager.cpp">
       <Filter>src\mannager</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\fish\FishArrangeThree.cpp">
+      <Filter>src\fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\fish\FishArrangeFourh.cpp">
+      <Filter>src\fish</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -670,6 +676,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\bonuspool\BonusPoolManager.h">
       <Filter>src\mannager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\fish\FishArrangeThree.h">
+      <Filter>src\fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\fish\FishArrangeFourh.h">
+      <Filter>src\fish</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
