@@ -1,4 +1,4 @@
-#include "AIManager.h"
+#include "domain/ai/AIManager.h"
 
 
 AIManager* AIManager::_instance = NULL;

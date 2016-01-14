@@ -2,8 +2,8 @@
 #define _AIMANAGER_H_
 #include "cocos2d.h"
 #include "AI.h"
-#include "ai/AIMolo.h"
-#include "ai/AIHu.h"
+#include "domain/ai/AIMolo.h"
+#include "domain/ai/AIHu.h"
 
 using namespace cocos2d;
 

@@ -2,7 +2,7 @@
 #define _ROOMPLAYER_H_
 #include "cocos2d.h"
 
-#include "AI.h"
+#include "domain/ai/AI.h"
 
 using namespace cocos2d;
 

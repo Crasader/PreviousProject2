@@ -1,5 +1,5 @@
-#include "ai/AIHu.h"
-#include "AIManager.h"
+#include "domain/ai/AIHu.h"
+#include "domain/ai/AIManager.h"
 
 PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
     

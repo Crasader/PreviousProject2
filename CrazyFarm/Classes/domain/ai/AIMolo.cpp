@@ -1,5 +1,5 @@
-#include "ai/AIMolo.h"
-#include "AIManager.h"
+#include "domain/ai/AIMolo.h"
+#include "domain/ai/AIManager.h"
 
 PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion) {
     PlayerWork playerWork;

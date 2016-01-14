@@ -1,5 +1,5 @@
 #include "RoomManager.h"
-#include "AIManager.h"
+#include "domain/ai/AIManager.h"
 
 RoomManager* RoomManager::_instance = NULL;
 

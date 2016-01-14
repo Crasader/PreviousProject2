@@ -2,7 +2,7 @@
 #define _AIHU_H_
 #include "cocos2d.h"
 #include "PlayerWork.h"
-#include "AI.h"
+#include "domain/ai/AI.h"
 #include "fish/FishManage.h"
 
 using namespace cocos2d;
