@@ -1,6 +1,6 @@
 #include "config/ConfigManager.h"
 
-#include "ConfigItem.h"
+#include "config/ConfigItem.h"
 #include "config/ConfigVipLevel.h"
 #include "config/ConfigTurrent.h"
 #include "config/ConfigFish.h"
