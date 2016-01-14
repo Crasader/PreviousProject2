@@ -22,9 +22,6 @@
     <Filter Include="src\game\mahjong">
       <UniqueIdentifier>{72f2f348-72ef-4e21-8a57-92189b5a4161}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\game\mahjong\otherplayer">
-      <UniqueIdentifier>{14fdc929-fa8b-4fa7-8238-f9894cb63fde}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\game\mahjong\anim">
       <UniqueIdentifier>{71168c8a-a6c4-45b9-8687-5c3f6fa7254d}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,12 @@
     </Filter>
     <Filter Include="src\utils">
       <UniqueIdentifier>{2e972c37-bd9b-45b2-b9ef-9bd3c7757d21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game\mahjong\player">
+      <UniqueIdentifier>{14fdc929-fa8b-4fa7-8238-f9894cb63fde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game\mahjong\player\base">
+      <UniqueIdentifier>{a9ca6106-60bd-4930-be07-c20d80a6f7b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,18 +63,6 @@
     <ClCompile Include="..\Classes\game\mahjong\Jong.cpp">
       <Filter>src\game\mahjong</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\game\mahjong\PlayerHero.cpp">
-      <Filter>src\game\mahjong</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerLeft.cpp">
-      <Filter>src\game\mahjong\otherplayer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerOpposite.cpp">
-      <Filter>src\game\mahjong\otherplayer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerRight.cpp">
-      <Filter>src\game\mahjong\otherplayer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\game\mahjong\anim\DealJongAnim.cpp">
       <Filter>src\game\mahjong\anim</Filter>
     </ClCompile>
@@ -84,11 +75,23 @@
     <ClCompile Include="..\Classes\game\playerinfo\PlayerInfo.cpp">
       <Filter>src\game\playerinfo</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\game\mahjong\otherplayer\PlayerSprite.cpp">
-      <Filter>src\game\mahjong\otherplayer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\utils\PositionInfoUtil.cpp">
       <Filter>src\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\player\PlayerLeft.cpp">
+      <Filter>src\game\mahjong\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\player\PlayerOpposite.cpp">
+      <Filter>src\game\mahjong\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\player\PlayerRight.cpp">
+      <Filter>src\game\mahjong\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\player\base\PlayerBase.cpp">
+      <Filter>src\game\mahjong\player\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\mahjong\player\PlayerHero.cpp">
+      <Filter>src\game\mahjong\player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,18 +116,6 @@
     <ClInclude Include="..\Classes\game\mahjong\Jong.h">
       <Filter>src\game\mahjong</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\game\mahjong\PlayerHero.h">
-      <Filter>src\game\mahjong</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerLeft.h">
-      <Filter>src\game\mahjong\otherplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerOpposite.h">
-      <Filter>src\game\mahjong\otherplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerRight.h">
-      <Filter>src\game\mahjong\otherplayer</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\game\mahjong\anim\DealJongAnim.h">
       <Filter>src\game\mahjong\anim</Filter>
     </ClInclude>
@@ -143,11 +134,23 @@
     <ClInclude Include="..\Classes\game\playerinfo\PlayerInfo.h">
       <Filter>src\game\playerinfo</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\game\mahjong\otherplayer\PlayerSprite.h">
-      <Filter>src\game\mahjong\otherplayer</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\utils\PositionInfoUtil.h">
       <Filter>src\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\player\PlayerLeft.h">
+      <Filter>src\game\mahjong\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\player\PlayerOpposite.h">
+      <Filter>src\game\mahjong\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\player\PlayerRight.h">
+      <Filter>src\game\mahjong\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\player\base\PlayerBase.h">
+      <Filter>src\game\mahjong\player\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\mahjong\player\PlayerHero.h">
+      <Filter>src\game\mahjong\player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

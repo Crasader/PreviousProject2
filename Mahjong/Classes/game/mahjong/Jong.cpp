@@ -14,8 +14,11 @@ bool Jong::init(){
 void Jong::showJong(int bType, int cType){
 	this->setBType(bType);
 	drawBackGround(bType);
-	drawContent(cType);
-	this->setJongType(cType);
+	if (cType > 0){
+		drawContent(cType);
+		this->setJongType(cType);
+	}
+	
 }
 
 Rect Jong::getJongBoundingBox(){
@@ -35,13 +38,28 @@ void Jong::drawBackGround(int bType){
 	switch (bType)
 	{
 	case 0:
+		//玩家手牌
 		backGround->setTexture("gamemj/xiali.png");
 		break;
 	case 1:
+		//玩家吃,碰,杠
 		backGround->setTexture("gamemj/xiatang2.png");
 		break;
 	case 2:
+		//玩家花牌
 		backGround->setTexture("gamemj/xiatang2.png");
+		break;
+	case 3:
+		//玩家打出
+		backGround->setTexture("gamemj/xiatang2.png");
+		break;
+	case 4:
+		//左边玩家手牌
+		backGround->setTexture("gamemj/zuoli.png");
+		break;
+	case 5:
+		//左边吃,碰,杠,打出
+		backGround->setTexture("gamemj/zuoli.png");
 		break;
 	default:
 		break;

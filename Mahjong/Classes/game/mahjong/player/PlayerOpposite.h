@@ -2,10 +2,10 @@
 #define __PLAYER_OPPOSSITE__
 #include "cocos2d.h"
 #include "game/playerinfo/PlayerInfo.h"
-#include "game/mahjong/otherplayer/PlayerSprite.h"
+#include "game/mahjong/player/base/PlayerBase.h"
 USING_NS_CC;
 
-class PlayerOpposite : public PlayerSprite{
+class PlayerOpposite : public PlayerBase{
 
 public:
 	virtual bool init();
@@ -19,5 +19,11 @@ private:
 	void drawHandJong();//绘制玩家的手牌
 
 	void drawPlayedJong();//绘制打出去的牌
+
+	void drawHuaJong();//绘制玩家的花牌
+
+	void getPlayedJongPos();//获取打出去的牌的位置
+
+	void drawCurrent();//放大当前打出的牌
 };
 #endif 

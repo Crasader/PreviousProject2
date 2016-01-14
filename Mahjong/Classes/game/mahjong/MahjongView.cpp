@@ -1,8 +1,8 @@
 #include "game/mahjong/MahjongView.h"
-#include "game/mahjong/otherplayer/PlayerLeft.h"
-#include "game/mahjong/otherplayer/PlayerRight.h"
-#include "game/mahjong/otherplayer/PlayerOpposite.h"
-#include "game/mahjong/PlayerHero.h"
+#include "game/mahjong/player/PlayerLeft.h"
+#include "game/mahjong/player/PlayerRight.h"
+#include "game/mahjong/player/PlayerOpposite.h"
+#include "game/mahjong/player/PlayerHero.h"
 #include "game/mahjong/anim/DealJongAnim.h"
 
 bool MahjongView::init(){
@@ -47,12 +47,18 @@ void MahjongView::drawMenu(){
 void MahjongView::drawPlayerHero(){
 	//TODO
 	PlayerHero* playerHero = PlayerHero::create();
+	PlayerInfo* head = new PlayerInfo();
+	playerHero->drawHeadPortrait(head);
+	playerHero->setHeadPostion(ccp(50, 120));
 	this->addChild(playerHero,2);
 }
 
 //绘制左手边的玩家
 void MahjongView::drawPlayerLeft(){
 	PlayerLeft* playerLeft = PlayerLeft::create();
+	//头像的绘制
+	PlayerInfo* head = new PlayerInfo();
+	playerLeft->drawHeadPortrait(head);
 	playerLeft->setHeadPostion(ccp(50,360));
 	this->addChild(playerLeft);
 }
@@ -61,6 +67,8 @@ void MahjongView::drawPlayerLeft(){
 //绘制右手边的玩家
 void MahjongView::drawPlayerRight(){
 	PlayerRight* playerRight = PlayerRight::create();
+	PlayerInfo* head = new PlayerInfo();
+	playerRight->drawHeadPortrait(head);
 	playerRight->setHeadPostion(ccp(910, 360));
 	this->addChild(playerRight);
 
@@ -70,6 +78,8 @@ void MahjongView::drawPlayerRight(){
 //绘制对面的玩家
 void MahjongView::drawPlayerOpposite(){
 	PlayerOpposite* playerOpposite = PlayerOpposite::create();
+	PlayerInfo* head = new PlayerInfo();
+	playerOpposite->drawHeadPortrait(head);
 	playerOpposite->setHeadPostion(ccp(285, 460));
 	this->addChild(playerOpposite);
 
@@ -102,7 +112,7 @@ void MahjongView::packageButton(){
 
 //退出按钮
 void  MahjongView::quitButton(){
-	EventCustom event("player_hero_turn");
+	EventCustom event("player_turn");
 	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }
 
