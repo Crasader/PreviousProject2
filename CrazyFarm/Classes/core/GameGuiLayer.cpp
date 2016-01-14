@@ -100,6 +100,7 @@ bool GameGuiLayer::init(){
 
 	createSettingBoard();
 	showRandonBubbleAni();
+	createGuizuGiftLayer();
 	return true;
 
 }
