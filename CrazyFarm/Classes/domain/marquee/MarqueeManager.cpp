@@ -1,51 +1,25 @@
-#include "domain/magnate/MagnateManager.h"
+#include "domain/marquee//MarqueeManager.h"
+#define SIGNURL "http://114.119.39.150:1701/marquee/config"
+MarqueeManager* MarqueeManager::_instance = NULL;
 
-MagnateManager* MagnateManager::_instance = NULL;
+MarqueeManager::MarqueeManager(){
 
-MagnateManager::MagnateManager(){
-    this->init();
 }
 
 
-void MagnateManager::init(){
-    diamandConfig = ConfigMagnate::getInstance()->getDiamandMagnate();
-    itemConfig = ConfigMagnate::getInstance()->getItemMagnate();
+void MarqueeManager::init(){
+	HttpClientUtill::getInstance()->onGetHttp(SIGNURL, CC_CALLBACK_2(MarqueeManager::onHttpRequestCompleted, this));
 }
 
-MagnateManager* MagnateManager::getInstance(){
+MarqueeManager* MarqueeManager::getInstance(){
     if(_instance == NULL){
-        _instance = new MagnateManager();
+		_instance = new MarqueeManager();
     }
     return _instance;
 }
 
 
-MagnateEvent MagnateManager::getDiamandMagnateEvent(){
-    MagnateEvent magnateEvent;
-    magnateEvent.fireTimes = diamandConfig.fire_time_from +
-            rand()%(diamandConfig.fire_time_to - diamandConfig.fire_time_from);
-    magnateEvent.itemId = 1002;
-    magnateEvent.num = 1;
-    return magnateEvent;
-}
-
-MagnateEvent MagnateManager::getItemMagnateEvent(){
-    MagnateEvent magnateEvent;
-    magnateEvent.fireTimes = itemConfig.fire_time_from +
-    rand()%(itemConfig.fire_time_to - itemConfig.fire_time_from);
-    int random = rand()%100;
-    if(random < 33) {
-        magnateEvent.itemId = 1003;
-    }else if(random < 66) {
-        magnateEvent.itemId = 1004;
-    }else {
-        magnateEvent.itemId = 1005;
-    }
-    magnateEvent.num = 1;
-    return magnateEvent;
-}
-
-void MagnateEvent::onHttpRequestCompleted(HttpClient *sender, HttpResponse *response)
+void MarqueeManager::onHttpRequestCompleted(HttpClient *sender, HttpResponse *response)
 {
 	if (!response)
 	{
@@ -66,24 +40,25 @@ void MagnateEvent::onHttpRequestCompleted(HttpClient *sender, HttpResponse *resp
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 
-	today = doc["today"].GetString();
-	auto &itemlists = doc["item_lists"];
+	play_interval = doc["play_interval"].GetDouble();
+	req_interval = doc["req_interval"].GetDouble();
+	auto &itemlists = doc["item_list"];
 	for (size_t i = 0; i < itemlists.Size(); i++)
 	{
-		auto &dayrewards = itemlists[i];
-		std::vector<SignRewardItem> temp;
-		for (size_t j = 0; j < dayrewards.Size(); j++)
-		{
-			SignRewardItem item;
-			item.probability = dayrewards[j]["probability"].GetInt();
-			item.propNum = dayrewards[j]["num"].GetInt();
-			item.propID = dayrewards[j]["item_id"].GetInt();
-			temp.push_back(item);
-		}
-		dayToRewards[i + 1] = temp;
+		contents.push_back(itemlists[i]["msg"].GetString());
 	}
-	if (dayToRewards.size() == 7)
+	if (contents.size()>0)
 	{
 		bIsGetDataSuccess = true;
 	}
 }
+
+std::string MarqueeManager::getContent()
+{
+	auto str = contents[curIndex];
+    if (++curIndex>contents.size())
+    {
+		curIndex == 0;
+    }
+	return str;
+};

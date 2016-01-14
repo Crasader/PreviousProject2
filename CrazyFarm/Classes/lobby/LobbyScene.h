@@ -46,6 +46,7 @@ private:
 
 	std::vector<Room> sortRoomByMaxlevel(int maxLevel);
 	void showSign(float dt);
+	void showMarquee(float dt);
 	///°´Å¥»Øµ÷
 	void payCoinCallback(Ref*psend);
 	void payDiamondCallback(Ref*psend);

@@ -16,9 +16,10 @@
 #include "viplayer/VipLayer.h"
 #include "lobby/shop/paylayer.h"
 #include "utill/dayUtil.h"
-#include "core/GuizuGiftDialog.h"
+#include "lobby/ScrollText.h"
 #include "lobby/Nobility/NobilityLayer.h"
 #include "core/SettingDialog.h"
+#include "domain/marquee/MarqueeManager.h"
 
 
 const Vec2 roomPos[5] = { Vec2(-300, 270), Vec2(212, 270), Vec2(500, 270), Vec2(788, 270), Vec2(960+300, 270)};
@@ -177,7 +178,7 @@ bool LobbyScene::init()
 	
 
 
-
+	MarqueeManager::getInstance()->init();
 
 	//背包
 	auto bag = MenuItemImage::create("bag.png", "bag.png", CC_CALLBACK_1(LobbyScene::bagButtonCallback, this));
@@ -207,6 +208,11 @@ bool LobbyScene::init()
 	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin,rankList,VIP,fistPay,nullptr);
 	menu->setPosition(Point::ZERO);
 	addChild(menu,10);
+
+
+
+	
+
 	createRoomLayer();
 	//添加系统返回键监听
 	auto listener = EventListenerKeyboard::create();
@@ -230,7 +236,7 @@ bool LobbyScene::init()
 	
 	createRoomLayer();
 	this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);
-
+	this->scheduleOnce(schedule_selector(LobbyScene::showMarquee), 1.0f);
 	scheduleUpdate();
 	//auto cell = showTurretCell::create();
 	//cell->setPosition(400, 200);
@@ -256,6 +262,16 @@ void LobbyScene::showSign(float dt)
 		addChild(sign);
 	}
 }
+
+void LobbyScene::showMarquee(float dt)
+{
+	auto DisplayBoard = ScrollText::create();
+	DisplayBoard->setPosition(498, 463);
+	addChild(DisplayBoard, 10);
+
+}
+
+
 void LobbyScene::update(float delta)
 {
 	refreshCoinLabel();

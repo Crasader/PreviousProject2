@@ -138,9 +138,6 @@
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp">
       <Filter>src\lobby</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\lobby\ScrollText.cpp">
-      <Filter>src\lobby</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\net\Net.cpp">
       <Filter>src\net</Filter>
     </ClCompile>
@@ -411,6 +408,12 @@
     <ClCompile Include="..\Classes\core\GiftTurnTable.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\marquee\MarqueeManager.cpp">
+      <Filter>src\mannager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\ScrollText.cpp">
+      <Filter>src\lobby</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -450,9 +453,6 @@
       <Filter>src\level</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\LobbyScene.h">
-      <Filter>src\lobby</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\lobby\ScrollText.h">
       <Filter>src\lobby</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\net\Net.h">
@@ -727,6 +727,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\core\GiftTurnTable.h">
       <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\marquee\MarqueeManager.h">
+      <Filter>src\mannager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\ScrollText.h">
+      <Filter>src\lobby</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
