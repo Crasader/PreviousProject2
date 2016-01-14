@@ -119,8 +119,8 @@ bool LobbyScene::init()
 	exeBarLeft->addChild(exeBarMid);
 	auto exeBarRight = Sprite::create("exe_right.png");
 	exeBarRight->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-	exeBarRight->setPosition(exeBarMid->getBoundingBox().size.width, exeBarMid->getContentSize().height/2);
-	exeBarMid->addChild(exeBarRight);
+	exeBarRight->setPosition(exeBarMid->getBoundingBox().size.width+exeBarLeft->getContentSize().width/2, exeBarMid->getContentSize().height / 2);
+	exeBarLeft->addChild(exeBarRight);
 
 
 

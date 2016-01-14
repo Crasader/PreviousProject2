@@ -15,7 +15,7 @@ void Fish::initFish(int fishType){
 	fishGold = fishdata.baseReward;
 	this->grabProbability = fishdata.probability;
 	this->fishType = fishType;
-	this->speed = getFishSpeedByType(fishType);;
+	this->speed = fishdata.move_speed;
 	this->experience = getFishExperienceByType(fishType);
 	this->resoureName = getSrcByType(fishType);///2_02.png
 	setuiId(fishdata.uiId);

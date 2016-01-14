@@ -51,31 +51,28 @@ bool GameGuiLayer::init(){
 	addChild(menu,10);
 	
 	Audio::getInstance()->playBGM(BACKGORUNDMUSIC);
-	/*auto  buttonPlay = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
-	buttonPlay->setPosition(visibleSize.width, visibleSize.height*0.60);
-	buttonPlay->setTag(kTagUpgradeTurret);
-	menu->addChild(buttonPlay);
-	auto sprbg = Sprite::create("UpgradeButton.png");
-	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sprbg->setPosition(buttonPlay->getContentSize().width *0.3, buttonPlay->getContentSize().height*0.52);
-	buttonPlay->addChild(sprbg);*/
+	
+	
 
-	auto  buttonPlay1 = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
+	/*auto  buttonPlay1 = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
 	buttonPlay1->setPosition(visibleSize.width, visibleSize.height*0.40);
 	buttonPlay1->setTag(kTagEarnCoins);
 	menu->addChild(buttonPlay1);
 	auto sprbg1 = Sprite::create("EarnCoins.png");
 	sprbg1->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	sprbg1->setPosition(buttonPlay1->getContentSize().width *0.3, buttonPlay1->getContentSize().height / 2);
-	buttonPlay1->addChild(sprbg1);
+	buttonPlay1->addChild(sprbg1);*/
 
 	
 	auto sUpgradeTurret = MyMenuItemUpgrade::create();
-	sUpgradeTurret->setPosition(visibleSize.width, visibleSize.height*0.60);
+	sUpgradeTurret->setPosition(visibleSize.width+40, visibleSize.height*0.60);
 	menu->addChild(sUpgradeTurret);
 
 
-
+	auto sprbg = Sprite::create("UpgradeButton.png");
+	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	sprbg->setPosition(visibleSize.width,visibleSize.height*0.61);
+	addChild(sprbg,11);
 
 
 

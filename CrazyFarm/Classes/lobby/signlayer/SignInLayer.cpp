@@ -94,7 +94,7 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 	{
 		return;
 	}
-	UserDefault::getInstance()->setIntegerForKey(KEY_SEQSIGNDAY, nSeqSignDay + 1);
+	UserDefault::getInstance()->setIntegerForKey(KEY_SEQSIGNDAY, nSeqSignDay );
 	UserDefault::getInstance()->setStringForKey(KEY_LASTSIGNDAY,ConfigSign::getInstance()->getToday());
 	((LobbyScene*)getParent())->guizuCallback(nullptr);
 	this->removeFromParentAndCleanup(1);
