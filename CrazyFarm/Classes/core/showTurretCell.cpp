@@ -1,9 +1,10 @@
 #include "showTurretCell.h"
 #include "utill/Chinese.h"
+#include "config/ConfigTurrent.h"
 bool showTurretCell::init(){
 
-	auto bg = Sprite::create("VIPFrame.png");
-	bg->setPosition(88, 142.5);
+	auto bg = Sprite::create("ShowPaobg.png");
+	bg->setPosition(88, 121.5);
 	addChild(bg);
 	auto size = bg->getContentSize();
 
@@ -11,58 +12,61 @@ bool showTurretCell::init(){
 	propSprite->setPosition(size / 2);
 	addChild(propSprite);
 
-	auto bottomFrame = Sprite::create("VIPbottomFrame.png");
-	bottomFrame->setAnchorPoint(Point::ZERO);
-	bottomFrame->setPosition(0,41);
-	addChild(bottomFrame);
+	ShowPaoshade = Sprite::create("ShowPaoshade.png");
+	ShowPaoshade->setAnchorPoint(Point::ZERO);
+	ShowPaoshade->setPosition(0, 0);
+	addChild(ShowPaoshade);
 
 
-	 VIPtitle = Sprite::create("VIPtxt.png");
-	VIPtitle->setPosition(size.width*0.45, size.height*0.8+21);
-	addChild(VIPtitle);
 	
-	VIPTTF = LabelAtlas::create("0", "VIPnum.png", 31, 43, '0');
-	VIPTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	VIPTTF->setPosition(size.width*0.75, size.height*0.8+21);
-	addChild(VIPTTF);
+	muptleTTF = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
+	muptleTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	muptleTTF->setPosition(size.width*0.55, size.height*0.9);
+	addChild(muptleTTF);
+
+	
+
+	button = MenuItemImage::create();
+	button->setContentSize(Size(161, 74));
+	button->setPosition(size.width / 2, size.height*0.13);
+	button->setCallback(CC_CALLBACK_1(showTurretCell::ButtonCallback,this));
+	auto diamondNumTTF = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
+	diamondNumTTF->setPosition(Point::ANCHOR_MIDDLE);
+	diamondNumTTF->setPosition(button->getContentSize()/2);
+	button->addChild(diamondNumTTF,1,10);
+
+	auto menu = Menu::create(button, nullptr);
+	menu->setPosition(0, 0);
+	addChild(menu);
+	lockSp = Sprite::create();
+	lockSp->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
+	lockSp->setPosition(size.width -5, size.height);
+	addChild(lockSp);
 
 
-
-	VIPname = Sprite::create();
-	VIPname->setPosition(size.width / 2, size.height*0.23+36);
-	addChild(VIPname);
-
-	VIPdec = Sprite::create();
-	VIPdec->setPosition(size.width *0.51, size.height*0.1+36);
-	addChild(VIPdec);
-
-
-	PriceDecTTF = LabelTTF::create("0", "arial", 20);
-	PriceDecTTF->setPosition(size.width *0.51, size.height*0.1-10);
-	addChild(PriceDecTTF);
 
 	return true;
 }
 
-int VIPprice[9] = { 20, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000 };
 
-void showTurretCell::setValue(int vipLevel)
+
+void showTurretCell::setMultipleValue(int index)
 {
-	auto spPath = String::createWithFormat("turret/pao_%d.png", vipLevel);
-	propSprite->setTexture(spPath->getCString());
-	spPath = String::createWithFormat("VIPname_%d.png", vipLevel);
-	VIPname->setTexture(spPath->getCString());
-	spPath = String::createWithFormat("VIPdec_%d.png", vipLevel);
-	VIPdec->setTexture(spPath->getCString());
-
-	VIPTTF->setString(Value(vipLevel).asString().c_str());
-
-	auto dec = String::createWithFormat(ChineseWord("priceVIPdes").c_str(), VIPprice[vipLevel]);
-	PriceDecTTF->setString(dec->getCString());
+	auto turret = ConfigTurrent::getInstance()->getTurrentByIndex(index);
+	muptleTTF->setString(Value(turret.multiple).asString().c_str());
 }
+void showTurretCell::setVippaoValue(int index)
+{
+
+}
+
 
 void showTurretCell::IsBeToued()
 {
 
+}
+
+void showTurretCell::ButtonCallback(Ref* psend)
+{
 
 }

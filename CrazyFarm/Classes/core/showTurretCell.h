@@ -10,15 +10,19 @@ class showTurretCell : public TableViewCell{
 public:
       virtual bool init();
 	  CREATE_FUNC(showTurretCell);
-	  void setValue(int viplevel);
+	  void setMultipleValue(int index);
+	  void setVippaoValue(int index);
 	  void IsBeToued();
+	  void ButtonCallback(Ref* psend);
 private:
-	LabelAtlas* VIPTTF;
-	LabelTTF* PriceDecTTF;
-	Sprite* VIPtitle;
-	Sprite* propSprite;
-	Sprite* VIPname;
-	Sprite* VIPdec;
+	MenuItemImage* button;
 
+
+
+	LabelAtlas* muptleTTF;
+	LabelTTF* PriceDecTTF;
+	Sprite* lockSp;
+	Sprite* propSprite;
+	Sprite* ShowPaoshade;
 
 };

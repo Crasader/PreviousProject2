@@ -57,8 +57,7 @@ bool ConfigTurrent::LoadConfig() {
                 rewardList.push_back(reward);
             }
             turrent.rewardList = rewardList;
-
-			turrents[i] = turrent;
+			turrents.push_back(turrent);
 		}
 		
 		return true;
@@ -66,7 +65,7 @@ bool ConfigTurrent::LoadConfig() {
     return true;
 }
 
-std::map<int, Turrent> ConfigTurrent::getTurrent() {
+std::vector<Turrent> ConfigTurrent::getTurrent() {
     return turrents;
 }
 
@@ -116,3 +115,7 @@ Turrent ConfigTurrent::getLastTurrent(int turrentId)
 }
 
 
+Turrent ConfigTurrent::getTurrentByIndex(int index)
+{
+	return turrents.at(index);
+}

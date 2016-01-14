@@ -372,6 +372,9 @@
     <ClCompile Include="..\Classes\config\ConfigMagnate.cpp">
       <Filter>src\Interface</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\core\showTurretCell.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -652,6 +655,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigMagnate.h">
       <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\showTurretCell.h">
+      <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
