@@ -468,7 +468,59 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	45,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"be_hit_logic"	: 0
+		},
+		{
+			"fish_id"	:101,
+			"fish_type"	:	1,
+			"move_speed"	: 50,
+			"probability"	:	0.04,
+			"baseReward"	:	50,
+			"maxHitTime"	:	30,
+			"protectedTime"	:	0,
+			"ui_id"			:	0,
+			"catch_ui_type" :	0,
+			"exp" : 50,
+			"be_hit_logic"	: 0
+		},
+		{
+			"fish_id"	:102,
+			"fish_type"	:	1,
+			"move_speed"	: 50,
+			"probability"	:	0.03,
+			"baseReward"	:	80,
+			"maxHitTime"	:	30,
+			"protectedTime"	:	0,
+			"ui_id"			:	0,
+			"catch_ui_type" :	0,
+			"exp" : 80,
+			"be_hit_logic"	: 0
+		},
+		{
+			"fish_id"	: 103,
+			"fish_type"	:	1,
+			"move_speed"	: 50,
+			"probability"	:	0.02,
+			"baseReward"	:	120,
+			"maxHitTime"	:	30,
+			"protectedTime"	:	0,
+			"ui_id"			:	0,
+			"catch_ui_type" :	0,
+			"exp" : 120,
+			"be_hit_logic"	: 0
+		},
+		{
+			"fish_id"	: 104,
+			"fish_type"	:	1,
+			"move_speed"	: 160,
+			"probability"	:	0.008,
+			"baseReward"	:	120,
+			"maxHitTime"	:	30,
+			"protectedTime"	:	0,
+			"ui_id"			:	0,
+			"catch_ui_type" :	0,
+			"exp" : 160,
 			"be_hit_logic"	: 0
 		}
 	]
