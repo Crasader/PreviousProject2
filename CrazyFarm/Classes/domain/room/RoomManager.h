@@ -1,7 +1,7 @@
 #ifndef _ROOMMANAGER_H_
 #define _ROOMMANAGER_H_
 #include "cocos2d.h"
-#include "RoomPlayer.h"
+#include "domain/room/RoomPlayer.h"
 
 using namespace cocos2d;
 
