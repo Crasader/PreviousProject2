@@ -13,6 +13,7 @@
 #include "config/ConfigOnemoment.h"
 #include "config/ConfigChest.h"
 #include "config/ConfigMagnate.h"
+#include "config/ConfigBonuspool.h"
 
 ConfigManager* ConfigManager::_instance = NULL;
 
@@ -46,6 +47,8 @@ void ConfigManager::LoadConfig() {
     
     
     ConfigMagnate::getInstance()->LoadConfig();
+    
+    ConfigBonuspool::getInstance()->LoadConfig();
     
 }
 
