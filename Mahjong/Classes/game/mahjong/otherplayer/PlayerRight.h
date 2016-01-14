@@ -23,5 +23,11 @@ private:
 
 	void drawPlayedJong();//绘制打出去的牌
 
+	void drawHuaJong();//绘制玩家的花牌
+
+	void getPlayedJongPos();//获取打出去的牌的位置
+
+	void drawCurrent();//放大当前打出的牌
+
 };
 #endif 

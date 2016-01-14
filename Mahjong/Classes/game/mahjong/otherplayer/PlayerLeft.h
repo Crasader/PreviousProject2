@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "game/playerinfo/PlayerInfo.h"
 #include "game/mahjong/otherplayer/PlayerSprite.h"
+#include "game/mahjong/Jong.h"
 USING_NS_CC;
 
 class PlayerLeft :  public PlayerSprite{
@@ -18,13 +19,19 @@ private:
 
 	const int LEFT_POS_Y = 510;
 
-	void drawHandJong();//绘制玩家的手牌
+	int count;//打出去的牌计数
+
+	void drawHandJong();//绘制左边玩家的手牌
 
 	void drawPlayedJong();//绘制打出去的牌
 
-	void getPlayedJongPos();//获取打出去的牌的位置
+	void drawHuaJong();//绘制玩家的花牌
+
+	Point getPlayedJongPos();//获取打出去的牌的位置
 
 	void drawCurrent();//放大当前打出的牌
+
+	void playerTurn();//轮到打牌
 
 };
 #endif 
