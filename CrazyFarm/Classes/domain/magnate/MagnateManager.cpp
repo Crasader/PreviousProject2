@@ -8,6 +8,8 @@ MagnateManager::MagnateManager(){
 
 
 void MagnateManager::init(){
+    diamandConfig = ConfigMagnate::getInstance()->getDiamandMagnate();
+    itemConfig = ConfigMagnate::getInstance()->getItemMagnate();
 }
 
 MagnateManager* MagnateManager::getInstance(){
@@ -20,7 +22,8 @@ MagnateManager* MagnateManager::getInstance(){
 
 MagnateEvent MagnateManager::getDiamandMagnateEvent(){
     MagnateEvent magnateEvent;
-    magnateEvent.fireTimes = 100 + rand()%300;
+    magnateEvent.fireTimes = diamandConfig.fire_time_from +
+            rand()%(diamandConfig.fire_time_to - diamandConfig.fire_time_from);
     magnateEvent.itemId = 1002;
     magnateEvent.num = 1;
     return magnateEvent;
@@ -28,8 +31,16 @@ MagnateEvent MagnateManager::getDiamandMagnateEvent(){
 
 MagnateEvent MagnateManager::getItemMagnateEvent(){
     MagnateEvent magnateEvent;
-    magnateEvent.fireTimes = 200 + rand()%500;
-    magnateEvent.itemId = 1003;
+    magnateEvent.fireTimes = itemConfig.fire_time_from +
+    rand()%(itemConfig.fire_time_to - itemConfig.fire_time_from);
+    int random = rand()%100;
+    if(random < 33) {
+        magnateEvent.itemId = 1003;
+    }else if(random < 66) {
+        magnateEvent.itemId = 1004;
+    }else {
+        magnateEvent.itemId = 1005;
+    }
     magnateEvent.num = 1;
     return magnateEvent;
 }

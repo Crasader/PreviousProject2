@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "config/ConfigMagnate.h"
 
 using namespace cocos2d;
 
@@ -24,5 +25,9 @@ private:
     MagnateManager();
     void init();
     static MagnateManager* _instance;
+    
+    MagnateItem diamandConfig;
+    MagnateItem itemConfig;
+    
 };
 
