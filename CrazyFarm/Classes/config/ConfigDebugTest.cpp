@@ -1,5 +1,8 @@
 #include "config/ConfigDebugTest.h"
 #include "User.h"
+
+#include "AIManager.h"
+
 ConfigDebugTest* ConfigDebugTest::_instance = NULL;
 
 ConfigDebugTest::ConfigDebugTest(){
@@ -16,7 +19,7 @@ bool ConfigDebugTest::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 
-		std::string filename = "config/config_debugTest.json";
+		std::string filename = "config/config_debug.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{
@@ -35,7 +38,11 @@ bool ConfigDebugTest::LoadConfig() {
 		if (isReset)
 		{
 			User::getInstance()->resetInfo();
+            // TODO : 增加背包重置
+            // TODO : 增加奖金池重置
 		}
+        bool ai_fire = doc["ai_fire"].GetBool();
+        AIManager::getInstance()->setAiFire(ai_fire);
 		
 		return true;
 	}

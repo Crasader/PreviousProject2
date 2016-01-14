@@ -27,6 +27,7 @@ public:
     
 	std::map<int, VipTurrent> getVipTurrents();
     VipTurrent getVipTurrent(int level);
+	std::vector<VipTurrent> getUnUpgradeTurrents();
     
 private:
 	static ConfigVipTurrent* _instance;

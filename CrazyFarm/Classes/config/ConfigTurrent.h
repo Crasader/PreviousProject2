@@ -30,15 +30,18 @@ public:
     
 	bool LoadConfig();
     
-	std::map<int, Turrent> getTurrent();
+	std::vector<Turrent>getTurrent();
     Turrent getTurrent(int turrentId);
 
 	Turrent getNextTurrent(int turrentId);
 	Turrent getLastTurrent(int turrentId);
 
+	Turrent getTurrentByIndex(int index);
+
+	std::vector<Turrent> getUnUpgradeTurrents();
 private:
 	static ConfigTurrent* _instance;
 	
-    std::map<int, Turrent> turrents;
+    std::vector<Turrent> turrents;
 };
 

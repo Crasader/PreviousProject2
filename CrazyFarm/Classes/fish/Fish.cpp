@@ -18,6 +18,7 @@ void Fish::initFish(int fishType){
 	this->speed = fishdata.move_speed;
 	this->experience = getFishExperienceByType(fishType);
 	this->resoureName = getSrcByType(fishType);///2_02.png
+	BonusPoorGold = fishdata.bonus_pool_reward;
 	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
 }

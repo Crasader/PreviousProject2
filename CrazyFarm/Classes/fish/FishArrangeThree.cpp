@@ -1,8 +1,8 @@
-#include "fish/FishArrangeOne.h"
+#include "fish/FishArrangeThree.h"
 #include "fish/FishAniMannage.h"
 #include "utill/MagicEffect.h"
 
-void FishArrangeOne::initFish(int fishType){
+void FishArrangeThree::initFish(int fishType){
 	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
 	fishGold = fishdata.baseReward;
 	this->grabProbability = fishdata.probability;
@@ -11,7 +11,7 @@ void FishArrangeOne::initFish(int fishType){
 	this->experience = getFishExperienceByType(fishType);
 	initFishAnim(fishdata.uiId);
 }
-void FishArrangeOne::initFishAnim(int fishType)
+void FishArrangeThree::initFishAnim(int fishType)
 {
 	//жїгу
 	int id = rand() % 8 + 30;
@@ -32,11 +32,12 @@ void FishArrangeOne::initFishAnim(int fishType)
 	acName = String::createWithFormat("swim_%d", id);
 	auto ac1 = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
 	auto ac2 = ac1->clone();
+	auto ac3 = ac1->clone();
 	setAnchorPoint(Point::ANCHOR_MIDDLE);
 
 	auto sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);	
-	sp->setPosition(-mainSize.width *0 - AffiliateSize.width / 2, mainSize.height / 2);
+	sp->setPosition(- AffiliateSize.width / 2, mainSize.height / 2);
 	sp->runAction(ac1);
 	addChild(sp);
 	maggiceff = MagicEffect::create(2, true);
@@ -46,7 +47,13 @@ void FishArrangeOne::initFishAnim(int fishType)
 
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sp->setPosition(mainSize.width *1.0 + AffiliateSize.width/2, mainSize.height/2);
+	sp->setPosition(mainSize.width *1.0 , mainSize.height+mainSize.height/2);
 	sp->runAction(ac2);
+	addChild(sp);
+
+	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	sp->setPosition(mainSize.width *1.0 , -mainSize.height / 2);
+	sp->runAction(ac3);
 	addChild(sp);
 }

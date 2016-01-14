@@ -3,6 +3,8 @@
 #include "utill/FunUtil.h"
 #include "fish/FishArrangeOne.h"
 #include "fish/FishArrangeTwo.h"
+#include "fish/FishArrangeThree.h"
+#include "fish/FishArrangeFourh.h"
 FishManage* FishManage::_instance = 0;
 
 FishManage* FishManage::getInstance(){
@@ -62,6 +64,12 @@ Fish* FishManage::createFishArrange(int type){
 		break;
 	case 102:
 		fish = FishArrangeTwo::create();
+		break;
+	case 103:
+		fish = FishArrangeThree::create();
+		break;
+	case 104:
+		fish = FishArrangeFourh::create();
 		break;
 	default:
 		break;
@@ -221,12 +229,35 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
     }
 	else
 	{
-		auto fish = createFishArrange(onemonent.fishgroup_id);
-		auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width);
-		fish->setPosition(startPos.x , startPos.y);
-		auto endpos = CalculateDiffMarginPos(Vec2(onemonent.end_position_x, onemonent.end_position_y), fish->getContentSize().width + 150);
-		fish->runAction(Sequence::create(MoveTo::create(onemonent.end_time - onemonent.start_time + 5, Vec2(endpos.x , endpos.y)), nullptr));
-		m_layer->addChild(fish);
+		switch (onemonent.move_type) {
+		case 1: {
+			Fish* fish = createFishArrange(onemonent.fishgroup_id);
+			auto k = getAngleByPos(Vec2(onemonent.start_position_x, onemonent.start_position_y));
+			fish->setMoveAngle(onemonent.startAngle);
+			auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width);
+			fish->setPosition(startPos);
+			fish->move(3);
+			m_layer->addChild(fish);
+		}
+				break;
+		case 2: {
+			auto fish = createFishArrange(onemonent.fishgroup_id);
+			auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width);
+			fish->setPosition(startPos.x, startPos.y);
+			auto endpos = CalculateDiffMarginPos(Vec2(onemonent.end_position_x, onemonent.end_position_y), fish->getContentSize().width + 150);
+			fish->runAction(Sequence::create(MoveTo::create(onemonent.end_time - onemonent.start_time + 5, Vec2(endpos.x, endpos.y)), nullptr));
+			m_layer->addChild(fish);
+		}
+				break;
+		case 3: {
+			//TODO:  «˙œﬂ‘À∂Ø
+		}
+				break;
+		default:
+			break;
+		}
+
+		
 	}
 	
 }
