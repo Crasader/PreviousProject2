@@ -25,7 +25,7 @@ void PlayerLeft::drawHandJong(){
 
 
 void PlayerLeft::drawPlayedJong(){
-	//TODO
+	//ccp(375,165)
 
 
 
@@ -33,8 +33,15 @@ void PlayerLeft::drawPlayedJong(){
 }
 
 
-void getPlayedJongPos(){
+void PlayerLeft::getPlayedJongPos(){
 	//TODO
+
+
+}
+
+
+void PlayerLeft::drawCurrent(){
+
 
 
 }

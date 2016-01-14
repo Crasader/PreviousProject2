@@ -21,3 +21,4 @@ void PlayerRight::drawHandJong(){
 		this->addChild(jongs);
 	}
 }
+

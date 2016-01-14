@@ -24,5 +24,7 @@ private:
 
 	void getPlayedJongPos();//获取打出去的牌的位置
 
+	void drawCurrent();//放大当前打出的牌
+
 };
 #endif 
