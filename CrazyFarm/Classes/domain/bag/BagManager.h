@@ -1,7 +1,7 @@
 #ifndef _BAGMANAGER_H_
 #define _BAGMANAGER_H_
 #include "cocos2d.h"
-#include "BagItem.h"
+#include "domain/bag/BagItem.h"
 
 using namespace cocos2d;
 

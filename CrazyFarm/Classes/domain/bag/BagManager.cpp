@@ -1,5 +1,6 @@
-#include "BagManager.h"
-#include "ConfigItem.h"
+#include "domain/bag/BagManager.h"
+#include "config/ConfigItem.h"
+
 BagManager* BagManager::_instance = NULL;
 
 BagManager::BagManager(){
