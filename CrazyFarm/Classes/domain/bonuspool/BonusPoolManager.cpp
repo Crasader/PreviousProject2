@@ -17,4 +17,21 @@ BonusPoolManager* BonusPoolManager::getInstance(){
     return _instance;
 }
 
+int BonusPoolManager::getCoins() {
+    return UserDefault::getInstance()->getIntegerForKey(BonusPoolManager::KEY_BONUSPOOL_COINS, 0);
+}
+
+bool BonusPoolManager::addCoins(int coins) {
+    if(coins > 0) {
+        UserDefault::getInstance()->setIntegerForKey(BonusPoolManager::KEY_BONUSPOOL_COINS, getCoins() + coins);
+        return true;
+    }
+    return false;
+
+}
+bool BonusPoolManager::cleanCoins() {
+    UserDefault::getInstance()->setIntegerForKey(BonusPoolManager::KEY_BONUSPOOL_COINS, 0);
+    return true;
+}
+
 

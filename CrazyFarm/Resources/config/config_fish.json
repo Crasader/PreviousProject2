@@ -197,6 +197,7 @@
 			"catch_ui_type" :	0,
 			"bonus_pool_reward" : 0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
