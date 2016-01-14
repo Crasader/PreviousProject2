@@ -23,7 +23,14 @@ void Audio::pauseBGM()
 void Audio::playSound(char* soundName){
 
 }
-
+void Audio::setBGMValue(float value)
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(value);
+}
+void Audio::setEffectValue(float value)
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(value);
+}
 void Audio::prepare(){
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(BACKGORUNDMUSIC);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(COUNTDOWN);

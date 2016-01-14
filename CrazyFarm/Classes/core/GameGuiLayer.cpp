@@ -9,6 +9,10 @@
 #include "domain/skill/SkillFreezeButton.h"
 #include "domain/skill/SkillSummonButton.h"
 #include "widget/MyMenuItemUpgrade.h"
+#include "core/SettingDialog.h"
+#include "core/NotarizeExitDialog.h"
+#include "domain/nobility/NobilityManager.h"
+#include "core/GuizuGiftDialog.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
@@ -99,6 +103,17 @@ bool GameGuiLayer::init(){
 	return true;
 
 }
+
+void GameGuiLayer::createGuizuGiftLayer()
+{
+	auto b = NobilityManager::getInstance()->isGetRewardToday();
+	if (b)
+	{
+		auto layer = GuizuGiftDialog::create();
+		layer->setPosition(0, 0);
+		addChild(layer);
+	}
+}
 void GameGuiLayer::ButtentouchEvent(Ref *pSender)
 {
 	auto node = (Node*)pSender;
@@ -118,7 +133,10 @@ void GameGuiLayer::ButtentouchEvent(Ref *pSender)
 }
 void GameGuiLayer::exitCallback(Ref *pSender)
 {
-	Director::getInstance()->replaceScene(LobbyScene::createScene());
+	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
+	auto layer = NotarizeExitDialog::create();
+	layer->setPosition(0, 0);
+	addChild(layer);
 }
 
 void GameGuiLayer::showRandonBubbleAni()
@@ -192,7 +210,10 @@ void GameGuiLayer::onExit()
 
 void GameGuiLayer::settingCallback(Ref *pSender)
 {
-	;
+	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
+	auto layer = SettingDialog::create();
+	layer->setPosition(Point::ZERO);
+	addChild(layer);
 }
 void GameGuiLayer::showFishCallback(Ref *pSender)
 {

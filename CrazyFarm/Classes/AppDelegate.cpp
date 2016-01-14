@@ -67,6 +67,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("showVIP");
 	paths.push_back("turret");
 	paths.push_back("NobilityLayer");
+	paths.push_back("dialog");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand((unsigned)time(nullptr));
 

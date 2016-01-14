@@ -20,6 +20,8 @@ public:
 	void playSound(char* soundName);
 	void pauseBGM();
 	void prepare();
+	void setBGMValue(float value);
+	void setEffectValue(float value);
 private:
 	static Audio* m_instance;
 };

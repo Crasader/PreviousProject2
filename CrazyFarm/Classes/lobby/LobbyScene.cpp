@@ -16,8 +16,9 @@
 #include "viplayer/VipLayer.h"
 #include "lobby/shop/paylayer.h"
 #include "utill/dayUtil.h"
+#include "core/GuizuGiftDialog.h"
 #include "lobby/Nobility/NobilityLayer.h"
-#include "core/showTurretLayer.h"
+#include "core/SettingDialog.h"
 
 
 const Vec2 roomPos[5] = { Vec2(-300, 270), Vec2(192, 270), Vec2(480, 270), Vec2(768, 270), Vec2(960+300, 270)};
@@ -388,7 +389,7 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
-	auto layer = showTurretLayer::create(2);
+	auto layer = SettingDialog::create();
 	layer->setPosition(Point::ZERO);
 	addChild(layer);
 }

@@ -88,6 +88,14 @@ bool NobilityManager::isGetRewardToday()
 	}
 	return false;
 }
+void NobilityManager::setGetRewardToday()
+{
+
+	UserDefault::getInstance()->setBoolForKey(ConfigSign::getInstance()->getToday().c_str(), false);
+
+}
+
+
 void NobilityManager::addStepsDay(int dayNum)
 {
 	auto today = SystemTime::getToday()->getFormatString();

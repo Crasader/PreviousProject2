@@ -94,6 +94,9 @@
     <Filter Include="src\skill">
       <UniqueIdentifier>{daaf5aca-7a2f-4362-95a9-221c1620160c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\core\dialog">
+      <UniqueIdentifier>{11e4c131-a430-4730-82b3-93f008ca5b55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -386,6 +389,21 @@
     </ClCompile>
     <ClCompile Include="..\Classes\fish\FishArrangeFourh.cpp">
       <Filter>src\fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigBonuspool.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\widget\MyDialog.cpp">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\core\GuizuGiftDialog.cpp">
+      <Filter>src\core\dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\core\SettingDialog.cpp">
+      <Filter>src\core\dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\core\NotarizeExitDialog.cpp">
+      <Filter>src\core\dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -682,6 +700,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\fish\FishArrangeFourh.h">
       <Filter>src\fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigBonuspool.h">
+      <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\widget\MyDialog.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\GuizuGiftDialog.h">
+      <Filter>src\core\dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\SettingDialog.h">
+      <Filter>src\core\dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\NotarizeExitDialog.h">
+      <Filter>src\core\dialog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

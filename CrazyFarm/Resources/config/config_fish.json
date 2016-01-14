@@ -305,7 +305,7 @@
 			"baseReward"		:	250,
 			"maxHitTime"		:	30,
 			"protectedTime"	    :   0,
-			"ui_id"				:	42,
+			"ui_id"				:	43,
 			"catch_ui_type"     :	1,
 			"exp"               :   250,
 			"bonus_pool_reward" :   250,

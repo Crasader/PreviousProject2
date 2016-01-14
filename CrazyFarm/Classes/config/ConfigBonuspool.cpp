@@ -69,6 +69,6 @@ bool ConfigBonuspool::LoadConfig() {
 }
 
 Bonuspool ConfigBonuspool::getBonuspool() {
-    
+	return bonuspool;
 }
 
