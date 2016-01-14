@@ -1,6 +1,8 @@
 #include "MyMenuItemUpgrade.h"
 #include "User.h"
 #include "config/ConfigTurrent.h"
+#include "BagManager.h"
+#include "data/GameData.h"
 enum 
 {
 	kTagMutpleLabel = 10,
@@ -30,8 +32,35 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		unfinishedNode->setVisible(false);
 		nodeZeng->setVisible(false);
 		runAction(MoveBy::create(0.5f, Vec2(180, 0)));
-		if ()
+		isElongate = false;
+		if (isFinish)
 		{
+			auto a = User::getInstance()->getMaxTurrentLevel();
+			auto m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(a);
+			User::getInstance()->setMaxTurrentLevel(m_turretdata.multiple);
+			User::getInstance()->addDiamonds(-m_turretdata.unlockPrice);
+			auto vec = m_turretdata.rewardList;
+			for (auto var:vec)
+			{
+				if (var.itemId==1001)
+				{
+					User::getInstance()->addCoins(var.num);
+				}
+				else if (var.itemId == 1002)
+				{
+					User::getInstance()->addDiamonds(var.num);
+				}
+				else
+				{
+					BagManager::getInstance()->changeItemCount(var.itemId, var.num);
+				}
+							
+			}
+			GameData::getInstance()->setnowLevel(m_turretdata.multiple);
+		}
+		else
+		{
+			///////弹出充值
 		}
 	}
 	else
@@ -94,7 +123,7 @@ void MyMenuItemUpgrade::initItem()
 	unfinishedNode->addChild(diamond);
 	//经验条
 	auto exeBarFrame = Sprite::create("exeBarFrameDiamond.png");
-	exeBarFrame->setPosition(size.width*0.35, size.height*0.29);
+	exeBarFrame->setPosition(size.width*0.40+10, size.height*0.29);
 	unfinishedNode->addChild(exeBarFrame,1,"exeFrame");
 	auto exeBar = Sprite::create("exeBarDiamond.png");
 	exeBar->setPosition(0, 0);
@@ -114,7 +143,7 @@ void MyMenuItemUpgrade::initItem()
 
 void MyMenuItemUpgrade::setValue()
 {
-	bool isFinish;
+
 	commonNode->setVisible(true);
 	auto maxlevel = User::getInstance()->getMaxTurrentLevel();
 	auto turretData = ConfigTurrent::getInstance()->getNextTurrent(maxlevel);

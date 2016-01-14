@@ -1,5 +1,6 @@
 #include "data/GameData.h"
 #include "cocos2d.h"
+#include "User.h"
 using namespace cocos2d;
 
 GameData* GameData::_instance = 0;
@@ -17,4 +18,9 @@ GameData* GameData::getInstance(){
 		_instance = new GameData();
 	}
 	return _instance;
+}
+Turrent GameData::getTurrentData()
+{
+	auto turrent = ConfigTurrent::getInstance()->getTurrent(nNowLevel); 
+	return turrent; 
 }

@@ -42,6 +42,7 @@ public:
 
     bool setMaxTurrentLevel(int maxTurrentLevel);
 
+	
     int getVipLevel();
     
     bool addChargeMoney(int money);

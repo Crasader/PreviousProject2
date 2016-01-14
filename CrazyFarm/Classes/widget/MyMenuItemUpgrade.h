@@ -13,6 +13,7 @@ private:
 	Node*unfinishedNode;
 	Node* commonNode;
 	bool isElongate = false;
-	bool isFinished = false;
+	bool isFinish = false;
+
 	
 };

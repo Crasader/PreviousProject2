@@ -35,7 +35,6 @@ public:
 	  void initTurretWithTypeForRobot();
 	  void setUpgradeButton();
 	  void rorateTurret(float angle);
-	  void setMaxLevel(int maxlevel);
 	  void shoot(float);
 	  float getRarote(){ return m_turret->getRotation(); }
 	  // ’∏Ó”„

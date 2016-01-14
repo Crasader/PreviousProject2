@@ -152,6 +152,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\config\ConfigDebugTest.cpp" />
     <ClCompile Include="..\Classes\config\ConfigExp.cpp" />
     <ClCompile Include="..\Classes\config\ConfigFish.cpp" />
+    <ClCompile Include="..\Classes\config\ConfigMagnate.cpp" />
     <ClCompile Include="..\Classes\config\ConfigManager.cpp" />
     <ClCompile Include="..\Classes\config\ConfigMomentOrder.cpp" />
     <ClCompile Include="..\Classes\config\ConfigNormalTurrent.cpp" />
@@ -245,6 +246,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\config\ConfigDebugTest.h" />
     <ClInclude Include="..\Classes\config\ConfigExp.h" />
     <ClInclude Include="..\Classes\config\ConfigFish.h" />
+    <ClInclude Include="..\Classes\config\ConfigMagnate.h" />
     <ClInclude Include="..\Classes\config\ConfigManager.h" />
     <ClInclude Include="..\Classes\config\ConfigMomentOrder.h" />
     <ClInclude Include="..\Classes\config\ConfigNormalTurrent.h" />

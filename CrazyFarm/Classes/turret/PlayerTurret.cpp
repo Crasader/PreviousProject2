@@ -70,6 +70,8 @@ void PlayerTurret::update(float delta)
 		m_CoinLabel->setString(Value(num).asString().c_str());
 		num = User::getInstance()->getDiamonds();
 		m_DiamondLabel->setString(Value(num).asString().c_str());
+		num = GameData::getInstance()->getnowLevel();
+		nCurLevel->setString(Value(num).asString().c_str());
 	}
 
 
@@ -97,17 +99,19 @@ void PlayerTurret::initTurretWithTypeForRobot(){
 
 void PlayerTurret::upgradeTurret(Ref* psend)
 {
-	auto nowlevel = m_turretdata.turrentId;
-	m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(nowlevel);
+	m_turretdata = GameData::getInstance()->getTurrentData();
+	m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(m_turretdata.multiple);
 	if (m_turretdata.turrentId>User::getInstance()->getMaxTurrentLevel())
 	{
 		m_turretdata = ConfigTurrent::getInstance()->getLastTurrent(m_turretdata.turrentId);
 	}
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
+	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
 	m_turret->upgradeTurret();
 }
 void PlayerTurret::degradeTurret(Ref* psend)
 {
+	m_turretdata = GameData::getInstance()->getTurrentData();
 	auto nowlevel = m_turretdata.turrentId;
 	m_turretdata = ConfigTurrent::getInstance()->getLastTurrent(nowlevel);
 	auto room = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
@@ -116,6 +120,7 @@ void PlayerTurret::degradeTurret(Ref* psend)
 		m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(m_turretdata.turrentId);
 	}
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
+	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
 	m_turret->degradeTurret();
 }
 
@@ -125,14 +130,9 @@ void PlayerTurret::rorateTurret(float angle)
 	m_turret->runAction(rotate);
 }
 
-void PlayerTurret::setMaxLevel(int maxlevel)
-{
-	
-
-	setnMaxLevel(maxlevel);
-}
 
 void PlayerTurret::shoot(float degree){
+
 	if (nChairNoIndex > 1)
 	{
 		degree = 180+degree;
@@ -253,11 +253,12 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 
 void PlayerTurret::initWithDate(User* user,int index)
 {
-	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurrentLevel());
+	GameData::getInstance()->setnowLevel(User::getInstance()->getMaxTurrentLevel());
+	m_turretdata = GameData::getInstance()->getTurrentData();
 	initTurretWithType();
 	setUpgradeButton();
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
-	setMaxLevel(user->getMaxTurrentLevel());
+	
 	createPlayerCoin(user,index);
 	nChairNoIndex = index;
 }
@@ -269,7 +270,7 @@ void PlayerTurret::initWithDate(RoomPlayer* user)
 	nChairNoIndex = user->getRoomPosition();
 	initTurretWithTypeForRobot();
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
-	setMaxLevel(user->getMaxTurretLevel());
+	
 	createPlayerCoin(user);
     setAIinfo(user->getAi());
 	if (user->getRoomPosition() > 1)
@@ -280,7 +281,7 @@ void PlayerTurret::initWithDate(RoomPlayer* user)
 }
 void PlayerTurret::getCoinByFish(Fish* fish)
 {
-
+	
 	///需要鱼的配置属性
 	if (isRobot)
 	{
@@ -290,6 +291,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 	}
 	else
 	{
+		m_turretdata = GameData::getInstance()->getTurrentData();
 		//获得金币
 		auto num = fish->getFishGold()* m_turretdata.multiple;
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());

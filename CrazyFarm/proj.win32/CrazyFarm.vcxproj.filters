@@ -369,6 +369,9 @@
     <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigMagnate.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -646,6 +649,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h">
       <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigMagnate.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
