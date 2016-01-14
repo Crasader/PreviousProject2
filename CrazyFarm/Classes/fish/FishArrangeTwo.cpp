@@ -7,6 +7,7 @@ void FishArrangeTwo::initFish(int fishType){
 	fishGold = fishdata.baseReward;
 	this->grabProbability = fishdata.probability;
 	this->fishType = fishType;
+	this->speed = fishdata.move_speed;
 	this->experience = getFishExperienceByType(fishType);
 	initFishAnim(fishdata.uiId);
 }
