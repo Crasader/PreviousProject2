@@ -1,13 +1,13 @@
-#include "game/mahjong/otherplayer/PlayerSprite.h"
+#include "game/mahjong/player/base/PlayerBase.h"
 
-bool PlayerSprite::init(){
-	if (!Sprite::init()){
+bool PlayerBase::init(){
+	if (!Layer::init()){
 		return false;
 	}
 	return true;
 }
 
-void PlayerSprite::drawHeadPortrait(PlayerInfo* playerInfo){
+void PlayerBase::drawHeadPortrait(PlayerInfo* playerInfo){
 	//»æÖÆ±³¾°
 	head_bg = Sprite::create("gamemj/head_bg.png");
 	this->addChild(head_bg);
@@ -26,7 +26,7 @@ void PlayerSprite::drawHeadPortrait(PlayerInfo* playerInfo){
 }
 
 
-void PlayerSprite::setHeadPostion(Point pos){
+void PlayerBase::setHeadPostion(Point pos){
 	head_bg->setPosition(pos);
 	nickName->setPosition(ccp(pos.x,pos.y+50));
 	headimage->setPosition(pos);

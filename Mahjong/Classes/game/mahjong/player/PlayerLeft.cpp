@@ -1,14 +1,13 @@
-#include "game/mahjong/otherplayer/PlayerLeft.h"
+#include "game/mahjong/player/PlayerLeft.h"
+
 bool PlayerLeft::init(){
-	if (!PlayerSprite::init()){
+	if (!PlayerBase::init()){
 	
 		return false;
 	}
 	count = 0;
-	//Í·ÏñµÄ»æÖÆ
-	PlayerInfo* head = new PlayerInfo();
-	drawHeadPortrait(head);
 	drawHandJong();
+	addCoustomListener();
 	return true;
 }
 
@@ -61,5 +60,16 @@ Point PlayerLeft::getPlayedJongPos(){
 void PlayerLeft::drawCurrent(){
 
 
+
+}
+
+
+void PlayerLeft::addCoustomListener(){
+	auto dealJongListener = EventListenerCustom::create("player_turn",
+		[=](EventCustom* event) {
+		log("abc acb cba bacbbcab ");
+	});
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(
+		dealJongListener, 1);
 
 }

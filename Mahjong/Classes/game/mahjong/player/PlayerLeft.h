@@ -2,11 +2,11 @@
 #define __PLAYER_LEFT__
 #include "cocos2d.h"
 #include "game/playerinfo/PlayerInfo.h"
-#include "game/mahjong/otherplayer/PlayerSprite.h"
+#include "game/mahjong/player/base/PlayerBase.h"
 #include "game/mahjong/Jong.h"
 USING_NS_CC;
 
-class PlayerLeft :  public PlayerSprite{
+class PlayerLeft : public PlayerBase{
 
 public:
 
@@ -25,13 +25,15 @@ private:
 
 	void drawPlayedJong();//绘制打出去的牌
 
-	void drawHuaJong();//绘制玩家的花牌
+	void drawHuaJong();//绘制左边玩家的花牌
 
 	Point getPlayedJongPos();//获取打出去的牌的位置
 
 	void drawCurrent();//放大当前打出的牌
 
 	void playerTurn();//轮到打牌
+
+	void addCoustomListener();//添加自定义监听事件
 
 };
 #endif 

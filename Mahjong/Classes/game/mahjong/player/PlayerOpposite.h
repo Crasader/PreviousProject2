@@ -1,23 +1,20 @@
-#ifndef __PLAYER_RIGHT__
-#define __PLAYER_RIGHT__
+#ifndef __PLAYER_OPPOSSITE__
+#define __PLAYER_OPPOSSITE__
 #include "cocos2d.h"
 #include "game/playerinfo/PlayerInfo.h"
-#include "game/mahjong/otherplayer/PlayerSprite.h"
+#include "game/mahjong/player/base/PlayerBase.h"
 USING_NS_CC;
 
-class PlayerRight : public PlayerSprite{
+class PlayerOpposite : public PlayerBase{
 
 public:
-
 	virtual bool init();
-
-	CREATE_FUNC(PlayerRight);
+	CREATE_FUNC(PlayerOpposite);
 
 private:
+	const int OPPOSITE_POS_X = 400;
 
-	const int RIGHT_POS_X = 820;
-
-	const int RIGHT_POS_Y = 475;
+	const int OPPOSITE_POS_Y = 510;
 
 	void drawHandJong();//绘制玩家的手牌
 
@@ -28,6 +25,5 @@ private:
 	void getPlayedJongPos();//获取打出去的牌的位置
 
 	void drawCurrent();//放大当前打出的牌
-
 };
 #endif 

@@ -1,13 +1,10 @@
-#include "game/mahjong/otherplayer/PlayerRight.h"
+#include "game/mahjong/player/PlayerRight.h"
 
 bool PlayerRight::init(){
-	if (!Sprite::init()){
+	if (!PlayerBase::init()){
 
 		return false;
 	}
-	//Í·ÏñµÄ»æÖÆ
-	PlayerInfo* head = new PlayerInfo();
-	this->drawHeadPortrait(head);
 	drawHandJong();
 	return true;
 }

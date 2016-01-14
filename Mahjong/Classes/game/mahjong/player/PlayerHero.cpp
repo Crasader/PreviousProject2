@@ -1,7 +1,5 @@
-#include "game/mahjong/PlayerHero.h"
-#include "game/mahjong/otherplayer/PlayerLeft.h"
-#include "game/mahjong/otherplayer/PlayerRight.h"
-#include "game/mahjong/otherplayer/PlayerOpposite.h"
+#include "game/mahjong/player/PlayerHero.h"
+
 
 bool PlayerHero::init() {
 	if (!Layer::init()) {
@@ -21,9 +19,6 @@ void PlayerHero::initData() {
 
 //绘制自己
 void PlayerHero::drawPlayerHero() {
-	//头像的绘制
-	PlayerInfo* head = new PlayerInfo();
-	drawHeadPortrait(head);
 	//牌的绘制 TODO:test方法
 	for (int t = 1; t < 14; t++) {
 		Jong* jong = Jong::create();
@@ -37,13 +32,6 @@ void PlayerHero::drawPlayerHero() {
 	}
 }
 
-//绘制玩家的头像
-void PlayerHero::drawHeadPortrait(PlayerInfo* playerInfo) {
-	PlayerSprite* playerSprite = PlayerSprite::create();
-	playerSprite->drawHeadPortrait(playerInfo);
-	playerSprite->setHeadPostion(ccp(50, 120));
-	this->addChild(playerSprite);
-}
 
 void PlayerHero::resetAllJong() {
 	for (int i = 0; i < selfHandJongs.size(); i++) {
@@ -220,7 +208,7 @@ void PlayerHero::reArrangeJongs() {
 }
 
 void PlayerHero::addCoustomListener() {
-	auto dealJongListener = EventListenerCustom::create("player_hero_turn",
+	auto dealJongListener = EventListenerCustom::create("player_turn",
 		[=](EventCustom* event) {
 		//轮到自己打牌,获取牌的信息
 		Jong* jong = Jong::create();

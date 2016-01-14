@@ -1,13 +1,10 @@
-#include "game/mahjong/otherplayer/PlayerOpposite.h"
+#include "game/mahjong/player/PlayerOpposite.h"
 
 bool PlayerOpposite::init(){
-	if (!PlayerSprite::init()){
+	if (!PlayerBase::init()){
 
 		return false;
 	}
-	//Í·ÏñµÄ»æÖÆ
-	PlayerInfo* head = new PlayerInfo();
-	this->drawHeadPortrait(head);
 	drawHandJong();
 	return true;
 }

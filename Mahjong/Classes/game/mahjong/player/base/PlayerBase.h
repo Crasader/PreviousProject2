@@ -1,11 +1,11 @@
-#ifndef __PLAYER_SPRITE__
-#define __PLAYER_SPRITE__
+#ifndef __PLAYER_BASE__
+#define __PLAYER_BASE__
 #include "cocos2d.h"
 #include "game/playerinfo/PlayerInfo.h"
 
 USING_NS_CC;
 
-class PlayerSprite:public Sprite{
+class PlayerBase :public Layer{
 public:
 	const int jongNum = 13;
 
@@ -15,7 +15,7 @@ public:
 
 	void setHeadPostion(Point pos);
 
-	CREATE_FUNC(PlayerSprite);
+	CREATE_FUNC(PlayerBase);
 private:
 	Sprite* head_bg;
 	Label* nickName;
