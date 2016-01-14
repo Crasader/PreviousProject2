@@ -511,7 +511,7 @@
 		{
 			"fish_id"	:101,
 			"fish_type"	:	1,
-			"move_speed"	: 50,
+			"move_speed"	: 30,
 			"probability"	:	0.04,
 			"baseReward"	:	50,
 			"maxHitTime"	:	30,
@@ -525,7 +525,7 @@
 		{
 			"fish_id"	:102,
 			"fish_type"	:	1,
-			"move_speed"	: 50,
+			"move_speed"	: 30,
 			"probability"	:	0.03,
 			"baseReward"	:	80,
 			"maxHitTime"	:	30,
@@ -539,7 +539,7 @@
 		{
 			"fish_id"	: 103,
 			"fish_type"	:	1,
-			"move_speed"	: 50,
+			"move_speed"	: 30,
 			"probability"	:	0.02,
 			"baseReward"	:	120,
 			"maxHitTime"	:	30,
@@ -553,9 +553,9 @@
 		{
 			"fish_id"	: 104,
 			"fish_type"	:	1,
-			"move_speed"	: 160,
+			"move_speed"	: 30,
 			"probability"	:	0.008,
-			"baseReward"	:	120,
+			"baseReward"	:	160,
 			"maxHitTime"	:	30,
 			"protectedTime"	:	0,
 			"ui_id"			:	0,
