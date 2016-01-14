@@ -1,5 +1,5 @@
 #include "config/ConfigVipTurrent.h"
-
+#include "User.h"
 ConfigVipTurrent* ConfigVipTurrent::_instance = NULL;
 
 ConfigVipTurrent::ConfigVipTurrent(){
@@ -72,3 +72,17 @@ VipTurrent ConfigVipTurrent::getVipTurrent(int level) {
 }
 
 
+
+std::vector<VipTurrent>  ConfigVipTurrent::getUnUpgradeTurrents()
+{
+	std::vector<VipTurrent> vec;
+	auto vipLv =User::getInstance()->getVipLevel();
+	for (int i = 1; i <= 9; i++)
+	{
+		if (i>vipLv)
+		{
+			vec.push_back(vipTurrents[i]);
+		}
+	}
+	return vec;
+}

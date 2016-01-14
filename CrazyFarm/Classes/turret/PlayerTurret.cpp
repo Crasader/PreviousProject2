@@ -7,6 +7,7 @@
 #include "config/ConfigVipTurrent.h"
 #include "config/ConfigNormalTurrent.h"
 #include "domain/bankrupt/BankruptManager.h"
+#include "domain/bonuspool/BonusPoolManager.h"
 
 enum 
 {
@@ -298,6 +299,9 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		//获得经验
 		num = fish->getFishExperience();
 		User::getInstance()->addExp(num);
+
+		//奖金池
+		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
 
 	}
 }

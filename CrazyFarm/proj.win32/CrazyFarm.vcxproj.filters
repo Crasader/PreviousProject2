@@ -375,6 +375,12 @@
     <ClCompile Include="..\Classes\core\showTurretCell.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\core\showTurretLayer.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\bonuspool\BonusPoolManager.cpp">
+      <Filter>src\mannager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -658,6 +664,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\core\showTurretCell.h">
       <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\showTurretLayer.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\bonuspool\BonusPoolManager.h">
+      <Filter>src\mannager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
