@@ -2,6 +2,7 @@
 #include "utill/Chinese.h"
 #include "config/ConfigTurrent.h"
 #include "User.h"
+#include "lobby/shop/payLayer.h"
 bool showTurretCell::init(){
 
 	bg = Sprite::create();
@@ -60,6 +61,7 @@ bool showTurretCell::init(){
 
 void showTurretCell::setMultipleValue(int index)
 {
+	m_type = 2;
 	ShowPaoshade->setVisible(true);
 	bg->setTexture("ShowPaobg.png");
 	auto maxlevl = User::getInstance()->getMaxTurrentLevel();
@@ -89,6 +91,7 @@ void showTurretCell::setMultipleValue(int index)
 }
 void showTurretCell::setVippaoValue(int index)
 {
+	m_type = 1;
 	auto viplv = User::getInstance()->getVipLevel();
 	bg->setTexture("VIPFrame.png");
 	
@@ -114,5 +117,17 @@ void showTurretCell::IsBeToued()
 
 void showTurretCell::ButtonCallback(Ref* psend)
 {
+
+	if (m_type == 1)
+	{
+		///VIP³äÖµ	
+	}
+	else
+	{
+		auto layer = payLayer::createLayer(2);
+		layer->setPosition(0, 0);
+		Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer);
+		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
+	}
 
 }

@@ -3,6 +3,7 @@
 #include "showTurretCell.h"
 #include "config/ConfigVipTurrent.h"
 #include "config/ConfigTurrent.h"
+#include "lobby/shop/payLayer.h"
 void showTurretView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
@@ -81,6 +82,7 @@ bool showTurretLayer::init(int type)
 	bool bRet = false;
 	do 
 	{
+		m_type = type;
 		tableviewDelegate = new showTurretView();
 		tableviewDelegate->setviewTp(type);
 		Size visibleSize = Director::getInstance()->getVisibleSize();

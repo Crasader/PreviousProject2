@@ -17,7 +17,7 @@ public:
 private:
 	MenuItemImage* button;
 
-
+	int m_type;
 	Sprite*bg;
 	Sprite*showVipPaoName;
 	LabelAtlas* muptleTTF;

@@ -39,7 +39,7 @@ public:
 	float getGrabProbability(){ return grabProbability; }
     int getFishType();
 	int getFishExperience(){ return experience; };
-
+	int getBounsPoorGold(){ return BonusPoorGold; };
 protected:
 	void update(float);
 	float grabProbability;
@@ -47,6 +47,7 @@ protected:
 	int fishType;//鱼的类型
 	int experience;//鱼的经验值
 	int fishGold;//鱼的金钱
+	int BonusPoorGold;//奖金池的金币
 	float  rotation;//旋转的角度
 	string resoureName;//资源名称
 	string getSrcByType(int type);

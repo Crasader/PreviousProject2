@@ -63,7 +63,7 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		{
 			auto layer = showTurretLayer::create(2);
 			layer->setPosition(Point::ZERO);
-			getParent()->getParent()->addChild(layer);
+			getParent()->getParent()->addChild(layer,1,50);
 			///////µ¯³ö³äÖµ
 		}
 	}

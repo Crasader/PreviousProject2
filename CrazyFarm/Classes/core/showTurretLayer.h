@@ -47,4 +47,5 @@ private:
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return true; };
 	void chankanCallBack(Ref*);
 	showTurretView* tableviewDelegate;
+	int m_type;
 };
