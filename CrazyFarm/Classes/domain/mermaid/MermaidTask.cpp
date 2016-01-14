@@ -58,6 +58,12 @@ MermaidTaskOnlineInfo MermaidTask::getMermaidTaskOnlineInfo() {
     return mermaidTaskOnlineInfo;
 }
 
+bool MermaidTask::isAllowUserSkillById(int skillId) {
+    if(skillId == 1 || skillId == 4) {  // 冰冻和核弹不能使用
+        return false;
+    }
+    return true;
+}
 
 MermaidTask* MermaidTask::getNewMermaidTask(){
     return new MermaidTask();

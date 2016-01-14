@@ -23,6 +23,7 @@ class MermaidTask {
 
 public:
     static MermaidTask* getNewMermaidTask();
+    static bool isAllowUserSkillById(int skillId);  // 在任务执行期是否允许使用某个技能
 
     void addCoins(int coins);    // 增加时间段内的金币消耗
     void addOneCatchFishById(int fishId);      // 捕获鱼1只
