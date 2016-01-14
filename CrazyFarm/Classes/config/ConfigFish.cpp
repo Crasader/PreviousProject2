@@ -51,6 +51,7 @@ bool ConfigFish::LoadConfig() {
             fish.uiId = val["ui_id"].GetInt();
             fish.catch_ui_type = val["catch_ui_type"].GetInt();
             fish.exp = val["exp"].GetInt();
+            fish.bonus_pool_reward = val["bonus_pool_reward"].GetInt();
             fish.be_hit_logic = val["be_hit_logic"].GetInt();
 			fishes[fish.fishId] = fish;
 		}

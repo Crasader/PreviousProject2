@@ -13,7 +13,8 @@
 			"protectedTime"	:	0,
 			"ui_id"					:	1,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -26,7 +27,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	2,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -39,7 +41,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	3,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -52,7 +55,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	4,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -66,6 +70,7 @@
 			"ui_id"			:	5,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -79,6 +84,7 @@
 			"ui_id"			:	6,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -92,6 +98,7 @@
 			"ui_id"			:	7,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -105,6 +112,7 @@
 			"ui_id"			:	8,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -118,6 +126,7 @@
 			"ui_id"			:	9,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -131,6 +140,7 @@
 			"ui_id"			:	10,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -144,6 +154,7 @@
 			"ui_id"			:	11,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -157,6 +168,7 @@
 			"ui_id"			:	12,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -170,6 +182,7 @@
 			"ui_id"			:	13,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -196,6 +209,7 @@
 			"ui_id"			:	15,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -209,6 +223,7 @@
 			"ui_id"			:	16,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -222,6 +237,7 @@
 			"ui_id"			:	17,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -235,6 +251,7 @@
 			"ui_id"			:	18,
 			"catch_ui_type" :	0,
 			"exp"						: 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -247,7 +264,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	19,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -260,7 +278,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	20,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -273,7 +292,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	21,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -286,7 +306,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	22,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -299,7 +320,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	23,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -312,7 +334,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	24,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -325,7 +348,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	25,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -338,7 +362,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	26,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -351,7 +376,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	27,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -364,7 +390,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	28,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -377,7 +404,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	29,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -390,7 +418,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	30,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -403,7 +432,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	40,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -416,7 +446,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	41,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -429,7 +460,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	42,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -442,7 +474,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	43,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -455,7 +488,8 @@
 			"protectedTime"	:	0,
 			"ui_id"			:	44,
 			"catch_ui_type" :	0,
-			"exp"						: 2,
+			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -469,6 +503,7 @@
 			"ui_id"			:	45,
 			"catch_ui_type" :	0,
 			"exp" : 2,
+			"bonus_pool_reward" : 0,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -482,6 +517,7 @@
 			"ui_id"			:	0,
 			"catch_ui_type" :	0,
 			"exp" : 50,
+			"bonus_pool_reward" : 50,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -495,6 +531,7 @@
 			"ui_id"			:	0,
 			"catch_ui_type" :	0,
 			"exp" : 80,
+			"bonus_pool_reward" : 80,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -508,6 +545,7 @@
 			"ui_id"			:	0,
 			"catch_ui_type" :	0,
 			"exp" : 120,
+			"bonus_pool_reward" : 120,
 			"be_hit_logic"	: 0
 		},
 		{
@@ -521,6 +559,7 @@
 			"ui_id"			:	0,
 			"catch_ui_type" :	0,
 			"exp" : 160,
+			"bonus_pool_reward" : 160,
 			"be_hit_logic"	: 0
 		}
 	]

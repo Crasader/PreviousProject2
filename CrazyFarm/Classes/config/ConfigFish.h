@@ -18,6 +18,7 @@ struct FishData {
     int uiId;
     int catch_ui_type;  // 捕获鱼的效果
     int exp;            // 捕获鱼的经验
+    int bonus_pool_reward; // 奖金池奖励基数
     int be_hit_logic;   // 受击中反应
 };
 
