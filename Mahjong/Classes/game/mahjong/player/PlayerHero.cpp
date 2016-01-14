@@ -5,6 +5,7 @@ bool PlayerHero::init() {
 	if (!Layer::init()) {
 		return false;
 	}
+	initData();
 	//添加自定义事件的监听
 	addCoustomListener();
 	//添加点击事件的监听
