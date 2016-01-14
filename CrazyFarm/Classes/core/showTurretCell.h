@@ -18,7 +18,8 @@ private:
 	MenuItemImage* button;
 
 
-
+	Sprite*bg;
+	Sprite*showVipPaoName;
 	LabelAtlas* muptleTTF;
 	LabelTTF* PriceDecTTF;
 	Sprite* lockSp;

@@ -168,6 +168,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\core\GameScene.cpp" />
     <ClCompile Include="..\Classes\core\showFishLayer.cpp" />
     <ClCompile Include="..\Classes\core\showTurretCell.cpp" />
+    <ClCompile Include="..\Classes\core\showTurretLayer.cpp" />
     <ClCompile Include="..\Classes\data\GameData.cpp" />
     <ClCompile Include="..\Classes\data\GameState.cpp" />
     <ClCompile Include="..\Classes\domain\bankrupt\BankruptManager.cpp" />
@@ -263,6 +264,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\core\GameScene.h" />
     <ClInclude Include="..\Classes\core\showFishLayer.h" />
     <ClInclude Include="..\Classes\core\showTurretCell.h" />
+    <ClInclude Include="..\Classes\core\showTurretLayer.h" />
     <ClInclude Include="..\Classes\data\GameData.h" />
     <ClInclude Include="..\Classes\data\GameState.h" />
     <ClInclude Include="..\Classes\domain\bankrupt\BankruptManager.h" />

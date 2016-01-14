@@ -1,5 +1,5 @@
 #include "config/ConfigTurrent.h"
-
+#include "User.h"
 ConfigTurrent* ConfigTurrent::_instance = NULL;
 
 ConfigTurrent::ConfigTurrent(){
@@ -117,5 +117,26 @@ Turrent ConfigTurrent::getLastTurrent(int turrentId)
 
 Turrent ConfigTurrent::getTurrentByIndex(int index)
 {
-	return turrents.at(index);
+	for (auto var:turrents)
+	{
+		if (var.turrentId == index)
+		{
+			return var;
+		}
+	}
+	return Turrent();
+}
+
+std::vector<Turrent> ConfigTurrent::getUnUpgradeTurrents()
+{
+	std::vector<Turrent> vec;
+	auto maxlv = User::getInstance()->getMaxTurrentLevel();
+	for (auto var : turrents)
+	{
+		if (var.turrentId>maxlv)
+		{
+			vec.push_back(var);
+		}
+	}
+	return vec;
 }

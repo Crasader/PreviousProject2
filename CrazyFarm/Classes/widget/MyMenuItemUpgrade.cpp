@@ -3,6 +3,7 @@
 #include "config/ConfigTurrent.h"
 #include "BagManager.h"
 #include "data/GameData.h"
+#include "core/showTurretLayer.h"
 enum 
 {
 	kTagMutpleLabel = 10,
@@ -60,6 +61,9 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		}
 		else
 		{
+			auto layer = showTurretLayer::create(2);
+			layer->setPosition(Point::ZERO);
+			getParent()->getParent()->addChild(layer);
 			///////µ¯³ö³äÖµ
 		}
 	}
