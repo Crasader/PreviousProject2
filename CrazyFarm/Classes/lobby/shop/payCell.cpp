@@ -1,6 +1,7 @@
 #include "payCell.h"
 #include "domain/user/User.h"
 #include "lobby/LobbyScene.h"
+#include "core/GameLayer.h"
 bool PayCell::init(){
 	if (!Sprite::initWithFile("payframe.png")){
 		return false;
@@ -75,4 +76,12 @@ void PayCell::IsBeToued()
 	default:
 		break;
 	}
+	auto scene = Director::getInstance()->getRunningScene();
+	auto node = scene->getChildByTag(777);
+	if (node)
+	{
+		((GameLayer*)node)->RefreShmyPlayerTurret();
+	}
+
+
 }

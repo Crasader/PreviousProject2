@@ -26,6 +26,10 @@ bool PlayerTurret::init(){
 	nCurLevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	nCurLevel->setPosition(levelBg->getContentSize() / 2);
 	levelBg->addChild(nCurLevel);
+	m_turret = Turret::create();
+
+	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
+	addChild(m_turret);
 	scheduleUpdate();
 	return true;
 }
@@ -53,11 +57,8 @@ void PlayerTurret::initTurretWithType(){
 	}
 
 
-
-	m_turret = Turret::create();
 	m_turret->initWithType(turretdata.turrent_ui_id);
-	m_turret->setPosition(getContentSize().width/2,getContentSize().height*0.6);
-	addChild(m_turret);
+	
 }
 void PlayerTurret::update(float delta)
 {
@@ -351,4 +352,9 @@ std::string PlayerTurret::getNetImgPath(int ui_type, int net_type)
 {
 	auto str = String::createWithFormat("bulletAndNet/net_%d_%d", ui_type, net_type);
 	return str->getCString();
+}
+
+void PlayerTurret::refreshTurretInfo()
+{
+	initTurretWithType();
 }

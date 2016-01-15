@@ -5,13 +5,17 @@ bool Turret::init(){
 		return false;
 	}
 	
-
+	emptySp = nullptr;
 	return true;
 }
 
 void Turret::initWithType(int type){
 	auto path = String::createWithFormat("turret/pao_%d.png", type);
 	initWithFile(path->getCString());
+	if (emptySp)
+	{
+		emptySp->removeAllChildrenWithCleanup(1);
+	}
 	emptySp = Sprite::create();
 	emptySp->setPosition(getContentSize().width/2, getContentSize().height*0.9);
 	addChild(emptySp);

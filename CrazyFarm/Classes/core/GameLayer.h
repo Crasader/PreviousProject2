@@ -14,6 +14,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(GameLayer);
 	void loadNewMonent();
+	void RefreShmyPlayerTurret();
 private:
 	void createTurret();//按照类型生成炮塔
 	void addTouchEvent();

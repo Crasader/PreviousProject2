@@ -48,6 +48,8 @@ public:
 	  void onAIResurgenceCallBack(Node* sender, void* data);
 	  std::string getNetImgPath(int ui_type, int net_type);
 	  void update(float delta); 
+	  ///更新炮塔信息
+	  void refreshTurretInfo();
 private:
 	Turrent  m_turretdata;
 	  int turretType;
