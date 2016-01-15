@@ -9,7 +9,7 @@ struct MomentFiveData
 	int fishID;
 	float startTime;
 	Vec2 pos;
-	MomentFiveData(int id, float time,Vec2 p){ fishID = id, time = startTime; pos=p};
+    MomentFiveData(int id, float time,Vec2 p){ fishID = id, time = startTime; pos=p;};
 };
 class MomentFive : public Moment {
 
