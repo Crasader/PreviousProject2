@@ -39,5 +39,9 @@ private:
 	void addCoustomListener();//添加自定义监听事件
 	void addTouchListener();//添加屏幕的触摸事件
 	void reArrangeJongs();//手牌整理动画
+	void drawReady();
+	void readyGo();//玩家准备
+	void drawActionCpg();//吃,碰,杠按钮
+	void actionCpg();//吃,碰,杠操作
 };
 #endif
