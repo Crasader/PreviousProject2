@@ -102,6 +102,7 @@ void FishManage::createFishGroup(int grouptag)
 
 void FishManage::removeFish(Fish* fish){
 	fishPool.eraseObject(fish);
+	
 }
 
 
@@ -165,6 +166,11 @@ void FishManage::removeFishWhichSwimOut()
 	}
 	for (auto fish : needRemoveFishs)
 	{
+		auto lockfish = m_layer->GetMyTurret()->getLockFish();
+		if (fish == lockfish)
+		{
+			m_layer->GetMyTurret()->setLockFish(nullptr);
+		}
 		fishPool.eraseObject(fish);
 		fish->removeFromParentAndCleanup(1);
 	}
@@ -277,4 +283,17 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
 		
 	}
 	
+}
+
+Fish*FishManage::getFishByPosInPool(Point pos)
+{
+	for (auto var:fishPool)
+	{
+		auto rect = var->getBoundingBox();
+		if (rect.containsPoint(pos))
+		{
+			return var;
+		}
+	}
+	return nullptr;
 }

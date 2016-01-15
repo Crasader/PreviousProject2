@@ -2,7 +2,7 @@
 #include "domain/bag/BagManager.h"
 SkillLockButton* SkillLockButton::createSkillLockButton()
 {
-	SkillConfigInfo info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(4);
+	SkillConfigInfo info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(2);
 	SkillLockButton* skillButton = new SkillLockButton();
 	if (skillButton && skillButton->init(info.cd_time, "skillStencil.png", "item_1004.png", "item_1004.png", skillManager::getInstance()->getSKillNumById(info.skill_id)))
 	{
@@ -27,16 +27,17 @@ void SkillLockButton::skillClickCallBack(Ref* obj)
 		return ;
 	}
 	mPropNum--;
-	BagManager::getInstance()->changeItemCount(3, mPropNum);
+	BagManager::getInstance()->changeItemCount(2, mPropNum);
 	refreshPropNumLabel();
 	SkillButton::skillClickCallBack(obj);
-	skillManager::getInstance()->useSkillSummon();
+	skillManager::getInstance()->useSkillLock();
 }
 
 /** 技能冷却完成回调 */
 void SkillLockButton::skillCoolDownCallBack()
 {
 	SkillButton::skillCoolDownCallBack();
+	skillManager::getInstance()->useSkillLockEnd();
 
 }
 

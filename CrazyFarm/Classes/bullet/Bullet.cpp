@@ -1,7 +1,7 @@
 #include "bullet/Bullet.h"
 #include "data/GameData.h"
 #include "domain/magnate/MagnateManager.h"
-
+#include "core/GameLayer.h"
 bool Bullet::init(){
 	if (!Sprite::init()){
 		return false;
@@ -26,7 +26,12 @@ string Bullet::getSrcByType(int ui_type, int net_type){
 
 }
 
-
+void Bullet::moveToLockfish(float time, Fish*fish)
+{
+	runAction(Sequence::create(MoveTo::create(time, fish->getPosition()), CallFunc::create([&]{
+		setVisible(false); ((GameLayer*)getParent())->createNet(this); removeAllChildrenWithCleanup(1); }
+	), nullptr));
+}
 
 int Bullet::getSpeedByType(int type){
 	return 800;

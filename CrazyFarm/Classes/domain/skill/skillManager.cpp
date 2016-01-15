@@ -61,3 +61,12 @@ void skillManager::useSkillFreezeEnd()
 		m_gamelayer->scheduleUpdate();
 	}
 }
+
+void skillManager::useSkillLock()
+{
+	m_gamelayer->beginLock();
+}
+void skillManager::useSkillLockEnd()
+{
+	m_gamelayer->endLock();
+}

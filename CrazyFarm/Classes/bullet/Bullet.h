@@ -24,6 +24,8 @@ public:
 	CC_SYNTHESIZE(PlayerTurret*, pPlayerTurret, PlayerTurret);
 	void getCoinForFish(Vector<Fish*> fishs);
 	TurretData getTurretdata(){ return m_turretdata; };
+
+	void moveToLockfish(float time,Fish*fish);
 private:
 	int bulletSpeed;
 	int bulletRotation;

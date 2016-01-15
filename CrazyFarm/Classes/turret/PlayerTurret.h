@@ -36,6 +36,11 @@ public:
 	  void setUpgradeButton();
 	  void rorateTurret(float angle);
 	  void shoot(float);
+	  //锁定射击
+	  void beginLockShoot();
+	  void endLockShoot();
+	  void rorateAndShootOnlock(float dt);
+	  void shootOnLock(float dt);
 	  float getRarote(){ return m_turret->getRotation(); }
 	  //收割鱼
 	  void getCoinByFish(Fish* fish);
@@ -50,6 +55,8 @@ public:
 	  void update(float delta); 
 	  ///更新炮塔信息
 	  void refreshTurretInfo();
+	  void setLockFish(Fish* fish){ lockFish = fish; };
+	  Fish*getLockFish(){ return lockFish; };
 private:
 	Turrent  m_turretdata;
 	  int turretType;
@@ -67,5 +74,6 @@ private:
 	  int nChairNoIndex = -1;
 	  int nNowMoney;
 	  RoomPlayer* m_robotData;
+	  Fish* lockFish = nullptr;
 
 };

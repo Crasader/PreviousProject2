@@ -44,6 +44,7 @@ bool GameLayer::init(){
 	loadNewMonent();
 
 
+	setbisOnSkillLock(false);
 
 	GameData::getInstance()->setShotCount(0);
 	GameData::getInstance()->setevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
@@ -123,7 +124,7 @@ void GameLayer::createTurret(){
 
 
 void GameLayer::addTouchEvent(){
-	auto touchListener = EventListenerTouchOneByOne::create();
+	touchListener = EventListenerTouchOneByOne::create();
 	touchListener->setSwallowTouches(true);
 	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
 	touchListener->onTouchMoved = CC_CALLBACK_2(GameLayer::onTouchMoved, this);
@@ -152,18 +153,27 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	return true;
 }
 
+bool GameLayer::lockTouchEvent(Touch *touch, Event  *event)
+{
+	auto pos = touch->getLocation();
+	auto fish = FishManage::getInstance()->getFishByPosInPool(pos);
+	if (fish)
+	{
+		myTurret->setLockFish(fish);
+	}
+	return true;
+}
+
+
 void GameLayer::onTouchMoved(Touch *touch, Event  *event)
 {
-	//TODO 需要添加子弹间隔
-	//float degree = getTurretRotation(myTurret->getPosition(), touch->getLocation());
-	//rotateTurret(degree);
-	//shoot(degree);
+
 
 }
 
 void  GameLayer::onTouchEnded(Touch *touch, Event  *event)
 {
-	//暂时不做处理
+	
 }
 
 
@@ -294,4 +304,15 @@ void GameLayer::loadNewMonent()
 void GameLayer::RefreShmyPlayerTurret()
 {
 	myTurret->refreshTurretInfo();
+}
+
+void GameLayer::beginLock()
+{
+	myTurret->beginLockShoot();
+	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::lockTouchEvent, this);
+}
+void GameLayer::endLock()
+{
+	myTurret->endLockShoot();
+	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
 }

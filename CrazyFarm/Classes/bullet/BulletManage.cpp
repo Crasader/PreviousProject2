@@ -25,6 +25,12 @@ Bullet* BulletManage::createBullet(TurretData turretdata, int rotation){
 	return bullet;
 }
 
+Bullet* BulletManage::createBulletNoinPool(TurretData turretdata, int rotation){
+	auto bullet = Bullet::create();
+	bullet->initBullet(turretdata, rotation);
+	return bullet;
+}
+
 void BulletManage::removeBullet(Bullet* bullet){
 	bulletPool.eraseObject(bullet);
 }

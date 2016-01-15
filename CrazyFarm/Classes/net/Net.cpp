@@ -35,7 +35,7 @@ void Net::checkCatchFish(Bullet*bullet){
 			{
 				fishNeedRemove.pushBack(fish);
 			//uiÒÆ³ý
-				fish->removeFromParent();
+				
 			}
 			
 		}
@@ -43,6 +43,13 @@ void Net::checkCatchFish(Bullet*bullet){
 
 	bullet->getCoinForFish(fishNeedRemove);
 	for (Fish* fish : fishNeedRemove){
+		auto lockfish = ((GameLayer*)getParent())->GetMyTurret()->getLockFish();
+		if (fish==lockfish)
+		{
+			((GameLayer*)getParent())->GetMyTurret()->setLockFish(nullptr);
+		}
 		FishManage::getInstance()->removeFish(fish);
+		fish->removeFromParentAndCleanup(1);
+		fish = nullptr;
 	}
 }

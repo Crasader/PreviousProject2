@@ -1,4 +1,4 @@
-#include "moment/MomentFour.h"
+#include "MomentFour.h"
 #include "fish/FishGroupData.h"
 
 void MomentFour::initData()

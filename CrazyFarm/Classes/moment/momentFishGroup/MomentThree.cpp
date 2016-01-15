@@ -1,9 +1,9 @@
-#include "moment/MomentTwo.h"
+#include "MomentThree.h"
 #include "fish/FishGroupData.h"
 
-void MomentTwo::initData()
+void MomentThree::initData()
 {
 	MomentIntervalCreate::initData();
-	m_groupTag = 1;
+	m_groupTag = 2;
 	fishMinSize = 10;
 }

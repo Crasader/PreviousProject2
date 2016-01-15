@@ -17,7 +17,8 @@ public:
 	void useSkillFreeze();
 	void useSkillFreezeEnd();
 	void useSkillSummon();
-
+	void useSkillLock();
+	void useSkillLockEnd();
 	void setlayer(GameLayer*layer){ m_gamelayer = layer; }
 private:
 	skillManager();

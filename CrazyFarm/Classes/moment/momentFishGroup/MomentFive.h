@@ -1,10 +1,10 @@
 #pragma once
 #include "cocos2d.h"
-#include "moment/MomentIntervalCreate.h"
+#include "MomentIntervalCreate.h"
 #include "fish/FishManage.h"
 using namespace cocos2d;
 
-class MomentTwo : public MomentIntervalCreate {
+class MomentFive : public MomentIntervalCreate {
 
 public:
 	virtual void initData();

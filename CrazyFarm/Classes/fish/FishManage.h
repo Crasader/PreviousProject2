@@ -31,6 +31,8 @@ public:
     int getAllFishInPoolCount();
 	void removeFishWhichSwimOut();///ÒÆ³ıÆÁÄ»ÍâµÄÓã
 
+
+	Fish*getFishByPosInPool(Point pos);
     Point getBestRewardPostion();
     
 	void UpdateWhenController(float dt);

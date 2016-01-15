@@ -15,6 +15,11 @@ public:
 	CREATE_FUNC(GameLayer);
 	void loadNewMonent();
 	void RefreShmyPlayerTurret();
+	void beginLock();	
+	void endLock();
+	static float getTurretRotation(Point pos1,Point pos2);//获取炮塔需要旋转的角度
+	void createNet(Bullet *bullet);//打开渔网
+	PlayerTurret* GetMyTurret(){ return myTurret; }
 private:
 	void createTurret();//按照类型生成炮塔
 	void addTouchEvent();
@@ -25,21 +30,25 @@ private:
 
 	void createFish(float dt);//产生鱼
 	void createFishGroup(float dt);//产生鱼群
-	void createNet(Bullet *bullet);//打开渔网
-	float getTurretRotation(Point pos1,Point pos2);//获取炮塔需要旋转的角度
+	
+
 	void rotateTurret(float degree, PlayerTurret* turret);//旋转炮塔
 
 	void AiUpdata(float dt);
 	void onExit();
 	void collisionUpdate(float dt);
 	void update(float dt);
-    
+    //锁定
+	
+	void LockUpdata(float dt);
+	bool lockTouchEvent(Touch *touch, Event  *event);
+	CC_SYNTHESIZE(bool, bIsOnSkillLock, bisOnSkillLock);
 	void calculateFreeChair();
 	PlayerTurret* myTurret;
 	Vector<PlayerTurret*> otherTurrets;
 	std::vector<RoomPlayer> players;
 	int m_index = -1;
-	
+	EventListenerTouchOneByOne* touchListener;
 	bool isShoot = true;
 };
 #endif
