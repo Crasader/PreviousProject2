@@ -13,6 +13,10 @@ void MomentFive::init()
 bool MomentFive::updata(float dt)
 {
 	nNowTime += dt;
+	if (datas.size()<=0)
+	{
+		return true;
+	}
 	for (auto iter = datas.begin(); iter != datas.end();)
 	{
 		if (iter->startTime>nNowTime)
@@ -23,7 +27,7 @@ bool MomentFive::updata(float dt)
 		}
 		else
 		{
-			return false;
+			return true;
 		}
 	}
 	return false;

@@ -185,61 +185,61 @@
             "fishgroup":
              [
                 {
-                    "fishID": 1,
-                    "fishRoute": 10,
-                    "fishCount":  10,
-                    "IntervalCreateTime": 0.4,
-                    "startPosX": -50,
+                    "fishID": 44,
+                    "fishRoute": 7,
+                    "fishCount":  1,
+                    "IntervalCreateTime": 0,
+                    "startPosX": -200,
                     "startPosY": 270
 
                 },
                 {
-                    "fishID": 1,
-                    "fishRoute": 11,
-                    "fishCount":  20,
-                    "IntervalCreateTime": 0.3,
-                    "startPosX": -50,
+                    "fishID": 44,
+                    "fishRoute": 8,
+                    "fishCount":  1,
+                    "IntervalCreateTime": 0,
+                    "startPosX": 1160,
                     "startPosY": 270
 
                 }
                 ,
                 {
-                    "fishID": 1,
-                    "fishRoute": 12,
-                    "fishCount": 40,
-                    "IntervalCreateTime": 0.3,
-                    "startPosX": -50,
-                    "startPosY": 270
+                    "fishID": 10,
+                    "fishRoute": 9,
+                    "fishCount": 15,
+                    "IntervalCreateTime": 2.3,
+                    "startPosX": 100,
+                    "startPosY": -30
 
                 }
                 ,
                 {
-                    "fishID": 1,
-                    "fishRoute": 13,
-                    "fishCount":  10,
-                    "IntervalCreateTime": 0.4,
-                    "startPosX": 1010,
-                    "startPosY": 270
+                    "fishID": 33,
+                    "fishRoute": 9,
+                    "fishCount":  15,
+                    "IntervalCreateTime": 2.3,
+                    "startPosX": 150,
+                    "startPosY": -30
+
+                }
+                ,
+                 {
+                    "fishID": 10,
+                    "fishRoute": 10,
+                    "fishCount": 15,
+                    "IntervalCreateTime": 2.3,
+                    "startPosX": 860,
+                    "startPosY": -30
 
                 }
                 ,
                 {
-                    "fishID": 1,
-                    "fishRoute": 14,
-                    "fishCount": 20,
-                    "IntervalCreateTime": 0.3,
-                    "startPosX": 1010,
-                    "startPosY": 270
-
-                }
-                ,
-                {
-                    "fishID": 1,
-                    "fishRoute": 15,
-                    "fishCount": 40,
-                    "IntervalCreateTime": 0.3,
-                    "startPosX": 1010,
-                    "startPosY": 270
+                    "fishID": 33,
+                    "fishRoute": 10,
+                    "fishCount":  15,
+                    "IntervalCreateTime": 2.3,
+                    "startPosX": 810,
+                    "startPosY": -30
 
                 }
                            

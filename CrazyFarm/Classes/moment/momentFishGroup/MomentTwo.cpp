@@ -5,5 +5,5 @@ void MomentTwo::initData()
 {
 	MomentIntervalCreate::initData();
 	m_groupTag = 1;
-	fishMinSize = 10;
+	fishMinSize = 100;
 }

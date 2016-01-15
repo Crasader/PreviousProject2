@@ -1,5 +1,5 @@
 {
-    "description" :"1：表示按照轨迹点运动，tension表示运行轨迹柔和度 0为最柔和，1位曲线 2：圆周运动：需填写参数运动圆心，圆周次数，缩放系数(无缩放填0) 3：播放动画：需填写动画名称",
+    "description" :"1：表示按照轨迹点运动，tension表示运行轨迹柔和�?0为最柔和�?位曲�?2：圆周运动：需填写参数运动圆心，圆周次数，缩放系数(无缩放填0) 3：播放动画：需填写动画名称",
     "version" : 1,
     "MotionConfig": [
         {
@@ -80,60 +80,37 @@
             "routePoint": [
                 {
                      "moveState": 1,
-                   "MoveByPos":{"x":-1300,"y":0},
+                   "MoveByPos":{"x":470,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
                     "time": 12
+                },
+                {
+                     "moveState": 1,
+                   "MoveByPos":{"x":800,"y":0},
+                    "isRepet": 0,   
+                    "delay": 20,
+                    "time": 15
                 }
             ]
         
         },
         {
             "tag": 8,
-            "routePoint": [
+            "routePoint":[
                 {
-                     "moveState": 2,
-                    "circleX":  100, 
-                    "circleY":  300,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 180, 
-                    "isClockwise": true,
+                     "moveState": 1,
+                   "MoveByPos":{"x":-470,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
-                    "time": 4
+                    "time": 12
                 },
                 {
-                     "moveState": 2,
-                    "circleX":  350, 
-                    "circleY":  300,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 180, 
-                    "isClockwise": false,
+                     "moveState": 1,
+                   "MoveByPos":{"x":-800,"y":0},
                     "isRepet": 0,   
-                    "delay": 0,
-                    "time": 4
-                },
-                {
-                     "moveState": 2,
-                    "circleX":  600, 
-                    "circleY":  300,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 180, 
-                    "isClockwise": true,
-                    "isRepet": 0,   
-                    "delay": 0,
-                    "time": 4
-                },
-                {
-                     "moveState": 2,
-                    "circleX":  850, 
-                    "circleY":  300,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 180, 
-                    "isClockwise": false,
-                    "isRepet": 0,   
-                    "delay": 0,
-                    "time": 4
+                    "delay": 15,
+                    "time": 15
                 }
             ]
         
@@ -141,75 +118,64 @@
         {
             "tag": 9,
             "routePoint": [
-                {
-                     "moveState": 2,
-                    "circleX":  100, 
-                    "circleY":  240,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 180, 
-                    "isClockwise": false,
+ 		{
+                     "moveState": 1,
+                   "MoveByPos":{"x":0,"y":300},
                     "isRepet": 0,   
-                    "delay": 0,
-                    "time": 4
-                },
+                    "delay": 8,
+                    "time":  5
+                }
                 {
                      "moveState": 2,
-                    "circleX":  350, 
-                    "circleY":  240,
+                    "circleX":  270, 
+                    "circleY":  270,
                      "ScaleDiff":  0, 
-                    "circleAngle": 180, 
+                    "circleAngle": 360, 
                     "isClockwise": true,
                     "isRepet": 0,   
                     "delay": 0,
-                    "time": 4
-                },
-                {
-                     "moveState": 2,
-                    "circleX":  600, 
-                    "circleY":  240,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 180, 
-                    "isClockwise": false,
+                    "time": 12
+                }, 
+	      {
+                     "moveState": 1,
+                   "MoveByPos":{"x":0,"y":400},
                     "isRepet": 0,   
                     "delay": 0,
-                    "time": 4
-                },
-                {
-                     "moveState": 2,
-                    "circleX":  850, 
-                    "circleY":  240,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 180, 
-                    "isClockwise": true,
-                    "isRepet": 0,   
-                    "delay": 0,
-                    "time": 4
+                    "time":  7
                 }
             ]
         
         },
         {
             "tag": 10,
-            "routePoint": [
-                {
+            "routePoint":[
+ 		{
                      "moveState": 1,
-                    "MoveByPos":{"x":-1300,"y":0},
+                   "MoveByPos":{"x":0,"y":300},
                     "isRepet": 0,   
-                    "delay": 0,
-                    "time": 0.5
-                },
+                    "delay": 8,
+                    "time":  5
+                }
                 {
                      "moveState": 2,
-                    "circleX":  50, 
+                    "circleX":  690, 
                     "circleY":  270,
                      "ScaleDiff":  0, 
                     "circleAngle": 360, 
-                    "isClockwise": true,
-                    "isRepet": 1,   
+                    "isClockwise": false,
+                    "isRepet": 0,   
                     "delay": 0,
-                    "time": 4
+                    "time": 12
+                }, 
+	      {
+                     "moveState": 1,
+                   "MoveByPos":{"x":0,"y":400},
+                    "isRepet": 0,   
+                    "delay": 0,
+                    "time":  7
                 }
             ]
+
         
         },
         {

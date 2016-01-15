@@ -19,7 +19,7 @@ private:
     int count = 0;
     int nextCountReset = 60;
     int baseFireLevel = 40;
-    int fireLevel = baseFireLevel;
+    int fireLevel =40 /*baseFireLevel*/;
 };
 
 #endif

@@ -5,5 +5,5 @@ void MomentThree::initData()
 {
 	MomentIntervalCreate::initData();
 	m_groupTag = 2;
-	fishMinSize = 10;
+	fishMinSize = 100;
 }

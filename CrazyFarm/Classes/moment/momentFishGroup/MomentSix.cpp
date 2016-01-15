@@ -5,5 +5,5 @@ void MomentSix::initData()
 {
 	MomentIntervalCreate::initData();
 	m_groupTag = 3;
-	fishMinSize = 10;
+	fishMinSize = 100;
 }
