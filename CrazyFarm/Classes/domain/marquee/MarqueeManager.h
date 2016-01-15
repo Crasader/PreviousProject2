@@ -11,12 +11,13 @@ class MarqueeManager {
 public:
 	static MarqueeManager* getInstance();
      void init();
-	void loadConfig();
+
 	void onHttpRequestCompleted(HttpClient *sender, HttpResponse *response);
    
 	float getPlayTime(){ return play_interval; };
 	float getReqInterval(){ return req_interval; };
 	std::string getContent();
+	std::vector<std::string> getContents(){ return contents; };
 private:
 	MarqueeManager();
    

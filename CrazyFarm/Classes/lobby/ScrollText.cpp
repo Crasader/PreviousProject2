@@ -11,7 +11,12 @@ bool ScrollText::init() {
 		pMask = Sprite::create("hot_marquee_bg.png");
 		marInfo = "";
 		ishowDialog = false;
-		auto str1 = MarqueeManager::getInstance()->getContent();
+		auto vec = MarqueeManager::getInstance()->getContents();
+		std::string str1;
+		for (auto var:vec)
+		{
+			str1 += "            " + var;
+		}
 		_mLable = Label::create(str1.c_str() , "Arial-BoldMT", 16);
 		_mLable->setAnchorPoint(Vec2::ANCHOR_MIDDLE_LEFT);
 		_mLable->setColor(Color3B::YELLOW);

@@ -290,3 +290,8 @@ void GameLayer::loadNewMonent()
 {
 	FishManage::getInstance()->LoadOnement();
 }
+
+void GameLayer::RefreShmyPlayerTurret()
+{
+	myTurret->refreshTurretInfo();
+}

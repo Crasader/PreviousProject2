@@ -65,6 +65,10 @@ std::map<int, VipLevel> ConfigVipLevel::getVipLevels() {
 }
 
 VipLevel ConfigVipLevel::getVipLevel(int level) {
+	if (level>9)
+	{
+		level = 9;
+	}
     return vipLevels[level];
 }
 

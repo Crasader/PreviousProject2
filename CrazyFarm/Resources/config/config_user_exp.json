@@ -4,15 +4,33 @@
 	"item_list": [
 		{
 			"level_id"	:	1,
-			"require_exp"	:	0
+			"require_exp"	:	0,
+			"rewardlist":[
+			{
+		  	"itemid" :1001,
+		  	"itemNum":200
+			},
+			{
+		  	"itemid" :1002,
+		  	"itemNum":0
+			},
+			{
+		  	"itemid" :1003,
+		  	"itemNum":2
+			},
+			{
+		  	"itemid" :1004,
+		  	"itemNum":0
+			}
+			]
 		},
 		{
 			"level_id"	:	2,
-			"require_exp"	:	400
+			"require_exp"	:	378
 		},
 		{
 			"level_id"	:	3,
-			"require_exp"	:	1000
+			"require_exp"	:	620
 		},
 		{
 			"level_id"	:	4,
@@ -30,5 +48,67 @@
 			"level_id"	:	7,
 			"require_exp"	:	10000000
 		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		,
+		{
+			"level_id"	:	7,
+			"require_exp"	:	10000000
+		}
+		
 	]
 }
