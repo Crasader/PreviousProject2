@@ -61,14 +61,16 @@ bool FishRouteData::loadConfig()
 				p->isRepeat = dict["isRepet"].GetInt();
 				p->time = dict["time"].GetDouble();
 				p->delay = dict["delay"].GetDouble();
-				auto &arraypoints = dict["ArrayPos"];
-				auto size = arraypoints.Size();
-				p->pointarray = PointArray::create(30);
-				p->pointarray->retain();
-				for (unsigned int k = 0; k < arraypoints.Size();k++)
-				{
+				
+				p->MoveByPos = Vec2(dict["MoveByPos"]["x"].GetDouble(), dict["MoveByPos"]["y"].GetDouble());
+				/*auto &arraypoints = dict["ArrayPos"];
+				auto size = arraypoints.Size();*/
+				/*	p->pointarray = PointArray::create(30);
+					p->pointarray->retain();
+					for (unsigned int k = 0; k < arraypoints.Size();k++)
+					{
 					p->pointarray->addControlPoint(Vec2(arraypoints[k]["x"].GetDouble(), arraypoints[k]["y"].GetDouble()));
-				}
+					}*/
 				
 			}
 				break;

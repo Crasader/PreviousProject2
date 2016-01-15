@@ -31,7 +31,7 @@ public:
     int getAllFishInPoolCount();
 	void removeFishWhichSwimOut();///移除屏幕外的鱼
 
-
+	void createCycleFish(int count, int Radius, int fishID, Point center, Point curPos, float moveTime);//建立一圈鱼
 	Fish*getFishByPosInPool(Point pos);
     Point getBestRewardPostion();
     

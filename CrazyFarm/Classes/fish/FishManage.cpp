@@ -52,7 +52,7 @@ Fish* FishManage::createFishSingle(int type){
 	auto fish = Fish::create();
 	fish->initFish(type);
 	fishPool.pushBack(fish);	
-	fish->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	fish->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	return fish;
 }
 Fish* FishManage::createFishArrange(int type){
@@ -90,6 +90,7 @@ void FishManage::createFishGroup(int grouptag)
 		{
 			m_layer->runAction(Sequence::create(DelayTime::create(j*singlegp.IntervalCreateTime), CallFunc::create([=]{
 				Fish* fish = FishManage::getInstance()->createFishSingle(singlegp.fishID);
+				fish->setVisible(false);
 				fish->setRoute(singlegp.fishRoute);
 				fish->setPosition(singlegp.startPos);
 				m_layer->addChild(fish);
@@ -157,9 +158,9 @@ void FishManage::removeFishWhichSwimOut()
 	for (auto fish : fishPool)
 	{
 		auto box = ((Fish*)fish)->getBoundingBox();
-		Rect rect = Rect(-100-box.size.width, -100-box.size.height, visibisize.width + box.size.width+200, visibisize.height + box.size.height+400);
+		Rect rect = Rect(-50-box.size.width, -50-box.size.height, visibisize.width + box.size.width*2+200, visibisize.height + box.size.height*2+200);
 		auto pos = fish->getPosition();
-		if (!rect.containsPoint(pos))
+		if (!rect.containsPoint(pos)&&fish->getisAutoRemove())
 		{
 			needRemoveFishs.pushBack(fish);
 		}
@@ -296,4 +297,20 @@ Fish*FishManage::getFishByPosInPool(Point pos)
 		}
 	}
 	return nullptr;
+}
+
+void FishManage::createCycleFish(int count, int Radius, int fishID, Point center, Point curPos,float moveTime)
+{
+	float diffAngle = 360.0f/count;
+	for (int i = 0; i < count; i++)
+	{
+		Fish* fish = FishManage::getInstance()->createFishSingle(fishID); 
+		fish->setisAutoRemove(false);
+		fish->setPosition(center.x + Radius*cos(CC_DEGREES_TO_RADIANS(i*diffAngle)), center.y + Radius*sin(CC_DEGREES_TO_RADIANS(diffAngle*i)));
+		auto moveto = MoveTo::create(moveTime,curPos);
+		fish->runAction(Sequence::create(moveto, RemoveSelf::create(), nullptr));	
+		m_layer->addChild(fish);
+	}
+	
+
 }

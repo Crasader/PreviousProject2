@@ -69,6 +69,7 @@ protected:
 
 	CC_SYNTHESIZE(float, fMoveAngle, MoveAngle);
 	CC_SYNTHESIZE(int, nUiID, uiId);
+	CC_SYNTHESIZE(bool, bIsAutoRemove, isAutoRemove);
 	Vector<FiniteTimeAction*> RepetActionArray;
 	//Â·¾¶
 	Route m_Route;

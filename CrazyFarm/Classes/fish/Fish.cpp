@@ -7,6 +7,7 @@ bool Fish::init(){
 		return false;
 	}
 	scheduleUpdate();
+	setisAutoRemove(true);
 	return true;
 }
 
@@ -223,12 +224,12 @@ void Fish::setRoute(int routeTag)
 			acArray = &actionArray;
 		}
 		acArray->pushBack(DelayTime::create(p->delay));
+		acArray->pushBack(CallFunc::create([&]{setVisible(true); }));
 		switch (p->moveState)
 		{
 		case 1:
 		{	
-			p->pointarray->retain();
-			acArray->pushBack(CardinalSplineBy::create(p->time, p->pointarray, 1));
+			acArray->pushBack(MoveBy::create(p->time, p->MoveByPos));
 		}
 			break;
 		

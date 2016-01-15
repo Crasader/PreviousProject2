@@ -6,15 +6,11 @@
             "tag": 1,
             "routePoint": [
                 {
-                    "moveState": 2,
-                    "circleX":  600, 
-                    "circleY":  270, 
-                    "ScaleDiff":  0, 
-                    "circleAngle": 3600, 
-                    "isClockwise": true,
-                    "isRepet": 1,   
+                     "moveState": 1,
+                    "MoveByPos":{"x":-1500,"y":0},
+                    "isRepet": 0,   
                     "delay": 0,
-                    "time": 60
+                    "time": 30
                 }
             ]
         },
@@ -22,15 +18,11 @@
             "tag": 2,
             "routePoint": [
                 {
-                     "moveState": 2,
-                    "circleX":  360, 
-                    "circleY":  270,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 3600, 
-                    "isClockwise": false,
-                    "isRepet": 1,   
+                    "moveState": 1,
+                    "MoveByPos":{"x":-1500,"y":0},
+                    "isRepet": 0,   
                     "delay": 0,
-                    "time": 60
+                    "time": 30
                 }
             ]
         },
@@ -38,15 +30,11 @@
             "tag": 3,
             "routePoint": [
                 {
-                     "moveState": 2,
-                    "circleX":  670, 
-                    "circleY":  270,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 3600, 
-                    "isClockwise": true,
-                    "isRepet": 1,   
-                    "delay": 0,
-                    "time": 60
+                    "moveState": 1,
+                    "MoveByPos":{"x":-1500,"y":0},
+                    "isRepet": 0,   
+                    "delay": 7,
+                    "time": 30
                 }
             ]
         },
@@ -54,32 +42,23 @@
             "tag": 4,
             "routePoint": [
                 {
-                     "moveState": 2,
-                    "circleX":  290, 
-                    "circleY":  270,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 3600, 
-                    "isClockwise": false,
-                    "isRepet": 1,   
-                    "delay": 0,
-                    "time": 60
+                    "moveState": 1,
+                    "MoveByPos":{"x":-1500,"y":0},
+                    "isRepet": 0,   
+                    "delay": 8,
+                    "time": 30
                 }
             ]
-        
         },
         {
             "tag": 5,
             "routePoint": [
                 {
-                     "moveState": 2,
-                    "circleX":  720, 
-                    "circleY":  270,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 3600, 
-                    "isClockwise": true,
-                    "isRepet": 1,   
-                    "delay": 0,
-                    "time": 60
+                    "moveState": 1,
+                    "MoveByPos":{"x":-1800,"y":0},
+                    "isRepet": 0,   
+                    "delay": 13,
+                    "time": 35
                 }
             ]
         },
@@ -87,18 +66,13 @@
             "tag": 6,
             "routePoint": [
                 {
-                     "moveState": 2,
-                    "circleX":  240, 
-                    "circleY":  270,
-                     "ScaleDiff":  0, 
-                    "circleAngle": 3600, 
-                    "isClockwise": false,
-                    "isRepet": 1,   
-                    "delay": 0,
-                    "time": 60
+                    "moveState": 1,
+                    "MoveByPos":{"x":-1800,"y":0},
+                    "isRepet": 0,   
+                    "delay": 18,
+                    "time": 35
                 }
             ]
-        
         }
         ,
         {
@@ -106,7 +80,7 @@
             "routePoint": [
                 {
                      "moveState": 1,
-                    "ArrayPos":[{"x":0,"y":0},{"x":1200,"y":0}],
+                   "MoveByPos":{"x":-1300,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
                     "time": 12
@@ -219,7 +193,7 @@
             "routePoint": [
                 {
                      "moveState": 1,
-                    "ArrayPos":[{"x":0,"y":0},{"x":40,"y":0}],
+                    "MoveByPos":{"x":-1300,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
                     "time": 0.5
@@ -243,7 +217,7 @@
             "routePoint": [
                 {
                      "moveState": 1,
-                    "ArrayPos":[{"x":0,"y":0},{"x":40,"y":0}],
+                    "MoveByPos":{"x":-1300,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
                     "time": 0.5
@@ -267,7 +241,7 @@
             "routePoint": [
                 {
                      "moveState": 1,
-                    "ArrayPos":[{"x":0,"y":0},{"x":40,"y":0}],
+                   "MoveByPos":{"x":-1300,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
                     "time": 0.5
@@ -291,7 +265,7 @@
             "routePoint": [
                 {
                      "moveState": 1,
-                    "ArrayPos":[{"x":0,"y":0},{"x":-40,"y":0}],
+                    "MoveByPos":{"x":-1300,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
                     "time": 0.5
@@ -315,7 +289,7 @@
             "routePoint": [
                 {
                      "moveState": 1,
-                    "ArrayPos":[{"x":0,"y":0},{"x":-40,"y":0}],
+                 "MoveByPos":{"x":-1300,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
                     "time": 0.5
@@ -340,7 +314,7 @@
             "routePoint": [
                 {
                      "moveState": 1,
-                    "ArrayPos":[{"x":0,"y":0},{"x":-40,"y":0}],
+                   "MoveByPos":{"x":-1300,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
                     "time": 0.5

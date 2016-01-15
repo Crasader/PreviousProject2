@@ -12,7 +12,7 @@ struct RoutePoint  //鱼的运行轨迹点
 	bool isRepeat;  //是否循环
 	int moveState;  //1直线 2圆 3帧动画
 	//直线配置
-	PointArray * pointarray;
+	Point  MoveByPos;
 	//圆配置
 	Vec2 centrePos;
 	float circleAngle;

@@ -235,7 +235,8 @@ void GameGuiLayer::settingCallback(Ref *pSender)
 }
 void GameGuiLayer::showFishCallback(Ref *pSender)
 {
-
+	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
+	pause();
 }
 void GameGuiLayer::showSettingCallback(Ref*pSender)
 {
