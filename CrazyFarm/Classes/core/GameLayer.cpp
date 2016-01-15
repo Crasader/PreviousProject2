@@ -3,8 +3,8 @@
 #include "utill/FunUtil.h"
 #include "utill/AnimationUtil.h"
 #include "utill/CircleMoveTo.h"
-#include "User.h"
-#include "AIManager.h"
+#include "domain/user/User.h"
+#include "domain/ai/AIManager.h"
 #include "fish/FishGroupData.h"
 #include "data/GameData.h"
 #include "config/ConfigRoom.h"
@@ -133,6 +133,11 @@ void GameLayer::addTouchEvent(){
 
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
+	const float shootInterval = 0.15;
+	if (!isShoot)
+	{
+		return true;
+	}
 	float degree = getTurretRotation(myTurret->getPosition(), touch->getLocation());
 	rotateTurret(degree, myTurret);
 	GameData::getInstance()->setShotCount(1+(GameData::getInstance()->getShotCount()));
@@ -140,7 +145,10 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 		CCLOG("turret rotate%f", myTurret->getRarote());
 		myTurret->shoot(myTurret->getRarote()); 
 	}), nullptr));
-	
+	isShoot = false;
+	runAction(Sequence::create(DelayTime::create(shootInterval), CallFunc::create([&]{
+		isShoot = true;
+	}), nullptr));
 	return true;
 }
 

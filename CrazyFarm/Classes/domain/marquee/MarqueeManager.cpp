@@ -1,4 +1,5 @@
 #include "domain/marquee//MarqueeManager.h"
+#include "server/HttpClientUtill.h"
 #define SIGNURL "http://114.119.39.150:1701/marquee/config"
 MarqueeManager* MarqueeManager::_instance = NULL;
 

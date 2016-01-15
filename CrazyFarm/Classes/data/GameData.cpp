@@ -1,6 +1,6 @@
 #include "data/GameData.h"
 #include "cocos2d.h"
-#include "User.h"
+#include "domain/user/User.h"
 using namespace cocos2d;
 
 GameData* GameData::_instance = 0;

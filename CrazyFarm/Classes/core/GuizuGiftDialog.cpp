@@ -1,7 +1,7 @@
 #include "GuizuGiftDialog.h"
 #include "domain/nobility/NobilityManager.h"
-#include "User.h"
-#include "BagManager.h"
+#include "domain/user/User.h"
+#include "domain/bag/BagManager.h"
 bool GuizuGiftDialog::init()
 {
 	MyDialog::init();

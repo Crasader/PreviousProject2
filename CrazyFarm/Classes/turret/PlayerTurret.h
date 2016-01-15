@@ -1,9 +1,9 @@
 #pragma once
 #include "cocos2d.h"
 #include "turret/Turret.h"
-#include "AI.h"
-#include "user.h"
-#include "RoomPlayer.h"
+#include "domain/ai/AI.h"
+#include "domain/user/user.h"
+#include "domain/room/RoomPlayer.h"
 #include "fish/Fish.h"
 #include "config/ConfigTurrent.h"
 USING_NS_CC;

@@ -1,7 +1,7 @@
 #include "MyMenuItemUpgrade.h"
-#include "User.h"
+#include "domain/user/User.h"
 #include "config/ConfigTurrent.h"
-#include "BagManager.h"
+#include "domain/bag/BagManager.h"
 #include "data/GameData.h"
 #include "core/showTurretLayer.h"
 enum 

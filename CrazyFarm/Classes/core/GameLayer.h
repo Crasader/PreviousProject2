@@ -5,7 +5,7 @@
 #include "bullet/BulletManage.h"
 #include "turret/PlayerTurret.h"
 #include "net/Net.h"
-#include "RoomManager.h"
+#include "domain/room/RoomManager.h"
 #include "domain/magnate/MagnateManager.h"
 USING_NS_CC;
 
@@ -39,6 +39,6 @@ private:
 	std::vector<RoomPlayer> players;
 	int m_index = -1;
 	
-	
+	bool isShoot = true;
 };
 #endif

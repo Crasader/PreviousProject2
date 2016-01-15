@@ -1,5 +1,5 @@
 #include "domain/skill/skillManager.h"
-#include "BagManager.h"
+#include "domain/bag/BagManager.h"
 #include "fish/FishManage.h"
 skillManager* skillManager::_instance = NULL;
 

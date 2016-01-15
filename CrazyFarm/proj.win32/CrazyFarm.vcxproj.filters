@@ -177,38 +177,14 @@
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp">
       <Filter>src\turret</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\User.cpp">
-      <Filter>src\Interface\playinfo</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\user\UserInfoLayer.cpp">
       <Filter>src\Interface\playinfo</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\utill\AnimationUtil.cpp">
       <Filter>src\utill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\RoomManager.cpp">
-      <Filter>src\Interface\playinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\RoomPlayer.cpp">
-      <Filter>src\Interface\playinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\AIManager.cpp">
-      <Filter>src\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\AI.cpp">
-      <Filter>src\AI</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\utill\SkillButton.cpp">
       <Filter>src\utill</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ConfigItem.cpp">
-      <Filter>src\Interface\item</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BagItem.cpp">
-      <Filter>src\Interface\bag</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BagManager.cpp">
-      <Filter>src\Interface\bag</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\config\ConfigVipLevel.cpp">
       <Filter>src\Interface\vip</Filter>
@@ -230,12 +206,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\fish\FishGroupData.cpp">
       <Filter>src\fish</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ai\AIHu.cpp">
-      <Filter>src\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ai\AIMolo.cpp">
-      <Filter>src\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\config\ConfigOnemoment.cpp">
       <Filter>src\Interface</Filter>
@@ -263,9 +233,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\moment\MomentThree.cpp">
       <Filter>src\moment</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HttpClientUtill.cpp">
-      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\core\showFishLayer.cpp">
       <Filter>src\core</Filter>
@@ -414,6 +381,54 @@
     <ClCompile Include="..\Classes\lobby\ScrollText.cpp">
       <Filter>src\lobby</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\ai\AIManager.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\ai\AIMolo.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\ai\PlayerWork.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\ai\AI.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\ai\AIHu.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\bag\BagManager.cpp">
+      <Filter>src\Interface\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\bag\BagItem.cpp">
+      <Filter>src\Interface\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigItem.cpp">
+      <Filter>src\Interface\item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\room\RoomManager.cpp">
+      <Filter>src\Interface\playinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\room\RoomPlayer.cpp">
+      <Filter>src\Interface\playinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\user\User.cpp">
+      <Filter>src\Interface\playinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\HttpClientUtill.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\skill\SkillLockButton.cpp">
+      <Filter>src\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\skill\SkillBombButton.cpp">
+      <Filter>src\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\skill\SkillLightButton.cpp">
+      <Filter>src\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\moment\MomentEight.cpp">
+      <Filter>src\moment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -497,38 +512,14 @@
     <ClInclude Include="..\Classes\utill\define.h">
       <Filter>src\utill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\User.h">
-      <Filter>src\Interface\playinfo</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\user\UserInfoLayer.h">
       <Filter>src\Interface\playinfo</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utill\AnimationUtil.h">
       <Filter>src\utill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\RoomManager.h">
-      <Filter>src\Interface\playinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\RoomPlayer.h">
-      <Filter>src\Interface\playinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\AI.h">
-      <Filter>src\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\AIManager.h">
-      <Filter>src\AI</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\utill\SkillButton.h">
       <Filter>src\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ConfigItem.h">
-      <Filter>src\Interface\item</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BagItem.h">
-      <Filter>src\Interface\bag</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BagManager.h">
-      <Filter>src\Interface\bag</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigVipLevel.h">
       <Filter>src\Interface\vip</Filter>
@@ -550,12 +541,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\fish\FishGroupData.h">
       <Filter>src\fish</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ai\AIHu.h">
-      <Filter>src\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ai\AIMolo.h">
-      <Filter>src\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigOnemoment.h">
       <Filter>src\Interface</Filter>
@@ -583,9 +568,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\moment\MomentThree.h">
       <Filter>src\moment</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HttpClientUtill.h">
-      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\core\showFishLayer.h">
       <Filter>src\core</Filter>
@@ -733,6 +715,54 @@
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\ScrollText.h">
       <Filter>src\lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ai\AIHu.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ai\AIManager.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ai\AIMolo.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ai\PlayerWork.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ai\AI.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\bag\BagItem.h">
+      <Filter>src\Interface\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\bag\BagManager.h">
+      <Filter>src\Interface\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigItem.h">
+      <Filter>src\Interface\item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\room\RoomManager.h">
+      <Filter>src\Interface\playinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\room\RoomPlayer.h">
+      <Filter>src\Interface\playinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\user\User.h">
+      <Filter>src\Interface\playinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\HttpClientUtill.h">
+      <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\skill\SkillLockButton.h">
+      <Filter>src\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\skill\SkillBombButton.h">
+      <Filter>src\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\skill\SkillLightButton.h">
+      <Filter>src\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\moment\MomentEight.h">
+      <Filter>src\moment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

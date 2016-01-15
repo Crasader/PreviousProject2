@@ -2,7 +2,7 @@
 
 #include "cocos2d.h"
 #include "config/ConfigMagnate.h"
-#include "HttpClientUtill.h"
+#include "server/HttpClientUtill.h"
 using namespace cocos2d;
 
 

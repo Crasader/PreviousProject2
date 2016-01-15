@@ -125,7 +125,7 @@ void Fish::moveFishRandomStraight(float dt){
 	
 	float randnum = (rand() % 4+8)/10.0f;
 
-	Point nextPos = getRandomPostion(dt*speed*randnum, this->getDirection(), fMoveAngle);
+	Point nextPos = getRandomPostion(speed*randnum,dt, fMoveAngle);
 	auto move = MoveBy::create(dt, nextPos);	
 	runAction(move);
 	/*update(dt);*/
@@ -175,10 +175,12 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 	return  Point(pos.x, pos.y);
 }
 
-Point Fish::getRandomPostion(float speed, swimDirection direction, float &angle)
+Point Fish::getRandomPostion(float speed, float dt, float &angle)
 {
-	float diffAngle = (rand() % 70 - 30) / 100.0f;
-	angle += diffAngle;
+	speed *= dt;
+	float diffAngle = (rand() % 100 - 50) / 100.0f;
+	auto fps = Director::getInstance()->getAnimationInterval();
+	angle += diffAngle*dt*1/fps;
 
 	/*switch (direction)
 	{

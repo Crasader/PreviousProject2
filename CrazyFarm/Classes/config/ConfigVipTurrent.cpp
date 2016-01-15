@@ -1,5 +1,5 @@
 #include "config/ConfigVipTurrent.h"
-#include "User.h"
+#include "domain/user/User.h"
 ConfigVipTurrent* ConfigVipTurrent::_instance = NULL;
 
 ConfigVipTurrent::ConfigVipTurrent(){

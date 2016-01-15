@@ -2,7 +2,7 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "BagItem.h"
+#include "domain/bag/BagItem.h"
 using namespace cocos2d;
 USING_NS_CC_EXT;
 
