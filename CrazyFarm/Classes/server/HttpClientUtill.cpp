@@ -1,7 +1,5 @@
-#include "HttpClientUtill.h"
-#include "json/document.h"
-#include "json/stringbuffer.h"
-#include "json/writer.h"
+#include "server/HttpClientUtill.h"
+
 HttpClientUtill* HttpClientUtill::_pInstance = NULL;
 
 HttpClientUtill* HttpClientUtill::getInstance(){
