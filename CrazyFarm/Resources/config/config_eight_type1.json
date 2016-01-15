@@ -1,0 +1,22 @@
+{	
+	"describe"	: "随机鱼产生配置,基础鱼" ,
+	"version"	: 1,
+	"life_time" : 120,
+	"interval_time_start" : 0.5,
+	"interval_time_end" : 0.5,
+	"item_list"	:	[
+		{
+			"fish_id_start"	: 1,
+			"fish_id_end"	: 10,
+			"per"			: 70
+		},
+		{
+			"fish_id_start"	: 30,
+			"fish_id_end"	: 35,
+			"per"			: 30
+		}
+	]
+}
+
+
+

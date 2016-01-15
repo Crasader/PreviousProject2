@@ -1,0 +1,37 @@
+#pragma once
+
+#include "cocos2d.h"
+#include "json/document.h"
+#include "json/stringbuffer.h"
+#include "json/writer.h"
+
+USING_NS_CC;
+
+struct MomentEightItemPer {
+    int fish_id_start;
+    int fish_id_end;
+    int per;
+};
+
+struct MomentEightItem {
+    int life_time;
+    double interval_time_start;
+    double interval_time_end;
+    std::vector<MomentEightItemPer> momentEightItemPers;
+};
+
+
+class ConfigMomentEight {
+    
+public:
+	ConfigMomentEight();
+	static ConfigMomentEight* getInstance();
+    
+	bool LoadConfig();
+    MomentEightItem getMomentEightItemByTypeId(int typeId);
+    
+private:
+	static ConfigMomentEight* _instance;
+    MomentEightItem momentEightItem;
+};
+
