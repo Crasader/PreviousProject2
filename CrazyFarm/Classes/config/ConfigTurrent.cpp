@@ -1,5 +1,5 @@
 #include "config/ConfigTurrent.h"
-#include "User.h"
+#include "domain/user/User.h"
 ConfigTurrent* ConfigTurrent::_instance = NULL;
 
 ConfigTurrent::ConfigTurrent(){

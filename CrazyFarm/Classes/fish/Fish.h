@@ -60,7 +60,7 @@ protected:
 	void moveFishRandomStraight(float dt);//随机直线运动
 	void moveFishRandomCurve(float dt);//随机曲线运动
 	Point getNextPostion(Point pos,float speed,float degree);
-	Point getRandomPostion(float speed, swimDirection direction,float &angle);
+	Point getRandomPostion(float speed, float dt,float &angle);
 	bool checkOutBorder();
 	Sprite* image;
 

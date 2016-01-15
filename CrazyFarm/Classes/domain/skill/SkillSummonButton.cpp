@@ -1,12 +1,12 @@
 #include "SkillSummonButton.h"
-#include "BagManager.h"
+#include "domain/bag/BagManager.h"
 SkillSummonButton* SkillSummonButton::createSkillSummonButton()
 {
 	SkillConfigInfo info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(3);
 	SkillSummonButton* skillButton = new SkillSummonButton();
 	if (skillButton && skillButton->init(info.cd_time, "skillStencil.png", "item_1005.png", "item_1005.png", skillManager::getInstance()->getSKillNumById(info.skill_id)))
 	{
-		skillButton->setScale(0.7);
+
 		skillButton->autorelease();
 		return skillButton;
 	}

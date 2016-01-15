@@ -1,7 +1,7 @@
 #include "config/ConfigDebugTest.h"
-#include "User.h"
+#include "domain/user/User.h"
 
-#include "AIManager.h"
+#include "domain/ai/AIManager.h"
 
 ConfigDebugTest* ConfigDebugTest::_instance = NULL;
 

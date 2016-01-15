@@ -1,5 +1,5 @@
 #include "payCell.h"
-#include "User.h"
+#include "domain/user/User.h"
 #include "lobby/LobbyScene.h"
 bool PayCell::init(){
 	if (!Sprite::initWithFile("payframe.png")){

@@ -1,6 +1,6 @@
 #include "lobby/viplayer/VipLayer.h"
-#include "ConfigItem.h"
-#include "User.h"
+#include "config/ConfigItem.h"
+#include "domain/user/User.h"
 #include "widget/MyTableView.h"
 #include "utill/Chinese.h"
 

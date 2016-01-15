@@ -107,7 +107,6 @@ void FishManage::removeFish(Fish* fish){
 
 void FishManage::decideFishPos(Fish* fish){
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-	//æˆ∂®Ω¯»Î∆¡ƒªµƒ±ﬂΩÁ
 	int border = rand() % 10;
 	switch (border){
 	case 0:
@@ -170,7 +169,15 @@ void FishManage::removeFishWhichSwimOut()
 		fish->removeFromParentAndCleanup(1);
 	}
 }
-
+void FishManage::createFishRand()
+{
+	Fish* fish = FishManage::getInstance()->createFishSingle(rand()%10+1);
+	decideFishPos(fish);
+	auto k = getAngleByPos(Vec2(fish->getPositionX(), fish->getPositionY()));
+	fish->setMoveAngle(k);
+	fish->move(3);
+	m_layer->addChild(fish);
+}
 void FishManage::cleanVector()
 {
 	m_layer = nullptr; 
@@ -202,7 +209,7 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
         switch (onemonent.move_type) {
             case 1: {
                 Fish* fish = createFishSingle(onemonent.fishgroup_id);
-                auto k = getAngleByPos(Vec2(onemonent.start_position_x, onemonent.start_position_y));
+                
                 fish->setMoveAngle(onemonent.startAngle);
                 auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width/2);
                 fish->setPosition(startPos);

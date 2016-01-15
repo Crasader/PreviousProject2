@@ -29,6 +29,7 @@ string Bullet::getSrcByType(int ui_type, int net_type){
 
 
 int Bullet::getSpeedByType(int type){
+	return 800;
 	switch (type)
 	{
 	case BULLETTYPE_1:

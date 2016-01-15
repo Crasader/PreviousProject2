@@ -2,12 +2,12 @@
 #include "core/GameScene.h"
 #include "utill/Chinese.h"
 #include "utill/AnimationUtil.h"
-#include "User.h"
+#include "domain/user/User.h"
 #include "fish/FishRouteData.h"
 #include "lobby/bag/bagLayer.h"
 #include "fish/FishAniMannage.h"
 #include "fish/FishGroupData.h"
-#include "HttpClientUtill.h"
+#include "server/HttpClientUtill.h"
 #include "data/GameData.h"
 #include "config/ConfigManager.h"
 #include "config/ConfigSign.h"
@@ -22,6 +22,12 @@
 #include "domain/marquee/MarqueeManager.h"
 
 
+
+enum 
+{
+	kZorderMenu = 10,
+	kZorderDialog = 20
+};
 const Vec2 roomPos[5] = { Vec2(-300, 270), Vec2(212, 270), Vec2(500, 270), Vec2(788, 270), Vec2(960+300, 270)};
 
 roomCell * roomCell::createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback)
@@ -207,7 +213,7 @@ bool LobbyScene::init()
 	quickBegin->setPosition(820, 87);
 	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin,rankList,VIP,fistPay,nullptr);
 	menu->setPosition(Point::ZERO);
-	addChild(menu,10);
+	addChild(menu, kZorderMenu);
 
 
 
@@ -259,7 +265,7 @@ void LobbyScene::showSign(float dt)
 	{
 		auto sign = SignInLayer::createLayer(seqday);
 		sign->setPosition(Point::ZERO);
-		addChild(sign);
+		addChild(sign,kZorderDialog);
 	}
 }
 
@@ -267,7 +273,7 @@ void LobbyScene::showMarquee(float dt)
 {
 	auto DisplayBoard = ScrollText::create();
 	DisplayBoard->setPosition(498, 463);
-	addChild(DisplayBoard, 10);
+	addChild(DisplayBoard, kZorderDialog);
 
 }
 
@@ -399,13 +405,13 @@ void LobbyScene::payCoinCallback(Ref*psend)
 {
 	auto paylayer = payLayer::createLayer(1);
 	paylayer->setPosition(Point::ZERO);
-	addChild(paylayer);
+	addChild(paylayer, kZorderDialog);
 }
 void LobbyScene::payDiamondCallback(Ref*psend)
 {
 	auto paylayer = payLayer::createLayer(2);
 	paylayer->setPosition(Point::ZERO);
-	addChild(paylayer);
+	addChild(paylayer, kZorderDialog);
 }
 void LobbyScene::beginGameCallback(Ref*psend)
 {
@@ -423,7 +429,7 @@ void LobbyScene::changeRewardCallback(Ref*psend)
 {
 	auto layer = SettingDialog::create();
 	layer->setPosition(Point::ZERO);
-	addChild(layer);
+	addChild(layer, kZorderDialog);
 }
 void LobbyScene::refreshCoinLabel()
 {
@@ -614,7 +620,7 @@ void LobbyScene::guizuCallback(Ref*psend)
 {
 	auto guizulayer = NobilityLayer::createLayer();
 	guizulayer->setPosition(Point::ZERO);
-	addChild(guizulayer);
+	addChild(guizulayer, kZorderDialog);
 }
 
 std::vector<Room> LobbyScene::sortRoomByMaxlevel(int maxLevel)

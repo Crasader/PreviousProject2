@@ -1,13 +1,16 @@
 #include "core/GameGuiLayer.h"
-#include "RoomManager.h"
+#include "domain/room/RoomManager.h"
 #include "utill/define.h"
 #include "utill/SkillButton.h"
 #include "utill/AnimationUtil.h"
 #include "utill/Audio.h"
 #include "lobby/LobbyScene.h"
-#include "User.h"
+#include "domain/user/User.h"
 #include "domain/skill/SkillFreezeButton.h"
 #include "domain/skill/SkillSummonButton.h"
+#include "domain/skill/SkillLightButton.h"
+#include "domain/skill/SkillLockButton.h"
+#include "domain/skill/SkillBombButton.h"
 #include "widget/MyMenuItemUpgrade.h"
 #include "core/SettingDialog.h"
 #include "core/NotarizeExitDialog.h"
@@ -86,15 +89,29 @@ bool GameGuiLayer::init(){
 	///¶³½á
 	auto skillbutton = SkillFreezeButton::createSkillFreezeButton();
 	skillbutton->setPosition(visibleSize.width*0.45, visibleSize.height*0.073);
+	skillbutton->setScale(0.9);
 	addChild(skillbutton);
 	//Ëø¶¨
-	auto skillbutton1 = SkillButton::createSkillButton(2.0f, "skillStencil.png", "prop_lock.png", "prop_lock.png", 9);
+	auto skillbutton1 = SkillBombButton::createSkillBombButton();
 	skillbutton1->setPosition(visibleSize.width*0.55, visibleSize.height*0.073);
+	skillbutton1->setScale(0.9);
 	addChild(skillbutton1);
 	//ÕÙ»½
 	auto skillbutton2 = SkillSummonButton::createSkillSummonButton();
-	skillbutton2->setPosition(visibleSize.width*0.05, visibleSize.height*0.25);
+	skillbutton2->setPosition(visibleSize.width*0.03, visibleSize.height*0.20+10);
+	skillbutton2->setScale(0.7);
 	addChild(skillbutton2);
+
+	auto skillbutton3 = SkillLightButton::createSkillLightButton();
+	skillbutton3->setPosition(visibleSize.width*0.03, visibleSize.height*0.34+10);
+	skillbutton3->setScale(0.7);
+	addChild(skillbutton3);
+
+
+	auto skillbutton4 = SkillLockButton::createSkillLockButton();
+	skillbutton4->setPosition(visibleSize.width*0.03, visibleSize.height*0.48+10);
+	skillbutton4->setScale(0.7);
+	addChild(skillbutton4);
 
 
 

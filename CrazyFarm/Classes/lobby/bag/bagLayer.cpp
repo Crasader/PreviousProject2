@@ -1,7 +1,7 @@
 #include "lobby/bag/bagLayer.h"
-#include "ConfigItem.h"
-#include "BagManager.h"
-#include "User.h"
+#include "config/ConfigItem.h"
+#include "domain/bag/BagManager.h"
+#include "domain/user/User.h"
 #include "widget/MyTableView.h"
 enum 
 {

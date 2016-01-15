@@ -1,12 +1,12 @@
 #include "SkillFreezeButton.h"
-#include "BagManager.h"
+#include "domain/bag/BagManager.h"
 SkillFreezeButton* SkillFreezeButton::createSkillFreezeButton()
 {
 	SkillConfigInfo info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(1);
 	SkillFreezeButton* skillButton = new SkillFreezeButton();
 	if (skillButton && skillButton->init(info.cd_time, "skillStencil.png", "item_1003.png", "item_1003.png", skillManager::getInstance()->getSKillNumById(info.skill_id)))
 	{
-		skillButton->setScale(0.9);
+
 		skillButton->autorelease();
 		return skillButton;
 	}

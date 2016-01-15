@@ -1,5 +1,5 @@
 #include "moment/MomentManager.h"
-
+#include "moment/MomentEight.h"
 
 MomentManager* MomentManager::_instance = NULL;
 
@@ -52,6 +52,12 @@ Moment* MomentManager::getNewMomentByType(int momentType) {
 	case 4:
 	{
 		Moment* moment = new MomentFour();
+		moment->init();
+		return moment;
+	}
+	case 8:
+	{
+		Moment* moment = new MomentEight();
 		moment->init();
 		return moment;
 	}
