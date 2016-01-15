@@ -18,6 +18,18 @@ void PlayerHero::initData() {
 	isAllowPlay = false;
 }
 
+void PlayerHero::drawReady(){
+	MenuItemImage* image = MenuItemImage::create("gamemj/ready_1.png", "gamemj/ready_2.png", CC_CALLBACK_0(PlayerHero::readyGo, this));
+	Menu* start = Menu::create(image,NULL);
+	start->setPosition(ccp(480,200));
+	this->addChild(start);
+}
+
+void PlayerHero::readyGo(){
+	//TODO 向服务端发送准备协议
+
+}
+
 //绘制自己
 void PlayerHero::drawPlayerHero() {
 	//牌的绘制 TODO:test方法
@@ -68,6 +80,24 @@ Point PlayerHero::getSmallJongsPos(int index) {
 	}
 
 }
+
+
+void PlayerHero::drawActionCpg(){
+//TODO事件触发后,绘制吃碰杠
+
+
+
+
+
+}
+
+void PlayerHero::actionCpg(){
+ //TODO 向服务器发送吃碰杠操作协议
+
+
+}
+
+
 
 float PlayerHero::distance(Point pos1, Point pos2) {
 	return sqrt(pow(pos1.x - pos2.x, 2) + pow(pos1.y - pos2.y, 2));

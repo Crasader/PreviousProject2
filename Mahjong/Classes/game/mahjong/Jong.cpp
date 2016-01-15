@@ -61,6 +61,10 @@ void Jong::drawBackGround(int bType){
 		//左边吃,碰,杠,打出
 		backGround->setTexture("gamemj/hentang.png");
 		break;
+	case 6:
+		//对家手牌
+		backGround->setTexture("gamemj/shangli.png");
+		break;
 	default:
 		break;
 	}

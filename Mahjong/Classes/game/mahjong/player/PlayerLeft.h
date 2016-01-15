@@ -25,14 +25,13 @@ private:
 
 	void drawPlayedJong(int ctype);//绘制打出去的牌
 
-	void drawHuaJong();//绘制左边玩家的花牌
+	void drawHuaJong(int cType);//绘制左边玩家的花牌
 
 	Point getPlayedJongPos();//获取打出去的牌的位置
 
 	void drawCurrent();//放大当前打出的牌
 
 	void playerTurn();//轮到摸牌
-
 
 	void addCoustomListener();//添加自定义监听事件
 
