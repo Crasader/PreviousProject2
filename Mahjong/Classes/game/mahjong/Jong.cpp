@@ -59,7 +59,7 @@ void Jong::drawBackGround(int bType){
 		break;
 	case 5:
 		//×ó±ß³Ô,Åö,¸Ü,´ò³ö
-		backGround->setTexture("gamemj/zuoli.png");
+		backGround->setTexture("gamemj/hentang.png");
 		break;
 	default:
 		break;
@@ -164,6 +164,10 @@ void Jong::setJongScale(int bType){
 	if (bType == 2){
 		content->setScale(0.5f);
 	}
+	else if (bType == 5){
+		content->setScale(0.5f);
+		content->setRotation(90);
+	}
 }
 
 
@@ -171,8 +175,10 @@ void Jong::setJongPosition(int bType){
 	if (bType == 2){
 		content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y));
 	}
+	else if (bType == 5){
+		content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y+5));
+	}
 	else{
 		content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y - 10));
-	
 	}
 }
