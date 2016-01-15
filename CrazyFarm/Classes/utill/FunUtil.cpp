@@ -90,3 +90,7 @@ Vec2 CalculateDiffMarginPos(Vec2 pos,float diff)
 
 
 
+float getRandonNumByAtoB(float A, float B)
+{	
+	return  A + (B - A)*rand() / (float)RAND_MAX;
+}

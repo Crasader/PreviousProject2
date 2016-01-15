@@ -169,15 +169,25 @@ void FishManage::removeFishWhichSwimOut()
 		fish->removeFromParentAndCleanup(1);
 	}
 }
-void FishManage::createFishRand()
+void FishManage::createFishRand(int fishID)
 {
-	Fish* fish = FishManage::getInstance()->createFishSingle(rand()%10+1);
+	Fish* fish = FishManage::getInstance()->createFishSingle(fishID);
 	decideFishPos(fish);
 	auto k = getAngleByPos(Vec2(fish->getPositionX(), fish->getPositionY()));
 	fish->setMoveAngle(k);
 	fish->move(3);
 	m_layer->addChild(fish);
 }
+void FishManage::createFishArrangeRand(int fishID)
+{
+	auto fish = createFishArrange(fishID);
+	decideFishPos(fish);
+	auto k = getAngleByPos(Vec2(fish->getPositionX(), fish->getPositionY()));
+	fish->setMoveAngle(k);
+	fish->move(3);
+	m_layer->addChild(fish);
+}
+
 void FishManage::cleanVector()
 {
 	m_layer = nullptr; 

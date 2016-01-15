@@ -23,7 +23,8 @@ public:
 	Fish* createFishSingle(int type);
 	void createFishGroup(int grouptag);
 	Fish* createFishArrange(int type);
-	void createFishRand();
+	void createFishRand(int fishId);
+	void createFishArrangeRand(int fishId);
 	void removeFish(Fish* fish);
 	void decideFishPos(Fish* fish);//决定鱼的出生位置
 	Vector<Fish*> getAllFishInPool();

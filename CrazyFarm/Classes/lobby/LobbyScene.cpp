@@ -20,6 +20,7 @@
 #include "lobby/Nobility/NobilityLayer.h"
 #include "core/SettingDialog.h"
 #include "domain/marquee/MarqueeManager.h"
+#include "utill/FunUtil.h"
 
 
 
@@ -66,7 +67,7 @@ bool LobbyScene::init()
 	auto leveldata = user->getLevelData();
 
 
-
+	auto k = getRandonNumByAtoB(0.1, 0.5);
 
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();

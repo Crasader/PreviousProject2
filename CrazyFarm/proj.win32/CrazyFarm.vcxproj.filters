@@ -429,6 +429,9 @@
     <ClCompile Include="..\Classes\moment\MomentEight.cpp">
       <Filter>src\moment</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigMomentEight.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -763,6 +766,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\moment\MomentEight.h">
       <Filter>src\moment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigMomentEight.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,7 @@
 	"item_list"	:	[
 		{
 			"fish_id"	: 40,
-			"per"			: 20
+			"per"			: 30
 		},
 		{
 			"fish_id"	: 41,
@@ -22,10 +22,6 @@
 		},
 		{
 			"fish_id"	: 44,
-			"per"			: 10
-		},
-		{
-			"fish_id"	: 45,
 			"per"			: 10
 		},
 		{
