@@ -49,7 +49,6 @@ void PlayerLeft::drawPlayedJong(int ctype){
 	bezier.endPosition = endPoint; // 结束位置    
 	BezierTo *actionMove = BezierTo::create(0.5f, bezier);
 	jong->runAction(actionMove);
-
 }
 
 void PlayerLeft::drawCurrent(){
@@ -61,6 +60,14 @@ void PlayerLeft::drawCurrent(){
 	//log("POINT : x= %f,y=%f", getPlayedJongPos().x, getPlayedJongPos().y);
 	jong->setPosition(ccp(265,330));
 	this->addChild(jong);
+	//添加延时销毁
+	DelayTime* delay = DelayTime::create(1.0f);
+	CallFunc* callBack = CallFunc::create([=](){
+		bg->removeFromParent();
+		jong->removeFromParent();
+	});
+	Sequence* seq = Sequence::create(delay, callBack,NULL);
+	this->runAction(seq);
 }
 
 

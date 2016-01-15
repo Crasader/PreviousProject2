@@ -40,6 +40,9 @@
     <Filter Include="src\game\mahjong\player\base">
       <UniqueIdentifier>{a9ca6106-60bd-4930-be07-c20d80a6f7b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\userdata">
+      <UniqueIdentifier>{7f0c7485-f333-4d58-bf4e-bccdc3b1ae99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\game\mahjong\player\PlayerHero.cpp">
       <Filter>src\game\mahjong\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\userdata\UserData.cpp">
+      <Filter>src\userdata</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\game\mahjong\player\PlayerHero.h">
       <Filter>src\game\mahjong\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\userdata\UserData.h">
+      <Filter>src\userdata</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

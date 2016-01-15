@@ -14,8 +14,8 @@ void PlayerOpposite::drawHandJong(){
 	for (int i = 0; i < this->jongNum; i++)
 	{
 		Jong* jong = Jong::create();
-		jong->showJong(4, -1);
-		jong->setPosition(ccp(OPPOSITE_POS_X, OPPOSITE_POS_Y - 25 * i));
+		jong->showJong(6, -1);
+		jong->setPosition(ccp(OPPOSITE_POS_X + 31 * i, OPPOSITE_POS_Y));
 		this->addChild(jong);
 	}
 }
@@ -83,10 +83,6 @@ Point PlayerOpposite::getPlayedJongPos(){
 		return ccp(originPos.x - 29 * 2, originPos.y - 25 * line);
 	}
 }
-
-
-
-
 
 
 
