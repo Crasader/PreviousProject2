@@ -45,12 +45,29 @@ bool ConfigExp::LoadConfig() {
             levelExp.level_id	= val["level_id"].GetInt();
             levelExp.require_exp	= val["require_exp"].GetInt();
             
+            const rapidjson::Value &rewardList = itemList[i]["reward_list"];
+            for (unsigned int j = 0; j < rewardList.Size(); j++) {
+                const rapidjson::Value &item = rewardList[j];
+                LevelRewardItem levelRewardItem;
+                levelRewardItem.item_id	= item["item_id"].GetInt();
+                levelRewardItem.num	= item["num"].GetInt();
+                levelExp.levelRewardItems.push_back(levelRewardItem);
+            }
             levelExps.push_back(levelExp);
         }
         
         return true;
     }
     return true;
+}
+
+std::vector<LevelRewardItem> ConfigExp::getLevelRewardItemsByLevelId(int levelId) {
+    for(int i = 0; i<levelExps.size(); i++) {
+        if(levelId == levelExps.at(i).level_id ) {
+            return levelExps.at(i).levelRewardItems;
+        }
+    }
+    return levelExps.at(0).levelRewardItems;
 }
 
 

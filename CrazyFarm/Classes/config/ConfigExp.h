@@ -14,9 +14,16 @@ struct LevelData {
     int passNeedExp;
 };
 
+struct LevelRewardItem {
+    int item_id;
+    int num;
+};
+
+
 struct LevelExp {
     int level_id;
     int require_exp;
+    std::vector<LevelRewardItem> levelRewardItems;
 };
 
 class ConfigExp{
@@ -25,6 +32,8 @@ public:
 
     bool LoadConfig();
     LevelData getLevelData(int exp);
+    
+    std::vector<LevelRewardItem> getLevelRewardItemsByLevelId(int levelId);
 
 private:
 	ConfigExp();
