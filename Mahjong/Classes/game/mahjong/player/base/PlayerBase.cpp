@@ -25,19 +25,18 @@ void PlayerBase::drawHeadPortrait(PlayerInfo* playerInfo){
 	this->addChild(diamondNum);
 
 	// 添加阴影模版
-	mStencil = Sprite::create("");
-	mStencil->setPosition(Point::ZERO);
-	mStencil->setVisible(false);
-	addChild(mStencil);
-
+	//mStencil = Sprite::create("");
+	//mStencil->setPosition(Point::ZERO);
+	//mStencil->setVisible(false);
+	//addChild(mStencil);
 
 
 	// 添加旋转进度条精灵
-	Sprite* progressSprite = Sprite::create("");
-	mProgressTimer = ProgressTimer::create(progressSprite);
-	mProgressTimer->setPosition(Point::ZERO);
-	mProgressTimer->setVisible(false);
-	addChild(mProgressTimer, 100);
+	//Sprite* progressSprite = Sprite::create("");
+	//mProgressTimer = ProgressTimer::create(progressSprite);
+	//mProgressTimer->setPosition(Point::ZERO);
+	//mProgressTimer->setVisible(false);
+	//addChild(mProgressTimer, 100);
 }
 
 
