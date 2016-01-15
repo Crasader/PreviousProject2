@@ -8,8 +8,7 @@
 USING_NS_CC;
 
 struct MomentEightItemPer {
-    int fish_id_start;
-    int fish_id_end;
+    int fish_id;
     int per;
 };
 
@@ -32,6 +31,13 @@ public:
     
 private:
 	static ConfigMomentEight* _instance;
-    MomentEightItem momentEightItem;
+    
+    bool LoadConfigType1();
+    bool LoadConfigType2();
+    bool LoadConfigType3();
+    
+    MomentEightItem momentEightItemType1;
+    MomentEightItem momentEightItemType2;
+    MomentEightItem momentEightItemType3;
 };
 

@@ -6,14 +6,44 @@
 	"interval_time_end" : 0.5,
 	"item_list"	:	[
 		{
-			"fish_id_start"	: 1,
-			"fish_id_end"	: 10,
-			"per"			: 70
+			"fish_id"	: 1,
+			"per"			: 10
 		},
 		{
-			"fish_id_start"	: 30,
-			"fish_id_end"	: 35,
-			"per"			: 30
+			"fish_id"	: 2,
+			"per"			: 10
+		},
+		{
+			"fish_id"	: 3,
+			"per"			: 10
+		},
+		{
+			"fish_id"	: 4,
+			"per"			: 10
+		},
+		{
+			"fish_id"	: 5,
+			"per"			: 10
+		},
+		{
+			"fish_id"	: 6,
+			"per"			: 10
+		},
+		{
+			"fish_id"	: 7,
+			"per"			: 10
+		},
+		{
+			"fish_id"	: 8,
+			"per"			: 10
+		},
+		{
+			"fish_id"	: 9,
+			"per"			: 10
+		},
+		{
+			"fish_id"	: 10,
+			"per"			: 10
 		}
 	]
 }
