@@ -1,4 +1,4 @@
-#include "core/GameLayer.h"
+﻿#include "core/GameLayer.h"
 #include "net/Net.h"
 #include "utill/FunUtil.h"
 #include "utill/AnimationUtil.h"
@@ -43,8 +43,7 @@ bool GameLayer::init(){
 
 	loadNewMonent();
 
-//	auto moveby = MoveBy::create(40, Vec2(1500,0));
-//	FishManage::getInstance()->createCycleFish(24, 160, 4, Vec2(480, 270), moveby);
+
 
 	setbisOnSkillLock(false);
 
