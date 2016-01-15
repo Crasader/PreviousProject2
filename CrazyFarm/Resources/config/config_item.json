@@ -92,6 +92,13 @@
 			"item_desc"	:	"",
 			"buy_type"	:	0,
 			"buy_price"	:	0
+		},
+		{
+			"item_id"	:	1014,
+			"item_name"	:	"鱼卷",
+			"item_desc"	:	"",
+			"buy_type"	:	0,
+			"buy_price"	:	0
 		}
 			
 	]
