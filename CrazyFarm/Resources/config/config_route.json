@@ -1,5 +1,5 @@
 {
-    "description" :"1：表示按照轨迹点运动，tension表示运行轨迹柔和�?0为最柔和�?位曲�?2：圆周运动：需填写参数运动圆心，圆周次数，缩放系数(无缩放填0) 3：播放动画：需填写动画名称",
+    "description" :"1：表示按照轨迹点运动，tension表示运行轨迹柔和�?为最柔和ﺿ位曲縿2：圆周运动：需填写参数运动圆心，圆周次数，缩放系数(无缩放填0) 3：播放动画：需填写动画名称",
     "version" : 1,
     "MotionConfig": [
         {
@@ -109,7 +109,7 @@
                      "moveState": 1,
                    "MoveByPos":{"x":-800,"y":0},
                     "isRepet": 0,   
-                    "delay": 15,
+                    "delay": 20,
                     "time": 15
                 }
             ]
@@ -124,7 +124,7 @@
                     "isRepet": 0,   
                     "delay": 8,
                     "time":  5
-                }
+                },
                 {
                      "moveState": 2,
                     "circleX":  270, 
@@ -155,7 +155,7 @@
                     "isRepet": 0,   
                     "delay": 8,
                     "time":  5
-                }
+                },
                 {
                      "moveState": 2,
                     "circleX":  690, 

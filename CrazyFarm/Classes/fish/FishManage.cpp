@@ -91,6 +91,7 @@ void FishManage::createFishGroup(int grouptag)
 			m_layer->runAction(Sequence::create(DelayTime::create(j*singlegp.IntervalCreateTime), CallFunc::create([=]{
 				Fish* fish = FishManage::getInstance()->createFishSingle(singlegp.fishID);
 				fish->setVisible(false);
+				fish->setisAutoRemove(false);
 				fish->setRoute(singlegp.fishRoute);
 				fish->setPosition(singlegp.startPos);
 				m_layer->addChild(fish);

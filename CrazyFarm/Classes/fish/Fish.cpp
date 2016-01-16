@@ -263,6 +263,7 @@ void Fish::setRoute(int routeTag)
 	{
 		delay = DelayTime::create(0);
 	}
+	this->runAction(Sequence::create(delay, RemoveSelf::create(1), nullptr));
 	if (RepetActionArray.size() > 0)
 	{
 		this->runAction(Sequence::create(delay, CallFunc::create([&](){

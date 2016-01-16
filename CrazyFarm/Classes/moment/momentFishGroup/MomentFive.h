@@ -9,11 +9,9 @@ struct MomentFiveData
 	int fishID;
 	float startTime;
 	Vec2 pos;
-<<<<<<< HEAD
-	MomentFiveData(int id, float time,Vec2 p){ fishID = id, time = startTime; pos=p;};
-=======
+
     MomentFiveData(int id, float time,Vec2 p){ fishID = id, time = startTime; pos=p;};
->>>>>>> origin/master
+
 };
 class MomentFive : public Moment {
 
