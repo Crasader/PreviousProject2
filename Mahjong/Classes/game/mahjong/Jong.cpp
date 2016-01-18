@@ -18,7 +18,7 @@ void Jong::showJong(int bType, int cType){
 		drawContent(cType);
 		this->setJongType(cType);
 	}
-	
+
 }
 
 Rect Jong::getJongBoundingBox(){
@@ -65,10 +65,18 @@ void Jong::drawBackGround(int bType){
 		//对家手牌
 		backGround->setTexture("gamemj/shangli.png");
 		break;
+	case 7:
+		//对家牌堆
+		backGround->setTexture("gamemj/xiatang2.png");
+		break;
+	case 8:
+		//右边玩家手牌
+		backGround->setTexture("gamemj/youli.png");
+		break;
 	default:
 		break;
 	}
-	
+
 }
 
 
@@ -172,6 +180,10 @@ void Jong::setJongScale(int bType){
 		content->setScale(0.5f);
 		content->setRotation(90);
 	}
+	else if (bType == 7){
+		content->setScale(0.5f);
+		content->setRotation(180);
+	}
 }
 
 
@@ -180,9 +192,13 @@ void Jong::setJongPosition(int bType){
 		content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y));
 	}
 	else if (bType == 5){
+		content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y + 5));
+	}
+	else if (bType == 7){
 		content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y+5));
 	}
-	else{
+	else {
 		content->setPosition(ccp(backGround->getPosition().x, backGround->getPosition().y - 10));
 	}
+
 }
