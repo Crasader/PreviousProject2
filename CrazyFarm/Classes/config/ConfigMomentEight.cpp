@@ -13,23 +13,38 @@ ConfigMomentEight* ConfigMomentEight::getInstance(){
 }
 
 bool ConfigMomentEight::LoadConfig() {
-    if( LoadConfigType1() ) {
-        if( LoadConfigType2() ) {
-            return LoadConfigType3();
-        }
-    }
+	LoadConfigType1();
+	LoadConfigType2();
+	LoadConfigType3();
+	LoadConfigType4();
+	LoadConfigType5();
     return true;
 }
 
 
 
 MomentEightItem ConfigMomentEight::getMomentEightItemByTypeId(int typeId) {
-    if(typeId == 1) {
-        return momentEightItemType1;
-    }else if(typeId == 2) {
-        return momentEightItemType2;
-    }
-    return momentEightItemType3;
+	switch (typeId)
+	{
+	case 1:
+		return momentEightItemType1;
+		break;
+	case 2:
+		return momentEightItemType2;
+		break;
+	case 3:
+		return momentEightItemType3;
+		break;
+	case 4:
+		return momentEightItemType4;
+		break;
+	case 5:
+		return momentEightItemType5;
+		break;
+	default:
+		break;
+	}
+	return momentEightItemType1;
 }
 
 bool ConfigMomentEight::LoadConfigType1() {
@@ -160,4 +175,91 @@ bool ConfigMomentEight::LoadConfigType3() {
         return true;
     }
     return true;
+}
+
+bool ConfigMomentEight::LoadConfigType4() {
+	bool bRet = false;
+	while (!bRet) {
+
+		std::string filename = "config/config_eight_type4.json";
+		rapidjson::Document doc;
+		if (!FileUtils::getInstance()->isFileExist(filename))
+		{
+			break;
+		}
+
+		std::string data = FileUtils::getInstance()->getStringFromFile(filename);
+		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
+		if (doc.HasParseError())
+		{
+			log("ConfigMomentEight get json data err!");
+			break;
+		}
+
+		momentEightItemType4.interval_time_start = doc["interval_time_start"].GetDouble();
+		momentEightItemType4.interval_time_end = doc["interval_time_end"].GetDouble();
+
+		rapidjson::Value& itemList = doc["item_list"];
+		if (!itemList.IsArray())
+		{
+			log("ConfigMomentEight The data is not json");
+			break;
+		}
+		for (unsigned int i = 0; i < itemList.Size(); ++i) {
+			const rapidjson::Value &val = itemList[i];
+
+			MomentEightItemPer momentEightItemPer;
+			momentEightItemPer.fish_id = val["fish_id"].GetInt();
+			momentEightItemPer.per = val["per"].GetInt();
+
+			momentEightItemType4.momentEightItemPers.push_back(momentEightItemPer);
+		}
+
+		return true;
+	}
+	return true;
+}
+
+
+bool ConfigMomentEight::LoadConfigType5() {
+	bool bRet = false;
+	while (!bRet) {
+
+		std::string filename = "config/config_eight_type5.json";
+		rapidjson::Document doc;
+		if (!FileUtils::getInstance()->isFileExist(filename))
+		{
+			break;
+		}
+
+		std::string data = FileUtils::getInstance()->getStringFromFile(filename);
+		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
+		if (doc.HasParseError())
+		{
+			log("ConfigMomentEight get json data err!");
+			break;
+		}
+
+		momentEightItemType5.interval_time_start = doc["interval_time_start"].GetDouble();
+		momentEightItemType5.interval_time_end = doc["interval_time_end"].GetDouble();
+
+		rapidjson::Value& itemList = doc["item_list"];
+		if (!itemList.IsArray())
+		{
+			log("ConfigMomentEight The data is not json");
+			break;
+		}
+		for (unsigned int i = 0; i < itemList.Size(); ++i) {
+			const rapidjson::Value &val = itemList[i];
+
+			MomentEightItemPer momentEightItemPer;
+			momentEightItemPer.fish_id = val["fish_id"].GetInt();
+			momentEightItemPer.per = val["per"].GetInt();
+
+			momentEightItemType5.momentEightItemPers.push_back(momentEightItemPer);
+		}
+
+		return true;
+	}
+	return true;
 }

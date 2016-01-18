@@ -7,9 +7,13 @@ void MomentEight::init()
 	momentEightItemType1 = ConfigMomentEight::getInstance()->getMomentEightItemByTypeId(1);
 	momentEightItemType2 = ConfigMomentEight::getInstance()->getMomentEightItemByTypeId(2);
 	momentEightItemType3 = ConfigMomentEight::getInstance()->getMomentEightItemByTypeId(3);
+	momentEightItemType4 = ConfigMomentEight::getInstance()->getMomentEightItemByTypeId(4);
+	momentEightItemType5 = ConfigMomentEight::getInstance()->getMomentEightItemByTypeId(5);
 	fTemp1 = getRandonNumByAtoB(momentEightItemType1.interval_time_start, momentEightItemType1.interval_time_end);
 	fTemp2 = getRandonNumByAtoB(momentEightItemType2.interval_time_start, momentEightItemType2.interval_time_end);
 	fTemp3 = getRandonNumByAtoB(momentEightItemType3.interval_time_start, momentEightItemType3.interval_time_end);
+	fTemp4 = getRandonNumByAtoB(momentEightItemType4.interval_time_start, momentEightItemType4.interval_time_end);
+	fTemp5 = getRandonNumByAtoB(momentEightItemType5.interval_time_start, momentEightItemType5.interval_time_end);
 }
 
 bool MomentEight::updata(float dt)
@@ -18,6 +22,8 @@ bool MomentEight::updata(float dt)
 	fTemp1 -= dt;
 	fTemp2 -= dt;
 	fTemp3 -= dt;
+	fTemp4 -= dt;
+	fTemp5 -= dt;
 	if (nNowTime > momentEightItemType1.life_time)
 	{
 		return true;
@@ -36,6 +42,16 @@ bool MomentEight::updata(float dt)
 	{
 		fTemp3 = getRandonNumByAtoB(momentEightItemType3.interval_time_start, momentEightItemType3.interval_time_end);
 		FishManage::getInstance()->createFishArrangeRand(getFishByRandVec(momentEightItemType3.momentEightItemPers));
+	}
+	if (fTemp4 <= 0)
+	{
+		fTemp4 = getRandonNumByAtoB(momentEightItemType4.interval_time_start, momentEightItemType4.interval_time_end);
+		FishManage::getInstance()->createFishRand(getFishByRandVec(momentEightItemType4.momentEightItemPers));
+	}
+	if (fTemp5 <= 0)
+	{
+		fTemp5 = getRandonNumByAtoB(momentEightItemType5.interval_time_start, momentEightItemType5.interval_time_end);
+		FishManage::getInstance()->createFishRand(getFishByRandVec(momentEightItemType5.momentEightItemPers));
 	}
 	return false;
 

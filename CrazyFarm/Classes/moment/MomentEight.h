@@ -16,8 +16,12 @@ private:
 	float fTemp1;
 	float fTemp2;
 	float fTemp3;
+	float fTemp4;
+	float fTemp5;
 	float nNowTime = 0;
 	MomentEightItem momentEightItemType1;
 	MomentEightItem momentEightItemType2;
 	MomentEightItem momentEightItemType3;
+	MomentEightItem momentEightItemType4;
+	MomentEightItem momentEightItemType5;
 };

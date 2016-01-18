@@ -35,9 +35,13 @@ private:
     bool LoadConfigType1();
     bool LoadConfigType2();
     bool LoadConfigType3();
+	bool LoadConfigType4();
+	bool LoadConfigType5();
     
     MomentEightItem momentEightItemType1;
     MomentEightItem momentEightItemType2;
     MomentEightItem momentEightItemType3;
+	MomentEightItem momentEightItemType4;
+	MomentEightItem momentEightItemType5;
 };
 

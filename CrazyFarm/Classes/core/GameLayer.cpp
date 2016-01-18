@@ -335,11 +335,13 @@ bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
 {
 	auto pos = touch->getLocation();
 	auto cicle = CCCircMake(pos, 200);
+
 #if 1
 	auto draw = DrawNode::create();
 	draw->drawCircle(cicle.getMCenter(), cicle.getMRadius(),360, 100, false,Color4F::RED);
 	addChild(draw);
 #endif
+
 	auto fishPool = FishManage::getInstance()->getAllFishInPool();
 	auto data = GameData::getInstance();
 	for (auto fish:fishPool)

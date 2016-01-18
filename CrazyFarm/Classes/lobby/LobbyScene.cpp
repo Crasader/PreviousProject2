@@ -29,7 +29,7 @@ enum
 	kZorderMenu = 10,
 	kZorderDialog = 20
 };
-const Vec2 roomPos[5] = { Vec2(-300, 270), Vec2(212, 270), Vec2(500, 270), Vec2(788, 270), Vec2(960+300, 270)};
+const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960+300, 300)};
 
 roomCell * roomCell::createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback)
 {
@@ -189,14 +189,14 @@ bool LobbyScene::init()
 
 	//±³°ü
 	auto bag = MenuItemImage::create("bag.png", "bag.png", CC_CALLBACK_1(LobbyScene::bagButtonCallback, this));
-	bag->setPosition(visibleSize.width*0.3, visibleSize.height*0.1);
+	bag->setPosition(visibleSize.width*0.28, visibleSize.height*0.08);
 
 	//»»½±Æ·
 	auto changeReward = MenuItemImage::create("changeReward.png", "changeReward.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
-	changeReward->setPosition(visibleSize.width*0.2, visibleSize.height*0.1);
+	changeReward->setPosition(visibleSize.width*0.18, visibleSize.height*0.08);
 
 	auto rankList = MenuItemImage::create("ranklist.png", "ranklist.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
-	rankList->setPosition(visibleSize.width*0.1, visibleSize.height*0.1);
+	rankList->setPosition(visibleSize.width*0.08, visibleSize.height*0.08);
 
 
 	auto VIP = MenuItemImage::create("VIP.png", "VIP.png", CC_CALLBACK_1(LobbyScene::guizuCallback, this));
