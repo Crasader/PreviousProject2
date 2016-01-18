@@ -163,6 +163,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\core\GameLayer.cpp" />
     <ClCompile Include="..\Classes\core\GameScene.cpp" />
     <ClCompile Include="..\Classes\core\GuizuGiftDialog.cpp" />
+    <ClCompile Include="..\Classes\core\maridTaskPlane.cpp" />
     <ClCompile Include="..\Classes\core\NotarizeExitDialog.cpp" />
     <ClCompile Include="..\Classes\core\SettingDialog.cpp" />
     <ClCompile Include="..\Classes\core\showFishLayer.cpp" />
@@ -180,6 +181,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\bag\BagManager.cpp" />
     <ClCompile Include="..\Classes\domain\bankrupt\BankruptManager.cpp" />
     <ClCompile Include="..\Classes\domain\bonuspool\BonusPoolManager.cpp" />
+    <ClCompile Include="..\Classes\domain\coinBox\CoinBox.cpp" />
     <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp" />
     <ClCompile Include="..\Classes\domain\marquee\MarqueeManager.cpp" />
     <ClCompile Include="..\Classes\domain\mermaid\MermaidTask.cpp" />
@@ -280,6 +282,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\core\GameLayer.h" />
     <ClInclude Include="..\Classes\core\GameScene.h" />
     <ClInclude Include="..\Classes\core\GuizuGiftDialog.h" />
+    <ClInclude Include="..\Classes\core\maridTaskPlane.h" />
     <ClInclude Include="..\Classes\core\NotarizeExitDialog.h" />
     <ClInclude Include="..\Classes\core\SettingDialog.h" />
     <ClInclude Include="..\Classes\core\showFishLayer.h" />
@@ -297,6 +300,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\bag\BagManager.h" />
     <ClInclude Include="..\Classes\domain\bankrupt\BankruptManager.h" />
     <ClInclude Include="..\Classes\domain\bonuspool\BonusPoolManager.h" />
+    <ClInclude Include="..\Classes\domain\coinBox\CoinBox.h" />
     <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h" />
     <ClInclude Include="..\Classes\domain\marquee\MarqueeManager.h" />
     <ClInclude Include="..\Classes\domain\mermaid\MermaidTask.h" />

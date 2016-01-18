@@ -450,6 +450,12 @@
     <ClCompile Include="..\Classes\widget\MyMenuItemGainMoney.cpp">
       <Filter>src\widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\core\maridTaskPlane.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\coinBox\CoinBox.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -799,6 +805,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\widget\MyMenuItemGainMoney.h">
       <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\maridTaskPlane.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\coinBox\CoinBox.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

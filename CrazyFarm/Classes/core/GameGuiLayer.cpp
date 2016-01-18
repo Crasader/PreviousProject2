@@ -17,6 +17,8 @@
 #include "domain/nobility/NobilityManager.h"
 #include "core/GuizuGiftDialog.h"
 #include "widget/MyMenuItemGainMoney.h"
+#include "data/GameData.h"
+#include "core/maridTaskPlane.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
@@ -124,8 +126,17 @@ bool GameGuiLayer::init(){
 	createSettingBoard();
 	showRandonBubbleAni();
 	createGuizuGiftLayer();
+	beginMaridTaskTime();
 	return true;
 
+}
+
+void GameGuiLayer::beginMaridTaskTime()
+{
+	fmaridNowTime = 0;
+	GameData::getInstance()->setmermaidTask(MermaidTask::getNewMermaidTask());
+	GameData::getInstance()->setIsOnMaridTask(false);
+	schedule(schedule_selector(GameGuiLayer::maridTaskTime), 1.0f);
 }
 
 void GameGuiLayer::createGuizuGiftLayer()
@@ -250,4 +261,35 @@ void GameGuiLayer::showUpgradeTurretgCallback(Ref*pSender)
 			setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
 		}
 	}), nullptr));
+}
+
+void GameGuiLayer::createMermaidTaskPlane()
+{
+	auto size = Director::getInstance()->getVisibleSize();
+	auto sp = Sprite::create("txt_mermairtask.png");
+	sp->setPosition(size.width / 2, size.height*0.7);
+	addChild(sp);
+	sp->runAction(Sequence::create(DelayTime::create(3.0f),
+		FadeOut::create(1.0f), CallFunc::create([sp]{sp->setTexture("txt_3.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
+		CallFunc::create([sp]{sp->setTexture("txt_2.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
+		 CallFunc::create([sp]{sp->setTexture("txt_1.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
+		 CallFunc::create([sp]{sp->setTexture("txt_GO.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
+		CallFunc::create([&]{auto plane = maridTaskPlane::create(); plane->setPosition(100, 395); addChild(plane); GameData::getInstance()->setIsOnMaridTask(true); }), nullptr
+		)
+		);
+}
+
+void GameGuiLayer::maridTaskTime(float dt)
+{
+	if (GameData::getInstance()->getIsOnMaridTask())
+	{
+		return;
+	}
+	fmaridNowTime += dt;
+	if (fmaridNowTime > GameData::getInstance()->getmermaidTask()->getMermaidTaskConfigInfo().start_wait_time)
+	{
+		unschedule(schedule_selector(GameGuiLayer::maridTaskTime));
+		createMermaidTaskPlane();
+
+	}
 }

@@ -317,3 +317,4 @@ void GameLayer::endLock()
 	myTurret->endLockShoot();
 	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
 }
+

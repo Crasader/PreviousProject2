@@ -103,6 +103,11 @@ void FishManage::createFishGroup(int grouptag)
 }
 
 void FishManage::removeFish(Fish* fish){
+	auto lockfish = m_layer->GetMyTurret()->getLockFish();
+	if (fish == lockfish)
+	{
+		m_layer->GetMyTurret()->setLockFish(nullptr);
+	}
 	fishPool.eraseObject(fish);
 	
 }
@@ -168,12 +173,7 @@ void FishManage::removeFishWhichSwimOut()
 	}
 	for (auto fish : needRemoveFishs)
 	{
-		auto lockfish = m_layer->GetMyTurret()->getLockFish();
-		if (fish == lockfish)
-		{
-			m_layer->GetMyTurret()->setLockFish(nullptr);
-		}
-		fishPool.eraseObject(fish);
+		removeFish(fish);
 		fish->removeFromParentAndCleanup(1);
 	}
 }

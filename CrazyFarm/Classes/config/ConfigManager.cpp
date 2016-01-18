@@ -15,7 +15,8 @@
 #include "config/ConfigMagnate.h"
 #include "config/ConfigBonuspool.h"
 #include "config/ConfigMomentEight.h"
-
+#include "data/GameData.h"
+#include "domain/mermaid/MermaidTask.h"
 ConfigManager* ConfigManager::_instance = NULL;
 
 ConfigManager::ConfigManager(){
@@ -51,7 +52,8 @@ void ConfigManager::LoadConfig() {
     
     ConfigBonuspool::getInstance()->LoadConfig();
     ConfigMomentEight::getInstance()->LoadConfig();
-    
+ 
+	GameData::getInstance()->setmermaidTask(MermaidTask::getNewMermaidTask());
 }
 
 

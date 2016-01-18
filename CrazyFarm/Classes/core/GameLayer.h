@@ -36,8 +36,12 @@ private:
 
 	void AiUpdata(float dt);
 	void onExit();
+	//Updata
 	void collisionUpdate(float dt);
 	void update(float dt);
+
+	
+	
     //Ëø¶¨
 	
 	void LockUpdata(float dt);

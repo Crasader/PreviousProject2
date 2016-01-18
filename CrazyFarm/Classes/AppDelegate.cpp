@@ -69,6 +69,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("NobilityLayer");
 	paths.push_back("dialog");
 	paths.push_back("gamelayer/turntable");
+	paths.push_back("gamelayer/mermaid");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand((unsigned)time(nullptr));
 

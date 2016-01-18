@@ -29,6 +29,15 @@ private :
 	void createSettingBoard();
 	void showUpgradeTurretgCallback(Ref*pSender);
 	void createGuizuGiftLayer();
+
+	/////////美人鱼相关///////////////////////////////////////////////
+	float fmaridNowTime = 0;
+	void maridTaskTime(float dt);
+	void createMermaidTaskPlane();
+public:
+	void beginMaridTaskTime();
+private:
+	////
 	virtual void onExit();
 	MenuItemImage* setttingBoard;
 	MenuItemImage* UpgradeTurret;

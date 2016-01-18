@@ -2,24 +2,24 @@
 
 MermaidTask::MermaidTask(){
     mermaidTaskConfigInfo.start_wait_time = 3 + rand()%8; //[3, 11]
-    mermaidTaskConfigInfo.start_wait_time = 240;
+    mermaidTaskConfigInfo.continue_time = 240;
     
     mermaidTaskOnlineInfo.coins = 0;
     
     MermaidTaskItem mermaidTaskItem1;
-    mermaidTaskItem1.fishId = 1 + rand()%10;
+    mermaidTaskItem1.fishId =10 /*1 + rand()%10*/;
     mermaidTaskItem1.goal_num = 2;
     mermaidTaskItem1.current_num = 0;
     mermaidTaskOnlineInfo.mermaidTaskItems.push_back(mermaidTaskItem1);
     
     MermaidTaskItem mermaidTaskItem2;
-    mermaidTaskItem2.fishId = 30 + rand()%7;
+    mermaidTaskItem2.fishId = 33/*30 + rand()%7*/;
     mermaidTaskItem2.goal_num = 1;
     mermaidTaskItem2.current_num = 0;
     mermaidTaskOnlineInfo.mermaidTaskItems.push_back(mermaidTaskItem2);
     
     MermaidTaskItem mermaidTaskItem3;
-    mermaidTaskItem3.fishId = 40 + rand()%4;
+    mermaidTaskItem3.fishId =44 /*40 + rand()%4*/;
     
     mermaidTaskItem3.goal_num = 1;
     mermaidTaskItem3.current_num = 0;
@@ -42,7 +42,7 @@ void MermaidTask::addOneCatchFishById(int fishId) {
 
 bool MermaidTask::isSuccess() {
     for(int i=0; i<mermaidTaskOnlineInfo.mermaidTaskItems.size();i++) {
-        if( mermaidTaskOnlineInfo.mermaidTaskItems.at(i).current_num !=
+        if( mermaidTaskOnlineInfo.mermaidTaskItems.at(i).current_num <
                 mermaidTaskOnlineInfo.mermaidTaskItems.at(i).goal_num ) {
             return false;
         }

@@ -9,6 +9,7 @@
 #include "domain/bankrupt/BankruptManager.h"
 #include "domain/bonuspool/BonusPoolManager.h"
 #include "core/GameLayer.h"
+#include "domain/mermaid/MermaidTask.h"
 
 enum 
 {
@@ -180,8 +181,13 @@ void PlayerTurret::shoot(float degree){
 	}
 	else
 	{
+		
 		auto num = Value(m_turretdata.multiple).asInt();
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(-num)).asString().c_str());
+		if (GameData::getInstance()->getIsOnMaridTask())
+		{
+			GameData::getInstance()->getmermaidTask()->addCoins(num);
+		}
 	}
 	
 
@@ -201,7 +207,7 @@ void PlayerTurret::shootOnLock(float dt){
 	auto pos = m_turret->getTampionPos();
 	bullet->setPosition(m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
-	auto duration = pos.distance(lockFish->getPosition()) / 300.0f;
+	auto duration = pos.distance(lockFish->getPosition()) / 800.0f;
 	bullet->moveToLockfish(duration, lockFish);
 	getParent()->addChild(bullet);
 

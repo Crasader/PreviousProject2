@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "domain/magnate/MagnateManager.h"
 #include "config/ConfigTurrent.h"
+#include "domain/mermaid/MermaidTask.h"
 using namespace cocos2d;
 
 class GameData {
@@ -18,6 +19,8 @@ private:
 	CC_SYNTHESIZE(int, nShotCount, ShotCount);
 	CC_SYNTHESIZE(MagnateEvent, m_event, event);
 	CC_SYNTHESIZE(int, nNowLevel, nowLevel);
+	CC_SYNTHESIZE(MermaidTask*, m_Task, mermaidTask);
+	CC_SYNTHESIZE(bool, isOnMaridTask, IsOnMaridTask);
 };
 
 #endif
