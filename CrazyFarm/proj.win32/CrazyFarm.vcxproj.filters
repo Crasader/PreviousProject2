@@ -103,6 +103,9 @@
     <Filter Include="src\core\dialog\turntable">
       <UniqueIdentifier>{1c11a1ba-2968-4081-83c6-adba25c11502}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\lobby\ranklist">
+      <UniqueIdentifier>{57ef0790-3a10-4b3b-9154-3e817d9aa186}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -458,6 +461,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\utill\CCircle.cpp">
       <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\ranklist\RanklistCell.cpp">
+      <Filter>src\lobby\ranklist</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\ranklist\RanklistManager.cpp">
+      <Filter>src\lobby\ranklist</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -817,6 +826,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utill\CCircle.h">
       <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ranklist\RanklistCell.h">
+      <Filter>src\lobby\ranklist</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ranklist\RanklistManager.h">
+      <Filter>src\lobby\ranklist</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

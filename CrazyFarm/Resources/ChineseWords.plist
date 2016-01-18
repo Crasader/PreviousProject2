@@ -17,6 +17,9 @@
   <key>priceVIPdes</key>
   <string>累计充值%d元</string>
   
+  
+    <key>haveCoin</key>
+  <string>拥有金币</string>
   </dict>
 
 </array>
