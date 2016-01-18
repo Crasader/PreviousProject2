@@ -252,7 +252,7 @@ void GameLayer::collisionUpdate(float dt)
 {
 
 
-
+	CCLOG("now fish size = %d", FishManage::getInstance()->getAllFishInPoolCount());
 	//TODO 碰撞逻辑
 	//step1 获取子弹列表
 	auto allBullets = BulletManage::getInstance()->getAllBullets();

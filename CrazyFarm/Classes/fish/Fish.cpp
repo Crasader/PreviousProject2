@@ -1,6 +1,7 @@
 #include "fish/Fish.h"
 #include "fish/FishAniMannage.h"
 #include "utill/CircleMoveTo.h"
+#include "FishManage.h"
 bool Fish::init(){
 	if (!Sprite::init())
 	{
@@ -263,7 +264,7 @@ void Fish::setRoute(int routeTag)
 	{
 		delay = DelayTime::create(0);
 	}
-	this->runAction(Sequence::create(delay, RemoveSelf::create(1), nullptr));
+	this->runAction(Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{FishManage::getInstance()->removeFish(this); }), nullptr));
 	if (RepetActionArray.size() > 0)
 	{
 		this->runAction(Sequence::create(delay, CallFunc::create([&](){

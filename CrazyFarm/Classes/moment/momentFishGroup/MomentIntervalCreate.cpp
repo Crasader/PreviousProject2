@@ -9,7 +9,7 @@ bool MomentIntervalCreate::updata(float dt)
 	//	return true;
 	//}
 	auto fishcount = FishManage::getInstance()->getAllFishInPoolCount();
-	if (fishcount < fishMinSize&&nNowTime>30)
+	if (fishcount < fishMinSize&&nNowTime>45)//45 == ”„≥≤ ±º‰
 	{
 		return true;
 	}

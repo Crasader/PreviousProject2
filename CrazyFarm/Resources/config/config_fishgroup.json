@@ -207,7 +207,7 @@
                     "fishID": 10,
                     "fishRoute": 9,
                     "fishCount": 15,
-                    "IntervalCreateTime": 2.3,
+                    "IntervalCreateTime": 1.3,
                     "startPosX": 100,
                     "startPosY": -30
 
@@ -217,7 +217,7 @@
                     "fishID": 33,
                     "fishRoute": 9,
                     "fishCount":  15,
-                    "IntervalCreateTime": 2.3,
+                    "IntervalCreateTime": 1.3,
                     "startPosX": 150,
                     "startPosY": -30
 
@@ -227,7 +227,7 @@
                     "fishID": 10,
                     "fishRoute": 10,
                     "fishCount": 15,
-                    "IntervalCreateTime": 2.3,
+                    "IntervalCreateTime": 1.3,
                     "startPosX": 860,
                     "startPosY": -30
 
@@ -237,7 +237,7 @@
                     "fishID": 33,
                     "fishRoute": 10,
                     "fishCount":  15,
-                    "IntervalCreateTime": 2.3,
+                    "IntervalCreateTime": 1.3,
                     "startPosX": 810,
                     "startPosY": -30
 
