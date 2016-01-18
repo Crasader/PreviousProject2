@@ -21,7 +21,7 @@
 #include "core/SettingDialog.h"
 #include "domain/marquee/MarqueeManager.h"
 #include "utill/FunUtil.h"
-
+#include "core/TurnTableDialog.h"
 
 
 enum 
@@ -245,10 +245,19 @@ bool LobbyScene::init()
 	this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);
 	this->scheduleOnce(schedule_selector(LobbyScene::showMarquee), 1.0f);
 	scheduleUpdate();
-	//auto cell = showTurretCell::create();
-	//cell->setPosition(400, 200);
-	//cell->setVippaoValue(1);
-	//addChild(cell);
+
+	//test
+
+if (0)
+{
+	auto cell = TurnTableDialog::create();
+	cell->setPosition(0, 0);
+	addChild(cell);
+}
+	
+
+	
+
 	return true;
 }
 void LobbyScene::showSign(float dt)

@@ -28,7 +28,6 @@ private :
 	void showSettingCallback(Ref*pSender);
 	void createSettingBoard();
 	void showUpgradeTurretgCallback(Ref*pSender);
-	void createUpgradeTurret();
 	void createGuizuGiftLayer();
 	virtual void onExit();
 	MenuItemImage* setttingBoard;

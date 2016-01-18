@@ -25,7 +25,7 @@ bool SignCell::init(int propID, int propNum)
 	{
 
 		auto num = LabelAtlas::create(Value(propNum).asString().c_str(),"payNum.png", 16,24,'0');
-		num->setPosition(getContentSize().width*0.6, getContentSize().height*0.1);
+		num->setPosition(getContentSize().width*0.5, getContentSize().height*0.1);
 		addChild(num);
 		bRet = true;
 	}

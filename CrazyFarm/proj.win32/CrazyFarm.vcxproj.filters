@@ -100,6 +100,9 @@
     <Filter Include="src\moment\group">
       <UniqueIdentifier>{112aee00-c5fb-4032-8e61-9dd669198c30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\core\dialog\turntable">
+      <UniqueIdentifier>{1c11a1ba-2968-4081-83c6-adba25c11502}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -363,9 +366,6 @@
     <ClCompile Include="..\Classes\domain\mermaid\MermaidTask.cpp">
       <Filter>src\mannager</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\core\GiftTurnTable.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\domain\marquee\MarqueeManager.cpp">
       <Filter>src\mannager</Filter>
     </ClCompile>
@@ -440,6 +440,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\moment\momentFishGroup\MomentFive.cpp">
       <Filter>src\moment\group</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\turntable\CTurntable.cpp">
+      <Filter>src\core\dialog\turntable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\core\TurnTableDialog.cpp">
+      <Filter>src\core\dialog\turntable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\widget\MyMenuItemGainMoney.cpp">
+      <Filter>src\widget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -707,9 +716,6 @@
     <ClInclude Include="..\Classes\domain\mermaid\MermaidTask.h">
       <Filter>src\mannager</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\core\GiftTurnTable.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\domain\marquee\MarqueeManager.h">
       <Filter>src\mannager</Filter>
     </ClInclude>
@@ -784,6 +790,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\moment\momentFishGroup\MomentTwo.h">
       <Filter>src\moment\group</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\turntable\CTurntable.h">
+      <Filter>src\core\dialog\turntable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\TurnTableDialog.h">
+      <Filter>src\core\dialog\turntable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\widget\MyMenuItemGainMoney.h">
+      <Filter>src\widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

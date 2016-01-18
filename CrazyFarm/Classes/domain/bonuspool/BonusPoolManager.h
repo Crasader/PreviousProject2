@@ -29,11 +29,13 @@ public:
     bool cleanCoinsAndFishCounts();              // 清空奖金池的数目
     
     BonuspoolResult getBonuspoolResult();       // 获取奖励区间和奖励结果
-    
+	BonuspoolItem  getNextBonuspool();       // 获取下一级奖金池
+	
     
     
     
 private:
+	int getRewardByRandVec(std::vector<BonuspoolRewardItem> momentEightItemPers);
     BonusPoolManager();
     void init();
     static BonusPoolManager* _instance;

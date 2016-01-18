@@ -16,12 +16,17 @@
 #include "core/NotarizeExitDialog.h"
 #include "domain/nobility/NobilityManager.h"
 #include "core/GuizuGiftDialog.h"
+#include "widget/MyMenuItemGainMoney.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
 	kTagEarnCoins = 2
 };
-
+enum
+{
+	kZorderMenu = 10,
+	kZorderDialog = 20
+};
 
 
 
@@ -55,20 +60,21 @@ bool GameGuiLayer::init(){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
-	addChild(menu,10);
+	addChild(menu,kZorderMenu);
 	
-	Audio::getInstance()->playBGM(BACKGORUNDMUSIC);
-	
+	Audio::getInstance()->playBGM(BACKGORUNDMUSIC); 
 	
 
-	/*auto  buttonPlay1 = MenuItemImage::create("unlockBg.png", "unlockBg.png", CC_CALLBACK_1(GameGuiLayer::ButtentouchEvent, this));
-	buttonPlay1->setPosition(visibleSize.width, visibleSize.height*0.40);
-	buttonPlay1->setTag(kTagEarnCoins);
-	menu->addChild(buttonPlay1);
-	auto sprbg1 = Sprite::create("EarnCoins.png");
-	sprbg1->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sprbg1->setPosition(buttonPlay1->getContentSize().width *0.3, buttonPlay1->getContentSize().height / 2);
-	buttonPlay1->addChild(sprbg1);*/
+
+	auto sprbg = Sprite::create("EarnCoins.png");
+	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	sprbg->setPosition(visibleSize.width, visibleSize.height*0.41);
+	addChild(sprbg, 11);
+
+	auto sEainCoin = MyMenuItemGainMoney::create();
+	sEainCoin->setPosition(visibleSize.width + 40, visibleSize.height*0.40);
+	menu->addChild(sEainCoin);
+
 
 	
 	auto sUpgradeTurret = MyMenuItemUpgrade::create();
@@ -76,7 +82,7 @@ bool GameGuiLayer::init(){
 	menu->addChild(sUpgradeTurret);
 
 
-	auto sprbg = Sprite::create("UpgradeButton.png");
+	sprbg = Sprite::create("UpgradeButton.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	sprbg->setPosition(visibleSize.width,visibleSize.height*0.61);
 	addChild(sprbg,11);
@@ -129,7 +135,7 @@ void GameGuiLayer::createGuizuGiftLayer()
 	{
 		auto layer = GuizuGiftDialog::create();
 		layer->setPosition(0, 0);
-		addChild(layer);
+		addChild(layer,kZorderDialog);
 	}
 }
 void GameGuiLayer::ButtentouchEvent(Ref *pSender)
@@ -154,7 +160,7 @@ void GameGuiLayer::exitCallback(Ref *pSender)
 	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
 	auto layer = NotarizeExitDialog::create();
 	layer->setPosition(0, 0);
-	addChild(layer);
+	addChild(layer, kZorderDialog);
 }
 
 void GameGuiLayer::showRandonBubbleAni()
@@ -170,30 +176,12 @@ void GameGuiLayer::showRandonBubbleAni()
 }
 
 
-void GameGuiLayer::createUpgradeTurret()
-{
-	auto visibleSize = Director::getInstance()->getVisibleSize();
-	auto sp = Sprite::create("UpgradeButton.png");
-	sp->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	sp->setPosition(visibleSize.width, visibleSize.height*0.60);
-	addChild(sp);
-
-
-
-	auto menuset = Menu::create();
-	menuset->setPosition(Point::ZERO);
-	addChild(menuset);
-	
-	UpgradeTurret = MenuItemImage::create("UnlockFrame_1.png", "UnlockFrame_2.png", CC_CALLBACK_1(GameGuiLayer::showUpgradeTurretgCallback, this));
-	UpgradeTurret->setPosition(visibleSize.width, visibleSize.height *0.60);
-	menuset->addChild(UpgradeTurret);
-}
 
 void GameGuiLayer::createSettingBoard()
 {
 	auto menuset = Menu::create();
 	menuset->setPosition(Point::ZERO);
-	addChild(menuset);
+	addChild(menuset,kZorderMenu);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	setttingBoard = MenuItemImage::create("settingBG.png", "settingBG.png", CC_CALLBACK_1(GameGuiLayer::showSettingCallback, this));
 	setttingBoard->setPosition(visibleSize.width / 2, visibleSize.height + 20);
@@ -231,7 +219,7 @@ void GameGuiLayer::settingCallback(Ref *pSender)
 	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
 	auto layer = SettingDialog::create();
 	layer->setPosition(Point::ZERO);
-	addChild(layer);
+	addChild(layer,kZorderDialog);
 }
 void GameGuiLayer::showFishCallback(Ref *pSender)
 {

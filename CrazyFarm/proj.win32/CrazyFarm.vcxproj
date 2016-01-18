@@ -162,13 +162,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\core\GameGuiLayer.cpp" />
     <ClCompile Include="..\Classes\core\GameLayer.cpp" />
     <ClCompile Include="..\Classes\core\GameScene.cpp" />
-    <ClCompile Include="..\Classes\core\GiftTurnTable.cpp" />
     <ClCompile Include="..\Classes\core\GuizuGiftDialog.cpp" />
     <ClCompile Include="..\Classes\core\NotarizeExitDialog.cpp" />
     <ClCompile Include="..\Classes\core\SettingDialog.cpp" />
     <ClCompile Include="..\Classes\core\showFishLayer.cpp" />
     <ClCompile Include="..\Classes\core\showTurretCell.cpp" />
     <ClCompile Include="..\Classes\core\showTurretLayer.cpp" />
+    <ClCompile Include="..\Classes\core\TurnTableDialog.cpp" />
     <ClCompile Include="..\Classes\data\GameData.cpp" />
     <ClCompile Include="..\Classes\data\GameState.cpp" />
     <ClCompile Include="..\Classes\domain\ai\AI.cpp" />
@@ -192,6 +192,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\skill\SkillLockButton.cpp" />
     <ClCompile Include="..\Classes\domain\skill\skillManager.cpp" />
     <ClCompile Include="..\Classes\domain\skill\SkillSummonButton.cpp" />
+    <ClCompile Include="..\Classes\domain\turntable\CTurntable.cpp" />
     <ClCompile Include="..\Classes\domain\user\User.cpp" />
     <ClCompile Include="..\Classes\fish\Fish.cpp" />
     <ClCompile Include="..\Classes\fish\FishAniMannage.cpp" />
@@ -247,6 +248,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\utill\SkillButton.cpp" />
     <ClCompile Include="..\Classes\utill\Toast.cpp" />
     <ClCompile Include="..\Classes\widget\MyDialog.cpp" />
+    <ClCompile Include="..\Classes\widget\MyMenuItemGainMoney.cpp" />
     <ClCompile Include="..\Classes\widget\MyMenuItemUpgrade.cpp" />
     <ClCompile Include="..\Classes\widget\MyTableView.cpp" />
     <ClCompile Include="main.cpp" />
@@ -277,13 +279,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\core\GameGuiLayer.h" />
     <ClInclude Include="..\Classes\core\GameLayer.h" />
     <ClInclude Include="..\Classes\core\GameScene.h" />
-    <ClInclude Include="..\Classes\core\GiftTurnTable.h" />
     <ClInclude Include="..\Classes\core\GuizuGiftDialog.h" />
     <ClInclude Include="..\Classes\core\NotarizeExitDialog.h" />
     <ClInclude Include="..\Classes\core\SettingDialog.h" />
     <ClInclude Include="..\Classes\core\showFishLayer.h" />
     <ClInclude Include="..\Classes\core\showTurretCell.h" />
     <ClInclude Include="..\Classes\core\showTurretLayer.h" />
+    <ClInclude Include="..\Classes\core\TurnTableDialog.h" />
     <ClInclude Include="..\Classes\data\GameData.h" />
     <ClInclude Include="..\Classes\data\GameState.h" />
     <ClInclude Include="..\Classes\domain\ai\AI.h" />
@@ -307,6 +309,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\skill\SkillLockButton.h" />
     <ClInclude Include="..\Classes\domain\skill\skillManager.h" />
     <ClInclude Include="..\Classes\domain\skill\SkillSummonButton.h" />
+    <ClInclude Include="..\Classes\domain\turntable\CTurntable.h" />
     <ClInclude Include="..\Classes\domain\user\User.h" />
     <ClInclude Include="..\Classes\fish\Fish.h" />
     <ClInclude Include="..\Classes\fish\FishAniMannage.h" />
@@ -363,6 +366,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\utill\SkillButton.h" />
     <ClInclude Include="..\Classes\utill\Toast.h" />
     <ClInclude Include="..\Classes\widget\MyDialog.h" />
+    <ClInclude Include="..\Classes\widget\MyMenuItemGainMoney.h" />
     <ClInclude Include="..\Classes\widget\MyMenuItemUpgrade.h" />
     <ClInclude Include="..\Classes\widget\MyTableView.h" />
     <ClInclude Include="main.h" />
