@@ -105,14 +105,7 @@ void Bullet::getCoinForFish(Vector<Fish*> fishs)
 {
 	for(auto var : fishs)
 	{
-		auto event = GameData::getInstance()->getevent();
-		if (GameData::getInstance()->getShotCount() >= event.fireTimes)
-		{
-			User::getInstance()->addDiamonds(event.num);
-			GameData::getInstance()->setShotCount(0);
-			GameData::getInstance()->setevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
-			//TODO::在鱼上得到奖品UI显示
-		}
+		
 		pPlayerTurret->getCoinByFish(var);
 	}
 }

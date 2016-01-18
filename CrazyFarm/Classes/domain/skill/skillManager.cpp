@@ -33,6 +33,14 @@ int skillManager::getSKillNumById(int skillid)
 	return BagManager::getInstance()->getItemNum(info.item_id);
 }
 
+void skillManager::useSkillSummon()
+{
+	auto fish = FishManage::getInstance()->createFishSingle(40 + rand() % 5);
+	fish->setPosition(Vec2(-100, 150+rand()%200));
+	fish->setMoveAngle(0);
+	fish->move(3);
+	m_gamelayer->addChild(fish);
+}
 
 void skillManager::useSkillFreeze()
 {
@@ -42,14 +50,6 @@ void skillManager::useSkillFreeze()
 		fish->pause();
 		m_gamelayer->unscheduleUpdate();
 	}
-}
-void skillManager::useSkillSummon()
-{
-	auto fish = FishManage::getInstance()->createFishSingle(40 + rand() % 5);
-	fish->setPosition(Vec2(-100, 150+rand()%200));
-	fish->setMoveAngle(0);
-	fish->move(3);
-	m_gamelayer->addChild(fish);
 }
 
 void skillManager::useSkillFreezeEnd()
@@ -69,4 +69,9 @@ void skillManager::useSkillLock()
 void skillManager::useSkillLockEnd()
 {
 	m_gamelayer->endLock();
+}
+
+void skillManager::useSkillBoom()
+{
+	m_gamelayer->beginSkillBoom();
 }

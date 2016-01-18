@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "core/GameLayer.h"
 #include "config/ConfigSkill.h"
+#include "utill/SkillButton.h"
 
 using namespace cocos2d;
 
@@ -19,13 +20,17 @@ public:
 	void useSkillSummon();
 	void useSkillLock();
 	void useSkillLockEnd();
+	void useSkillBoom();
 	void setlayer(GameLayer*layer){ m_gamelayer = layer; }
+	void addskillButton(int id, SkillButton* button){ map_id_skillbutton[id] = button; };
+	SkillButton* getButtonByID(int id){ return map_id_skillbutton[id]; };
 private:
 	skillManager();
     void init();
 	GameLayer* m_gamelayer = nullptr;
 	static skillManager* _instance;
 	std::map<int, bool> map_skill_isUsingnow;
+	std::map<int, SkillButton*> map_id_skillbutton;
 
 };
 

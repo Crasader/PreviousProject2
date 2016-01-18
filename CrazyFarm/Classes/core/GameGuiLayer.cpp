@@ -19,6 +19,7 @@
 #include "widget/MyMenuItemGainMoney.h"
 #include "data/GameData.h"
 #include "core/maridTaskPlane.h"
+#include "domain/skill/skillManager.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
@@ -99,28 +100,31 @@ bool GameGuiLayer::init(){
 	skillbutton->setPosition(visibleSize.width*0.45, visibleSize.height*0.073);
 	skillbutton->setScale(0.9);
 	addChild(skillbutton);
-	//Ëø¶¨
+	skillManager::getInstance()->addskillButton(1, skillbutton);
+	//ºËµ¯
 	auto skillbutton1 = SkillBombButton::createSkillBombButton();
 	skillbutton1->setPosition(visibleSize.width*0.55, visibleSize.height*0.073);
 	skillbutton1->setScale(0.9);
 	addChild(skillbutton1);
+	skillManager::getInstance()->addskillButton(4, skillbutton1);
 	//ÕÙ»½
 	auto skillbutton2 = SkillSummonButton::createSkillSummonButton();
 	skillbutton2->setPosition(visibleSize.width*0.03, visibleSize.height*0.20+10);
 	skillbutton2->setScale(0.7);
 	addChild(skillbutton2);
-
+	skillManager::getInstance()->addskillButton(3, skillbutton2);
+	//À×µç	
 	auto skillbutton3 = SkillLightButton::createSkillLightButton();
 	skillbutton3->setPosition(visibleSize.width*0.03, visibleSize.height*0.34+10);
 	skillbutton3->setScale(0.7);
 	addChild(skillbutton3);
-
-
+	skillManager::getInstance()->addskillButton(5, skillbutton3);
+	//Ëø¶¨
 	auto skillbutton4 = SkillLockButton::createSkillLockButton();
 	skillbutton4->setPosition(visibleSize.width*0.03, visibleSize.height*0.48+10);
 	skillbutton4->setScale(0.7);
 	addChild(skillbutton4);
-
+	skillManager::getInstance()->addskillButton(2, skillbutton3);
 
 
 	createSettingBoard();

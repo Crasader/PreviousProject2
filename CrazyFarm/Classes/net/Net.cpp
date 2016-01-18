@@ -43,11 +43,6 @@ void Net::checkCatchFish(Bullet*bullet){
 	auto data = GameData::getInstance();
 	bullet->getCoinForFish(fishNeedRemove);
 	for (Fish* fish : fishNeedRemove){
-		auto lockfish = ((GameLayer*)getParent())->GetMyTurret()->getLockFish();
-		if (fish==lockfish)
-		{
-			((GameLayer*)getParent())->GetMyTurret()->setLockFish(nullptr);
-		}
 		if (data->getIsOnMaridTask())
 		{
 			auto vec = data->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
@@ -61,7 +56,6 @@ void Net::checkCatchFish(Bullet*bullet){
 			}
 		}
 		FishManage::getInstance()->removeFish(fish);
-		fish->removeFromParentAndCleanup(1);
 		fish = nullptr;
 	}
 }

@@ -456,6 +456,9 @@
     <ClCompile Include="..\Classes\domain\coinBox\CoinBox.cpp">
       <Filter>src\Interface</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utill\CCircle.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -811,6 +814,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\coinBox\CoinBox.h">
       <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\CCircle.h">
+      <Filter>src\utill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

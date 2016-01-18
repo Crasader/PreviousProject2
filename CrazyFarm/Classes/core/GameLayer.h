@@ -15,8 +15,7 @@ public:
 	CREATE_FUNC(GameLayer);
 	void loadNewMonent();
 	void RefreShmyPlayerTurret();
-	void beginLock();	
-	void endLock();
+	
 	static float getTurretRotation(Point pos1,Point pos2);//获取炮塔需要旋转的角度
 	void createNet(Bullet *bullet);//打开渔网
 	PlayerTurret* GetMyTurret(){ return myTurret; }
@@ -40,13 +39,23 @@ private:
 	void collisionUpdate(float dt);
 	void update(float dt);
 
-	
-	
-    //锁定
-	
+ //锁定
+public:
+	void beginLock();
+	void endLock();
+private:
+   
 	void LockUpdata(float dt);
 	bool lockTouchEvent(Touch *touch, Event  *event);
 	CC_SYNTHESIZE(bool, bIsOnSkillLock, bisOnSkillLock);
+//核弹
+public:
+	void beginSkillBoom();
+	void endSkillBoom(); 
+private:
+	bool boomTouchEvent(Touch *touch, Event  *event);
+
+
 	void calculateFreeChair();
 	PlayerTurret* myTurret;
 	Vector<PlayerTurret*> otherTurrets;

@@ -10,9 +10,10 @@
 #include "config/ConfigRoom.h"
 #include "fish/FishArrangeOne.h"
 #include "domain/skill/skillManager.h"
+#include "utill/CCircle.h"
 
 #define kTagBaseturret 10
-
+#define BOOMRADIUS 300
 
 
 bool GameLayer::init(){
@@ -318,3 +319,51 @@ void GameLayer::endLock()
 	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
 }
 
+
+void GameLayer::beginSkillBoom()
+{
+	skillManager::getInstance()->getButtonByID(4)->setEnable(false);
+	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::boomTouchEvent, this);
+}
+void GameLayer::endSkillBoom()
+{
+	skillManager::getInstance()->getButtonByID(4)->setEnable(true);
+	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+}
+
+bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
+{
+	auto pos = touch->getLocation();
+	auto cicle = CCCircMake(pos, 200);
+#if 1
+	auto draw = DrawNode::create();
+	draw->drawCircle(cicle.getMCenter(), cicle.getMRadius(),360, 100, false,Color4F::RED);
+	addChild(draw);
+#endif
+	auto fishPool = FishManage::getInstance()->getAllFishInPool();
+	auto data = GameData::getInstance();
+	for (auto fish:fishPool)
+	{
+		auto rect = fish->getBoundingBox();
+		if (cicle.intersectsRect(rect))
+		{
+			if (data->getIsOnMaridTask())
+			{
+				auto vec = data->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
+				for (auto var : vec)
+				{
+					if (fish->getFishType() == var.fishId)
+					{
+						data->getmermaidTask()->addOneCatchFishById(fish->getFishType());
+						break;
+					}
+				}
+			}
+			myTurret->getCoinByFish(fish);
+			FishManage::getInstance()->removeFish(fish);
+		}
+		
+	}
+	endSkillBoom();
+	return true;
+}

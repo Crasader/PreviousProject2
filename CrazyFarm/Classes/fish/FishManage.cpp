@@ -109,7 +109,7 @@ void FishManage::removeFish(Fish* fish){
 		m_layer->GetMyTurret()->setLockFish(nullptr);
 	}
 	fishPool.eraseObject(fish);
-	
+	fish->removeFromParentAndCleanup(1);
 }
 
 
@@ -174,7 +174,7 @@ void FishManage::removeFishWhichSwimOut()
 	for (auto fish : needRemoveFishs)
 	{
 		removeFish(fish);
-		fish->removeFromParentAndCleanup(1);
+		
 	}
 }
 void FishManage::createFishRand(int fishID)

@@ -30,7 +30,7 @@ void SkillBombButton::skillClickCallBack(Ref* obj)
 	BagManager::getInstance()->changeItemCount(4, mPropNum);
 	refreshPropNumLabel();
 	SkillButton::skillClickCallBack(obj);
-	skillManager::getInstance()->useSkillSummon();
+	skillManager::getInstance()->useSkillBoom();
 }
 
 /** 技能冷却完成回调 */

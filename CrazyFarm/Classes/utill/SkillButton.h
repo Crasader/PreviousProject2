@@ -27,6 +27,7 @@ public:
         */
     void    setCDTime(float time) { mCDTime = time; }
     float   getCDTime() const { return mCDTime; }
+	void setEnable(bool isEnable){ mItemSkill->setEnabled(isEnable); };
 protected:
     /** 技能按钮点击回调 */
    virtual void    skillClickCallBack(Ref* obj);
