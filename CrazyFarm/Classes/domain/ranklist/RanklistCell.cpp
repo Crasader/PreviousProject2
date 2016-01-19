@@ -97,9 +97,9 @@ void RanklistCell::setCoinValue(int index)
 	auto item = data.at(index);
 	VIPLvTTF->setString(Value(item.vipLevel).asString().c_str());
 	LvTTF->setString(Value(item.vipLevel).asString().c_str()); ///缺少等级接口
-	CoinNumTTF->setString(Value(item.coin).asString().c_str());
+	auto str = String::createWithFormat("%ld", item.coin);
+	CoinNumTTF->setString(str->getCString());
 	NameTTF->setString(Value(item.name).asString().c_str());
-	String* str;
 	str = ((item.gender== 1) ? String::createWithFormat("bagFamale.png") : String::createWithFormat("bagmale.png"));///缺少性别接口
 	sexSprite->setTexture(str->getCString());
 	if (index + 1 <= 3)
