@@ -7,17 +7,20 @@
 	"item_list"	:	[
 		{
 			"fish_id"	: 50,
-			"count"   : 2,
+			"count_start"   : 2,
+			"count_end"   : 5,
 			"per"			: 30
 		},
 		{
 			"fish_id"	: 51,
-			"count"   : 2,
+		"count_start"   : 2,
+			"count_end"   : 5,
 			"per"			: 30
 		},
 		{
 			"fish_id"	: 52,
-			"count"   : 2,
+			"count_start"   : 2,
+			"count_end"   : 5,
 			"per"			: 40
 		}
 	]
