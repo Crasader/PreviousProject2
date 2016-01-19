@@ -97,7 +97,7 @@ void PlayerTurret::initTurretWithTypeForRobot(){
 
 	m_turret = Turret::create();
 	m_turret->initWithType(turretdata.turrent_ui_id);
-	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
+	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.5);
 	addChild(m_turret);
 }
 
@@ -214,6 +214,7 @@ void PlayerTurret::shootOnLock(float dt){
 	bullet->moveToLockfish(duration, lockFish);
 	getParent()->addChild(bullet);
 
+	m_turret->shoot();
 
 	//¿ª»ð¶¯»­
 	auto aniNode = Sprite::create();

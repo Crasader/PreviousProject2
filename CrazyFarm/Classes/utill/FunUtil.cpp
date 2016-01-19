@@ -113,3 +113,31 @@ std::string SpliceDataForPostHttp(std::vector<std::string> strs)
 	}
 	return s;
 }
+
+std::string  SpliceDataForPostHttp(std::string str1, ...)
+{
+	std:string s;
+	va_list args;
+	va_start(args, str1);
+
+	while (1){
+		std::string s1 = va_arg(args, std::string);
+		if (s1 == "-1")
+		{
+			return s;
+		}
+		s += "&";
+		s += s1.c_str();
+	}
+}
+
+std::string NewAtoI(int num)
+{
+	auto str = String::createWithFormat("%d", num);
+	return str->getCString();
+}
+std::string NewAtoI(long num)
+{
+	auto str = String::createWithFormat("%ld", num);
+	return str->getCString();
+}

@@ -13,3 +13,7 @@ float getRandonNumByAtoB(float A, float B);
 int getCurrencyRankByRange(int startRank, int endRank, int startValue, int endValue, int curValue);
 
 std::string SpliceDataForPostHttp(std::vector<std::string> strs);
+std::string  SpliceDataForPostHttp(std::string str1, ...);
+
+std::string NewAtoI(int num);
+std::string NewAtoI(long num);
