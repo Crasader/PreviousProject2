@@ -48,7 +48,10 @@ public:
 private:
 	void closeButtonCallBack(Ref*psend);
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return true; };
-	void chankanCallBack(Ref*);
+	void changeTypeCallBack(Ref*);
+	void changeToexpRanklist();
+	void changeToCoinRanklist();
 	RanklistView* tableviewDelegate;
-	//MyTableView* tableView;
+	MyTableView* tableView;
+	LabelAtlas *labelRank;
 };

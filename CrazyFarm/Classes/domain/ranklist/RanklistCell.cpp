@@ -57,19 +57,19 @@ bool RanklistCell::init(){
 	lvSp->setPosition(518, size.height / 2);
 	addChild(lvSp);
 
-	LvTTF = LabelAtlas::create("0", "LVtxtNum.png", 12, 21, '0');
+	LvTTF = LabelAtlas::create("0", "LVtxtNum.png", 15, 21, '0');
 	LvTTF->setAnchorPoint(Point::ZERO);
 	LvTTF->setPosition(Point(lvSp->getContentSize().width, 0));
 	lvSp->addChild(LvTTF);
 	//拥有金币
 	auto haveCoinTTF = LabelTTF::create(ChineseWord("haveCoin").c_str(), "arial", 20);
 	haveCoinTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	haveCoinTTF->setPosition(632, size.height / 2);
+	haveCoinTTF->setPosition(642, size.height / 2);
 	addChild(haveCoinTTF);
     
 	auto coinsp = Sprite::create("coin.png");
-	coinsp->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-	coinsp->setPosition(haveCoinTTF->getPositionX() + haveCoinTTF->getContentSize().width, size.height / 2);
+	coinsp->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	coinsp->setPosition(700, size.height / 2);
 	addChild(coinsp);
 
 	CoinNumTTF = LabelAtlas::create("0", "coinnumTxt.png", 14, 18, '0');
@@ -90,6 +90,8 @@ void RanklistCell::setCoinValue(int index)
 	{
 		bg->setTexture("ranklistBar1.png");
 	}
+	rankIndexTTF->setVisible(false);
+	rankSprite->setVisible(false);
 	rankIndexTTF->setString(Value(index + 1).asString().c_str());
 	auto data = RanklistManager::getInstance()->getCoinRankListData();
 	auto item = data.at(index);
@@ -98,8 +100,7 @@ void RanklistCell::setCoinValue(int index)
 	CoinNumTTF->setString(Value(item.coin).asString().c_str());
 	NameTTF->setString(Value(item.name).asString().c_str());
 	String* str;
-	int k = rand() % 2;
-	str = ((k==1) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));///缺少性别接口
+	str = ((item.gender== 1) ? String::createWithFormat("bagFamale.png") : String::createWithFormat("bagmale.png"));///缺少性别接口
 	sexSprite->setTexture(str->getCString());
 	if (index + 1 <= 3)
 	{
@@ -124,6 +125,8 @@ void RanklistCell::setExpValue(int index)
 	{
 		bg->setTexture("ranklistBar1.png");
 	}
+	rankIndexTTF->setVisible(false);
+	rankSprite->setVisible(false);
 	rankIndexTTF->setString(Value(index + 1).asString().c_str());
 	auto data = RanklistManager::getInstance()->getExpRankListData();
 	auto item = data.at(index);

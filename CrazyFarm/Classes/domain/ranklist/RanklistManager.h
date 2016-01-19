@@ -8,16 +8,17 @@ struct rankListItem
 {
 	std::string name;
 	int vipLevel;
-	double exp;
-	double coin;
+	long int exp;
+	long int coin;
+	int gender;//ÐÔ±ð 0 ÄÐ 1Å®
 };
 
 struct  rankRange
 {
-	int value_start;
-	int value_end;
-	int rank_start;
-	int rank_end;
+	long int value_start;
+	long int value_end;
+	long int rank_start;
+	long int rank_end;
 };
 
 class RanklistManager {
@@ -30,12 +31,14 @@ public:
 	std::vector<rankListItem > getCoinRankListData(){ return rankItemsByCoin; };
 	std::vector<rankListItem > getExpRankListData(){ return rankItemsByExp; };
 	bool IsSuccess(){ return bIsGetDataSuccess; };
+	int getRankByCoin(int coin);
+	int getRankByExp(int exp);
 private:
 	RanklistManager();
 	std::vector<rankListItem > rankItemsByCoin;
 	std::vector<rankListItem > rankItemsByExp;
-	rankRange rankCoinRange;
-	rankRange rankExpRange;
+    std::vector<rankRange> rankCoinRange;
+	std::vector<rankRange> rankExpRange;
 	static RanklistManager* _instance;
 	bool bIsGetDataSuccess = false;
 

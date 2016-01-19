@@ -24,6 +24,7 @@ public:
 	int addCoins(int coins);
 	int getCoins();
     
+	int getExp(){ return UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0); }
 	int addDiamonds(int diamond);
 	int getDiamonds();
     

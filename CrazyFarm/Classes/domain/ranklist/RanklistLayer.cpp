@@ -1,6 +1,7 @@
 #include "domain/ranklist/RanklistLayer.h"
 #include "domain/ranklist/RanklistManager.h"
 #include "utill/Chinese.h"
+#include "domain/user/User.h"
 
 void RanklistView::tableCellTouched(TableView* table, TableViewCell* cell){
 
@@ -71,13 +72,42 @@ bool RanklistLayer::init()
 
 
 		//tableview
-		auto tableView = MyTableView::create(tableviewDelegate, Size(894,387));
+		tableView = MyTableView::create(tableviewDelegate, Size(894,387));
 		tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
 		tableView->setDirection(ScrollView::Direction::VERTICAL);
 		tableView->setPosition(35,20);
 		tableView->setDelegate(tableviewDelegate);
 		addChild(tableView);
 		tableView->reloadData();
+
+		auto cStr = ChineseWord("wopaizaiXXming");
+		auto label = LabelTTF::create(cStr.c_str(), "arial", 20);
+		label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		label->setPosition(427, 445);
+		addChild(label);
+
+		labelRank = LabelAtlas::create(Value(RanklistManager::getInstance()->getRankByCoin(User::getInstance()->getCoins())).asString().c_str(), "rankListNum.png", 26, 36, '0');
+		labelRank->setPosition(554, 445);
+		labelRank->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		addChild(labelRank);
+
+
+
+		//拥有金币
+		auto haveCoinTTF = LabelTTF::create(ChineseWord("haveCoin").c_str(), "arial", 20);
+		haveCoinTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		haveCoinTTF->setPosition(700, 445);
+		addChild(haveCoinTTF);
+
+		auto coinsp = Sprite::create("coin.png");
+		coinsp->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		coinsp->setPosition(758, 445);
+		addChild(coinsp);
+
+		auto CoinNumTTF = LabelAtlas::create(Value(User::getInstance()->getCoins()).asString().c_str(), "coinnumTxt.png", 14, 18, '0');
+		CoinNumTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+		CoinNumTTF->setPosition(915, 445);
+		addChild(CoinNumTTF);
 
 
 
@@ -88,10 +118,21 @@ bool RanklistLayer::init()
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(RanklistLayer::closeButtonCallBack, this));
-		close->setPosition(800, 480);
-		auto menu = Menu::create(close, nullptr);
+		close->setPosition(960, 540);
+		close->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
+
+		auto coinButton = MenuItemImage::create("coinRanklist_1.png", "coinRanklist_2.png", CC_CALLBACK_1(RanklistLayer::changeTypeCallBack, this));
+		coinButton->setName("coin");
+		coinButton->setPosition(128, 436);
+		coinButton->setEnabled(false);
+
+		auto expButton = MenuItemImage::create("expRanklist_1.png", "expRanklist_2.png", CC_CALLBACK_1(RanklistLayer::changeTypeCallBack, this));
+		expButton->setName("exp");
+		expButton->setPosition(321, 436);
+		auto menu = Menu::create(close, coinButton, expButton,nullptr);
 		menu->setPosition(Point::ZERO);
 		addChild(menu);
+		coinButton->selected();
 
 
 	//添加系统返回键监听
@@ -121,7 +162,45 @@ void RanklistLayer::closeButtonCallBack(Ref*psend)
 	removeFromParentAndCleanup(1);
 }
 
-void RanklistLayer::chankanCallBack(Ref*pesend)
+void RanklistLayer::changeTypeCallBack(Ref*psend)
 {
+	auto bt = (MenuItemImage*)(psend);
+	auto btName = bt->getName();
+	if (btName == "coin")
+	{
+		bt->setEnabled(false);
+		bt->selected();
+		auto otherBt = (MenuItemImage*)bt->getParent()->getChildByName("exp");
+		otherBt->unselected();
+		otherBt->setEnabled(true);
+		changeToCoinRanklist();
+	}
+	else
+	{
+		bt->setEnabled(false);
+		bt->selected();
+		auto otherBt = (MenuItemImage*)bt->getParent()->getChildByName("coin");
+		otherBt->unselected();
+		otherBt->setEnabled(true);
+		changeToexpRanklist();
+	}
+}
+void RanklistLayer::changeToexpRanklist()
+{
+	labelRank->setString(Value(RanklistManager::getInstance()->getRankByExp(User::getInstance()->getExp())).asString().c_str());
+	tableviewDelegate = new RanklistView();
+	tableviewDelegate->setType(1);
+	tableView->setDelegate(tableviewDelegate);
+	tableView->setDataSource(tableviewDelegate);
+	tableView->reloadData();
+}
 
+void RanklistLayer::changeToCoinRanklist()
+{
+	labelRank->setString(Value(RanklistManager::getInstance()->getRankByCoin(User::getInstance()->getCoins())).asString().c_str());
+	tableviewDelegate = new RanklistView();
+	tableviewDelegate->setType(2);
+	tableView->setDelegate(tableviewDelegate);
+	tableView->setDataSource(tableviewDelegate);
+	tableView->reloadData();
 }

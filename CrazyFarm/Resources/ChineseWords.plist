@@ -20,7 +20,11 @@
   
     <key>haveCoin</key>
   <string>拥有金币：</string>
-  </dict>
+  
+  
+     <key>wopaizaiXXming</key>
+  <string>我排在多少              名</string>
+  </dict> 
 
 </array>
 </plist>

@@ -12,3 +12,6 @@ float  getAngleByPos(Vec2 pos);
 Vec2 CalculateDiffMarginPos(Vec2 pos,float diff);
 
 float getRandonNumByAtoB(float A, float B);
+
+
+int getCurrencyRankByRange(int startRank, int endRank, int startValue, int endValue, int curValue);

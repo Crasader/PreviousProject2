@@ -94,3 +94,11 @@ float getRandonNumByAtoB(float A, float B)
 {	
 	return  A + (B - A)*rand() / (float)RAND_MAX;
 }
+
+
+int getCurrencyRankByRange(int startRank, int endRank, int startValue, int endValue, int curValue)
+{
+	float fTemp = ((float)curValue) / ((float)(endValue - startValue));
+	auto currrRank = endRank - (endRank - startRank)*fTemp;
+	return currrRank;
+}

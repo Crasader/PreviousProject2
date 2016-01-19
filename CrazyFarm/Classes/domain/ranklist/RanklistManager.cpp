@@ -1,5 +1,6 @@
 #include "domain/ranklist//RanklistManager.h"
 #include "server/HttpClientUtill.h"
+#include "utill/FunUtil.h"
 #define RANKLISTINCOIN "http://114.119.39.150:1701/player/rank/coin"
 #define RANKLISTINEXP "http://114.119.39.150:1701/player/rank/exp"
 RanklistManager* RanklistManager::_instance = NULL;
@@ -50,7 +51,18 @@ void RanklistManager::onHttpRequestCompletedForExp(HttpClient *sender, HttpRespo
 		item.vipLevel = vec[i]["vip"].GetInt(); 
 		item.exp = vec[i]["exp"].GetDouble();
 		item.coin = vec[i]["coins"].GetDouble();
+		item.gender = vec[i]["gender"].GetInt();
 		rankItemsByExp.push_back(item);
+	}
+	vec = doc["rankrule"];
+	for (unsigned int i = 0; i < vec.Size(); i++)
+	{
+		rankRange item;
+		item.rank_start = vec[i]["rank_start"].GetDouble();
+		item.rank_end = vec[i]["rank_end"].GetDouble();
+		item.value_start = vec[i]["coin_start"].GetDouble();
+		item.value_end = vec[i]["coin_end"].GetDouble();
+		rankExpRange.push_back(item);
 	}
 	bIsGetDataSuccess = true;
 	
@@ -84,7 +96,47 @@ void RanklistManager::onHttpRequestCompletedForCoin(HttpClient *sender, HttpResp
 		item.vipLevel = vec[i]["vip"].GetInt();
 		item.exp = vec[i]["exp"].GetDouble();
 		item.coin = vec[i]["coins"].GetDouble();
+		item.gender = vec[i]["gender"].GetInt();
 		rankItemsByCoin.push_back(item);
 	}
+	vec = doc["rankrule"];
+	for (unsigned int i = 0; i < vec.Size(); i++)
+	{
+		rankRange item;
+		item.rank_start = vec[i]["rank_start"].GetDouble();
+		item.rank_end = vec[i]["rank_end"].GetDouble();
+		item.value_start = vec[i]["coin_start"].GetDouble();
+		item.value_end = vec[i]["coin_end"].GetDouble();
+		rankCoinRange.push_back(item);
+	}
 	bIsGetDataSuccess = true;
+}
+
+
+int RanklistManager::getRankByCoin(int coin)
+{
+	rankRange range;
+    for (auto var:rankCoinRange)
+    {
+		if (coin>=var.value_start&&coin<=var.value_end)
+		{
+			range = var;
+			break;
+		}
+    }
+	return getCurrencyRankByRange(range.rank_start, range.rank_end, range.value_start, range.value_end, coin);
+
+}
+int RanklistManager::getRankByExp(int exp)
+{
+	rankRange range;
+	for (auto var : rankExpRange)
+	{
+		if (exp >= var.value_start&&exp <= var.value_end)
+		{
+			range = var;
+			break;
+		}
+	}
+	return getCurrencyRankByRange(range.rank_start, range.rank_end, range.value_start, range.value_end, exp);
 }
