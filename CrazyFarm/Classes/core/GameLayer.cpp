@@ -45,8 +45,10 @@ bool GameLayer::init(){
 
 	loadNewMonent();
 
-
-
+	//for (int i = 0; i < 10;i++)
+	//{
+	//	FishManage::getInstance()->createFishRand(52);
+	//}
 	setbisOnSkillLock(false);
 
 	GameData::getInstance()->setShotCount(0);

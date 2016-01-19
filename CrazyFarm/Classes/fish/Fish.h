@@ -58,9 +58,11 @@ protected:
 	void moveFishStraight(float dt);//直线移动
 	void moveFishCircle(float dt);//圆周运动
 	void moveFishRandomStraight(float dt);//随机直线运动
+	void moveFishRandomStraightForBigFish(float dt);//大鱼随机直线运动
 	void moveFishRandomCurve(float dt);//随机曲线运动
 	Point getNextPostion(Point pos,float speed,float degree);
 	Point getRandomPostion(float speed, float dt,float &angle);
+	Point getRandomPostionForBigFish(float speed, float dt, float &angle);
 	bool checkOutBorder();
 	Sprite* image;
 

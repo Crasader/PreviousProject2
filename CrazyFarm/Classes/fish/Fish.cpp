@@ -98,12 +98,11 @@ void Fish::move(int moveType){
 	case 2:
 		schedule(schedule_selector(Fish::moveFishCircle), 0, 0, 0);
 		break;
-	default:
-	{
-		schedule(schedule_selector(Fish::moveFishRandomStraight), Director::getInstance()->getAnimationInterval(), CC_REPEAT_FOREVER, 0);
-	}
-
-		
+	case 3:
+		schedule(schedule_selector(Fish::moveFishRandomStraight), Director::getInstance()->getAnimationInterval(), CC_REPEAT_FOREVER, 0);	
+		break;
+	case 4:
+		schedule(schedule_selector(Fish::moveFishRandomStraightForBigFish), 5, CC_REPEAT_FOREVER, 0);
 		break;
 	}
 }
@@ -125,15 +124,24 @@ void Fish::moveFishCircle(float dt){
 void Fish::moveFishRandomStraight(float dt){
 	//TOOD 鱼的随机直线运动
 	
-	float randnum = (rand() % 4+8)/10.0f;
 
-	Point nextPos = getRandomPostion(speed*randnum,dt, fMoveAngle);
+
+	Point nextPos = getRandomPostion(speed,dt, fMoveAngle);
 	auto move = MoveBy::create(dt, nextPos);	
 	runAction(move);
-	/*update(dt);*/
 	setRotation(360 - fMoveAngle);
-	/*runAction(RotateTo::create(0.1, 360-angle));*/
 }
+
+void Fish::moveFishRandomStraightForBigFish(float dt){
+	//TOOD 鱼的随机直线运动
+
+
+	Point nextPos = getRandomPostionForBigFish(speed, dt, fMoveAngle);
+	auto move = MoveBy::create(dt, nextPos);
+	runAction(Spawn::create(move,RotateTo::create(dt,360-fMoveAngle),nullptr));
+}
+
+
 
 void Fish::moveFishRandomCurve(float dt)
 {
@@ -183,24 +191,14 @@ Point Fish::getRandomPostion(float speed, float dt, float &angle)
 	float diffAngle = (rand_0_1() *6.0f-3.0f)/10.0f;
 	auto fps = Director::getInstance()->getAnimationInterval();
 	angle += diffAngle*dt*1/fps;
+	return Vec2(speed*cos(CC_DEGREES_TO_RADIANS(angle)), speed*sin(CC_DEGREES_TO_RADIANS(angle)));
 
-	/*switch (direction)
-	{
-	case DOWN:
-	angle = rand() % 5+225;
-	break;
-	case LEFT:
-	angle = rand() % 90 + 135;
-	break;
-	case RIGHT:
-	angle = rand() % 90 - 45;
-	break;
-	case UP:
-	angle = rand() % 90+45 ;
-	break;
-	default:
-	return Vec2(0, 0);
-	}*/
+}
+Point Fish::getRandomPostionForBigFish(float speed, float dt, float &angle)
+{
+	speed *= dt;
+	float diffAngle = (rand_0_1() *6.0f - 3.0f)*3;
+	angle += diffAngle;
 	return Vec2(speed*cos(CC_DEGREES_TO_RADIANS(angle)), speed*sin(CC_DEGREES_TO_RADIANS(angle)));
 
 }
