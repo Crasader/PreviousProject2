@@ -12,6 +12,7 @@ public:
       virtual bool init();
 	  CREATE_FUNC(RanklistCell);
 	  void setCoinValue(int index);
+	  void setExpValue(int index);
 	  void IsBeToued();
 private:
 	LabelAtlas* VIPLvTTF;

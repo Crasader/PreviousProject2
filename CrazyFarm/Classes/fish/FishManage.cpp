@@ -181,7 +181,9 @@ void FishManage::createFishRand(int fishID)
 {
 	Fish* fish = FishManage::getInstance()->createFishSingle(fishID);
 	decideFishPos(fish);
+	
 	auto k = getAngleByPos(Vec2(fish->getPositionX(), fish->getPositionY()));
+	k += rand_0_1() * 40 - 20;
 	fish->setMoveAngle(k);
 	fish->move(3);
 	m_layer->addChild(fish);
@@ -191,6 +193,7 @@ void FishManage::createFishArrangeRand(int fishID)
 	auto fish = createFishArrange(fishID);
 	decideFishPos(fish);
 	auto k = getAngleByPos(Vec2(fish->getPositionX(), fish->getPositionY()));
+	k += rand_0_1() * 40 - 20;
 	fish->setMoveAngle(k);
 	fish->move(3);
 	m_layer->addChild(fish);

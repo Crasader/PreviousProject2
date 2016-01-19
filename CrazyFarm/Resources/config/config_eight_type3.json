@@ -7,18 +7,22 @@
 	"item_list"	:	[
 		{
 			"fish_id"	: 101,
+			"count"   : 6,
 			"per"			: 30
 		},
 		{
 			"fish_id"	: 102,
+			"count"   : 6,
 			"per"			: 30
 		},
 		{
 			"fish_id"	: 103,
+			"count"   : 6,
 			"per"			: 20
 		},
 		{
 			"fish_id"	: 104,
+			"count"   : 6,
 			"per"			: 20
 		}
 	]

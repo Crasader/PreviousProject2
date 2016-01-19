@@ -54,6 +54,7 @@ private:
 	void bagButtonCallback(Ref*psend);
 	void changeRewardCallback(Ref*psend);
 	void quickBeginCallback(Ref*psend);
+	void RankListCallback(Ref*psend);
 
 private:
 	LabelTTF* userdiamond;

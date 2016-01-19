@@ -2,6 +2,7 @@
 #include "data/GameData.h"
 #include "domain/magnate/MagnateManager.h"
 #include "core/GameLayer.h"
+#include "domain/gameConfig/gameConfig.h"
 bool Bullet::init(){
 	if (!Sprite::init()){
 		return false;
@@ -34,6 +35,7 @@ void Bullet::moveToLockfish(float time, Fish*fish)
 }
 
 int Bullet::getSpeedByType(int type){
+	return GameConfig::getInstance()->getShootData().shootSpeed;
 	return 800;
 	switch (type)
 	{

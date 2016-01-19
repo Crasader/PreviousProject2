@@ -6,30 +6,37 @@
 	"item_list"	:	[
 		{
 			"fish_id"	: 40,
+			"count"   : 6,
 			"per"			: 30
 		},
 		{
 			"fish_id"	: 41,
+			"count"   : 6,
 			"per"			: 20
 		},
 		{
 			"fish_id"	: 42,
+			"count"   : 6,
 			"per"			: 20
 		},
 		{
 			"fish_id"	: 43,
+			"count"   : 6,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 44,
+			"count"   : 6,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 50,
+			"count"   : 6,
 			"per"			: 5
 		},
 		{
 			"fish_id"	: 51,
+			"count"   : 6,
 			"per"			: 5
 		}
 	]

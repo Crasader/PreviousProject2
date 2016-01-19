@@ -7,7 +7,7 @@ using namespace cocos2d;
 struct rankListItem
 {
 	std::string name;
-	std::string vipLevel;
+	int vipLevel;
 	double exp;
 	double coin;
 };
@@ -29,6 +29,7 @@ public:
 	void onHttpRequestCompletedForExp(HttpClient *sender, HttpResponse *response);
 	std::vector<rankListItem > getCoinRankListData(){ return rankItemsByCoin; };
 	std::vector<rankListItem > getExpRankListData(){ return rankItemsByExp; };
+	bool IsSuccess(){ return bIsGetDataSuccess; };
 private:
 	RanklistManager();
 	std::vector<rankListItem > rankItemsByCoin;

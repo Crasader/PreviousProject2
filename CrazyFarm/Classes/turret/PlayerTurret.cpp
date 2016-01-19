@@ -161,6 +161,9 @@ void PlayerTurret::shoot(float degree){
 	bullet->setPlayerTurret(this);
 	getParent()->addChild(bullet);
 	
+	//ÅÚ¿ÚÉìËõ
+
+	m_turret->shoot();
 
 	//¿ª»ð¶¯»­
 	auto aniNode = Sprite::create();

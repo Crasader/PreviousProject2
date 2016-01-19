@@ -15,10 +15,11 @@ class Net :public Sprite{
 public:
 	virtual bool init();
 	CREATE_FUNC(Net);
-	void initNetByType(TurretData turretdata);
-	void checkCatchFish(Bullet* bullet);
+	void setBullet(Bullet* bullet);
+	void initNetByType();
+	void checkCatchFish();
 private:
-	void destroySelf(float dt);
 	std::string getFrameNameByType(int ui_type, int net_type);
+	Bullet*m_bullet;
 };
 #endif

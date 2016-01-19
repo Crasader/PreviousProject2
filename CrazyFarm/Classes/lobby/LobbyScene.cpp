@@ -22,6 +22,7 @@
 #include "domain/marquee/MarqueeManager.h"
 #include "utill/FunUtil.h"
 #include "core/TurnTableDialog.h"
+#include "domain/ranklist/RanklistLayer.h"
 
 
 enum 
@@ -195,7 +196,7 @@ bool LobbyScene::init()
 	auto changeReward = MenuItemImage::create("changeReward.png", "changeReward.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
 	changeReward->setPosition(visibleSize.width*0.18, visibleSize.height*0.08);
 
-	auto rankList = MenuItemImage::create("ranklist.png", "ranklist.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
+	auto rankList = MenuItemImage::create("ranklist.png", "ranklist.png", CC_CALLBACK_1(LobbyScene::RankListCallback, this));
 	rankList->setPosition(visibleSize.width*0.08, visibleSize.height*0.08);
 
 
@@ -283,7 +284,7 @@ void LobbyScene::showMarquee(float dt)
 {
 	auto DisplayBoard = ScrollText::create();
 	DisplayBoard->setPosition(498, 463);
-	addChild(DisplayBoard, kZorderDialog);
+	addChild(DisplayBoard, kZorderMenu);
 
 }
 
@@ -441,6 +442,22 @@ void LobbyScene::changeRewardCallback(Ref*psend)
 	layer->setPosition(Point::ZERO);
 	addChild(layer, kZorderDialog);
 }
+void LobbyScene::RankListCallback(Ref*psend)
+{
+	RanklistManager::getInstance()->loadConfig();
+	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([&]
+	{
+		if (RanklistManager::getInstance()->IsSuccess())
+		{
+			auto layer = RanklistLayer::create();
+			layer->setPosition(Point::ZERO);
+			addChild(layer, kZorderDialog);
+		}
+	}), nullptr));
+	
+}
+
+
 void LobbyScene::refreshCoinLabel()
 {
 	auto user = User::getInstance();

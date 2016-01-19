@@ -2,8 +2,8 @@
 #define __MY_TABLE_VIEW_H__
 #include "cocos-ext.h"
 #include "cocos2d.h"
-USING_NS_CC_EXT;
 USING_NS_CC;
+USING_NS_CC_EXT;
 class MyTableView: public TableView
 {
 public:

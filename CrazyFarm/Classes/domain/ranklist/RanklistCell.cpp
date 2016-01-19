@@ -13,19 +13,24 @@ bool RanklistCell::init(){
 
 
 	rankSprite = Sprite::create();
-	rankSprite->setPosition(34,size.height/2);
+	rankSprite->setPosition(45,size.height/2);
+	rankSprite->setVisible(false);
 	addChild(rankSprite);
 
 	rankIndexTTF = LabelAtlas::create("0", "rankListNum.png", 26, 36, '0');
-	rankIndexTTF->setPosition(34, size.height / 2);
+	rankIndexTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	rankIndexTTF->setPosition(45, size.height / 2);
+	rankIndexTTF->setVisible(false);
 	addChild(rankIndexTTF);
 
 	sexSprite = Sprite::create();
-	sexSprite->setPosition(135, size.height / 2);
+	sexSprite->setPosition(125, size.height / 2);
+	sexSprite->setScale(0.7);
 	addChild(sexSprite);
 
 	auto vipSp = Sprite::create("VIPtxt.png");
-	vipSp->setPosition(203, size.height / 2);
+	vipSp->setPosition(190, size.height / 2);
+	vipSp->setScale(0.7);
 	addChild(vipSp);
 
 	VIPLvTTF = LabelAtlas::create("0", "VIPnum.png", 31, 43, '0');
@@ -39,20 +44,20 @@ bool RanklistCell::init(){
 	addChild(vipLvFrame);
 
 	VIPLvSmallTTF = LabelAtlas::create("0", "vipLevelNum.png", 11, 16, '0');
-	VIPLvSmallTTF->setAnchorPoint(Point::ZERO);
-	VIPLvSmallTTF->setPosition(vipLvFrame->getContentSize() / 2);
+	VIPLvSmallTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	VIPLvSmallTTF->setPosition(vipLvFrame->getContentSize()/2);
 	vipLvFrame->addChild(VIPLvSmallTTF);
 
 	NameTTF = LabelTTF::create("", "arial", 20);
-	NameTTF->setAnchorPoint(Point::ZERO);
-	NameTTF->setPosition(vipLvFrame->getPositionX() + vipLvFrame->getContentSize().width, 0);
+	NameTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	NameTTF->setPosition(vipLvFrame->getPositionX() + vipLvFrame->getContentSize().width, vipLvFrame->getPositionY());
 	addChild(NameTTF);
 
 	auto lvSp = Sprite::create("LVTXT.png");
-	vipSp->setPosition(518, size.height / 2);
-	addChild(vipSp);
+	lvSp->setPosition(518, size.height / 2);
+	addChild(lvSp);
 
-	LvTTF = LabelAtlas::create("0", "VIPnum.png", 31, 43, '0');
+	LvTTF = LabelAtlas::create("0", "LVtxtNum.png", 12, 21, '0');
 	LvTTF->setAnchorPoint(Point::ZERO);
 	LvTTF->setPosition(Point(lvSp->getContentSize().width, 0));
 	lvSp->addChild(LvTTF);
@@ -96,11 +101,56 @@ void RanklistCell::setCoinValue(int index)
 	int k = rand() % 2;
 	str = ((k==1) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));///缺少性别接口
 	sexSprite->setTexture(str->getCString());
-
-	str = String::createWithFormat("ranklist_%d.png", index + 1);
-	rankSprite->setTexture(str->getCString());
+	if (index + 1 <= 3)
+	{
+		str = String::createWithFormat("ranklist_%d.png", index + 1);
+		rankSprite->setTexture(str->getCString());
+		rankSprite->setVisible(true);
+	}
+	else
+	{
+		rankIndexTTF->setVisible(true);
+	}
 
 }
+
+void RanklistCell::setExpValue(int index)
+{
+	if (index % 2 == 1)
+	{
+		bg->setTexture("ranklistBar2.png");
+	}
+	else
+	{
+		bg->setTexture("ranklistBar1.png");
+	}
+	rankIndexTTF->setString(Value(index + 1).asString().c_str());
+	auto data = RanklistManager::getInstance()->getExpRankListData();
+	auto item = data.at(index);
+	VIPLvTTF->setString(Value(item.vipLevel).asString().c_str());
+	LvTTF->setString(Value(item.vipLevel).asString().c_str()); ///缺少等级接口
+	CoinNumTTF->setString(Value(item.coin).asString().c_str());
+	NameTTF->setString(Value(item.name).asString().c_str());
+	String* str;
+	int k = rand() % 2;
+	str = ((k == 1) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));///缺少性别接口
+	sexSprite->setTexture(str->getCString());
+
+
+	if (index+1<=3)
+	{
+		str = String::createWithFormat("ranklist_%d.png", index + 1);
+		rankSprite->setTexture(str->getCString());
+		rankSprite->setVisible(true);
+	}
+	else
+	{
+		rankIndexTTF->setVisible(true);
+	}
+	
+
+}
+
 
 void RanklistCell::IsBeToued()
 {

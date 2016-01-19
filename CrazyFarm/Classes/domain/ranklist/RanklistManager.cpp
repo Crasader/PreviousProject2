@@ -15,6 +15,7 @@ RanklistManager* RanklistManager::getInstance(){
 }
 void RanklistManager::loadConfig()
 {
+	bIsGetDataSuccess = false;
 	HttpClientUtill::getInstance()->onGetHttp(RANKLISTINCOIN, CC_CALLBACK_2(RanklistManager::onHttpRequestCompletedForCoin,this));
 	HttpClientUtill::getInstance()->onGetHttp(RANKLISTINEXP, CC_CALLBACK_2(RanklistManager::onHttpRequestCompletedForExp,this));
 }
@@ -48,10 +49,10 @@ void RanklistManager::onHttpRequestCompletedForExp(HttpClient *sender, HttpRespo
 		item.name = vec[i]["name"].GetString();
 		item.vipLevel = vec[i]["vip"].GetInt(); 
 		item.exp = vec[i]["exp"].GetDouble();
-		item.coin = vec[i]["coin"].GetDouble();
+		item.coin = vec[i]["coins"].GetDouble();
 		rankItemsByExp.push_back(item);
 	}
-
+	bIsGetDataSuccess = true;
 	
 }
 
@@ -82,7 +83,8 @@ void RanklistManager::onHttpRequestCompletedForCoin(HttpClient *sender, HttpResp
 		item.name = vec[i]["name"].GetString();
 		item.vipLevel = vec[i]["vip"].GetInt();
 		item.exp = vec[i]["exp"].GetDouble();
-		item.coin = vec[i]["coin"].GetDouble();
+		item.coin = vec[i]["coins"].GetDouble();
 		rankItemsByCoin.push_back(item);
 	}
+	bIsGetDataSuccess = true;
 }

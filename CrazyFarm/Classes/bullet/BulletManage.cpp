@@ -35,7 +35,7 @@ void BulletManage::removeBullet(Bullet* bullet){
 	bulletPool.eraseObject(bullet);
 }
 
-Vector<Bullet*> BulletManage::getAllBullets(){
+Vector<Bullet*> &BulletManage::getAllBullets(){
 	return  bulletPool;
 }
 

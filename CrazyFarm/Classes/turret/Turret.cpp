@@ -1,5 +1,4 @@
 #include "Turret/Turret.h"
-
 bool Turret::init(){
 	if (!Sprite::init()){
 		return false;
@@ -8,10 +7,11 @@ bool Turret::init(){
 	emptySp = nullptr;
 	return true;
 }
-
+#define SCALETURRET 0.75
 void Turret::initWithType(int type){
 	auto path = String::createWithFormat("turret/pao_%d.png", type);
 	initWithFile(path->getCString());
+	setScale(SCALETURRET);
 	if (emptySp)
 	{
 		emptySp->removeAllChildrenWithCleanup(1);
@@ -43,7 +43,11 @@ string Turret::getSrcByType(int type){
 	}
 }
 
-
+void Turret::shoot()
+{
+	runAction(Sequence::createWithTwoActions(Spawn::create(ScaleTo::create(0.05f, 1 * SCALETURRET, 0.8*SCALETURRET), MoveBy::create(0.05, Vec2(0, -getContentSize().height*SCALETURRET*0.1)),nullptr),
+											Spawn::create(ScaleTo::create(0.05f, 1 * SCALETURRET, 1.0*SCALETURRET), MoveBy::create(0.05, Vec2(0, getContentSize().height*SCALETURRET*0.1)), nullptr)));
+}
 void Turret::upgradeTurret()
 {
 	///Éý¼¶ÅÚËþ

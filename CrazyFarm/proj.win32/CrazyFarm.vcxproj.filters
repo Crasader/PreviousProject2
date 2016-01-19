@@ -468,6 +468,12 @@
     <ClCompile Include="..\Classes\domain\ranklist\RanklistManager.cpp">
       <Filter>src\lobby\ranklist</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\ranklist\RanklistLayer.cpp">
+      <Filter>src\lobby\ranklist</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\gameConfig\gameConfig.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -832,6 +838,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ranklist\RanklistManager.h">
       <Filter>src\lobby\ranklist</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ranklist\RanklistLayer.h">
+      <Filter>src\lobby\ranklist</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\gameConfig\gameConfig.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

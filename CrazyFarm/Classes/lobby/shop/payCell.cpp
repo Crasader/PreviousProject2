@@ -55,8 +55,8 @@ void PayCell::setVipValue()
 	giftNum->setTexture("payVipGift.png");
 }
 
-Good coingood[7] = {Good(8, 40000), Good(18, 90000), Good(38, 1900000), Good(58, 290000), Good(108, 540000), Good(388, 1940000), Good(688, 3440000) };
-Good diamondGood[5] = { Good(18, 180), Good(38, 380), Good(58, 580), Good(108, 1080), Good(388, 3880) };
+Good coingood[7] = { Good(8, 40000), Good(18, 180000), Good(38, 380000), Good(58, 580000), Good(108, 1080000), Good(388, 3880000), Good(688, 6880000) };
+Good diamondGood[5] = { Good(18, 180), Good(38, 418), Good(58, 650), Good(108, 1346), Good(388, 4768) };
 void PayCell::IsBeToued()
 {
 	auto level =  ConfigVipLevel::getInstance()->getVipLevel(User::getInstance()->getVipLevel());

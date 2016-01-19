@@ -180,7 +180,7 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 Point Fish::getRandomPostion(float speed, float dt, float &angle)
 {
 	speed *= dt;
-	float diffAngle = (rand() % 100 - 50) / 100.0f;
+	float diffAngle = (rand_0_1() *6.0f-3.0f)/10.0f;
 	auto fps = Director::getInstance()->getAnimationInterval();
 	angle += diffAngle*dt*1/fps;
 

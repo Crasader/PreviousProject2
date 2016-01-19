@@ -11,6 +11,7 @@
 #include "fish/FishArrangeOne.h"
 #include "domain/skill/skillManager.h"
 #include "utill/CCircle.h"
+#include "domain/gameConfig/gameConfig.h"
 
 #define kTagBaseturret 10
 #define BOOMRADIUS 300
@@ -136,7 +137,7 @@ void GameLayer::addTouchEvent(){
 
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
-	const float shootInterval = 0.15;
+	const float shootInterval = GameConfig::getInstance()->getShootData().shootInterval;
 	if (!isShoot)
 	{
 		return true;
@@ -163,7 +164,7 @@ bool GameLayer::lockTouchEvent(Touch *touch, Event  *event)
 	{
 		myTurret->setLockFish(fish);
 	}
-	return true;
+	return false;
 }
 
 
@@ -212,11 +213,11 @@ void GameLayer::update(float dt){
 
 void GameLayer::createNet(Bullet *bullet){
 	Net* fishNet = Net::create();
+	fishNet->setBullet(bullet);
 	fishNet->setPosition(bullet->getPosition());
 	fishNet->setRotation(bullet->getRotation());
-	fishNet->initNetByType(bullet->getTurretdata());
+	fishNet->initNetByType();
 	this->addChild(fishNet, 3);
-	fishNet->checkCatchFish(bullet);
 }
 
 
@@ -253,38 +254,70 @@ void GameLayer::collisionUpdate(float dt)
 {
 
 
-	CCLOG("now fish size = %d", FishManage::getInstance()->getAllFishInPoolCount());
 	//TODO 碰撞逻辑
 	//step1 获取子弹列表
 	auto allBullets = BulletManage::getInstance()->getAllBullets();
 	//step2 获取鱼的列表
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
 	//step3 碰撞检查
-	Vector<Fish*>::iterator it;
 	Vector<Bullet*> bulletNeedRemove;
-	for (it = allFish.begin(); it != allFish.end(); it++){
-		Vector<Bullet*>::iterator it2;
-		for (it2 = allBullets.begin(); it2 != allBullets.end();){
-			Fish* fish = *it;
-			Bullet* bullet = *it2;
+	for (auto bullet:allBullets)
+	{
+		for (auto fish:allFish)
+		{
 			if (collision(fish, bullet)){
 				//发生碰撞,移除子弹
 				bulletNeedRemove.pushBack(bullet);
 				bullet->removeFromParent();
-				it2 = allBullets.erase(it2);
 				//TODO打开渔网
 				createNet(bullet);
-			}
-			else{
-				it2++;
-			}
-			if (bulletNeedRemove.size() > 0){
-				for (Bullet* bullet : bulletNeedRemove){
-					BulletManage::getInstance()->removeBullet(bullet);
-				}
+				break;
 			}
 		}
 	}
+
+
+	//Vector<Fish*>::iterator it;
+	//Vector<Bullet*> bulletNeedRemove;
+	//for (Vector<Bullet*>::iterator it2 = allBullets.begin(); it2 != allBullets.end();)
+	//{
+	//	for (auto it = allFish.begin(); it != allFish.end(); it++)
+	//	{
+	//		Fish* fish = *it;
+	//		Bullet* bullet = *it2;
+	//		if (collision(fish, bullet)){
+	//			//发生碰撞,移除子弹
+	//			/*bulletNeedRemove.pushBack(bullet);*/
+	//			bullet->removeFromParent();
+	//			it2 = allBullets.erase(it2);
+	//			//TODO打开渔网
+	//			createNet(bullet);
+	//			break;
+
+	//		}
+	//	}
+	//	if (++it2 != allBullets.end())
+	//	{
+	//		
+	//	}
+	//	else
+	//	{
+	//		break;
+	//	}
+	//	
+	//}/*if (bulletNeedRemove.size() > 0){
+
+				for (Bullet* bullet : bulletNeedRemove){
+					bullet->retain();
+					BulletManage::getInstance()->removeBullet(bullet);
+					}
+				
+/*for (it = allFish.begin(); it != allFish.end(); it++){
+	for (Vector<Bullet*>::iterator it2 = allBullets.begin(); it2 != allBullets.end();){
+
+
+	}
+	}*/
 
 	FishManage::getInstance()->removeFishWhichSwimOut();
 }

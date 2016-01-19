@@ -11,7 +11,7 @@ public:
 	virtual void init();
 	virtual bool updata(float dt);
 private:
-	int getFishByRandVec(std::vector<MomentEightItemPer> momentEightItemPers);
+	MomentEightItemPer getFishByRandVec(std::vector<MomentEightItemPer> momentEightItemPers);
 	float fInterval = 1;
 	float fTemp1;
 	float fTemp2;

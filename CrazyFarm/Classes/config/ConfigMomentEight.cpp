@@ -81,6 +81,7 @@ bool ConfigMomentEight::LoadConfigType1() {
             
             MomentEightItemPer momentEightItemPer;
             momentEightItemPer.fish_id	= val["fish_id"].GetInt();
+			momentEightItemPer.fish_count = val["count"].GetInt();
             momentEightItemPer.per = val["per"].GetInt();
             
             momentEightItemType1.momentEightItemPers.push_back(momentEightItemPer);
@@ -124,6 +125,7 @@ bool ConfigMomentEight::LoadConfigType2() {
             
             MomentEightItemPer momentEightItemPer;
             momentEightItemPer.fish_id	= val["fish_id"].GetInt();
+			momentEightItemPer.fish_count = val["count"].GetInt();
             momentEightItemPer.per = val["per"].GetInt();
             
             momentEightItemType2.momentEightItemPers.push_back(momentEightItemPer);
@@ -167,6 +169,7 @@ bool ConfigMomentEight::LoadConfigType3() {
             
             MomentEightItemPer momentEightItemPer;
             momentEightItemPer.fish_id	= val["fish_id"].GetInt();
+			momentEightItemPer.fish_count = val["count"].GetInt();
             momentEightItemPer.per = val["per"].GetInt();
             
             momentEightItemType3.momentEightItemPers.push_back(momentEightItemPer);
@@ -210,6 +213,7 @@ bool ConfigMomentEight::LoadConfigType4() {
 
 			MomentEightItemPer momentEightItemPer;
 			momentEightItemPer.fish_id = val["fish_id"].GetInt();
+			momentEightItemPer.fish_count = val["count"].GetInt();
 			momentEightItemPer.per = val["per"].GetInt();
 
 			momentEightItemType4.momentEightItemPers.push_back(momentEightItemPer);
@@ -254,6 +258,7 @@ bool ConfigMomentEight::LoadConfigType5() {
 
 			MomentEightItemPer momentEightItemPer;
 			momentEightItemPer.fish_id = val["fish_id"].GetInt();
+			momentEightItemPer.fish_count = val["count"].GetInt();
 			momentEightItemPer.per = val["per"].GetInt();
 
 			momentEightItemType5.momentEightItemPers.push_back(momentEightItemPer);

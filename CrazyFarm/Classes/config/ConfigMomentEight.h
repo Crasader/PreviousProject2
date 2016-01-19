@@ -9,6 +9,7 @@ USING_NS_CC;
 
 struct MomentEightItemPer {
     int fish_id;
+	int fish_count;
     int per;
 };
 

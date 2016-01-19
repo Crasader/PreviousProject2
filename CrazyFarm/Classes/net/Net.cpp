@@ -1,6 +1,7 @@
 #include "net/Net.h"
 #include "utill/FunUtil.h"
 #include "data/GameData.h"
+#include "bullet/BulletManage.h"
 bool Net::init(){
 	if (!Sprite::init()){
 		return false;
@@ -8,10 +9,11 @@ bool Net::init(){
 	return true;
 }
 
-void Net::initNetByType(TurretData turretdata){
-	
+void Net::initNetByType(){
+	TurretData turretdata = m_bullet->getTurretdata();
 	initWithFile(getFrameNameByType(turretdata.ui_type, turretdata.net_type));
-	schedule(schedule_selector(Net::destroySelf),0,0,1);
+	setScale(0);
+	runAction(Sequence::create(ScaleTo::create(0.2, 1.0), CallFunc::create([&]{checkCatchFish(); }), DelayTime::create(0.5f), CallFunc::create([&]{m_bullet->cleanup();}), RemoveSelf::create(1), nullptr));
 }
 
 std::string Net::getFrameNameByType(int ui_type, int net_type){
@@ -19,15 +21,16 @@ std::string Net::getFrameNameByType(int ui_type, int net_type){
 	return str->getCString();
 }
 
-
-void Net::destroySelf(float dt){
-	this->removeFromParent();
+void Net::setBullet(Bullet* bullet)
+{
+	m_bullet = bullet;
 }
 
-void Net::checkCatchFish(Bullet*bullet){
+
+void Net::checkCatchFish(){
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
 	Vector<Fish*> fishNeedRemove;
-	auto turretdata = bullet->getTurretdata();
+	auto turretdata = m_bullet->getTurretdata();
 	for (Fish* fish : allFish){
 		if (collision(this,fish)){
 			int k = rand() % 100 + 1;
@@ -41,7 +44,7 @@ void Net::checkCatchFish(Bullet*bullet){
 		}
 	}
 	auto data = GameData::getInstance();
-	bullet->getCoinForFish(fishNeedRemove);
+	m_bullet->getCoinForFish(fishNeedRemove);
 	for (Fish* fish : fishNeedRemove){
 		if (data->getIsOnMaridTask())
 		{

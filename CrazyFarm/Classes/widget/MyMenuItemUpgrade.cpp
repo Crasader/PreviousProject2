@@ -16,7 +16,7 @@ enum
 MyMenuItemUpgrade * MyMenuItemUpgrade::create()
 {
 	MyMenuItemUpgrade *ret = new (std::nothrow) MyMenuItemUpgrade();
-	if (ret && ret->initWithNormalImage("UnlockFrame_1.png", "UnlockFrame_1.png", "", CC_CALLBACK_1(MyMenuItemUpgrade::ItemCallBack, ret)));
+	if (ret && ret->initWithNormalImage("UnlockFrame_1.png", "UnlockFrame_1.png", "", CC_CALLBACK_1(MyMenuItemUpgrade::ItemCallBack, ret)))
 	{
 		ret->initItem();
 		ret->autorelease();
