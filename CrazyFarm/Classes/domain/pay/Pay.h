@@ -8,7 +8,7 @@ class Pay {
 
 public:
     static Pay* getInstance();
-	void sendRequestBeforePay();
+	void sendRequestBeforePay(/*int pay_event_vesion,int */);
 	void sendRequestAftetPay();
 private:
 	void onHttpRequestCompletedBeforePay(HttpClient *sender, HttpResponse *response);
