@@ -9,15 +9,15 @@ USING_NS_CC;
 
 struct MomentEightItemPer {
     int fish_id;
-	int fish_startcount;
-	int fish_endcount;
     int per;
 };
 
 struct MomentEightItem {
     int life_time;
     double interval_time_start;
-    double interval_time_end;
+	double interval_time_end;	
+	int fish_startcount;
+	int fish_endcount;
     std::vector<MomentEightItemPer> momentEightItemPers;
 };
 

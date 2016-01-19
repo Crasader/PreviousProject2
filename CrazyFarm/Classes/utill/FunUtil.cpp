@@ -102,3 +102,14 @@ int getCurrencyRankByRange(int startRank, int endRank, int startValue, int endVa
 	auto currrRank = endRank - (endRank - startRank)*fTemp;
 	return currrRank;
 }
+
+std::string SpliceDataForPostHttp(std::vector<std::string> strs)
+{
+	std:string s;
+	for (auto var:strs)
+	{
+		s += "&";
+		s += var.c_str();
+	}
+	return s;
+}

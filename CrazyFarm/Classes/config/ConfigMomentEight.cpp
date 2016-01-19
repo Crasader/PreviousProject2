@@ -69,7 +69,8 @@ bool ConfigMomentEight::LoadConfigType1() {
         momentEightItemType1.life_time = doc["life_time"].GetInt();
         momentEightItemType1.interval_time_start = doc["interval_time_start"].GetDouble();
         momentEightItemType1.interval_time_end = doc["interval_time_end"].GetDouble();
-        
+		momentEightItemType1.fish_startcount = doc["count_start"].GetInt();
+		momentEightItemType1.fish_endcount = doc["count_end"].GetInt();
         rapidjson::Value& itemList = doc["item_list"];
         if (!itemList.IsArray())
         {
@@ -81,8 +82,6 @@ bool ConfigMomentEight::LoadConfigType1() {
             
             MomentEightItemPer momentEightItemPer;
             momentEightItemPer.fish_id	= val["fish_id"].GetInt();
-			momentEightItemPer.fish_startcount = val["count_start"].GetInt();
-			momentEightItemPer.fish_endcount = val["count_end"].GetInt();
             momentEightItemPer.per = val["per"].GetInt();
             
             momentEightItemType1.momentEightItemPers.push_back(momentEightItemPer);
@@ -114,7 +113,8 @@ bool ConfigMomentEight::LoadConfigType2() {
         
         momentEightItemType2.interval_time_start = doc["interval_time_start"].GetDouble();
         momentEightItemType2.interval_time_end = doc["interval_time_end"].GetDouble();
-        
+		momentEightItemType2.fish_startcount = doc["count_start"].GetInt();
+		momentEightItemType2.fish_endcount = doc["count_end"].GetInt();
         rapidjson::Value& itemList = doc["item_list"];
         if (!itemList.IsArray())
         {
@@ -126,8 +126,6 @@ bool ConfigMomentEight::LoadConfigType2() {
             
             MomentEightItemPer momentEightItemPer;
             momentEightItemPer.fish_id	= val["fish_id"].GetInt();
-			momentEightItemPer.fish_startcount = val["count_start"].GetInt();
-			momentEightItemPer.fish_endcount = val["count_end"].GetInt();
             momentEightItemPer.per = val["per"].GetInt();
             
             momentEightItemType2.momentEightItemPers.push_back(momentEightItemPer);
@@ -159,7 +157,8 @@ bool ConfigMomentEight::LoadConfigType3() {
         
         momentEightItemType3.interval_time_start = doc["interval_time_start"].GetDouble();
         momentEightItemType3.interval_time_end = doc["interval_time_end"].GetDouble();
-        
+		momentEightItemType3.fish_startcount = doc["count_start"].GetInt();
+		momentEightItemType3.fish_endcount = doc["count_end"].GetInt();
         rapidjson::Value& itemList = doc["item_list"];
         if (!itemList.IsArray())
         {
@@ -171,8 +170,6 @@ bool ConfigMomentEight::LoadConfigType3() {
             
             MomentEightItemPer momentEightItemPer;
             momentEightItemPer.fish_id	= val["fish_id"].GetInt();
-			momentEightItemPer.fish_startcount = val["count_start"].GetInt();
-			momentEightItemPer.fish_endcount = val["count_end"].GetInt();
             momentEightItemPer.per = val["per"].GetInt();
             
             momentEightItemType3.momentEightItemPers.push_back(momentEightItemPer);
@@ -204,7 +201,8 @@ bool ConfigMomentEight::LoadConfigType4() {
 
 		momentEightItemType4.interval_time_start = doc["interval_time_start"].GetDouble();
 		momentEightItemType4.interval_time_end = doc["interval_time_end"].GetDouble();
-
+		momentEightItemType4.fish_startcount = doc["count_start"].GetInt();
+		momentEightItemType4.fish_endcount = doc["count_end"].GetInt();
 		rapidjson::Value& itemList = doc["item_list"];
 		if (!itemList.IsArray())
 		{
@@ -216,8 +214,6 @@ bool ConfigMomentEight::LoadConfigType4() {
 
 			MomentEightItemPer momentEightItemPer;
 			momentEightItemPer.fish_id = val["fish_id"].GetInt();
-			momentEightItemPer.fish_startcount = val["count_start"].GetInt();
-			momentEightItemPer.fish_endcount = val["count_end"].GetInt();
 			momentEightItemPer.per = val["per"].GetInt();
 
 			momentEightItemType4.momentEightItemPers.push_back(momentEightItemPer);
@@ -250,7 +246,8 @@ bool ConfigMomentEight::LoadConfigType5() {
 
 		momentEightItemType5.interval_time_start = doc["interval_time_start"].GetDouble();
 		momentEightItemType5.interval_time_end = doc["interval_time_end"].GetDouble();
-
+		momentEightItemType5.fish_startcount = doc["count_start"].GetInt();
+		momentEightItemType5.fish_endcount = doc["count_end"].GetInt();
 		rapidjson::Value& itemList = doc["item_list"];
 		if (!itemList.IsArray())
 		{
@@ -262,8 +259,6 @@ bool ConfigMomentEight::LoadConfigType5() {
 
 			MomentEightItemPer momentEightItemPer;
 			momentEightItemPer.fish_id = val["fish_id"].GetInt();
-			momentEightItemPer.fish_startcount = val["count_start"].GetInt();
-			momentEightItemPer.fish_endcount = val["count_end"].GetInt();
 			momentEightItemPer.per = val["per"].GetInt();
 
 			momentEightItemType5.momentEightItemPers.push_back(momentEightItemPer);

@@ -106,6 +106,9 @@
     <Filter Include="src\lobby\ranklist">
       <UniqueIdentifier>{57ef0790-3a10-4b3b-9154-3e817d9aa186}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\pay">
+      <UniqueIdentifier>{7eef0d04-d9e4-4f7d-96a5-f5f344c2ec31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -473,6 +476,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\domain\gameConfig\gameConfig.cpp">
       <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\pay\Pay.cpp">
+      <Filter>src\pay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -844,6 +850,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\gameConfig\gameConfig.h">
       <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\pay\Pay.h">
+      <Filter>src\pay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

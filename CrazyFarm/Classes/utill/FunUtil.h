@@ -8,10 +8,8 @@ bool collision(Sprite*spA, Sprite*spB);
 bool collision(Rect rectA, Rect rectB);
 swimDirection getDirectionByPosition(Vec2 pos);
 float  getAngleByPos(Vec2 pos);
-
 Vec2 CalculateDiffMarginPos(Vec2 pos,float diff);
-
 float getRandonNumByAtoB(float A, float B);
-
-
 int getCurrencyRankByRange(int startRank, int endRank, int startValue, int endValue, int curValue);
+
+std::string SpliceDataForPostHttp(std::vector<std::string> strs);

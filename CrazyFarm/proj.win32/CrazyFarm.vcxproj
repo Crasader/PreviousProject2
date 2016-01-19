@@ -187,6 +187,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\marquee\MarqueeManager.cpp" />
     <ClCompile Include="..\Classes\domain\mermaid\MermaidTask.cpp" />
     <ClCompile Include="..\Classes\domain\nobility\NobilityManager.cpp" />
+    <ClCompile Include="..\Classes\domain\pay\Pay.cpp" />
     <ClCompile Include="..\Classes\domain\ranklist\RanklistCell.cpp" />
     <ClCompile Include="..\Classes\domain\ranklist\RanklistLayer.cpp" />
     <ClCompile Include="..\Classes\domain\ranklist\RanklistManager.cpp" />
@@ -311,6 +312,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\marquee\MarqueeManager.h" />
     <ClInclude Include="..\Classes\domain\mermaid\MermaidTask.h" />
     <ClInclude Include="..\Classes\domain\nobility\NobilityManager.h" />
+    <ClInclude Include="..\Classes\domain\pay\Pay.h" />
     <ClInclude Include="..\Classes\domain\ranklist\RanklistCell.h" />
     <ClInclude Include="..\Classes\domain\ranklist\RanklistLayer.h" />
     <ClInclude Include="..\Classes\domain\ranklist\RanklistManager.h" />

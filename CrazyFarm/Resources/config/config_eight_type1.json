@@ -2,67 +2,49 @@
 	"describe"	: "随机鱼产生配置,基础鱼" ,
 	"version"	: 1,
 	"life_time" : 120,
-	"interval_time_start" : 30,
-	"interval_time_end" : 30,
+	"interval_time_start" : 1,
+	"interval_time_end" : 33,
+	"count_start"   : 2,
+			"count_end"   : 4,
 	"item_list"	:	[
 		{
 			"fish_id"	: 1,
-			"count_start"   : 2,
-			"count_end"   : 2,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 2,
-			"count_start"   : 2,
-			"count_end"   : 2,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 3,
-			"count_start"   : 2,
-			"count_end"   : 5,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 4,
-			"count_start"   : 2,
-			"count_end"   : 5,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 5,
-			"count_start"   : 2,
-			"count_end"   : 2,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 6,
-			"count_start"   : 2,
-			"count_end"   : 2,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 7,
-			"count_start"   : 2,
-			"count_end"   : 2,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 8,
-			"count_start"   : 2,
-			"count_end"   : 2,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 9,
-			"count_start"   : 2,
-			"count_end"   : 2,
 			"per"			: 10
 		},
 		{
 			"fish_id"	: 10,
-			"count_start"   : 2,
-			"count_end"   : 2,
 			"per"			: 10
 		}
 	]

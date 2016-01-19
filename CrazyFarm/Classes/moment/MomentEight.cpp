@@ -31,10 +31,10 @@ bool MomentEight::updata(float dt)
 	if (fTemp1 <= 0)
 	{
 		fTemp1 = getRandonNumByAtoB(momentEightItemType1.interval_time_start, momentEightItemType1.interval_time_end);
-		auto item = getFishByRandVec(momentEightItemType1.momentEightItemPers);
-		int count = (int)getRandonNumByAtoB(item.fish_startcount, item.fish_endcount);
+		int count = (int)getRandonNumByAtoB(momentEightItemType1.fish_startcount, momentEightItemType1.fish_endcount);
 		for (int i = 0; i < count; i++)
 		{
+			auto item = getFishByRandVec(momentEightItemType1.momentEightItemPers);
 			FishManage::getInstance()->createFishRand(item.fish_id);
 		}
 		
@@ -42,40 +42,40 @@ bool MomentEight::updata(float dt)
 	if (fTemp2 <= 0)
 	{
 		fTemp2 = getRandonNumByAtoB(momentEightItemType2.interval_time_start, momentEightItemType2.interval_time_end);
-		auto item = getFishByRandVec(momentEightItemType2.momentEightItemPers);
-		int count = (int)getRandonNumByAtoB(item.fish_startcount, item.fish_endcount);
+		int count = (int)getRandonNumByAtoB(momentEightItemType2.fish_startcount, momentEightItemType2.fish_endcount);
 		for (int i = 0; i < count; i++)
 		{
+			auto item = getFishByRandVec(momentEightItemType2.momentEightItemPers);
 			FishManage::getInstance()->createFishRand(item.fish_id);
 		}
 	}
 	if (fTemp3 <= 0)
 	{
 		fTemp3 = getRandonNumByAtoB(momentEightItemType3.interval_time_start, momentEightItemType3.interval_time_end);
-		auto item = getFishByRandVec(momentEightItemType3.momentEightItemPers);
-		int count = (int)getRandonNumByAtoB(item.fish_startcount, item.fish_endcount);
+		int count = (int)getRandonNumByAtoB(momentEightItemType3.fish_startcount, momentEightItemType3.fish_endcount);
 		for (int i = 0; i < count; i++)
 		{
+			auto item = getFishByRandVec(momentEightItemType3.momentEightItemPers);
 			FishManage::getInstance()->createFishArrangeRand(item.fish_id);
 		}
 	}
 	if (fTemp4 <= 0)
 	{
 		fTemp4 = getRandonNumByAtoB(momentEightItemType4.interval_time_start, momentEightItemType4.interval_time_end);
-		auto item = getFishByRandVec(momentEightItemType4.momentEightItemPers);
-		int count = (int)getRandonNumByAtoB(item.fish_startcount, item.fish_endcount);
+		int count = (int)getRandonNumByAtoB(momentEightItemType4.fish_startcount, momentEightItemType4.fish_endcount);
 		for (int i = 0; i < count; i++)
 		{
+			auto item = getFishByRandVec(momentEightItemType4.momentEightItemPers);
 			FishManage::getInstance()->createFishRand(item.fish_id);
 		}
 	}
 	if (fTemp5 <= 0)
 	{
 		fTemp5 = getRandonNumByAtoB(momentEightItemType5.interval_time_start, momentEightItemType5.interval_time_end);
-		auto item = getFishByRandVec(momentEightItemType5.momentEightItemPers);
-		int count = (int)getRandonNumByAtoB(item.fish_startcount, item.fish_endcount);
+		int count = (int)getRandonNumByAtoB(momentEightItemType5.fish_startcount, momentEightItemType5.fish_endcount);
 		for (int i = 0; i < count; i++)
 		{
+			auto item = getFishByRandVec(momentEightItemType5.momentEightItemPers);
 			FishManage::getInstance()->createFishRand(item.fish_id);
 		}
 	}
@@ -90,8 +90,6 @@ MomentEightItemPer MomentEight::getFishByRandVec(std::vector<MomentEightItemPer>
 	for (int i = 0; i < momentEightItemPers.size();i++)
 	{
 		vec.at(i).fish_id = momentEightItemPers[i].fish_id;
-		vec.at(i).fish_startcount= momentEightItemPers[i].fish_startcount;
-		vec.at(i).fish_endcount = momentEightItemPers[i].fish_endcount;
 		if (i == 0)
 		{
 			vec.at(0).per = 0;

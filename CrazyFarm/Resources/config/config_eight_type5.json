@@ -4,36 +4,28 @@
 	"life_time" : 120,
 	"interval_time_start" : 40,
 	"interval_time_end" : 40,
+	"count_start"   : 2,
+	"count_end"   : 5,
 	"item_list"	:	[
 		{
 			"fish_id"	: 40,
-			"count_start"   : 2,
-			"count_end"   : 5,
 			"per"			: 30
 		},
 		{
 			"fish_id"	: 41,
-		"count_start"   : 2,
-			"count_end"   : 5,
 			"per"			: 30
 		},
 		{
 			"fish_id"	: 42,
-			"count_start"   : 2,
-			"count_end"   : 5,
 			"per"			: 20
 		},
 		{
 			"fish_id"	: 43,
-			"count_start"   : 2,
-			"count_end"   : 5,
 			"per"			: 10
 		}
 		,
 		{
 			"fish_id"	: 44,
-			"count_start"   : 2,
-			"count_end"   : 5,
 			"per"			: 10
 		}
 	]
