@@ -10,27 +10,17 @@
 		],
 		[
 			{
-			"moment_id"	: 4,
-			"per"		: 30
+			"moment_id"	: 2,
+			"per"		: 50
 			},
 			{
 			"moment_id"	: 4,
-			"per"		: 70
+			"per"		: 50
 			}
 		],
 		[
 			{
 			"moment_id"	: 8,
-			"per"		: 30
-			},
-			{
-			"moment_id"	: 4,
-			"per"		: 70
-			}
-		],
-		[
-			{
-			"moment_id"	: 1,
 			"per"		: 100
 			}
 		]	
