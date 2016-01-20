@@ -28,7 +28,7 @@ bool GameLayer::init(){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* game_bg = Sprite::create("ani/water/aniWater1.jpg");
 	game_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-	this->addChild(game_bg);
+	this->addChild(game_bg,-2);
 	game_bg->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniWater")));
 	//TODO 游戏核心界面
 	

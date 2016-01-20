@@ -94,7 +94,9 @@ void FishManage::createFishGroup(int grouptag)
 				fish->setisAutoRemove(false);
 				fish->setRoute(singlegp.fishRoute);
 				fish->setPosition(singlegp.startPos);
-				m_layer->addChild(fish);
+				m_layer->addChild(fish,5);
+				fish->addShader();
+				fish->setGlobalZOrder(1);
 			}), nullptr));
 		}
 
@@ -118,7 +120,9 @@ void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 	fish->setVisible(false);
 	fish->setisAutoRemove(false);
 	fish->setMonentEightRoute(momentEightroutetag);
-	m_layer->addChild(fish);
+	m_layer->addChild(fish,5);
+	fish->setGlobalZOrder(1);
+	fish->addShader();
 }
 void FishManage::createFishByEightMonment(MomentEightItemPer per)
 {
@@ -240,7 +244,9 @@ void FishManage::createFishRand(int fishID)
 		fish->move(4);
 	}
 	
-	m_layer->addChild(fish);
+	m_layer->addChild(fish,5);
+	fish->addShader();
+	fish->setGlobalZOrder(1);
 }
 void FishManage::createFishArrangeRand(int fishID)
 {
@@ -250,7 +256,9 @@ void FishManage::createFishArrangeRand(int fishID)
 	k += rand_0_1() * 20 - 10	;
 	fish->setMoveAngle(k);
 	fish->move(4);
-	m_layer->addChild(fish);
+	m_layer->addChild(fish,5);
+	fish->addShader();
+	fish->setGlobalZOrder(1);
 }
 
 void FishManage::cleanVector()
@@ -289,7 +297,9 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
                 auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width/2);
                 fish->setPosition(startPos);
                 fish->move(3);
-                m_layer->addChild(fish);
+                m_layer->addChild(fish,5);
+				fish->addShader();
+				fish->setGlobalZOrder(1);
             }
                 break;
             case 2: {
@@ -298,7 +308,9 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
                 fish->setPosition(startPos);
                 auto endpos = CalculateDiffMarginPos(Vec2(onemonent.end_position_x, onemonent.end_position_y), fish->getContentSize().width + 150);
                 fish->runAction(Sequence::create(MoveTo::create(onemonent.end_time - onemonent.start_time+5, endpos), nullptr));
-                m_layer->addChild(fish);
+                m_layer->addChild(fish,5);
+				fish->addShader();
+				fish->setGlobalZOrder(1);
             }
                 break;
             case 3: {
@@ -319,7 +331,9 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
 			auto startPos = CalculateDiffMarginPos(Vec2(onemonent.start_position_x, onemonent.start_position_y), fish->getContentSize().width);
 			fish->setPosition(startPos);
 			fish->move(3);
-			m_layer->addChild(fish);
+			m_layer->addChild(fish,5);
+			fish->addShader();
+			fish->setGlobalZOrder(1);
 		}
 				break;
 		case 2: {
@@ -328,7 +342,9 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
 			fish->setPosition(startPos.x, startPos.y);
 			auto endpos = CalculateDiffMarginPos(Vec2(onemonent.end_position_x, onemonent.end_position_y), fish->getContentSize().width + 150);
 			fish->runAction(Sequence::create(MoveTo::create(onemonent.end_time - onemonent.start_time + 5, Vec2(endpos.x, endpos.y)), nullptr));
-			m_layer->addChild(fish);
+			m_layer->addChild(fish,5);
+			fish->addShader();
+			fish->setGlobalZOrder(1);
 		}
 				break;
 		case 3: {
@@ -367,7 +383,9 @@ void FishManage::createCycleFish(int count, int Radius, int fishID, Point center
 		fish->setPosition(center.x + Radius*cos(CC_DEGREES_TO_RADIANS(i*diffAngle)), center.y + Radius*sin(CC_DEGREES_TO_RADIANS(diffAngle*i)));
 		auto moveto = MoveTo::create(moveTime,curPos);
 		fish->runAction(Sequence::create(moveto, RemoveSelf::create(), nullptr));	
-		m_layer->addChild(fish);
+		m_layer->addChild(fish,5);
+		fish->addShader();
+		fish->setGlobalZOrder(1);
 	}
 	
 

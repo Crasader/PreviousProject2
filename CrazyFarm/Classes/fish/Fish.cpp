@@ -9,6 +9,7 @@ bool Fish::init(){
 	}
 	scheduleUpdate();
 	setisAutoRemove(true);
+	
 	return true;
 }
 
@@ -23,6 +24,8 @@ void Fish::initFish(int fishType){
 	BonusPoorGold = fishdata.bonus_pool_reward;
 	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
+	
+	
 }
 
 void Fish::initFishAnim(int fishType){
@@ -30,7 +33,13 @@ void Fish::initFishAnim(int fishType){
 
 	auto acName = String::createWithFormat("swim_%d", fishType);
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+	ac->setTag(888);
+	auto ac1 = ac->clone();
 	runAction(ac);
+
+	
+	
+
 }
 void Fish::update(float dt)
 {
@@ -342,9 +351,31 @@ void Fish::setMonentEightRoute(int routeTag)
 }
 
 
-bool Fish::checkOutBorder(){
-	return false;
+void Fish::addShader()
+{
+
+
+	auto acName = String::createWithFormat("swim_%d", fishType);
+	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+
+	m_shadesprite = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(fishType));
+	m_shadesprite->setPosition(getPositionX() + getContentSize().width*0.15, getPositionY() + getContentSize().height*-0.15);
+	getParent()->addChild(m_shadesprite, 4);
+	m_shadesprite->setColor(Color3B::BLACK);
+	m_shadesprite->setOpacity(GLubyte(128));
+	m_shadesprite->runAction(ac);
+	schedule(schedule_selector(Fish::ShadeUpdata),0.0f,CC_REPEAT_FOREVER,0.0F);
 }
+void Fish::ShadeUpdata(float dt)
+{
+	if (m_shadesprite!=nullptr)
+	{
+		m_shadesprite->setPosition(getPositionX() + getContentSize().width*0.15, getPositionY() + getContentSize().height*-0.15);
+		m_shadesprite->setRotation(getRotation());
+	}
+}
+
+
 
 Sprite* Fish::getRectSprite(){
 	return image;
@@ -355,3 +386,7 @@ int Fish::getFishType() {
 }
 
 
+void Fish::onExit()
+{
+	m_shadesprite->removeFromParentAndCleanup(1);
+}

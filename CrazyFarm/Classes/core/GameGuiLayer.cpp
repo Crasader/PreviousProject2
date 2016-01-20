@@ -134,6 +134,15 @@ bool GameGuiLayer::init(){
 	showRandonBubbleAni();
 	createGuizuGiftLayer();
 	beginMaridTaskTime();
+
+
+	for (int i = 1; i < 10;i++)
+	{
+		auto fish = FishManage::getInstance()->createFishSingle(i);
+		fish->setPosition((i%3) * 50+300, 270);
+		addChild(fish);
+	}
+
 	return true;
 
 }

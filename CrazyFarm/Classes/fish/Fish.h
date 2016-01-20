@@ -41,7 +41,9 @@ public:
     int getFishType();
 	int getFishExperience(){ return experience; };
 	int getBounsPoorGold(){ return BonusPoorGold; };
+	void addShader();
 protected:
+	void onExit();
 	void update(float);
 	float grabProbability;
 	int speed;//鱼的移动速度
@@ -64,7 +66,7 @@ protected:
 	Point getNextPostion(Point pos,float speed,float degree);
 	Point getRandomPostion(float speed, float dt,float &angle);
 	Point getRandomPostionForBigFish(float speed, float dt, float &angle);
-	bool checkOutBorder();
+	
 	Sprite* image;
 
 	CC_SYNTHESIZE(swimDirection, nDirection, Direction);
@@ -76,6 +78,9 @@ protected:
 	Vector<FiniteTimeAction*> RepetActionArray;
 	//路径
 	Route m_Route;
+	//阴影
+	Sprite* m_shadesprite = nullptr;
+	void ShadeUpdata(float dt);
 };
 
 #endif
