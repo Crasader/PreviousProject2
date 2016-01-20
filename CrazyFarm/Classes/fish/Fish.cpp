@@ -272,6 +272,76 @@ void Fish::setRoute(int routeTag)
 	}
 }
 
+
+void Fish::setMonentEightRoute(int routeTag)
+{
+	auto momentEightRoute = MonmetEightRoutedata::getInstance()->getRouteBytag(routeTag);
+
+	setPosition(momentEightRoute.startPos);
+
+	auto actionArray = Vector<FiniteTimeAction*>();
+
+	RepetActionArray = Vector<FiniteTimeAction*>();
+
+	MonmentEightRoutePoint* p = momentEightRoute.head;
+	while (p != nullptr)
+	{
+		Vector<FiniteTimeAction*> *acArray= &actionArray;
+		
+		acArray->pushBack(DelayTime::create(p->delay));
+		acArray->pushBack(CallFunc::create([&]{setVisible(true); }));
+		switch (p->moveState)
+		{
+		case 1:
+		{
+			acArray->pushBack(MoveBy::create(p->time, p->MoveByPos));
+		}
+		break;
+
+		case 2:
+		{
+			//Ô²ÖÜÔË¶¯
+			acArray->pushBack(CircleMoveTo::create(p->time, p->centrePos, p->ScaleDiff, p->circleAngle, p->isClockwise));
+		}
+		break;
+		case 3:
+		{
+			auto str = String::createWithFormat("%s_%d", p->aniName.c_str(), fishType);
+			acArray->pushBack(FishAniMannage::getInstance()->getAnimate(str->getCString()));
+		}
+		break;
+		case 4:
+		{
+			ccBezierConfig tr0;
+			tr0.endPosition = p->curPos;
+			tr0.controlPoint_1 = p->besizerPos1;
+			tr0.controlPoint_2 = p->besizerPos2;
+			acArray->pushBack(BezierBy::create(p->time, tr0));
+		}
+		break;
+		default:
+			break;
+		}
+
+		p = p->next;
+	}
+	DelayTime*delay;
+	if (actionArray.size() > 0)
+	{
+		auto acNoRepeat = Sequence::create(actionArray);
+		acNoRepeat->setTag(888);
+		this->runAction(acNoRepeat);
+		delay = DelayTime::create(acNoRepeat->getDuration());
+	}
+	else
+	{
+		delay = DelayTime::create(0);
+	}
+	this->runAction(Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{FishManage::getInstance()->removeFish(this); }), nullptr));
+
+}
+
+
 bool Fish::checkOutBorder(){
 	return false;
 }

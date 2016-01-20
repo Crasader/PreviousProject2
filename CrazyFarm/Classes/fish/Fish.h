@@ -34,6 +34,7 @@ public:
 	virtual void initFish(int fishType);
 	void move(int moveType);
 	void setRoute(int routeTag);
+	void setMonentEightRoute(int monentEightrouteTag);
 	Sprite* getRectSprite();
 	int getFishGold(){ return fishGold; }
 	float getGrabProbability(){ return grabProbability; }

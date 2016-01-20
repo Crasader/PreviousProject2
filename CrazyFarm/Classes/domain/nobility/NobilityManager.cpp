@@ -1,7 +1,7 @@
 #include "domain/nobility/NobilityManager.h"
 #include "config/ConfigSign.h"
 #include "utill/dayUtil.h"
-
+#include "domain/user/User.h"
 NobilityManager* NobilityManager::_instance = NULL;
 
 NobilityManager::NobilityManager(){
@@ -101,6 +101,7 @@ void NobilityManager::addStepsDay(int dayNum)
 	auto today = SystemTime::getToday()->getFormatString();
 	auto stayday = UserDefault::getInstance()->getStringForKey(KEY_STARTDAY, "-1");
 	auto steps = UserDefault::getInstance()->getIntegerForKey(KEY_STEPS, 0);
+	User::getInstance()->addNobillityCount(1);
 	if (stayday == "-1")
 	{
 		//从来没有购买过

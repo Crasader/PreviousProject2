@@ -18,6 +18,7 @@ bool ConfigMomentEight::LoadConfig() {
 	LoadConfigType3();
 	LoadConfigType4();
 	LoadConfigType5();
+	LoadConfigType6();
     return true;
 }
 
@@ -40,6 +41,9 @@ MomentEightItem ConfigMomentEight::getMomentEightItemByTypeId(int typeId) {
 		break;
 	case 5:
 		return momentEightItemType5;
+		break;
+	case 6:
+		return momentEightItemType6;
 		break;
 	default:
 		break;
@@ -83,6 +87,10 @@ bool ConfigMomentEight::LoadConfigType1() {
             MomentEightItemPer momentEightItemPer;
             momentEightItemPer.fish_id	= val["fish_id"].GetInt();
             momentEightItemPer.per = val["per"].GetInt();
+			if (val["fishRoute"].IsInt())
+			{
+				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+			}
             
             momentEightItemType1.momentEightItemPers.push_back(momentEightItemPer);
         }
@@ -128,6 +136,11 @@ bool ConfigMomentEight::LoadConfigType2() {
             momentEightItemPer.fish_id	= val["fish_id"].GetInt();
             momentEightItemPer.per = val["per"].GetInt();
             
+			if (val["fishRoute"].IsInt())
+			{
+				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+			}
+
             momentEightItemType2.momentEightItemPers.push_back(momentEightItemPer);
         }
         
@@ -172,6 +185,10 @@ bool ConfigMomentEight::LoadConfigType3() {
             momentEightItemPer.fish_id	= val["fish_id"].GetInt();
             momentEightItemPer.per = val["per"].GetInt();
             
+			if (val["fishRoute"].IsInt())
+			{
+				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+			}
             momentEightItemType3.momentEightItemPers.push_back(momentEightItemPer);
         }
         
@@ -216,6 +233,10 @@ bool ConfigMomentEight::LoadConfigType4() {
 			momentEightItemPer.fish_id = val["fish_id"].GetInt();
 			momentEightItemPer.per = val["per"].GetInt();
 
+			if (val["fishRoute"].IsInt())
+			{
+				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+			}
 			momentEightItemType4.momentEightItemPers.push_back(momentEightItemPer);
 		}
 
@@ -260,8 +281,58 @@ bool ConfigMomentEight::LoadConfigType5() {
 			MomentEightItemPer momentEightItemPer;
 			momentEightItemPer.fish_id = val["fish_id"].GetInt();
 			momentEightItemPer.per = val["per"].GetInt();
+			if (val["fishRoute"].IsInt())
+			{
+				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+			}
 
 			momentEightItemType5.momentEightItemPers.push_back(momentEightItemPer);
+		}
+
+		return true;
+	}
+	return true;
+}
+
+bool ConfigMomentEight::LoadConfigType6() {
+	bool bRet = false;
+	while (!bRet) {
+
+		std::string filename = "config/config_eight_type6.json";
+		rapidjson::Document doc;
+		if (!FileUtils::getInstance()->isFileExist(filename))
+		{
+			break;
+		}
+
+		std::string data = FileUtils::getInstance()->getStringFromFile(filename);
+		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
+		if (doc.HasParseError())
+		{
+			log("ConfigMomentEight get json data err!");
+			break;
+		}
+		momentEightItemType6.interval_time_start = doc["interval_time_start"].GetDouble();
+		momentEightItemType6.interval_time_end = doc["interval_time_end"].GetDouble();
+		momentEightItemType6.fish_startcount = doc["count_start"].GetInt();
+		momentEightItemType6.fish_endcount = doc["count_end"].GetInt();
+		rapidjson::Value& itemList = doc["item_list"];
+		if (!itemList.IsArray())
+		{
+			log("ConfigMomentEight The data is not json");
+			break;
+		}
+		for (unsigned int i = 0; i < itemList.Size(); ++i) {
+			const rapidjson::Value &val = itemList[i];
+
+			MomentEightItemPer momentEightItemPer;
+			momentEightItemPer.fish_id = val["fish_id"].GetInt();
+			momentEightItemPer.per = val["per"].GetInt();
+			if (val["fishRoute"].IsInt())
+			{
+				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+			}
+			momentEightItemType6.momentEightItemPers.push_back(momentEightItemPer);
 		}
 
 		return true;

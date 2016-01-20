@@ -61,11 +61,7 @@ bool GameGuiLayer::init(){
 		return false;
 	}
 
-	auto sessionid = User::getInstance()->getSessionid();
-	auto coin = User::getInstance()->getCoins();
-	auto diomad = User::getInstance()->getDiamonds();
-	auto exp = User::getInstance()->getExp();
-	HttpMannger::getInstance()->HttpToPostRequestSyncInfo(sessionid, coin, diomad, exp);
+	User::getInstance()->syncInfo();
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto menu = Menu::create();
@@ -234,11 +230,7 @@ void GameGuiLayer::onExit()
 {
 	Layer::onExit();
 	Audio::getInstance()->pauseBGM();
-	auto sessionid = User::getInstance()->getSessionid();
-	auto coin = User::getInstance()->getCoins();
-	auto diomad = User::getInstance()->getDiamonds();
-	auto exp = User::getInstance()->getExp();
-	HttpMannger::getInstance()->HttpToPostRequestSyncInfo(sessionid, coin, diomad, exp);
+	User::getInstance()->syncInfo();
 
 }
 

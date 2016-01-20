@@ -26,10 +26,10 @@ HttpMannger* HttpMannger::getInstance(){
 }
 
 
-void HttpMannger::HttpToPostRequestRegisterInfo(long imei, int hd_type, int hd_factory)
+void HttpMannger::HttpToPostRequestRegisterInfo(std::string channelId, long imei, int hd_type, int hd_factory)
 {
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_REGISTER);
-	auto requstData = String::createWithFormat("imei=%ld&hd_type=%d&hd_factory=%d", imei, hd_type, hd_factory);
+	auto requstData = String::createWithFormat("channel_id=%s&imei=%ld&hd_type=%d&hd_factory=%d", channelId.c_str(),imei, hd_type, hd_factory);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForRegisterInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, HttpResponse *response)
@@ -46,7 +46,7 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("error buffer: %s", response->getErrorBuffer());
+	log("http back info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 	if (doc.HasParseError())
@@ -61,10 +61,10 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 
 
 
-void HttpMannger::HttpToPostRequestLogInInfo(std::string username ,long imei, int hd_type, int hd_factory)
+void HttpMannger::HttpToPostRequestLogInInfo(std::string channelId, std::string username, long imei, int hd_type, int hd_factory)
 {
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_LOGIN);
-	auto requstData = String::createWithFormat("user_name=%s&imei=%ld&hd_type=%d&hd_factory=%d",username.c_str(),imei, hd_type, hd_factory);
+	auto requstData = String::createWithFormat("channel_id=%s&user_name=%s&imei=%ld&hd_type=%d&hd_factory=%d", channelId.c_str(),username.c_str(), imei, hd_type, hd_factory);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogInInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpResponse *response)
@@ -81,7 +81,7 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("error buffer: %s", response->getErrorBuffer());
+	log("http back info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 	if (doc.HasParseError())
@@ -126,7 +126,7 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("error buffer: %s", response->getErrorBuffer());
+	log("http back info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 	if (doc.HasParseError())
@@ -164,7 +164,7 @@ void HttpMannger::onHttpRequestCompletedForAfterPay(HttpClient *sender, HttpResp
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("error buffer: %s", response->getErrorBuffer());
+	log("http back info: %s", temp.c_str());
 }
 void HttpMannger::onHttpRequestCompletedForSyncInfo(HttpClient *sender, HttpResponse *response)
 {
@@ -180,12 +180,12 @@ void HttpMannger::onHttpRequestCompletedForSyncInfo(HttpClient *sender, HttpResp
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("error buffer: %s", response->getErrorBuffer());
+	log("http back info: %s", temp.c_str());
 }
 
-void HttpMannger::HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp)
+void HttpMannger::HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp, int maxTurretLevel, int PayRMB, int nobillityCount)
 {
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_SYNCINFO);
-	auto requstData = String::createWithFormat("session_id=%s&coins=%d&diamonds=%d&exp=%d", sessionid.c_str(), coin, diamond, exp);
+	auto requstData = String::createWithFormat("session_id=%s&coins=%d&diamonds=%d&exp=%d&turrent_level=%d&mo=%d&nobility_time=%d", sessionid.c_str(), coin, diamond, exp, maxTurretLevel, PayRMB, nobillityCount);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForSyncInfo, this));
 }

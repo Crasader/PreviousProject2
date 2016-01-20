@@ -19,7 +19,7 @@ public:
 	int  RemainingNobilityday();
     std::vector<NobilityRewadItem> getNobilityRewadItems(); // TODO : 获取单日奖励列表
 	void addStepsDay(int dayNum);                        // 添加一个新的签到日期
-    bool isGetRewardToday();                                //今日是否允许领取礼物
+    bool isGetRewardToday();                       
 	void setGetRewardToday();
 	const char* KEY_STARTDAY = "KEY_STARTDAY";
 	const char* KEY_STEPS = "KEY_STEPS";

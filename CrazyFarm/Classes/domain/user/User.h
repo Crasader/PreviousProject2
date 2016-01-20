@@ -22,6 +22,9 @@ public:
 	int addCoins(int coins);
 	int getCoins();
     
+	int addNobillityCount(int counts);
+	int getNobillityCount();
+
 	int getExp(){ return UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0); }
 	int addDiamonds(int diamond);
 	int getDiamonds();
@@ -48,12 +51,15 @@ public:
     
     void resetInfo();
 
+
+	void syncInfo();
 private:
 	User();
 	void init();
 	static User* _instance;
     
     const char* KEY_COINS = "KEY_COINS";
+	const char* KEY_NOBILLITYS = "KEY_NOBILLITYS";
     const char* KEY_DIAMONDS = "KEY_DIAMONDS";
     const char* KEY_EXP = "KEY_EXP";
     const char* KEY_M_TURRENT = "KEY_M_TURRENT";

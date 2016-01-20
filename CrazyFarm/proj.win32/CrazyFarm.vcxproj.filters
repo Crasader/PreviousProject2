@@ -486,6 +486,9 @@
     <ClCompile Include="..\Classes\domain\loading\LoadingScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\moment\MonmetEightRoute.cpp">
+      <Filter>src\moment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -865,6 +868,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\loading\LoadingScene.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\moment\MonmetEightRoute.h">
+      <Filter>src\moment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

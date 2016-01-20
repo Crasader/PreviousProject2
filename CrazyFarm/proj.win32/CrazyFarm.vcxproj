@@ -236,6 +236,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\moment\momentFishGroup\MomentTwo.cpp" />
     <ClCompile Include="..\Classes\moment\MomentManager.cpp" />
     <ClCompile Include="..\Classes\moment\MomentOne.cpp" />
+    <ClCompile Include="..\Classes\moment\MonmetEightRoute.cpp" />
     <ClCompile Include="..\Classes\net\Net.cpp" />
     <ClCompile Include="..\Classes\pause\GamePauseLayer.cpp" />
     <ClCompile Include="..\Classes\result\GameResultLayer.cpp" />
@@ -363,6 +364,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\moment\momentFishGroup\MomentTwo.h" />
     <ClInclude Include="..\Classes\moment\MomentManager.h" />
     <ClInclude Include="..\Classes\moment\MomentOne.h" />
+    <ClInclude Include="..\Classes\moment\MonmetEightRoute.h" />
     <ClInclude Include="..\Classes\net\Net.h" />
     <ClInclude Include="..\Classes\pause\GamePauseLayer.h" />
     <ClInclude Include="..\Classes\result\GameResultLayer.h" />

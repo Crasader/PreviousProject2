@@ -29,6 +29,7 @@ bool LoadingScene::init()
 	
 	runAction(Sequence::create(CallFunc::create([&]{login();
 		loadRes();}),DelayTime::create(2.0f), CallFunc::create([&]{Director::getInstance()->replaceScene(LobbyScene::createScene()); }), nullptr));
+	return true;
 }
 
 
@@ -84,10 +85,10 @@ void LoadingScene::login()
 	auto name = User::getInstance()->getUserId();
 	if (name == "guest")
 	{
-		HttpMannger::getInstance()->HttpToPostRequestRegisterInfo(88888, 123, 123);
+		HttpMannger::getInstance()->HttpToPostRequestRegisterInfo("test_1000",88888, 123, 123);
 	}
 	else
 	{
-		HttpMannger::getInstance()->HttpToPostRequestLogInInfo(name, 88888, 123, 123);
+		HttpMannger::getInstance()->HttpToPostRequestLogInInfo("test_1000",name, 88888, 123, 123);
 	}
 }

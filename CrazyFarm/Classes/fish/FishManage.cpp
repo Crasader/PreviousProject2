@@ -102,6 +102,44 @@ void FishManage::createFishGroup(int grouptag)
 
 }
 
+
+void FishManage::createFishAssign(int fishId, int momentEightroutetag)
+{
+	
+	Fish*fish;
+	if (fishId>=100)
+	{
+		fish = createFishArrange(fishId);
+	}
+	else
+	{
+		fish = createFishSingle(fishId);
+	}
+	fish->setVisible(false);
+	fish->setisAutoRemove(false);
+	fish->setMonentEightRoute(momentEightroutetag);
+	m_layer->addChild(fish);
+}
+void FishManage::createFishByEightMonment(MomentEightItemPer per)
+{
+	if (per.fishRoute!=-1)
+	{
+		createFishAssign(per.fish_id, per.fishRoute);
+
+	}
+	else
+	{
+		if (per.fish_id>=100)
+		{
+			createFishArrangeRand(per.fish_id);
+		}
+		else
+		{
+			createFishRand(per.fish_id);
+		}
+	}
+}
+
 void FishManage::removeFish(Fish* fish){
 	auto lockfish = m_layer->GetMyTurret()->getLockFish();
 	if (fish == lockfish)

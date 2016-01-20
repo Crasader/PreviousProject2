@@ -1,5 +1,5 @@
 #include "domain/user/User.h"
-
+#include "server/HttpMannger.h"
 
 User* User::_instance = NULL;
 
@@ -55,6 +55,19 @@ int User::addCoins(int coins) {
         UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 0);
     }
     return this->getCoins();
+}
+
+int User::getNobillityCount() {
+	return UserDefault::getInstance()->getIntegerForKey(User::KEY_NOBILLITYS, 0);
+}
+
+int User::addNobillityCount(int counts) {
+	UserDefault::getInstance()->setIntegerForKey(User::KEY_NOBILLITYS,
+		this->getNobillityCount() + counts);
+	if (this->getNobillityCount() < 0) {
+		UserDefault::getInstance()->setIntegerForKey(User::KEY_NOBILLITYS, 0);
+	}
+	return this->getNobillityCount();
 }
 
 int User::getDiamonds() {
@@ -144,6 +157,14 @@ void User::resetInfo() {
     UserDefault::getInstance()->setIntegerForKey(User::KEY_CHEST_LEVEL, 0);
 #endif
 }
-
-
-
+void User::syncInfo()
+{
+	auto sessionid =getSessionid();
+	auto coin =getCoins();
+	auto diomad =getDiamonds();
+	auto exp =getExp();
+	auto lv = getMaxTurrentLevel();
+	auto mo = getChargeMoney();
+	auto count = getNobillityCount();
+	HttpMannger::getInstance()->HttpToPostRequestSyncInfo(sessionid, coin, diomad, exp, lv, mo, count);
+}

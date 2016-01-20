@@ -19,6 +19,7 @@
 #include "fish/FishGroupData.h"
 #include "fish/FishRouteData.h"
 #include "domain/mermaid/MermaidTask.h"
+#include "moment/MonmetEightRoute.h"
 #include "domain/gameConfig/gameConfig.h"
 ConfigManager* ConfigManager::_instance = NULL;
 
@@ -60,6 +61,8 @@ void ConfigManager::LoadConfig() {
 	GameConfig::getInstance()->loadConfig();
 	FishRouteData::getInstance()->loadConfig();
 	FishGroupData::getInstance()->loadConfig();
+
+	MonmetEightRoutedata::getInstance()->loadConfig();
 }
 
 

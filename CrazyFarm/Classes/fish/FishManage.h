@@ -7,7 +7,8 @@
 #include "config/ConfigOnemoment.h"
 #include "moment/Moment.h"
 #include "moment/MomentManager.h"
-
+#include "config/ConfigMomentEight.h"
+#include "moment/MonmetEightRoute.h"
 using namespace cocos2d;
 
 #define BORDER_LEFT 0
@@ -19,17 +20,24 @@ class FishManage {
 public:
 	static FishManage* getInstance();
 	void cleanVector();
+	void createFishByEightMonment(MomentEightItemPer per);
 	Fish* createFishSingle();
 	Fish* createFishSingle(int type);
 	void createFishGroup(int grouptag);
 	Fish* createFishArrange(int type);
 	void createFishRand(int fishId);
 	void createFishArrangeRand(int fishId);
+
+	void createFishAssign(int fishId, int momentEightroutetag);
+
 	void removeFish(Fish* fish);
 	void decideFishPos(Fish* fish);//决定鱼的出生位置
 	Vector<Fish*> getAllFishInPool();
     int getAllFishInPoolCount();
 	void removeFishWhichSwimOut();///移除屏幕外的鱼
+
+
+
 
 	void createCycleFish(int count, int Radius, int fishID, Point center, Point curPos, float moveTime);//建立一圈鱼
 	Fish*getFishByPosInPool(Point pos);
