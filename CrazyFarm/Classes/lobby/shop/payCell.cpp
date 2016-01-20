@@ -2,6 +2,8 @@
 #include "domain/user/User.h"
 #include "lobby/LobbyScene.h"
 #include "core/GameLayer.h"
+#include "server/HttpMannger.h"
+#include "lobby/Nobility/NobilityLayer.h"
 bool PayCell::init(){
 	if (!Sprite::initWithFile("payframe.png")){
 		return false;
@@ -21,7 +23,8 @@ bool PayCell::init(){
 
 	return true;
 }
-
+Good coingood[7] = { Good(8, 40000), Good(18, 180000), Good(38, 380000), Good(58, 580000), Good(108, 1080000), Good(388, 3880000), Good(688, 6880000) };
+Good diamondGood[5] = { Good(18, 180), Good(38, 418), Good(58, 650), Good(108, 1346), Good(388, 4768) };
 void PayCell::setValue(int goodId)
 {
 	setgoodID(goodId);
@@ -55,24 +58,44 @@ void PayCell::setVipValue()
 	giftNum->setTexture("payVipGift.png");
 }
 
-Good coingood[7] = { Good(8, 40000), Good(18, 180000), Good(38, 380000), Good(58, 580000), Good(108, 1080000), Good(388, 3880000), Good(688, 6880000) };
-Good diamondGood[5] = { Good(18, 180), Good(38, 418), Good(58, 650), Good(108, 1346), Good(388, 4768) };
+
 void PayCell::IsBeToued()
 {
 	auto level =  ConfigVipLevel::getInstance()->getVipLevel(User::getInstance()->getVipLevel());
 	switch (m_PayType)
 	{
 	case 1:
+	{
+		payData data;
+		data.channel_id = 10000;
+		data.order_id = 0;
+		data.pay_event_id = 1000;
+		data.pay_point_id = 1000;
+		data.pay_event_vesion = 10001000;
+		data.pay_result = 0;
+		data.pay_type = 0;
+		auto sessionid = User::getInstance()->getSessionid();
+		HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, 100100, 1, 1, "daiji_1000");
 		User::getInstance()->addCoins(coingood[m_nGoodId - 1].count*level.pay_reward);
 		User::getInstance()->addChargeMoney(coingood[m_nGoodId - 1].RMB);
+	}
 		break;
 	case 2:
 		User::getInstance()->addDiamonds(diamondGood[m_nGoodId - 1].count*level.pay_reward);
 		User::getInstance()->addChargeMoney(diamondGood[m_nGoodId - 1].RMB);
 		break;
 	case 3:
-
+	{
+		auto layer = NobilityLayer::createLayer();
+		layer->setPosition(0, 0);
+		auto scene = Director::getInstance()->getRunningScene();
+		auto node = scene->getChildByTag(888);
+		if (node)
+		{
+			node->addChild(layer,21);
+		}
 		break;
+	}
 	default:
 		break;
 	}

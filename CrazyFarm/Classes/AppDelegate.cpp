@@ -1,6 +1,9 @@
 #include "AppDelegate.h"
 #include "lobby/LobbyScene.h"
 #include "config/ConfigDebugTest.h"
+#include "domain/user/User.h"
+#include "server/HttpMannger.h"
+#include "domain/loading/LoadingScene.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -73,13 +76,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("ranklist");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand((unsigned)time(nullptr));
-
 	// create a scene. it's an autorelease object
-	auto scene = LobbyScene::createScene();
-
+	auto scene = LoadingScene::createScene();
+	
 	// run
 	director->runWithScene(scene);
-
 
 	return true;
 }
@@ -98,3 +99,5 @@ void AppDelegate::applicationWillEnterForeground() {
 	// if you use SimpleAudioEngine, it must resume here
 	// SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
+
+

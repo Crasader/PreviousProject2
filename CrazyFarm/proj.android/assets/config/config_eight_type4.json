@@ -1,0 +1,25 @@
+{	
+	"describe"	: "随机鱼产生配置,鱼群" ,
+	"version"	: 1,
+	"interval_time_start"   : 110,
+	"interval_time_end"     : 130,
+			"count_start"   : 1,
+			"count_end"     : 1,
+	"item_list"	:	[
+		{
+			"fish_id"	: 50,
+			"per"			: 40
+		},
+		{
+			"fish_id"	: 51,
+			"per"			: 40
+		},
+		{
+			"fish_id"	: 52,
+			"per"			: 30
+		}
+	]
+}
+
+
+

@@ -4,6 +4,8 @@
 #include "server/HttpClientUtill.h"
 using namespace cocos2d;
 
+
+
 struct payData 
 {
 	int pay_event_vesion;

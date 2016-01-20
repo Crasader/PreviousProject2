@@ -369,7 +369,7 @@ void GameLayer::endSkillBoom()
 bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
 {
 	auto pos = touch->getLocation();
-	auto cicle = CCCircMake(pos, 200);
+	auto cicle = CCircle::CCCircMake(pos, 200);
 
 #if 1
 	auto draw = DrawNode::create();

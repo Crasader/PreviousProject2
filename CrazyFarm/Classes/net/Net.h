@@ -19,6 +19,7 @@ public:
 	void initNetByType();
 	void checkCatchFish();
 private:
+	void initAniByType(int ui_type, int net_type);
 	std::string getFrameNameByType(int ui_type, int net_type);
 	Bullet*m_bullet;
 };

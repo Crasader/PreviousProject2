@@ -1,0 +1,38 @@
+{
+    "description" :"1：表示按照轨迹点运动，tension表示运行轨迹柔和嶿为最柔和ﺿ位曲縿2：圆周运动：需填写参数运动圆心，圆周次数，缩放系数(无缩放填0) 3：播放动画：需填写动画名称",
+    "version" : 1,
+    "routeConfig": [
+        {
+            "tag": 1,
+            "StartPos"：{"x":0,y:"0"},
+            "routePoint": [
+ 								{
+                    "moveState": 1,
+                   	"MoveByPos":{"x":0,"y":300},
+                    "isRepet": 0,   
+                    "delay": 8,
+                    "time":  4
+                },
+                {
+                     "moveState": 2,
+                    "circleX":  270, 
+                    "circleY":  270,
+                     "ScaleDiff":  0, 
+                    "circleAngle": 360, 
+                    "isClockwise": true,
+                    "isRepet": 0,   
+                    "delay": 0,
+                    "time": 10
+                }, 
+	      				{
+                     "moveState": 1,
+                     "MoveByPos":{"x":0,"y":400},
+                    "isRepet": 0,   
+                    "delay": 0,
+                    "time":  7
+                }
+            ]
+        }
+        
+    ]
+}

@@ -4,14 +4,14 @@
 	"life_time" : 	10,
 	"item_list"	:	[
 		{
-			"fishgroup_id"		:	101,
-			"start_time"		:	0,
-			"end_time"			:	5,
+			"fishgroup_id"		:	44,
+			"start_time"		:	1.0,
+			"end_time"			:	105,
 			"start_position_x"	:	960,
-			"start_position_y"	:	540,
-			"end_position_x"	:	300,
-			"end_position_y"	:	0,
-			"star_angle":     30,
+			"start_position_y"	:	0,
+			"end_position_x"	:	960,
+			"end_position_y"	:	270,
+			"star_angle":     132,
 			"move_type"			:	1,
 			"move_parameter"	: {
 			}

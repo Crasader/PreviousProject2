@@ -63,7 +63,7 @@ bool LobbyScene::init()
 		return false;
 	}
     //add all fish plsit
-	loadResource();
+	//loadResource();
 	auto user = User::getInstance();
 	auto leveldata = user->getLevelData();
 
@@ -243,18 +243,15 @@ bool LobbyScene::init()
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
 	
 	createRoomLayer();
-	this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);
+
+	/*this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);*/  //Ç©µ½±ÀÀ£
+
 	this->scheduleOnce(schedule_selector(LobbyScene::showMarquee), 1.0f);
 	scheduleUpdate();
 
 	//test
 
-if (0)
-{
-	auto cell = TurnTableDialog::create();
-	cell->setPosition(0, 0);
-	addChild(cell);
-}
+
 	
 
 	
@@ -466,31 +463,8 @@ void LobbyScene::refreshCoinLabel()
 }
 
 
-void LobbyScene::onHttpRequestCompleted(HttpClient *sender, HttpResponse *response)
-{
-	if (!response)
-	{
-		return;
-	}
 
-	long statusCode = response->getResponseCode();
-	char statusString[64] = {};
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("error buffer: %s", response->getErrorBuffer());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	if (doc.HasParseError())
-	{
-		log("get json data err!");;
-	}
-	User::getInstance()->setUserID(doc["user_name"].GetString());
-	log("error_code:%d", doc["error_code"].GetInt());
-	log("error_msg:%s", doc["error_msg"].GetString());
-	log("user_name:%s", doc["user_name"].GetString());
-	log("session_id:%s", doc["session_id"].GetString());
-}
+
 
 bool LobbyScene::onTouchBegan(Touch *touch, Event *unused_event)
 {
@@ -708,3 +682,4 @@ void LobbyScene::quickBeginCallback(Ref*psend)
 	GameData::getInstance()->setRoomID(roomDatas.at(i).room_id);
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
 }
+

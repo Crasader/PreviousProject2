@@ -480,6 +480,12 @@
     <ClCompile Include="..\Classes\domain\pay\Pay.cpp">
       <Filter>src\pay</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\server\HttpMannger.cpp">
+      <Filter>src\mannager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\loading\LoadingScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -853,6 +859,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\pay\Pay.h">
       <Filter>src\pay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\HttpMannger.h">
+      <Filter>src\mannager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\loading\LoadingScene.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

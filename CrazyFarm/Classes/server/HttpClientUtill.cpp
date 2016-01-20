@@ -30,10 +30,11 @@ void HttpClientUtill::onGetHttp(char* Url,const ccHttpRequestCallback& callback)
 }
 
 
-void HttpClientUtill::onPostHttp(std::string postData,char* Url, const ccHttpRequestCallback& callback)
+void HttpClientUtill::onPostHttp(std::string postData, const char* Url, const ccHttpRequestCallback& callback, void* userData)
 {
 	HttpRequest* request = new (std::nothrow) HttpRequest();
 	request->setUrl(Url);
+	request->setUserData(userData);
 	request->setRequestData(postData.c_str(), postData.size());
 	request->setRequestType(HttpRequest::Type::POST);
 	request->setResponseCallback(callback);

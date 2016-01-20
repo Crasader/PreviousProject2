@@ -253,7 +253,7 @@ bool payLayer::init(int payType)
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 		bRet = true;
 	} while (0);
-	
+	setName("paylayer");
 
 	return bRet;
 }

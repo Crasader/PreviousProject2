@@ -17,7 +17,14 @@
   <key>priceVIPdes</key>
   <string>累计充值%d元</string>
   
-  </dict>
+  
+    <key>haveCoin</key>
+  <string>拥有金币：</string>
+  
+  
+     <key>wopaizaiXXming</key>
+  <string>我排在多少              名</string>
+  </dict> 
 
 </array>
 </plist>

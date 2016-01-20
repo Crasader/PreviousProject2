@@ -183,6 +183,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\bonuspool\BonusPoolManager.cpp" />
     <ClCompile Include="..\Classes\domain\coinBox\CoinBox.cpp" />
     <ClCompile Include="..\Classes\domain\gameConfig\gameConfig.cpp" />
+    <ClCompile Include="..\Classes\domain\loading\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp" />
     <ClCompile Include="..\Classes\domain\marquee\MarqueeManager.cpp" />
     <ClCompile Include="..\Classes\domain\mermaid\MermaidTask.cpp" />
@@ -240,6 +241,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\result\GameResultLayer.cpp" />
     <ClCompile Include="..\Classes\result\GameResultScene.cpp" />
     <ClCompile Include="..\Classes\server\HttpClientUtill.cpp" />
+    <ClCompile Include="..\Classes\server\HttpMannger.cpp" />
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp" />
     <ClCompile Include="..\Classes\turret\Turret.cpp" />
     <ClCompile Include="..\Classes\user\UserInfoLayer.cpp" />
@@ -308,6 +310,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\bonuspool\BonusPoolManager.h" />
     <ClInclude Include="..\Classes\domain\coinBox\CoinBox.h" />
     <ClInclude Include="..\Classes\domain\gameConfig\gameConfig.h" />
+    <ClInclude Include="..\Classes\domain\loading\LoadingScene.h" />
     <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h" />
     <ClInclude Include="..\Classes\domain\marquee\MarqueeManager.h" />
     <ClInclude Include="..\Classes\domain\mermaid\MermaidTask.h" />
@@ -365,6 +368,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\result\GameResultLayer.h" />
     <ClInclude Include="..\Classes\result\GameResultScene.h" />
     <ClInclude Include="..\Classes\server\HttpClientUtill.h" />
+    <ClInclude Include="..\Classes\server\HttpMannger.h" />
     <ClInclude Include="..\Classes\turret\PlayerTurret.h" />
     <ClInclude Include="..\Classes\turret\Turret.h" />
     <ClInclude Include="..\Classes\user\UserInfoLayer.h" />

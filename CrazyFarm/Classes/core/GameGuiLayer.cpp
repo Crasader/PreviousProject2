@@ -20,6 +20,7 @@
 #include "data/GameData.h"
 #include "core/maridTaskPlane.h"
 #include "domain/skill/skillManager.h"
+#include "server/HttpMannger.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
@@ -59,6 +60,12 @@ bool GameGuiLayer::init(){
 	{
 		return false;
 	}
+
+	auto sessionid = User::getInstance()->getSessionid();
+	auto coin = User::getInstance()->getCoins();
+	auto diomad = User::getInstance()->getDiamonds();
+	auto exp = User::getInstance()->getExp();
+	HttpMannger::getInstance()->HttpToPostRequestSyncInfo(sessionid, coin, diomad, exp);
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto menu = Menu::create();
@@ -227,6 +234,12 @@ void GameGuiLayer::onExit()
 {
 	Layer::onExit();
 	Audio::getInstance()->pauseBGM();
+	auto sessionid = User::getInstance()->getSessionid();
+	auto coin = User::getInstance()->getCoins();
+	auto diomad = User::getInstance()->getDiamonds();
+	auto exp = User::getInstance()->getExp();
+	HttpMannger::getInstance()->HttpToPostRequestSyncInfo(sessionid, coin, diomad, exp);
+
 }
 
 void GameGuiLayer::settingCallback(Ref *pSender)

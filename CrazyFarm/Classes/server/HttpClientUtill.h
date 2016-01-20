@@ -15,7 +15,7 @@ public:
 
 	
 	void onGetHttp(char* Url, const ccHttpRequestCallback& callback);
-	void onPostHttp(std::string postData, char* Url, const ccHttpRequestCallback& callback);
+	void onPostHttp(std::string postData, const char* Url, const ccHttpRequestCallback& callback,void* userData =nullptr);
 private:
 	static HttpClientUtill* _pInstance;
 	

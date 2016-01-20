@@ -16,6 +16,8 @@
 #include "config/ConfigBonuspool.h"
 #include "config/ConfigMomentEight.h"
 #include "data/GameData.h"
+#include "fish/FishGroupData.h"
+#include "fish/FishRouteData.h"
 #include "domain/mermaid/MermaidTask.h"
 #include "domain/gameConfig/gameConfig.h"
 ConfigManager* ConfigManager::_instance = NULL;
@@ -56,6 +58,8 @@ void ConfigManager::LoadConfig() {
  
 	GameData::getInstance()->setmermaidTask(MermaidTask::getNewMermaidTask());
 	GameConfig::getInstance()->loadConfig();
+	FishRouteData::getInstance()->loadConfig();
+	FishGroupData::getInstance()->loadConfig();
 }
 
 

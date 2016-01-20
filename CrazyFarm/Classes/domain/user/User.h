@@ -15,8 +15,6 @@ public:
 	void setUserID(std::string userId);
 
 
-	std::string getSession_id();
-	void setSession_id(std::string userId);
 
     std::string getUserName();
     bool setUserName(std::string newUserName);
@@ -65,6 +63,7 @@ private:
     const char* KEY_SEQSIGNDAY = "KEY_SEQSIGNDAY";
     const char* KEY_CHARGE_MONEY = "KEY_CHARGE_MONEY";
     const char* KEY_CHEST_LEVEL = "KEY_CHEST_LEVEL";
+	CC_SYNTHESIZE(std::string, session_id, Sessionid);
 
 };
 

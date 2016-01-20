@@ -33,7 +33,7 @@ public:
     CREATE_FUNC(LobbyScene);
 	void guizuCallback(Ref*psend);
 	void refreshCoinLabel();
-	void onHttpRequestCompleted(HttpClient *sender, HttpResponse *response);
+
 private:
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
 
