@@ -322,26 +322,31 @@ void GameLayer::RefreShmyPlayerTurret()
 
 void GameLayer::beginLock()
 {
+	m_lasttouchType = m_touchType;
 	myTurret->beginLockShoot();
-	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::lockTouchEvent, this);
+	changeTouchFunByTouchType(TouchInLock);
 }
 void GameLayer::endLock()
 {
 	myTurret->endLockShoot();
-	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+	changeTouchFunByTouchType(m_lasttouchType);
 }
 
 
 void GameLayer::beginSkillBoom()
 {
+	m_lasttouchType = m_touchType;
 	skillManager::getInstance()->getButtonByID(4)->setEnable(false);
-	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::boomTouchEvent, this);
+	changeTouchFunByTouchType(TouchInBoom);
 }
 void GameLayer::endSkillBoom()
 {
 	skillManager::getInstance()->getButtonByID(4)->setEnable(true);
-	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+	changeTouchFunByTouchType(m_lasttouchType);
 }
+
+
+
 
 bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
 {
@@ -401,4 +406,26 @@ bool GameLayer::onTouTurret(Point pos)
 		}
 	}
 	return false;
+}
+
+void GameLayer::changeTouchFunByTouchType(TouchType type)
+{
+	switch (type)
+	{
+	case TouchInNormal:
+		touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+		break;
+	case TouchInLock:
+		touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::lockTouchEvent, this);
+		break;
+	case TouchInBoom:
+		touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::boomTouchEvent, this);
+		break;
+	case TouchInAutoShoot:
+		touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+		break;
+	default:
+		break;
+	}
+	m_touchType = type;
 }

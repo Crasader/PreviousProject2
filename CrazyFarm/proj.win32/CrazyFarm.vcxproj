@@ -201,6 +201,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\skill\skillManager.cpp" />
     <ClCompile Include="..\Classes\domain\skill\SkillSummonButton.cpp" />
     <ClCompile Include="..\Classes\domain\turntable\CTurntable.cpp" />
+    <ClCompile Include="..\Classes\domain\user\DeviceInfo.cpp" />
     <ClCompile Include="..\Classes\domain\user\User.cpp" />
     <ClCompile Include="..\Classes\fish\Fish.cpp" />
     <ClCompile Include="..\Classes\fish\FishAniMannage.cpp" />
@@ -245,7 +246,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\server\HttpMannger.cpp" />
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp" />
     <ClCompile Include="..\Classes\turret\Turret.cpp" />
-    <ClCompile Include="..\Classes\user\UserInfoLayer.cpp" />
     <ClCompile Include="..\Classes\utill\AnimationUtil.cpp" />
     <ClCompile Include="..\Classes\utill\Audio.cpp" />
     <ClCompile Include="..\Classes\utill\CallAndroidMethod.cpp" />
@@ -329,6 +329,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\skill\skillManager.h" />
     <ClInclude Include="..\Classes\domain\skill\SkillSummonButton.h" />
     <ClInclude Include="..\Classes\domain\turntable\CTurntable.h" />
+    <ClInclude Include="..\Classes\domain\user\DeviceInfo.h" />
     <ClInclude Include="..\Classes\domain\user\User.h" />
     <ClInclude Include="..\Classes\fish\Fish.h" />
     <ClInclude Include="..\Classes\fish\FishAniMannage.h" />
@@ -373,7 +374,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\server\HttpMannger.h" />
     <ClInclude Include="..\Classes\turret\PlayerTurret.h" />
     <ClInclude Include="..\Classes\turret\Turret.h" />
-    <ClInclude Include="..\Classes\user\UserInfoLayer.h" />
     <ClInclude Include="..\Classes\utill\AnimationUtil.h" />
     <ClInclude Include="..\Classes\utill\Audio.h" />
     <ClInclude Include="..\Classes\utill\CallAndroidMethod.h" />

@@ -189,9 +189,6 @@
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp">
       <Filter>src\turret</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\user\UserInfoLayer.cpp">
-      <Filter>src\Interface\playinfo</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\utill\AnimationUtil.cpp">
       <Filter>src\utill</Filter>
     </ClCompile>
@@ -489,6 +486,9 @@
     <ClCompile Include="..\Classes\moment\MonmetEightRoute.cpp">
       <Filter>src\moment</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\user\DeviceInfo.cpp">
+      <Filter>src\Interface\playinfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -571,9 +571,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utill\define.h">
       <Filter>src\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\user\UserInfoLayer.h">
-      <Filter>src\Interface\playinfo</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utill\AnimationUtil.h">
       <Filter>src\utill</Filter>
@@ -871,6 +868,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\moment\MonmetEightRoute.h">
       <Filter>src\moment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\user\DeviceInfo.h">
+      <Filter>src\Interface\playinfo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -61,7 +61,14 @@ public:
 	void endSkillBoom(); 
 private:
 	bool boomTouchEvent(Touch *touch, Event  *event);
-
+	
+//自动开炮
+public:
+	void beginAutoShoot();
+	void endAutoShoot();
+private:
+	bool AutoShootTouchEvent(Touch *touch, Event  *event);
+	//点击炮
 	bool onTouTurret(Point pos);
 
 	void calculateFreeChair();
@@ -71,6 +78,8 @@ private:
 	int m_index = -1;
 	EventListenerTouchOneByOne* touchListener;
 	bool isShoot = true;
+//点击事件
+	void changeTouchFunByTouchType(TouchType type);
 	TouchType m_touchType;
 	TouchType m_lasttouchType;
 };

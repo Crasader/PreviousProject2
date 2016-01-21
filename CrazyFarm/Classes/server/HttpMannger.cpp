@@ -88,6 +88,12 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 	{
 		log("get json data err!");;
 	}
+	if (doc["errorcode"].GetInt() == 301)
+	{
+		HttpToPostRequestRegisterInfo("test_1000", 88888888, 888, 888);
+		User::getInstance()->resetInfo();
+		return;
+	}
 	User::getInstance()->setUserID(doc["user_name"].GetString());
 	User::getInstance()->setSessionid(doc["session_id"].GetString());
 
