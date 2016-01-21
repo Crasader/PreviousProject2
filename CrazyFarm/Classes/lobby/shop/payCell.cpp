@@ -4,6 +4,7 @@
 #include "core/GameLayer.h"
 #include "server/HttpMannger.h"
 #include "lobby/Nobility/NobilityLayer.h"
+#include "domain/user/DeviceInfo.h"
 bool PayCell::init(){
 	if (!Sprite::initWithFile("payframe.png")){
 		return false;
@@ -75,7 +76,7 @@ void PayCell::IsBeToued()
 		data.pay_result = 0;
 		data.pay_type = 0;
 		auto sessionid = User::getInstance()->getSessionid();
-		HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, 100100, 1, 1, "daiji_1000");
+		HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, 100100, 1, 1, DeviceInfo::getChange_id());
 		User::getInstance()->addCoins(coingood[m_nGoodId - 1].count*level.pay_reward);
 		User::getInstance()->addChargeMoney(coingood[m_nGoodId - 1].RMB);
 	}

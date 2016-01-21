@@ -401,3 +401,21 @@ void Fish::onDead()
 	m_shadesprite->runAction(ac1);
 	runAction(Sequence::create(ac, CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
 }
+
+
+void Fish::ShadeResume()
+{
+
+	if (m_shadesprite)
+	{
+		m_shadesprite->resume();
+	}
+	
+}
+void Fish::ShadePause()
+{
+	if (m_shadesprite)
+	{
+		m_shadesprite->pause();
+	}
+}

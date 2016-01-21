@@ -130,17 +130,6 @@ void PlayerTurret::degradeTurret(Ref* psend)
 }
 
 
-void PlayerTurret::rorateAndShootOnlock(float dt)
-{
-	if (lockFish == nullptr)
-	{
-		return;
-	}
-	auto pos = lockFish->getPosition();
-	float degree = GameLayer::getTurretRotation(getPosition(), pos);
-	rorateTurret(degree);
-	scheduleOnce(schedule_selector(PlayerTurret::shootOnLock), 0.1f);
-}
 
 void PlayerTurret::rorateTurret(float angle)
 {
@@ -157,7 +146,6 @@ void PlayerTurret::shoot(float degree){
 	}
 	auto bullet = BulletManage::getInstance()->createBullet(turretdata, 90);
 	bullet->setRotation(degree);
-	auto pos = m_turret->getTampionPos();
 	bullet->setPosition(/*this->getPosition()*/m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
 	getParent()->addChild(bullet);
@@ -198,57 +186,19 @@ void PlayerTurret::shoot(float degree){
 }
 
 
-void PlayerTurret::shootOnLock(float dt){
-
-	if (lockFish == nullptr)
-	{
-		return;
-	}
-	//花费金币
-	if (isRobot)
-	{
-		auto num = Value(m_turretdata.multiple).asInt();
-		nNowMoney -= num;
-		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
-		if (nNowMoney <= 0)
-		{
-			onBankrupt();
-		}
-	}
-	else
-	{
-		auto num = Value(m_turretdata.multiple).asInt();
-		auto nowCoin = User::getInstance()->addCoins(-num);
-		if (nowCoin<0)
-		{
-			return;
-		}
-		m_CoinLabel->setString(Value(nowCoin).asString().c_str());
-	}
-
-	auto degree = m_turret->getRotation();
-	auto bullet = BulletManage::getInstance()->createBulletNoinPool(turretdata, 90);
-	bullet->setRotation(degree);
-	bullet->unscheduleUpdate();
-	auto pos = m_turret->getTampionPos();
-	bullet->setPosition(m_turret->getTampionPos());
-	bullet->setPlayerTurret(this);
-	auto duration = pos.distance(lockFish->getPosition()) / 800.0f;
-	bullet->moveToLockfish(duration, lockFish);
-	getParent()->addChild(bullet);
-
-	m_turret->shoot();
-
-	//开火动画
-	auto aniNode = Sprite::create();
-	aniNode->setPosition(m_turret->getContentSize().width / 2, m_turret->getContentSize().height*1.0);
-	m_turret->addChild(aniNode, 5);
-	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
-
-	
 
 
-}
+
+
+
+
+
+
+
+
+
+
+
 
 void PlayerTurret::setAIinfo(AI*info)
 {
@@ -444,6 +394,7 @@ void PlayerTurret::refreshTurretInfo()
 	initTurretWithType();
 }
 
+
 void PlayerTurret::beginLockShoot()
 {
 	schedule(schedule_selector(PlayerTurret::rorateAndShootOnlock),0.2f);
@@ -452,6 +403,132 @@ void PlayerTurret::endLockShoot()
 {
 	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlock));
 }
+
+void PlayerTurret::rorateAndShootOnlock(float dt)
+{
+	if (lockFish == nullptr)
+	{
+		return;
+	}
+	auto pos = lockFish->getPosition();
+	float degree = GameLayer::getTurretRotation(getPosition(), pos);
+	rorateTurret(degree);
+	scheduleOnce(schedule_selector(PlayerTurret::shootOnLock), 0.1f);
+}
+void PlayerTurret::shootOnLock(float dt){
+
+	if (lockFish == nullptr)
+	{
+		return;
+	}
+	//花费金币
+	if (isRobot)
+	{
+		auto num = Value(m_turretdata.multiple).asInt();
+		nNowMoney -= num;
+		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
+		if (nNowMoney <= 0)
+		{
+			onBankrupt();
+		}
+	}
+	else
+	{
+		auto num = Value(m_turretdata.multiple).asInt();
+		auto nowCoin = User::getInstance()->addCoins(-num);
+		if (nowCoin < 0)
+		{
+			return;
+		}
+		m_CoinLabel->setString(Value(nowCoin).asString().c_str());
+	}
+
+	auto degree = m_turret->getRotation();
+	auto bullet = BulletManage::getInstance()->createBulletNoinPool(turretdata, 90);
+	bullet->setRotation(degree);
+	bullet->setPosition(m_turret->getTampionPos());
+	bullet->setPlayerTurret(this);
+	getParent()->addChild(bullet);
+
+	m_turret->shoot();
+
+	//开火动画
+	auto aniNode = Sprite::create();
+	aniNode->setPosition(m_turret->getContentSize().width / 2, m_turret->getContentSize().height*1.0);
+	m_turret->addChild(aniNode, 5);
+	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
+
+}
+
+
+void PlayerTurret::beginAutoShoot()
+{
+	setTargetPos(Vec2(-1, -1));
+	schedule(CC_CALLBACK_1(PlayerTurret::rorateAndShootOnAuto,this),0.2f,"AutoShoot"); //TODO:子弹发射速度。需要配置
+}
+void PlayerTurret::endAutoShoot()
+{
+	unschedule("AutoShoot");
+}
+
+void PlayerTurret::rorateAndShootOnAuto(float dt)
+{
+	CCLOG("%f", dt);
+	if (targetPos == Point(-1,-1))
+	{
+		return;
+	}
+	float degree = GameLayer::getTurretRotation(getPosition(), targetPos);
+	rorateTurret(degree);
+	scheduleOnce(schedule_selector(PlayerTurret::shootOnAuto), 0.1f);
+}
+void PlayerTurret::shootOnAuto(float dt){
+
+
+	//花费金币
+	if (isRobot)
+	{
+		auto num = Value(m_turretdata.multiple).asInt();
+		nNowMoney -= num;
+		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
+		if (nNowMoney <= 0)
+		{
+			onBankrupt();
+		}
+	}
+	else
+	{
+		auto num = Value(m_turretdata.multiple).asInt();
+		auto nowCoin = User::getInstance()->addCoins(-num);
+		if (nowCoin < 0)
+		{
+			return;
+		}
+		m_CoinLabel->setString(Value(nowCoin).asString().c_str());
+	}
+
+	auto degree = m_turret->getRotation();
+	auto bullet = BulletManage::getInstance()->createBullet(turretdata, 90);
+	bullet->setRotation(degree);
+	auto pos = m_turret->getTampionPos();
+	bullet->setPosition(m_turret->getTampionPos());
+	bullet->setPlayerTurret(this);
+	getParent()->addChild(bullet);
+	m_turret->shoot();
+
+	//开火动画
+	auto aniNode = Sprite::create();
+	aniNode->setPosition(m_turret->getContentSize().width / 2, m_turret->getContentSize().height*1.0);
+	m_turret->addChild(aniNode, 5);
+	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
+
+}
+
+
+
+
+
+
 
 bool PlayerTurret::onTurretTouch(Point pos)
 {
@@ -517,4 +594,15 @@ void PlayerTurret::autoShootCallback(Ref*psend)
 {
 	auto node = (Node*)psend;
 	node->getParent()->removeFromParentAndCleanup(1);
+
+	auto layer = (GameLayer*)(Director::getInstance()->getRunningScene()->getChildByTag(777));
+	if (isScheduled("AutoShoot"))
+	{
+		
+		layer->endAutoShoot();
+	}
+	else
+	{
+		layer->beginAutoShoot();
+	}
 }

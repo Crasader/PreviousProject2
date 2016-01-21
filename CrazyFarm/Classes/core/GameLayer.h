@@ -67,7 +67,11 @@ public:
 	void beginAutoShoot();
 	void endAutoShoot();
 private:
+	Point autoShootPos;
 	bool AutoShootTouchEvent(Touch *touch, Event  *event);
+
+
+
 	//╣Ц╩Вез
 	bool onTouTurret(Point pos);
 

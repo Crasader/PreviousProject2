@@ -4,15 +4,11 @@ using namespace cocos2d;
 
 class DeviceInfo{
 public:
-	static DeviceInfo* getInstance();
-	long getImei();
-	std::string getChange_id();
-	int getHd_type();
-	int getHd_factory();
-private:
-	DeviceInfo();
-	void init();
-	static DeviceInfo* _instance;
+	static long getImei();
+	static std::string getChange_id();
+	static int getHd_type();
+	static int getHd_factory();
+
 
 };
 

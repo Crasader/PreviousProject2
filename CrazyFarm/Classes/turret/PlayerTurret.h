@@ -41,6 +41,13 @@ public:
 	  void endLockShoot();
 	  void rorateAndShootOnlock(float dt);
 	  void shootOnLock(float dt);
+	  ///◊‘∂Ø…‰ª˜
+	  void beginAutoShoot();
+	  void endAutoShoot();
+	  void rorateAndShootOnAuto(float dt);
+	  void shootOnAuto(float dt);
+
+
 	  float getRarote(){ return m_turret->getRotation(); }
 	  // ’∏Ó”„
 	  void getCoinByFish(Fish* fish);
@@ -84,5 +91,6 @@ private:
 	  int nNowMoney;
 	  RoomPlayer* m_robotData;
 	  Fish* lockFish = nullptr;
+	  CC_SYNTHESIZE(Point, targetPos, TargetPos);
 
 };

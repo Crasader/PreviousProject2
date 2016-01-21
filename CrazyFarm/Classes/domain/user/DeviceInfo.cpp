@@ -1,35 +1,37 @@
 #include "domain/user/DeviceInfo.h"
 
-DeviceInfo* DeviceInfo::_instance = NULL;
-
-DeviceInfo::DeviceInfo(){
-	this->init();
-}
-
-void DeviceInfo::init(){
-    // TODO : first use init user name and id
-}
-
-DeviceInfo* DeviceInfo::getInstance(){
-	if(_instance == NULL){
-		_instance = new DeviceInfo();
-	}
-	return _instance;
-}
 long DeviceInfo::getImei()
 {
-	return 1;	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	return 493002407599521;
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	return 493002407599521
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	return 493002407599521;
+#endif
 }
 std::string DeviceInfo::getChange_id()
 {
-	return "";
+	return "test";
 }
 int DeviceInfo::getHd_type()
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	return 1;
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	return 1
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	return 1;
+#endif
 }
 
 int DeviceInfo::getHd_factory()
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	return 1;
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	return 1
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	return 1;
+#endif
 }

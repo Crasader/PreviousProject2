@@ -48,6 +48,7 @@ void skillManager::useSkillFreeze()
 	for (auto fish:fishes)
 	{
 		fish->pause();
+		fish->ShadePause();
 		m_gamelayer->unscheduleUpdate();
 	}
 }
@@ -58,6 +59,7 @@ void skillManager::useSkillFreezeEnd()
 	for (auto fish : fishes)
 	{
 		fish->resume();
+		fish->ShadeResume();
 		m_gamelayer->scheduleUpdate();
 	}
 }

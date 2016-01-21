@@ -42,8 +42,9 @@ public:
 	int getFishExperience(){ return experience; };
 	int getBounsPoorGold(){ return BonusPoorGold; };
 	void addShader();
-	void removeself();
+	void removeself();		
 	void onDead();
+
 protected:
 	
 	void update(float);
@@ -83,6 +84,8 @@ protected:
 	//“ı”∞
 	Sprite* m_shadesprite = nullptr;
 	void ShadeUpdata(float dt);
+	void ShadeResume();
+	void ShadePause();
 };
 
 #endif

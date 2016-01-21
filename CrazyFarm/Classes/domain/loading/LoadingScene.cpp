@@ -6,6 +6,7 @@
 #include "server/HttpMannger.h"
 #include "domain/user/User.h"
 #include "lobby/LobbyScene.h"
+#include "domain/user/DeviceInfo.h"
 Scene* LoadingScene::createScene()
 {
 	auto scene = Scene::create();
@@ -85,10 +86,10 @@ void LoadingScene::login()
 	auto name = User::getInstance()->getUserId();
 	if (name == "guest")
 	{
-		HttpMannger::getInstance()->HttpToPostRequestRegisterInfo("test_1000",88888, 123, 123);
+		HttpMannger::getInstance()->HttpToPostRequestRegisterInfo(DeviceInfo::getChange_id(), DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
 	}
 	else
 	{
-		HttpMannger::getInstance()->HttpToPostRequestLogInInfo("test_1000",name, 88888, 123, 123);
+		HttpMannger::getInstance()->HttpToPostRequestLogInInfo(DeviceInfo::getChange_id(), name, DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
 	}
 }

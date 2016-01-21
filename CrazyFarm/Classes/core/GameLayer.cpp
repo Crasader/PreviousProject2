@@ -18,7 +18,11 @@
 enum
 {
 	kZorderMenu = 10,
-	kZorderDialog = 20
+	kZorderDialog = 20,
+	kZorderFish = 5,
+	kZorderNet  = 6,
+	kZorderBullet = 7,
+	kZorderTurrent = 8
 };
 
 bool GameLayer::init(){
@@ -71,7 +75,7 @@ void GameLayer::createFish(float dt){
 			Fish* fish = FishManage::getInstance()->createFishSingle();
 			FishManage::getInstance()->decideFishPos(fish);
 			fish->move(3);
-			this->addChild(fish);
+			this->addChild(fish,kZorderFish);
 		}
 	}
 }
@@ -89,7 +93,7 @@ void GameLayer::createFishGroup(float dt)
 				Fish* fish = FishManage::getInstance()->createFishSingle(singlegp.fishID);
 				fish->setRoute(singlegp.fishRoute);
 				fish->setPosition(singlegp.startPos);
-				addChild(fish);
+				addChild(fish, kZorderFish);
 			}), nullptr));
 		}
 		
@@ -114,7 +118,7 @@ void GameLayer::createTurret(){
 	myTurret->initWithDate(user, m_index);
 	myTurret->setAnchorPoint(ccp(0.5, 0.5));
 	myTurret->setPosition(turretPos[m_index]);
-	this->addChild(myTurret, kZorderMenu);
+	this->addChild(myTurret, kZorderTurrent);
 
 	for (auto player:vec)
 	{
@@ -233,7 +237,7 @@ void GameLayer::createNet(Bullet *bullet){
 	fishNet->setPosition(bullet->getPosition());
 	fishNet->setRotation(bullet->getRotation());
 	fishNet->initNetByType();
-	this->addChild(fishNet, 3);
+	this->addChild(fishNet, kZorderNet);
 }
 
 
@@ -422,10 +426,34 @@ void GameLayer::changeTouchFunByTouchType(TouchType type)
 		touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::boomTouchEvent, this);
 		break;
 	case TouchInAutoShoot:
-		touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+		touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::AutoShootTouchEvent, this);
 		break;
 	default:
 		break;
 	}
 	m_touchType = type;
+}
+
+
+void GameLayer::beginAutoShoot()
+{
+	autoShootPos = Point(-1, -1);
+	m_lasttouchType = m_touchType;
+	changeTouchFunByTouchType(TouchInAutoShoot);
+	myTurret->beginAutoShoot();
+	
+}
+void GameLayer::endAutoShoot()
+{
+	changeTouchFunByTouchType(m_lasttouchType);
+	myTurret->endAutoShoot();
+}
+bool GameLayer::AutoShootTouchEvent(Touch *touch, Event *event)
+{
+	auto touchPos = touch->getLocation();
+	if (onTouTurret(touchPos))
+	{
+		return false;
+	}
+	myTurret->setTargetPos(touchPos);
 }
