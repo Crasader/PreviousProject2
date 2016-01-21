@@ -8,6 +8,13 @@
 #include "domain/room/RoomManager.h"
 #include "domain/magnate/MagnateManager.h"
 USING_NS_CC;
+enum TouchType
+{
+	TouchInNormal,
+	TouchInLock,
+	TouchInBoom,
+	TouchInAutoShoot
+};
 
 class GameLayer: public cocos2d::Layer{
 public:
@@ -55,6 +62,7 @@ public:
 private:
 	bool boomTouchEvent(Touch *touch, Event  *event);
 
+	bool onTouTurret(Point pos);
 
 	void calculateFreeChair();
 	PlayerTurret* myTurret;
@@ -63,5 +71,7 @@ private:
 	int m_index = -1;
 	EventListenerTouchOneByOne* touchListener;
 	bool isShoot = true;
+	TouchType m_touchType;
+	TouchType m_lasttouchType;
 };
 #endif

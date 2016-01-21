@@ -96,7 +96,7 @@ void FishManage::createFishGroup(int grouptag)
 				fish->setPosition(singlegp.startPos);
 				m_layer->addChild(fish,5);
 				fish->addShader();
-				fish->setGlobalZOrder(1);
+		
 			}), nullptr));
 		}
 
@@ -121,7 +121,7 @@ void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 	fish->setisAutoRemove(false);
 	fish->setMonentEightRoute(momentEightroutetag);
 	m_layer->addChild(fish,5);
-	fish->setGlobalZOrder(1);
+
 	fish->addShader();
 }
 void FishManage::createFishByEightMonment(MomentEightItemPer per)
@@ -144,14 +144,22 @@ void FishManage::createFishByEightMonment(MomentEightItemPer per)
 	}
 }
 
-void FishManage::removeFish(Fish* fish){
+void FishManage::removeFish(Fish* fish,bool isDead){
 	auto lockfish = m_layer->GetMyTurret()->getLockFish();
 	if (fish == lockfish)
 	{
 		m_layer->GetMyTurret()->setLockFish(nullptr);
 	}
 	fishPool.eraseObject(fish);
-	fish->removeFromParentAndCleanup(1);
+	if (isDead)
+	{
+		fish->onDead();
+	}
+	else
+	{
+		fish->removeself();
+	}
+	
 }
 
 
@@ -215,7 +223,7 @@ void FishManage::removeFishWhichSwimOut()
 	}
 	for (auto fish : needRemoveFishs)
 	{
-		removeFish(fish);
+		removeFish(fish,0);
 		
 	}
 }
@@ -246,7 +254,7 @@ void FishManage::createFishRand(int fishID)
 	
 	m_layer->addChild(fish,5);
 	fish->addShader();
-	fish->setGlobalZOrder(1);
+
 }
 void FishManage::createFishArrangeRand(int fishID)
 {
@@ -258,7 +266,7 @@ void FishManage::createFishArrangeRand(int fishID)
 	fish->move(4);
 	m_layer->addChild(fish,5);
 	fish->addShader();
-	fish->setGlobalZOrder(1);
+
 }
 
 void FishManage::cleanVector()
@@ -299,7 +307,7 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
                 fish->move(3);
                 m_layer->addChild(fish,5);
 				fish->addShader();
-				fish->setGlobalZOrder(1);
+
             }
                 break;
             case 2: {
@@ -310,7 +318,7 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
                 fish->runAction(Sequence::create(MoveTo::create(onemonent.end_time - onemonent.start_time+5, endpos), nullptr));
                 m_layer->addChild(fish,5);
 				fish->addShader();
-				fish->setGlobalZOrder(1);
+			
             }
                 break;
             case 3: {
@@ -333,7 +341,7 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
 			fish->move(3);
 			m_layer->addChild(fish,5);
 			fish->addShader();
-			fish->setGlobalZOrder(1);
+
 		}
 				break;
 		case 2: {
@@ -344,7 +352,7 @@ void FishManage::createFishByOneMonet(OneMoment onemonent) {
 			fish->runAction(Sequence::create(MoveTo::create(onemonent.end_time - onemonent.start_time + 5, Vec2(endpos.x, endpos.y)), nullptr));
 			m_layer->addChild(fish,5);
 			fish->addShader();
-			fish->setGlobalZOrder(1);
+
 		}
 				break;
 		case 3: {
@@ -385,7 +393,6 @@ void FishManage::createCycleFish(int count, int Radius, int fishID, Point center
 		fish->runAction(Sequence::create(moveto, RemoveSelf::create(), nullptr));	
 		m_layer->addChild(fish,5);
 		fish->addShader();
-		fish->setGlobalZOrder(1);
 	}
 	
 

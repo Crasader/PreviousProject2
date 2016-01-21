@@ -200,7 +200,7 @@ bool LobbyScene::init()
 	rankList->setPosition(visibleSize.width*0.08, visibleSize.height*0.08);
 
 
-	auto VIP = MenuItemImage::create("VIP.png", "VIP.png", CC_CALLBACK_1(LobbyScene::guizuCallback, this));
+	auto VIP = MenuItemImage::create("VIP.png", "VIP.png", CC_CALLBACK_1(LobbyScene::showVipCallBack, this));
 	VIP->setPosition(visibleSize.width*0.05, visibleSize.height*0.70);
 
 	auto guizu = MenuItemImage::create("guizu.png", "guizu.png", CC_CALLBACK_1(LobbyScene::guizuCallback, this));
@@ -624,6 +624,13 @@ void LobbyScene::guizuCallback(Ref*psend)
 	addChild(guizulayer, kZorderDialog);
 }
 
+
+void LobbyScene::showVipCallBack(Ref*psend)
+{
+	auto viplayer = VIPLayer::create();
+	viplayer->setPosition(Point::ZERO);
+	addChild(viplayer, kZorderDialog);
+}
 std::vector<Room> LobbyScene::sortRoomByMaxlevel(int maxLevel)
 {
 	auto roomDatas = ConfigRoom::getInstance()->getRooms();

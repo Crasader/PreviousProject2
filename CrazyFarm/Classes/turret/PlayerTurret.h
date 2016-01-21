@@ -57,6 +57,15 @@ public:
 	  void refreshTurretInfo();
 	  void setLockFish(Fish* fish){ lockFish = fish; };
 	  Fish*getLockFish(){ return lockFish; };
+	  //显示玩家信息
+	  bool onTurretTouch(Point pos);
+	  bool isTurretBeTouch(Point pos);
+	  void showRobotInfo();
+	  void showPlayerInfo();
+	  void changeTurrentCallback(Ref*psend); //换炮
+	  void autoShootCallback(Ref*psend);//自动开炮
+
+
 private:
 	Turrent  m_turretdata;
 	  int turretType;

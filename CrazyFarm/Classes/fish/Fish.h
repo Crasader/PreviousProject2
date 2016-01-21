@@ -42,8 +42,10 @@ public:
 	int getFishExperience(){ return experience; };
 	int getBounsPoorGold(){ return BonusPoorGold; };
 	void addShader();
+	void removeself();
+	void onDead();
 protected:
-	void onExit();
+	
 	void update(float);
 	float grabProbability;
 	int speed;//鱼的移动速度

@@ -2,6 +2,7 @@
 #include "fish/FishAniMannage.h"
 #include "utill/CircleMoveTo.h"
 #include "FishManage.h"
+#include "FishAniMannage.h"
 bool Fish::init(){
 	if (!Sprite::init())
 	{
@@ -33,8 +34,6 @@ void Fish::initFishAnim(int fishType){
 
 	auto acName = String::createWithFormat("swim_%d", fishType);
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
-	ac->setTag(888);
-	auto ac1 = ac->clone();
 	runAction(ac);
 
 	
@@ -271,7 +270,7 @@ void Fish::setRoute(int routeTag)
 	{
 		delay = DelayTime::create(0);
 	}
-	this->runAction(Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{FishManage::getInstance()->removeFish(this); }), nullptr));
+	this->runAction(Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{FishManage::getInstance()->removeFish(this,0); }), nullptr));
 	if (RepetActionArray.size() > 0)
 	{
 		this->runAction(Sequence::create(delay, CallFunc::create([&](){
@@ -346,7 +345,7 @@ void Fish::setMonentEightRoute(int routeTag)
 	{
 		delay = DelayTime::create(0);
 	}
-	this->runAction(Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{FishManage::getInstance()->removeFish(this); }), nullptr));
+	this->runAction(Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{FishManage::getInstance()->removeFish(this,0); }), nullptr));
 
 }
 
@@ -362,7 +361,7 @@ void Fish::addShader()
 	m_shadesprite->setPosition(getPositionX() + getContentSize().width*0.15, getPositionY() + getContentSize().height*-0.15);
 	getParent()->addChild(m_shadesprite, 4);
 	m_shadesprite->setColor(Color3B::BLACK);
-	m_shadesprite->setOpacity(GLubyte(128));
+	m_shadesprite->setOpacity(GLubyte(150));
 	m_shadesprite->runAction(ac);
 	schedule(schedule_selector(Fish::ShadeUpdata),0.0f,CC_REPEAT_FOREVER,0.0F);
 }
@@ -386,7 +385,19 @@ int Fish::getFishType() {
 }
 
 
-void Fish::onExit()
+void Fish::removeself()
 {
 	m_shadesprite->removeFromParentAndCleanup(1);
+	removeFromParentAndCleanup(1);
+}
+
+
+void Fish::onDead()
+{
+	stopAllActions();
+	auto acName = String::createWithFormat("dead_%d", fishType);
+	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
+	auto ac1 = ac->clone();
+	m_shadesprite->runAction(ac1);
+	runAction(Sequence::create(ac, CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
 }

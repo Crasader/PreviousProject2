@@ -115,7 +115,7 @@ void Net::checkCatchFish(){
 				}
 			}
 		}
-		FishManage::getInstance()->removeFish(fish);
+		FishManage::getInstance()->removeFish(fish,1);
 		fish = nullptr;
 	}
 }

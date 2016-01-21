@@ -10,6 +10,7 @@
 #include "domain/bonuspool/BonusPoolManager.h"
 #include "core/GameLayer.h"
 #include "domain/mermaid/MermaidTask.h"
+#include "core/showTurretLayer.h"
 
 enum 
 {
@@ -203,6 +204,28 @@ void PlayerTurret::shootOnLock(float dt){
 	{
 		return;
 	}
+	//花费金币
+	if (isRobot)
+	{
+		auto num = Value(m_turretdata.multiple).asInt();
+		nNowMoney -= num;
+		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
+		if (nNowMoney <= 0)
+		{
+			onBankrupt();
+		}
+	}
+	else
+	{
+		auto num = Value(m_turretdata.multiple).asInt();
+		auto nowCoin = User::getInstance()->addCoins(-num);
+		if (nowCoin<0)
+		{
+			return;
+		}
+		m_CoinLabel->setString(Value(nowCoin).asString().c_str());
+	}
+
 	auto degree = m_turret->getRotation();
 	auto bullet = BulletManage::getInstance()->createBulletNoinPool(turretdata, 90);
 	bullet->setRotation(degree);
@@ -222,22 +245,7 @@ void PlayerTurret::shootOnLock(float dt){
 	m_turret->addChild(aniNode, 5);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
 
-	//花费金币
-	if (isRobot)
-	{
-		auto num = Value(m_turretdata.multiple).asInt();
-		nNowMoney -= num;
-		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
-		if (nNowMoney <= 0)
-		{
-			onBankrupt();
-		}
-	}
-	else
-	{
-		auto num = Value(m_turretdata.multiple).asInt();
-		m_CoinLabel->setString(Value(User::getInstance()->addCoins(-num)).asString().c_str());
-	}
+	
 
 
 }
@@ -443,4 +451,70 @@ void PlayerTurret::beginLockShoot()
 void PlayerTurret::endLockShoot()
 {
 	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlock));
+}
+
+bool PlayerTurret::onTurretTouch(Point pos)
+{
+	if (isTurretBeTouch(pos))
+	{
+		if (isRobot)
+		{
+			showRobotInfo();
+		}
+		else
+		{
+			showPlayerInfo();
+		}
+		return true;
+	}
+	return false;
+}
+
+bool PlayerTurret::isTurretBeTouch(Point pos)
+{
+	auto rect = getBoundingBox();
+	if (rect.containsPoint(pos))
+	{
+		return true;
+	}
+	return false;
+}
+void PlayerTurret::showRobotInfo()
+{
+
+}
+
+void PlayerTurret::showPlayerInfo()
+{
+	auto node = getChildByName("showPlayerInfo");
+	if (node)
+	{
+		return;
+	}
+
+	auto menu = Menu::create();
+	menu->setPosition(Point::ZERO);
+	addChild(menu, 10, "showPlayerInfo");
+	auto changeTurrent = MenuItemImage::create("changeTurrent.png", "changeTurrent.png", CC_CALLBACK_1(PlayerTurret::changeTurrentCallback, this));
+	changeTurrent->setPosition(15, 110);
+	menu->addChild(changeTurrent);
+
+	auto autoShoot = MenuItemImage::create("autoShoot.png", "autoShoot.png", CC_CALLBACK_1(PlayerTurret::autoShootCallback, this));
+	autoShoot->setPosition(getContentSize().width-15, 110);
+	menu->addChild(autoShoot);
+}
+
+
+void PlayerTurret::changeTurrentCallback(Ref*psend) 
+{
+	auto node = (Node*)psend;
+	auto layer = showTurretLayer::create(1);
+	layer->setPosition(Point::ZERO);
+	Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer, 20);
+	node->getParent()->removeFromParentAndCleanup(1);
+}
+void PlayerTurret::autoShootCallback(Ref*psend)
+{
+	auto node = (Node*)psend;
+	node->getParent()->removeFromParentAndCleanup(1);
 }

@@ -30,7 +30,7 @@ public:
 
 	void createFishAssign(int fishId, int momentEightroutetag);
 
-	void removeFish(Fish* fish);
+	void removeFish(Fish* fish,bool);
 	void decideFishPos(Fish* fish);//决定鱼的出生位置
 	Vector<Fish*> getAllFishInPool();
     int getAllFishInPoolCount();

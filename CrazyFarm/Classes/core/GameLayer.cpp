@@ -15,7 +15,11 @@
 
 #define kTagBaseturret 10
 #define BOOMRADIUS 300
-
+enum
+{
+	kZorderMenu = 10,
+	kZorderDialog = 20
+};
 
 bool GameLayer::init(){
 	if (!Layer::init())
@@ -110,7 +114,7 @@ void GameLayer::createTurret(){
 	myTurret->initWithDate(user, m_index);
 	myTurret->setAnchorPoint(ccp(0.5, 0.5));
 	myTurret->setPosition(turretPos[m_index]);
-	this->addChild(myTurret, 2);
+	this->addChild(myTurret, kZorderMenu);
 
 	for (auto player:vec)
 	{
@@ -119,7 +123,7 @@ void GameLayer::createTurret(){
 		otherTurret->setPosition(turretPos[player.getRoomPosition()]);
 		otherTurret->initWithDate(&player);
 		otherTurrets.pushBack(otherTurret);
-		addChild(otherTurret, 2, kTagBaseturret+player.getRoomPosition());
+		addChild(otherTurret, kZorderMenu, kTagBaseturret + player.getRoomPosition());
 		
 	}
 	
@@ -135,16 +139,22 @@ void GameLayer::addTouchEvent(){
 	touchListener->onTouchMoved = CC_CALLBACK_2(GameLayer::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+	m_touchType = TouchInNormal;
 }
 
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
+	auto touchPos = touch->getLocation();
+	if (onTouTurret(touchPos))
+	{
+		return true;
+	}
 	const float shootInterval = GameConfig::getInstance()->getShootData().shootInterval;
 	if (!isShoot)
 	{
 		return true;
 	}
-	float degree = getTurretRotation(myTurret->getPosition(), touch->getLocation());
+	float degree = getTurretRotation(myTurret->getPosition(), touchPos);
 	rotateTurret(degree, myTurret);
 	GameData::getInstance()->setShotCount(1+(GameData::getInstance()->getShotCount()));
 	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([&]{
@@ -160,8 +170,12 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 
 bool GameLayer::lockTouchEvent(Touch *touch, Event  *event)
 {
-	auto pos = touch->getLocation();
-	auto fish = FishManage::getInstance()->getFishByPosInPool(pos);
+	auto touchPos = touch->getLocation();
+	if (onTouTurret(touchPos))
+	{
+		return false;
+	}
+	auto fish = FishManage::getInstance()->getFishByPosInPool(touchPos);
 	if (fish)
 	{
 		myTurret->setLockFish(fish);
@@ -263,9 +277,9 @@ void GameLayer::collisionUpdate(float dt)
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
 	//step3 碰撞检查
 	Vector<Bullet*> bulletNeedRemove;
-	for (auto bullet:allBullets)
+	for (auto bullet : allBullets)
 	{
-		for (auto fish:allFish)
+		for (auto fish : allFish)
 		{
 			if (collision(fish, bullet)){
 				//发生碰撞,移除子弹
@@ -278,48 +292,11 @@ void GameLayer::collisionUpdate(float dt)
 		}
 	}
 
-
-	//Vector<Fish*>::iterator it;
-	//Vector<Bullet*> bulletNeedRemove;
-	//for (Vector<Bullet*>::iterator it2 = allBullets.begin(); it2 != allBullets.end();)
-	//{
-	//	for (auto it = allFish.begin(); it != allFish.end(); it++)
-	//	{
-	//		Fish* fish = *it;
-	//		Bullet* bullet = *it2;
-	//		if (collision(fish, bullet)){
-	//			//发生碰撞,移除子弹
-	//			/*bulletNeedRemove.pushBack(bullet);*/
-	//			bullet->removeFromParent();
-	//			it2 = allBullets.erase(it2);
-	//			//TODO打开渔网
-	//			createNet(bullet);
-	//			break;
-
-	//		}
-	//	}
-	//	if (++it2 != allBullets.end())
-	//	{
-	//		
-	//	}
-	//	else
-	//	{
-	//		break;
-	//	}
-	//	
-	//}/*if (bulletNeedRemove.size() > 0){
-
-				for (Bullet* bullet : bulletNeedRemove){
-					bullet->retain();
-					BulletManage::getInstance()->removeBullet(bullet);
-					}
-				
-/*for (it = allFish.begin(); it != allFish.end(); it++){
-	for (Vector<Bullet*>::iterator it2 = allBullets.begin(); it2 != allBullets.end();){
-
-
+	for (Bullet* bullet : bulletNeedRemove){
+		bullet->retain();
+		BulletManage::getInstance()->removeBullet(bullet);
 	}
-	}*/
+
 
 	FishManage::getInstance()->removeFishWhichSwimOut();
 }
@@ -369,6 +346,10 @@ void GameLayer::endSkillBoom()
 bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
 {
 	auto pos = touch->getLocation();
+	if (onTouTurret(pos))
+	{
+		return true;
+	}
 	auto cicle = CCircle::CCCircMake(pos, 200);
 
 #if 1
@@ -397,10 +378,27 @@ bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
 				}
 			}
 			myTurret->getCoinByFish(fish);
-			FishManage::getInstance()->removeFish(fish);
+			FishManage::getInstance()->removeFish(fish,1);
 		}
 		
 	}
 	endSkillBoom();
 	return true;
+}
+
+
+bool GameLayer::onTouTurret(Point pos)
+{
+	if (myTurret->onTurretTouch(pos))
+	{
+		return true;
+	}
+	for (auto var : otherTurrets)
+	{
+		if (var->onTurretTouch(pos))
+		{
+			return true;
+		}
+	}
+	return false;
 }
