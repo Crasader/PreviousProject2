@@ -1,5 +1,4 @@
-#ifndef _NOBILITYMANAGER_H_
-#define _NOBILITYMANAGER_H_
+#pragma once
 #include "cocos2d.h"
 
 #include "config/ConfigBankrupt.h"
@@ -23,4 +22,3 @@ private:
     void addTodayRequestTime();
 };
 
-#endif

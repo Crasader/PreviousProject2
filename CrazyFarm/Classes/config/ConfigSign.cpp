@@ -29,6 +29,7 @@ void ConfigSign::onHttpRequestCompleted(HttpClient *sender, HttpResponse *respon
 	{
 		log("error buffer: %s", response->getErrorBuffer());
 		bIsGetDataSuccess = false;
+		today = SystemTime::getdaytime()->getFormatString();
 		return;
 	}
 

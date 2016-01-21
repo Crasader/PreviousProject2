@@ -240,14 +240,14 @@ void GameGuiLayer::onExit()
 
 void GameGuiLayer::settingCallback(Ref *pSender)
 {
-	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
+	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr));
 	auto layer = SettingDialog::create();
 	layer->setPosition(Point::ZERO);
 	addChild(layer,kZorderDialog);
 }
 void GameGuiLayer::showFishCallback(Ref *pSender)
 {
-	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
+	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr));
 	pause();
 }
 void GameGuiLayer::showSettingCallback(Ref*pSender)//BUG
@@ -258,23 +258,11 @@ void GameGuiLayer::showSettingCallback(Ref*pSender)//BUG
 	{
 		if (setttingBoard->isEnabled() == false)
 		{
-			setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }),nullptr));
+			setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }),nullptr));
 		}
 	}),nullptr));
 }
 
-void GameGuiLayer::showUpgradeTurretgCallback(Ref*pSender)
-{
-	setttingBoard->setEnabled(false);
-	setttingBoard->runAction(MoveBy::create(0.2, Vec2(0, -70)));
-	setttingBoard->runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]
-	{
-		if (setttingBoard->isEnabled() == false)
-		{
-			setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
-		}
-	}), nullptr));
-}
 
 void GameGuiLayer::createMermaidTaskPlane()
 {

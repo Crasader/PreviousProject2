@@ -57,18 +57,18 @@ int User::addCoins(int coins) {
     return this->getCoins();
 }
 
-int User::getNobillityCount() {
-	return UserDefault::getInstance()->getIntegerForKey(User::KEY_NOBILLITYS, 0);
-}
-
-int User::addNobillityCount(int counts) {
-	UserDefault::getInstance()->setIntegerForKey(User::KEY_NOBILLITYS,
-		this->getNobillityCount() + counts);
-	if (this->getNobillityCount() < 0) {
-		UserDefault::getInstance()->setIntegerForKey(User::KEY_NOBILLITYS, 0);
-	}
-	return this->getNobillityCount();
-}
+//int User::getNobillityCount() {
+//	return UserDefault::getInstance()->getIntegerForKey(User::KEY_NOBILLITYS, 0);
+//}
+//
+//int User::addNobillityCount(int counts) {
+//	UserDefault::getInstance()->setIntegerForKey(User::KEY_NOBILLITYS,
+//		this->getNobillityCount() + counts);
+//	if (this->getNobillityCount() < 0) {
+//		UserDefault::getInstance()->setIntegerForKey(User::KEY_NOBILLITYS, 0);
+//	}
+//	return this->getNobillityCount();
+//}
 
 int User::getDiamonds() {
     return UserDefault::getInstance()->getIntegerForKey(User::KEY_DIAMONDS, 0);
@@ -167,4 +167,9 @@ void User::syncInfo()
 	auto mo = getChargeMoney();
 	auto count = getNobillityCount();
 	HttpMannger::getInstance()->HttpToPostRequestSyncInfo(sessionid, coin, diomad, exp, lv, mo, count);
+}
+
+int User::getNobillityCount()
+{
+	return NobilityManager::getInstance()->RemainingNobilityday();
 }

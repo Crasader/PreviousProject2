@@ -58,6 +58,11 @@ public:
 private:
 	void closeButtonCallBack(Ref*psend);
 
+
+	///按钮回调
+	void payCoinCallback(Ref*psend);
+	void payDiamondCallback(Ref*psend);
 	void chankanCallBack(Ref*);
+	void setNameCallBack(Ref*);//设置昵称
 	BagView* tableviewDelegate;
 };

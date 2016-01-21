@@ -27,7 +27,6 @@ private :
 	void showFishCallback(Ref *pSender);
 	void showSettingCallback(Ref*pSender);
 	void createSettingBoard();
-	void showUpgradeTurretgCallback(Ref*pSender);
 	void createGuizuGiftLayer();
 
 	/////////美人鱼相关///////////////////////////////////////////////

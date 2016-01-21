@@ -33,7 +33,7 @@ bool ConfigBonuspool::LoadConfig() {
 		}
         
         bonuspool.allow_draw_fish_counts = doc["allow_draw_fish_counts"].GetInt();
-        
+		bonuspool.fistRewardItemid = doc["fistLuckyDraw"]["item_id"].GetInt();
 		rapidjson::Value& itemList = doc["item_list"];
 		if (!itemList.IsArray())
 		{
@@ -55,7 +55,7 @@ bool ConfigBonuspool::LoadConfig() {
                 BonuspoolRewardItem bonuspoolRewardItem;
                 bonuspoolRewardItem.item_id = val["item_id"].GetInt();
                 bonuspoolRewardItem.num = val["num"].GetInt();
-                bonuspoolRewardItem.per = val["per"].GetInt();
+                bonuspoolRewardItem.per = val["per"].GetDouble();
                 
                 bonuspoolItem.reward_list.push_back(bonuspoolRewardItem);
             }

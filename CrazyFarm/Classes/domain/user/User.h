@@ -4,6 +4,7 @@
 
 #include "config/ConfigExp.h"
 #include "config/ConfigVipLevel.h"
+#include "domain/nobility/NobilityManager.h"
 
 using namespace cocos2d;
 
@@ -22,7 +23,7 @@ public:
 	int addCoins(int coins);
 	int getCoins();
     
-	int addNobillityCount(int counts);
+	//int addNobillityCount(int counts);
 	int getNobillityCount();
 
 	int getExp(){ return UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0); }
@@ -42,6 +43,8 @@ public:
     int getChestLevel();
     bool setChestLevel(int chestLevel);
     
+
+	int getGuizuDay();
     /**
      * return true, level up!! else, return false.
      */

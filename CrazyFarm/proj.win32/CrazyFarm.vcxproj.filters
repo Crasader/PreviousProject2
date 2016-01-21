@@ -489,6 +489,9 @@
     <ClCompile Include="..\Classes\domain\user\DeviceInfo.cpp">
       <Filter>src\Interface\playinfo</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\lobby\bag\SetNameLayer.cpp">
+      <Filter>src\lobby\bag</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -871,6 +874,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\user\DeviceInfo.h">
       <Filter>src\Interface\playinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\bag\SetNameLayer.h">
+      <Filter>src\lobby\bag</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

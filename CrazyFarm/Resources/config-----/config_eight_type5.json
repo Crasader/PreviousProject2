@@ -1,0 +1,46 @@
+{	
+	"describe"	: "随机鱼产生配置,鱼群" ,
+	"version"	: 1,
+	"interval_time_start" : 4,
+	"interval_time_end" : 6,
+	"count_start"   : 1,
+	"count_end"   : 3,
+	"item_list"	:	[
+		{
+			"fish_id"	: 30,
+			"per"			: 15
+		},
+		{
+			"fish_id"	: 31,
+			"per"			: 15
+		},
+		{
+			"fish_id"	: 32,
+			"per"			: 16
+		},
+		{
+			"fish_id"	: 33,
+			"per"			: 16
+		},
+		{
+			"fish_id"	: 34,
+			"per"			: 12
+		},
+		{
+			"fish_id"	: 35,
+			"per"			: 10
+		},
+		{
+			"fish_id"	: 36,
+			"per"			: 8
+		},
+		{
+			"fish_id"	: 37,
+			"per"			: 8
+		}
+
+	]
+}
+
+
+

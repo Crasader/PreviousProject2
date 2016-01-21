@@ -1,8 +1,8 @@
 {	
 	"describe"	: "随机鱼产生配置,鱼群" ,
 	"version"	: 1,
-	"interval_time_start" : 55,
-	"interval_time_end"   : 65,
+	"interval_time_start" : 10000,
+	"interval_time_end"   : 10000,
 			"count_start" : 1,
 			"count_end"   : 3,
 	"item_list"	:	[

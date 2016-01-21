@@ -14,6 +14,7 @@ public:
 	int getMonth() const;
 	int getDay() const;
 	static SystemTime*getToday();
+	static SystemTime*getdaytime();
 	static int getNowHour();
 	const std::string& getFormatString() const;
 

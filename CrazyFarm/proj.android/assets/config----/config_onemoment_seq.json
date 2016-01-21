@@ -1,0 +1,15 @@
+{	
+	"describe"	: 	"配置手工配置运产生机制的列表和顺序" ,
+	"version"	: 	1,
+	"item_list"	:	[
+		{
+			"config_file_name" : "config_onemoment_2.json"
+		},
+		{
+			"config_file_name" : "config_onemoment_1.json"
+		}
+	]
+}
+
+
+

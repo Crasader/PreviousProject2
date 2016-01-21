@@ -217,6 +217,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\level\LevelSelectPage.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\BagCell.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\bagLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\bag\SetNameLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp" />
     <ClCompile Include="..\Classes\lobby\Nobility\NobilityLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\ScrollText.cpp" />
@@ -345,6 +346,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\level\LevelSelectPage.h" />
     <ClInclude Include="..\Classes\lobby\bag\BagCell.h" />
     <ClInclude Include="..\Classes\lobby\bag\bagLayer.h" />
+    <ClInclude Include="..\Classes\lobby\bag\SetNameLayer.h" />
     <ClInclude Include="..\Classes\lobby\LobbyScene.h" />
     <ClInclude Include="..\Classes\lobby\Nobility\NobilityLayer.h" />
     <ClInclude Include="..\Classes\lobby\ScrollText.h" />

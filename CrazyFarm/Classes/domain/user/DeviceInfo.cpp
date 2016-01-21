@@ -1,13 +1,13 @@
 #include "domain/user/DeviceInfo.h"
 
-long DeviceInfo::getImei()
+const char* DeviceInfo::getImei()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	return 493002407599521;
+	return "493002407599521";
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	return 493002407599521
+	return "493002407599521"
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	return 493002407599521;
+	return "493002407599521";
 #endif
 }
 std::string DeviceInfo::getChange_id()

@@ -2,7 +2,11 @@
 #include "config/ConfigItem.h"
 #include "domain/bag/BagManager.h"
 #include "domain/user/User.h"
+#include "lobby/bag/SetNameLayer.h"
 #include "widget/MyTableView.h"
+#include "lobby/viplayer/VipLayer.h"
+#include "lobby/Nobility/NobilityLayer.h"
+#include "lobby/shop/payLayer.h"
 enum 
 {
 	kDesignTagCell0,
@@ -208,6 +212,10 @@ bool BagLayer::init()
 		auto viplevel = LabelTTF::create(Value(user->getVipLevel()).asString().c_str(), "arial", 20);
 		viplevel->setPosition(sssize2.width*0.65, sssize2.height *0.37);
 		playinfoFram->addChild(viplevel);
+		//贵族
+		auto guizulevel = LabelTTF::create(Value(user->getNobillityCount()).asString().c_str(), "arial", 20);
+		guizulevel->setPosition(sssize2.width*0.65, sssize2.height *0.255);
+		playinfoFram->addChild(guizulevel);
 		//经验
 		//////////////////////////////////////////////////////////
 		
@@ -239,6 +247,48 @@ bool BagLayer::init()
 
 
 
+		//金币
+			auto coinFrame = Sprite::create("coinFrame.png");
+		coinFrame->setPosition(visibleSize.width*0.45, visibleSize.height*0.95);
+		addChild(coinFrame);
+		auto sssize1 = coinFrame->getContentSize();
+		auto coin = Sprite::create("coin.png");
+		coin->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		coin->setPosition(3, sssize1.height *0.49);
+		coinFrame->addChild(coin);
+
+		userCoin = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
+		userCoin->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+		userCoin->setPosition(sssize1.width*0.85, sssize1.height *0.5);
+		userCoin->setColor(Color3B(254, 248, 52));
+		coinFrame->addChild(userCoin);
+
+		auto addCoin = MenuItemImage::create("addBtn_nor.png", "addBtn_click.png", CC_CALLBACK_1(BagLayer::payCoinCallback, this));
+		addCoin->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		addCoin->setPosition(coinFrame->getPositionX() + sssize1.width*0.48, coinFrame->getPositionY());
+
+
+		//钻石
+		auto diamondFrame = Sprite::create("coinFrame.png");
+		diamondFrame->setPosition(visibleSize.width*0.74, visibleSize.height*0.95);
+		addChild(diamondFrame);
+		sssize1 = diamondFrame->getContentSize();
+		auto diamond = Sprite::create("diamond.png");
+		diamond->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		diamond->setPosition(1, sssize1.height *0.495);
+		diamond->setScale(0.8);
+		diamondFrame->addChild(diamond);
+
+		userdiamond = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
+		userdiamond->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+		userdiamond->setPosition(sssize1.width*0.85, sssize1.height *0.5);
+		userdiamond->setColor(Color3B(254, 248, 52));
+		diamondFrame->addChild(userdiamond);
+
+		auto adddiamond = MenuItemImage::create("addBtn_nor.png", "addBtn_click.png", CC_CALLBACK_1(BagLayer::payDiamondCallback, this));
+		adddiamond->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		adddiamond->setPosition(diamondFrame->getPositionX() + sssize1.width*0.48, diamondFrame->getPositionY());
+
 
 
 
@@ -251,16 +301,18 @@ bool BagLayer::init()
 
 
 		auto chakan = MenuItemImage::create("btn_small_1.png", "btn_small_2.png", CC_CALLBACK_1(BagLayer::chankanCallBack, this));
+		chakan->setName("VIP");
 		chakan->setPosition(visibleSize.width*0.48, visibleSize.height * 0.3103);
 		auto chakan1 = MenuItemImage::create("btn_small_1.png", "btn_small_2.png", CC_CALLBACK_1(BagLayer::chankanCallBack, this));
+		chakan1->setName("guizu");
 		chakan1->setPosition(visibleSize.width*0.48, visibleSize.height * 0.2303);
-		auto setname = MenuItemImage::create("btn_big_1.png", "btn_big_2.png", CC_CALLBACK_1(BagLayer::chankanCallBack, this));
+		auto setname = MenuItemImage::create("btn_setname_1.png", "btn_setname_2.png", CC_CALLBACK_1(BagLayer::setNameCallBack, this));
 		setname->setPosition(visibleSize.width*0.30, visibleSize.height * 0.125);
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(BagLayer::closeButtonCallBack, this));
 		close->setPosition(sssize.width/2 + bagFram->getPositionX(), sssize.height);
-		auto menu = Menu::create(close, chakan,chakan1,setname,nullptr);
+		auto menu = Menu::create(close, chakan,chakan1,setname,addCoin,adddiamond,nullptr);
 		menu->setPosition(Point::ZERO); 
 		addChild(menu);
 
@@ -314,5 +366,38 @@ void BagLayer::closeButtonCallBack(Ref*psend)
 
 void BagLayer::chankanCallBack(Ref*pesend)
 {
+	Layer *layer = nullptr;
+	auto name = ((Node*)pesend)->getName();
+	if (name == "VIP")
+	{
+		layer = VIPLayer::create();
+	
+	}
+	else if (name == "guizu")
+	{
+		layer = NobilityLayer::createLayer();
+		
+	}
+	layer->setPosition(0, 0);
+	addChild(layer, 10);
+}
 
+void BagLayer::setNameCallBack(Ref*psend)
+{
+	auto layer = SetNameLayer::create();
+	layer->setPosition(Point::ZERO);
+	addChild(layer,10);
+}
+
+void BagLayer::payCoinCallback(Ref*psend)
+{
+	auto paylayer = payLayer::createLayer(1);
+	paylayer->setPosition(Point::ZERO);
+	addChild(paylayer, 20);
+}
+void BagLayer::payDiamondCallback(Ref*psend)
+{
+	auto paylayer = payLayer::createLayer(2);
+	paylayer->setPosition(Point::ZERO);
+	addChild(paylayer, 20);
 }

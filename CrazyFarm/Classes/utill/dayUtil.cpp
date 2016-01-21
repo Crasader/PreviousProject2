@@ -128,12 +128,36 @@ SystemTime*SystemTime::getToday()
 	sprintf(buffer, "%d-%02d-%02d %02d:%02d:%02d",
 		ptm->tm_year + 1900, ptm->tm_mon + 1, ptm->tm_mday,
 		ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
-	CCLOG("%s", buffer);
+	log("%s", buffer);
 	SystemTime* today = new SystemTime(buffer);
 	return today;
 }
 
 
+SystemTime*SystemTime::getdaytime()
+{
+	struct tm *ptm;
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	struct timeval now;
+	gettimeofday(&now, NULL);
+	ptm = localtime(&now.tv_sec);
+#endif
+
+#if ( CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 )
+	time_t timep;
+	time(&timep);
+	ptm = localtime(&timep);
+#endif
+
+	// Format: 2015-08-19 17:51:36
+	char buffer[128] = { 0 };
+	sprintf(buffer, "%d-%02d-%02d",
+		ptm->tm_year + 1900, ptm->tm_mon + 1, ptm->tm_mday);
+	CCLOG("%s", buffer);
+	SystemTime* today = new SystemTime(buffer);
+	return today;
+}
 int SystemTime::getNowHour()
 {
 	struct tm *ptm;

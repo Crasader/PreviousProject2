@@ -39,6 +39,10 @@ int NobilityManager::RemainingNobilityday()
 	int day;
 	auto today = SystemTime::getToday();
 	auto stayday = UserDefault::getInstance()->getStringForKey(KEY_STARTDAY, "-1");
+	if (stayday =="-1")
+	{
+		return 0;
+	}
 	int diffday = SystemTime::diffDayByAandB(new SystemTime(stayday), today);
 	auto steps = UserDefault::getInstance()->getIntegerForKey(KEY_STEPS, 0);
 	day = steps - diffday;
@@ -101,7 +105,6 @@ void NobilityManager::addStepsDay(int dayNum)
 	auto today = SystemTime::getToday()->getFormatString();
 	auto stayday = UserDefault::getInstance()->getStringForKey(KEY_STARTDAY, "-1");
 	auto steps = UserDefault::getInstance()->getIntegerForKey(KEY_STEPS, 0);
-	User::getInstance()->addNobillityCount(1);
 	if (stayday == "-1")
 	{
 		//从来没有购买过

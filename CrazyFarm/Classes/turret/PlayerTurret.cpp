@@ -6,12 +6,11 @@
 #include "data/GameData.h"
 #include "config/ConfigVipTurrent.h"
 #include "config/ConfigNormalTurrent.h"
-#include "domain/bankrupt/BankruptManager.h"
 #include "domain/bonuspool/BonusPoolManager.h"
 #include "core/GameLayer.h"
 #include "domain/mermaid/MermaidTask.h"
 #include "core/showTurretLayer.h"
-
+#include "domain/bankrupt/BankruptManager.h"
 enum 
 {
 	kTagBankrupt = 20

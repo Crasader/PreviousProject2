@@ -10,7 +10,7 @@ USING_NS_CC;
 struct BonuspoolRewardItem {
     int item_id;
     int num;
-    int per;
+    float per;
 };
 
 struct BonuspoolItem {
@@ -21,6 +21,7 @@ struct BonuspoolItem {
 
 struct Bonuspool {
     int allow_draw_fish_counts;
+	int fistRewardItemid;
     std::vector<BonuspoolItem> bonuspoolItems;
 };
 

@@ -24,6 +24,11 @@
   
      <key>wopaizaiXXming</key>
   <string>我排在多少              名</string>
+  
+     <key>nichengTip</key>
+  <string>昵称最多不能超过八个字</string>
+  
+  
   </dict> 
 
 </array>

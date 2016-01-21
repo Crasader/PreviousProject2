@@ -20,7 +20,6 @@ void FishAniMannage::destroyInstance(){
 bool FishAniMannage::loadAniByJsonAndPlist(const char* jsonName, const char* plistName)
 {
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plistName);
-	log("read json =%s", jsonName);
 	rapidjson::Document doc;
 	if (!FileUtils::getInstance()->isFileExist(jsonName))
 	{
@@ -31,14 +30,12 @@ bool FishAniMannage::loadAniByJsonAndPlist(const char* jsonName, const char* pli
 	doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
 	if (doc.HasParseError())
 	{
-		log("get json data err!");
 		return false;
 	}
 
 	rapidjson::Value& ani_list = doc["ani_list"];
 	if (!ani_list.IsArray())
 	{
-		log("The data is not json");
 		return false;
 	}
 	std::vector<std::string> anis;

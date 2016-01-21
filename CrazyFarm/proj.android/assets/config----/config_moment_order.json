@@ -1,0 +1,31 @@
+{	
+	"describe": "配置moment序列",
+	"version" : 1,
+	"item_list": [
+		[
+			{
+			"moment_id"	: 8,
+			"per"		: 100
+			}
+		],
+		[
+			{
+			"moment_id"	: 2,
+			"per"		: 50
+			},
+			{
+			"moment_id"	: 4,
+			"per"		: 50
+			}
+		],
+		[
+			{
+			"moment_id"	: 8,
+			"per"		: 100
+			}
+		]	
+	]
+}
+
+
+
