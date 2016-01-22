@@ -1,6 +1,7 @@
 #include "domain/skill/skillManager.h"
 #include "domain/bag/BagManager.h"
 #include "fish/FishManage.h"
+#include "utill/AnimationUtil.h"
 skillManager* skillManager::_instance = NULL;
 
 skillManager::skillManager(){
@@ -35,11 +36,18 @@ int skillManager::getSKillNumById(int skillid)
 
 void skillManager::useSkillSummon()
 {
+	auto randPos = Vec2(100, 150 + rand() % 200);
+	auto aniNode = Sprite::create();
+	aniNode->setPosition(randPos);
+	m_gamelayer->addChild(aniNode, 10);
+	aniNode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniZhaoHuan"), 2), CallFunc::create([=]{
 	auto fish = FishManage::getInstance()->createFishSingle(40 + rand() % 5);
-	fish->setPosition(Vec2(-100, 150+rand()%200));
+	fish->setPosition(randPos);
 	fish->setMoveAngle(0);
-	fish->move(3);
-	m_gamelayer->addChild(fish);
+	fish->setScale(0);
+	fish->runAction(Sequence::create(ScaleTo::create(0.4, 1), CallFunc::create([=]{fish->move(3); aniNode->removeFromParentAndCleanup(1); }), nullptr));
+	m_gamelayer->addChild(fish); 
+	}),nullptr));
 }
 
 void skillManager::useSkillFreeze()
@@ -49,8 +57,8 @@ void skillManager::useSkillFreeze()
 	{
 		fish->pause();
 		fish->ShadePause();
-		m_gamelayer->unscheduleUpdate();
 	}
+	m_gamelayer->onFreezeBegin();
 }
 
 void skillManager::useSkillFreezeEnd()
@@ -60,8 +68,8 @@ void skillManager::useSkillFreezeEnd()
 	{
 		fish->resume();
 		fish->ShadeResume();
-		m_gamelayer->scheduleUpdate();
 	}
+	m_gamelayer->onFreezeEnd();
 }
 
 void skillManager::useSkillLock()

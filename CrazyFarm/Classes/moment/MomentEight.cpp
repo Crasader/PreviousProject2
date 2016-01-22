@@ -103,21 +103,13 @@ MomentEightItemPer MomentEight::getFishByRandVec(std::vector<MomentEightItemPer>
 	{
 		vec.at(i).fish_id = momentEightItemPers[i].fish_id;
 		vec.at(i).fishRoute = momentEightItemPers[i].fishRoute;
-		if (i == 0)
-		{
-			vec.at(0).per = 0;
-		}
-		else
-		{
-			int lastPer = (i == 0 ? 0 : vec[i - 1].per);
-			vec.at(i).per = lastPer + momentEightItemPers[i].per;
-		}
-
+		int lastPer = (i == 0 ? 0 : vec[i - 1].per);
+		vec.at(i).per = lastPer + momentEightItemPers[i].per;
 	}
 	int randNum = rand() % 100 + 1;
-	for (auto ite = vec.rbegin(); ite != vec.rend(); ite++)
+	for (auto ite = vec.begin(); ite != vec.end(); ite++)
 	{
-		if (randNum > ite->per)
+		if (randNum <ite->per)
 		{
 			return *ite;
 		}

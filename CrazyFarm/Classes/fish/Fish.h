@@ -4,17 +4,8 @@
 #include "utill/CircleBy.h"
 #include "config/ConfigFish.h"
 #include "fish/FishRouteData.h"
+#include "fish/FishShader.h"
 using namespace cocos2d;
-
-#define FISHTYPE_1 1
-#define FISHTYPE_2 2
-#define FISHTYPE_3 3
-#define FISHTYPE_4 4
-#define FISHTYPE_5 5
-#define FISHTYPE_6 6
-#define FISHTYPE_7 7
-#define FISHTYPE_8 8
-
 
 enum swimDirection
 {
@@ -23,10 +14,15 @@ enum swimDirection
 	LEFT,
 	RIGHT
 };
+struct ShadeData
+{
+	int uiid;
+	Point pos;
+	ShadeData(int id, Point p){ uiid = id; pos = p; };
+};
 
 
-using namespace std;
-
+class FishShader;
 class Fish :public Sprite{
 public:
 	virtual bool init();
@@ -41,10 +37,13 @@ public:
     int getFishType();
 	int getFishExperience(){ return experience; };
 	int getBounsPoorGold(){ return BonusPoorGold; };
-	void addShader();
+	virtual void addShader();
 	void removeself();		
 	void onDead();
-
+	void onHeart();
+	void onFreeze();
+	void onFreezeResume();
+	void createDropOutAniByCoin(Point belongPos,int curMoney);
 protected:
 	
 	void update(float);
@@ -55,8 +54,6 @@ protected:
 	int fishGold;//鱼的金钱
 	int BonusPoorGold;//奖金池的金币
 	float  rotation;//旋转的角度
-	string resoureName;//资源名称
-	string getSrcByType(int type);
 	int getFishGoldByType(int type);
 	int getFishExperienceByType(int type);
 	float getFishSpeedByType(int type);
@@ -82,7 +79,9 @@ protected:
 	//路径
 	Route m_Route;
 	//阴影
-	Sprite* m_shadesprite = nullptr;
+	std::vector<ShadeData> shadedatas;
+	Vector<Sprite*>  m_shadesprites;
+	FishShader* m_shadesprite = nullptr;
 	void ShadeUpdata(float dt);
 	void ShadeResume();
 	void ShadePause();

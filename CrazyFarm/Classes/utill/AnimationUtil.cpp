@@ -69,7 +69,7 @@ void AnimationUtil::addAnimationBySpriteName(const char *filepath, const char *a
 	if (AnimationCache::getInstance()->getAnimation(animatname) != NULL){
 		return;
 	}
-	char str[30] = { 0 };
+	char str[50] = { 0 };
 
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(time / numOfpng);

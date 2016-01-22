@@ -7,7 +7,13 @@ bool TurnTableDialog::init()
 	Layer::init();
 	bool bRet = false;
 	do
-	{  
+	{ 
+
+		auto colorlayer = LayerColor::create();
+		colorlayer->setColor(ccc3(0, 0, 0));
+		colorlayer->setOpacity(180);
+		addChild(colorlayer, -1);
+
 		auto size = Director::getInstance()->getVisibleSize();
 		auto table = CTurntable::create();
 		table->setPosition(size / 2);

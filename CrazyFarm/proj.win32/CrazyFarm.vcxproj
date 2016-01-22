@@ -212,6 +212,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\fish\FishGroupData.cpp" />
     <ClCompile Include="..\Classes\fish\FishManage.cpp" />
     <ClCompile Include="..\Classes\fish\FishRouteData.cpp" />
+    <ClCompile Include="..\Classes\fish\FishShader.cpp" />
     <ClCompile Include="..\Classes\level\LevelLayer.cpp" />
     <ClCompile Include="..\Classes\level\LevelScene.cpp" />
     <ClCompile Include="..\Classes\level\LevelSelectPage.cpp" />
@@ -341,6 +342,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\fish\FishGroupData.h" />
     <ClInclude Include="..\Classes\fish\FishManage.h" />
     <ClInclude Include="..\Classes\fish\FishRouteData.h" />
+    <ClInclude Include="..\Classes\fish\FishShader.h" />
     <ClInclude Include="..\Classes\level\LevelLayer.h" />
     <ClInclude Include="..\Classes\level\LevelScene.h" />
     <ClInclude Include="..\Classes\level\LevelSelectPage.h" />

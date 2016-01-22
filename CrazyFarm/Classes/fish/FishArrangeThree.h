@@ -9,4 +9,5 @@ public:
 	CREATE_FUNC(FishArrangeThree);
 	virtual void initFish(int fishType);
 	virtual void initFishAnim(int fishType);
+	void addShader(){};
 };

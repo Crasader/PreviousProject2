@@ -21,6 +21,14 @@ struct FishData {
     int bonus_pool_reward; // 奖金池奖励基数
     int be_hit_logic;   // 受击中反应
 };
+struct FishDropCoin
+{
+	std::string aniName;
+	int num;
+	FishDropCoin(){};
+	FishDropCoin(std::string name, int n){ aniName = name, num = n; };
+};
+
 
 
 class ConfigFish {
@@ -34,10 +42,12 @@ public:
 	std::map<int, FishData> getFishes();
 	FishData getFish(int fishId);
 
-    
+	void initFishDropCoinData();
+	FishDropCoin getFishDropCoinData(int uiid);
 private:
 	static ConfigFish* _instance;
 	
 	std::map<int, FishData> fishes;
+	std::map<int, FishDropCoin> FishDropCoinDatas;
 };
 

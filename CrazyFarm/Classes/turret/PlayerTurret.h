@@ -62,7 +62,7 @@ public:
 	  void update(float delta); 
 	  ///更新炮塔信息
 	  void refreshTurretInfo();
-	  void setLockFish(Fish* fish){ lockFish = fish; };
+	  void setLockFish(Fish* fish);
 	  Fish*getLockFish(){ return lockFish; };
 	  //显示玩家信息
 	  bool onTurretTouch(Point pos);
@@ -92,5 +92,5 @@ private:
 	  RoomPlayer* m_robotData;
 	  Fish* lockFish = nullptr;
 	  CC_SYNTHESIZE(Point, targetPos, TargetPos);
-
+	  Sprite* aniFishNode=NULL;
 };

@@ -90,8 +90,8 @@ void Net::checkCatchFish(){
 	auto turretdata = m_bullet->getTurretdata();
 	for (Fish* fish : allFish){
 		if (collision(this,fish)){
-			int k = rand() % 100 + 1;
-			if (k>(100-fish->getGrabProbability()*100*turretdata.catch_per))
+			float k = rand_0_1();
+			if (k<(fish->getGrabProbability()*turretdata.catch_per))
 			{
 				fishNeedRemove.pushBack(fish);
 			//uiÒÆ³ı

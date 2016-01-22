@@ -105,7 +105,7 @@ int getCurrencyRankByRange(int startRank, int endRank, int startValue, int endVa
 
 std::string SpliceDataForPostHttp(std::vector<std::string> strs)
 {
-	std:string s;
+	std::string s;
 	for (auto var:strs)
 	{
 		s += "&";

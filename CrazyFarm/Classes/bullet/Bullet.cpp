@@ -111,3 +111,11 @@ void Bullet::getCoinForFish(Vector<Fish*> fishs)
 		pPlayerTurret->getCoinByFish(var);
 	}
 }
+
+void Bullet::moveTolockFishUpadate(float dt)
+{
+	if (target!=nullptr)
+	{
+	//TODO::改写成跟踪模式，每帧获得目标位置
+	}
+}

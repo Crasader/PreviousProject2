@@ -311,21 +311,24 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 {
 	
 	///需要鱼的配置属性
+	int num = 0;
+	
 	if (isRobot)
 	{
-		auto num = fish->getFishGold() * m_turretdata.multiple;
+		num = fish->getFishGold() * m_turretdata.multiple;
 		auto nowNum = Value(m_CoinLabel->getString()).asInt();
 		m_CoinLabel->setString(Value(nowNum + num).asString().c_str());
+		
 	}
 	else
 	{
 		m_turretdata = GameData::getInstance()->getTurrentData();
 		//获得金币
-		auto num = fish->getFishGold()* m_turretdata.multiple;
+		num = fish->getFishGold()* m_turretdata.multiple;
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
 		//获得经验
-		num = fish->getFishExperience();
-		User::getInstance()->addExp(num);
+		auto exp = fish->getFishExperience();
+		User::getInstance()->addExp(exp);
 
 		//奖金池
 		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
@@ -339,6 +342,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 			//TODO::在鱼上得到奖品UI显示
 		}
 	}
+	fish->createDropOutAniByCoin(getPosition(),num);
 }
 
 void PlayerTurret::onExit()
@@ -396,10 +400,19 @@ void PlayerTurret::refreshTurretInfo()
 
 void PlayerTurret::beginLockShoot()
 {
+	auto aniNode = Sprite::create();
+	aniNode->setPosition(m_turret->getPosition());
+	addChild(aniNode, 5, "aniTurretLock");
+	aniNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniTurretLock")));
 	schedule(schedule_selector(PlayerTurret::rorateAndShootOnlock),0.2f);
 }
 void PlayerTurret::endLockShoot()
 {
+	getChildByName("aniTurretLock")->removeFromParentAndCleanup(1);
+	if (aniFishNode&&aniFishNode->getParent())
+	{
+		aniFishNode->removeFromParentAndCleanup(1);
+	}
 	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlock));
 }
 
@@ -445,9 +458,16 @@ void PlayerTurret::shootOnLock(float dt){
 	auto degree = m_turret->getRotation();
 	auto bullet = BulletManage::getInstance()->createBulletNoinPool(turretdata, 90);
 	bullet->setRotation(degree);
+	bullet->unscheduleUpdate();
+	auto pos = m_turret->getTampionPos();
 	bullet->setPosition(m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
+	auto duration = pos.distance(lockFish->getPosition()) / 800.0f;
+	bullet->moveToLockfish(duration, lockFish);
 	getParent()->addChild(bullet);
+
+
+
 
 	m_turret->shoot();
 
@@ -463,10 +483,12 @@ void PlayerTurret::shootOnLock(float dt){
 void PlayerTurret::beginAutoShoot()
 {
 	setTargetPos(Vec2(-1, -1));
+
 	schedule(CC_CALLBACK_1(PlayerTurret::rorateAndShootOnAuto,this),0.2f,"AutoShoot"); //TODO:子弹发射速度。需要配置
 }
 void PlayerTurret::endAutoShoot()
 {
+
 	unschedule("AutoShoot");
 }
 
@@ -523,7 +545,32 @@ void PlayerTurret::shootOnAuto(float dt){
 
 }
 
+void PlayerTurret::setLockFish(Fish* fish)
+{
+	lockFish = fish;
+	if (fish == nullptr)
+	{
+		if (aniFishNode)
+		{
+			aniFishNode->removeFromParentAndCleanup(1);
+			aniFishNode = nullptr;
+		}
+		return;
+	}
+	
+	if (aniFishNode)
+	{
+		if (aniFishNode->getParent() == NULL)
+		{
+			aniFishNode->removeAllChildrenWithCleanup(1);
+		}
+	}
 
+	aniFishNode = Sprite::create();
+	aniFishNode->setPosition(fish->getContentSize() / 2);
+	fish->addChild(aniFishNode);
+	aniFishNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniFishLock")));
+}
 
 
 

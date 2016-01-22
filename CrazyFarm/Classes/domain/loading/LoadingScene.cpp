@@ -63,6 +63,13 @@ void LoadingScene::loadRes()
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/bubble/aniBubble%d.png", "aniBubble", 2.0f, 19);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/net_ice/netIce%d.png", "iceNet", 0.7f, 18);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/net_fire/netFire%d.png", "fireNet", 0.7f, 18);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/gold/goldAni_%d.png", "aniGold", 0.3f, 5);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/silver/yinbi_%d.png", "aniSilver", 0.3f, 5);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/zhaohuan/TX_ZhaoHuan_%d.png", "aniZhaoHuan", 1.1f, 37);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/TX_DongJie/TX_qpdj_%d.png", "aniTXTdj", 1.1f, 14);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/TX_BaoZha/TX_BaoZha_%d.png", "aniTXTBoom", 2.2f, 28);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/TX_ShiYongJiNeng/TX_SYJN_%d.png", "aniTurretLock", 0.5f, 6);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("ani/TX_MiaoZhun/TX_MiaoZhun_%d.png", "aniFishLock", 0.8f, 10);
 	//load fish ani
 	int i = 1;
 	for (int i = 1; i < 100; i++)

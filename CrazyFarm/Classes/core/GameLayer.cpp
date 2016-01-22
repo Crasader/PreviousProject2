@@ -13,7 +13,6 @@
 #include "utill/CCircle.h"
 #include "domain/gameConfig/gameConfig.h"
 
-#define kTagBaseturret 10
 #define BOOMRADIUS 300
 enum
 {
@@ -24,6 +23,13 @@ enum
 	kZorderBullet = 7,
 	kZorderTurrent = 8
 };
+enum
+{
+	kTagBaseturret= 10,
+	kTagFrezzebg  = 11,
+	kTagBoomAniNode = 12
+};
+
 
 bool GameLayer::init(){
 	if (!Layer::init())
@@ -34,7 +40,7 @@ bool GameLayer::init(){
 	skillManager::getInstance()->setlayer(this);
 	//add game bg to this layer
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Sprite* game_bg = Sprite::create("ani/water/aniWater1.jpg");
+	game_bg = Sprite::create("ani/water/aniWater1.jpg");
 	game_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(game_bg,-2);
 	game_bg->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniWater")));
@@ -291,6 +297,7 @@ void GameLayer::collisionUpdate(float dt)
 				bullet->removeFromParent();
 				//TODO打开渔网
 				createNet(bullet);
+				fish->onHeart();
 				break;
 			}
 		}
@@ -350,26 +357,18 @@ void GameLayer::endSkillBoom()
 }
 
 
-
-
-bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
+void GameLayer::onBoomCatchFish(Point pos)
 {
-	auto pos = touch->getLocation();
-	if (onTouTurret(pos))
-	{
-		return true;
-	}
-	auto cicle = CCircle::CCCircMake(pos, 200);
 
+	auto cicle = CCircle::CCCircMake(pos, 200);
 #if 1
 	auto draw = DrawNode::create();
-	draw->drawCircle(cicle.getMCenter(), cicle.getMRadius(),360, 100, false,Color4F::RED);
+	draw->drawCircle(cicle.getMCenter(), cicle.getMRadius(), 360, 100, false, Color4F::RED);
 	addChild(draw);
 #endif
-
 	auto fishPool = FishManage::getInstance()->getAllFishInPool();
 	auto data = GameData::getInstance();
-	for (auto fish:fishPool)
+	for (auto fish : fishPool)
 	{
 		auto rect = fish->getBoundingBox();
 		if (cicle.intersectsRect(rect))
@@ -387,11 +386,32 @@ bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
 				}
 			}
 			myTurret->getCoinByFish(fish);
-			FishManage::getInstance()->removeFish(fish,1);
+			FishManage::getInstance()->removeFish(fish, 1);
 		}
-		
+
 	}
 	endSkillBoom();
+}
+
+bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
+{
+	auto pos = touch->getLocation();
+	if (onTouTurret(pos))
+	{
+		return true;
+	}
+	auto sp = Sprite::create("sign_1006.png");
+	sp->setPosition(myTurret->getPosition());
+	sp->runAction(Sequence::create(Spawn::create(ScaleTo::create(0.13f, 1), MoveTo::create(0.13f, pos), nullptr), RemoveSelf::create(), CallFunc::create([=]{
+		auto anisp = Sprite::create();
+		anisp->setPosition(pos);
+		addChild(anisp);
+		onBoomCatchFish(pos);
+		anisp->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniTXTBoom"),RemoveSelf::create(),nullptr));
+	}),nullptr));
+	addChild(sp);
+
+
 	return true;
 }
 
@@ -456,4 +476,39 @@ bool GameLayer::AutoShootTouchEvent(Touch *touch, Event *event)
 		return false;
 	}
 	myTurret->setTargetPos(touchPos);
+}
+
+void GameLayer::onFreezeBegin()
+{
+	unscheduleUpdate();
+	auto bg = ProgressTimer::create(Sprite::create("iceFram4.png"));
+	bg->setType(ProgressTimer::Type::BAR);
+	bg->setMidpoint(Vec2(0, 0));
+	bg->setBarChangeRate(Vec2(1, 0));
+	addChild(bg, 0, kTagFrezzebg);
+	bg->setPosition(480,270);
+	bg->runAction(ProgressTo::create(2, 100));
+
+	auto aniSp = ProgressTimer::create(Sprite::create("ani/TX_DongJie/TX_qpdj_1.png"));
+	aniSp->setType(ProgressTimer::Type::BAR);
+	aniSp->setMidpoint(Vec2(0, 0));
+	aniSp->setBarChangeRate(Vec2(1, 0));
+	bg->addChild(aniSp);
+	aniSp->setPosition(282, 412);
+	aniSp->runAction(Sequence::create(ProgressTo::create(1, 100), CallFunc::create([=]{
+		auto anisp = Sprite::create();
+		anisp->setPosition(aniSp->getPosition());
+		bg->addChild(anisp);
+		anisp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniTXTdj")));
+		aniSp->removeFromParentAndCleanup(1);
+			
+	}
+	), nullptr));
+	
+}
+
+void GameLayer::onFreezeEnd()
+{
+	scheduleUpdate();
+	getChildByTag(kTagFrezzebg)->removeFromParentAndCleanup(1);
 }

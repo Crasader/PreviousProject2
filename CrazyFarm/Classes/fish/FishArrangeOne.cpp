@@ -50,3 +50,7 @@ void FishArrangeOne::initFishAnim(int fishType)
 	sp->runAction(ac2);
 	addChild(sp);
 }
+void FishArrangeOne::addShader()
+{
+
+}

@@ -6,7 +6,7 @@
       "vip_turrent_id"    :	1,
       "turrent_ui_id"     : 3,    
       "net_per"	          :	1.5,  
-      "catch_per"         :	1.02, 
+      "catch_per"         :	1.01, 
       "ui_type"           : 1,   
       "net_type"          : 2     
     },
@@ -14,7 +14,7 @@
       "vip_turrent_id"    : 2,
       "turrent_ui_id"     : 4,
       "net_per"           : 2.0,
-      "catch_per"         : 1.02,
+      "catch_per"         : 1.01,
       "ui_type"           : 1,  
       "net_type"          : 3   
     },
@@ -22,7 +22,7 @@
       "vip_turrent_id"    : 3,
       "turrent_ui_id"     : 5,
       "net_per"           : 2.0,
-      "catch_per"         : 1.04,
+      "catch_per"         : 1.02,
       "ui_type"           : 1,  
       "net_type"          : 3   
     },
@@ -30,7 +30,7 @@
       "vip_turrent_id"    : 4,
       "turrent_ui_id"     : 6,
       "net_per"           : 2.0,
-      "catch_per"         : 1.06,
+      "catch_per"         : 1.02,
       "ui_type"           : 2,  
       "net_type"          : 3   
     },
@@ -38,7 +38,7 @@
       "vip_turrent_id"    : 5,
       "turrent_ui_id"     : 7,
       "net_per"           : 2.0,
-      "catch_per"         : 1.08,
+      "catch_per"         : 1.03,
       "ui_type"           : 2,  
       "net_type"          : 3   
     },
@@ -46,7 +46,7 @@
       "vip_turrent_id"    : 6,
       "turrent_ui_id"     : 8,
       "net_per"           : 2.0,
-      "catch_per"         : 1.10,
+      "catch_per"         : 1.04,
       "ui_type"           : 2,  
       "net_type"          : 3   
     },
@@ -54,7 +54,7 @@
       "vip_turrent_id"    : 7,
       "turrent_ui_id"     : 9,
       "net_per"           : 2.0,
-      "catch_per"         : 1.12,
+      "catch_per"         : 1.05,
       "ui_type"           : 2,  
       "net_type"          : 3   
     },
@@ -62,7 +62,7 @@
       "vip_turrent_id"    : 8,
       "turrent_ui_id"     : 10,
       "net_per"           : 2.0,
-      "catch_per"         : 1.14,
+      "catch_per"         : 1.06,
       "ui_type"           : 2,  
       "net_type"          : 3   
     },
@@ -70,7 +70,7 @@
       "vip_turrent_id"    : 9,
       "turrent_ui_id"     : 11,
       "net_per"           : 2.0,
-      "catch_per"         : 1.16,
+      "catch_per"         : 1.07,
       "ui_type"           : 2,  
       "net_type"          : 3   
     }

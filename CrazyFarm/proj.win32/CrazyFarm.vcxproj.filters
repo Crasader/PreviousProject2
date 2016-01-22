@@ -492,6 +492,9 @@
     <ClCompile Include="..\Classes\lobby\bag\SetNameLayer.cpp">
       <Filter>src\lobby\bag</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\fish\FishShader.cpp">
+      <Filter>src\fish</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -877,6 +880,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\bag\SetNameLayer.h">
       <Filter>src\lobby\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\fish\FishShader.h">
+      <Filter>src\fish</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

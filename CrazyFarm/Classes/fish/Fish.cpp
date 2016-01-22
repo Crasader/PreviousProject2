@@ -3,6 +3,11 @@
 #include "utill/CircleMoveTo.h"
 #include "FishManage.h"
 #include "FishAniMannage.h"
+#include "utill/AnimationUtil.h"
+enum 
+{
+	kTagAcNormal = 10
+};
 bool Fish::init(){
 	if (!Sprite::init())
 	{
@@ -21,7 +26,6 @@ void Fish::initFish(int fishType){
 	this->fishType = fishType;
 	this->speed = fishdata.move_speed;
 	this->experience = getFishExperienceByType(fishType);
-	this->resoureName = getSrcByType(fishType);///2_02.png
 	BonusPoorGold = fishdata.bonus_pool_reward;
 	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
@@ -34,10 +38,11 @@ void Fish::initFishAnim(int fishType){
 
 	auto acName = String::createWithFormat("swim_%d", fishType);
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+	ac->setTag(kTagAcNormal);
 	runAction(ac);
 
 	
-	
+	//shadedatas.push_back(ShadeData(fishType,  getContentSize().width*0.15,  getContentSize().height*-0.15));
 
 }
 void Fish::update(float dt)
@@ -53,30 +58,6 @@ void Fish::update(float dt)
 	}
 }
 
-string Fish::getSrcByType(int type){
-	/*return FishAniMannage::getInstance()->getSpriteById(type);*/
-	switch (type)
-	{
-	case FISHTYPE_1:
-		return "0_0";
-	case FISHTYPE_2:
-		return "2_0";
-	case FISHTYPE_3:
-		return "5_0";
-	case FISHTYPE_4:
-		return "8_0";
-	case FISHTYPE_5:
-		return "10_0";
-	case FISHTYPE_6:
-		return "11_0";
-	case FISHTYPE_7:
-		return "14_0";
-	case FISHTYPE_8:
-		return "16_0";
-	default:
-		return "0_0";
-	}
-}
 
 
 int Fish::getFishGoldByType(int type){
@@ -166,6 +147,7 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 	if (degree < 0){
 		degree += 360;
 	}
+	pause();
 	//图片自身朝下
 	float next_x = speed*cos(CC_DEGREES_TO_RADIANS(degree));
 	float next_y = speed*sin(CC_DEGREES_TO_RADIANS(degree));
@@ -262,7 +244,7 @@ void Fish::setRoute(int routeTag)
 	if (actionArray.size()>0)
 	{
 		auto acNoRepeat = Sequence::create(actionArray);
-		acNoRepeat->setTag(888);
+		acNoRepeat->setTag(kTagAcNormal);
 		this->runAction(acNoRepeat);
 		delay = DelayTime::create(acNoRepeat->getDuration());
 	}
@@ -270,7 +252,9 @@ void Fish::setRoute(int routeTag)
 	{
 		delay = DelayTime::create(0);
 	}
-	this->runAction(Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{FishManage::getInstance()->removeFish(this,0); }), nullptr));
+	auto ac = Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{FishManage::getInstance()->removeFish(this, 0); }), nullptr);
+	ac->setTag(kTagAcNormal);
+	this->runAction(ac);
 	if (RepetActionArray.size() > 0)
 	{
 		this->runAction(Sequence::create(delay, CallFunc::create([&](){
@@ -352,18 +336,10 @@ void Fish::setMonentEightRoute(int routeTag)
 
 void Fish::addShader()
 {
+	m_shadesprite = FishShader::createShader(this);
 
 
-	auto acName = String::createWithFormat("swim_%d", fishType);
-	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
-
-	m_shadesprite = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(fishType));
-	m_shadesprite->setPosition(getPositionX() + getContentSize().width*0.15, getPositionY() + getContentSize().height*-0.15);
-	getParent()->addChild(m_shadesprite, 4);
-	m_shadesprite->setColor(Color3B::BLACK);
-	m_shadesprite->setOpacity(GLubyte(150));
-	m_shadesprite->runAction(ac);
-	schedule(schedule_selector(Fish::ShadeUpdata),0.0f,CC_REPEAT_FOREVER,0.0F);
+	
 }
 void Fish::ShadeUpdata(float dt)
 {
@@ -387,18 +363,43 @@ int Fish::getFishType() {
 
 void Fish::removeself()
 {
-	m_shadesprite->removeFromParentAndCleanup(1);
+	
+	if (m_shadesprite)
+	{
+		m_shadesprite->removeFromParentAndCleanup(1);
+	}
 	removeFromParentAndCleanup(1);
 }
 
+void Fish::onHeart()
+{
+	auto action = Sequence::create(
+		TintTo::create(0.1f, 255, 0, 0),
+		TintTo::create(0.1f, 255, 255, 255),
+		nullptr);
+	runAction(action);
+}
+void Fish::onFreeze()
+{
+	//冻结时候无受击动画处理
+	//_scheduler->pauseTarget(this);
+	//stopAllActionsByTag(kTagAcNormal);
+	//_eventDispatcher->pauseEventListenersForTarget(this);
+}
+void Fish::onFreezeResume()
+{
+
+	//_scheduler->pauseTarget(this);
+	//pauseAllActionsByTag(kTagAcNormal);
+	//_eventDispatcher->pauseEventListenersForTarget(this);
+}
 
 void Fish::onDead()
 {
 	stopAllActions();
 	auto acName = String::createWithFormat("dead_%d", fishType);
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
-	auto ac1 = ac->clone();
-	m_shadesprite->runAction(ac1);
+	m_shadesprite->onDead();
 	runAction(Sequence::create(ac, CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
 }
 
@@ -418,4 +419,48 @@ void Fish::ShadePause()
 	{
 		m_shadesprite->pause();
 	}
+}
+
+void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
+{
+	auto node = Node::create(); 
+	node->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	node->setPosition(getPositionX(), getPositionY() + 150);
+	getParent()->addChild(node);
+	belongPos = node->convertToNodeSpace(belongPos);
+	auto data = ConfigFish::getInstance()->getFishDropCoinData(ConfigFish::getInstance()->getFish(fishType).uiId);
+	Sprite*sp;
+	for (int i = 0; i < data.num;i++)
+	{
+		float diffX=30;
+		float diffY=20;
+		float orgY = 40;
+		sp = Sprite::create();
+		if (data.num>5)//两排
+		{
+			int perLine = data.num / 2;
+			sp->setPosition(diffX*(i % perLine), orgY+diffY*(i / perLine));
+		}
+		else           //一排
+		{
+			sp->setPosition(diffX*(i % 5), orgY+diffY*(i / 5));
+		}
+		sp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate(data.aniName.c_str())));
+		sp->runAction(Sequence::create(DelayTime::create(0.1f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, belongPos),RemoveSelf::create(1),nullptr));
+		node->addChild(sp);
+	}
+	auto str = String::createWithFormat(":%d", curMoney);
+	auto labelpath = String::createWithFormat("TTF%s.png", data.aniName.c_str());
+	auto label = LabelAtlas::create(str->getCString(), labelpath->getCString(), 23, 34, '0');
+	label->setAnchorPoint(Point::ZERO);
+	label->setPosition(0, 0);
+	node->addChild(label);
+	label->setScale(0);
+	label->runAction(ScaleTo::create(0.1, 1));
+
+	node->runAction(Sequence::create(DelayTime::create(data.num*0.1f + 1.5f), RemoveSelf::create(), nullptr));
+
+
+
+
 }

@@ -26,10 +26,11 @@ public:
 	TurretData getTurretdata(){ return m_turretdata; };
 
 	void moveToLockfish(float time,Fish*fish);
+	void moveTolockFishUpadate(float dt);
 private:
 	int bulletSpeed;
 	int bulletRotation;
-
+	Fish*target = nullptr;
 	TurretData m_turretdata;
 	string getSrcByType(int ui_type, int net_type);
 	int getSpeedByType(int type);

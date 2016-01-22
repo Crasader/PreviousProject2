@@ -59,6 +59,7 @@ private:
 public:
 	void beginSkillBoom();
 	void endSkillBoom(); 
+	void onBoomCatchFish(Point pos); 
 private:
 	bool boomTouchEvent(Touch *touch, Event  *event);
 	
@@ -69,7 +70,10 @@ public:
 private:
 	Point autoShootPos;
 	bool AutoShootTouchEvent(Touch *touch, Event  *event);
-
+////////////¶³½á
+public:
+	void onFreezeBegin();
+	void onFreezeEnd();
 
 
 	//µã»÷ÅÚ
@@ -86,5 +90,6 @@ private:
 	void changeTouchFunByTouchType(TouchType type);
 	TouchType m_touchType;
 	TouchType m_lasttouchType;
+	Sprite* game_bg;
 };
 #endif
