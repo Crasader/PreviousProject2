@@ -10,7 +10,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 100
+          "num"     : 0
         }
       ]
     },
@@ -29,7 +29,7 @@
     {
       "turrent_id"  :	3,
       "unlock_type" :	2,
-      "unlock_price"	:	3,
+      "unlock_price"	:	2,
       "multiple"      :	3,
       "reward_list" : [
         {
@@ -202,7 +202,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 1500
+          "num"     : 1800
         }
       ]
     },
@@ -210,11 +210,11 @@
       "turrent_id"  : 50,
       "unlock_type" : 2,
       "unlock_price"  :15,
-      "multiple"      : 40,
+      "multiple"      :50,
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 1800
+          "num"     : 2500
         }
       ]
     },
@@ -222,11 +222,11 @@
       "turrent_id"  : 60,
       "unlock_type" : 2,
       "unlock_price"  :15,
-      "multiple"      : 40,
+      "multiple"      :60,
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 1800
+          "num"     : 3000
         }
       ]
     },
@@ -238,7 +238,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 2000
+          "num"     : 3500
         }
       ]
     },
@@ -250,7 +250,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 2000
+          "num"     : 4000
         }
       ]
     },
@@ -262,7 +262,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 2000
+          "num"     : 4500
         }
       ]
     },
@@ -274,31 +274,31 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 2500
+          "num"     : 5000
         }
       ]
     },
     {
       "turrent_id"  : 150,
       "unlock_type" : 2,
-      "unlock_price"  :50,
+      "unlock_price"  :30,
       "multiple"      : 150,
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 5000
+          "num"     : 7500
         }
       ]
     },
     {
       "turrent_id"  : 200,
       "unlock_type" : 2,
-      "unlock_price"  :50,
+      "unlock_price"  :40,
       "multiple"      : 200,
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 5000
+          "num"     : 10000
         }
       ]
     },
@@ -310,7 +310,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 5000
+          "num"     : 12500
         }
       ]
     },
@@ -322,7 +322,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 8000
+          "num"     : 20000
         }
       ]
     },
@@ -334,7 +334,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 8000
+          "num"     : 17500
         }
       ]
     },
@@ -346,7 +346,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 8000
+          "num"     : 20000
         }
       ]
     },
@@ -358,7 +358,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 10000
+          "num"     : 22500
         }
       ]
     },
@@ -370,7 +370,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 10000
+          "num"     : 25000
         }
       ]
     },
@@ -382,7 +382,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 10000
+          "num"     : 30000
         }
       ]
     },
@@ -394,7 +394,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 20000
+          "num"     : 35000
         }
       ]
     },
@@ -406,7 +406,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 20000
+          "num"     : 40000
         }
       ]
     },
@@ -418,7 +418,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 30000
+          "num"     : 45000
         }
       ]
     },
@@ -430,7 +430,7 @@
       "reward_list" : [
         {
           "item_id" : 1001,
-          "num"     : 30000
+          "num"     : 50000
         }
       ]
     }

@@ -62,7 +62,7 @@
 		{
 			"fish_id"			:	5,
 			"fish_type"			:	0,
-			"move_speed"		:   55,
+			"move_speed"		:   60,
 			"probability"		:	0.15,
 			"baseReward"		:	5,
 			"maxHitTime"		:	30,
@@ -132,7 +132,7 @@
 		{
 			"fish_id"			:	10,
 			"fish_type"			:	0,
-			"move_speed"		:   55,
+			"move_speed"		:   60,
 			"probability"		:	0.07,
 			"baseReward"		:	10,
 			"maxHitTime"		:	30,
@@ -146,7 +146,7 @@
 		{
 			"fish_id"			:	30,
 			"fish_type"			:	0,
-			"move_speed"		:   55,
+			"move_speed"		:   60,
 			"probability"		:	0.06,
 			"baseReward"		:	12,
 			"maxHitTime"		:	30,
@@ -160,7 +160,7 @@
 		{
 			"fish_id"			:	31,
 			"fish_type"			:	0,
-			"move_speed"		:   55,
+			"move_speed"		:   60,
 			"probability"		:	0.05,
 			"baseReward"		:	15,
 			"maxHitTime"		:	30,
@@ -174,7 +174,7 @@
 		{
 			"fish_id"			:	32,
 			"fish_type"			:	0,
-			"move_speed"		:   55,
+			"move_speed"		:   60,
 			"probability"		:	0.04,
 			"baseReward"		:	18,
 			"maxHitTime"		:	30,
@@ -188,7 +188,7 @@
 		{
 			"fish_id"			:	33,
 			"fish_type"			:	0,
-			"move_speed"		:   55,
+			"move_speed"		:   60,
 			"probability"		:	0.03,
 			"baseReward"		:	20,
 			"maxHitTime"		:	30,
@@ -202,7 +202,7 @@
 		{
 			"fish_id"			:	34,
 			"fish_type"			:	0,
-			"move_speed"		:   55,
+			"move_speed"		:   60,
 			"probability"		:	0.03,
 			"baseReward"		:	25,
 			"maxHitTime"		:	30,
@@ -216,7 +216,7 @@
 		{
 			"fish_id"			:	35,
 			"fish_type"			:	0,
-			"move_speed"		:   50,
+			"move_speed"		:   60,
 			"probability"		:	0.02,
 			"baseReward"		:	30,
 			"maxHitTime"		:	30,
@@ -230,7 +230,7 @@
 		{
 			"fish_id"			:	36,
 			"fish_type"			:	0,
-			"move_speed"		:   50,
+			"move_speed"		:   60,
 			"probability"		:	0.015,
 			"baseReward"		:	40,
 			"maxHitTime"		:	30,
@@ -244,7 +244,7 @@
 		{
 			"fish_id"			:	37,
 			"fish_type"			:	0,
-			"move_speed"		:   50,
+			"move_speed"		:   60,
 			"probability"		:	0.015,
 			"baseReward"		:	45,
 			"maxHitTime"		:	30,
@@ -258,8 +258,8 @@
 		{
 			"fish_id"			:	40,
 			"fish_type"			:	0,
-			"move_speed"		:   40,
-			"probability"		:	0.0025,
+			"move_speed"		:   50,
+			"probability"		:	0.01,
 			"baseReward"		:	100,
 			"maxHitTime"		:	30,
 			"protectedTime"	    :   0,
@@ -272,8 +272,8 @@
 		{
 			"fish_id"			:	41,
 			"fish_type"			:	0,
-			"move_speed"		:   35,
-			"probability"		:	0.0015,
+			"move_speed"		:   40,
+			"probability"		:	0.007,
 			"baseReward"		:	150,
 			"maxHitTime"		:	30,
 			"protectedTime"	    :   0,
@@ -286,8 +286,8 @@
 		{
 			"fish_id"			:	42,
 			"fish_type"			:	0,
-			"move_speed"		:   35,
-			"probability"		:	0.0012,
+			"move_speed"		:   40,
+			"probability"		:	0.005,
 			"baseReward"		:	200,
 			"maxHitTime"		:	30,
 			"protectedTime"	    :   0,
@@ -300,8 +300,8 @@
 		{
 			"fish_id"			:	43,
 			"fish_type"			:	0,
-			"move_speed"		:   35,
-			"probability"		:	0.001,
+			"move_speed"		:   40,
+			"probability"		:	0.004,
 			"baseReward"		:	250,
 			"maxHitTime"		:	30,
 			"protectedTime"	    :   0,
@@ -314,8 +314,8 @@
 		{
 			"fish_id"			:	44,
 			"fish_type"			:	0,
-			"move_speed"		:   35,
-			"probability"		:	0.001,
+			"move_speed"		:   40,
+			"probability"		:	0.004,
 			"baseReward"		:	185,
 			"maxHitTime"		:	30,
 			"protectedTime"	    :   0,
@@ -328,8 +328,8 @@
 		{
 			"fish_id"			:	50,
 			"fish_type"			:	0,
-			"move_speed"		:   25,
-			"probability"		:	0.0008,
+			"move_speed"		:   30,
+			"probability"		:	0.003,
 			"baseReward"		:	300,
 			"maxHitTime"		:	30,
 			"protectedTime"	    :   0,
@@ -342,8 +342,8 @@
 		{
 			"fish_id"			:	51,
 			"fish_type"			:	0,
-			"move_speed"		:   25,
-			"probability"		:	0.0005,
+			"move_speed"		:   30,
+			"probability"		:	0.002,
 			"baseReward"		:	500,
 			"maxHitTime"		:	30,
 			"protectedTime"	    :   0,
@@ -356,7 +356,7 @@
 		{
 			"fish_id"			:	52,
 			"fish_type"			:	0,
-			"move_speed"		:   25,
+			"move_speed"		:   30,
 			"probability"		:	0.002,
 			"baseReward"		:	0,
 			"maxHitTime"		:	30,

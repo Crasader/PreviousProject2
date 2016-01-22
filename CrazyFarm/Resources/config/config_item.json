@@ -19,7 +19,7 @@
 		{
 			"item_id"	:	1003,
 			"item_name"	:	"冰冻",
-			"item_desc"	:	"什么?鱼要逃走了?赶快使用全屏冰冻,瞬间为你冰冻10秒!",
+			"item_desc"	:	"鱼要逃走了！赶快使用全屏冰冻!时间静止吧！",
 			"buy_type"	:	2,
 			"buy_price"	:	5
 		},
@@ -89,13 +89,6 @@
 		{
 			"item_id"	:	1013,
 			"item_name"	:	"勋章",
-			"item_desc"	:	"",
-			"buy_type"	:	0,
-			"buy_price"	:	0
-		},
-		{
-			"item_id"	:	1014,
-			"item_name"	:	"鱼卷",
 			"item_desc"	:	"",
 			"buy_type"	:	0,
 			"buy_price"	:	0
