@@ -285,11 +285,7 @@
     }, 
     {
       "start_coins"  : 1200000,
-<<<<<<< HEAD
       "end_coins"    : 99999999,
-=======
-      "end_coins"    : 999999999,
->>>>>>> b2931487aacdef7b6246f0939dd7e105bed4b160
       "reward_list"  : [
         {
           "item_id" : 1013,

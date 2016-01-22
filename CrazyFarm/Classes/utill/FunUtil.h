@@ -17,3 +17,5 @@ std::string  SpliceDataForPostHttp(std::string str1, ...);
 
 std::string NewAtoI(int num);
 std::string NewAtoI(long num);
+
+int getintRandonNumByAtoB(int A, int B);

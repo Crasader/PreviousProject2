@@ -77,7 +77,6 @@ Fish* FishManage::createFishArrange(int type){
 	
 	fish->initFish(type);
 	fishPool.pushBack(fish);
-	fish->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	return fish;
 }
 void FishManage::createFishGroup(int grouptag)

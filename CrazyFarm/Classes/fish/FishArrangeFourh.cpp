@@ -1,10 +1,10 @@
 #include "fish/FishArrangeFourh.h"
 #include "fish/FishAniMannage.h"
 #include "utill/MagicEffect.h"
-
+#include "utill/FunUtil.h"
 void FishArrangeFourh::initFish(int fishType){
 	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
-	fishGold = fishdata.baseReward;
+	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
 	this->grabProbability = fishdata.probability;
 	this->fishType = fishType;
 	this->speed = fishdata.move_speed;
@@ -15,20 +15,21 @@ void FishArrangeFourh::initFishAnim(int fishType)
 {
 	//主鱼
 	int id = rand()%2? rand() % 8 + 30:rand() % 10 + 1;
-	initWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+	auto mainfish = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+	mainfish->setPosition(0, 0);
+	addChild(mainfish);
 	auto acName = String::createWithFormat("swim_%d", id);
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
-	runAction(ac);
-	auto maggiceff = MagicEffect::create(2, true);
-	maggiceff->setPosition(getContentSize() / 2);
-	addChild(maggiceff,-1);
+	mainfish->runAction(ac);
+	auto maggiceff = MagicEffect::create(3, true);
+	maggiceff->setPosition(mainfish->getContentSize() / 2);
+	maggiceff->setScale(mainfish->getContentSize().width / maggiceff->getContentSize().width);
+	mainfish->addChild(maggiceff, -1);
 	
 
-	////TODO ： 挂载光圈 下班处理 需计算每只鱼大小，缩小放大光圈
 	//副鱼
 	
-	auto mainSize = getContentSize();
-	auto AffiliateSize = FishAniMannage::getInstance()->getSpriteById(id)->getOriginalSize();
+	auto mainSize = mainfish->getContentSize();
 	acName = String::createWithFormat("swim_%d", id);
 	auto ac1 = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
 	auto ac2 = ac1->clone();
@@ -36,24 +37,38 @@ void FishArrangeFourh::initFishAnim(int fishType)
 	setAnchorPoint(Point::ANCHOR_MIDDLE);
 
 	auto sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
-	sp->setAnchorPoint(Point::ANCHOR_TOP_LEFT);	
-	sp->setPosition(AffiliateSize.width , 0);
+	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	sp->setPosition(-mainSize.width*1.0, -mainSize.height/2);
 	sp->runAction(ac1);
 	addChild(sp);
-	maggiceff = MagicEffect::create(2, true);
-	maggiceff->setPosition(getContentSize() / 2);
-	addChild(maggiceff, -1);
+	maggiceff = MagicEffect::create(3, true);
+	maggiceff->setPosition(sp->getContentSize() / 2);
+	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
+	sp->addChild(maggiceff, -1);
 
 
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sp->setPosition(-mainSize.width *0.5 , 0);
+	sp->setPosition(-mainSize.width *1.5 , mainSize.height*0.5);
 	sp->runAction(ac2);
 	addChild(sp);
+	maggiceff = MagicEffect::create(3, true);
+	maggiceff->setPosition(sp->getContentSize() / 2);
+	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
+	sp->addChild(maggiceff, -1);
 
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sp->setPosition(mainSize.width *-1.5 , mainSize.height *1.5);
+	sp->setPosition(mainSize.width *-2.0 , -mainSize.height *0.5);
 	sp->runAction(ac3);
 	addChild(sp);
+	maggiceff = MagicEffect::create(3, true);
+	maggiceff->setPosition(sp->getContentSize() / 2);
+	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
+	sp->addChild(maggiceff, -1);
+}
+
+void FishArrangeFourh::onDead()
+{
+	removeFromParentAndCleanup(1);
 }

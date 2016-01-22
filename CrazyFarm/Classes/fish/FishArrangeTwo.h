@@ -14,4 +14,5 @@ public:
 	virtual void initFish(int fishType);
 	virtual void initFishAnim(int fishType);
 	void addShader(){};
+	virtual void onDead();
 };

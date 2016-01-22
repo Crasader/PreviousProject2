@@ -47,7 +47,8 @@ bool ConfigFish::LoadConfig() {
             fish.fishType = val["fish_type"].GetInt();
             fish.move_speed = val["move_speed"].GetInt();
             fish.probability = val["probability"].GetDouble();
-            fish.baseReward = val["baseReward"].GetInt();
+            fish.baseRewardStart = val["baseReward"]["start"].GetInt();
+			fish.baseRewardEnd = val["baseReward"]["end"].GetInt();
             fish.maxHitTime = val["maxHitTime"].GetInt();
             fish.protectedTime = val["protectedTime"].GetInt();
             fish.uiId = val["ui_id"].GetInt();
@@ -103,6 +104,10 @@ void ConfigFish::initFishDropCoinData()
 	FishDropCoinDatas[51] = FishDropCoin("aniGold", 20);
 	FishDropCoinDatas[52] = FishDropCoin("aniGold", 20);
 
+	FishDropCoinDatas[101] = FishDropCoin("aniGold", 10);
+	FishDropCoinDatas[102] = FishDropCoin("aniGold", 10);
+	FishDropCoinDatas[103] = FishDropCoin("aniGold", 10);
+	FishDropCoinDatas[104] = FishDropCoin("aniGold", 10);
 }
 
 FishDropCoin ConfigFish::getFishDropCoinData(int uiid)

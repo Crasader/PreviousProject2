@@ -12,6 +12,7 @@
 #include "domain/skill/skillManager.h"
 #include "utill/CCircle.h"
 #include "domain/gameConfig/gameConfig.h"
+#include "fish/FishAniMannage.h"
 
 #define BOOMRADIUS 300
 enum
@@ -59,11 +60,16 @@ bool GameLayer::init(){
 
 	loadNewMonent();
 
-	//for (int i = 0; i < 10;i++)
-	//{
-	//	FishManage::getInstance()->createFishRand(52);
-	//}
+	//
+	//auto fish = FishManage::getInstance()->createFishArrange(104);
+	//fish->setPosition(480,270);
+	//fish->unscheduleUpdate();
+	//addChild(fish);
+
 	setbisOnSkillLock(false);
+
+
+
 
 	GameData::getInstance()->setShotCount(0);
 	GameData::getInstance()->setevent(MagnateManager::getInstance()->getDiamandMagnateEvent());

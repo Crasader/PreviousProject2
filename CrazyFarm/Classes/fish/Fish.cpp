@@ -4,6 +4,7 @@
 #include "FishManage.h"
 #include "FishAniMannage.h"
 #include "utill/AnimationUtil.h"
+#include"utill/FunUtil.h"
 enum 
 {
 	kTagAcNormal = 10
@@ -21,7 +22,7 @@ bool Fish::init(){
 
 void Fish::initFish(int fishType){
 	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
-	fishGold = fishdata.baseReward;
+	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
 	this->grabProbability = fishdata.probability;
 	this->fishType = fishType;
 	this->speed = fishdata.move_speed;
@@ -434,7 +435,7 @@ void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
 	{
 		float diffX=30;
 		float diffY=20;
-		float orgY = 40;
+		float orgY = 50;
 		sp = Sprite::create();
 		if (data.num>5)//а╫ее
 		{

@@ -39,7 +39,7 @@ public:
 	int getBounsPoorGold(){ return BonusPoorGold; };
 	virtual void addShader();
 	void removeself();		
-	void onDead();
+	virtual void onDead();
 	void onHeart();
 	void onFreeze();
 	void onFreezeResume();
