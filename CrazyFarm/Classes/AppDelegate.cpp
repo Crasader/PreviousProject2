@@ -57,23 +57,25 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 
 	std::vector<std::string> paths;
-	paths.push_back("gamelayer");
-	paths.push_back("ani");
-	paths.push_back("num");
-	paths.push_back("config");
-	paths.push_back("lobbylayer");
-	paths.push_back("bagLayer");
-	paths.push_back("fish");
-	paths.push_back("showfish");
-	paths.push_back("signLayer");
-	paths.push_back("payShop");
-	paths.push_back("showVIP");
-	paths.push_back("turret");
-	paths.push_back("NobilityLayer");
-	paths.push_back("dialog");
-	paths.push_back("gamelayer/turntable");
-	paths.push_back("gamelayer/mermaid");
-	paths.push_back("ranklist");
+	paths.push_back("game");
+	paths.push_back("game/ui");
+	paths.push_back("game/ui/gamelayer");
+	paths.push_back("game/ui/ani");
+	paths.push_back("game/ui/num");
+	paths.push_back("game/config");
+	paths.push_back("game/ui/lobbylayer");
+	paths.push_back("game/ui/bagLayer");
+	paths.push_back("game/ui/fish");
+	paths.push_back("game/ui/showfish");
+	paths.push_back("game/ui/signLayer");
+	paths.push_back("game/ui/payShop");
+	paths.push_back("game/ui/showVIP");
+	paths.push_back("game/ui/turret");
+	paths.push_back("game/ui/NobilityLayer");
+	paths.push_back("game/ui/dialog");
+	paths.push_back("game/ui/gamelayer/turntable");
+	paths.push_back("game/ui/gamelayer/mermaid");
+	paths.push_back("game/ui/ranklist");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand((unsigned)time(nullptr));
 	// create a scene. it's an autorelease object
