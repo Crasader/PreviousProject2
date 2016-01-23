@@ -22,7 +22,9 @@ public:
 	void HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int result, long int orderid, int paytype=1 );//上传购买信息
 	void HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp,int maxTurretLevel,int PayRMB,int nobillityCount);//上传同步信息
 	void HttpToPostRequestSetName(std::string sessionid,const  char* nickname, int gender);//设置昵称
+	void HttpToPostRequestFeedback(std::string sessionid, const  char* feedback);//用户反馈	
 
+	void onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForRegisterInfo(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpResponse *response);

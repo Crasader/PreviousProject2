@@ -185,7 +185,8 @@ void SetNameLayer::quedingcallback(Ref*)
 	auto txt = _editName->getText();
 	auto sessionid = User::getInstance()->getSessionid();
 	checkTheName(txt);
-	HttpMannger::getInstance()->HttpToPostRequestSetName(sessionid, txt, sex);
+	/*HttpMannger::getInstance()->HttpToPostRequestSetName(sessionid, txt, sex);*/
+	HttpMannger::getInstance()->HttpToPostRequestFeedback(sessionid, txt);
 }
 
 void SetNameLayer::closeButtonCallBack(Ref*psend)

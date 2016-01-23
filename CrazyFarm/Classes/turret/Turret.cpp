@@ -1,4 +1,5 @@
 #include "Turret/Turret.h"
+#include "utill/Audio.h"
 #define SCALETURRET 0.75
 bool Turret::init(){
 	if (!Sprite::init()){
@@ -10,7 +11,7 @@ bool Turret::init(){
 }
 
 void Turret::initWithType(int type){
-	auto path = String::createWithFormat("turret/pao_%d.png", type);
+	auto path = String::createWithFormat("game/ui/turret/pao_%d.png", type);
 	initWithFile(path->getCString());
 	setScale(SCALETURRET);
 	if (emptySp)
@@ -28,6 +29,7 @@ void Turret::initWithType(int type){
 
 void Turret::shoot()
 {
+	Audio::getInstance()->playSound(SHOOT);
 	auto distance = getContentSize().height*SCALETURRET*0.1;
 	auto movebypos = Vec2(distance*cos(CC_DEGREES_TO_RADIANS(90-getRotation())), distance*sin(CC_DEGREES_TO_RADIANS(90-getRotation())));
 	runAction(Sequence::createWithTwoActions(Spawn::create(ScaleTo::create(0.025f, 1 * SCALETURRET, 0.8*SCALETURRET), MoveBy::create(0.025, Vec2(-movebypos.x, -movebypos.y)),nullptr),

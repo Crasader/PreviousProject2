@@ -2,17 +2,14 @@
 #define _AUDIO_H_
 #include <string>
 
-#define BACKGORUNDMUSIC "audio/bgm_opening.mp3"
-#define COUNTDOWN "music/count_down.ogg"
-#define CLICK "music/click.ogg"
-#define FINISHTASK "music/finish_task.ogg"
-#define QUICKFIND "music/quick_find.ogg"
-#define REVIVE "music/revive.ogg"
-#define SELECTCORRECT "music/select_correct.ogg"
-#define SELECTERROR "music/select_error.ogg"
-#define SELECTTIME "music/select_time.ogg"
-#define SHOWPAYPOINT "music/show_pay_point.ogg"
-
+#define BACKGORUNDMUSIC "game/audio/bgm_opening.mp3"
+#define CLICK "game/audio/clickBtn.mp3"
+#define CATCHBOSS "game/audio/catchBOSS.mp3"
+#define CATCHBIG "game/audio/catchBig.mp3"
+#define CATCHMID "game/audio/catchMid.mp3"
+#define CATCHSMALL "game/audio/catchSmall.mp3"
+#define CATCHGOLD "game/audio/catchGold.mp3"
+#define SHOOT "game/audio/shoot.mp3"
 class Audio{
 public:
 	static Audio* getInstance();

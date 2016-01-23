@@ -9,6 +9,7 @@
 #define URL_PAY  "/mo/order/booking"
 #define URL_SYNCINFO  "/player/info/sync/fortuneInfo"
 #define URL_SETNAME  "/user/nickname"
+#define URL_FEEDBACK "/help/feedback"
 
 
 HttpMannger* HttpMannger::_instance = NULL;
@@ -220,4 +221,28 @@ void HttpMannger::HttpToPostRequestSetName(std::string sessionid,const char* nic
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_SETNAME);
 	auto requstData = String::createWithFormat("session_id=%s&nickname=%s&gender=%d", sessionid.c_str(), nickname, gender);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForSetName, this));
+}
+
+void HttpMannger::onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResponse *response)
+{
+	if (!response)
+	{
+		return;
+	}
+	if (!response->isSucceed())
+	{
+		return;
+	}
+	long statusCode = response->getResponseCode();
+	// dump data
+	std::vector<char> *buffer = response->getResponseData();
+	auto temp = std::string(buffer->begin(), buffer->end());
+	log("http back setname info: %s", temp.c_str());
+}
+
+void HttpMannger::HttpToPostRequestFeedback(std::string sessionid, const char* feedback)
+{
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_FEEDBACK);
+	auto requstData = String::createWithFormat("session_id=%s&info=%s", sessionid.c_str(), feedback);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForFeedback, this));
 }

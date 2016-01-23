@@ -5,6 +5,7 @@
 #include "FishAniMannage.h"
 #include "utill/AnimationUtil.h"
 #include"utill/FunUtil.h"
+#include "utill/Audio.h"
 enum 
 {
 	kTagAcNormal = 10
@@ -402,6 +403,28 @@ void Fish::onDead()
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
 	m_shadesprite->onDead();
 	runAction(Sequence::create(ac, CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
+
+	if (fishType < 20)
+	{
+		Audio::getInstance()->playSound(CATCHSMALL);
+	}
+	else if (fishType >= 20 && fishType<30)
+	{
+		Audio::getInstance()->playSound(CATCHMID);
+	}
+	else if (fishType >= 30 && fishType<40)
+	{
+		Audio::getInstance()->playSound(CATCHBIG);
+	}
+	else if (fishType >= 40 && fishType<50)
+	{
+		Audio::getInstance()->playSound(CATCHGOLD);
+	}
+	else
+	{
+		Audio::getInstance()->playSound(CATCHBOSS);
+	}
+	
 }
 
 

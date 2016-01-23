@@ -45,7 +45,6 @@ void CallAndroidMethod::showMoreGame(){
 }
 
 void CallAndroidMethod::pay(int payPoint){
-	Audio::getInstance()->playSound(SHOWPAYPOINT);
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	    CCLOG("android platform");
 		JniMethodInfo methodInfo;

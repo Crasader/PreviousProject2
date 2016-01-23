@@ -21,6 +21,7 @@
 #include "core/maridTaskPlane.h"
 #include "domain/skill/skillManager.h"
 #include "server/HttpMannger.h"
+#include "utill/Audio.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
@@ -162,6 +163,7 @@ void GameGuiLayer::createGuizuGiftLayer()
 }
 void GameGuiLayer::ButtentouchEvent(Ref *pSender)
 {
+	Audio::getInstance()->playSound(CLICK);
 	auto node = (Node*)pSender;
 	switch (node->getTag())
 	{
@@ -179,6 +181,7 @@ void GameGuiLayer::ButtentouchEvent(Ref *pSender)
 }
 void GameGuiLayer::exitCallback(Ref *pSender)
 {
+	Audio::getInstance()->playSound(CLICK);
 	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
 	auto layer = NotarizeExitDialog::create();
 	layer->setPosition(0, 0);
@@ -240,6 +243,7 @@ void GameGuiLayer::onExit()
 
 void GameGuiLayer::settingCallback(Ref *pSender)
 {
+	Audio::getInstance()->playSound(CLICK);
 	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr));
 	auto layer = SettingDialog::create();
 	layer->setPosition(Point::ZERO);
@@ -247,11 +251,13 @@ void GameGuiLayer::settingCallback(Ref *pSender)
 }
 void GameGuiLayer::showFishCallback(Ref *pSender)
 {
+	Audio::getInstance()->playSound(CLICK);
 	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr));
 	pause();
 }
 void GameGuiLayer::showSettingCallback(Ref*pSender)//BUG
 {
+	Audio::getInstance()->playSound(CLICK);
 	setttingBoard->setEnabled(false);
 	setttingBoard->runAction(MoveBy::create(0.2, Vec2(0, -70)));
 	setttingBoard->runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]

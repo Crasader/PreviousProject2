@@ -22,7 +22,7 @@ void Bullet::initBullet(TurretData turretdata, float rotation){
 
 string Bullet::getSrcByType(int ui_type, int net_type){
 	
-	auto str = String::createWithFormat("gamelayer/bulletAndNet/bullet_%d_%d.png", ui_type, net_type);
+	auto str = String::createWithFormat("game/ui/gamelayer/bulletAndNet/bullet_%d_%d.png", ui_type, net_type);
 	return str->getCString();
 
 }

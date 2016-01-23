@@ -74,7 +74,7 @@ void Net::initAniByType(int ui_type, int net_type)
 
 
 std::string Net::getFrameNameByType(int ui_type, int net_type){
-	auto str = String::createWithFormat("gamelayer/bulletAndNet/net_%d_%d.png", ui_type, net_type);
+	auto str = String::createWithFormat("game/ui/gamelayer/bulletAndNet/net_%d_%d.png", ui_type, net_type);
 	return str->getCString();
 }
 

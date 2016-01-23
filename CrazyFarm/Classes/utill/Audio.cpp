@@ -21,7 +21,7 @@ void Audio::pauseBGM()
 }
 
 void Audio::playSound(char* soundName){
-
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(soundName);
 }
 void Audio::setBGMValue(float value)
 {
@@ -32,15 +32,14 @@ void Audio::setEffectValue(float value)
 	CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(value);
 }
 void Audio::prepare(){
+
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(BACKGORUNDMUSIC);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(COUNTDOWN);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(CATCHBOSS);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(CLICK);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(FINISHTASK);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(QUICKFIND);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(REVIVE);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(SELECTCORRECT);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(SELECTERROR);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(SELECTTIME);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(SHOWPAYPOINT);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(CATCHBIG);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(CATCHMID);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(CATCHSMALL);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(CATCHGOLD);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(SHOOT);
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.4f);
 }
