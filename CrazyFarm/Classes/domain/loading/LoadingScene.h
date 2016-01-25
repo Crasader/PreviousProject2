@@ -16,6 +16,8 @@ public:
 	void loadRes();
 	void loadedCallBack();
 	//void update(float delta);
+
+	void addPlistPngRes(std::string filename);
 	
 };
 

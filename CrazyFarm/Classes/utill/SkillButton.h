@@ -39,12 +39,14 @@ protected:
     /** 初始化 */
 	bool    init(float cdTime, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name, int propNum);
 	int              mPropNum;       //道具数量
+	int itemID;
 private:
     MenuItemImage*   mItemSkill;     // 技能按钮
     Menu*            mMenuSkill;     // 技能按钮所在menu
     Sprite*          mStencil;       // 蒙板精灵,黑色半透明(这个是为了显示一个冷却计时效果)
     ProgressTimer*   mProgressTimer; // 时间进度条精灵(360度旋转)
     float            mCDTime;          // CD时间
+	
 	
 };
 

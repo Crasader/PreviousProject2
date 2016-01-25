@@ -2,6 +2,7 @@
 #include "fish/FishAniMannage.h"
 #include "utill/MagicEffect.h"
 #include "utill/FunUtil.h"
+#include "config/ConfigFishCollisionRange.h"
 void FishArrangeFourh::initFish(int fishType){
 	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
 	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
@@ -25,7 +26,7 @@ void FishArrangeFourh::initFishAnim(int fishType)
 	maggiceff->setPosition(mainfish->getContentSize() / 2);
 	maggiceff->setScale(mainfish->getContentSize().width / maggiceff->getContentSize().width);
 	mainfish->addChild(maggiceff, -1);
-	
+	pushBackFigureVec(id, mainfish->getPosition()-mainfish->getContentSize()/2);
 
 	//¸±Óã
 	
@@ -38,37 +39,47 @@ void FishArrangeFourh::initFishAnim(int fishType)
 
 	auto sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sp->setPosition(-mainSize.width*1.0, -mainSize.height/2);
+	sp->setPosition(-mainSize.width*0.5, -mainSize.height*1);
 	sp->runAction(ac1);
 	addChild(sp);
 	maggiceff = MagicEffect::create(3, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);
 	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
 	sp->addChild(maggiceff, -1);
-
+	pushBackFigureVec(id, sp->getPosition()-sp->getContentSize()/2);
 
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sp->setPosition(-mainSize.width *1.5 , mainSize.height*0.5);
+	sp->setPosition(-mainSize.width *1.0 , 0);
 	sp->runAction(ac2);
 	addChild(sp);
 	maggiceff = MagicEffect::create(3, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);
 	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
 	sp->addChild(maggiceff, -1);
-
+	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sp->setPosition(mainSize.width *-2.0 , -mainSize.height *0.5);
+	sp->setPosition(mainSize.width *-1.5 , -mainSize.height *1);
 	sp->runAction(ac3);
 	addChild(sp);
 	maggiceff = MagicEffect::create(3, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);
 	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
 	sp->addChild(maggiceff, -1);
+	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 }
 
 void FishArrangeFourh::onDead()
 {
 	removeFromParentAndCleanup(1);
+}
+
+void FishArrangeFourh::pushBackFigureVec(int uiid, Point pos)
+{
+	auto vec = ConfigFishCollisionRange::getInstance()->getFishFigures(uiid);
+	for (auto var : vec)
+	{
+		figures.push_back(var->addposWithFigure(pos));
+	}
 }

@@ -9,6 +9,7 @@
 #include "moment/MomentManager.h"
 #include "config/ConfigMomentEight.h"
 #include "moment/MonmetEightRoute.h"
+#include "turret/PlayerTurret.h"
 using namespace cocos2d;
 
 #define BORDER_LEFT 0
@@ -46,6 +47,9 @@ public:
 	void UpdateWhenController(float dt);
 	void LoadOnement();
 	void createFishByOneMonet(OneMoment onemonent);
+	void onBoomFishDead(Fish*fish, PlayerTurret* pTurret);
+
+	void onClearFish();   //”„≥±¿¥¡Ÿ£¨«Â≥°
 private :
 	FishManage();
 	static FishManage* _instance;

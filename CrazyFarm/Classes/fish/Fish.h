@@ -5,6 +5,7 @@
 #include "config/ConfigFish.h"
 #include "fish/FishRouteData.h"
 #include "fish/FishShader.h"
+#include "utill/CFigure.h"
 using namespace cocos2d;
 
 enum swimDirection
@@ -44,10 +45,13 @@ public:
 	void onFreeze();
 	void onFreezeResume();
 	void createDropOutAniByCoin(Point belongPos,int curMoney);
+	std::vector<CFigure*> getBoundingFigures();
+	
 protected:
 	
 	void update(float);
 	float grabProbability;
+	std::vector<CFigure*> figures;
 	int speed;//鱼的移动速度
 	int fishType;//鱼的类型
 	int experience;//鱼的经验值

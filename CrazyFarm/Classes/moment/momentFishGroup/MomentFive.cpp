@@ -8,6 +8,7 @@ void MomentFive::init()
 	datas.push_back(MomentFiveData(7, 10, Vec2(-270, 342)));
 	datas.push_back(MomentFiveData(6, 15, Vec2(-270, 200)));
 	datas.push_back(MomentFiveData(4, 20, Vec2(-270, 342)));
+	
 }
 
 bool MomentFive::updata(float dt)

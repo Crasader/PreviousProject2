@@ -58,6 +58,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	std::vector<std::string> paths;
 	paths.push_back("game");
+	paths.push_back("config");
 	paths.push_back("game/ui");
 	paths.push_back("game/ui/gamelayer");
 	paths.push_back("game/ui/ani");

@@ -15,4 +15,5 @@ public:
 	virtual void initFishAnim(int fishType);
 	void addShader(){};
 	virtual void onDead();
+	void pushBackFigureVec(int uiid, Point pos);
 };

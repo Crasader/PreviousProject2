@@ -13,6 +13,8 @@
 #include "utill/CCircle.h"
 #include "domain/gameConfig/gameConfig.h"
 #include "fish/FishAniMannage.h"
+#include "utill/CollisionUtill.h"
+#include "utill/Audio.h"
 
 #define BOOMRADIUS 300
 enum
@@ -60,11 +62,15 @@ bool GameLayer::init(){
 
 	loadNewMonent();
 
-	//
-	//auto fish = FishManage::getInstance()->createFishArrange(104);
-	//fish->setPosition(480,270);
+	//TEST FISH
+	//auto fish = FishManage::getInstance()->createFishArrange(103);
+	//fish->setPosition(480, 270);
 	//fish->unscheduleUpdate();
 	//addChild(fish);
+	//for (auto var:fish->getBoundingFigures())
+	//{
+	//	var->draw(this);
+	//}
 
 	setbisOnSkillLock(false);
 
@@ -297,7 +303,7 @@ void GameLayer::collisionUpdate(float dt)
 	{
 		for (auto fish : allFish)
 		{
-			if (collision(fish, bullet)){
+			if (/*collision(fish, bullet)*/CollisionUtill::isCollisionRect(fish->getBoundingFigures(), bullet->getBoundingBox())){
 				//发生碰撞,移除子弹
 				bulletNeedRemove.pushBack(bullet);
 				bullet->removeFromParent();
@@ -366,7 +372,7 @@ void GameLayer::endSkillBoom()
 void GameLayer::onBoomCatchFish(Point pos)
 {
 
-	auto cicle = CCircle::CCCircMake(pos, 200);
+	auto cicle = CCircle(pos, 200);
 #if 1
 	auto draw = DrawNode::create();
 	draw->drawCircle(cicle.getMCenter(), cicle.getMRadius(), 360, 100, false, Color4F::RED);
@@ -376,21 +382,8 @@ void GameLayer::onBoomCatchFish(Point pos)
 	auto data = GameData::getInstance();
 	for (auto fish : fishPool)
 	{
-		auto rect = fish->getBoundingBox();
-		if (cicle.intersectsRect(rect))
+		if (CollisionUtill::isCollisionCircle(fish->getBoundingFigures(),cicle))
 		{
-			if (data->getIsOnMaridTask())
-			{
-				auto vec = data->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
-				for (auto var : vec)
-				{
-					if (fish->getFishType() == var.fishId)
-					{
-						data->getmermaidTask()->addOneCatchFishById(fish->getFishType());
-						break;
-					}
-				}
-			}
 			myTurret->getCoinByFish(fish);
 			FishManage::getInstance()->removeFish(fish, 1);
 		}
@@ -517,4 +510,44 @@ void GameLayer::onFreezeEnd()
 {
 	scheduleUpdate();
 	getChildByTag(kTagFrezzebg)->removeFromParentAndCleanup(1);
+}
+
+void GameLayer::onClearFish()
+{
+	auto txt = Sprite::create("yuchaoTXT.png");
+	txt->setPosition(480, 270);
+	addChild(txt,kZorderFish+1,"yuchaotxt");
+
+	auto lang = Sprite::create("wave.png");
+	lang->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	lang->setPosition(960, 270);
+	lang->runAction(Sequence::create(MoveTo::create(10, Vec2(-300, 270)), CallFunc::create([&]{ unschedule(schedule_selector(GameLayer::onClearFishUpdata)); getChildByName("yuchaotxt")->removeFromParentAndCleanup(1); FishManage::getInstance()->cleanVector(); }), RemoveSelf::create(), nullptr));
+	addChild(lang, kZorderFish+1, "lang");
+	schedule(schedule_selector(GameLayer::onClearFishUpdata), 0, CC_REPEAT_FOREVER, 0);
+	Audio::getInstance()->playSound("CLEARFISH");
+}
+
+void GameLayer::onClearFishUpdata(float dt)
+{
+	auto node = (Sprite*)getChildByName("lang");
+	if (node)
+	{
+		auto rect = node->getBoundingBox();
+		auto vec = FishManage::getInstance()->getAllFishInPool();
+		Vector<Fish*> needRemove;
+		for (auto var:vec)
+		{
+			if (CollisionUtill::isCollisionRect(var->getBoundingFigures(), rect))
+			{
+				needRemove.pushBack(var);
+			}
+			
+		}
+		for (auto fish : needRemove)
+		{
+			FishManage::getInstance()->removeFish(fish, 0);
+
+		}
+	}
+
 }

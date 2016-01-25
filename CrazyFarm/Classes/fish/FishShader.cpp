@@ -53,8 +53,9 @@ void FishShader::update(float dt)
 void FishShader::onDead()
 {
 	stopAllActions();
+	unscheduleAllCallbacks();
 	auto acName = String::createWithFormat("dead_%d", ConfigFish::getInstance()->getFish(target->getFishType()).uiId);
-	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
+	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),CC_REPEAT_FOREVER);
 	runAction(ac);
 }
 

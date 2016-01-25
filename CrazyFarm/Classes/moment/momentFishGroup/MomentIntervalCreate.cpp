@@ -11,6 +11,7 @@ bool MomentIntervalCreate::updata(float dt)
 	auto fishcount = FishManage::getInstance()->getAllFishInPoolCount();
 	if (fishcount < fishMinSize&&nNowTime>45)//45 == Óã³²Ê±¼ä
 	{
+		Audio::getInstance()->playBGM(GAMEBGM);
 		return true;
 	}
 
@@ -20,6 +21,7 @@ bool MomentIntervalCreate::updata(float dt)
 void MomentIntervalCreate::init()
 {
 	initData();
+	Audio::getInstance()->playBGM(FISHFLOCKBGM);
 	FishManage::getInstance()->createFishGroup(m_groupTag);
 }
 

@@ -14,7 +14,7 @@ CCircle::~CCircle(void)
 }
 
 //判断圆与方形区域是否相交
-bool CCircle::intersectsRect(cocos2d::CCRect& rect) const
+bool CCircle::intersectsRect(Rect rect) 
 {
 	int arcR = (int)m_radius;//圆形半径
 	int arcOx = (int)m_center.x;//圆心X坐标
@@ -62,11 +62,44 @@ bool CCircle::intersectsRect(cocos2d::CCRect& rect) const
 }
 
 //判断两圆是否相交
-bool CCircle::intersectsCircle(CCircle& circle) const
+bool CCircle::intersectsCircle(CCircle circle) 
 {
 	//圆心之间的距离小于两圆半径之和即相交
 	if (sqrt(pow(m_center.x - circle.m_center.x, 2) + pow(m_center.y - circle.m_center.y, 2)) > m_radius + circle.m_radius) {
 		return false;
 	}
 	return true;
+}
+
+
+bool CCircle::intersectsPoint(Point pos)
+{
+	auto d = pow(pos.y - m_center.y,2) + pow(pos.x - m_center.x,2);
+	return d <= m_radius;
+}
+CFigure*CCircle::clone()
+{
+	CCircle*circle = new CCircle(*this);
+	return circle;
+}
+
+CFigure*CCircle::ApplyAffineTransform(const CFigure* figure, const AffineTransform& anAffineTransform)
+{
+	auto circle = (CCircle*)figure;
+
+	Vec2 applyOrigin = PointApplyAffineTransform(Vec2(circle->getMCenter().x,circle->getMCenter().y), anAffineTransform);
+	
+
+	return new CCircle(applyOrigin,m_radius);
+} 
+CFigure*CCircle::addposWithFigure(Point pos)
+{
+	return new CCircle(Point(this->getMCenter() + pos), this->getMRadius());
+}
+
+void CCircle::draw(Node*parent)
+{
+	auto node = DrawNode::create();
+	node->drawCircle(getMCenter(), getMRadius(), 360, 1, 1, Color4F::RED);
+	parent->addChild(node,100);
 }

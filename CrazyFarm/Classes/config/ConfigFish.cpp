@@ -108,6 +108,7 @@ void ConfigFish::initFishDropCoinData()
 	FishDropCoinDatas[102] = FishDropCoin("aniGold", 10);
 	FishDropCoinDatas[103] = FishDropCoin("aniGold", 10);
 	FishDropCoinDatas[104] = FishDropCoin("aniGold", 10);
+	FishDropCoinDatas[60] = FishDropCoin("aniGold", 10);
 }
 
 FishDropCoin ConfigFish::getFishDropCoinData(int uiid)

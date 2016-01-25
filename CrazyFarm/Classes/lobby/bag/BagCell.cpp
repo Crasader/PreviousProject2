@@ -1,5 +1,5 @@
 #include "BagCell.h"
-
+#include "ShowPropLayer.h"
 bool BagCell::init(){
 	if (!Sprite::initWithFile("bagbox.png")){
 		return false;
@@ -32,6 +32,9 @@ void BagCell::setValue(BagItem item)
 
 void BagCell::IsBeToued()
 {
+	auto layer = ShowPropLayer::create(m_nCellId);
+	layer->setPosition(0, 0);
+	Director::getInstance()->getRunningScene()->getChildByTag(50)->addChild(layer);
 	///TODO:道具被点击时候的回调;
 	CCLOG("propIDl: %d is be touched", m_nCellId);
 }

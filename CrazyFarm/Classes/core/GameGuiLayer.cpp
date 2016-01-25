@@ -69,7 +69,7 @@ bool GameGuiLayer::init(){
 	menu->setPosition(Point::ZERO);
 	addChild(menu,kZorderMenu);
 	
-	Audio::getInstance()->playBGM(BACKGORUNDMUSIC); 
+	Audio::getInstance()->playBGM(GAMEBGM);
 	
 
 
@@ -138,11 +138,17 @@ bool GameGuiLayer::init(){
 
 
 
-
+	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), rand() % 4 + 5);
 	return true;
 
 }
+void GameGuiLayer::refreshSkillNum()
+{
+	auto vec = skillManager::getInstance()->getSkillButtons();
+	for (auto it = vec.begin(); it != vec.end(); ++it)
+		it->second->refreshPropNumLabel();
 
+}
 void GameGuiLayer::beginMaridTaskTime()
 {
 	fmaridNowTime = 0;
@@ -163,7 +169,7 @@ void GameGuiLayer::createGuizuGiftLayer()
 }
 void GameGuiLayer::ButtentouchEvent(Ref *pSender)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto node = (Node*)pSender;
 	switch (node->getTag())
 	{
@@ -181,7 +187,7 @@ void GameGuiLayer::ButtentouchEvent(Ref *pSender)
 }
 void GameGuiLayer::exitCallback(Ref *pSender)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
 	auto layer = NotarizeExitDialog::create();
 	layer->setPosition(0, 0);
@@ -243,7 +249,7 @@ void GameGuiLayer::onExit()
 
 void GameGuiLayer::settingCallback(Ref *pSender)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr));
 	auto layer = SettingDialog::create();
 	layer->setPosition(Point::ZERO);
@@ -251,13 +257,13 @@ void GameGuiLayer::settingCallback(Ref *pSender)
 }
 void GameGuiLayer::showFishCallback(Ref *pSender)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr));
 	pause();
 }
 void GameGuiLayer::showSettingCallback(Ref*pSender)//BUG
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	setttingBoard->setEnabled(false);
 	setttingBoard->runAction(MoveBy::create(0.2, Vec2(0, -70)));
 	setttingBoard->runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]
@@ -299,4 +305,10 @@ void GameGuiLayer::maridTaskTime(float dt)
 		createMermaidTaskPlane();
 
 	}
+}
+
+void GameGuiLayer::playRandVoice(float dt)
+{
+	Audio::getInstance()->playZhenrenVoice();
+	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), rand() % 4 + 5);
 }

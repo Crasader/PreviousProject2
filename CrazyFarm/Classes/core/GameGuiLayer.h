@@ -18,6 +18,7 @@ class GameGuiLayer: public cocos2d::Layer{
 public:
 	virtual bool init();
 	CREATE_FUNC(GameGuiLayer);
+	void refreshSkillNum();
 	
 private :
 	void ButtentouchEvent(Ref *pSender);
@@ -28,7 +29,7 @@ private :
 	void showSettingCallback(Ref*pSender);
 	void createSettingBoard();
 	void createGuizuGiftLayer();
-
+	
 	/////////美人鱼相关///////////////////////////////////////////////
 	float fmaridNowTime = 0;
 	void maridTaskTime(float dt);
@@ -37,6 +38,8 @@ public:
 	void beginMaridTaskTime();
 private:
 	////
+	//播放真人声音
+	void playRandVoice(float dt);
 	virtual void onExit();
 	MenuItemImage* setttingBoard;
 	MenuItemImage* UpgradeTurret;

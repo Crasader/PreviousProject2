@@ -29,7 +29,7 @@ void Turret::initWithType(int type){
 
 void Turret::shoot()
 {
-	Audio::getInstance()->playSound(SHOOT);
+	Audio::getInstance()->playShootVoic();
 	auto distance = getContentSize().height*SCALETURRET*0.1;
 	auto movebypos = Vec2(distance*cos(CC_DEGREES_TO_RADIANS(90-getRotation())), distance*sin(CC_DEGREES_TO_RADIANS(90-getRotation())));
 	runAction(Sequence::createWithTwoActions(Spawn::create(ScaleTo::create(0.025f, 1 * SCALETURRET, 0.8*SCALETURRET), MoveBy::create(0.025, Vec2(-movebypos.x, -movebypos.y)),nullptr),

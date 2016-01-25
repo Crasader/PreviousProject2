@@ -32,7 +32,14 @@ bool LoadingScene::init()
 		loadRes();}),DelayTime::create(2.0f), CallFunc::create([&]{Director::getInstance()->replaceScene(LobbyScene::createScene()); }), nullptr));
 	return true;
 }
-
+void LoadingScene::addPlistPngRes(std::string filename)
+{
+	Director::getInstance()->getTextureCache()->addImageAsync(filename + "png",
+		[=](Texture2D *texture)
+	{
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile(filename+("plist"), texture);
+	});
+}
 
 void LoadingScene::loadedCallBack()
 {
@@ -51,6 +58,7 @@ void LoadingScene::loadedCallBack()
 
 void LoadingScene::loadRes()
 {
+
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("batch_frame_bullet.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("gun_frame.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("batch_frame_net.plist");
@@ -60,7 +68,7 @@ void LoadingScene::loadRes()
 	///load ani
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/water/aniWater%d.jpg", "aniWater", 3.0f, 30);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.5f, 5);
-	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bubble/aniBubble%d.png", "aniBubble", 2.0f, 19);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bubble/aniBubble%d.png", "aniBubble", 2.5f, 46);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/net_ice/netIce%d.png", "iceNet", 0.7f, 18);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/net_fire/netFire%d.png", "fireNet", 0.7f, 18);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/gold/goldAni_%d.png", "aniGold", 0.3f, 5);
@@ -70,6 +78,7 @@ void LoadingScene::loadRes()
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_BaoZha/TX_BaoZha_%d.png", "aniTXTBoom", 2.2f, 28);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_ShiYongJiNeng/TX_SYJN_%d.png", "aniTurretLock", 0.5f, 6);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_MiaoZhun/TX_MiaoZhun_%d.png", "aniFishLock", 0.8f, 10);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_ShengJi/TX_ShengJi_%d.png", "aniShengji", 1.5, 21);
 	//load fish ani
 	int i = 1;
 	for (int i = 1; i < 100; i++)

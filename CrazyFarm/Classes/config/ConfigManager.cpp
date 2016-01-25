@@ -21,6 +21,7 @@
 #include "domain/mermaid/MermaidTask.h"
 #include "moment/MonmetEightRoute.h"
 #include "domain/gameConfig/gameConfig.h"
+#include "config/ConfigFishCollisionRange.h"
 ConfigManager* ConfigManager::_instance = NULL;
 
 ConfigManager::ConfigManager(){
@@ -61,7 +62,7 @@ void ConfigManager::LoadConfig() {
 	GameConfig::getInstance()->loadConfig();
 	FishRouteData::getInstance()->loadConfig();
 	FishGroupData::getInstance()->loadConfig();
-
+	ConfigFishCollisionRange::getInstance()->LoadConfig();
 	MonmetEightRoutedata::getInstance()->loadConfig();
 }
 

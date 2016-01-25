@@ -24,6 +24,7 @@ public:
 	void setlayer(GameLayer*layer){ m_gamelayer = layer; }
 	void addskillButton(int id, SkillButton* button){ map_id_skillbutton[id] = button; };
 	SkillButton* getButtonByID(int id){ return map_id_skillbutton[id]; };
+	std::map<int, SkillButton*> getSkillButtons(){ return map_id_skillbutton; };
 private:
 	skillManager();
     void init();

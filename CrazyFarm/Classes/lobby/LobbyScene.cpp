@@ -24,6 +24,7 @@
 #include "core/TurnTableDialog.h"
 #include "domain/ranklist/RanklistLayer.h"
 #include "utill/Audio.h"
+#include "lobby/FeedbackLayer.h"
 
 enum 
 {
@@ -68,7 +69,7 @@ bool LobbyScene::init()
 	auto leveldata = user->getLevelData();
 
 
-
+	Audio::getInstance()->playBGM(LOBBYBGM);
 
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -411,21 +412,21 @@ void LobbyScene::createRoomLayer()
 
 void LobbyScene::payCoinCallback(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto paylayer = payLayer::createLayer(1);
 	paylayer->setPosition(Point::ZERO);
 	addChild(paylayer, kZorderDialog);
 }
 void LobbyScene::payDiamondCallback(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto paylayer = payLayer::createLayer(2);
 	paylayer->setPosition(Point::ZERO);
 	addChild(paylayer, kZorderDialog);
 }
 void LobbyScene::beginGameCallback(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto cell = (roomCell*)psend;
 	GameData::getInstance()->setRoomID(cell->getRoomid());
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
@@ -433,20 +434,20 @@ void LobbyScene::beginGameCallback(Ref*psend)
 
 void LobbyScene::bagButtonCallback(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	Director::getInstance()->pushScene(BagLayer::createScene());
 }
 
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto layer = SettingDialog::create();
 	layer->setPosition(Point::ZERO);
 	addChild(layer, kZorderDialog);
 }
 void LobbyScene::RankListCallback(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	RanklistManager::getInstance()->loadConfig();
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([&]
 	{
@@ -625,7 +626,7 @@ void LobbyScene::lockTheRoom()
 
 void LobbyScene::guizuCallback(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto guizulayer = NobilityLayer::createLayer();
 	guizulayer->setPosition(Point::ZERO);
 	addChild(guizulayer, kZorderDialog);
@@ -634,8 +635,9 @@ void LobbyScene::guizuCallback(Ref*psend)
 
 void LobbyScene::showVipCallBack(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto viplayer = VIPLayer::create();
+	/*auto viplayer = FeedbackLayer::create();*/
 	viplayer->setPosition(Point::ZERO);
 	addChild(viplayer, kZorderDialog);
 }
@@ -682,7 +684,7 @@ std::vector<Room> LobbyScene::sortRoomByMaxlevel(int maxLevel)
 
 void LobbyScene::quickBeginCallback(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICK);
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto maxLevel = User::getInstance()->getMaxTurrentLevel();
 	auto roomDatas = ConfigRoom::getInstance()->getRooms();
 	///获得最大可进房间ID

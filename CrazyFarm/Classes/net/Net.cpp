@@ -3,6 +3,7 @@
 #include "data/GameData.h"
 #include "bullet/BulletManage.h"
 #include "utill/AnimationUtil.h"
+#include "utill/CollisionUtill.h"
 bool Net::init(){
 	if (!Sprite::init()){
 		return false;
@@ -89,7 +90,7 @@ void Net::checkCatchFish(){
 	Vector<Fish*> fishNeedRemove;
 	auto turretdata = m_bullet->getTurretdata();
 	for (Fish* fish : allFish){
-		if (collision(this,fish)){
+		if (/*collision(this,fish)*/CollisionUtill::isCollisionRect(fish->getBoundingFigures(), getBoundingBox())){
 			float k = rand_0_1();
 			if (k<(fish->getGrabProbability()*turretdata.catch_per))
 			{
@@ -103,17 +104,9 @@ void Net::checkCatchFish(){
 	auto data = GameData::getInstance();
 	m_bullet->getCoinForFish(fishNeedRemove);
 	for (Fish* fish : fishNeedRemove){
-		if (data->getIsOnMaridTask())
+		if (fish->getFishType() == 201)
 		{
-			auto vec = data->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
-			for (auto var:vec)
-			{
-				if (fish->getFishType() == var.fishId)
-				{
-					data->getmermaidTask()->addOneCatchFishById(fish->getFishType());
-					break;
-				}
-			}
+			FishManage::getInstance()->onBoomFishDead(fish, m_bullet->getPlayerTurret());
 		}
 		FishManage::getInstance()->removeFish(fish,1);
 		fish = nullptr;

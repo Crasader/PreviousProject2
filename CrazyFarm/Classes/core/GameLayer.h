@@ -74,7 +74,11 @@ private:
 public:
 	void onFreezeBegin();
 	void onFreezeEnd();
-
+////Óã³±À´ÁÙ
+	void onClearFish();
+	void onClearFishUpdata(float dt);
+private:
+	
 
 	//µã»÷ÅÚ
 	bool onTouTurret(Point pos);

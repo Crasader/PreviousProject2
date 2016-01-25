@@ -6,7 +6,7 @@ SkillLockButton* SkillLockButton::createSkillLockButton()
 	SkillLockButton* skillButton = new SkillLockButton();
 	if (skillButton && skillButton->init(info.cd_time, "skillStencil.png", "item_1004.png", "item_1004.png", skillManager::getInstance()->getSKillNumById(info.skill_id)))
 	{
-
+		skillButton->itemID = 1004;
 		skillButton->autorelease();
 		return skillButton;
 	}

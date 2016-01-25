@@ -2,7 +2,7 @@
 #include "moment/MomentEight.h"
 #include "moment/momentFishGroup/MomentFive.h"
 #include "moment/momentFishGroup/MomentSix.h"
-
+#include "moment/MomentNine.h"
 MomentManager* MomentManager::_instance = NULL;
 
 MomentManager::MomentManager(){
@@ -78,6 +78,12 @@ Moment* MomentManager::getNewMomentByType(int momentType) {
 	case 8:
 	{
 		Moment* moment = new MomentEight();
+		moment->init();
+		return moment;
+	}
+	case 9:
+	{
+		Moment* moment = new MomentNine();
 		moment->init();
 		return moment;
 	}

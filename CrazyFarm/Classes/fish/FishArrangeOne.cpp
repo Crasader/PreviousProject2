@@ -2,6 +2,7 @@
 #include "fish/FishAniMannage.h"
 #include "utill/MagicEffect.h"
 #include "utill/FunUtil.h"
+#include "config/ConfigFishCollisionRange.h"
 
 void FishArrangeOne::initFish(int fishType){
 	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
@@ -24,7 +25,9 @@ void FishArrangeOne::initFishAnim(int fishType)
 	maggiceff->setPosition(getContentSize() / 2);
 	maggiceff->setScale(getContentSize().width / maggiceff->getContentSize().width);
 	addChild(maggiceff,-1);
+	pushBackFigureVec(id, Point(0, 0));
 	
+
 
 	////TODO ： 挂载光圈 下班处理 需计算每只鱼大小，缩小放大光圈
 	//副鱼
@@ -45,13 +48,14 @@ void FishArrangeOne::initFishAnim(int fishType)
 	maggiceff->setPosition(sp->getContentSize() / 2);
 	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
 	sp->addChild(maggiceff, -1);
-
+	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	sp->setPosition(mainSize.width *1.0 + AffiliateSize.width/2, mainSize.height/2);
 	sp->runAction(ac2);
 	addChild(sp);
+	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 	maggiceff = MagicEffect::create(2, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);
 	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
@@ -64,4 +68,13 @@ void FishArrangeOne::addShader()
 void FishArrangeOne::onDead()
 {
 	removeFromParentAndCleanup(1);
+}
+
+void FishArrangeOne::pushBackFigureVec(int uiid,Point pos)
+{
+	auto vec = ConfigFishCollisionRange::getInstance()->getFishFigures(uiid);
+	for (auto var:vec)
+	{
+		figures.push_back(var->addposWithFigure(pos));
+	}
 }

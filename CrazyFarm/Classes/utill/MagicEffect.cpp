@@ -22,9 +22,10 @@ bool MagicEffect::init(const int lightID, bool isBottomRorato)
 	{
 	    if (isBottomRorato)
 	    {
-			auto path = String::createWithFormat("effect/light_%d.png", lightID);
+			
+			auto path = String::createWithFormat("game/ui/effect/light_%d.png", lightID);
 			initWithFile(path->getCString());
-			path = String::createWithFormat("effect/lightRorate_%d.png", lightID);
+			path = String::createWithFormat("game/ui/effect/lightRorate_%d.png", lightID);
 			auto sp = Sprite::create(path->getCString());
 			sp->setPosition(getContentSize() / 2);
 			addChild(sp);
@@ -32,7 +33,7 @@ bool MagicEffect::init(const int lightID, bool isBottomRorato)
 	    }
 		else
 		{
-			auto path = String::createWithFormat("effect/light_%d.png", lightID);
+			auto path = String::createWithFormat("game/ui/effect/light_%d.png", lightID);
 			initWithFile(path->getCString());
 			runAction(RepeatForever::create(RotateBy::create(3.0f, 360.0)));
 		}

@@ -6,7 +6,7 @@ SkillBombButton* SkillBombButton::createSkillBombButton()
 	SkillBombButton* skillButton = new SkillBombButton();
 	if (skillButton && skillButton->init(info.cd_time, "skillStencil.png", "item_1006.png", "item_1006.png", skillManager::getInstance()->getSKillNumById(info.skill_id)))
 	{
-
+		skillButton->itemID = 1006;
 		skillButton->autorelease();
 		return skillButton;
 	}

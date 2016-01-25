@@ -2,6 +2,7 @@
 #include "fish/FishAniMannage.h"
 #include "utill/MagicEffect.h"
 #include "utill/FunUtil.h"
+#include "config/ConfigFishCollisionRange.h"
 void FishArrangeThree::initFish(int fishType){
 	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
 	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
@@ -26,7 +27,7 @@ void FishArrangeThree::initFishAnim(int fishType)
 	maggiceff->setPosition(mainfish->getContentSize() / 2);
 	maggiceff->setScale(mainfish->getContentSize().width / maggiceff->getContentSize().width);
 	mainfish->addChild(maggiceff, -1);
-	
+	pushBackFigureVec(id, mainfish->getPosition()-mainfish->getContentSize()/2);
 
 	////TODO ： 挂载光圈 下班处理 需计算每只鱼大小，缩小放大光圈
 	//副鱼
@@ -46,6 +47,7 @@ void FishArrangeThree::initFishAnim(int fishType)
 	sp->setPosition(-AffiliateSize.width/2-mainSize.width/2, mainSize.height / 2+AffiliateSize.height/2);
 	sp->runAction(ac1);
 	addChild(sp);
+	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 	maggiceff = MagicEffect::create(3, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);
 	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
@@ -56,6 +58,7 @@ void FishArrangeThree::initFishAnim(int fishType)
 	sp->setPosition(-AffiliateSize.width / 2-mainSize.width/2 , -mainSize.height / 2 - AffiliateSize.height / 2);
 	sp->runAction(ac2);
 	addChild(sp);
+	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 	maggiceff = MagicEffect::create(3, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);
 	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
@@ -66,6 +69,7 @@ void FishArrangeThree::initFishAnim(int fishType)
 	sp->setPosition(mainSize.width/2+AffiliateSize.width/2 , 0);
 	sp->runAction(ac3);
 	addChild(sp);
+	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 	maggiceff = MagicEffect::create(3, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);
 	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
@@ -76,4 +80,13 @@ void FishArrangeThree::initFishAnim(int fishType)
 void FishArrangeThree::onDead()
 {
 	removeFromParentAndCleanup(1);
+}
+
+void FishArrangeThree::pushBackFigureVec(int uiid, Point pos)
+{
+	auto vec = ConfigFishCollisionRange::getInstance()->getFishFigures(uiid);
+	for (auto var : vec)
+	{
+		figures.push_back(var->addposWithFigure(pos));
+	}
 }

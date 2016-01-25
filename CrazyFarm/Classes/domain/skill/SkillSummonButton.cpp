@@ -6,7 +6,7 @@ SkillSummonButton* SkillSummonButton::createSkillSummonButton()
 	SkillSummonButton* skillButton = new SkillSummonButton();
 	if (skillButton && skillButton->init(info.cd_time, "skillStencil.png", "item_1005.png", "item_1005.png", skillManager::getInstance()->getSKillNumById(info.skill_id)))
 	{
-
+		skillButton->itemID = 1005;
 		skillButton->autorelease();
 		return skillButton;
 	}

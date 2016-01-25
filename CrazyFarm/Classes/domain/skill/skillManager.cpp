@@ -2,6 +2,7 @@
 #include "domain/bag/BagManager.h"
 #include "fish/FishManage.h"
 #include "utill/AnimationUtil.h"
+#include "utill/Audio.h"
 skillManager* skillManager::_instance = NULL;
 
 skillManager::skillManager(){
@@ -36,6 +37,7 @@ int skillManager::getSKillNumById(int skillid)
 
 void skillManager::useSkillSummon()
 {
+	Audio::getInstance()->playSound(SKILLSUMMON);
 	auto randPos = Vec2(100, 150 + rand() % 200);
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(randPos);
@@ -52,6 +54,7 @@ void skillManager::useSkillSummon()
 
 void skillManager::useSkillFreeze()
 {
+	Audio::getInstance()->playSound(SKILLFREEZE);
 	auto fishes = FishManage::getInstance()->getAllFishInPool();
 	for (auto fish:fishes)
 	{
@@ -83,5 +86,6 @@ void skillManager::useSkillLockEnd()
 
 void skillManager::useSkillBoom()
 {
+	Audio::getInstance()->playSound(SKILLBOOM);
 	m_gamelayer->beginSkillBoom();
 }

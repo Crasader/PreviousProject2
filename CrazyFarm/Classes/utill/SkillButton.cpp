@@ -1,5 +1,5 @@
 #include "SkillButton.h"
-
+#include "domain/bag/BagManager.h"
 
 USING_NS_CC;
 
@@ -81,6 +81,7 @@ bool SkillButton::init(float cdTime, const char* stencil_file_name, const char* 
 
 void SkillButton::refreshPropNumLabel()
 {
+	mPropNum = BagManager::getInstance()->getItemNum(itemID);
 	((LabelAtlas*)getChildByTag(50))->setString(Value(mPropNum).asString().c_str());
 }
 

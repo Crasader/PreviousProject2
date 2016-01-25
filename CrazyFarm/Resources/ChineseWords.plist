@@ -28,7 +28,12 @@
      <key>nichengTip</key>
   <string>昵称最多不能超过八个字</string>
   
+   <key>feedbackTip</key>
+  <string>输入你对游戏的看法，最多不能超过140个字</string>
   
+  
+    <key>itemDanJia</key>
+  <string> 单价：%d钻石/个</string>
   </dict> 
 
 </array>

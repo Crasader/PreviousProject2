@@ -85,7 +85,11 @@ void BagView::tableCellTouched(TableView* table, TableViewCell* cell){
 	{
 		selectedCell = cell2;
 	}
-	selectedCell->IsBeToued();
+	if (selectedCell!=NULL)
+	{
+		selectedCell->IsBeToued();
+	}
+	
 }
 Size BagView::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx){
 	return CCSizeMake(110, 110);
@@ -131,7 +135,7 @@ Scene* BagLayer::createScene()
 
 	auto layer = BagLayer::create();
 
-	scene->addChild(layer);
+	scene->addChild(layer,0,50);
 
 	return scene;
 }
@@ -249,7 +253,7 @@ bool BagLayer::init()
 
 		//½ð±Ò
 			auto coinFrame = Sprite::create("coinFrame.png");
-		coinFrame->setPosition(visibleSize.width*0.45, visibleSize.height*0.95);
+		coinFrame->setPosition(visibleSize.width*0.12, visibleSize.height*0.95);
 		addChild(coinFrame);
 		auto sssize1 = coinFrame->getContentSize();
 		auto coin = Sprite::create("coin.png");
@@ -270,7 +274,7 @@ bool BagLayer::init()
 
 		//×êÊ¯
 		auto diamondFrame = Sprite::create("coinFrame.png");
-		diamondFrame->setPosition(visibleSize.width*0.74, visibleSize.height*0.95);
+		diamondFrame->setPosition(visibleSize.width*0.41, visibleSize.height*0.95);
 		addChild(diamondFrame);
 		sssize1 = diamondFrame->getContentSize();
 		auto diamond = Sprite::create("diamond.png");

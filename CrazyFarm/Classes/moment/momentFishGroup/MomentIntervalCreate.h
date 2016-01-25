@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "moment/Moment.h"
+#include "utill/Audio.h"
 using namespace cocos2d;
 
 

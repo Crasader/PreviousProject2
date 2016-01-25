@@ -19,3 +19,5 @@ std::string NewAtoI(int num);
 std::string NewAtoI(long num);
 
 int getintRandonNumByAtoB(int A, int B);
+
+std::string myWrap(std::string str, int length);

@@ -11,6 +11,9 @@
 #include "domain/mermaid/MermaidTask.h"
 #include "core/showTurretLayer.h"
 #include "domain/bankrupt/BankruptManager.h"
+#include "domain/bag/BagManager.h"
+#include "core/GameGuiLayer.h"
+#include "utill/Audio.h"
 enum 
 {
 	kTagBankrupt = 20
@@ -324,11 +327,16 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 	{
 		m_turretdata = GameData::getInstance()->getTurrentData();
 		//获得金币
+		Audio::getInstance()->playSound(CATCHGOLD);
 		num = fish->getFishGold()* m_turretdata.multiple;
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
 		//获得经验
 		auto exp = fish->getFishExperience();
-		User::getInstance()->addExp(exp);
+		if (User::getInstance()->addExp(exp))
+		{
+			onPlayerUpgrade();
+		}
+		
 
 		//奖金池
 		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
@@ -651,4 +659,20 @@ void PlayerTurret::autoShootCallback(Ref*psend)
 	{
 		layer->beginAutoShoot();
 	}
+}
+
+void PlayerTurret::onPlayerUpgrade()
+{
+	Audio::getInstance()->playSound("UPDATALEVEL");
+	auto rewards = ConfigExp::getInstance()->getLevelRewardItemsByLevelId(User::getInstance()->getLevelData().levelId);
+	for (auto var:rewards)
+	{
+		BagManager::getInstance()->changeItemCount(var.item_id, var.num);
+	}
+	auto layer = (GameGuiLayer*)Director::getInstance()->getRunningScene()->getChildByTag(888);
+	layer->refreshSkillNum();
+	auto aninode = Sprite::create();
+	aninode->setPosition(480, 270);
+	layer->addChild(aninode);
+	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 3), RemoveSelf::create(), nullptr));
 }

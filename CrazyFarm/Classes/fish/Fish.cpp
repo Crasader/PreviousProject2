@@ -6,6 +6,7 @@
 #include "utill/AnimationUtil.h"
 #include"utill/FunUtil.h"
 #include "utill/Audio.h"
+#include "Config/ConfigFishCollisionRange.h"
 enum 
 {
 	kTagAcNormal = 10
@@ -31,7 +32,7 @@ void Fish::initFish(int fishType){
 	BonusPoorGold = fishdata.bonus_pool_reward;
 	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
-	
+	figures = ConfigFishCollisionRange::getInstance()->getFishFigures(fishdata.uiId);
 	
 }
 
@@ -44,7 +45,7 @@ void Fish::initFishAnim(int fishType){
 	runAction(ac);
 
 	
-	//shadedatas.push_back(ShadeData(fishType,  getContentSize().width*0.15,  getContentSize().height*-0.15));
+	
 
 }
 void Fish::update(float dt)
@@ -399,22 +400,24 @@ void Fish::onFreezeResume()
 void Fish::onDead()
 {
 	stopAllActions();
-	auto acName = String::createWithFormat("dead_%d", fishType);
+	unscheduleAllCallbacks();
+	auto acName = String::createWithFormat("dead_%d", nUiID);
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
 	m_shadesprite->onDead();
-	runAction(Sequence::create(ac, CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
-
+	runAction(RepeatForever::create(ac));
+	runAction(Sequence::create(DelayTime::create(2.0f), CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
+	//…˘“Ù
 	if (fishType < 20)
 	{
-		Audio::getInstance()->playSound(CATCHSMALL);
+		/*Audio::getInstance()->playSound(CATCHSMALL);*/
 	}
 	else if (fishType >= 20 && fishType<30)
 	{
-		Audio::getInstance()->playSound(CATCHMID);
+		/*Audio::getInstance()->playSound(CATCHMID);*/
 	}
 	else if (fishType >= 30 && fishType<40)
 	{
-		Audio::getInstance()->playSound(CATCHBIG);
+		/*Audio::getInstance()->playSound(CATCHBIG);*/
 	}
 	else if (fishType >= 40 && fishType<50)
 	{
@@ -422,7 +425,7 @@ void Fish::onDead()
 	}
 	else
 	{
-		Audio::getInstance()->playSound(CATCHBOSS);
+		Audio::getInstance()->playSound(CATCHGIRLFISH);
 	}
 	
 }
@@ -449,7 +452,7 @@ void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
 {
 	auto node = Node::create(); 
 	node->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	node->setPosition(getPositionX(), getPositionY() + 150);
+	node->setPosition(getPositionX(), getPositionY() + 50);
 	getParent()->addChild(node);
 	belongPos = node->convertToNodeSpace(belongPos);
 	auto data = ConfigFish::getInstance()->getFishDropCoinData(ConfigFish::getInstance()->getFish(fishType).uiId);
@@ -483,8 +486,16 @@ void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
 	label->runAction(ScaleTo::create(0.1, 1));
 
 	node->runAction(Sequence::create(DelayTime::create(data.num*0.1f + 1.5f), RemoveSelf::create(), nullptr));
-
-
-
-
 }
+
+std::vector<CFigure*> Fish::getBoundingFigures()
+{
+	std::vector<CFigure*> vec;
+	for (auto var:figures)
+	{
+		vec.push_back(var->ApplyAffineTransform(var,getNodeToParentAffineTransform()));
+	}
+	return vec;
+	
+}
+

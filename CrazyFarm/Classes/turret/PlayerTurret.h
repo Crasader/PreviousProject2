@@ -71,7 +71,7 @@ public:
 	  void showPlayerInfo();
 	  void changeTurrentCallback(Ref*psend); //换炮
 	  void autoShootCallback(Ref*psend);//自动开炮
-
+	  void onPlayerUpgrade();//玩家升级
 
 private:
 	Turrent  m_turretdata;

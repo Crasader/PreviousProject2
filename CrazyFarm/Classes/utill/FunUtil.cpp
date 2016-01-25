@@ -147,3 +147,37 @@ std::string NewAtoI(long num)
 	auto str = String::createWithFormat("%ld", num);
 	return str->getCString();
 }
+
+
+std::string myWrap(std::string str, int length)
+{
+	unsigned int beginPos = 0;  //字符串的初始位置
+	std::string resultStr;		//返回的字符串
+
+
+	std::vector<std::string > str_vec;  //创建一个字符串类型的顺序容器
+	do
+	{
+		str_vec.push_back(str.substr(beginPos, length)); //substr函数的作用类似剪刀，将str中从beginPos到length之间的字符串剪下来，单独放入容器中 
+		if (beginPos + length > str.size())
+		{
+			break;  //当要裁剪的长度超出str的长度，则退出循环
+		}
+		else
+		{
+			beginPos += length;
+		}
+
+	} while (true);
+
+	for (unsigned int i = 0; i < str_vec.size(); ++i)
+	{
+		resultStr.append(str_vec.at(i)).append("\n"); //从容器逐一取出之前裁剪好的一段段字符串，分别在字符串后面加上换行符。append()类似胶水，将\n粘到字符串后面 
+	}
+
+
+	//   resultStr.pop_back();  //这一句是将最后一个多余的\n给删掉
+
+
+	return resultStr;
+}

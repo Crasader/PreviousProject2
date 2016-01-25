@@ -5,6 +5,10 @@
 #include "fish/FishArrangeTwo.h"
 #include "fish/FishArrangeThree.h"
 #include "fish/FishArrangeFourh.h"
+#include "data/GameData.h"
+#include "utill/CCircle.h"
+#include "utill/CollisionUtill.h"
+#define BOOMFISHCIRCLE 50
 FishManage* FishManage::_instance = 0;
 
 FishManage* FishManage::getInstance(){
@@ -132,7 +136,8 @@ void FishManage::createFishByEightMonment(MomentEightItemPer per)
 	}
 	else
 	{
-		if (per.fish_id>=100)
+		if (per.fish_id>=100&&per.fish_id
+			<200)
 		{
 			createFishArrangeRand(per.fish_id);
 		}
@@ -151,7 +156,20 @@ void FishManage::removeFish(Fish* fish,bool isDead){
 	}
 	fishPool.eraseObject(fish);
 	if (isDead)
-	{
+	{	
+		auto data = GameData::getInstance();
+		if (data->getIsOnMaridTask())
+		{
+			auto vec = data->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
+			for (auto var : vec)
+			{
+				if (fish->getFishType() == var.fishId)
+				{
+					data->getmermaidTask()->addOneCatchFishById(fish->getFishType());
+					break;
+				}
+			}
+		}
 		fish->onDead();
 	}
 	else
@@ -270,7 +288,15 @@ void FishManage::createFishArrangeRand(int fishID)
 
 void FishManage::cleanVector()
 {
-	m_layer = nullptr; 
+	auto lockfish = m_layer->GetMyTurret()->getLockFish();
+	for (auto var:fishPool)
+	{
+		if (var == lockfish)
+		{
+			m_layer->GetMyTurret()->setLockFish(nullptr);
+		}
+		var->removeself();
+	}
 	fishPool.clear();
 }
 
@@ -394,5 +420,34 @@ void FishManage::createCycleFish(int count, int Radius, int fishID, Point center
 		fish->addShader();
 	}
 	
+
+}
+
+void FishManage::onBoomFishDead(Fish*fish, PlayerTurret* pTurret)
+{
+	auto pos = fish->getPosition();
+	auto cicle = CCircle(pos, BOOMFISHCIRCLE);
+#if 1
+	auto draw = DrawNode::create();
+	draw->drawCircle(cicle.getMCenter(), cicle.getMRadius(), 360, 100, false, Color4F::RED);
+	m_layer->addChild(draw);
+#endif
+	auto fishPool = FishManage::getInstance()->getAllFishInPool();
+	auto data = GameData::getInstance();
+	for (auto fish : fishPool)
+	{
+		if (CollisionUtill::isCollisionCircle(fish->getBoundingFigures(), cicle))
+	
+		{
+			pTurret->getCoinByFish(fish);
+			FishManage::getInstance()->removeFish(fish, 1);
+		}
+	}
+}
+
+
+void FishManage::onClearFish()
+{
+	m_layer->onClearFish();
 
 }

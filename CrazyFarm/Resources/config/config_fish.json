@@ -431,7 +431,7 @@
 			"baseReward"	    :{"start":120,"end":120},
 			"maxHitTime"	    :	30,
 			"protectedTime"	    :	0,
-			"ui_id"			    :	201,
+			"ui_id"			    :	60,
 			"catch_ui_type"     :	4,
 			"exp"               :   0,
 			"bonus_pool_reward" :   0,
