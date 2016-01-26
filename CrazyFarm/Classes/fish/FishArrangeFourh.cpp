@@ -11,6 +11,7 @@ void FishArrangeFourh::initFish(int fishType){
 	this->speed = fishdata.move_speed;
 	this->experience = getFishExperienceByType(fishType);
 	initFishAnim(fishdata.uiId);
+	LogEventFish::getInstance()->addFishCreateTimes(fishType);
 }
 void FishArrangeFourh::initFishAnim(int fishType)
 {

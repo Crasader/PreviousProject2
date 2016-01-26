@@ -15,7 +15,7 @@
 #include "fish/FishAniMannage.h"
 #include "utill/CollisionUtill.h"
 #include "utill/Audio.h"
-
+#include "domain/logevent/LogEventMannger.h"
 #define BOOMRADIUS 300
 enum
 {
@@ -74,11 +74,10 @@ bool GameLayer::init(){
 
 	setbisOnSkillLock(false);
 
-
-
-
+	LogEventMannger::getInstance()->init(roominfo.room_id);
 	GameData::getInstance()->setShotCount(0);
 	GameData::getInstance()->setevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
+	GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
 	return true;
 }
 
@@ -156,7 +155,7 @@ void GameLayer::createTurret(){
 
 void GameLayer::addTouchEvent(){
 	touchListener = EventListenerTouchOneByOne::create();
-	touchListener->setSwallowTouches(true);
+	touchListener->setSwallowTouches(false);
 	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
 	touchListener->onTouchMoved = CC_CALLBACK_2(GameLayer::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
@@ -171,6 +170,10 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	{
 		return true;
 	}
+	if (GameData::getInstance()->getisOnBankrupt())
+	{
+		return true;
+	}
 	const float shootInterval = GameConfig::getInstance()->getShootData().shootInterval;
 	if (!isShoot)
 	{
@@ -178,7 +181,6 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	}
 	float degree = getTurretRotation(myTurret->getPosition(), touchPos);
 	rotateTurret(degree, myTurret);
-	GameData::getInstance()->setShotCount(1+(GameData::getInstance()->getShotCount()));
 	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([&]{
 		CCLOG("turret rotate%f", myTurret->getRarote());
 		myTurret->shoot(myTurret->getRarote()); 
@@ -329,6 +331,9 @@ void GameLayer::onExit()
 	Layer::onExit();
 	FishManage::getInstance()->cleanVector();
 	BulletManage::getInstance()->ClearManage();
+	LogEventFish::getInstance()->sendDataToServer();
+	LogEventMagnate::getInstance()->sendDataToServer();
+	LogEventUseSkill::getInstance()->sendDataToServer();
 	myTurret = nullptr;
 	otherTurrets.clear();
 }

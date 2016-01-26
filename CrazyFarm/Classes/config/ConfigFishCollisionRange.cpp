@@ -52,7 +52,7 @@ bool ConfigFishCollisionRange::LoadConfig() {
 				}
 				else
 				{
-					vec.push_back(new CCircle(Point(figure["origin"]["x"].GetDouble(), figure["origin"]["y"].GetDouble()), figure["radius"].GetDouble()));
+					vec.push_back(new CCircle(Point(figure["origin"]["x"].GetDouble(), figure["origin"]["y"].GetDouble()), (float)(figure["radius"].GetDouble())));
 				}
 			}
 			uiidToFigures[val["fish_UiId"].GetInt()] = vec;

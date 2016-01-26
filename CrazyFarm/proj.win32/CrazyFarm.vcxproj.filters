@@ -112,6 +112,9 @@
     <Filter Include="src\utill\figure">
       <UniqueIdentifier>{9f18e8f2-202f-4a46-aade-b30c25faaede}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\logevent">
+      <UniqueIdentifier>{be87d6c2-cc47-4f5b-8e37-9215ac201966}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -333,9 +336,6 @@
     <ClCompile Include="..\Classes\widget\MyMenuItemUpgrade.cpp">
       <Filter>src\widget</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\config\ConfigMagnate.cpp">
       <Filter>src\Interface</Filter>
     </ClCompile>
@@ -518,6 +518,33 @@
     </ClCompile>
     <ClCompile Include="..\Classes\moment\MomentNine.cpp">
       <Filter>src\moment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\FirstPayLayer.cpp">
+      <Filter>src\lobby</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\core\GetRewardNode.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventMannger.cpp">
+      <Filter>src\logevent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventFish.cpp">
+      <Filter>src\logevent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventMermaid.cpp">
+      <Filter>src\logevent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp">
+      <Filter>src\mannager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventMagnate.cpp">
+      <Filter>src\logevent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventBankrupt.cpp">
+      <Filter>src\logevent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventUseSkill.cpp">
+      <Filter>src\logevent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -743,9 +770,6 @@
     <ClInclude Include="..\Classes\widget\MyMenuItemUpgrade.h">
       <Filter>src\widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigMagnate.h">
       <Filter>src\Interface</Filter>
     </ClInclude>
@@ -928,6 +952,33 @@
     </ClInclude>
     <ClInclude Include="..\Classes\moment\MomentNine.h">
       <Filter>src\moment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\FirstPayLayer.h">
+      <Filter>src\lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\GetRewardNode.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventFish.h">
+      <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventMannger.h">
+      <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventMermaid.h">
+      <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h">
+      <Filter>src\mannager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventMagnate.h">
+      <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventBankrupt.h">
+      <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventUseSkill.h">
+      <Filter>src\logevent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

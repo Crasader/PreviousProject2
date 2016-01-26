@@ -35,7 +35,7 @@ bool BagManager::changeItemCount(int itemId, int num) {
 
 int BagManager::getItemNum(int itemId) {
     auto key = String::createWithFormat("%s%d", BagManager::KEY_ITEMID_HEAD, itemId);
-	return UserDefault::getInstance()->getIntegerForKey(key->getCString(), 1);
+	return UserDefault::getInstance()->getIntegerForKey(key->getCString(), 0);
 }
 
 std::vector<BagItem> BagManager::getBagList() 

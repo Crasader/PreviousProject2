@@ -8,7 +8,7 @@ public:
 	static std::string getChange_id();
 	static int getHd_type();
 	static int getHd_factory();
-
+	static int getVesion();
 
 };
 

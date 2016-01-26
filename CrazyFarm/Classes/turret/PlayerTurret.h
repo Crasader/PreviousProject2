@@ -58,8 +58,8 @@ public:
 	  //破产
 	  void onBankrupt();
 	  void onAIResurgenceCallBack(Node* sender, void* data);
-	  std::string getNetImgPath(int ui_type, int net_type);
 	  void update(float delta); 
+	 
 	  ///更新炮塔信息
 	  void refreshTurretInfo();
 	  void setLockFish(Fish* fish);
@@ -72,7 +72,9 @@ public:
 	  void changeTurrentCallback(Ref*psend); //换炮
 	  void autoShootCallback(Ref*psend);//自动开炮
 	  void onPlayerUpgrade();//玩家升级
-
+	  Turrent getTurrentMupltData(){ return m_turretdata; };
+	  //攻击消耗金币
+	  void costMoney();
 private:
 	Turrent  m_turretdata;
 	  int turretType;

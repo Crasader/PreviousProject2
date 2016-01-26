@@ -5,7 +5,7 @@ m_center(CCPoint(0, 0)), m_radius(0)
 {
 }
 
-CCircle::CCircle(cocos2d::CCPoint& center, float radius) :
+CCircle::CCircle(cocos2d::CCPoint  center, float radius) :
 m_center(center), m_radius(radius){
 }
 

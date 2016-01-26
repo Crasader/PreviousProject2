@@ -3,6 +3,8 @@
 #include "fish/FishManage.h"
 #include "utill/AnimationUtil.h"
 #include "utill/Audio.h"
+#include "domain/logevent/LogEventMannger.h"
+#include "config/ConfigItem.h"
 skillManager* skillManager::_instance = NULL;
 
 skillManager::skillManager(){
@@ -39,6 +41,9 @@ void skillManager::useSkillSummon()
 {
 	Audio::getInstance()->playSound(SKILLSUMMON);
 	auto randPos = Vec2(100, 150 + rand() % 200);
+
+
+	///TODO::¶¯»­ÈÓ³öÈ¥
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(randPos);
 	m_gamelayer->addChild(aniNode, 10);
@@ -88,4 +93,21 @@ void skillManager::useSkillBoom()
 {
 	Audio::getInstance()->playSound(SKILLBOOM);
 	m_gamelayer->beginSkillBoom();
+}
+
+
+void skillManager::useSkillLight()
+{
+	
+}
+void skillManager::useSkillLightEnd()
+{
+	
+}
+
+
+int skillManager::getSkillPriceById(int skillid)
+{
+	auto info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(skillid);
+	return ConfigItem::getInstance()->getItemById(info.item_id).buyPrice;
 }

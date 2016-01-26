@@ -35,3 +35,14 @@ int DeviceInfo::getHd_factory()
 	return 1;
 #endif
 }
+
+int DeviceInfo::getVesion()
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	return 1;
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	return 1;
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	return 1;
+#endif
+}

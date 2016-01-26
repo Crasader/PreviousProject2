@@ -1,12 +1,11 @@
 #include "SkillLockButton.h"
 #include "domain/bag/BagManager.h"
+#include "data/GameData.h"
 SkillLockButton* SkillLockButton::createSkillLockButton()
 {
-	SkillConfigInfo info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(2);
 	SkillLockButton* skillButton = new SkillLockButton();
-	if (skillButton && skillButton->init(info.cd_time, "skillStencil.png", "item_1004.png", "item_1004.png", skillManager::getInstance()->getSKillNumById(info.skill_id)))
+	if (skillButton && skillButton->init(2,"skillStencil.png", "item_1004.png", "item_1004.png"))
 	{
-		skillButton->itemID = 1004;
 		skillButton->autorelease();
 		return skillButton;
 	}
@@ -22,13 +21,36 @@ SkillLockButton* SkillLockButton::createSkillLockButton()
 /** 技能按钮点击回调 */
 void SkillLockButton::skillClickCallBack(Ref* obj)
 {
-	if (mPropNum<=0)
+	if (GameData::getInstance()->getisOnBankrupt())
 	{
-		return ;
+		return;
 	}
-	mPropNum--;
-	BagManager::getInstance()->changeItemCount(2, mPropNum);
-	refreshPropNumLabel();
+	auto num = skillManager::getInstance()->getSKillNumById(m_skillID);
+	auto price = skillManager::getInstance()->getSkillPriceById(m_skillID);
+	auto userdm = User::getInstance()->getDiamonds();
+	if (num <= 0)
+	{
+		if (userdm > price)
+		{
+			LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, price);
+			User::getInstance()->addDiamonds(-price);
+		}
+		else
+		{
+			LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 2, price);
+			auto layer = payLayer::createLayer(2);
+			layer->setPosition(0, 0);
+			Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer);
+			return;
+		}
+
+	}
+	else
+	{
+		LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 0, price);
+		BagManager::getInstance()->changeItemCount(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id, -1);
+	}
+
 	SkillButton::skillClickCallBack(obj);
 	skillManager::getInstance()->useSkillLock();
 }

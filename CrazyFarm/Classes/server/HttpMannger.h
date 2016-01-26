@@ -23,7 +23,6 @@ public:
 	void HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp,int maxTurretLevel,int PayRMB,int nobillityCount);//上传同步信息
 	void HttpToPostRequestSetName(std::string sessionid,const  char* nickname, int gender);//设置昵称
 	void HttpToPostRequestFeedback(std::string sessionid, const  char* feedback);//用户反馈	
-
 	void onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForRegisterInfo(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpResponse *response);
@@ -31,6 +30,10 @@ public:
 	void onHttpRequestCompletedForAfterPay(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForSyncInfo(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForSetName(HttpClient *sender, HttpResponse *response);
+
+	//数据埋点
+	void HttpToPostRequestLogEvent(std::string jsonString,int type);	//1:鱼 2：任务 3：赠送奖励
+	void onHttpRequestCompletedForLogEventCommon(HttpClient *sender, HttpResponse *response);
 private:
 	HttpMannger();
     void init();

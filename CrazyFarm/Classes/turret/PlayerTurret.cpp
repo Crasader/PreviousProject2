@@ -14,6 +14,9 @@
 #include "domain/bag/BagManager.h"
 #include "core/GameGuiLayer.h"
 #include "utill/Audio.h"
+#include "core/GetRewardNode.h"
+#include "domain/logevent/LogEventMannger.h"
+
 enum 
 {
 	kTagBankrupt = 20
@@ -35,6 +38,7 @@ bool PlayerTurret::init(){
 
 	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
 	addChild(m_turret);
+	GameData::getInstance()->setisOnBankrupt(false);
 	scheduleUpdate();
 	return true;
 }
@@ -79,6 +83,14 @@ void PlayerTurret::update(float delta)
 		m_DiamondLabel->setString(Value(num).asString().c_str());
 		num = GameData::getInstance()->getnowLevel();
 		nCurLevel->setString(Value(num).asString().c_str());
+		if (GameData::getInstance()->getisOnBankrupt())
+		{
+			if (User::getInstance()->getCoins()>0)
+			{
+				GameData::getInstance()->setisOnBankrupt(false);
+				getChildByTag(kTagBankrupt)->removeFromParentAndCleanup(1);
+			}
+		}
 	}
 
 
@@ -142,6 +154,10 @@ void PlayerTurret::rorateTurret(float angle)
 
 void PlayerTurret::shoot(float degree){
 
+	if (!isRobot&&GameData::getInstance()->getisOnBankrupt())
+	{
+		return;
+	}
 	if (nChairNoIndex > 1)
 	{
 		degree = 180+degree;
@@ -163,44 +179,10 @@ void PlayerTurret::shoot(float degree){
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"),RemoveSelf::create(1),nullptr));
 
 	//花费金币
-	if (isRobot)
-	{
-		auto num = Value(m_turretdata.multiple).asInt();
-		nNowMoney -= num;
-		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
-		if (nNowMoney<=0)
-		{
-			onBankrupt();
-		}
-	}
-	else
-	{
-		
-		auto num = Value(m_turretdata.multiple).asInt();
-		m_CoinLabel->setString(Value(User::getInstance()->addCoins(-num)).asString().c_str());
-		if (GameData::getInstance()->getIsOnMaridTask())
-		{
-			GameData::getInstance()->getmermaidTask()->addCoins(num);
-		}
-	}
+	costMoney();
 	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void PlayerTurret::setAIinfo(AI*info)
 {
@@ -312,10 +294,11 @@ void PlayerTurret::initWithDate(RoomPlayer* user)
 }
 void PlayerTurret::getCoinByFish(Fish* fish)
 {
-	
-	///需要鱼的配置属性
+
 	int num = 0;
-	
+	LogEventFish::getInstance()->addFishCatchTimes(fish->getFishType());
+		
+
 	if (isRobot)
 	{
 		num = fish->getFishGold() * m_turretdata.multiple;
@@ -325,6 +308,11 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 	}
 	else
 	{
+		if (GameData::getInstance()->getisOnBankrupt())
+		{
+			return;
+		}
+		LogEventFish::getInstance()->addFishUserCatchTimes(fish->getFishType());
 		m_turretdata = GameData::getInstance()->getTurrentData();
 		//获得金币
 		Audio::getInstance()->playSound(CATCHGOLD);
@@ -336,8 +324,6 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		{
 			onPlayerUpgrade();
 		}
-		
-
 		//奖金池
 		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
 		//钻石鱼
@@ -345,8 +331,18 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		if (GameData::getInstance()->getShotCount() >= event.fireTimes)
 		{
 			User::getInstance()->addDiamonds(event.num);
+			LogEventMagnate::getInstance()->addMagnateNum(event.itemId, event.num);
 			GameData::getInstance()->setShotCount(0);
 			GameData::getInstance()->setevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
+			//TODO::在鱼上得到奖品UI显示
+		}
+		event = GameData::getInstance()->getpropevent();
+		if (GameData::getInstance()->getShotCount() >= event.fireTimes)
+		{
+			BagManager::getInstance()->changeItemCount(event.itemId, event.num);
+			LogEventMagnate::getInstance()->addMagnateNum(event.itemId, event.num);
+			GameData::getInstance()->setShotCount(0);
+			GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
 			//TODO::在鱼上得到奖品UI显示
 		}
 	}
@@ -374,30 +370,33 @@ void PlayerTurret::onBankrupt()
 	addChild(sp, 10, kTagBankrupt);
 	m_CoinLabel->setString("0");
 	nNowMoney = 0;
+	auto bankrupt = BankruptManager::getInstance()->getBankrupt();
 	if (isRobot)
 	{
-		stopAI();
-		auto bankrupt = BankruptManager::getInstance()->getBankrupt();
+		stopAI(); 
+		
 		int *k = new int();
 		*k = bankrupt.coins;
 		runAction(Sequence::create(DelayTime::create(bankrupt.wait_time), CallFunc::create(CC_CALLBACK_0(PlayerTurret::onAIResurgenceCallBack,this, this, k)), nullptr));
 	}
+	else
+	{
+		auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
+		auto node = GetRewardNode::create(bankrupt);
+		node->setPosition(28.8,390);
+		layer->addChild(node, 10);
+		GameData::getInstance()->setisOnBankrupt(true);
+		LogEventBankrupt::getInstance()->sendDataToServer(0, 1);
+	}
 }
 void PlayerTurret::onAIResurgenceCallBack(Node* sender, void* data)
 {
+
 	setAIinfo(m_aiinfo);
 	auto var = *((int*)data);
 	nNowMoney += var;
 	m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
 	getChildByTag(kTagBankrupt)->removeFromParentAndCleanup(1);
-}
-
-
-
-std::string PlayerTurret::getNetImgPath(int ui_type, int net_type)
-{
-	auto str = String::createWithFormat("bulletAndNet/net_%d_%d", ui_type, net_type);
-	return str->getCString();
 }
 
 void PlayerTurret::refreshTurretInfo()
@@ -430,6 +429,10 @@ void PlayerTurret::rorateAndShootOnlock(float dt)
 	{
 		return;
 	}
+	if (!isRobot&&GameData::getInstance()->getisOnBankrupt())
+	{
+		return;
+	}
 	auto pos = lockFish->getPosition();
 	float degree = GameLayer::getTurretRotation(getPosition(), pos);
 	rorateTurret(degree);
@@ -440,27 +443,6 @@ void PlayerTurret::shootOnLock(float dt){
 	if (lockFish == nullptr)
 	{
 		return;
-	}
-	//花费金币
-	if (isRobot)
-	{
-		auto num = Value(m_turretdata.multiple).asInt();
-		nNowMoney -= num;
-		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
-		if (nNowMoney <= 0)
-		{
-			onBankrupt();
-		}
-	}
-	else
-	{
-		auto num = Value(m_turretdata.multiple).asInt();
-		auto nowCoin = User::getInstance()->addCoins(-num);
-		if (nowCoin < 0)
-		{
-			return;
-		}
-		m_CoinLabel->setString(Value(nowCoin).asString().c_str());
 	}
 
 	auto degree = m_turret->getRotation();
@@ -485,6 +467,9 @@ void PlayerTurret::shootOnLock(float dt){
 	m_turret->addChild(aniNode, 5);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
 
+
+	//花费金币
+	costMoney();
 }
 
 
@@ -507,6 +492,11 @@ void PlayerTurret::rorateAndShootOnAuto(float dt)
 	{
 		return;
 	}
+	if (!isRobot&&GameData::getInstance()->getisOnBankrupt())
+	{
+		return;
+	}
+
 	float degree = GameLayer::getTurretRotation(getPosition(), targetPos);
 	rorateTurret(degree);
 	scheduleOnce(schedule_selector(PlayerTurret::shootOnAuto), 0.1f);
@@ -514,27 +504,6 @@ void PlayerTurret::rorateAndShootOnAuto(float dt)
 void PlayerTurret::shootOnAuto(float dt){
 
 
-	//花费金币
-	if (isRobot)
-	{
-		auto num = Value(m_turretdata.multiple).asInt();
-		nNowMoney -= num;
-		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
-		if (nNowMoney <= 0)
-		{
-			onBankrupt();
-		}
-	}
-	else
-	{
-		auto num = Value(m_turretdata.multiple).asInt();
-		auto nowCoin = User::getInstance()->addCoins(-num);
-		if (nowCoin < 0)
-		{
-			return;
-		}
-		m_CoinLabel->setString(Value(nowCoin).asString().c_str());
-	}
 
 	auto degree = m_turret->getRotation();
 	auto bullet = BulletManage::getInstance()->createBullet(turretdata, 90);
@@ -551,6 +520,9 @@ void PlayerTurret::shootOnAuto(float dt){
 	m_turret->addChild(aniNode, 5);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
 
+
+	//花费金币
+	costMoney();
 }
 
 void PlayerTurret::setLockFish(Fish* fish)
@@ -567,7 +539,7 @@ void PlayerTurret::setLockFish(Fish* fish)
 	}
 	
 	if (aniFishNode)
-	{
+	{	
 		if (aniFishNode->getParent() == NULL)
 		{
 			aniFishNode->removeAllChildrenWithCleanup(1);
@@ -675,4 +647,35 @@ void PlayerTurret::onPlayerUpgrade()
 	aninode->setPosition(480, 270);
 	layer->addChild(aninode);
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 3), RemoveSelf::create(), nullptr));
+}
+
+void PlayerTurret::costMoney()
+{
+
+	if (isRobot)
+	{
+		auto num = Value(m_turretdata.multiple).asInt();
+		nNowMoney -= num;
+		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
+		if (nNowMoney <= 0)
+		{
+			onBankrupt();
+		}
+	}
+	else
+	{
+		GameData::getInstance()->setShotCount(1 + (GameData::getInstance()->getShotCount()));
+		auto num = Value(m_turretdata.multiple).asInt();
+		auto nowCoin = User::getInstance()->addCoins(-num);
+		if (nowCoin <= 0)
+		{
+			onBankrupt();
+		}
+		m_CoinLabel->setString(Value(nowCoin).asString().c_str());
+
+		if (GameData::getInstance()->getIsOnMaridTask())
+		{
+			GameData::getInstance()->getmermaidTask()->addCoins(num);
+		}
+	}
 }

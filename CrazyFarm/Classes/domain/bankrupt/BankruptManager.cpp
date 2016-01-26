@@ -34,4 +34,7 @@ int BankruptManager::getTodayRequestTimes() {
     return 0;
 }
 
+void BankruptManager::addTodayRequestTime()
+{
 
+}

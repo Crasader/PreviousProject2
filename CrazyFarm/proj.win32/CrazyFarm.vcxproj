@@ -163,6 +163,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\core\GameGuiLayer.cpp" />
     <ClCompile Include="..\Classes\core\GameLayer.cpp" />
     <ClCompile Include="..\Classes\core\GameScene.cpp" />
+    <ClCompile Include="..\Classes\core\GetRewardNode.cpp" />
     <ClCompile Include="..\Classes\core\GuizuGiftDialog.cpp" />
     <ClCompile Include="..\Classes\core\maridTaskPlane.cpp" />
     <ClCompile Include="..\Classes\core\NotarizeExitDialog.cpp" />
@@ -185,6 +186,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\coinBox\CoinBox.cpp" />
     <ClCompile Include="..\Classes\domain\gameConfig\gameConfig.cpp" />
     <ClCompile Include="..\Classes\domain\loading\LoadingScene.cpp" />
+    <ClCompile Include="..\Classes\domain\logevent\LogEventBankrupt.cpp" />
+    <ClCompile Include="..\Classes\domain\logevent\LogEventFish.cpp" />
+    <ClCompile Include="..\Classes\domain\logevent\LogEventMagnate.cpp" />
+    <ClCompile Include="..\Classes\domain\logevent\LogEventMannger.cpp" />
+    <ClCompile Include="..\Classes\domain\logevent\LogEventMermaid.cpp" />
+    <ClCompile Include="..\Classes\domain\logevent\LogEventUseSkill.cpp" />
     <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp" />
     <ClCompile Include="..\Classes\domain\marquee\MarqueeManager.cpp" />
     <ClCompile Include="..\Classes\domain\mermaid\MermaidTask.cpp" />
@@ -222,6 +229,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\lobby\bag\SetNameLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\ShowPropLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\FeedbackLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\FirstPayLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp" />
     <ClCompile Include="..\Classes\lobby\Nobility\NobilityLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\ScrollText.cpp" />
@@ -300,6 +308,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\core\GameGuiLayer.h" />
     <ClInclude Include="..\Classes\core\GameLayer.h" />
     <ClInclude Include="..\Classes\core\GameScene.h" />
+    <ClInclude Include="..\Classes\core\GetRewardNode.h" />
     <ClInclude Include="..\Classes\core\GuizuGiftDialog.h" />
     <ClInclude Include="..\Classes\core\maridTaskPlane.h" />
     <ClInclude Include="..\Classes\core\NotarizeExitDialog.h" />
@@ -322,6 +331,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\coinBox\CoinBox.h" />
     <ClInclude Include="..\Classes\domain\gameConfig\gameConfig.h" />
     <ClInclude Include="..\Classes\domain\loading\LoadingScene.h" />
+    <ClInclude Include="..\Classes\domain\logevent\LogEventBankrupt.h" />
+    <ClInclude Include="..\Classes\domain\logevent\LogEventFish.h" />
+    <ClInclude Include="..\Classes\domain\logevent\LogEventMagnate.h" />
+    <ClInclude Include="..\Classes\domain\logevent\LogEventMannger.h" />
+    <ClInclude Include="..\Classes\domain\logevent\LogEventMermaid.h" />
+    <ClInclude Include="..\Classes\domain\logevent\LogEventUseSkill.h" />
     <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h" />
     <ClInclude Include="..\Classes\domain\marquee\MarqueeManager.h" />
     <ClInclude Include="..\Classes\domain\mermaid\MermaidTask.h" />
@@ -359,6 +374,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\lobby\bag\SetNameLayer.h" />
     <ClInclude Include="..\Classes\lobby\bag\ShowPropLayer.h" />
     <ClInclude Include="..\Classes\lobby\FeedbackLayer.h" />
+    <ClInclude Include="..\Classes\lobby\FirstPayLayer.h" />
     <ClInclude Include="..\Classes\lobby\LobbyScene.h" />
     <ClInclude Include="..\Classes\lobby\Nobility\NobilityLayer.h" />
     <ClInclude Include="..\Classes\lobby\ScrollText.h" />

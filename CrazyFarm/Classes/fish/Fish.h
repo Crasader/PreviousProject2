@@ -6,6 +6,7 @@
 #include "fish/FishRouteData.h"
 #include "fish/FishShader.h"
 #include "utill/CFigure.h"
+#include "domain/logevent/LogEventFish.h"
 using namespace cocos2d;
 
 enum swimDirection

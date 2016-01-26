@@ -10,7 +10,8 @@ USING_NS_CC;
 
 struct Bankrupt  {
     int coins;
-    int wait_time;
+    float wait_time;
+	int time;
 };
 
 

@@ -92,7 +92,11 @@ void payView::tableCellTouched(TableView* table, TableViewCell* cell){
 	{
 		selectedCell = cell1;
 	}
-	selectedCell->IsBeToued();
+	if (selectedCell!=NULL)
+	{
+		selectedCell->IsBeToued();
+	}
+
 }
 Size payView::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx){
 	return CCSizeMake(278, 86);

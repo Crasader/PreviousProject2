@@ -10,7 +10,7 @@
 #define URL_SYNCINFO  "/player/info/sync/fortuneInfo"
 #define URL_SETNAME  "/user/nickname"
 #define URL_FEEDBACK "/help/feedback"
-
+#define URL_LOGEVENTFISH "/statistics/data"
 
 HttpMannger* HttpMannger::_instance = NULL;
 
@@ -245,4 +245,29 @@ void HttpMannger::HttpToPostRequestFeedback(std::string sessionid, const char* f
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_FEEDBACK);
 	auto requstData = String::createWithFormat("session_id=%s&info=%s", sessionid.c_str(), feedback);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForFeedback, this));
+}
+
+
+void HttpMannger::HttpToPostRequestLogEvent(std::string jsonString,int type)
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_LOGEVENTFISH);
+	auto requstData = String::createWithFormat("session_id=%s&data_str=%s&game_version=%d&data_type=%d", sessionid.c_str(), jsonString.c_str(),DeviceInfo::getVesion(),type);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogEventCommon, this));
+}
+void HttpMannger::onHttpRequestCompletedForLogEventCommon(HttpClient *sender, HttpResponse *response)
+{
+	if (!response)
+	{
+		return;
+	}
+	if (!response->isSucceed())
+	{
+		return;
+	}
+	long statusCode = response->getResponseCode();
+	// dump data
+	std::vector<char> *buffer = response->getResponseData();
+	auto temp = std::string(buffer->begin(), buffer->end());
+	log("http back logeventfish info: %s", temp.c_str());
 }

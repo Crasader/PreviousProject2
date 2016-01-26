@@ -78,7 +78,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("game/ui/gamelayer/mermaid");
 	paths.push_back("game/ui/ranklist");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
-	srand((unsigned)time(nullptr));
+	srand(time(NULL));
 	// create a scene. it's an autorelease object
 	auto scene = LoadingScene::createScene();
 	

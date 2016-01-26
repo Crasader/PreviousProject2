@@ -19,7 +19,7 @@
 		{
 			"item_id"	:	1003,
 			"item_name"	:	"冰冻",
-			"item_desc"	:	"鱼要逃走了！赶快使用全屏冰冻!时间静止吧！",
+			"item_desc"	:	"鱼要逃走了！赶快使用时间静止吧！",
 			"buy_type"	:	2,
 			"buy_price"	:	5
 		},

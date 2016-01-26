@@ -14,12 +14,14 @@ public:
     
 	SkillConfigInfo getSkillInfoByID(int skillid);
 	int getSKillNumById(int skillid);
-
+	int getSkillPriceById(int skillid);
 	void useSkillFreeze();
 	void useSkillFreezeEnd();
 	void useSkillSummon();
 	void useSkillLock();
 	void useSkillLockEnd();
+	void useSkillLight();
+	void useSkillLightEnd();
 	void useSkillBoom();
 	void setlayer(GameLayer*layer){ m_gamelayer = layer; }
 	void addskillButton(int id, SkillButton* button){ map_id_skillbutton[id] = button; };

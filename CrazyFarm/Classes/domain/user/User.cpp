@@ -45,7 +45,7 @@ bool User::setUserName(std::string newUserName) {
 }
 
 int User::getCoins() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_COINS, 0);
+    return UserDefault::getInstance()->getIntegerForKey(User::KEY_COINS, 10);
 }
 
 int User::addCoins(int coins) {
@@ -147,9 +147,9 @@ bool User::setChestLevel(int chestLevel) {
 void User::resetInfo() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     setUserID("guest");
-    UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 0);
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 10);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS, 0);
-    UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP, 200);
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP, 0);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_M_TURRENT, 1);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_CHARGE_MONEY, 0);
 	UserDefault::getInstance()->setIntegerForKey(User::KEY_LASTSIGNDAY, -1);

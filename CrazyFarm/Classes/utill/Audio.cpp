@@ -22,7 +22,7 @@ void Audio::pauseBGM()
 }
 
 void Audio::playSound(const char* soundName){
-	CCLOG("play sound %s", soundName);
+	/*CCLOG("play sound %s", soundName);*/
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(soundName);
 }
 void Audio::setBGMValue(float value)

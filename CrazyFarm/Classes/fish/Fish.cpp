@@ -7,6 +7,7 @@
 #include"utill/FunUtil.h"
 #include "utill/Audio.h"
 #include "Config/ConfigFishCollisionRange.h"
+
 enum 
 {
 	kTagAcNormal = 10
@@ -33,7 +34,7 @@ void Fish::initFish(int fishType){
 	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
 	figures = ConfigFishCollisionRange::getInstance()->getFishFigures(fishdata.uiId);
-	
+	LogEventFish::getInstance()->addFishCreateTimes(fishType);
 }
 
 void Fish::initFishAnim(int fishType){

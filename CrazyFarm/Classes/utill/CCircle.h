@@ -7,7 +7,7 @@ class CCircle:public CFigure
 {
 public:
 	CCircle(void);
-	CCircle(Point& center, float radius); //提供圆心与半径 初始化圆
+	CCircle(Point center, float radius); //提供圆心与半径 初始化圆
 	~CCircle(void);
 
 	bool intersectsRect(Rect rect) ;//是否与长方形区域相交

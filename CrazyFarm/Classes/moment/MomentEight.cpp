@@ -109,7 +109,7 @@ MomentEightItemPer MomentEight::getFishByRandVec(std::vector<MomentEightItemPer>
 	int randNum = rand() % 100 + 1;
 	for (auto ite = vec.begin(); ite != vec.end(); ite++)
 	{
-		if (randNum <ite->per)
+		if (randNum <=ite->per)
 		{
 			return *ite;
 		}

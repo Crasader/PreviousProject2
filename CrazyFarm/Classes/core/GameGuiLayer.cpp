@@ -22,6 +22,7 @@
 #include "domain/skill/skillManager.h"
 #include "server/HttpMannger.h"
 #include "utill/Audio.h"
+#include "data/GameData.h"
 enum 
 {
 	kTagUpgradeTurret = 1,
@@ -134,7 +135,11 @@ bool GameGuiLayer::init(){
 	createSettingBoard();
 	showRandonBubbleAni();
 	createGuizuGiftLayer();
-	beginMaridTaskTime();
+	if (GameData::getInstance()->getRoomID() > 1)
+	{
+		beginMaridTaskTime();
+	}
+	
 
 
 
@@ -144,9 +149,9 @@ bool GameGuiLayer::init(){
 }
 void GameGuiLayer::refreshSkillNum()
 {
-	auto vec = skillManager::getInstance()->getSkillButtons();
-	for (auto it = vec.begin(); it != vec.end(); ++it)
-		it->second->refreshPropNumLabel();
+	//auto vec = skillManager::getInstance()->getSkillButtons();
+	//for (auto it = vec.begin(); it != vec.end(); ++it)
+	//	it->second->refreshPropNumLabel();
 
 }
 void GameGuiLayer::beginMaridTaskTime()

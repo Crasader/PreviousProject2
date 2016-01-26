@@ -12,6 +12,7 @@ GameData::GameData(){
 void GameData::init(){
 	setRoomID(-1);
 	setIsOnMaridTask(false);
+	setisOnBankrupt(false);
 }
 
 GameData* GameData::getInstance(){

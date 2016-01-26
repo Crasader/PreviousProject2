@@ -7,6 +7,8 @@
 #ifndef _SKILLBUTTON_H_
 #define _SKILLBUTTON_H_
 #include <cocos2d.h>
+#include "lobby/shop/payLayer.h"
+#include "domain/logevent/LogEventUseSkill.h"
 USING_NS_CC;
 class SkillButton : public Node
 {
@@ -16,30 +18,23 @@ public:
 
     /** 创建一个SkillButton对象
         */
-    static SkillButton* createSkillButton(float cdTime,
+    static SkillButton* createSkillButton(int skillID,
                                         const char* stencil_file_name, 
                                         const char* button_normal_name, 
-                                        const char* button_click_name,
-										int propNum);
+                                        const char* button_click_name
+										);
 
-	void refreshPropNumLabel();
-    /** CD时间设置
-        */
-    void    setCDTime(float time) { mCDTime = time; }
-    float   getCDTime() const { return mCDTime; }
 	void setEnable(bool isEnable){ mItemSkill->setEnabled(isEnable); };
 protected:
     /** 技能按钮点击回调 */
    virtual void    skillClickCallBack(Ref* obj);
-
+   void update(float dt);
     /** 技能冷却完毕回调*/
    virtual void    skillCoolDownCallBack();
 
-
     /** 初始化 */
-	bool    init(float cdTime, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name, int propNum);
-	int              mPropNum;       //道具数量
-	int itemID;
+   bool    init(int skillID, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name);
+	int m_skillID;
 private:
     MenuItemImage*   mItemSkill;     // 技能按钮
     Menu*            mMenuSkill;     // 技能按钮所在menu

@@ -1,15 +1,14 @@
 #include "SkillButton.h"
 #include "domain/bag/BagManager.h"
-
+#include "domain/skill/skillManager.h"
+#include "domain/logevent/LogEventUseSkill.h"
 USING_NS_CC;
 
 SkillButton::SkillButton() :
 mItemSkill(NULL),
 mMenuSkill(NULL),
 mStencil(NULL),
-mProgressTimer(NULL),
-mCDTime(1.f),
-mPropNum(0)
+mProgressTimer(NULL)
 {
 
 }
@@ -19,10 +18,10 @@ SkillButton::~SkillButton()
 
 }
 
-SkillButton* SkillButton::createSkillButton(float cdTime, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name,int propNum)
+SkillButton* SkillButton::createSkillButton(int skillID, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name)
 {
     SkillButton* skillButton = new SkillButton();
-	if (skillButton && skillButton->init(cdTime, stencil_file_name, button_normal_name, button_click_name, propNum))
+	if (skillButton && skillButton->init(skillID, stencil_file_name, button_normal_name, button_click_name))
     {
         skillButton->autorelease();
         return skillButton;
@@ -36,7 +35,7 @@ SkillButton* SkillButton::createSkillButton(float cdTime, const char* stencil_fi
     return NULL;
 }
 
-bool SkillButton::init(float cdTime, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name, int propNum)
+bool SkillButton::init(int skillID, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name)
 {
     CCAssert(stencil_file_name, "SkillButton::init stencil_file_name != NULL");
     CCAssert(button_normal_name, "SkillButton::init button_normal_name != NULL");
@@ -46,7 +45,6 @@ bool SkillButton::init(float cdTime, const char* stencil_file_name, const char* 
     // 最下方是CCMenuItemImage 其次是模版图片 最上方是CCProgressTimer
 
     // 添加技能按钮
-	mPropNum = propNum;
     mItemSkill = MenuItemImage::create(button_normal_name, button_click_name, this, menu_selector(SkillButton::skillClickCallBack));
 	mItemSkill->setPosition(Point::ZERO);
 
@@ -69,20 +67,50 @@ bool SkillButton::init(float cdTime, const char* stencil_file_name, const char* 
     mProgressTimer->setVisible(false);
     addChild(mProgressTimer, 100);
 
-	auto labelPropNum = LabelAtlas::create(Value(mPropNum).asString().c_str(), "prop_num.png", 19, 23, '0');
-	labelPropNum->setPosition(12, 12);
+	auto labelPropNum = LabelAtlas::create("0", "bagPropNum.png", 18, 26, '0');
+	labelPropNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	labelPropNum->setPosition(17, 25);
 	addChild(labelPropNum,101,50);
 
+	auto labelPriceNum = LabelAtlas::create("0", "nowPoolNum.png", 13, 21, '0');
+	labelPriceNum->setPosition(20, -35);
+	labelPriceNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	addChild(labelPriceNum, 101, 51);
 	
-
-    mCDTime = cdTime;
+	auto sp = Sprite::create("smallDiamond.png");
+	sp->setPosition(-30, -30);
+	addChild(sp, 101, 52);
+	
+	
+	m_skillID = skillID;
+	mCDTime = skillManager::getInstance()->getSkillInfoByID(skillID).cd_time;
+	scheduleUpdate();
     return true;
 }
 
-void SkillButton::refreshPropNumLabel()
+void SkillButton::update(float dt)
 {
-	mPropNum = BagManager::getInstance()->getItemNum(itemID);
-	((LabelAtlas*)getChildByTag(50))->setString(Value(mPropNum).asString().c_str());
+	auto PropNum = skillManager::getInstance()->getSKillNumById(m_skillID);
+	auto price = skillManager::getInstance()->getSkillPriceById(m_skillID);
+	if (PropNum > 0)
+	{
+		getChildByTag(50)->setVisible(true);
+		getChildByTag(51)->setVisible(false);
+		getChildByTag(52)->setVisible(false);
+		((LabelAtlas*)getChildByTag(50))->setString(Value(PropNum).asString().c_str());
+	}
+	else
+	{
+		getChildByTag(50)->setVisible(false);
+		getChildByTag(51)->setVisible(true);
+		getChildByTag(52)->setVisible(true);
+		((LabelAtlas*)getChildByTag(51))->setString(Value(price).asString().c_str());
+	}
+
+
+	
+
+
 }
 
 /** 技能按钮点击回调 */

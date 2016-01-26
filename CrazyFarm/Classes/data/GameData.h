@@ -18,9 +18,11 @@ private:
 	CC_SYNTHESIZE(int, nRoomId, RoomID);
 	CC_SYNTHESIZE(int, nShotCount, ShotCount);
 	CC_SYNTHESIZE(MagnateEvent, m_event, event);
+	CC_SYNTHESIZE(MagnateEvent, m_propevent, propevent);
 	CC_SYNTHESIZE(int, nNowLevel, nowLevel);
 	CC_SYNTHESIZE(MermaidTask*, m_Task, mermaidTask);
 	CC_SYNTHESIZE(bool, isOnMaridTask, IsOnMaridTask);
+	CC_SYNTHESIZE(bool, bIsOnBankrupt, isOnBankrupt);
 };
 
 #endif

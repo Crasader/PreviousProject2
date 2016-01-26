@@ -55,6 +55,7 @@ private:
 	void changeRewardCallback(Ref*psend);
 	void quickBeginCallback(Ref*psend);
 	void RankListCallback(Ref*psend);
+	void FirstPayCallback(Ref*psend);
 
 private:
 	LabelTTF* userdiamond;

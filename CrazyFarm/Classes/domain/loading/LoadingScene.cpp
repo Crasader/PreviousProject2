@@ -78,7 +78,8 @@ void LoadingScene::loadRes()
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_BaoZha/TX_BaoZha_%d.png", "aniTXTBoom", 2.2f, 28);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_ShiYongJiNeng/TX_SYJN_%d.png", "aniTurretLock", 0.5f, 6);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_MiaoZhun/TX_MiaoZhun_%d.png", "aniFishLock", 0.8f, 10);
-	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_ShengJi/TX_ShengJi_%d.png", "aniShengji", 1.5, 21);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_ShengJi/TX_ShengJi_%d.png", "aniShengji", 1.5f, 21);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/gainRewards/aniGetRewards%d.png", "aniGainRewards", 1.3f, 10);
 	//load fish ani
 	int i = 1;
 	for (int i = 1; i < 100; i++)

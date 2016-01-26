@@ -4,7 +4,7 @@
 #include "domain/coinBox/CoinBox.h"
 #include "domain/bag/BagManager.h"
 #include "core/GameGuiLayer.h"
-
+#include "domain/logevent/LogEventMermaid.h"
 
 
 bool maridTaskPlane::init()
@@ -52,6 +52,7 @@ void maridTaskPlane::update(float delta)
 	auto isSuccess = GameData::getInstance()->getmermaidTask()->isSuccess();
 	if (isSuccess)
 	{
+		LogEventMermaid::getInstance()->addDataToSend(GameData::getInstance()->getRoomID(), nNowtime, GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
 		CoinBox::getInstance()->addCoinBox(GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
 		BagManager::getInstance()->changeItemCount(1008, 1);
 		((GameGuiLayer*)getParent())->beginMaridTaskTime();
@@ -66,6 +67,7 @@ void maridTaskPlane::update(float delta)
 	}
 	if (nNowtime>GameData::getInstance()->getmermaidTask()->getMermaidTaskConfigInfo().continue_time)
 	{	
+		LogEventMermaid::getInstance()->addDataToSend(GameData::getInstance()->getRoomID(), 0, GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
 		((GameGuiLayer*)getParent())->beginMaridTaskTime();
 		removeFromParentAndCleanup(1);
 		return;

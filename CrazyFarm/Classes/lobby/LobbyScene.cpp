@@ -25,6 +25,7 @@
 #include "domain/ranklist/RanklistLayer.h"
 #include "utill/Audio.h"
 #include "lobby/FeedbackLayer.h"
+#include "lobby/FirstPayLayer.h"
 
 enum 
 {
@@ -207,7 +208,7 @@ bool LobbyScene::init()
 	auto guizu = MenuItemImage::create("guizu.png", "guizu.png", CC_CALLBACK_1(LobbyScene::guizuCallback, this));
 	guizu->setPosition(visibleSize.width*0.05, visibleSize.height*0.55);
 
-	auto fistPay = MenuItemImage::create("firstPayGIft.png", "firstPayGIft.png", CC_CALLBACK_1(LobbyScene::guizuCallback, this));
+	auto fistPay = MenuItemImage::create("firstPayGIft.png", "firstPayGIft.png", CC_CALLBACK_1(LobbyScene::FirstPayCallback, this));
 	fistPay->setPosition(visibleSize.width*0.05, visibleSize.height*0.40);
 
 
@@ -218,7 +219,10 @@ bool LobbyScene::init()
 	menu->setPosition(Point::ZERO);
 	addChild(menu, kZorderMenu);
 
-
+	if (user->getIsHavePay())
+	{
+		fistPay->setVisible(false);
+	}
 
 	
 
@@ -245,7 +249,7 @@ bool LobbyScene::init()
 	
 	createRoomLayer();
 
-	/*this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);*/  //Ç©µ½±ÀÀ£
+	this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);  //Ç©µ½±ÀÀ£
 
 	this->scheduleOnce(schedule_selector(LobbyScene::showMarquee), 1.0f);
 	scheduleUpdate();
@@ -701,3 +705,9 @@ void LobbyScene::quickBeginCallback(Ref*psend)
 	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
 }
 
+void LobbyScene::FirstPayCallback(Ref*psend)
+{
+	auto layer = FirstPayLayer::create();
+	layer->setPosition(0, 0);
+	addChild(layer, kZorderDialog);
+}

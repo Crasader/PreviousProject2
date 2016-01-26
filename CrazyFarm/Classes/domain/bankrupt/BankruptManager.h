@@ -12,13 +12,13 @@ public:
     
     
     Bankrupt getBankrupt();
-    
+    void addTodayRequestTime();
 private:
     BankruptManager();
     void init();
     static BankruptManager* _instance;
     
     int getTodayRequestTimes();
-    void addTodayRequestTime();
+    
 };
 

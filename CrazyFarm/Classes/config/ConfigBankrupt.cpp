@@ -41,7 +41,7 @@ bool ConfigBankrupt::LoadConfig() {
             
 			Bankrupt bankrupt;
 			bankrupt.coins	= val["coins"].GetInt();
-            bankrupt.wait_time	= val["wait_time"].GetInt();
+            bankrupt.wait_time	= val["wait_time"].GetDouble();
            
             bankrupts.push_back(bankrupt);
 		}

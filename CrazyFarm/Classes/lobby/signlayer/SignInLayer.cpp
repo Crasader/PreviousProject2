@@ -109,15 +109,22 @@ void SignInLayer::updata(float dt)
 
 SignRewardItem SignInLayer::getRewardInVectorByProbability(std::vector<SignRewardItem> vec)
 {
-	int k = rand() % 100 + 1;
-	int totalNum = 0;
-	for (auto var:vec)
+	std::vector<SignRewardItem> vec2;
+	vec2.resize(vec.size());
+	for (int i = 0; i < vec.size(); i++)
 	{
-		if (k>var.probability)
+		vec2.at(i).propID = vec[i].propID;
+		vec2.at(i).propNum = vec[i].propNum;
+		int lastPer = (i == 0 ? 0 : vec2[i - 1].probability);
+		vec2.at(i).probability = lastPer + vec[i].probability;
+	}
+	int randNum = rand() % 100 + 1;
+	for (auto ite = vec2.begin(); ite != vec2.end(); ite++)
+	{
+		if (randNum <= ite->probability)
 		{
-			return var;
+			return *ite;
 		}
-		else k += var.probability;
 	}
 	return vec.at(0);
 }

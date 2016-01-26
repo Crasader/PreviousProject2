@@ -4,6 +4,7 @@
 #include "bullet/BulletManage.h"
 #include "utill/AnimationUtil.h"
 #include "utill/CollisionUtill.h"
+#include "domain/logevent/LogEventFish.h"
 bool Net::init(){
 	if (!Sprite::init()){
 		return false;
@@ -90,8 +91,13 @@ void Net::checkCatchFish(){
 	Vector<Fish*> fishNeedRemove;
 	auto turretdata = m_bullet->getTurretdata();
 	for (Fish* fish : allFish){
-		if (/*collision(this,fish)*/CollisionUtill::isCollisionRect(fish->getBoundingFigures(), getBoundingBox())){
+		if (CollisionUtill::isCollisionRect(fish->getBoundingFigures(), getBoundingBox())){
 			float k = rand_0_1();
+			LogEventFish::getInstance()->addFishHitTimes(fish->getFishType());
+			if (!m_bullet->getPlayerTurret()->isRobot)
+			{
+				LogEventFish::getInstance()->addFishUserCostCoin(fish->getFishType(),m_bullet->getPlayerTurret()->getTurrentMupltData().multiple);
+			}
 			if (k<(fish->getGrabProbability()*turretdata.catch_per))
 			{
 				fishNeedRemove.pushBack(fish);
@@ -108,6 +114,7 @@ void Net::checkCatchFish(){
 		{
 			FishManage::getInstance()->onBoomFishDead(fish, m_bullet->getPlayerTurret());
 		}
+	
 		FishManage::getInstance()->removeFish(fish,1);
 		fish = nullptr;
 	}
