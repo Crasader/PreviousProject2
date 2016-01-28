@@ -13,6 +13,8 @@ public:
     
     
 	SkillConfigInfo getSkillInfoByID(int skillid);
+	SkillConfigInfo getSkillInfoByitemId(int itemID);
+	int isSatisfyBuySkill(int skillid); //返回值1：VIP等级不够 2：炮塔等级不够 0: 满足
 	int getSKillNumById(int skillid);
 	int getSkillPriceById(int skillid);
 	void useSkillFreeze();

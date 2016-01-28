@@ -1,5 +1,5 @@
 #include "config/ConfigExp.h"
-
+#include "utill/JniFunUtill.h"
 using namespace cocos2d;
 
 ConfigExp* ConfigExp::_instance = NULL;
@@ -17,11 +17,17 @@ ConfigExp* ConfigExp::getInstance(){
 bool ConfigExp::LoadConfig() {
     bool bRet = false;
     while (!bRet) {
-        
-        std::string filename = "config/config_user_exp.json";
+        	std::string filename;			
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+			filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_user_exp.json";
+		
         rapidjson::Document doc;
         if (!FileUtils::getInstance()->isFileExist(filename))
-        {
+		{
+			log("kkkkkkkkkkkkkkkkkkkkkkkk%s", filename.c_str());
             break;
         }
         

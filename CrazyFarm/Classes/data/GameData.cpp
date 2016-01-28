@@ -13,6 +13,7 @@ void GameData::init(){
 	setRoomID(-1);
 	setIsOnMaridTask(false);
 	setisOnBankrupt(false);
+	setisPlayerOneGame(false);
 }
 
 GameData* GameData::getInstance(){
@@ -25,4 +26,20 @@ Turrent GameData::getTurrentData()
 {
 	auto turrent = ConfigTurrent::getInstance()->getTurrent(nNowLevel); 
 	return turrent; 
+}
+
+void GameData::setSoundState(bool state) {
+	UserDefault::getInstance()->setBoolForKey("soundState", state);
+}
+
+bool GameData::getSoundState() {
+	return UserDefault::getInstance()->getBoolForKey("soundState", true);
+}
+
+void GameData::setMusicState(bool state) {
+	UserDefault::getInstance()->setBoolForKey("musicState", state);
+}
+
+bool GameData::getMusicState() {
+	return UserDefault::getInstance()->getBoolForKey("musicState", true);
 }

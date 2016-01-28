@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "lobby/bag/BagCell.h"
+#include "widget/MyTableView.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 
@@ -55,11 +56,16 @@ public:
 
 	CREATE_FUNC(BagLayer);
 
+	MyTableView* gettableview(){ return tableView; };
 private:
 	void closeButtonCallBack(Ref*psend);
-
-
+	void refreshCoinLabel(float dt);
+	LabelTTF* userdiamond1;
+	LabelTTF* userCoin1;
+	LabelTTF* userdiamond2;
+	LabelTTF* userCoin2;
 	///°´Å¥»Øµ÷
+	MyTableView* tableView;
 	void payCoinCallback(Ref*psend);
 	void payDiamondCallback(Ref*psend);
 	void chankanCallBack(Ref*);

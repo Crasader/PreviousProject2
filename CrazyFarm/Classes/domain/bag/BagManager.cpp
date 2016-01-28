@@ -23,6 +23,7 @@ bool BagManager::changeItemCount(int itemId, int num) {
     int currentCount = getItemNum(itemId);
     auto key = String::createWithFormat("%s%d", BagManager::KEY_ITEMID_HEAD, itemId);
     UserDefault::getInstance()->setIntegerForKey(key->getCString(), currentCount+num);
+	getBagListWithSort();
     if(getItemNum(itemId) < 0) {
         UserDefault::getInstance()->setIntegerForKey(key->getCString(), 0);
     }
@@ -102,5 +103,17 @@ BagItem BagManager::getBagByIndex(int index)
 	else
 	{
 		return  BagItem(-1, -1, InvalidType);
+	}
+}
+
+
+BagItem BagManager::getBagByItemId(int itemid)
+{
+	for (auto var:itemsWithSort)
+	{
+		if (var.itemId == itemid)
+		{
+			return var;
+		}
 	}
 }

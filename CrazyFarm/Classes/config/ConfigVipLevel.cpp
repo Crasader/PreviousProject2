@@ -1,5 +1,5 @@
 #include "config/ConfigVipLevel.h"
-
+#include "utill/JniFunUtill.h"
 ConfigVipLevel* ConfigVipLevel::_instance = NULL;
 
 ConfigVipLevel::ConfigVipLevel(){
@@ -15,8 +15,13 @@ ConfigVipLevel* ConfigVipLevel::getInstance(){
 bool ConfigVipLevel::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
+std::string filename;	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_user_viplevel.json";
 
-		std::string filename = "config/config_user_viplevel.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{
@@ -45,12 +50,12 @@ bool ConfigVipLevel::LoadConfig() {
             viplevel.title = val["title"].GetString();
             viplevel.desc_title = val["desc_title"].GetString();
             viplevel.desc_content = val["desc_content"].GetString();
-            viplevel.vip_turrent_id = val["vip_turrent_id"].GetDouble();   // VIP炮ID
-            viplevel.double_login_reward = val["double_login_reward"].GetDouble();  // 登陆奖励翻倍系�?
-            viplevel.pay_reward = val["pay_reward"].GetDouble();          // 充值奖励百分比
-            viplevel.kill_per_add = val["kill_per_add"].GetDouble();           // 击杀概率系数
-            viplevel.send_coins_over = val["send_coins_over"].GetInt();         // 金币补足金额
-            viplevel.send_coins_over_day_time = val["send_coins_over_day_time"].GetInt(); // 每日金币补足次数
+            viplevel.vip_turrent_id = val["vip_turrent_id"].GetDouble();   // VIP鐐甀D
+            viplevel.double_login_reward = val["double_login_reward"].GetDouble();  // 鐧婚檰濂栧姳缈诲�嶇郴鎿�
+            viplevel.pay_reward = val["pay_reward"].GetDouble();          // 鍏呭�煎鍔辩櫨鍒嗘瘮
+            viplevel.kill_per_add = val["kill_per_add"].GetDouble();           // 鍑绘潃姒傜巼绯绘暟
+            viplevel.send_coins_over = val["send_coins_over"].GetInt();         // 閲戝竵琛ヨ冻閲戦
+            viplevel.send_coins_over_day_time = val["send_coins_over_day_time"].GetInt(); // 姣忔棩閲戝竵琛ヨ冻娆℃暟
 
 			vipLevels[i] = viplevel;
 		}

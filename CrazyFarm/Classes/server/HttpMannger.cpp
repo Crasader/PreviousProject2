@@ -97,7 +97,7 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 		User::getInstance()->resetInfo();
 		return;
 	}
-	User::getInstance()->setUserID(doc["user_name"].GetString());
+	//User::getInstance()->setUserID(doc["user_name"].GetString());
 	User::getInstance()->setSessionid(doc["session_id"].GetString());
 
 	CCLOG("login success");
@@ -248,11 +248,11 @@ void HttpMannger::HttpToPostRequestFeedback(std::string sessionid, const char* f
 }
 
 
-void HttpMannger::HttpToPostRequestLogEvent(std::string jsonString,int type)
+void HttpMannger::HttpToPostRequestLogEvent(std::string jsonString)
 {
 	auto sessionid = User::getInstance()->getSessionid();
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_LOGEVENTFISH);
-	auto requstData = String::createWithFormat("session_id=%s&data_str=%s&game_version=%d&data_type=%d", sessionid.c_str(), jsonString.c_str(),DeviceInfo::getVesion(),type);
+	auto requstData = String::createWithFormat("session_id=%s&data_str=%s&game_version=%d", sessionid.c_str(), jsonString.c_str(),DeviceInfo::getVesion());
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogEventCommon, this));
 }
 void HttpMannger::onHttpRequestCompletedForLogEventCommon(HttpClient *sender, HttpResponse *response)

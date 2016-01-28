@@ -1,4 +1,5 @@
 #include "config/ConfigNormalTurrent.h"
+#include "utill/JniFunUtill.h"
 
 ConfigNormalTurrent* ConfigNormalTurrent::_instance = NULL;
 
@@ -16,7 +17,13 @@ bool ConfigNormalTurrent::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 
-		std::string filename = "config/config_normal_turrent.json";
+ 		std::string filename;	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+		filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_normal_turrent.json";
+
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{

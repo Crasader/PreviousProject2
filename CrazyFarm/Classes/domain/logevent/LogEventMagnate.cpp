@@ -48,6 +48,7 @@ std::string LogEventMagnate::getDataForJson()
 		array.PushBack(object, allocator);
 	}	
 	document.AddMember("presenteds", array, allocator);
+	document.AddMember("data_type", 3, allocator);
 	rapidjson::StringBuffer  buffer;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 	document.Accept(writer);
@@ -58,7 +59,7 @@ std::string LogEventMagnate::getDataForJson()
 
 void LogEventMagnate::sendDataToServer()
 {
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),3);
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson());
 }
 
 void LogEventMagnate::addMagnateNum(int itemid, int num)

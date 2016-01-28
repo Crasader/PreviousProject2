@@ -8,7 +8,7 @@
 #include "data/GameData.h"
 #include "utill/CCircle.h"
 #include "utill/CollisionUtill.h"
-#define BOOMFISHCIRCLE 50
+#define BOOMFISHCIRCLE 300
 FishManage* FishManage::_instance = 0;
 
 FishManage* FishManage::getInstance(){

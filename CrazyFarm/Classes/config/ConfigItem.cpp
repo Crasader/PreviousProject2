@@ -1,5 +1,5 @@
 #include "config/ConfigItem.h"
-
+#include "utill/JniFunUtill.h"
 ConfigItem* ConfigItem::_instance = NULL;
 
 ConfigItem::ConfigItem(){
@@ -15,9 +15,12 @@ ConfigItem* ConfigItem::getInstance(){
 bool ConfigItem::LoadConfig() {
 	bool bRet = false;
 	while (!bRet)
-	{
-
-		std::string filename = "config_item.json";
+	{	std::string filename;	
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+	filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_item.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{

@@ -1,5 +1,5 @@
 #include "config/ConfigOnemoment.h"
-
+#include "utill/JniFunUtill.h"
 ConfigOnemoment* ConfigOnemoment::_instance = NULL;
 
 ConfigOnemoment::ConfigOnemoment(){
@@ -16,7 +16,13 @@ bool ConfigOnemoment::LoadConfig() {
     bool bRet = false;
     while (!bRet) {
         
-        std::string filename = "config/config_onemoment_seq.json";
+        		std::string filename;	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+				filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_onemoment_seq.json";
+     
         rapidjson::Document doc;
         if (!FileUtils::getInstance()->isFileExist(filename))
         {

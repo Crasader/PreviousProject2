@@ -72,6 +72,7 @@ void AnimationUtil::addAnimationBySpriteName(const char *filepath, const char *a
 	char str[50] = { 0 };
 
 	Animation* animation = Animation::create();
+	animation->setRestoreOriginalFrame(true);
 	animation->setDelayPerUnit(time / numOfpng);
 	for (int i = 1; i <= numOfpng; i++){
 		sprintf(str, filepath, i);

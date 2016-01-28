@@ -1,5 +1,5 @@
 #include "config/ConfigMagnate.h"
-
+#include "utill/JniFunUtill.h"
 ConfigMagnate* ConfigMagnate::_instance = NULL;
 
 ConfigMagnate::ConfigMagnate(){
@@ -15,8 +15,12 @@ ConfigMagnate* ConfigMagnate::getInstance(){
 bool ConfigMagnate::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
-
-		std::string filename = "config/config_magnate.json";
+	std::string filename;	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+	filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_magnate.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{

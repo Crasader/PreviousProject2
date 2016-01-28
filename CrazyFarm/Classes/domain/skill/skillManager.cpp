@@ -31,6 +31,11 @@ SkillConfigInfo skillManager::getSkillInfoByID(int skillid)
 	return ConfigSkill::getInstance()->getskillConfigInfoBySkillId(skillid);
 }
 
+SkillConfigInfo skillManager::getSkillInfoByitemId(int itemID)
+{
+	return ConfigSkill::getInstance()->getskillConfigInfoByItemId(itemID);
+}
+
 int skillManager::getSKillNumById(int skillid)
 {
 	auto info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(skillid);
@@ -110,4 +115,20 @@ int skillManager::getSkillPriceById(int skillid)
 {
 	auto info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(skillid);
 	return ConfigItem::getInstance()->getItemById(info.item_id).buyPrice;
+}
+
+int skillManager::isSatisfyBuySkill(int skillid) //返回值1：VIP等级不够 2：炮塔等级不够 0: 满足
+{
+	auto info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(skillid);
+	auto maxlv = User::getInstance()->getMaxTurrentLevel();
+	auto viplv = User::getInstance()->getVipLevel();
+	if (info.unlock_buy_vipLv >viplv)
+	{
+		return 1;
+	}
+	if (info.unlock_buy_turretLv < maxlv)
+	{
+		return 2;
+	}
+	return 0;
 }

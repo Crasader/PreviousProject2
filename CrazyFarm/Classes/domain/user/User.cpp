@@ -97,6 +97,18 @@ bool User::setMaxTurrentLevel(int maxTurrentLevel) {
 }
 
 
+float User::getCatchPer()
+{
+	return UserDefault::getInstance()->getFloatForKey(User::KEY_CATCHPER, 1);
+}
+
+void User::addCatchPer(float catchper)
+{
+	auto per = getCatchPer();
+	UserDefault::getInstance()->setFloatForKey(User::KEY_CATCHPER, per*catchper);
+}
+
+
 bool User::addExp(int exp) {
     if(exp > 0) {
         int currentLevel = this->getLevelData().levelId;

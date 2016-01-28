@@ -1,5 +1,5 @@
 #include "config/ConfigMomentOrder.h"
-
+#include "utill/JniFunUtill.h"
 ConfigMomentOrder* ConfigMomentOrder::_instance = NULL;
 
 ConfigMomentOrder::ConfigMomentOrder(){
@@ -17,7 +17,12 @@ std::vector<MomentOrderItem> ConfigMomentOrder::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 
-        std::string filename = "config/config_moment_order.json";
+        		std::string filename;	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+				filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_moment_order.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{

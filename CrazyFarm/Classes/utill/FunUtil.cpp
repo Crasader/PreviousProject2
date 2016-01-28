@@ -32,29 +32,6 @@ bool collision(Sprite*spA, Sprite*spB)
 }
 
 
-swimDirection getDirectionByPosition(Vec2 pos)
-{
-	int x = pos.x;
-	int y = pos.y;
-	if (x<=0)
-	{
-		return RIGHT;
-	}
-	if (x>=960)
-	{
-		return LEFT;
-	}
-	if (y>=540)
-	{
-		return DOWN;
-	}
-	if (y <= 0)
-	{
-		return UP;
-	}
-
-}
-
 float  getAngleByPos(Vec2 pos)
 {
 	auto k = (pos.y - 270.0) / (pos.x - 480);
@@ -180,4 +157,17 @@ std::string myWrap(std::string str, int length)
 
 
 	return resultStr;
+}
+
+int getRandValueInVec(std::vector<int> vec)
+{
+	int size = vec.size();
+	return vec.at(rand() % size);
+}
+
+Action* getForeverAcByNameAndInterval(const char* name, float interval)
+{
+	auto ac = RepeatForever::create(Sequence::create(DelayTime::create(interval), AnimationUtil::getInstance()->getAnimate(name), nullptr)); \
+		return ac;
+
 }

@@ -56,11 +56,18 @@ private:
 	void quickBeginCallback(Ref*psend);
 	void RankListCallback(Ref*psend);
 	void FirstPayCallback(Ref*psend);
+	void onExitCallback(Ref*psend);
+	void onAudioOnOffCallback(Ref*psend);
+	void feedBackCallback(Ref*psend);
 
+	void onExitSureCallback(Ref*psend);
+	void endGameCallback(Ref*psend);
 private:
 	LabelTTF* userdiamond;
 	LabelTTF* userCoin;
 
+	Sprite*lang;
+	Sprite*langspEmpty;
 	Vector<roomCell*> roomCells;
 };
 #endif

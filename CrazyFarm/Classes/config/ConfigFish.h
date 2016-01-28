@@ -10,7 +10,7 @@ USING_NS_CC;
 struct FishData {
     int fishId;
     int fishType;   // 0 基础鱼；1 礼品鱼；2 Boss鱼;
-    int move_speed; // 移动速度
+    std::vector<int> move_speeds; // 移动速度
     double probability; // [0, 0.5]
     int baseRewardStart;
 	int baseRewardEnd;

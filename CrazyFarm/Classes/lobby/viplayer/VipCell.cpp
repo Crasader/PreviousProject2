@@ -1,5 +1,6 @@
 #include "VipCell.h"
 #include "utill/Chinese.h"
+#include "domain/user/User.h"
 bool VipCell::init(){
 
 	auto bg = Sprite::create("VIPFrame.png");
@@ -48,7 +49,7 @@ int VIPprice[9] = { 20, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000 };
 
 void VipCell::setValue(int vipLevel)
 {
-	auto spPath = String::createWithFormat("turret/pao_%d.png", vipLevel);
+	auto spPath = String::createWithFormat("game/ui/turret/pao_%d.png", vipLevel);
 	propSprite->setTexture(spPath->getCString());
 	spPath = String::createWithFormat("VIPname_%d.png", vipLevel);
 	VIPname->setTexture(spPath->getCString());
@@ -56,9 +57,17 @@ void VipCell::setValue(int vipLevel)
 	VIPdec->setTexture(spPath->getCString());
 
 	VIPTTF->setString(Value(vipLevel).asString().c_str());
-
-	auto dec = String::createWithFormat(ChineseWord("priceVIPdes").c_str(), VIPprice[vipLevel]);
-	PriceDecTTF->setString(dec->getCString());
+	auto viplv = User::getInstance()->getVipLevel();
+	if (vipLevel>=viplv+6)
+	{
+		PriceDecTTF->setString("????");
+	}
+	else
+	{
+		auto dec = String::createWithFormat(ChineseWord("priceVIPdes").c_str(), VIPprice[vipLevel]);
+		PriceDecTTF->setString(dec->getCString());
+	}
+	
 }
 
 void VipCell::IsBeToued()

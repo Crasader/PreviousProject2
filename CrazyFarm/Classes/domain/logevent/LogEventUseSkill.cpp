@@ -53,7 +53,7 @@ std::string LogEventUseSkill::getDataForJson()
 
 void LogEventUseSkill::sendDataToServer()
 {
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),5);
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson());
 }
 void LogEventUseSkill::addUseSkillData(int skillID, int type, int prices)
 {

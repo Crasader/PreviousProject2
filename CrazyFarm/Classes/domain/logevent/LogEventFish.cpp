@@ -3,82 +3,11 @@
 #include "json/stringbuffer.h"
 #include "json/writer.h"
 #include "server/HttpMannger.h"
+#include "data/GameData.h"
 LogEventFish* LogEventFish::_instance = NULL;
 
 LogEventFish::LogEventFish(){
     
-}
-
-void LogEventFish::init(int roomid){
-	m_roomid = roomid;
-	fishes.clear();
-	for (int i = 1; i <= 10;i++)
-	{
-		FishStatInfo fishdata;
-		fishdata.nCatchTimes = 0;
-		fishdata.nCreateTimes = 0;
-		fishdata.nFishID = i;
-		fishdata.nHitTimes = 0;
-		fishdata.nUserCatchTimes = 0;
-		fishdata.nUserCostCoin = 0;
-		fishes.push_back(fishdata);
-	}
-	for (int i = 30; i <= 37; i++)
-	{
-		FishStatInfo fishdata;
-		fishdata.nCatchTimes = 0;
-		fishdata.nCreateTimes = 0;
-		fishdata.nFishID = i;
-		fishdata.nHitTimes = 0;
-		fishdata.nUserCatchTimes = 0;
-		fishdata.nUserCostCoin = 0;
-		fishes.push_back(fishdata);
-	}
-	for (int i = 40; i <= 44; i++)
-	{
-		FishStatInfo fishdata;
-		fishdata.nCatchTimes = 0;
-		fishdata.nCreateTimes = 0;
-		fishdata.nFishID = i;
-		fishdata.nHitTimes = 0;
-		fishdata.nUserCatchTimes = 0;
-		fishdata.nUserCostCoin = 0;
-		fishes.push_back(fishdata);
-	}
-	for (int i = 50; i <= 52; i++)
-	{
-		FishStatInfo fishdata;
-		fishdata.nCatchTimes = 0;
-		fishdata.nCreateTimes = 0;
-		fishdata.nFishID = i;
-		fishdata.nHitTimes = 0;
-		fishdata.nUserCatchTimes = 0;
-		fishdata.nUserCostCoin = 0;
-		fishes.push_back(fishdata);
-	}
-	for (int i = 101; i <= 104; i++)
-	{
-		FishStatInfo fishdata;
-		fishdata.nCatchTimes = 0;
-		fishdata.nCreateTimes = 0;
-		fishdata.nFishID = i;
-		fishdata.nHitTimes = 0;
-		fishdata.nUserCatchTimes = 0;
-		fishdata.nUserCostCoin = 0;
-		fishes.push_back(fishdata);
-	}
-	for (int i = 201; i <= 201; i++)
-	{
-		FishStatInfo fishdata;
-		fishdata.nCatchTimes = 0;
-		fishdata.nCreateTimes = 0;
-		fishdata.nFishID = i;
-		fishdata.nHitTimes = 0;
-		fishdata.nUserCatchTimes = 0;
-		fishdata.nUserCostCoin = 0;
-		fishes.push_back(fishdata);
-	}
-
 }
 
 LogEventFish* LogEventFish::getInstance(){
@@ -91,68 +20,204 @@ LogEventFish* LogEventFish::getInstance(){
 
 void LogEventFish::addFishCreateTimes(int fishid)
 {
-	for (auto &var : fishes)
-	{
-		if (var.nFishID == fishid)
-		{
-			var.nCreateTimes++;
-			return;
-		}
-	}
-	return;
+	int roomid = GameData::getInstance()->getRoomID();
+	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHCREATETIME);
+	auto localdata = UserDefault::getInstance();
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(FISHCREATETIME, 0) + 1);
 }
 void LogEventFish::addFishCatchTimes(int fishid)
 {
-	for (auto &var : fishes)
-	{
-		if (var.nFishID == fishid)
-		{
-			var.nCatchTimes++;
-			return;
-		}
-	}
-	return;
+	int roomid = GameData::getInstance()->getRoomID();
+	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHCATCHTIME);
+	auto localdata = UserDefault::getInstance();
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(FISHCREATETIME, 0) + 1);
 }
 void LogEventFish::addFishHitTimes(int fishid)
 {
-	for (auto& var : fishes)
-	{
-		if (var.nFishID == fishid)
-		{
-			var.nHitTimes++;
-			return;
-		}
-	}
-	return;
+	int roomid = GameData::getInstance()->getRoomID();
+	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHHITTIMES);
+	auto localdata = UserDefault::getInstance();
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(FISHCREATETIME, 0) + 1);
 }
 void LogEventFish::addFishUserCatchTimes(int fishid)
 {
-	for (auto &var : fishes)
-	{
-		if (var.nFishID == fishid)
-		{
-			var.nUserCatchTimes++;
-			return;
-		}
-	}
-	return;
+	int roomid = GameData::getInstance()->getRoomID();
+	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHUSERCATCHTIMES);
+	auto localdata = UserDefault::getInstance();
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(FISHCREATETIME, 0) + 1);
 }
 
-void LogEventFish::addFishUserCostCoin(int fishid,int coin)
+void LogEventFish::addFishUserCostCoin(int fishid, int coin)
 {
-	for (auto &var : fishes)
-	{
-		if (var.nFishID == fishid)
-		{
-			var.nUserCostCoin += coin;
-			return;
-		}
-	}
-	return;
+	int roomid = GameData::getInstance()->getRoomID();
+	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHUSERCOSTCOIN);
+	auto localdata = UserDefault::getInstance();
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(FISHCREATETIME, 0) + 1);
 }
-std::string LogEventFish::getDataForJson()
-{
 
+
+void LogEventFish::loadLocalData()
+{
+	auto localdata = UserDefault::getInstance();
+	for (int j = 1; j <= 4;j++)
+	{
+		FishEventData eventdata;
+		eventdata.room_id = j;
+		for (int i = 1; i <= 10; i++)
+		{	
+			FishStatInfo fishdata;
+			fishdata.nFishID = i;
+
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			fishdata.nCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			fishdata.nCreateTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			fishdata.nHitTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			fishdata.nUserCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			fishdata.nUserCostCoin = localdata->getIntegerForKey(str->getCString(), 0);
+			if (fishdata.nCreateTimes>0)
+			{
+				eventdata.fishes.push_back(fishdata);
+			}
+		}
+		for (int i = 30; i <= 37; i++)
+		{
+			FishStatInfo fishdata;
+			fishdata.nFishID = i;
+
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			fishdata.nCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			fishdata.nCreateTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			fishdata.nHitTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			fishdata.nUserCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			fishdata.nUserCostCoin = localdata->getIntegerForKey(str->getCString(), 0);
+			if (fishdata.nCreateTimes > 0)
+			{
+				eventdata.fishes.push_back(fishdata);
+			}
+		}
+		for (int i = 40; i <= 44; i++)
+		{
+			FishStatInfo fishdata;
+			fishdata.nFishID = i;
+
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			fishdata.nCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			fishdata.nCreateTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			fishdata.nHitTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			fishdata.nUserCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			fishdata.nUserCostCoin = localdata->getIntegerForKey(str->getCString(), 0);
+			if (fishdata.nCreateTimes > 0)
+			{
+				eventdata.fishes.push_back(fishdata);
+			}
+		}
+		for (int i = 50; i <= 52; i++)
+		{
+			FishStatInfo fishdata;
+			fishdata.nFishID = i;
+
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			fishdata.nCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			fishdata.nCreateTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			fishdata.nHitTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			fishdata.nUserCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			fishdata.nUserCostCoin = localdata->getIntegerForKey(str->getCString(), 0);
+			if (fishdata.nCreateTimes > 0)
+			{
+				eventdata.fishes.push_back(fishdata);
+			}
+		}
+		for (int i = 101; i <= 104; i++)
+		{
+			FishStatInfo fishdata;
+			fishdata.nFishID = i;
+
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			fishdata.nCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			fishdata.nCreateTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			fishdata.nHitTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			fishdata.nUserCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			fishdata.nUserCostCoin = localdata->getIntegerForKey(str->getCString(), 0);
+			if (fishdata.nCreateTimes > 0)
+			{
+				eventdata.fishes.push_back(fishdata);
+			}
+		}
+		for (int i = 201; i <= 201; i++)
+		{
+			FishStatInfo fishdata;
+			fishdata.nFishID = i;
+
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			fishdata.nCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			fishdata.nCreateTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			fishdata.nHitTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			fishdata.nUserCatchTimes = localdata->getIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			fishdata.nUserCostCoin = localdata->getIntegerForKey(str->getCString(), 0);
+			if (fishdata.nCreateTimes > 0)
+			{
+				eventdata.fishes.push_back(fishdata);
+			}
+		}
+		if (eventdata.fishes.size() > 0)
+		{
+			logEventFishes.push_back(eventdata);
+		}
+
+	}
+}
+std::string LogEventFish::getDataForJson(FishEventData data)
+{
+	auto fishes = data.fishes;
+	auto m_roomid = data.room_id;
 	rapidjson::Document document;
 	document.SetObject();
 	rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
@@ -175,15 +240,139 @@ std::string LogEventFish::getDataForJson()
 	}	
 	document.AddMember("fishes", array, allocator);
 	document.AddMember("room_id",m_roomid, allocator);
+	document.AddMember("data_type", 1, allocator);
 	rapidjson::StringBuffer  buffer;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 	document.Accept(writer);
 	std::string result = buffer.GetString();
-	init(m_roomid);
 	return result;
 }
 
 void LogEventFish::sendDataToServer()
 {
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),1);
+	loadLocalData();
+	for (auto var : logEventFishes)
+	{
+		HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(var));
+	}
+	logEventFishes.clear();
+}
+
+
+void LogEventFish::clearLocalData()
+{
+	auto localdata = UserDefault::getInstance();
+	for (int j = 1; j <= 4; j++)
+	{
+		for (int i = 1; i <= 10; i++)
+		{
+			
+
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			localdata->setIntegerForKey(str->getCString(), 0);
+	
+		}
+		for (int i = 30; i <= 37; i++)
+		{
+
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			localdata->setIntegerForKey(str->getCString(), 0);
+		}
+		for (int i = 40; i <= 44; i++)
+		{
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			localdata->setIntegerForKey(str->getCString(), 0);
+		}
+		for (int i = 50; i <= 52; i++)
+		{
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			localdata->setIntegerForKey(str->getCString(), 0);
+	
+		}
+		for (int i = 101; i <= 104; i++)
+		{
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			localdata->setIntegerForKey(str->getCString(), 0);
+		
+		}
+		for (int i = 201; i <= 201; i++)
+		{
+	
+			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+			localdata->setIntegerForKey(str->getCString(), 0);
+
+			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+			localdata->setIntegerForKey(str->getCString(), 0);
+		
+		}
+	}
 }

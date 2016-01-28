@@ -8,7 +8,6 @@ LogEventMannger::LogEventMannger(){
 }
 
 void LogEventMannger::init(int roomid){
-	LogEventFish::getInstance()->init(roomid);
 	LogEventMagnate::getInstance()->init();
 	LogEventMermaid::getInstance()->init();
 	LogEventBankrupt::getInstance()->init(roomid);

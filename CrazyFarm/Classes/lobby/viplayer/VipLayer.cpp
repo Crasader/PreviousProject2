@@ -8,7 +8,7 @@ void VIPView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
 Size VIPView::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx){
-	return CCSizeMake(250, 600);
+	return CCSizeMake(230, 600);
 }
 cocos2d::extension::TableViewCell* VIPView::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx){
 	VipCell *cell = (VipCell*)table->dequeueCell();
@@ -101,9 +101,10 @@ bool VIPLayer::init()
 
 		auto scale = ((float)nowChargeMoney) / ((float)nextVip.charge_money);
 
-		auto VipExpBar = Sprite::create("VIP_expBar.png");
-		VipExpBar->setPosition(VipExpFram->getContentSize() / 2);
-		VipExpBar->setScaleX(scale*(302.0 / 100.0));
+		auto VipExpBar = Scale9Sprite::create("VIP_expBar.png");
+		VipExpBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		VipExpBar->setPosition(5,VipExpFram->getContentSize().height/2);
+		VipExpBar->setScaleX(scale*( 100.0/302.0 ));
 		VipExpFram->addChild(VipExpBar);
 
 		auto VIPtitle1 = Sprite::create("VIPtxt.png");
@@ -142,7 +143,7 @@ bool VIPLayer::init()
 		//tableview
 		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(800,500));
 		tableView->setDirection(ScrollView::Direction::HORIZONTAL);
-		tableView->setPosition(60,170);
+		tableView->setPosition(63,165);
 		tableView->setDelegate(tableviewDelegate);
 		addChild(tableView);
 		tableView->reloadData();
@@ -156,7 +157,7 @@ bool VIPLayer::init()
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(VIPLayer::closeButtonCallBack, this));
-		close->setPosition(800, 480);
+		close->setPosition(910, 502);
 		auto menu = Menu::create(close, nullptr);
 		menu->setPosition(Point::ZERO);
 		addChild(menu);

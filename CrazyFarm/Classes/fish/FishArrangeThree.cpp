@@ -8,7 +8,7 @@ void FishArrangeThree::initFish(int fishType){
 	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
 	this->grabProbability = fishdata.probability;
 	this->fishType = fishType;
-	this->speed = fishdata.move_speed;
+	this->speed = getRandValueInVec(fishdata.move_speeds);
 	this->experience = getFishExperienceByType(fishType);
 	initFishAnim(fishdata.uiId);
 	LogEventFish::getInstance()->addFishCreateTimes(fishType);

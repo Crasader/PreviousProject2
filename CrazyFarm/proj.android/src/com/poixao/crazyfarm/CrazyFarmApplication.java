@@ -8,6 +8,6 @@ public class CrazyFarmApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		SkyThirdPay.getInstance().initOnApplication(getApplicationContext());
+//		SkyThirdPay.getInstance().initOnApplication(getApplicationContext());
 	}
 }

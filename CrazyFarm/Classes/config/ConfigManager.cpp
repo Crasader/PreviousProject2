@@ -22,6 +22,7 @@
 #include "moment/MonmetEightRoute.h"
 #include "domain/gameConfig/gameConfig.h"
 #include "config/ConfigFishCollisionRange.h"
+#include "config/ConfigBox.h"
 ConfigManager* ConfigManager::_instance = NULL;
 
 ConfigManager::ConfigManager(){
@@ -36,7 +37,9 @@ ConfigManager* ConfigManager::getInstance(){
 
 void ConfigManager::LoadConfig() {
     //load json
-    ConfigExp::getInstance()->LoadConfig();
+	(ConfigExp::getInstance()->LoadConfig());
+
+    
     
     ConfigItem::getInstance()->LoadConfig();
     ConfigVipLevel::getInstance()->LoadConfig();
@@ -64,6 +67,7 @@ void ConfigManager::LoadConfig() {
 	FishGroupData::getInstance()->loadConfig();
 	ConfigFishCollisionRange::getInstance()->LoadConfig();
 	MonmetEightRoutedata::getInstance()->loadConfig();
+	ConfigBox::getInstance()->LoadConfig();
 }
 
 

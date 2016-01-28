@@ -1,5 +1,5 @@
 #include "domain/coinBox//CoinBox.h"
-
+#include "utill/JniFunUtill.h"
 
 CoinBox *CoinBox::_instance = NULL;
 
@@ -26,4 +26,21 @@ int CoinBox::getPerCoinBox()
 	auto endCoin = *CoinBoxs.end();
 	CoinBoxs.pop_back();
 	return endCoin;
+}
+
+BoxConfigInfo CoinBox::getBoxConfigInfoByItemID(int itemid)
+{
+	return ConfigBox::getInstance()->getBoxConfigInfoByItemId(itemid);
+}
+
+int CoinBox::useTimeByItemID(int itemid)
+{
+	auto str = String::createWithFormat("%s%d", USEITEM, itemid);
+	return UserDefault::getInstance()->getIntegerForKey(str->getCString(), 0);
+}
+
+void CoinBox::addUseTimeByItemId(int itemid)
+{
+	auto str = String::createWithFormat("%s%d", USEITEM, itemid);
+	UserDefault::getInstance()->setIntegerForKey(str->getCString(),UserDefault::getInstance()->getIntegerForKey(str->getCString()) + 1);
 }

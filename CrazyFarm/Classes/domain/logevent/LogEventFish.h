@@ -22,19 +22,28 @@ class LogEventFish {
 
 public:
 	static LogEventFish* getInstance();
-	void init(int roomid);
+	
+	
+	void clearLocalData();
 	void addFishCreateTimes(int fishid);
 	void addFishCatchTimes(int fishid);
 	void addFishHitTimes(int fishid);
 	void addFishUserCatchTimes(int fishid);
 	void addFishUserCostCoin(int fishid, int coin);
 	void sendDataToServer();
+
+	
 private:
+	void loadLocalData();
 	LogEventFish();
-	std::string getDataForJson();
-	int m_roomid;
-	std::vector<FishStatInfo> fishes;
+	std::string getDataForJson(FishEventData data);
 	static LogEventFish* _instance;
+	std::vector<FishEventData> logEventFishes;
+	const char* FISHCREATETIME = "FISHCREATETIME";
+	const char* FISHCATCHTIME = "FISHCATCHTIME";
+	const char* FISHUSERCATCHTIMES = "FISHUSERCATCHTIMES";
+	const char* FISHUSERCOSTCOIN = "FISHUSERCOSTCOIN";
+	const char* FISHHITTIMES = "FISHHITTIMES";
 };
 
 

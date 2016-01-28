@@ -1,7 +1,13 @@
 package org.cocos2dx.cpp;
 
+import java.io.File;
+
 import org.cocos2dx.lib.Cocos2dxActivity;
+
+import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
+
 import com.tbu.android.pay.sky.third.PayCallback;
 import com.tbu.android.pay.sky.third.SkyOrderInfo;
 import com.tbu.android.pay.sky.third.SkyThirdPay;
@@ -25,4 +31,18 @@ public class AppActivity extends Cocos2dxActivity {
 			}
 		});
 	}
+
+	public  static String getSDPath(){
+		File sdDir = null;
+		boolean sdCardExist = Environment.getExternalStorageState()
+		.equals(android.os.Environment.MEDIA_MOUNTED); //判断sd卡是否存在
+		if (sdCardExist)
+		{
+		sdDir = Environment.getExternalStorageDirectory();//获取跟目录
+		}
+		Log.e(sdDir.toString(), "error");
+		return sdDir.toString();
+
+		}
+
 }

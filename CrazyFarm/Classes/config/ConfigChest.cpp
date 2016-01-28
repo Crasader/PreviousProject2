@@ -1,5 +1,5 @@
 #include "config/ConfigChest.h"
-
+#include "utill/JniFunUtill.h"
 ConfigChest* ConfigChest::_instance = NULL;
 
 ConfigChest::ConfigChest(){
@@ -16,7 +16,12 @@ bool ConfigChest::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 
-		std::string filename = "config/config_chest.json";
+	std::string filename;			
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+	filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_chest.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{

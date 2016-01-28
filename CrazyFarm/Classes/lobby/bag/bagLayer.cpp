@@ -3,10 +3,11 @@
 #include "domain/bag/BagManager.h"
 #include "domain/user/User.h"
 #include "lobby/bag/SetNameLayer.h"
-#include "widget/MyTableView.h"
+
 #include "lobby/viplayer/VipLayer.h"
 #include "lobby/Nobility/NobilityLayer.h"
 #include "lobby/shop/payLayer.h"
+
 enum 
 {
 	kDesignTagCell0,
@@ -201,17 +202,17 @@ bool BagLayer::init()
 		userlevel->setPosition(spLV->getPositionX()+spLV->getContentSize().width, spLV->getPositionY());
 		playinfoFram->addChild(userlevel);
 		//½ð±Ò
-		auto userCoin = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
-		userCoin->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		userCoin->setPosition(sssize2.width*0.65, sssize2.height *0.60);
-		userCoin->setColor(Color3B::WHITE);
-		playinfoFram->addChild(userCoin);
+		userCoin1 = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
+		userCoin1->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		userCoin1->setPosition(sssize2.width*0.65, sssize2.height *0.60);
+		userCoin1->setColor(Color3B::WHITE);
+		playinfoFram->addChild(userCoin1);
 		//×êÊ¯
-		auto userdiamond = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
-		userdiamond->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		userdiamond->setPosition(sssize2.width*0.65, sssize2.height *0.485);
-		userdiamond->setColor(Color3B::WHITE);
-		playinfoFram->addChild(userdiamond);
+		userdiamond1 = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
+		userdiamond1->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		userdiamond1->setPosition(sssize2.width*0.65, sssize2.height *0.485);
+		userdiamond1->setColor(Color3B::WHITE);
+		playinfoFram->addChild(userdiamond1);
 		//VIP
 		auto viplevel = LabelTTF::create(Value(user->getVipLevel()).asString().c_str(), "arial", 20);
 		viplevel->setPosition(sssize2.width*0.65, sssize2.height *0.37);
@@ -261,11 +262,11 @@ bool BagLayer::init()
 		coin->setPosition(3, sssize1.height *0.49);
 		coinFrame->addChild(coin);
 
-		userCoin = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
-		userCoin->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-		userCoin->setPosition(sssize1.width*0.85, sssize1.height *0.5);
-		userCoin->setColor(Color3B(254, 248, 52));
-		coinFrame->addChild(userCoin);
+		userCoin2 = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
+		userCoin2->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+		userCoin2->setPosition(sssize1.width*0.85, sssize1.height *0.5);
+		userCoin2->setColor(Color3B(254, 248, 52));
+		coinFrame->addChild(userCoin2);
 
 		auto addCoin = MenuItemImage::create("addBtn_nor.png", "addBtn_click.png", CC_CALLBACK_1(BagLayer::payCoinCallback, this));
 		addCoin->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -283,11 +284,11 @@ bool BagLayer::init()
 		diamond->setScale(0.8);
 		diamondFrame->addChild(diamond);
 
-		userdiamond = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
-		userdiamond->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-		userdiamond->setPosition(sssize1.width*0.85, sssize1.height *0.5);
-		userdiamond->setColor(Color3B(254, 248, 52));
-		diamondFrame->addChild(userdiamond);
+		userdiamond2 = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
+		userdiamond2->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+		userdiamond2->setPosition(sssize1.width*0.85, sssize1.height *0.5);
+		userdiamond2->setColor(Color3B(254, 248, 52));
+		diamondFrame->addChild(userdiamond2);
 
 		auto adddiamond = MenuItemImage::create("addBtn_nor.png", "addBtn_click.png", CC_CALLBACK_1(BagLayer::payDiamondCallback, this));
 		adddiamond->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -325,7 +326,7 @@ bool BagLayer::init()
 
 
 		//±³°ü
-		MyTableView* tableView = MyTableView::create(tableviewDelegate, baginfoFram->getContentSize());
+		tableView = MyTableView::create(tableviewDelegate, baginfoFram->getContentSize());
 		tableView->setAnchorPoint(Point::ZERO);
 		tableView->setDirection(ScrollView::Direction::VERTICAL);
 		tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
@@ -334,7 +335,7 @@ bool BagLayer::init()
 		baginfoFram->addChild(tableView);
 		tableView->reloadData();
 
-
+		schedule(schedule_selector(BagLayer::refreshCoinLabel),0);
 
 
 
@@ -405,3 +406,12 @@ void BagLayer::payDiamondCallback(Ref*psend)
 	paylayer->setPosition(Point::ZERO);
 	addChild(paylayer, 20);
 }
+void BagLayer::refreshCoinLabel(float dt)
+{
+	auto user = User::getInstance();
+	userdiamond1->setString(Value(user->getDiamonds()).asString());
+	userCoin1->setString(Value(user->getCoins()).asString());
+	userdiamond2->setString(Value(user->getDiamonds()).asString());
+	userCoin2->setString(Value(user->getCoins()).asString());
+}
+

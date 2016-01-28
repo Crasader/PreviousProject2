@@ -14,9 +14,10 @@ public:
 	  void setValue(BagItem item);
 	  void IsBeToued();
 private:
-	CC_SYNTHESIZE(int, m_nCellId, propID);
-	CC_SYNTHESIZE(int, m_nCellNum,propNum );
+	CC_SYNTHESIZE(BagItem, m_Item, bagitem);
 	Sprite* propSprite;
+	Sprite*txt;
+	Sprite*txtji;
 	LabelAtlas* propNum;
 
 };

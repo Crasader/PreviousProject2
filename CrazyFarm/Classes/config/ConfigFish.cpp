@@ -1,5 +1,5 @@
 #include "config/ConfigFish.h"
-
+#include "utill/JniFunUtill.h"
 ConfigFish* ConfigFish::_instance = NULL;
 
 ConfigFish::ConfigFish(){
@@ -17,8 +17,12 @@ bool ConfigFish::LoadConfig() {
 	bool bRet = false;
 	
 	while (!bRet) {
-
-		std::string filename = "config/config_fish.json";
+	std::string filename;			
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+	filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_fish.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{
@@ -45,7 +49,11 @@ bool ConfigFish::LoadConfig() {
 			FishData fish;
 			fish.fishId	= val["fish_id"].GetInt();
             fish.fishType = val["fish_type"].GetInt();
-            fish.move_speed = val["move_speed"].GetInt();
+			for (unsigned int j = 0; j < val["move_speed"].Size();j++)
+			{
+				fish.move_speeds.push_back(val["move_speed"][j].GetInt()) ;
+			}
+            
             fish.probability = val["probability"].GetDouble();
             fish.baseRewardStart = val["baseReward"]["start"].GetInt();
 			fish.baseRewardEnd = val["baseReward"]["end"].GetInt();

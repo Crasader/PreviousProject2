@@ -21,10 +21,16 @@ bool PayCell::init(){
 	giftNum = Sprite::create();
 	giftNum->setPosition(size.width*0.68, size.height*0.30);
 	addChild(giftNum);
+	
+	hotTxt = Sprite::create("hottxt.png");
+	hotTxt->setAnchorPoint(Point::ZERO);
+	hotTxt->setPosition(0, size.height*0.5);
+	addChild(hotTxt);
+	hotTxt->setVisible(false);
 
 	return true;
 }
-Good coingood[7] = { Good(8, 40000), Good(18, 180000), Good(38, 380000), Good(58, 580000), Good(108, 1080000), Good(388, 3880000), Good(688, 6880000) };
+Good coingood[7] = { Good(18, 180000), Good(38, 380000), Good(108, 1080000), Good(388, 3880000), Good(688, 6880000) , Good(8, 40000), Good(58, 580000)};
 Good diamondGood[5] = { Good(18, 180), Good(38, 418), Good(58, 650), Good(108, 1346), Good(388, 4768) };
 void PayCell::setValue(int goodId)
 {
@@ -49,6 +55,10 @@ void PayCell::setDiamondValue(int goodId)
 	propNum->setTexture(spPath->getCString());
 	spPath = String::createWithFormat("diamondGiftNum_%d.png", goodId);
 	giftNum->setTexture(spPath->getCString());
+	if (goodId ==4)
+	{
+		hotTxt->setVisible(true);
+	}
 }
 
 void PayCell::setVipValue()

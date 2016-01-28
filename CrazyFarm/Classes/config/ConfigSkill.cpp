@@ -1,5 +1,5 @@
 #include "config/ConfigSkill.h"
-
+#include "utill/JniFunUtill.h"
 ConfigSkill* ConfigSkill::_instance = NULL;
 
 ConfigSkill::ConfigSkill(){
@@ -15,8 +15,12 @@ ConfigSkill* ConfigSkill::getInstance(){
 bool ConfigSkill::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
-
-		std::string filename = "config/config_skill.json";
+std::string filename;	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_skill.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{
@@ -42,10 +46,10 @@ bool ConfigSkill::LoadConfig() {
 			SkillConfigInfo skillConfigInfo;
 			skillConfigInfo.skill_id	= val["skill_id"].GetInt();
             skillConfigInfo.item_id	= val["item_id"].GetInt();
-            skillConfigInfo.unlock_buy_type = val["unlock_buy_type"].GetInt();
-            skillConfigInfo.unlock_buy_level = val["unlock_buy_level"].GetInt();
+            skillConfigInfo.unlock_buy_turretLv = val["unlock_buy_turretLv"].GetInt();
+            skillConfigInfo.unlock_buy_vipLv = val["unlock_buy_vipLv"].GetInt();
             skillConfigInfo.cd_time = val["cd_time"].GetInt();
-            
+			skillConfigInfo.m_name = val["desc"].GetString();
             skillConfigInfos[i] = skillConfigInfo;
 		}
 		

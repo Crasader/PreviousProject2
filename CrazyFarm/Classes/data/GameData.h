@@ -10,7 +10,10 @@ class GameData {
 public:
 	static GameData* getInstance();
 	Turrent getTurrentData();
-
+	void setSoundState(bool state);
+	bool getSoundState();
+	void setMusicState(bool state);
+	bool getMusicState();
 private:
 	GameData();
 	void init();
@@ -23,6 +26,7 @@ private:
 	CC_SYNTHESIZE(MermaidTask*, m_Task, mermaidTask);
 	CC_SYNTHESIZE(bool, isOnMaridTask, IsOnMaridTask);
 	CC_SYNTHESIZE(bool, bIsOnBankrupt, isOnBankrupt);
+	CC_SYNTHESIZE(bool, bisPlayerOneGame, isPlayerOneGame);//是否进行过一次游戏
 };
 
 #endif

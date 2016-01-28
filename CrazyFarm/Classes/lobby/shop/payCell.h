@@ -48,5 +48,5 @@ private:
 	Sprite* paySprite;
 	Sprite* propNum;
 	Sprite* giftNum;
-
+	Sprite* hotTxt;
 };

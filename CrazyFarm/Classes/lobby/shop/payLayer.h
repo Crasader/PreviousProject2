@@ -61,4 +61,5 @@ private:
 	void closeButtonCallBack(Ref*psend);
 	LabelTTF*ttf;
 	payView* tableviewDelegate;
+	void showVipCallback(Ref*psend);
 };

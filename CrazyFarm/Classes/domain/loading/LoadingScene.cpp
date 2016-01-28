@@ -7,6 +7,7 @@
 #include "domain/user/User.h"
 #include "lobby/LobbyScene.h"
 #include "domain/user/DeviceInfo.h"
+
 Scene* LoadingScene::createScene()
 {
 	auto scene = Scene::create();
@@ -80,6 +81,21 @@ void LoadingScene::loadRes()
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_MiaoZhun/TX_MiaoZhun_%d.png", "aniFishLock", 0.8f, 10);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_ShengJi/TX_ShengJi_%d.png", "aniShengji", 1.5f, 21);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/gainRewards/aniGetRewards%d.png", "aniGainRewards", 1.3f, 10);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/VipButton/TX_VIP_%d.png", "aniVipButton", 1.3, 20);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/firstPay/TX_ShouChong_%d.png", "aniFirstPay",1.3f, 10);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/guizu/TX_GuiZu_%d.png", "aniGuizu", 1.3f, 10);
+	//房间动画
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/roomcell/roomAni_2_%d.png", "aniRoom_id2", 0.5f, 4);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/roomcell/roomAni_3_%d.png", "aniRoom_id3", 0.5f, 4);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/roomcell/roomAni_4_%d.png", "aniRoom_id4", 0.5f, 3);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/LightPoint/TX_ShanGuang_%d.png", "aniLightPoint", 1.0f, 14);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/capLight/capLight_%d.png", "anicapLight", 0.8f, 8);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/caidai/TX_CaiDai_%d.png", "aniCaidai", 1.5f, 24);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/raroteLight/TX_XuanZhuanGuang_%d.png", "aniraroteLight", 1.0f, 11);
+	//大厅鱼
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/lobbyfish1/TX_YU_%d.png", "aniLobbyFish1", 1.6f, 16);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/lobbyfish2/TX_YU2_%d.png", "aniLobbyFish2", 1.4f, 14);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/lobbyfish3/TX_YU3_%d.png", "aniLobbyFish3", 0.9f, 9);
 	//load fish ani
 	int i = 1;
 	for (int i = 1; i < 100; i++)

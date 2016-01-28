@@ -35,6 +35,7 @@ std::string LogEventBankrupt::getDataForJson()
 	document.AddMember("room_id",m_roomid, allocator);
 	document.AddMember("type", m_type, allocator);
 	document.AddMember("nums", m_num, allocator);
+	document.AddMember("data_type", 4, allocator);
 	rapidjson::StringBuffer  buffer;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 	document.Accept(writer);
@@ -46,5 +47,5 @@ void LogEventBankrupt::sendDataToServer(int type,int num)
 {
 	m_type = type;
 	m_num = num;
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),4);
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson());
 }

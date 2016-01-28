@@ -34,6 +34,10 @@ public:
 
     bool setMaxTurrentLevel(int maxTurrentLevel);
 
+
+	float getCatchPer();
+
+	void addCatchPer(float catchper);
 	
     int getVipLevel();
     
@@ -69,6 +73,7 @@ private:
     const char* KEY_DIAMONDS = "KEY_DIAMONDS";
     const char* KEY_EXP = "KEY_EXP";
     const char* KEY_M_TURRENT = "KEY_M_TURRENT";
+	const char* KEY_CATCHPER = "KEY_CATCHPER";
     const char* KEY_USER_ID = "KEY_USER_ID";
     const char* KEY_USER_NAME = "KEY_USER_NAME";
     const char* KEY_LASTSIGNDAY = "KEY_LASTSIGNDAY";

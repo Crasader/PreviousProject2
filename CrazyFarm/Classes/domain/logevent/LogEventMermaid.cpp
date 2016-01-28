@@ -39,6 +39,7 @@ std::string LogEventMermaid::getDataForJson()
 	document.AddMember("result", m_result, allocator);
 	document.AddMember("room_id",m_roomid, allocator);
 	document.AddMember("rewards", m_reward, allocator);
+	document.AddMember("data_type", 2, allocator);
 	rapidjson::StringBuffer  buffer;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 	document.Accept(writer);
@@ -48,5 +49,5 @@ std::string LogEventMermaid::getDataForJson()
 
 void LogEventMermaid::sendDataToServer()
 {
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),2);
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson());
 }

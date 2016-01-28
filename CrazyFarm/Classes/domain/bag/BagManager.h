@@ -16,14 +16,16 @@ public :
     int getItemNum(int itemId);
 
 	
-	PropType getItemType(int itemId);
+	
     std::vector<BagItem> getBagList();
 
 	
 	BagItem getBagByIndex(int index);
+	BagItem getBagByItemId(int itemID);
 private :
 	BagManager();
 	void init();
+	PropType getItemType(int itemId);
 	std::vector<BagItem> getBagListWithSort();
 	std::vector<BagItem> itemsWithSort;
 	static BagManager* _instance;

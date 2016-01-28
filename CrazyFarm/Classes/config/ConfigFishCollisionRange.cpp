@@ -1,5 +1,5 @@
 #include "config/ConfigFishCollisionRange.h"
-
+#include "utill/JniFunUtill.h"
 ConfigFishCollisionRange* ConfigFishCollisionRange::_instance = NULL;
 
 ConfigFishCollisionRange::ConfigFishCollisionRange(){
@@ -17,8 +17,13 @@ bool ConfigFishCollisionRange::LoadConfig() {
 	bool bRet = false;
 	
 	while (!bRet) {
+	std::string filename;	
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+	filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_fishCollisionRange.json";
 
-		std::string filename = "config/config_fishCollisionRange.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{

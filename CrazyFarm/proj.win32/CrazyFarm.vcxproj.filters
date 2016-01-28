@@ -115,6 +115,9 @@
     <Filter Include="src\logevent">
       <UniqueIdentifier>{be87d6c2-cc47-4f5b-8e37-9215ac201966}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\lobby\room">
+      <UniqueIdentifier>{c2fa4a29-47c5-44a6-b6ee-679538fb308a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -166,9 +169,6 @@
       <Filter>src\data</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\utill\Audio.cpp">
-      <Filter>src\utill</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utill\CallAndroidMethod.cpp">
       <Filter>src\utill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\utill\Chinese.cpp">
@@ -513,9 +513,6 @@
     <ClCompile Include="..\Classes\config\ConfigFishCollisionRange.cpp">
       <Filter>src\Interface</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\lobby\bag\ShowPropLayer.cpp">
-      <Filter>src\lobby\bag</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\moment\MomentNine.cpp">
       <Filter>src\moment</Filter>
     </ClCompile>
@@ -545,6 +542,51 @@
     </ClCompile>
     <ClCompile Include="..\Classes\domain\logevent\LogEventUseSkill.cpp">
       <Filter>src\logevent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigBox.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\bag\ShowBoxLayer.cpp">
+      <Filter>src\lobby\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\bag\ShowGiftLayer.cpp">
+      <Filter>src\lobby\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\bag\ShowSkillLayer.cpp">
+      <Filter>src\lobby\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventPageChange.cpp">
+      <Filter>src\logevent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventTurrentUpgrade.cpp">
+      <Filter>src\logevent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventSpcEvent.cpp">
+      <Filter>src\logevent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\widget\TwiceSureDialog.cpp">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\bag\TwiceSureBuySkill.cpp">
+      <Filter>src\lobby\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\widget\GiftCell.cpp">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utill\JniFunUtill.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\roomlayer\RoomCell.cpp">
+      <Filter>src\lobby\room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\roomlayer\RoomLayer.cpp">
+      <Filter>src\lobby\room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\widget\LightEffect.cpp">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utill\CircleMoveToEx.cpp">
+      <Filter>src\utill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -597,9 +639,6 @@
       <Filter>src\data</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utill\Audio.h">
-      <Filter>src\utill</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utill\CallAndroidMethod.h">
       <Filter>src\utill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utill\Chinese.h">
@@ -947,9 +986,6 @@
     <ClInclude Include="..\Classes\config\ConfigFishCollisionRange.h">
       <Filter>src\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\lobby\bag\ShowPropLayer.h">
-      <Filter>src\lobby\bag</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\moment\MomentNine.h">
       <Filter>src\moment</Filter>
     </ClInclude>
@@ -979,6 +1015,51 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\logevent\LogEventUseSkill.h">
       <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigBox.h">
+      <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\bag\ShowBoxLayer.h">
+      <Filter>src\lobby\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\bag\ShowGiftLayer.h">
+      <Filter>src\lobby\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\bag\ShowSkillLayer.h">
+      <Filter>src\lobby\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventPageChange.h">
+      <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventTurrentUpgrade.h">
+      <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventSpcEvent.h">
+      <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\widget\TwiceSureDialog.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\bag\TwiceSureBuySkill.h">
+      <Filter>src\lobby\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\widget\GiftCell.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\JniFunUtill.h">
+      <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\roomlayer\RoomCell.h">
+      <Filter>src\lobby\room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\roomlayer\RoomLayer.h">
+      <Filter>src\lobby\room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\widget\LightEffect.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\CircleMoveToEx.h">
+      <Filter>src\utill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

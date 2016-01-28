@@ -1,6 +1,6 @@
 #include "config/ConfigDebugTest.h"
 #include "domain/user/User.h"
-
+#include "utill/JniFunUtill.h"
 #include "domain/ai/AIManager.h"
 
 ConfigDebugTest* ConfigDebugTest::_instance = NULL;
@@ -19,7 +19,12 @@ bool ConfigDebugTest::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 
-		std::string filename = "config/config_debug.json";
+	std::string filename;			
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+	filename += JniFunUtill::getInstance()->getSDcardpath();
+		filename += "/CrazyFarm/";
+	#endif
+		filename += "config/config_debug.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
 		{

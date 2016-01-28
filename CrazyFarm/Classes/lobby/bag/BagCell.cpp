@@ -1,5 +1,8 @@
 #include "BagCell.h"
-#include "ShowPropLayer.h"
+#include "ShowBoxLayer.h"
+#include "domain/user/User.h"
+#include "ShowSkillLayer.h"
+#include "ShowGiftLayer.h"
 bool BagCell::init(){
 	if (!Sprite::initWithFile("bagbox.png")){
 		return false;
@@ -10,8 +13,24 @@ bool BagCell::init(){
 	addChild(propSprite);
 
 	propNum = LabelAtlas::create("0", "bagPropNum.png", 18, 26, '0');
-	propNum->setPosition(size.width*0.7, size.height*0.1);
+	propNum->setAnchorPoint(Point(0,0));
+	propNum->setPosition(size.width*0.65, size.height*0.1);
 	addChild(propNum);
+	propNum->setVisible(false);
+	
+	txtji = Sprite::create("txtLevel.png");
+	txtji->setPosition(propNum->getContentSize().width+txtji->getContentSize().width/2, propNum->getContentSize().height / 2);
+	propNum->addChild(txtji);
+	txtji->setVisible(false);
+
+	txt = Sprite::create("dianjigoumaitxt.png");
+	txt->setPosition(size.width / 2, 21);
+	txt->setVisible(false);
+	addChild(txt);
+	
+	BagItem item;
+	item.itemId = -1;
+	setbagitem(item);
 	return true;
 }
 
@@ -23,18 +42,73 @@ void BagCell::setValue(BagItem item)
 		propNum->setVisible(false);
 		return;
 	}
-	setpropID(item.itemId);
-	setpropNum(item.num);
+	setbagitem(item);
 	auto spPath = String::createWithFormat("item_%d.png", item.itemId);
 	propSprite->setTexture(spPath->getCString());
-	propNum->setString(Value(item.num).asString().c_str());
+	switch (item.type)
+	{
+	case Prop_Skill:
+		txtji->setVisible(false);
+		if (item.num==0)
+		{
+			txt->setVisible(true);
+			propNum->setVisible(false);
+
+		}
+		else
+		{
+			txt->setVisible(false);
+			propNum->setVisible(true);
+			propNum->setString(Value(item.num).asString().c_str());
+
+		}
+		break;
+	case Prop_ItemBox:
+		txtji->setVisible(false);
+		txt->setVisible(false);
+		propNum->setVisible(true);
+		propNum->setString(Value(item.num).asString().c_str());
+
+		break;
+	case Prop_upgradeBox:
+		txtji->setVisible(true);
+		txt->setVisible(false);
+		propNum->setVisible(true);
+		propNum->setString(Value(User::getInstance()->getLevelData().levelId+1).asString().c_str());//显示级数
+
+		break;
+	default:
+		BagItem item;
+		item.itemId = -1;
+		setbagitem(item);
+		break;
+	}
+	
 }
 
 void BagCell::IsBeToued()
 {
-	auto layer = ShowPropLayer::create(m_nCellId);
+	if (m_Item.itemId<0)
+	{
+		return;
+	}
+	Layer*layer;
+	switch (m_Item.type)
+	{
+	case Prop_Skill:
+		layer = ShowSkillLayer::create(m_Item.itemId);
+		break;
+	case Prop_ItemBox:
+		layer = ShowBoxLayer::create(m_Item.itemId);
+		break;
+	case Prop_upgradeBox:
+		layer = ShowGiftLayer::create();
+		break;
+	default:
+		return;
+		break;
+	}
+	
 	layer->setPosition(0, 0);
 	Director::getInstance()->getRunningScene()->getChildByTag(50)->addChild(layer);
-	///TODO:道具被点击时候的回调;
-	CCLOG("propIDl: %d is be touched", m_nCellId);
 }

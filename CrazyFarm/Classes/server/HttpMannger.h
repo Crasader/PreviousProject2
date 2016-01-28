@@ -32,7 +32,7 @@ public:
 	void onHttpRequestCompletedForSetName(HttpClient *sender, HttpResponse *response);
 
 	//数据埋点
-	void HttpToPostRequestLogEvent(std::string jsonString,int type);	//1:鱼 2：任务 3：赠送奖励
+	void HttpToPostRequestLogEvent(std::string jsonString);	
 	void onHttpRequestCompletedForLogEventCommon(HttpClient *sender, HttpResponse *response);
 private:
 	HttpMannger();

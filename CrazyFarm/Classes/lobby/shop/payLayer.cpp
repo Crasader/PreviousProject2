@@ -4,6 +4,7 @@
 #include "domain/user/User.h"
 #include "widget/MyTableView.h"
 #include "utill/Chinese.h"
+#include "lobby/viplayer/VipLayer.h"
 enum 
 {
 	kDesignTagCell1,
@@ -192,9 +193,7 @@ bool payLayer::init(int payType)
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(payLayer::closeButtonCallBack, this));
 		close->setPosition(800,480);
-		auto menu = Menu::create(close,nullptr);
-		menu->setPosition(Point::ZERO); 
-		addChild(menu);
+
 
 
 
@@ -210,12 +209,13 @@ bool payLayer::init(int payType)
 		bottomframe->addChild(tableView);
 		tableView->reloadData();
 
-
-
+		auto nowChargeMoney = User::getInstance()->getChargeMoney();
+	
+		
 
 		////再充值XX元成为VIP
 		auto nowVip = User::getInstance()->getVipLevel();
-		auto nowChargeMoney = User::getInstance()->getChargeMoney();
+		
 		auto vipConfig = ConfigVipLevel::getInstance();
 		auto nextVip =  vipConfig->getVipLevel(nowVip + 1);
 		auto topTip = Sprite::create("TopTip.png");
@@ -229,9 +229,31 @@ bool payLayer::init(int payType)
 		auto chinaword = ChineseWord("payVIPdes");
 		auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
 		 ttf = LabelTTF::create(strdec->getCString(), "Airal", 30);
-		ttf->setPosition(size.width*0.5, size.height / 2);
+		 ttf->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		ttf->setPosition(size.width*0.1, size.height / 2);
 		topTip->addChild(ttf);
+		//首次充值
+		if (nowChargeMoney ==0 &&payType ==1)
+		{
+			ttf->setString(ChineseWord("payCoinFirst").c_str());
+			auto ttf1 = LabelAtlas::create("100", "payNum.png", 16, 24, '0');
+			ttf1->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+			ttf1->setPosition(ttf->getPosition().x + ttf->getContentSize().width, ttf->getPositionY());
+			topTip->addChild(ttf1,0,"100");
 
+			auto sp = Sprite::create("coin.png");
+			sp->setPosition(ttf1->getPosition().x + ttf1->getContentSize().width, ttf1->getPositionY());
+			sp->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+			topTip->addChild(sp, 0, "coin");
+
+		}
+
+
+		auto bt = MenuItemImage::create("VIP.png", "VIP.png", CC_CALLBACK_1(payLayer::showVipCallback, this));
+		bt->setPosition(726, visibleSize.height*0.73);
+		auto menu = Menu::create(bt,close, nullptr);
+		menu->setPosition(0, 0);
+		addChild(menu);
 		//屏蔽向下触摸
 		auto listenr1 = EventListenerTouchOneByOne::create();
 		listenr1->onTouchBegan = CC_CALLBACK_2(payLayer::onTouchBegan, this);
@@ -264,8 +286,13 @@ bool payLayer::init(int payType)
 
 void payLayer::update(float delta)
 {
-	auto nowVip = User::getInstance()->getVipLevel();
 	auto nowChargeMoney = User::getInstance()->getChargeMoney();
+	if (nowChargeMoney<=0)
+	{
+		return;
+	}
+	auto nowVip = User::getInstance()->getVipLevel();
+	
 	auto vipConfig = ConfigVipLevel::getInstance();
 	auto nextVip = vipConfig->getVipLevel(nowVip + 1);
 
@@ -279,3 +306,9 @@ void payLayer::closeButtonCallBack(Ref*psend)
 	removeFromParentAndCleanup(1);
 }
 
+void payLayer::showVipCallback(Ref*psend)
+{
+	auto layer = VIPLayer::create();
+	layer->setPosition(0, 0);
+	addChild(layer,10);
+}
