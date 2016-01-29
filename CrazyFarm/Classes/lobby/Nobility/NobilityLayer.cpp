@@ -31,7 +31,7 @@ bool NobilityLayer::init()
 	auto str1 = String::createWithFormat("payNobilitylayer_%d_%d.png", imgIndex, 1);
 	auto str2 = String::createWithFormat("payNobilitylayer_%d_%d.png", imgIndex, 2);
 	auto quickpay = MenuItemImage::create(str1->getCString(), str2->getCString(), CC_CALLBACK_1(NobilityLayer::quickPayCallback, this));
-	quickpay->setPosition(bg->getContentSize().width *0.85, bg->getContentSize().height*0.17);
+	quickpay->setPosition(bg->getContentSize().width *0.85, bg->getContentSize().height*0.15);
 	auto menu = Menu::create(quickpay, close, nullptr);
 	menu->setPosition(0, 0);
 	bg->addChild(menu);

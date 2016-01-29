@@ -22,4 +22,5 @@ private:
 	Vector<RoomCell*> roomCells;
 	void moveRoomRight();
 	void moveRoomLeft();
+	float touchtime = 0;
 };

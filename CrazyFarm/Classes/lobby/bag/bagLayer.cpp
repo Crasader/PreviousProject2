@@ -204,23 +204,34 @@ bool BagLayer::init()
 		//金币
 		userCoin1 = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
 		userCoin1->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		userCoin1->setPosition(sssize2.width*0.65, sssize2.height *0.60);
+		userCoin1->setPosition(sssize2.width*0.52, sssize2.height *0.56);
 		userCoin1->setColor(Color3B::WHITE);
 		playinfoFram->addChild(userCoin1);
 		//钻石
 		userdiamond1 = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
 		userdiamond1->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		userdiamond1->setPosition(sssize2.width*0.65, sssize2.height *0.485);
+		userdiamond1->setPosition(sssize2.width*0.52, sssize2.height *0.46);
 		userdiamond1->setColor(Color3B::WHITE);
 		playinfoFram->addChild(userdiamond1);
 		//VIP
-		auto viplevel = LabelTTF::create(Value(user->getVipLevel()).asString().c_str(), "arial", 20);
-		viplevel->setPosition(sssize2.width*0.65, sssize2.height *0.37);
-		playinfoFram->addChild(viplevel);
+
+		auto VIPtitle1 = Sprite::create("VIPtxt.png");
+		VIPtitle1->setPosition(sssize2.width*0.50, sssize2.height * 0.36);
+		playinfoFram->addChild(VIPtitle1);
+		VIPtitle1->setScale(0.6);
+		auto VIPTTF1 = LabelAtlas::create(Value(user->getVipLevel()).asString(), "VIPnum.png", 31, 43, '0');
+		VIPTTF1->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		VIPTTF1->setPosition(80, VIPtitle1->getContentSize().height/2);
+		VIPtitle1->addChild(VIPTTF1);
 		//贵族
-		auto guizulevel = LabelTTF::create(Value(user->getNobillityCount()).asString().c_str(), "arial", 20);
-		guizulevel->setPosition(sssize2.width*0.65, sssize2.height *0.255);
-		playinfoFram->addChild(guizulevel);
+		auto txtshengyu = Sprite::create("shengyudayTxt.png");
+		txtshengyu->setPosition(sssize2.width*0.52, sssize2.height *0.26);
+		auto guizulevel = LabelAtlas::create(Value(user->getNobillityCount()).asString().c_str(), "VIPnum.png", 31,43,'0');
+		guizulevel->setScale(0.6);
+		guizulevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		guizulevel->setPosition(61,txtshengyu->getContentSize().height/2);
+		txtshengyu->addChild(guizulevel);
+		playinfoFram->addChild(txtshengyu);
 		//经验
 		//////////////////////////////////////////////////////////
 		

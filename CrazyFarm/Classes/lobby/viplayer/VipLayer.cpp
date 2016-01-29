@@ -3,6 +3,7 @@
 #include "domain/user/User.h"
 #include "widget/MyTableView.h"
 #include "utill/Chinese.h"
+#include "lobby/shop/payLayer.h"
 
 void VIPView::tableCellTouched(TableView* table, TableViewCell* cell){
 
@@ -87,48 +88,55 @@ bool VIPLayer::init()
 		
 
 		auto VipExpFram = Sprite::create("VIP_exp.png");
-		VipExpFram->setPosition(visibleSize.width*0.5, visibleSize.height*0.2);
+		VipExpFram->setPosition(visibleSize.width*0.37, visibleSize.height*0.2);
 		addChild(VipExpFram);
 
 		auto VIPtitle = Sprite::create("VIPtxt.png");
-		VIPtitle->setPosition(visibleSize.width*0.2, visibleSize.height*0.2);
+		VIPtitle->setPosition(visibleSize.width*0.1, visibleSize.height*0.2);
 		addChild(VIPtitle);
+		VIPtitle->setScale(0.7);
 
 		auto VIPTTF = LabelAtlas::create(Value(nowVip).asString(), "VIPnum.png", 31, 43, '0');
 		VIPTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		VIPTTF->setPosition(visibleSize.width*0.2 + 60, visibleSize.height*0.2);
+		VIPTTF->setPosition(visibleSize.width*0.1 + 40, visibleSize.height*0.2);
 		addChild(VIPTTF);
-
-		auto scale = ((float)nowChargeMoney) / ((float)nextVip.charge_money);
+		VIPTTF->setScale(0.7);
+		auto scale = ((float)nowChargeMoney) / ((float)nextVip.charge_money)*302;
 
 		auto VipExpBar = Scale9Sprite::create("VIP_expBar.png");
 		VipExpBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		VipExpBar->setPosition(5,VipExpFram->getContentSize().height/2);
-		VipExpBar->setScaleX(scale*( 100.0/302.0 ));
+		VipExpBar->setPosition(15,VipExpFram->getContentSize().height/2);
+		VipExpBar->setContentSize(Size(scale,32));
 		VipExpFram->addChild(VipExpBar);
 
 		auto VIPtitle1 = Sprite::create("VIPtxt.png");
-		VIPtitle1->setPosition(visibleSize.width*0.8, visibleSize.height*0.2);
+		VIPtitle1->setPosition(visibleSize.width*0.60, visibleSize.height*0.2);
 		addChild(VIPtitle1);
-
+		VIPtitle1->setScale(0.7);
 		auto VIPTTF1 = LabelAtlas::create(Value(nowVip+1).asString(), "VIPnum.png", 31, 43, '0');
 		VIPTTF1->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		VIPTTF1->setPosition(visibleSize.width*0.8 + 60, visibleSize.height*0.2);
+		VIPTTF1->setPosition(visibleSize.width*0.60 + 40, visibleSize.height*0.2);
 		addChild(VIPTTF1);
 
+		VIPTTF1->setScale(0.7);
 
-/*
-		auto frame = Sprite::create("txtPriceDes.png");
-		frame->setScaleX(3);
+		auto frame = Scale9Sprite::create("txtPriceDes.png");
+		frame->setContentSize(Size(629, 36));
 		frame->setPosition(visibleSize.width*0.4, visibleSize.height*0.1);
-		addChild(frame);*/
+		addChild(frame);
 
-		
+		auto expPercentum = String::createWithFormat("%d:%d", nowChargeMoney, nextVip.charge_money);
+		auto expPercentLabel = LabelAtlas::create(expPercentum->getCString(), "VIPexp_num.png", 14, 22, '0');
+		VipExpFram->addChild(expPercentLabel, 1);
+		expPercentLabel->setPosition(VipExpFram->getContentSize().width*0.3, VipExpFram->getContentSize().height / 2);
+		expPercentLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+
 		auto chinaword = ChineseWord("VIPdes");
 		auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
 		auto ttf = LabelTTF::create(strdec->getCString(), "Airal", 20);
-		ttf->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		ttf->setPosition(visibleSize.width*0.5, visibleSize.height*0.1);
+		ttf->setColor(Color3B::YELLOW);
+		ttf->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		ttf->setPosition(80, visibleSize.height*0.1);
 		addChild(ttf);
 
 
@@ -147,6 +155,7 @@ bool VIPLayer::init()
 		tableView->setDelegate(tableviewDelegate);
 		addChild(tableView);
 		tableView->reloadData();
+		tableView->setContentOffset(Vec2(nowVip*-230, 0));
 
 
 
@@ -157,8 +166,12 @@ bool VIPLayer::init()
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(VIPLayer::closeButtonCallBack, this));
-		close->setPosition(910, 502);
-		auto menu = Menu::create(close, nullptr);
+		close->setPosition(880, 492);
+
+		auto quickPay = MenuItemImage::create("quickPay_1.png", "quickPay_2.png", CC_CALLBACK_1(VIPLayer::chankanCallBack, this));
+		quickPay->setPosition(812, 90);
+
+		auto menu = Menu::create(close, quickPay,nullptr);
 		menu->setPosition(Point::ZERO);
 		addChild(menu);
 
@@ -192,5 +205,8 @@ void VIPLayer::closeButtonCallBack(Ref*psend)
 
 void VIPLayer::chankanCallBack(Ref*pesend)
 {
-
+	auto layer = payLayer::createLayer(1);
+	layer->setPosition(Point::ZERO);
+	getParent()->addChild(layer);
+	removeFromParentAndCleanup(1);
 }

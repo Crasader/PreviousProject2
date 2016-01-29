@@ -218,18 +218,18 @@ bool LobbyScene::init()
 
 	//±³°ü
 	auto bag = MenuItemImage::create("bag.png", "bag.png", CC_CALLBACK_1(LobbyScene::bagButtonCallback, this));
-	bag->setPosition(visibleSize.width*0.28, visibleSize.height*0.08);
+	bag->setPosition(visibleSize.width*0.28, visibleSize.height*0.10);
 
 	//»»½±Æ·
 	auto changeReward = MenuItemImage::create("changeReward.png", "changeReward.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
-	changeReward->setPosition(visibleSize.width*0.18, visibleSize.height*0.08);
+	changeReward->setPosition(visibleSize.width*0.18, visibleSize.height*0.10);
 
 	auto rankList = MenuItemImage::create("ranklist.png", "ranklist.png", CC_CALLBACK_1(LobbyScene::RankListCallback, this));
-	rankList->setPosition(visibleSize.width*0.08, visibleSize.height*0.08);
+	rankList->setPosition(visibleSize.width*0.08, visibleSize.height*0.10);
 
 
 	auto VIP = MenuItemImage::create("VIP.png", "VIP.png", CC_CALLBACK_1(LobbyScene::showVipCallBack, this));
-	VIP->setPosition(visibleSize.width*0.05, visibleSize.height*0.70);
+	VIP->setPosition(visibleSize.width*0.038, visibleSize.height*0.77);
 
 	auto sp = Sprite::create();
 	sp->setPosition(VIP->getContentSize() / 2);
@@ -247,7 +247,7 @@ bool LobbyScene::init()
 
 
 	auto guizu = MenuItemImage::create("guizu.png", "guizu.png", CC_CALLBACK_1(LobbyScene::guizuCallback, this));
-	guizu->setPosition(visibleSize.width*0.05, visibleSize.height*0.55);
+	guizu->setPosition(visibleSize.width*0.038, visibleSize.height*0.62);
 
 
 	auto sp1 = Sprite::create();
@@ -267,7 +267,7 @@ guizu->addChild(lightsp1, 1);
 
 
 	auto fistPay = MenuItemImage::create("firstPayGIft.png", "firstPayGIft.png", CC_CALLBACK_1(LobbyScene::FirstPayCallback, this));
-	fistPay->setPosition(visibleSize.width*0.05, visibleSize.height*0.40);
+	fistPay->setPosition(visibleSize.width*0.038, visibleSize.height*0.47);
 	auto sp2 = Sprite::create();
 	sp2->setPosition(fistPay->getContentSize() / 2);
 	fistPay->addChild(sp2);
@@ -397,7 +397,7 @@ guizu->addChild(lightsp1, 1);
 
 	langspEmpty = Sprite::create();
 	langspEmpty->setPosition(visibleSize.width / 2 + 20, visibleSize.height*0.3 + 20);
-	langspEmpty->runAction(RepeatForever::create(EaseSineIn::create(RotateBy::create(10.0f, 360))));
+	langspEmpty->runAction(RepeatForever::create(/*EaseSineIn::create*/(RotateBy::create(10.0f, 360))));
 	addChild(langspEmpty);
 	lang = Sprite::create("spindrift.png");
 	lang->setPosition(10,10);

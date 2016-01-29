@@ -26,10 +26,11 @@ private:
 	Room m_room;
 	void clickCallBack(Ref*psend);
 	void TiPCallBack(Ref*psend);
+	
 void playNormalAni();
 Sprite* caidai = nullptr;
 std::vector<Node*> anis;
-	
+bool IsloveOn = false;
 };
 
 

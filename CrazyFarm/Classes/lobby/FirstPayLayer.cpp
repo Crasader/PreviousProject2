@@ -21,7 +21,7 @@ bool FirstPayLayer::init()
 		
 
 		auto bt = MenuItemImage::create("btn_huoqu_1.png", "btn_huoqu_2.png", CC_CALLBACK_1(FirstPayLayer::quedingcallback, this));
-		bt->setPosition(bg->getContentSize().width / 2, 88);
+		bt->setPosition(bg->getContentSize().width*0.6, 110);
 	
 
 

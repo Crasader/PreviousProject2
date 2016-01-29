@@ -42,12 +42,16 @@ bool RoomLayer::init()
 
 void RoomLayer::update(float delta)
 {
-
+	touchtime += delta;
 	
 }
 
 bool RoomLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
+	if (touchtime<0.4f)
+	{
+		return false;
+	}
 	auto pos = touch->getLocation(); 
 	if (pos.y > 100 && pos.y < 440)
 	{
@@ -60,6 +64,7 @@ bool RoomLayer::onTouchBegan(Touch *touch, Event *unused_event)
 			moveRoomRight();
 		}
 	}
+	touchtime = 0;
 	return false;
 }
 void RoomLayer::closeButtonCallBack(Ref*psend)
@@ -196,14 +201,10 @@ void RoomLayer::moveRoomLeft()
 			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->stopNormalAni(); }), nullptr));
 			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
 			break;
-		case 2:
-			
+		case 2:	
 			cell->setScale(1);
-			cell->resumeNormalAni();
-			cell->playScaleAni();
-			cell->setEnabled(true);
 			cell->setColor(Color3B(255, 255, 255));
-			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->resumeNormalAni();	cell->playScaleAni(); }), nullptr));
+			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->resumeNormalAni();cell->setEnabled(true);	cell->playScaleAni(); }), nullptr));
 			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(255, 255, 255));
 			break;
 		case 3:
@@ -256,10 +257,10 @@ void RoomLayer::moveRoomRight()
 		case 2:
 		
 			cell->setScale(1);
-			cell->setEnabled(true);
+		
 			cell->setColor(Color3B(255, 255, 255));
 			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(255, 255, 255));
-			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->resumeNormalAni();	cell->playScaleAni(); }), nullptr));
+			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->resumeNormalAni();		cell->setEnabled(true);cell->playScaleAni(); }), nullptr));
 			break;
 		case 3:
 			cell->setPosition(roomPos[4]);
