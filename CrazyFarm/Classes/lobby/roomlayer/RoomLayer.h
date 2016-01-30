@@ -12,6 +12,8 @@ public:
 	static RoomLayer * createLayer();
 
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
+	virtual void onTouchMoved(Touch *touch, Event *unused_event);
+	virtual void onTouchEnded(Touch *touch, Event *unused_event);
 
 private:
 	void update(float delta);
@@ -23,4 +25,6 @@ private:
 	void moveRoomRight();
 	void moveRoomLeft();
 	float touchtime = 0;
+	bool isTouchMove = false;
+	int diffx;
 };

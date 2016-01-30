@@ -4,7 +4,7 @@
 #include "json/document.h"
 #include "json/stringbuffer.h"
 #include "json/writer.h"
-#define configDEBUG 1;
+#define configDEBUG 0;
 USING_NS_CC;
 
 

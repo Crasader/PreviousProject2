@@ -16,6 +16,9 @@
 #include "utill/Audio.h"
 #include "core/GetRewardNode.h"
 #include "domain/logevent/LogEventMannger.h"
+#include "domain/game/GameManage.h"
+#include "lobby/Nobility/NobilityLayer.h"
+#include "domain/logevent/LogEventPageChange.h"
 
 enum 
 {
@@ -27,6 +30,7 @@ bool PlayerTurret::init(){
 	if (!Sprite::initWithFile("turretBg.png")){
 		return false;
 	}
+	setIsShowInfo(false);
 	auto levelBg = Sprite::create("multipleBg.png");
 	levelBg->setPosition(getContentSize().width / 2, levelBg->getContentSize().height / 2);
 	addChild(levelBg,10);
@@ -38,7 +42,6 @@ bool PlayerTurret::init(){
 
 	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
 	addChild(m_turret);
-	GameData::getInstance()->setisOnBankrupt(false);
 	scheduleUpdate();
 	return true;
 }
@@ -79,8 +82,15 @@ void PlayerTurret::update(float delta)
 	{
 		auto num = User::getInstance()->getCoins();
 		m_CoinLabel->setString(Value(num).asString().c_str());
+
 		num = User::getInstance()->getDiamonds();
+		auto lastnum = Value(m_DiamondLabel->getString()).asInt();
+		if (num>lastnum)
+		{
+			GameManage::getInstance()->showLockTurrent();
+		}
 		m_DiamondLabel->setString(Value(num).asString().c_str());
+
 		num = GameData::getInstance()->getnowLevel();
 		nCurLevel->setString(Value(num).asString().c_str());
 		if (GameData::getInstance()->getisOnBankrupt())
@@ -122,7 +132,7 @@ void PlayerTurret::upgradeTurret(Ref* psend)
 	m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(m_turretdata.multiple);
 	if (m_turretdata.turrentId>User::getInstance()->getMaxTurrentLevel())
 	{
-		m_turretdata = ConfigTurrent::getInstance()->getLastTurrent(m_turretdata.turrentId);
+		m_turretdata = ConfigTurrent::getInstance()->getTurrent(1);
 	}
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
 	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
@@ -134,13 +144,14 @@ void PlayerTurret::degradeTurret(Ref* psend)
 	auto nowlevel = m_turretdata.turrentId;
 	m_turretdata = ConfigTurrent::getInstance()->getLastTurrent(nowlevel);
 	auto room = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
-	if (m_turretdata.turrentId < room.unlock_turrent_level)
+	if (m_turretdata.turrentId < room.unlock_turrent_level||m_turretdata.turrentId==-1)
 	{
-		m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(m_turretdata.turrentId);
+		m_turretdata = ConfigTurrent::getInstance()->getTurrent(User::getInstance()->getMaxTurrentLevel());
 	}
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
 	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
 	m_turret->degradeTurret();
+	LogEventSpcEvent::getInstance()->addEventItems(2, 0);
 }
 
 
@@ -274,11 +285,14 @@ void PlayerTurret::initWithDate(User* user,int index)
 	
 	createPlayerCoin(user,index);
 	nChairNoIndex = index;
+	if (user->getCoins()<=0)
+	{
+		onBankrupt();
+	}
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
 {
 	m_robotData = user;
-	auto a = user->getMaxTurretLevel();
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurretLevel());
 	nChairNoIndex = user->getRoomPosition();
 	initTurretWithTypeForRobot();
@@ -290,6 +304,7 @@ void PlayerTurret::initWithDate(RoomPlayer* user)
 	{
 		setRotation(180);
 	}
+	
 	
 }
 void PlayerTurret::getCoinByFish(Fish* fish)
@@ -327,21 +342,22 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		//奖金池
 		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
 		//钻石鱼
-		auto event = GameData::getInstance()->getevent();
-		if (GameData::getInstance()->getShotCount() >= event.fireTimes)
+		auto event = GameData::getInstance()->getDiamondevent();
+		if (GameData::getInstance()->getShotDiamondCount() >= event.fireTimes)
 		{
 			User::getInstance()->addDiamonds(event.num);
 			LogEventMagnate::getInstance()->addMagnateNum(event.itemId, event.num);
-			GameData::getInstance()->setShotCount(0);
-			GameData::getInstance()->setevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
+			GameData::getInstance()->setShotDiamondCount(0);
+			GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
+			
 			//TODO::在鱼上得到奖品UI显示
 		}
 		event = GameData::getInstance()->getpropevent();
-		if (GameData::getInstance()->getShotCount() >= event.fireTimes)
+		if (GameData::getInstance()->getShotPropCount() >= event.fireTimes)
 		{
 			BagManager::getInstance()->changeItemCount(event.itemId, event.num);
 			LogEventMagnate::getInstance()->addMagnateNum(event.itemId, event.num);
-			GameData::getInstance()->setShotCount(0);
+			GameData::getInstance()->setShotPropCount(0);
 			GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
 			//TODO::在鱼上得到奖品UI显示
 		}
@@ -381,12 +397,18 @@ void PlayerTurret::onBankrupt()
 	}
 	else
 	{
-		auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
-		auto node = GetRewardNode::create(bankrupt);
-		node->setPosition(28.8,390);
-		layer->addChild(node, 10);
-		GameData::getInstance()->setisOnBankrupt(true);
-		LogEventBankrupt::getInstance()->sendDataToServer(0, 1);
+		if (!BankruptManager::getInstance()->getgetRewardNode())
+		{
+			auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
+			auto node = GetRewardNode::create(bankrupt);
+			node->setPosition(28.8, 390);
+			layer->addChild(node, 10);
+			BankruptManager::getInstance()->setgetRewardNode(node);
+			LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),2, 1);
+		}
+		
+		GameData::getInstance()->setisOnBankrupt(true);	
+		
 	}
 }
 void PlayerTurret::onAIResurgenceCallBack(Node* sender, void* data)
@@ -567,6 +589,12 @@ bool PlayerTurret::onTurretTouch(Point pos)
 		else
 		{
 			showPlayerInfo();
+			auto layer = (GameLayer*)(Director::getInstance()->getRunningScene()->getChildByTag(777));
+			if (isScheduled("AutoShoot"))
+			{
+
+				layer->endAutoShoot();
+			}
 		}
 		return true;
 	}
@@ -584,7 +612,7 @@ bool PlayerTurret::isTurretBeTouch(Point pos)
 }
 void PlayerTurret::showRobotInfo()
 {
-
+	setIsShowInfo(true);
 }
 
 void PlayerTurret::showPlayerInfo()
@@ -594,7 +622,7 @@ void PlayerTurret::showPlayerInfo()
 	{
 		return;
 	}
-
+	setIsShowInfo(true);
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
 	addChild(menu, 10, "showPlayerInfo");
@@ -607,7 +635,20 @@ void PlayerTurret::showPlayerInfo()
 	menu->addChild(autoShoot);
 }
 
+void PlayerTurret::removePlayerInfo()
+{
+	auto node = getChildByName("showPlayerInfo");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+	}
 
+	
+}
+void PlayerTurret::removeRobotInfo()
+{
+
+}
 void PlayerTurret::changeTurrentCallback(Ref*psend) 
 {
 	auto node = (Node*)psend;
@@ -615,6 +656,7 @@ void PlayerTurret::changeTurrentCallback(Ref*psend)
 	layer->setPosition(Point::ZERO);
 	Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer, 20);
 	node->getParent()->removeFromParentAndCleanup(1);
+	
 }
 void PlayerTurret::autoShootCallback(Ref*psend)
 {
@@ -629,7 +671,17 @@ void PlayerTurret::autoShootCallback(Ref*psend)
 	}
 	else
 	{
-		layer->beginAutoShoot();
+		if (User::getInstance()->getNobillityCount()>0)
+		{
+			layer->beginAutoShoot();
+		}
+		else
+		{
+			auto layer = NobilityLayer::createLayer();
+			layer->setPosition(0, 0);
+			GameManage::getInstance()->getGuiLayer()->addChild(layer,20);
+		}
+		
 	}
 }
 
@@ -664,7 +716,8 @@ void PlayerTurret::costMoney()
 	}
 	else
 	{
-		GameData::getInstance()->setShotCount(1 + (GameData::getInstance()->getShotCount()));
+		GameData::getInstance()->setShotDiamondCount(1 + (GameData::getInstance()->getShotDiamondCount()));
+		GameData::getInstance()->setShotPropCount(1 + (GameData::getInstance()->getShotPropCount()));
 		auto num = Value(m_turretdata.multiple).asInt();
 		auto nowCoin = User::getInstance()->addCoins(-num);
 		if (nowCoin <= 0)

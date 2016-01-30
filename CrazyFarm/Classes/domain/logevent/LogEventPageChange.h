@@ -19,11 +19,14 @@ public:
 
 	void addEventItems(int from_page, int to_page, int channel);
 	void sendDataToServer();
+	void clearLocalData();
 private:
+	void loadLocalData();
 	LogEventPageChange();
 	std::string getDataForJson();
 	std::vector<EventPageChange> items;
 	static LogEventPageChange* _instance;
+	const char* EventPageChangeNum = "EventPageChangeNum";
 };
 
 

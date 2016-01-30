@@ -32,6 +32,8 @@ bool RoomLayer::init()
 		//ÆÁ±ÎÏòÏÂ´¥Ãþ
 		auto listenr1 = EventListenerTouchOneByOne::create();
 		listenr1->onTouchBegan = CC_CALLBACK_2(RoomLayer::onTouchBegan, this);
+		listenr1->onTouchMoved = CC_CALLBACK_2(RoomLayer::onTouchMoved, this);
+		listenr1->onTouchEnded = CC_CALLBACK_2(RoomLayer::onTouchEnded, this);
 		listenr1->setSwallowTouches(true);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
 		this->scheduleUpdate();
@@ -55,18 +57,49 @@ bool RoomLayer::onTouchBegan(Touch *touch, Event *unused_event)
 	auto pos = touch->getLocation(); 
 	if (pos.y > 100 && pos.y < 440)
 	{
-		if (pos.x > 480)
+		diffx = 0;
+		return true;
+	}
+	
+	return false;
+}
+
+void RoomLayer::onTouchMoved(Touch *touch, Event *unused_event)
+{
+	
+}
+void RoomLayer::onTouchEnded(Touch *touch, Event *unused_event)
+{
+	auto startPos = touch->getStartLocation();
+	auto endPos = touch->getLocation();
+	diffx = startPos.x - endPos.x;
+	if (diffx > 20)
+	{
+		isTouchMove = true;
+		moveRoomLeft();
+		touchtime = 0;
+	}
+	else if (diffx < -20)
+	{
+		moveRoomRight();
+		isTouchMove = false;
+		touchtime = 0;
+	}
+	else
+	{
+		if (endPos.x > 480)
 		{
 			moveRoomLeft();
+			touchtime = 0;
 		}
 		else
 		{
 			moveRoomRight();
+			touchtime = 0;
 		}
 	}
-	touchtime = 0;
-	return false;
 }
+
 void RoomLayer::closeButtonCallBack(Ref*psend)
 {
 	removeFromParentAndCleanup(1);
@@ -147,7 +180,7 @@ std::vector<Room> RoomLayer::sortRoomByMaxlevel(int maxLevel)
 	std::vector<Room> curData;
 	curData.resize(roomDatas.size());
 	int maxRoomId = i;
-	int j = 1;
+	int j = 0;
 	for (; j < curData.size(); j++)
 	{
 		curData[j] = roomDatas[i];
@@ -158,19 +191,26 @@ std::vector<Room> RoomLayer::sortRoomByMaxlevel(int maxLevel)
 		}
 	}
 	int k = 0;
-	for (; k < maxRoomId - 1; k++)
+	for (; k <= maxRoomId - 1; k++)
 	{
 		j++;
 		curData[j] = roomDatas[k];
 
 	}
-	if (k == 0)
+	std::vector<Room> curData2;
+	curData2.resize(curData.size());
+	for (int z = 0; z < curData2.size();z++)
 	{
-		k = roomDatas.size() - 1;
+		int x = z - 1<0 ? curData2.size()-1 : z - 1;
+		curData2[z] = curData[x];
 	}
-	curData[0] = roomDatas[k];
-
-	return curData;
+	for (auto var :curData2)
+	{
+		CCLOG("%d", var.room_id);
+		
+	}
+CCLOG("**************************************");
+	return curData2;
 }
 
 void RoomLayer::moveRoomLeft()

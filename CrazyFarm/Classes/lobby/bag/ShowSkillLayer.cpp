@@ -9,6 +9,7 @@
 #include "utill/Chinese.h"
 #include "lobby/shop/payLayer.h"
 #include "lobby/bag/TwiceSureBuySkill.h"
+#include "domain/logevent/LogEventPageChange.h"
 ShowSkillLayer*ShowSkillLayer::create(int itemid)
 {
 	ShowSkillLayer *pRet = new ShowSkillLayer();
@@ -183,8 +184,12 @@ void ShowSkillLayer::closeButtonCallBack(Ref*psend)
 
 void ShowSkillLayer::LackVipCallBack(Ref*psend)
 {
+
 	removeChildByName("tip", 1);
-	auto layer = payLayer::createLayer(2); layer->setPosition(0, 0); addChild(layer);
+	auto layer = payLayer::createLayer(2); 
+	layer->setPosition(0, 0); 
+	addChild(layer);
+	LogEventPageChange::getInstance()->addEventItems(3, 13, skillManager::getInstance()->getSkillInfoByitemId(m_itemId).skill_id);
 }
 void ShowSkillLayer::LackTurrentCallBack(Ref*psend)
 {

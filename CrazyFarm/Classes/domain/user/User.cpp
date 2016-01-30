@@ -26,6 +26,14 @@ void User::setUserID(std::string userId) {
 	UserDefault::getInstance()->setStringForKey(User::KEY_USER_ID, userId);
 }
 
+int User::getUserGender() {
+	return UserDefault::getInstance()->getIntegerForKey(User::KEY_USER_GENDER,0);
+}
+
+void User::setUserGender(int gender) {
+	UserDefault::getInstance()->setIntegerForKey(User::KEY_USER_GENDER, gender);
+}
+
 std::string User::getUserName() {
     std::string name = UserDefault::getInstance()->getStringForKey(User::KEY_USER_NAME, "guest");
     if( name.compare("guest") == 0) {
@@ -43,6 +51,11 @@ bool User::setUserName(std::string newUserName) {
     }
     return false;
 }
+
+
+
+
+
 
 int User::getCoins() {
     return UserDefault::getInstance()->getIntegerForKey(User::KEY_COINS, 10);
@@ -159,6 +172,7 @@ bool User::setChestLevel(int chestLevel) {
 void User::resetInfo() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     setUserID("guest");
+	UserDefault::getInstance()->setStringForKey(User::KEY_USER_NAME, "guest");
     UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 10);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS, 0);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP, 0);
@@ -167,6 +181,9 @@ void User::resetInfo() {
 	UserDefault::getInstance()->setIntegerForKey(User::KEY_LASTSIGNDAY, -1);
 	UserDefault::getInstance()->setIntegerForKey(User::KEY_SEQSIGNDAY, 0);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_CHEST_LEVEL, 0);
+	UserDefault::getInstance()->setBoolForKey(User::KEY_ISHAVEFIRSTPAY, false);
+	UserDefault::getInstance()->setBoolForKey(User::KEY_ISHAVESETNAME,false);
+	UserDefault::getInstance()->setBoolForKey(User::KEY_ISHAVESETNAME, false);
 #endif
 }
 void User::syncInfo()

@@ -3,6 +3,7 @@
 #include "json/stringbuffer.h"
 #include "json/writer.h"
 #include "server/HttpMannger.h"
+#include "domain/skill/skillManager.h"
 LogEventUseSkill* LogEventUseSkill::_instance = NULL;
 
 LogEventUseSkill::LogEventUseSkill(){
@@ -43,35 +44,78 @@ std::string LogEventUseSkill::getDataForJson()
 		array.PushBack(object, allocator);
 	}
 	document.AddMember("skills", array, allocator);
+	document.AddMember("data_type", 5, allocator);
 	rapidjson::StringBuffer  buffer;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 	document.Accept(writer);
 	std::string result = buffer.GetString();
-	init();
 	return result;
 }
 
 void LogEventUseSkill::sendDataToServer()
 {
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson());
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),5);
 }
 void LogEventUseSkill::addUseSkillData(int skillID, int type, int prices)
 {
 
-	for (auto &var:items)
-	{
-		if (var.skillID == skillID&&var.prices == prices&&var.type==type)
-		{
-			var.nums++;
-			var.prices += prices;
-			return;
-		}
-	}
-		EventSkillCell item;
-		item.skillID = skillID;
-		item.prices = prices;
-		item.nums = 1;
-		item.type = type;
-		items.push_back(item);
+	auto str = String::createWithFormat("%s%d%d%d", EventUseSkill,skillID,type,prices);
+	auto localdata = UserDefault::getInstance();
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(EventUseSkill, 0) + 1);
 
+}
+
+
+void LogEventUseSkill::loadLocalData()
+{
+	items.clear();
+	for (int i = 1; i <= 5; i++)
+	{
+		for (int j = 0; j <= 2;j++)
+		{
+			EventSkillCell item;
+			item.skillID = i;
+			item.type = j;
+			if (item.type==1)
+			{
+				item.prices = skillManager::getInstance()->getSkillPriceById(i);
+			}
+			else
+			{
+				item.prices = 0;
+			}
+			auto str = String::createWithFormat("%s%d%d%d", EventUseSkill, item.skillID, item.type, item.prices);
+			item.nums = UserDefault::getInstance()->getIntegerForKey(str->getCString(), 0);
+			if (item.nums > 0)
+			{
+				items.push_back(item);
+			}
+		}
+		
+	}
+}
+
+void LogEventUseSkill::clearLocalData()
+{
+	for (int i = 1; i <= 5; i++)
+	{
+		for (int j = 0; j <= 2; j++)
+		{
+			EventSkillCell item;
+			item.skillID = i;
+			item.type = j;
+			if (item.type == 1)
+			{
+				item.prices = skillManager::getInstance()->getSkillPriceById(i);
+			}
+			else
+			{
+				item.prices = 0;
+			}
+			auto str = String::createWithFormat("%s%d%d%d", EventUseSkill, item.skillID, item.type, item.prices);
+			UserDefault::getInstance()->setIntegerForKey(str->getCString(), 0);
+	
+		}
+
+	}
 }

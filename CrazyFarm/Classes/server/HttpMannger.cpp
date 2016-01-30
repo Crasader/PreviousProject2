@@ -2,6 +2,7 @@
 #include "utill/FunUtil.h"
 #include "domain/user/User.h"
 #include "domain/user/DeviceInfo.h"
+#include "domain/logevent/LogEventMannger.h"
 #define URL_HEAD "http://114.119.39.150:1701"
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
@@ -213,14 +214,34 @@ void HttpMannger::onHttpRequestCompletedForSetName(HttpClient *sender, HttpRespo
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	if (doc.HasParseError())
+	{
+		log("get json data err!");;
+	}
+	int result = doc["errorcode"].GetInt();
+	if (result == 0)
+	{
+		auto data = (setNameRequest*)response->getHttpRequest()->getUserData();
+		User::getInstance()->setUserName(data->nickname);
+		User::getInstance()->setUserGender(data->gender);
+		User::getInstance()->setHaveSetName();
+		Director::getInstance()->getRunningScene()->getChildByTag(50)->getChildByName("setnamelayer")->removeFromParentAndCleanup(1);
+	}
 	log("http back setname info: %s", temp.c_str());
 }
 
 void HttpMannger::HttpToPostRequestSetName(std::string sessionid,const char* nickname, int gender)
 {
+	setNameRequest*data = new setNameRequest();
+	data->gender = gender;
+	data->nickname = nickname;
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_SETNAME);
 	auto requstData = String::createWithFormat("session_id=%s&nickname=%s&gender=%d", sessionid.c_str(), nickname, gender);
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForSetName, this));
+	
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForSetName, this),data);
+
 }
 
 void HttpMannger::onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResponse *response)
@@ -248,12 +269,15 @@ void HttpMannger::HttpToPostRequestFeedback(std::string sessionid, const char* f
 }
 
 
-void HttpMannger::HttpToPostRequestLogEvent(std::string jsonString)
+void HttpMannger::HttpToPostRequestLogEvent(std::string jsonString,int type)
 {
+	int *userdata = new int();
+	*userdata = type;
+	
 	auto sessionid = User::getInstance()->getSessionid();
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_LOGEVENTFISH);
 	auto requstData = String::createWithFormat("session_id=%s&data_str=%s&game_version=%d", sessionid.c_str(), jsonString.c_str(),DeviceInfo::getVesion());
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogEventCommon, this));
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogEventCommon, this),userdata);
 }
 void HttpMannger::onHttpRequestCompletedForLogEventCommon(HttpClient *sender, HttpResponse *response)
 {
@@ -270,4 +294,16 @@ void HttpMannger::onHttpRequestCompletedForLogEventCommon(HttpClient *sender, Ht
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
 	log("http back logeventfish info: %s", temp.c_str());
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	if (doc.HasParseError())
+	{
+		log("get json data err!");;
+	}
+	int result = doc["errorcode"].GetInt();
+	if (result == 0)
+	{
+		auto userdata = (int*)response->getHttpRequest()->getUserData();
+		LogEventMannger::getInstance()->clearData(*userdata);
+	}
 }

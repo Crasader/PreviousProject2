@@ -3,6 +3,7 @@
 #include "cocos-ext.h"
 #include "lobby/bag/BagCell.h"
 #include "widget/MyTableView.h"
+#include "domain/logevent/LogEventPageChange.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 
@@ -64,6 +65,8 @@ private:
 	LabelTTF* userCoin1;
 	LabelTTF* userdiamond2;
 	LabelTTF* userCoin2;
+	LabelTTF*userName;
+	Sprite*spHead;
 	///°´Å¥»Øµ÷
 	MyTableView* tableView;
 	void payCoinCallback(Ref*psend);

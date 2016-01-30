@@ -1,6 +1,7 @@
 #include "MyMenuItemGainMoney.h"
 #include "domain/bonuspool/BonusPoolManager.h"
 #include "core/TurnTableDialog.h"
+#include "domain/logevent/LogEventPageChange.h"
 enum 
 {
 	kTagMutpleLabel = 10,
@@ -33,6 +34,7 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 		{
 			auto dioag = TurnTableDialog::create();
 			dioag->setPosition(Point::ZERO);
+			LogEventPageChange::getInstance()->addEventItems(2, 10, 0);
 			getParent()->getParent()->addChild(dioag,20);
 		}
 		else

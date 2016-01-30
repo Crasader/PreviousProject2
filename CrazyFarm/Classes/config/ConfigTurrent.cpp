@@ -17,7 +17,7 @@ bool ConfigTurrent::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
 filename += JniFunUtill::getInstance()->getSDcardpath();
 		filename += "/CrazyFarm/";
 	#endif
@@ -114,7 +114,9 @@ Turrent ConfigTurrent::getLastTurrent(int turrentId)
 			}
 			else
 			{
-				return turrents[i];
+				Turrent turrent;
+				turrent.turrentId = -1;
+				return turrent;
 			}
 		}
 	}

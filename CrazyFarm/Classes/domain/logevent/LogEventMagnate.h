@@ -15,11 +15,14 @@ public:
 	
 	void addMagnateNum(int itemid, int num);
 	void sendDataToServer();
+	void clearLocalData();
 private:
 	LogEventMagnate();
+	void loadLocalData();
 	std::string getDataForJson();
 	std::vector<Magnatecell> items;
 	static LogEventMagnate* _instance;
+	const char* EventMagnateItemNum = "EventMagnateItemNum";
 };
 
 

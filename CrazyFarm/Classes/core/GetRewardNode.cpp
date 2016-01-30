@@ -2,6 +2,8 @@
 #include "utill/AnimationUtil.h"
 #include "domain/user/User.h"
 #include "domain/logevent/LogEventBankrupt.h"
+#include "data/GameData.h"
+
 GetRewardNode* GetRewardNode::create(Bankrupt baknrupt)
 {
 	GetRewardNode *pRet = new GetRewardNode();
@@ -67,7 +69,8 @@ bool GetRewardNode::onTouchBegan(Touch *touch, Event *unused_event)
 	{
 		User::getInstance()->addCoins(m_baknrupt.coins);
 		removeFromParentAndCleanup(1);
-		LogEventBankrupt::getInstance()->sendDataToServer(1, 1);
+		LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),1, 1);
+		BankruptManager::getInstance()->setgetRewardNode(nullptr);
 		BankruptManager::getInstance()->addTodayRequestTime();
 	}
 	return true;

@@ -42,6 +42,11 @@ bool VipCell::init(){
 	PriceDecTTF->setPosition(size.width *0.51, size.height*0.1-10);
 	addChild(PriceDecTTF);
 
+	sPoint = Sprite::create("sPoint.png");
+	sPoint->setPosition(size.width*1.16, size.height*0.5);
+	addChild(sPoint);
+	sPoint->setVisible(false);
+
 	return true;
 }
 
@@ -67,7 +72,15 @@ void VipCell::setValue(int vipLevel)
 		auto dec = String::createWithFormat(ChineseWord("priceVIPdes").c_str(), VIPprice[vipLevel]);
 		PriceDecTTF->setString(dec->getCString());
 	}
-	
+	if (vipLevel<9)
+	{
+		sPoint->setVisible(true);
+	}
+	else
+	{
+		sPoint->setVisible(false);
+	}
+
 }
 
 void VipCell::IsBeToued()

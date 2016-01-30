@@ -82,7 +82,7 @@ private:
 
 	//╣Ц╩Вез
 	bool onTouTurret(Point pos);
-
+	void removePlayerInfo();
 	void calculateFreeChair();
 	PlayerTurret* myTurret;
 	Vector<PlayerTurret*> otherTurrets;

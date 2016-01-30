@@ -20,7 +20,7 @@ bool NobilityLayer::init()
 
 
 	auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(NobilityLayer::closeButtonCallBack, this));
-	close->setPosition(700, 450);
+	close->setPosition(650, 450);
 
 	auto remainingDay = NobilityManager::getInstance()->RemainingNobilityday();
 	auto dayTTF = LabelAtlas::create(Value(remainingDay).asString(), "NobilitydayNum.png", 19, 29, '0');

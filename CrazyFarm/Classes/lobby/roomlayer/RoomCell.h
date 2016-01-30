@@ -17,7 +17,7 @@ public:
 	static RoomCell * createCell(Room room);
 	bool init(Room room);
 	void lockRoom();
-	void setPlayerNum();	
+	void setPlayerNum();
 	void stopNormalAni();
 	void resumeNormalAni();
 	void playScaleAni();
@@ -26,11 +26,12 @@ private:
 	Room m_room;
 	void clickCallBack(Ref*psend);
 	void TiPCallBack(Ref*psend);
-	
-void playNormalAni();
-Sprite* caidai = nullptr;
-std::vector<Node*> anis;
-bool IsloveOn = false;
+
+	void playNormalAni();
+	Sprite* caidai = nullptr;
+	std::vector<Node*> anis;
+	bool IsloveOn = false;
+	Sprite* roomCircleLight = nullptr;
 };
 
 

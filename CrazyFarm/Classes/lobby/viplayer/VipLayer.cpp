@@ -101,7 +101,7 @@ bool VIPLayer::init()
 		VIPTTF->setPosition(visibleSize.width*0.1 + 40, visibleSize.height*0.2);
 		addChild(VIPTTF);
 		VIPTTF->setScale(0.7);
-		auto scale = ((float)nowChargeMoney) / ((float)nextVip.charge_money)*302;
+		auto scale = ((float)nowChargeMoney) / ((float)nextVip.charge_money)*286/15+1;
 
 		auto VipExpBar = Scale9Sprite::create("VIP_expBar.png");
 		VipExpBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
@@ -128,7 +128,7 @@ bool VIPLayer::init()
 		auto expPercentum = String::createWithFormat("%d:%d", nowChargeMoney, nextVip.charge_money);
 		auto expPercentLabel = LabelAtlas::create(expPercentum->getCString(), "VIPexp_num.png", 14, 22, '0');
 		VipExpFram->addChild(expPercentLabel, 1);
-		expPercentLabel->setPosition(VipExpFram->getContentSize().width*0.3, VipExpFram->getContentSize().height / 2);
+		expPercentLabel->setPosition(VipExpFram->getContentSize().width*0.4, VipExpFram->getContentSize().height / 2);
 		expPercentLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 
 		auto chinaword = ChineseWord("VIPdes");

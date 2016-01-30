@@ -49,5 +49,5 @@ std::string LogEventMermaid::getDataForJson()
 
 void LogEventMermaid::sendDataToServer()
 {
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson());
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),2);
 }

@@ -41,5 +41,5 @@ std::string LogEventTurrentUpgrade::getDataForJson(int turrent_level, float upda
 
 void LogEventTurrentUpgrade::sendDataToServer(int turrent_level, float updata_times)
 {
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(turrent_level,updata_times));
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(turrent_level,updata_times),8);
 }

@@ -1,5 +1,8 @@
 #include "NotarizeExitDialog.h"
 #include "lobby/LobbyScene.h"
+#include  "domain/bankrupt/BankruptManager.h"
+#include "domain/logevent/LogEventPageChange.h"
+#include "data/GameData.h"
 bool NotarizeExitDialog::init()
 {
 	MyDialog::init();
@@ -29,7 +32,16 @@ bool NotarizeExitDialog::init()
 }
 void NotarizeExitDialog::querenCallback(Ref*psend)
 {
+	auto node = BankruptManager::getInstance()->getgetRewardNode();
+	if (node)
+	{
+		node->retain();
+		node->removeFromParentAndCleanup(false);
+	
+	}
+	LogEventPageChange::getInstance()->addEventItems(2, 1, 0);
 	Director::getInstance()->replaceScene(LobbyScene::createScene());
+	GameData::getInstance()->setisOnGameScene(false);
 }
 
 

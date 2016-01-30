@@ -2,7 +2,7 @@
 #include "core/GameLayer.h"
 #include "core/GameGuiLayer.h"
 #include "level/LevelScene.h"
-
+#include "domain/game/GameManage.h"
 bool GameScene::init(){
 	if ( !Scene::init() )
 	{
@@ -10,15 +10,17 @@ bool GameScene::init(){
 	}
 	//add layers to this scene
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Layer* game_layer = GameLayer::create();
+	GameLayer* game_layer = GameLayer::create();
 	game_layer->setPosition(0,0);
 	game_layer->setAnchorPoint(ccp(0,0));
 	this->addChild(game_layer,0,777);
+	GameManage::getInstance()->setGameyer(game_layer);
 	//add gui layer to this scene
-	Layer* gui_layer = GameGuiLayer :: create();
+	GameGuiLayer* gui_layer = GameGuiLayer::create();
 	gui_layer->setPosition(0,0);
 	gui_layer->setAnchorPoint(ccp(0,0));
 	this->addChild(gui_layer,1,888);
+	GameManage::getInstance()->setGuilayer(gui_layer);
 	return true;
 }
 

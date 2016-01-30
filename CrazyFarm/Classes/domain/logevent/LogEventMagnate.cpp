@@ -10,13 +10,7 @@ LogEventMagnate::LogEventMagnate(){
 }
 
 void LogEventMagnate::init(){
-	for (int i = 1002; i <= 1005;i++)
-	{
-		Magnatecell item;
-		item.itemID = i;
-		item.itemNum = 0;
-		items.push_back(item);
-	}
+
 	
 }
 
@@ -56,20 +50,40 @@ std::string LogEventMagnate::getDataForJson()
 	
 	return result;
 }
-
+void LogEventMagnate::loadLocalData()
+{
+	items.clear();
+	for (int i = 1002; i <= 1005;i++)
+	{
+		Magnatecell item;
+		item.itemID = i;
+		auto str = String::createWithFormat("%s%d", EventMagnateItemNum,i);
+		item.itemNum = UserDefault::getInstance()->getIntegerForKey(str->getCString(), 0);
+		if (item.itemNum>0)
+		{
+			items.push_back(item);
+		}
+	}
+}
 void LogEventMagnate::sendDataToServer()
 {
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson());
+	loadLocalData();
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),3);
 }
 
 void LogEventMagnate::addMagnateNum(int itemid, int num)
 {
-	for (auto &var : items)
+	auto str = String::createWithFormat("%s%d", EventMagnateItemNum, itemid);
+	auto localdata = UserDefault::getInstance();
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
+}
+
+void LogEventMagnate::clearLocalData()
+{
+	for (int i = 1002; i <= 1005; i++)
 	{
-		if (var.itemID == itemid)
-		{
-			var.itemNum += num;
-			return;
-		}
+		auto str = String::createWithFormat("%s%d", EventMagnateItemNum, i);
+		UserDefault::getInstance()->setIntegerForKey(str->getCString(), 0);
+
 	}
 }

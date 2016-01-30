@@ -6,6 +6,8 @@ class  MyMenuItemUpgrade :public MenuItemImage
 public:
 	static MyMenuItemUpgrade * create();
 	void setValue();
+	void showPopup();
+
 private:
 	void ItemCallBack(Ref* psend);
 	void initItem();

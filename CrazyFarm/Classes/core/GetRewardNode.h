@@ -2,7 +2,6 @@
 #include "cocos2d.h"
 #include "domain/bankrupt/BankruptManager.h"
 USING_NS_CC;
-
 class GetRewardNode : public Sprite
 {
 public:

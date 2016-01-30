@@ -23,28 +23,28 @@ void LogEventFish::addFishCreateTimes(int fishid)
 	int roomid = GameData::getInstance()->getRoomID();
 	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHCREATETIME);
 	auto localdata = UserDefault::getInstance();
-	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(FISHCREATETIME, 0) + 1);
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
 }
 void LogEventFish::addFishCatchTimes(int fishid)
 {
 	int roomid = GameData::getInstance()->getRoomID();
 	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHCATCHTIME);
 	auto localdata = UserDefault::getInstance();
-	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(FISHCREATETIME, 0) + 1);
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
 }
 void LogEventFish::addFishHitTimes(int fishid)
 {
 	int roomid = GameData::getInstance()->getRoomID();
 	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHHITTIMES);
 	auto localdata = UserDefault::getInstance();
-	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(FISHCREATETIME, 0) + 1);
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
 }
 void LogEventFish::addFishUserCatchTimes(int fishid)
 {
 	int roomid = GameData::getInstance()->getRoomID();
 	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHUSERCATCHTIMES);
 	auto localdata = UserDefault::getInstance();
-	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(FISHCREATETIME, 0) + 1);
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
 }
 
 void LogEventFish::addFishUserCostCoin(int fishid, int coin)
@@ -52,7 +52,7 @@ void LogEventFish::addFishUserCostCoin(int fishid, int coin)
 	int roomid = GameData::getInstance()->getRoomID();
 	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHUSERCOSTCOIN);
 	auto localdata = UserDefault::getInstance();
-	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(FISHCREATETIME, 0) + 1);
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
 }
 
 
@@ -253,7 +253,7 @@ void LogEventFish::sendDataToServer()
 	loadLocalData();
 	for (auto var : logEventFishes)
 	{
-		HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(var));
+		HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(var),1);
 	}
 	logEventFishes.clear();
 }

@@ -5,6 +5,7 @@
 #include "utill/Chinese.h"
 #include "core/GameScene.h"
 #include "widget/TwiceSureDialog.h"
+#include "domain/bankrupt/BankruptManager.h"
 RoomCell*RoomCell::createCell(Room room)
 {
 	RoomCell*cell = new RoomCell();
@@ -41,6 +42,13 @@ void RoomCell::clickCallBack(Ref*psend)
 	}
 	else
 	{
+		auto node = BankruptManager::getInstance()->getgetRewardNode();
+		if (node)
+		{
+			node->retain();
+			node->removeFromParentAndCleanup(false);
+
+		}
 		GameData::getInstance()->setRoomID(m_room.room_id);
 		Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
 	}
@@ -105,11 +113,17 @@ void RoomCell::stopNormalAni()
 			var->retain();
 	}
 	IsloveOn = false;
-	//auto ac = getActionByTag(889);
-	//if (ac)
-	//{
-	//	stopActionByTag(889);
-	//}
+	auto ac = getActionByTag(888);
+	if (ac)
+	{
+		stopActionByTag(888);
+	}
+	if (roomCircleLight)
+	{
+		roomCircleLight->removeFromParentAndCleanup(1);
+		roomCircleLight = nullptr;
+	}
+	
 	
 }
 void RoomCell::playNormalAni()
@@ -220,8 +234,8 @@ lightsp = Sprite::create();
 		{
 				lightsp->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1.0f), AnimationUtil::getInstance()->getAnimate("aniLightPoint"), nullptr)));
 		}, 0.5f, "11");
-		auto ac = RepeatForever::create(Sequence::create(DelayTime::create(0.5f), CallFunc::create([&]{
-			auto ac = Sequence::create(Spawn::create(MoveBy::create(1.2f, Vec2(0, 330)), FadeOut::create(1.2f), nullptr), RemoveSelf::create(), nullptr);
+		auto ac = RepeatForever::create(Sequence::create(DelayTime::create(0.8f), CallFunc::create([&]{
+			auto ac = Sequence::create(Spawn::create(MoveBy::create(2.4f, Vec2(0, 330)), FadeOut::create(2.4f), nullptr), RemoveSelf::create(), nullptr);
 			auto love = Sprite::create("love.png");
 			love->setPosition(getRandonNumByAtoB(getContentSize().width*0.3, getContentSize().width*0.7), 40);
 			love->runAction(ac);
@@ -238,14 +252,14 @@ lightsp = Sprite::create();
 }
 void RoomCell::playScaleAni()
 {
-	auto ac = Sequence::create(ScaleTo::create(0.17f, 1.1), ScaleTo::create(0.13f, 0.81), ScaleTo::create(0.13f, 1.1), ScaleTo::create(0.13f, 1),nullptr);
+	auto ac = RepeatForever::create(Sequence::create(ScaleTo::create(0.17f, 1.1), ScaleTo::create(0.13f, 0.81), ScaleTo::create(0.13f, 1.1), ScaleTo::create(0.13f, 1),DelayTime::create(4.0f),nullptr));
 	ac->setTag(888);
 	runAction(ac);
-	auto sp = Sprite::create("roomCircleLight.png");
-	sp->setPosition(Vec2(500 - 480, -30));
-	sp->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
-	getParent()->getParent()->addChild(sp);
-	sp->runAction(Sequence::create(Spawn::create(ScaleTo::create(1.5f, 3), FadeOut::create(1.5f), nullptr), RemoveSelf::create(), nullptr));
+	roomCircleLight = Sprite::create("roomCircleLight.png");
+	roomCircleLight->setPosition(Vec2(500 - 480, -30));
+	roomCircleLight->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
+	getParent()->getParent()->addChild(roomCircleLight);
+	roomCircleLight->runAction(RepeatForever::create(Sequence::create(Spawn::create(ScaleTo::create(1.5f, 3), FadeOut::create(1.5f), nullptr), DelayTime::create(0.0f), ScaleTo::create(0.0001f, 1), FadeIn::create(0.0001f), nullptr)));
 }
 
 void RoomCell::TiPCallBack(Ref*psend)

@@ -4,7 +4,7 @@
 #include "cocos-ext.h"
 #include "config/ConfigRoom.h"
 #include "network/HttpClient.h"
-
+#include "domain/globalschedule/GlobalSchedule.h"
 using namespace cocos2d::network;
 USING_NS_CC;
 
@@ -36,21 +36,12 @@ public:
 	void showVipCallBack(Ref*psend);
 private:
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
-
-	void loadResource();
-	void createRoomLayer();
-	void lockTheRoom();
-	void moveRoomRight();
-	void moveRoomLeft();
-
-
-	std::vector<Room> sortRoomByMaxlevel(int maxLevel);
 	void showSign(float dt);
 	void showMarquee(float dt);
+	void createRoomLayer();
 	///°´Å¥»Øµ÷
 	void payCoinCallback(Ref*psend);
 	void payDiamondCallback(Ref*psend);
-	void beginGameCallback(Ref*psend);
 	void bagButtonCallback(Ref*psend);
 	void changeRewardCallback(Ref*psend);
 	void quickBeginCallback(Ref*psend);
@@ -65,7 +56,7 @@ private:
 private:
 	LabelTTF* userdiamond;
 	LabelTTF* userCoin;
-
+	MenuItemImage* fistPay;
 	Sprite*lang;
 	Sprite*langspEmpty;
 	Vector<roomCell*> roomCells;

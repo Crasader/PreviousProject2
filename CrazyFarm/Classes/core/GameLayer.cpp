@@ -74,9 +74,7 @@ bool GameLayer::init(){
 
 	setbisOnSkillLock(false);
 
-	LogEventMannger::getInstance()->init(roominfo.room_id);
-	GameData::getInstance()->setShotCount(0);
-	GameData::getInstance()->setevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
+	GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
 	GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
 	return true;
 }
@@ -174,6 +172,7 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	{
 		return true;
 	}
+	removePlayerInfo();
 	const float shootInterval = GameConfig::getInstance()->getShootData().shootInterval;
 	if (!isShoot)
 	{
@@ -191,7 +190,22 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	}), nullptr));
 	return true;
 }
-
+void GameLayer::removePlayerInfo()
+{
+	if (myTurret->getIsShowInfo())
+	{
+		myTurret->removePlayerInfo();
+		myTurret->setIsShowInfo(false);
+	}
+	for (auto var:otherTurrets)
+	{
+		if (var->getIsShowInfo())
+		{
+			var->removePlayerInfo();
+			var->setIsShowInfo(false);
+		}
+	}
+}
 bool GameLayer::lockTouchEvent(Touch *touch, Event  *event)
 {
 	auto touchPos = touch->getLocation();
@@ -199,6 +213,7 @@ bool GameLayer::lockTouchEvent(Touch *touch, Event  *event)
 	{
 		return false;
 	}
+	removePlayerInfo();
 	auto fish = FishManage::getInstance()->getFishByPosInPool(touchPos);
 	if (fish)
 	{
@@ -331,9 +346,6 @@ void GameLayer::onExit()
 	Layer::onExit();
 	FishManage::getInstance()->cleanVector();
 	BulletManage::getInstance()->ClearManage();
-	LogEventFish::getInstance()->sendDataToServer();
-	LogEventMagnate::getInstance()->sendDataToServer();
-	LogEventUseSkill::getInstance()->sendDataToServer();
 	myTurret = nullptr;
 	otherTurrets.clear();
 }
@@ -404,6 +416,7 @@ bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
 	{
 		return true;
 	}
+	removePlayerInfo();
 	auto sp = Sprite::create("sign_1006.png");
 	sp->setPosition(myTurret->getPosition());
 	sp->runAction(Sequence::create(Spawn::create(ScaleTo::create(0.13f, 1), MoveTo::create(0.13f, pos), nullptr), RemoveSelf::create(), CallFunc::create([=]{

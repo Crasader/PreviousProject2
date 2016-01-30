@@ -184,3 +184,38 @@ void MyMenuItemUpgrade::setValue()
 		node1->setScaleX(0.93*scalex);
 	}
 }
+
+
+void MyMenuItemUpgrade::showPopup()
+{
+	if (isElongate == true)
+	{
+		return;
+	}
+	else
+	{
+		isElongate = true;
+		setValue();
+		runAction(MoveBy::create(0.5f, Vec2(-180, 0)));
+
+		if (isFinish)
+		{
+			//ÉÁË¸¶¯»­
+		}
+		else
+		{
+			runAction(Sequence::create(DelayTime::create(3.5f), CallFunc::create([&]{
+				if (isElongate == true)
+				{
+					commonNode->setVisible(false);
+					unfinishedNode->setVisible(false);
+					nodeZeng->setVisible(false);
+					runAction(MoveBy::create(0.5f, Vec2(180, 0)));
+					isElongate = false;
+				};
+
+			}), nullptr));
+		}
+	}
+	
+}

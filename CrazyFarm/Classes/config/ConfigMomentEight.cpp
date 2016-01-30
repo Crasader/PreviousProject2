@@ -56,7 +56,7 @@ bool ConfigMomentEight::LoadConfigType1() {
     while (!bRet) {
 
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
 				filename += JniFunUtill::getInstance()->getSDcardpath();
 				filename += "/CrazyFarm/";
 	#endif
@@ -111,7 +111,7 @@ bool ConfigMomentEight::LoadConfigType2() {
         
         
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
 				filename += JniFunUtill::getInstance()->getSDcardpath();
 		filename += "/CrazyFarm/";
 	#endif
@@ -165,7 +165,7 @@ bool ConfigMomentEight::LoadConfigType3() {
     while (!bRet) {
         
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
 				filename += JniFunUtill::getInstance()->getSDcardpath();
 		filename += "/CrazyFarm/";
 	#endif
@@ -220,7 +220,7 @@ bool ConfigMomentEight::LoadConfigType4() {
 
 		
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
 				filename += JniFunUtill::getInstance()->getSDcardpath();
 		filename += "/CrazyFarm/";
 	#endif
@@ -275,7 +275,7 @@ bool ConfigMomentEight::LoadConfigType5() {
 
 		
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
 				filename += JniFunUtill::getInstance()->getSDcardpath();
 		filename += "/CrazyFarm/";
 	#endif
@@ -329,7 +329,7 @@ bool ConfigMomentEight::LoadConfigType6() {
 
 		
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
 				filename += JniFunUtill::getInstance()->getSDcardpath();
 		filename += "/CrazyFarm/";
 	#endif

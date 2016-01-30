@@ -69,6 +69,8 @@ public:
 	  bool isTurretBeTouch(Point pos);
 	  void showRobotInfo();
 	  void showPlayerInfo();
+	  void removePlayerInfo();
+	  void removeRobotInfo();
 	  void changeTurrentCallback(Ref*psend); //换炮
 	  void autoShootCallback(Ref*psend);//自动开炮
 	  void onPlayerUpgrade();//玩家升级
@@ -94,5 +96,6 @@ private:
 	  RoomPlayer* m_robotData;
 	  Fish* lockFish = nullptr;
 	  CC_SYNTHESIZE(Point, targetPos, TargetPos);
+	  CC_SYNTHESIZE(bool, m_isShowInfo, IsShowInfo);
 	  Sprite* aniFishNode=NULL;
 };

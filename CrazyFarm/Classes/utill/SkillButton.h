@@ -32,6 +32,8 @@ protected:
     /** 技能冷却完毕回调*/
    virtual void    skillCoolDownCallBack();
 
+
+   virtual bool  JudgeUseSkill();
     /** 初始化 */
    bool    init(int skillID, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name);
 	int m_skillID;

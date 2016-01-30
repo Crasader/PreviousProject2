@@ -37,9 +37,17 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 		close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(TwiceSureDialog::closeButtonCallBack, this));
 		close->setPosition(bg->getContentSize());
 		
-		auto sure = MenuItemImage::create("btn_queding.png", "btn_queding_2.png", callback);
+		
+		sure = MenuItemImage::create("btn_queding.png", "btn_queding_2.png");
 		sure->setPosition(bg->getContentSize().width / 2, 40);
-
+		if (callback)
+		{
+			sure->setCallback(callback);
+		}
+		else
+		{
+			sure->setCallback(CC_CALLBACK_1(TwiceSureDialog::closeButtonCallBack, this));
+		}
 		auto menu = Menu::create(close, sure, nullptr);
 		menu->setPosition(bg->getPosition()-bg->getContentSize()/2);
 		addChild(menu);

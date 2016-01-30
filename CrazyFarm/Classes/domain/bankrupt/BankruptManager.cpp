@@ -9,6 +9,7 @@ BankruptManager::BankruptManager(){
 
 
 void BankruptManager::init(){
+	setgetRewardNode(nullptr);
 }
 
 BankruptManager* BankruptManager::getInstance(){

@@ -11,6 +11,11 @@ struct payRequest
 	int pay_point_id; 
 	std::string channel_id;
 };
+struct setNameRequest
+{
+	const char* nickname;
+	int gender;
+};
 class HttpMannger {
 
 public:
@@ -32,7 +37,7 @@ public:
 	void onHttpRequestCompletedForSetName(HttpClient *sender, HttpResponse *response);
 
 	//数据埋点
-	void HttpToPostRequestLogEvent(std::string jsonString);	
+	void HttpToPostRequestLogEvent(std::string jsonString,int type); //type: 1鱼群2破产3美人鱼4界面跳转5赠送6技能使用7炮台升级	
 	void onHttpRequestCompletedForLogEventCommon(HttpClient *sender, HttpResponse *response);
 private:
 	HttpMannger();

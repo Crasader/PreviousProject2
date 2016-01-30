@@ -8,7 +8,7 @@ USING_NS_CC;
 bool ScrollText::init() {
 	bool ret = true;
 	if (Node::init()) {
-		pMask = Sprite::create("hot_marquee_bg.png");
+		pMask = Sprite::create("hot_marquee_bg1.png");
 		marInfo = "";
 		ishowDialog = false;
 		auto vec = MarqueeManager::getInstance()->getContents();
@@ -37,7 +37,7 @@ bool ScrollText::initClipper(cocos2d::Sprite* pMask,
 	auto clipper = ClippingNode::create();
 	IF_RETURN_FALSE(!clipper);
 	IF_RETURN_FALSE(!pMask);
-	setContentSize(pMask->getContentSize());
+	setContentSize(Size(pMask->getContentSize().width,pMask->getContentSize().height));
 	IF_RETURN_FALSE(!pMask->getTexture());
 	auto _clipperStencil = Sprite::createWithTexture(pMask->getTexture());
 	IF_RETURN_FALSE(!_clipperStencil);
@@ -47,6 +47,7 @@ bool ScrollText::initClipper(cocos2d::Sprite* pMask,
 	clipper->addChild(pMask);
 	clipper->addChild(pMoveChild, 1);
 	addChild(clipper);
+
 	for (auto child : _mNodes) {
 		IF_RETURN_FALSE(!child);
 		clipper->addChild(child);
@@ -71,9 +72,8 @@ void ScrollText::update(float delta) {
 	float currentX = _mLable->getPositionX();
 	float contentX = getContentSize().width * (-1.0f);
 	float lableX = _mLable->getContentSize().width * (-1.0f);
-
 	if (_autoScroll) {
-		if (_mLable->getPositionX() >= (lableX + contentX / 2 + 30))
+		if (_mLable->getPositionX() >= (lableX + contentX / 2+ 60))
 			_mLable->setPositionX(_mLable->getPositionX() - 0.25f);
 		else {
 			_mLable->setPositionX(-contentX / 2 );

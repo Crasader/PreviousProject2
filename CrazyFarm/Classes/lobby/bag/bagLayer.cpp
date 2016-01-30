@@ -3,10 +3,11 @@
 #include "domain/bag/BagManager.h"
 #include "domain/user/User.h"
 #include "lobby/bag/SetNameLayer.h"
-
+#include "domain/logevent/LogEventSpcEvent.h"
 #include "lobby/viplayer/VipLayer.h"
 #include "lobby/Nobility/NobilityLayer.h"
 #include "lobby/shop/payLayer.h"
+#include "lobby/LobbyScene.h"
 
 enum 
 {
@@ -176,20 +177,20 @@ bool BagLayer::init()
 		playinfoFram->setPosition(15, sssize.height*0.45);
 		bagFram->addChild(playinfoFram);
 		auto sssize2 = playinfoFram->getContentSize();
-		auto spHead = Sprite::create();
-		int sex = rand() % 2;
+		spHead = Sprite::create();
+		int sex = user->getUserGender();
 		if (sex)
 		{
-			spHead->setTexture("bagMale.png");
+			spHead->setTexture("bagFamale.png");
 		}
 		else
 		{
-			spHead->setTexture("bagFamale.png");
+			spHead->setTexture("bagMale.png");
 		}
 		spHead->setPosition(sssize2.width*0.19, sssize2.height*0.82);
 		playinfoFram->addChild(spHead);
 		//êÇ³Æ
-		auto userName = LabelTTF::create(user->getUserName(), "arial", 20);
+		userName = LabelTTF::create(user->getUserName(), "arial", 20);
 		userName->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
 		userName->setPosition(sssize2.width*0.62, sssize2.height*0.83);
 		playinfoFram->addChild(userName);
@@ -325,7 +326,10 @@ bool BagLayer::init()
 		auto setname = MenuItemImage::create("btn_setname_1.png", "btn_setname_2.png", CC_CALLBACK_1(BagLayer::setNameCallBack, this));
 		setname->setPosition(visibleSize.width*0.30, visibleSize.height * 0.125);
 
-
+		if (User::getInstance()->getIsHaveSetName())
+		{
+			setname->setVisible(false);
+		}
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(BagLayer::closeButtonCallBack, this));
 		close->setPosition(sssize.width/2 + bagFram->getPositionX(), sssize.height);
 		auto menu = Menu::create(close, chakan,chakan1,setname,addCoin,adddiamond,nullptr);
@@ -377,7 +381,7 @@ bool BagLayer::init()
 
 void BagLayer::closeButtonCallBack(Ref*psend)
 {
-	Director::getInstance()->popScene();
+	Director::getInstance()->replaceScene(LobbyScene::createScene());
 }
 
 void BagLayer::chankanCallBack(Ref*pesend)
@@ -387,11 +391,13 @@ void BagLayer::chankanCallBack(Ref*pesend)
 	if (name == "VIP")
 	{
 		layer = VIPLayer::create();
+		LogEventPageChange::getInstance()->addEventItems(3, 7, 0);
 	
 	}
 	else if (name == "guizu")
 	{
 		layer = NobilityLayer::createLayer();
+		LogEventPageChange::getInstance()->addEventItems(3,8, 0);
 		
 	}
 	layer->setPosition(0, 0);
@@ -402,7 +408,9 @@ void BagLayer::setNameCallBack(Ref*psend)
 {
 	auto layer = SetNameLayer::create();
 	layer->setPosition(Point::ZERO);
-	addChild(layer,10);
+	addChild(layer,10,"setnamelayer");
+	LogEventPageChange::getInstance()->addEventItems(3, 11, 0);
+	LogEventSpcEvent::getInstance()->addEventItems(1, 0);
 }
 
 void BagLayer::payCoinCallback(Ref*psend)
@@ -410,12 +418,14 @@ void BagLayer::payCoinCallback(Ref*psend)
 	auto paylayer = payLayer::createLayer(1);
 	paylayer->setPosition(Point::ZERO);
 	addChild(paylayer, 20);
+	LogEventPageChange::getInstance()->addEventItems(3, 12, 0);
 }
 void BagLayer::payDiamondCallback(Ref*psend)
 {
 	auto paylayer = payLayer::createLayer(2);
 	paylayer->setPosition(Point::ZERO);
 	addChild(paylayer, 20);
+	LogEventPageChange::getInstance()->addEventItems(3, 12, 0);
 }
 void BagLayer::refreshCoinLabel(float dt)
 {
@@ -424,5 +434,15 @@ void BagLayer::refreshCoinLabel(float dt)
 	userCoin1->setString(Value(user->getCoins()).asString());
 	userdiamond2->setString(Value(user->getDiamonds()).asString());
 	userCoin2->setString(Value(user->getCoins()).asString());
+	int sex = user->getUserGender();
+	if (sex)
+	{
+		spHead->setTexture("bagFamale.png");
+	}
+	else
+	{
+		spHead->setTexture("bagMale.png");
+	}
+	userName->setString(user->getUserName());
 }
 

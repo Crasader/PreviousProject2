@@ -69,7 +69,7 @@ void LoadingScene::loadRes()
 	///load ani
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/water/aniWater%d.jpg", "aniWater", 3.0f, 30);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.5f, 5);
-	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bubble/aniBubble%d.png", "aniBubble", 2.5f, 46);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bubble/aniBubble%d.png", "aniBubble", 4.6f, 46);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/net_ice/netIce%d.png", "iceNet", 0.7f, 18);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/net_fire/netFire%d.png", "fireNet", 0.7f, 18);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/gold/goldAni_%d.png", "aniGold", 0.3f, 5);

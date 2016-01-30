@@ -55,30 +55,63 @@ std::string LogEventPageChange::getDataForJson()
 
 void LogEventPageChange::sendDataToServer()
 {
-	addEventItems(1, 2, 3);
-	addEventItems(3, 2, 1);
-	addEventItems(2, 2, 1);
-	addEventItems(3, 2, 1);
-	addEventItems(5, 1, 1);
-	addEventItems(2, 1, 1);
-	addEventItems(1, 3, 2);
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson());
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),6);
 }
 
 void LogEventPageChange::addEventItems(int from_page, int to_page, int channel)
 {
-	EventPageChange var;
-	var.channel = channel;
-	var.from_page = from_page;
-	var.to_page = to_page;
-	for (auto &var2:items)
+	auto str = String::createWithFormat("%s%d%d%d", EventPageChangeNum, from_page, to_page, channel);
+	auto localdata = UserDefault::getInstance();
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
+	CCLOG("add loevetPageChange: from_page = %d,to_page = %d,channel=%d", from_page, to_page, channel);
+}
+
+void LogEventPageChange::loadLocalData()
+{
+	items.clear();
+	//i:from_page, j: to_page, k: channel
+	for (int i = 1; i <= 13; i++)
 	{
-		if (var2.channel == var.channel&&var2.from_page == var.from_page&&var.to_page==var2.to_page)
+		for (int j = 1; j <= 13; j++)
 		{
-			var2.num++;
-			return;
+			for (int k = 0; k <= 6;k++)
+			{
+				EventPageChange item;
+				item.from_page = i;
+				item.to_page = j;
+				item.channel = k;
+				auto str = String::createWithFormat("%s%d%d%d", EventPageChangeNum, item.from_page, item.to_page, item.channel);
+				item.num = UserDefault::getInstance()->getIntegerForKey(str->getCString(), 0);
+				if (item.num > 0)
+				{
+					items.push_back(item);
+				}
+			}
+			
 		}
+
 	}
-	var.num = 1;
-	items.push_back(var);
+}
+
+void LogEventPageChange::clearLocalData()
+{
+	//i:from_page, j: to_page, k: channel
+	for (int i = 1; i <= 13; i++)
+	{
+		for (int j = 1; j <= 13; j++)
+		{
+			for (int k = 0; k <= 6; k++)
+			{
+				EventPageChange item;
+				item.from_page = i;
+				item.to_page = j;
+				item.channel = k;
+				auto str = String::createWithFormat("%s%d%d%d", EventPageChangeNum, item.from_page, item.to_page, item.channel);
+				UserDefault::getInstance()->setIntegerForKey(str->getCString(), 0);
+			
+			}
+
+		}
+
+	}
 }

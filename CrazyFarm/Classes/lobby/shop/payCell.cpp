@@ -5,6 +5,9 @@
 #include "server/HttpMannger.h"
 #include "lobby/Nobility/NobilityLayer.h"
 #include "domain/user/DeviceInfo.h"
+#include "domain/logevent/LogEventPageChange.h"
+#include "domain/game/GameManage.h"
+#include "lobby/shop/payLayer.h"
 bool PayCell::init(){
 	if (!Sprite::initWithFile("payframe.png")){
 		return false;
@@ -104,6 +107,23 @@ void PayCell::IsBeToued()
 		if (node)
 		{
 			node->addChild(layer,21);
+			if ((GameGuiLayer*)node == GameManage::getInstance()->getGuiLayer())
+			{
+				LogEventPageChange::getInstance()->addEventItems(2, 8, 0);
+			}
+			else
+			{
+				auto node = (payView*)getParent();
+				int shoptype = node->getShopType();
+				if (shoptype ==1)
+				{
+					LogEventPageChange::getInstance()->addEventItems(12, 8, 0);
+				}
+				else if (shoptype ==2)
+				{
+					LogEventPageChange::getInstance()->addEventItems(13, 8, 0);
+				}
+			}
 		}
 		break;
 	}

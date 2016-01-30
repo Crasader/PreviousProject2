@@ -1,60 +1,12 @@
 #include "core/GameGuiLayer.h"
-#include "domain/room/RoomManager.h"
-#include "utill/define.h"
-#include "utill/SkillButton.h"
-#include "utill/AnimationUtil.h"
-#include "utill/Audio.h"
-#include "lobby/LobbyScene.h"
-#include "domain/user/User.h"
-#include "domain/skill/SkillFreezeButton.h"
-#include "domain/skill/SkillSummonButton.h"
-#include "domain/skill/SkillLightButton.h"
-#include "domain/skill/SkillLockButton.h"
-#include "domain/skill/SkillBombButton.h"
-#include "widget/MyMenuItemUpgrade.h"
-#include "core/SettingDialog.h"
-#include "core/NotarizeExitDialog.h"
-#include "domain/nobility/NobilityManager.h"
-#include "core/GuizuGiftDialog.h"
-#include "widget/MyMenuItemGainMoney.h"
-#include "data/GameData.h"
-#include "core/maridTaskPlane.h"
-#include "domain/skill/skillManager.h"
-#include "server/HttpMannger.h"
-#include "utill/Audio.h"
-#include "data/GameData.h"
-enum 
-{
-	kTagUpgradeTurret = 1,
-	kTagEarnCoins = 2
-};
+#include "domain/bankrupt/BankruptManager.h"
+#include "lobby/FirstPayLayer.h"
+#include "domain/logevent/LogEventPageChange.h"
 enum
 {
 	kZorderMenu = 10,
 	kZorderDialog = 20
 };
-
-
-
-skillCell* skillCell::create(char* spName, int propNum)
-{
-	auto cell = new skillCell();
-	if (cell&&cell->init(spName,propNum))
-	{
-		cell->autorelease();
-		return cell;
-	}
-	else
-	{
-		cell = nullptr;
-		return cell;
-	}
-}
-
-bool skillCell::init(char* spName, int propNum)
-{
-	return true;
-}
 
 
 bool GameGuiLayer::init(){
@@ -76,29 +28,24 @@ bool GameGuiLayer::init(){
 
 	auto sprbg = Sprite::create("EarnCoins.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	sprbg->setPosition(visibleSize.width, visibleSize.height*0.41);
+	sprbg->setPosition(visibleSize.width, visibleSize.height*0.31);
 	addChild(sprbg, 11);
 
-	auto sEainCoin = MyMenuItemGainMoney::create();
-	sEainCoin->setPosition(visibleSize.width + 40, visibleSize.height*0.40);
+	sEainCoin = MyMenuItemGainMoney::create();
+	sEainCoin->setPosition(visibleSize.width + 40, visibleSize.height*0.3);
 	menu->addChild(sEainCoin);
 
 
 	
-	auto sUpgradeTurret = MyMenuItemUpgrade::create();
-	sUpgradeTurret->setPosition(visibleSize.width+40, visibleSize.height*0.60);
+	sUpgradeTurret = MyMenuItemUpgrade::create();
+	sUpgradeTurret->setPosition(visibleSize.width+40, visibleSize.height*0.5);
 	menu->addChild(sUpgradeTurret);
 
 
 	sprbg = Sprite::create("UpgradeButton.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	sprbg->setPosition(visibleSize.width,visibleSize.height*0.61);
+	sprbg->setPosition(visibleSize.width,visibleSize.height*0.51);
 	addChild(sprbg,11);
-
-
-
-
-
 
 	///¶³½á
 	auto skillbutton = SkillFreezeButton::createSkillFreezeButton();
@@ -131,6 +78,14 @@ bool GameGuiLayer::init(){
 	addChild(skillbutton4);
 	skillManager::getInstance()->addskillButton(2, skillbutton3);
 
+	auto addcoinButton = MenuItemImage::create("huoquCoinBT.png", "huoquCoinBT.png", CC_CALLBACK_1(GameGuiLayer::addCoinCallBack, this));
+	addcoinButton->setPosition(910, 397);
+	auto addcoinani = Sprite::create("rorateLightCoin.png");
+	addcoinani->setPosition(addcoinButton->getPosition()+Point(0,30));
+	addChild(addcoinani);
+	addcoinani->runAction(RepeatForever::create(RotateBy::create(5, 360)));
+	menu->addChild(addcoinButton);
+
 
 	createSettingBoard();
 	showRandonBubbleAni();
@@ -142,7 +97,7 @@ bool GameGuiLayer::init(){
 	
 
 
-
+	GameData::getInstance()->setisOnGameScene(true);
 	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), rand() % 4 + 5);
 	return true;
 
@@ -170,26 +125,27 @@ void GameGuiLayer::createGuizuGiftLayer()
 		auto layer = GuizuGiftDialog::create();
 		layer->setPosition(0, 0);
 		addChild(layer,kZorderDialog);
+		
 	}
 }
-void GameGuiLayer::ButtentouchEvent(Ref *pSender)
+void GameGuiLayer::addCoinCallBack(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICKSURE);
-	auto node = (Node*)pSender;
-	switch (node->getTag())
+	if (User::getInstance()->getIsHaveFirstPay())
 	{
-		case kTagUpgradeTurret:
-			User::getInstance()->setMaxTurrentLevel(User::getInstance()->getMaxTurrentLevel() + 1);
-			break;
-		case  kTagEarnCoins:
-			User::getInstance()->addCoins(1000);
-			break;
-	default:
-		break;
+		auto layer = FirstPayLayer::create();
+		layer->setPosition(Point::ZERO);
+		addChild(layer, kZorderDialog);
+		LogEventPageChange::getInstance()->addEventItems(2, 9, 0);
 	}
-
-	CCLOG("TODO CALLBAK");
+	else
+	{
+		auto layer = payLayer::createLayer(1);
+		layer->setPosition(Point::ZERO);
+		addChild(layer, kZorderDialog);
+		LogEventPageChange::getInstance()->addEventItems(2, 12, 0);
+	}
 }
+
 void GameGuiLayer::exitCallback(Ref *pSender)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
@@ -240,12 +196,18 @@ void GameGuiLayer::createSettingBoard()
 	menu->addChild(showFishButton);
 
 
-
+	auto node = BankruptManager::getInstance()->getgetRewardNode();
+	if (node)
+	{
+		node->setPosition(28.8, 390);
+		addChild(node);
+	}
 
 }
 
 void GameGuiLayer::onExit()
 {
+
 	Layer::onExit();
 	Audio::getInstance()->pauseBGM();
 	User::getInstance()->syncInfo();
@@ -316,4 +278,9 @@ void GameGuiLayer::playRandVoice(float dt)
 {
 	Audio::getInstance()->playZhenrenVoice();
 	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), rand() % 4 + 5);
+}
+
+void GameGuiLayer::showLockUpdataTurret()
+{
+	sUpgradeTurret->showPopup();
 }

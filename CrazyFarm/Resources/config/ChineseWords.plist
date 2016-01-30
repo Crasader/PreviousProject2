@@ -92,6 +92,13 @@
    <key>onExitTip3</key>
   <string>每天都有免费奖励领取哦！明天再来吧！</string>
   
+  
+    <key>onRanklistTip</key>
+  <string>请您打开WIFI或移动网络查看排行榜</string>
+  
+  
+  <key>ChangeGiftTxt</key>
+  <string>已拥有徽章    枚，请选择你要兑换的商品</string>
   </dict> 
 </array>
 </plist>

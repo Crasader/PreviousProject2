@@ -19,6 +19,7 @@ private:
 	Sprite* propSprite;
 	Sprite* VIPname;
 	Sprite* VIPdec;
+	Sprite* sPoint;
 
 
 };

@@ -2,6 +2,8 @@
 #include "domain/bag/BagManager.h"
 #include "domain/skill/skillManager.h"
 #include "domain/logevent/LogEventUseSkill.h"
+#include "data/GameData.h"
+#include "domain/logevent/LogEventPageChange.h"
 USING_NS_CC;
 
 SkillButton::SkillButton() :
@@ -112,6 +114,43 @@ void SkillButton::update(float dt)
 
 
 }
+bool SkillButton::JudgeUseSkill()
+{
+	if (GameData::getInstance()->getisOnBankrupt())
+	{
+		return false;
+	}
+	auto num = skillManager::getInstance()->getSKillNumById(m_skillID);
+	auto price = skillManager::getInstance()->getSkillPriceById(m_skillID);
+	auto userdm = User::getInstance()->getDiamonds();
+	if (num <= 0)
+	{
+		if (userdm > price)
+		{
+			LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, price);
+			User::getInstance()->addDiamonds(-price);
+			//todo:技能二次确认
+			return true;
+		}
+		else
+		{
+			LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 2, 0);
+			LogEventPageChange::getInstance()->addEventItems(2, m_skillID-1, 13);
+			auto layer = payLayer::createLayer(2);
+			layer->setPosition(0, 0);
+			Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer);
+			return false;
+		}
+
+	}
+	else
+	{
+		LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 0, 0);
+		BagManager::getInstance()->changeItemCount(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id, -1);
+		return true;
+	}
+}
+
 
 /** 技能按钮点击回调 */
 void SkillButton::skillClickCallBack(Ref* obj)

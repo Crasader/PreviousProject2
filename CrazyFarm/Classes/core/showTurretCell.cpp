@@ -3,6 +3,8 @@
 #include "config/ConfigTurrent.h"
 #include "domain/user/User.h"
 #include "lobby/shop/payLayer.h"
+#include "domain/logevent/LogEventPageChange.h"
+#include "lobby/viplayer/VipLayer.h"
 bool showTurretCell::init(){
 
 	bg = Sprite::create();
@@ -121,13 +123,19 @@ void showTurretCell::ButtonCallback(Ref* psend)
 	if (m_type == 1)
 	{
 		///VIP³äÖµ	
+		auto layer = VIPLayer::create();
+		layer->setPosition(0, 0);
+		Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer, 20);
+		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
+		LogEventPageChange::getInstance()->addEventItems(2, 7, 0);
 	}
 	else
 	{
 		auto layer = payLayer::createLayer(2);
 		layer->setPosition(0, 0);
-		Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer);
+		Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer,20);
 		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
+		LogEventPageChange::getInstance()->addEventItems(2, 13, 5);
 	}
 
 }

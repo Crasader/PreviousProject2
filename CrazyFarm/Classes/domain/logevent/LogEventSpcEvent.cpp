@@ -52,31 +52,41 @@ std::string LogEventSpcEvent::getDataForJson()
 	return result;
 }
 
+void LogEventSpcEvent::loadLocalData()
+{
+	datas.clear();
+	for (int i = 1; i <= 3; i++)
+	{
+		SpcEvent item;
+		item.event_id = i;
+		item.event_desc = 0;
+		auto str = String::createWithFormat("%s%d%d", EventSpcEventNum, i,0);
+		item.nums = UserDefault::getInstance()->getIntegerForKey(str->getCString(), 0);
+		if (item.nums>0)
+		{
+			datas.push_back(item);
+		}
+	}
+}
 void LogEventSpcEvent::sendDataToServer()
 {
-	addEventItems(1, 2);
-	addEventItems(3, 2);
-	addEventItems(2, 2);
-	addEventItems(3, 2);
-	addEventItems(5, 1);
-	addEventItems(2, 1);
-	addEventItems(1, 3);
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson());
+	loadLocalData();
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(), 7);
 }
 
 void LogEventSpcEvent::addEventItems(int event_id, int event_desc)
 {
-	SpcEvent var;
-	var.event_id = event_id;
-	var.event_desc = event_desc;
-	for (auto &var2:datas)
+	auto str = String::createWithFormat("%s%d%d", EventSpcEventNum, event_id, event_desc);
+	auto localdata = UserDefault::getInstance();
+	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
+}
+
+void LogEventSpcEvent::clearLocalData()
+{
+	for (int i = 1; i <= 3; i++)
 	{
-		if (var2.event_id == var.event_id&&var2.event_desc == var.event_desc)
-		{
-			var2.nums++;
-			return;
-		}
+		auto str = String::createWithFormat("%s%d%d", EventSpcEventNum, i, 0);
+		 UserDefault::getInstance()->setIntegerForKey(str->getCString(), 0);
+	
 	}
-	var.nums = 1;
-	datas.push_back(var);
 }

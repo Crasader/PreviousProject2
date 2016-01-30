@@ -6,6 +6,8 @@
 #include "LogEventMermaid.h"
 #include "LogEventBankrupt.h"
 #include "LogEventUseSkill.h"
+#include "LogEventPageChange.h"
+#include "LogEventSpcEvent.h"
 using namespace cocos2d;
 
 
@@ -13,7 +15,9 @@ class LogEventMannger {
 
 public:
 	static LogEventMannger* getInstance();
-	void init(int roomid);
+	void init();
+	void clearData(int type);
+	void sendMsg();
 private:
 	LogEventMannger();
     

@@ -20,6 +20,9 @@ public:
     std::string getUserName();
     bool setUserName(std::string newUserName);
 
+	int getUserGender();
+	void setUserGender(int gender);
+
 	int addCoins(int coins);
 	int getCoins();
     
@@ -54,8 +57,11 @@ public:
      */
     bool addExp(int exp);
     
-	bool getIsHavePay(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVEPAY,false); };
+	bool getIsHaveFirstPay(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVEFIRSTPAY,false); };
+	void setHaveFirstPay(){ UserDefault::getInstance()->setBoolForKey(KEY_ISHAVEFIRSTPAY, true); };
 
+	bool getIsHaveSetName(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVESETNAME, false); };
+	void setHaveSetName(){ UserDefault::getInstance()->setBoolForKey(KEY_ISHAVESETNAME, true); };
 
     LevelData getLevelData();
     
@@ -76,11 +82,13 @@ private:
 	const char* KEY_CATCHPER = "KEY_CATCHPER";
     const char* KEY_USER_ID = "KEY_USER_ID";
     const char* KEY_USER_NAME = "KEY_USER_NAME";
+	const char* KEY_USER_GENDER = "KEY_USER_GENDER";
     const char* KEY_LASTSIGNDAY = "KEY_LASTSIGNDAY";
     const char* KEY_SEQSIGNDAY = "KEY_SEQSIGNDAY";
     const char* KEY_CHARGE_MONEY = "KEY_CHARGE_MONEY";
     const char* KEY_CHEST_LEVEL = "KEY_CHEST_LEVEL";
-	const char* KEY_ISHAVEPAY = "ISHAVEPAY";
+	const char* KEY_ISHAVEFIRSTPAY = "ISHAVEFIRSTPAY";
+	const char* KEY_ISHAVESETNAME = "ISHAVESETNAME";
 	CC_SYNTHESIZE(std::string, session_id, Sessionid);
 
 };

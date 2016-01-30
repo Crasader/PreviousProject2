@@ -9,8 +9,8 @@ LogEventBankrupt::LogEventBankrupt(){
     
 }
 
-void LogEventBankrupt::init(int roomid){
-	m_roomid = roomid;
+void LogEventBankrupt::init(){
+	m_roomid = -1;
 	m_type = -1;
 	m_num = -1;
 
@@ -43,9 +43,10 @@ std::string LogEventBankrupt::getDataForJson()
 	return result;
 }
 
-void LogEventBankrupt::sendDataToServer(int type,int num)
+void LogEventBankrupt::sendDataToServer(int roomid,int type,int num)
 {
 	m_type = type;
 	m_num = num;
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson());
+	m_roomid = roomid;
+	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),4);
 }

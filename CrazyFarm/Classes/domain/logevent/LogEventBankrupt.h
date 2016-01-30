@@ -9,10 +9,10 @@ class LogEventBankrupt {
 
 public:
 	static LogEventBankrupt* getInstance();
-	void init(int roomid);
+	void init();
 
 
-	void sendDataToServer(int type,int num);
+	void sendDataToServer(int roomid,int type,int num);
 private:
 	LogEventBankrupt();
 	std::string getDataForJson();

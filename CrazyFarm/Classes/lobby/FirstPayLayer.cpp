@@ -1,4 +1,5 @@
 #include "lobby/FirstPayLayer.h"
+#include "domain/user/User.h"
 bool FirstPayLayer::init()
 {
 	if ( !Layer::init() )
@@ -70,6 +71,8 @@ bool FirstPayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 void FirstPayLayer::quedingcallback(Ref*)
 {
 	//Ê×³åHTTPÇëÇó
+	User::getInstance()->setHaveFirstPay();
+	removeFromParentAndCleanup(1);
 }
 
 void FirstPayLayer::closeButtonCallBack(Ref*psend)
