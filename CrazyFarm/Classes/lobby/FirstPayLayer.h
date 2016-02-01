@@ -21,4 +21,5 @@ private:
 	void quedingcallback(Ref*);
 	void closeButtonCallBack(Ref*psend);
 	bool checkTheName(const char* name);
+	CC_SYNTHESIZE(int, m_eventPoint, EventPoint);
 };

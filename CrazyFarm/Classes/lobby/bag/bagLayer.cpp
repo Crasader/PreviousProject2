@@ -397,6 +397,7 @@ void BagLayer::chankanCallBack(Ref*pesend)
 	else if (name == "guizu")
 	{
 		layer = NobilityLayer::createLayer();
+		((NobilityLayer*)layer)->setEventPoint(6);
 		LogEventPageChange::getInstance()->addEventItems(3,8, 0);
 		
 	}
@@ -418,6 +419,7 @@ void BagLayer::payCoinCallback(Ref*psend)
 	auto paylayer = payLayer::createLayer(1);
 	paylayer->setPosition(Point::ZERO);
 	addChild(paylayer, 20);
+	paylayer->setEventPont(1);
 	LogEventPageChange::getInstance()->addEventItems(3, 12, 0);
 }
 void BagLayer::payDiamondCallback(Ref*psend)
@@ -425,6 +427,7 @@ void BagLayer::payDiamondCallback(Ref*psend)
 	auto paylayer = payLayer::createLayer(2);
 	paylayer->setPosition(Point::ZERO);
 	addChild(paylayer, 20);
+	paylayer->setEventPont(2);
 	LogEventPageChange::getInstance()->addEventItems(3, 12, 0);
 }
 void BagLayer::refreshCoinLabel(float dt)

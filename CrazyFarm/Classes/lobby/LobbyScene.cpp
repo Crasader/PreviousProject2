@@ -74,15 +74,10 @@ bool LobbyScene::init()
 	{
 		return false;
 	}
-	//add all fish plsit
-	//loadResource();
+
 	auto user = User::getInstance();
 	auto leveldata = user->getLevelData();
 
-	/*Director::sharedDirector()->getScheduler()->scheduleUpdateForTarget(GlobalSchedule::getInstance(), 1, false);*/
-
-	
-	/*addChild(timenode);*/
 	Audio::getInstance()->playBGM(LOBBYBGM);
 
 
@@ -248,7 +243,7 @@ bool LobbyScene::init()
 	lightsp2->setPosition(22, 39);
 	fistPay->addChild(lightsp2, 1);
 
-	if (!User::getInstance()->getIsHaveFirstPay())
+	if (User::getInstance()->getIsHaveFirstPay())
 	{
 		fistPay->setVisible(false);
 	}
@@ -338,7 +333,7 @@ bool LobbyScene::init()
 	this->scheduleOnce(schedule_selector(LobbyScene::showMarquee), 1.0f);
 	scheduleUpdate();
 
-	//Ì«Ñô¹â
+	////Ì«Ñô¹â
 	auto sun = Sprite::create("sunAni.png");
 	sun->setPosition(480, 535);
 	sun->runAction(RepeatForever::create(Sequence::create(Spawn::create(ScaleTo::create(3.0f, 0), FadeOut::create(2.0f), nullptr), DelayTime::create(1.0f), Spawn::create(ScaleTo::create(1.0f, 1), FadeIn::create(1.0f), DelayTime::create(1.0f), nullptr), nullptr)));
@@ -428,7 +423,6 @@ void LobbyScene::update(float delta)
 
 void LobbyScene::createRoomLayer()
 {
-	
 	auto visibisize = Director::getInstance()->getVisibleSize();
 	auto layer = RoomLayer::createLayer();
 	layer->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -442,6 +436,7 @@ void LobbyScene::payCoinCallback(Ref*psend)
 	Audio::getInstance()->playSound(CLICKSURE);
 	auto paylayer = payLayer::createLayer(1);
 	paylayer->setPosition(Point::ZERO);
+	paylayer->setEventPont(1);
 	addChild(paylayer, kZorderDialog);
 	LogEventPageChange::getInstance()->addEventItems(1, 12, 0);
 }
@@ -450,6 +445,7 @@ void LobbyScene::payDiamondCallback(Ref*psend)
 	Audio::getInstance()->playSound(CLICKSURE);
 	auto paylayer = payLayer::createLayer(2);
 	paylayer->setPosition(Point::ZERO);
+	paylayer->setEventPont(2);
 	addChild(paylayer, kZorderDialog);
 	LogEventPageChange::getInstance()->addEventItems(1, 13, 0);
 }
@@ -531,6 +527,7 @@ void LobbyScene::guizuCallback(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
 	auto guizulayer = NobilityLayer::createLayer();
+	guizulayer->setEventPoint(3);
 	guizulayer->setPosition(Point::ZERO);
 	addChild(guizulayer, kZorderDialog);
 	if (psend)
@@ -581,6 +578,7 @@ void LobbyScene::FirstPayCallback(Ref*psend)
 	Audio::getInstance()->playSound(CLICKSURE);
 	auto layer = FirstPayLayer::create();
 	layer->setPosition(0, 0);
+	layer->setEventPoint(5);
 	addChild(layer, kZorderDialog);
 	LogEventPageChange::getInstance()->addEventItems(1, 9, 0);
 }
@@ -636,5 +634,4 @@ void LobbyScene::feedBackCallback(Ref*psend)
 	LogEventPageChange::getInstance()->addEventItems(1, 6, 0);
 
 
-	auto test = GlobalSchedule::getInstance();
 }

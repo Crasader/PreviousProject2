@@ -189,6 +189,7 @@ void ShowSkillLayer::LackVipCallBack(Ref*psend)
 	auto layer = payLayer::createLayer(2); 
 	layer->setPosition(0, 0); 
 	addChild(layer);
+	layer->setEventPont(m_itemId - 996);
 	LogEventPageChange::getInstance()->addEventItems(3, 13, skillManager::getInstance()->getSkillInfoByitemId(m_itemId).skill_id);
 }
 void ShowSkillLayer::LackTurrentCallBack(Ref*psend)
@@ -200,4 +201,5 @@ void ShowSkillLayer::satisfyCallBack(Ref*psend)
 {
 	removeChildByName("tip", 1);
 	auto layer = payLayer::createLayer(2); layer->setPosition(0, 0); addChild(layer);
+	layer->setEventPont(m_itemId - 996);
 }

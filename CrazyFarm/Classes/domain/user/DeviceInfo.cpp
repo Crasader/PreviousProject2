@@ -1,5 +1,5 @@
 #include "domain/user/DeviceInfo.h"
-
+#include "utill/JniFunUtill.h"
 const char* DeviceInfo::getImei()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -7,10 +7,11 @@ const char* DeviceInfo::getImei()
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	return "493002407599521";
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	return "493002407599521";
+	return JniFunUtill::getInstance()->getImei();
+
 #endif
 }
-std::string DeviceInfo::getChange_id()
+std::string DeviceInfo::getChannel_id()
 {
 	return "test";
 }
@@ -21,7 +22,7 @@ int DeviceInfo::getHd_type()
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     return 1;
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	return 1;
+return 1;//	return JniFunUtill::getInstance()->getHdType();
 #endif
 }
 
@@ -32,7 +33,7 @@ int DeviceInfo::getHd_factory()
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     return 1;
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	return 1;
+return 1;//	return JniFunUtill::getInstance()->getHdFactory();
 #endif
 }
 

@@ -600,6 +600,12 @@
     <ClCompile Include="..\Classes\lobby\changeGift\ChangeGiftCell.cpp">
       <Filter>src\lobby\changeGift</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\pay\PayPointConfig.cpp">
+      <Filter>src\pay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\pay\PayEventPointConfig.cpp">
+      <Filter>src\pay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1084,6 +1090,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\config\ConfigDefine.h">
       <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\pay\PayPointConfig.h">
+      <Filter>src\pay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\pay\PayEventPointConfig.h">
+      <Filter>src\pay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

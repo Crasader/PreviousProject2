@@ -134,6 +134,7 @@ void GameGuiLayer::addCoinCallBack(Ref*psend)
 	{
 		auto layer = FirstPayLayer::create();
 		layer->setPosition(Point::ZERO);
+		layer->setEventPoint(20);
 		addChild(layer, kZorderDialog);
 		LogEventPageChange::getInstance()->addEventItems(2, 9, 0);
 	}
@@ -142,6 +143,7 @@ void GameGuiLayer::addCoinCallBack(Ref*psend)
 		auto layer = payLayer::createLayer(1);
 		layer->setPosition(Point::ZERO);
 		addChild(layer, kZorderDialog);
+		layer->setEventPont(1);
 		LogEventPageChange::getInstance()->addEventItems(2, 12, 0);
 	}
 }

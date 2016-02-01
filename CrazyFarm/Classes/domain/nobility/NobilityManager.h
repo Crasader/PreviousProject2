@@ -18,7 +18,7 @@ public:
     bool isNobility();// 是否为贵族
 	int  RemainingNobilityday();
     std::vector<NobilityRewadItem> getNobilityRewadItems(); // TODO : 获取单日奖励列表
-	void addStepsDay(int dayNum);                        // 添加一个新的签到日期
+	void addStepsDay(int dayNum);                        // 添加贵族天数
     bool isGetRewardToday();                       
 	void setGetRewardToday();
 	const char* KEY_STARTDAY = "KEY_STARTDAY";

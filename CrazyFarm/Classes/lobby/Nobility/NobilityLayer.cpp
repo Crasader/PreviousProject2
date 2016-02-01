@@ -1,5 +1,6 @@
 #include "NobilityLayer.h"
 #include "domain/nobility/NobilityManager.h"
+#include "domain/pay/Pay.h"
 bool NobilityLayer::init()
 {
 	if (!Layer::init()){
@@ -67,6 +68,7 @@ void NobilityLayer::closeButtonCallBack(Ref*psend)
 
 void NobilityLayer::quickPayCallback(Ref* psend)
 {
+	Pay::getInstance()->Overbooking(13, m_eventPoint);
 	NobilityManager::getInstance()->addStepsDay(30); 
 		removeFromParentAndCleanup(1);
 }

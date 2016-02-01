@@ -3,10 +3,12 @@
 #include "config/ConfigManager.h"
 #include "fish/FishAniMannage.h"
 #include "utill/AnimationUtil.h"
+#include "utill/FunUtil.h"
 #include "server/HttpMannger.h"
 #include "domain/user/User.h"
 #include "lobby/LobbyScene.h"
 #include "domain/user/DeviceInfo.h"
+#include "core/GameScene.h"
 
 Scene* LoadingScene::createScene()
 {
@@ -29,6 +31,7 @@ bool LoadingScene::init()
 	bg->setPosition(480, 270);
 	addChild(bg);
 	
+
 	runAction(Sequence::create(CallFunc::create([&]{login();
 		loadRes();}),DelayTime::create(2.0f), CallFunc::create([&]{Director::getInstance()->replaceScene(LobbyScene::createScene()); }), nullptr));
 	return true;
@@ -119,10 +122,10 @@ void LoadingScene::login()
 	auto name = User::getInstance()->getUserId();
 	if (name == "guest")
 	{
-		HttpMannger::getInstance()->HttpToPostRequestRegisterInfo(DeviceInfo::getChange_id(), DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
+		HttpMannger::getInstance()->HttpToPostRequestRegisterInfo(DeviceInfo::getChannel_id(), DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
 	}
 	else
 	{
-		HttpMannger::getInstance()->HttpToPostRequestLogInInfo(DeviceInfo::getChange_id(), name, DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
+		HttpMannger::getInstance()->HttpToPostRequestLogInInfo(DeviceInfo::getChannel_id(), name, DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
 	}
 }

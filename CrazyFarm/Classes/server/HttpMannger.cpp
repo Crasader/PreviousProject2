@@ -3,6 +3,7 @@
 #include "domain/user/User.h"
 #include "domain/user/DeviceInfo.h"
 #include "domain/logevent/LogEventMannger.h"
+#include "domain/pay/Pay.h"
 #define URL_HEAD "http://114.119.39.150:1701"
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
@@ -94,7 +95,7 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 	}
 	if (doc["errorcode"].GetInt() == 301)
 	{
-		HttpToPostRequestRegisterInfo(DeviceInfo::getChange_id(), DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
+		HttpToPostRequestRegisterInfo(DeviceInfo::getChannel_id(), DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
 		User::getInstance()->resetInfo();
 		return;
 	}
@@ -145,11 +146,14 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 	}
 	int result = doc["errorcode"].GetInt();
 	CCLOG("pay http errormsg = %s", doc["errormsg"].GetString());
-	long int orderId = doc["order_id"].GetDouble();
+	if (result == 0)
+	{
+		long int orderId = doc["order_id"].GetDouble();
 
-	auto userdata = (payRequest*)response->getHttpRequest()->getUserData();
+		auto userdata = (payRequest*)response->getHttpRequest()->getUserData();
+		Pay::getInstance()->pay(userdata, orderId);
+	}
 	
-	HttpToPostRequestAfterPay(userdata->sessionid, userdata->pay_and_Event_version, userdata->pay_event_id, userdata->pay_point_id, userdata->channel_id, result, orderId);
 
 }
 void HttpMannger::HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int result, long int orderid, int paytype )

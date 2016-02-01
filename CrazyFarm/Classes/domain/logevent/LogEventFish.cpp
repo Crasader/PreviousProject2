@@ -22,6 +22,7 @@ void LogEventFish::addFishCreateTimes(int fishid)
 {
 	int roomid = GameData::getInstance()->getRoomID();
 	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHCREATETIME);
+	CCLOG("%s", str->getCString());
 	auto localdata = UserDefault::getInstance();
 	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
 }
@@ -29,6 +30,7 @@ void LogEventFish::addFishCatchTimes(int fishid)
 {
 	int roomid = GameData::getInstance()->getRoomID();
 	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHCATCHTIME);
+	CCLOG("%s", str->getCString());
 	auto localdata = UserDefault::getInstance();
 	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
 }
@@ -36,6 +38,7 @@ void LogEventFish::addFishHitTimes(int fishid)
 {
 	int roomid = GameData::getInstance()->getRoomID();
 	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHHITTIMES);
+	CCLOG("%s", str->getCString());
 	auto localdata = UserDefault::getInstance();
 	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
 }
@@ -43,6 +46,7 @@ void LogEventFish::addFishUserCatchTimes(int fishid)
 {
 	int roomid = GameData::getInstance()->getRoomID();
 	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHUSERCATCHTIMES);
+	CCLOG("%s", str->getCString());
 	auto localdata = UserDefault::getInstance();
 	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
 }
@@ -51,6 +55,7 @@ void LogEventFish::addFishUserCostCoin(int fishid, int coin)
 {
 	int roomid = GameData::getInstance()->getRoomID();
 	auto str = String::createWithFormat("%d%d%s", roomid,fishid, FISHUSERCOSTCOIN);
+	CCLOG("%s", str->getCString());
 	auto localdata = UserDefault::getInstance();
 	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
 }

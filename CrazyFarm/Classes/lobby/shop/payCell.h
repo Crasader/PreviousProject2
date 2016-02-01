@@ -23,27 +23,9 @@ public:
 	  void setDiamondValue(int goodId);
 	  void setVipValue();
 	  void IsBeToued();
-	  void onHttpRequestCompletedAfterPay(HttpClient *sender, HttpResponse *response)
-	  {
-		  if (!response)
-		  {
-			  return;
-		  }
-		  if (!response->isSucceed())
-		  {
-			  log("error buffer: %s", response->getErrorBuffer());
-			  return;
-		  }
-		  long statusCode = response->getResponseCode();
-		  char statusString[64] = {};
-		  // dump data
-		  std::vector<char> *buffer = response->getResponseData();
-		  auto temp = std::string(buffer->begin(), buffer->end());
-		  rapidjson::Document doc;
-		  doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	  };
 private:
 	CC_SYNTHESIZE(int, m_nGoodId, goodID);
+	CC_SYNTHESIZE(int, m_payPointID, payPointID);
 	int m_PayType;
 	Sprite* paySprite;
 	Sprite* propNum;

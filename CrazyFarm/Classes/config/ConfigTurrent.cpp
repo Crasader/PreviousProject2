@@ -1,6 +1,7 @@
 #include "config/ConfigTurrent.h"
 #include "domain/user/User.h"
 #include "utill/JniFunUtill.h"
+#include "ConfigDefine.h"
 ConfigTurrent* ConfigTurrent::_instance = NULL;
 
 ConfigTurrent::ConfigTurrent(){
@@ -17,10 +18,13 @@ bool ConfigTurrent::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&ISDEBUGCONFIG) 
-filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
-	#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+if (ISDEBUGCONFIG)
+{	
+	filename += JniFunUtill::getInstance()->getSDcardpath();
+	filename += "/CrazyFarm/";
+	}
+#endif
 		filename += "config/config_turrent.json";
 
 		rapidjson::Document doc;

@@ -14,7 +14,7 @@ public:
 private:
 	Sprite* giftCell;
 	Sprite* giftName;
-	LayerColor*colorBg;
+	Sprite*colorBg;
 	MenuItemImage* bt;
 	int m_type;
 	void changeButtonCallback(Ref* psend);

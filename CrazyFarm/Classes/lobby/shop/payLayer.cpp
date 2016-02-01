@@ -218,7 +218,7 @@ bool payLayer::init(int payType)
 		
 		auto vipConfig = ConfigVipLevel::getInstance();
 		auto nextVip =  vipConfig->getVipLevel(nowVip + 1);
-		auto topTip = Sprite::create("TopTip.png");
+		topTip = Sprite::create("TopTip.png");
 		topTip->setPosition(topFrame->getContentSize() / 2);
 		topFrame->addChild(topTip);
 		auto size = topTip->getContentSize();
@@ -233,7 +233,7 @@ bool payLayer::init(int payType)
 		ttf->setPosition(size.width*0.1, size.height / 2);
 		topTip->addChild(ttf);
 		//Ê×´Î³äÖµ
-		if (nowChargeMoney ==0 &&payType ==1)
+		if (!User::getInstance()->getIsHaveBycoin()&&payType ==1)
 		{
 			ttf->setString(ChineseWord("payCoinFirst").c_str());
 			auto ttf1 = LabelAtlas::create("100", "payNum.png", 16, 24, '0');
@@ -286,8 +286,7 @@ bool payLayer::init(int payType)
 
 void payLayer::update(float delta)
 {
-	auto nowChargeMoney = User::getInstance()->getChargeMoney();
-	if (nowChargeMoney<=0)
+	if (!User::getInstance()->getIsHaveBycoin())
 	{
 		return;
 	}
@@ -295,11 +294,22 @@ void payLayer::update(float delta)
 	
 	auto vipConfig = ConfigVipLevel::getInstance();
 	auto nextVip = vipConfig->getVipLevel(nowVip + 1);
-
+	auto nowChargeMoney = User::getInstance()->getChargeMoney();
 	auto chinaword = ChineseWord("payVIPdes");
 	auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
 	ttf->setString(strdec->getCString());
-	
+
+	auto node = topTip->getChildByName("100");
+	if (node)
+	{
+		node->setVisible(false);
+	}
+	node = topTip->getChildByName("coin");
+	if (node)
+	{
+		node->setVisible(false);
+	}
+
 }
 void payLayer::closeButtonCallBack(Ref*psend)
 {

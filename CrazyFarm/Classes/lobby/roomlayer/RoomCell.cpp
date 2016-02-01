@@ -25,12 +25,15 @@ bool RoomCell::init(Room room)
 	m_room = room;
 	auto str = String::createWithFormat("level_%d.png", m_room.room_id);
 	initWithNormalImage(str->getCString(), str->getCString(), "",CC_CALLBACK_1(RoomCell::clickCallBack, this));
-	playNormalAni();//播放基准动画	
+	playNormalAni();//播放基准动画	 卡顿原因
 	setPlayerNum();//虚构房间人数
 	lockRoom();//房间shangsuo
 	return true;
 }
-
+RoomCell::~RoomCell()
+{
+	anis.clear();
+}
 void RoomCell::clickCallBack(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
@@ -92,15 +95,6 @@ void RoomCell::resumeNormalAni()
 	}
 	if (m_room.room_id==4)
 	{
-		/*	auto ac = RepeatForever::create(Sequence::create(DelayTime::create(0.5f), CallFunc::create([&]{
-				auto ac = Sequence::create(Spawn::create(MoveBy::create(1.2f, Vec2(0, 330)), FadeOut::create(1.2f), nullptr), RemoveSelf::create(), nullptr);
-				auto love = Sprite::create("love.png");
-				love->setPosition(getRandonNumByAtoB(getContentSize().width*0.3, getContentSize().width*0.7), 40);
-				love->runAction(ac);
-				addChild(love);
-				}), nullptr));
-				ac->setTag(889);
-				runAction(ac);*/
 		IsloveOn = true;
 	}
 

@@ -72,9 +72,10 @@ float getRandonNumByAtoB(float A, float B)
 	return  A + (B - A)*rand() / (float)RAND_MAX;
 }
 
-int getintRandonNumByAtoB(int A, int B)
+int getintRandonNumByAtoB(int A, int B, int interval)
 {
-	return  A + (B - A)*rand() / (int)RAND_MAX;
+	auto temp = (B - A) / interval+1;
+	return A+interval*(rand()%temp);
 }
 
 

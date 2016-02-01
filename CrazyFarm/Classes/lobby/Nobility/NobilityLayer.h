@@ -13,5 +13,6 @@ public:
 private:
 	void quickPayCallback(Ref* psend);
 	void closeButtonCallBack(Ref*psend);
+	CC_SYNTHESIZE(int, m_eventPoint, EventPoint);
 };
 

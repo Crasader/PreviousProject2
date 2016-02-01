@@ -58,7 +58,7 @@ bool User::setUserName(std::string newUserName) {
 
 
 int User::getCoins() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_COINS, 10);
+    return UserDefault::getInstance()->getIntegerForKey(User::KEY_COINS, 200);
 }
 
 int User::addCoins(int coins) {
@@ -70,18 +70,6 @@ int User::addCoins(int coins) {
     return this->getCoins();
 }
 
-//int User::getNobillityCount() {
-//	return UserDefault::getInstance()->getIntegerForKey(User::KEY_NOBILLITYS, 0);
-//}
-//
-//int User::addNobillityCount(int counts) {
-//	UserDefault::getInstance()->setIntegerForKey(User::KEY_NOBILLITYS,
-//		this->getNobillityCount() + counts);
-//	if (this->getNobillityCount() < 0) {
-//		UserDefault::getInstance()->setIntegerForKey(User::KEY_NOBILLITYS, 0);
-//	}
-//	return this->getNobillityCount();
-//}
 
 int User::getDiamonds() {
     return UserDefault::getInstance()->getIntegerForKey(User::KEY_DIAMONDS, 0);
@@ -173,7 +161,7 @@ void User::resetInfo() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     setUserID("guest");
 	UserDefault::getInstance()->setStringForKey(User::KEY_USER_NAME, "guest");
-    UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 10);
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 200);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS, 0);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP, 0);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_M_TURRENT, 1);

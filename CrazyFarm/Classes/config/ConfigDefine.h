@@ -1,1 +1,2 @@
-#define ISDEBUGCONFIG false
+#define ISDEBUGCONFIG true
+

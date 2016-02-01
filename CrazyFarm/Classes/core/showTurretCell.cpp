@@ -133,6 +133,7 @@ void showTurretCell::ButtonCallback(Ref* psend)
 	{
 		auto layer = payLayer::createLayer(2);
 		layer->setPosition(0, 0);
+		layer->setEventPont(12);
 		Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer,20);
 		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
 		LogEventPageChange::getInstance()->addEventItems(2, 13, 5);

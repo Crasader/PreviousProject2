@@ -9,12 +9,9 @@ bool ChangeGiftCell::init()
 	{
 		CC_BREAK_IF(!Sprite::initWithFile("changewardCellBg.png"));
 
-		/*colorBg = LayerColor::create();
-		colorBg->setContentSize(getContentSize());
-		colorBg->setColor(ccc3(0, 0, 0));
-		colorBg->setOpacity(180);
-		colorBg->setPosition(0, 0);
-		addChild(colorBg, -1);*/
+		colorBg = Sprite::create("changewardCellFrame.png");
+		colorBg->setPosition(getContentSize() / 2);
+		addChild(colorBg, 1);
 
 		giftCell = Sprite::create();
 		giftCell->setPosition(getContentSize().width / 2, 130);
@@ -52,13 +49,14 @@ void ChangeGiftCell::update(float delta)
 	{
 	/*	colorBg->setVisible(false);*/
 		bt->setEnabled(true);
+		colorBg->setVisible(false);
 		setScale(1);
 	}
 	else
 	{
 		/*colorBg->setVisible(true);*/
 		bt->setEnabled(false);
-		setColor(Color3B(128, 128, 128));
+		colorBg->setVisible(true);
 		setScale(0.7);
 	}
 }

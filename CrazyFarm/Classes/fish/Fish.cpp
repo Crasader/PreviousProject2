@@ -25,7 +25,15 @@ bool Fish::init(){
 
 void Fish::initFish(int fishType){
 	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
-	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
+	if (fishType==44)
+	{
+		fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd,50);
+	}
+	else
+	{
+		fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
+	}
+	
 	this->grabProbability = fishdata.probability;
 	this->fishType = fishType;
 	this->speed = getRandValueInVec(fishdata.move_speeds);

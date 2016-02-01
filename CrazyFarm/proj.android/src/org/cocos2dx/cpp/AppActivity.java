@@ -4,6 +4,8 @@ import java.io.File;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,22 +17,41 @@ import com.tbu.android.pay.sky.third.SkyThirdPay;
 
 public class AppActivity extends Cocos2dxActivity {
 	
-	public void pay(int price, String orderId) {
+	private static Activity activity;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		AppActivity.activity = this;
+	}
+	
+	public static void pay(final int price, final String orderId) {
 		// TODO : 测试支付
-		SkyOrderInfo skyOrderInfo = new SkyOrderInfo(
+		Log.i("TBU_DEBUG", "AppActivity->pay: price = " + price + ";orderId = " + orderId);
+		final SkyOrderInfo skyOrderInfo = new SkyOrderInfo(
 				orderId, 
 				price, 
 				"千炮捕鱼", 
 				SkyOrderInfo.PAY_TYPE_ITEM, 
 				"1000金币");
-		SkyThirdPay.getInstance().pay(this, skyOrderInfo, new PayCallback(){
+		
+		AppActivity.activity.runOnUiThread(new Runnable() {
+			
 			@Override
-			public void result(int code, String msg) {
-				// TODO : 显示结果，并将结果返回应用
-				Toast.makeText(AppActivity.this, "code = " + code + ";msg = " + msg,
-						Toast.LENGTH_LONG).show();
+			public void run() {
+				Log.i("TBU_DEBUG", "[ON UI THREAD]AppActivity->pay: price = " + price + ";orderId = " + orderId);
+				SkyThirdPay.getInstance().pay(activity, skyOrderInfo, new PayCallback(){
+					@Override
+					public void result(int code, String msg) {
+						// TODO : 显示结果，并将结果返回应用
+						JniPayCallbackHelper.payResultCallBack(code,msg);
+						Log.i("TBU_DEBUG", "code = " + code + ";msg = " + msg);
+					}
+				});
+				
 			}
 		});
+		
 	}
 
 	public  static String getSDPath(){

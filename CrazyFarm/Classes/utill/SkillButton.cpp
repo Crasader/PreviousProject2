@@ -138,6 +138,7 @@ bool SkillButton::JudgeUseSkill()
 			LogEventPageChange::getInstance()->addEventItems(2, m_skillID-1, 13);
 			auto layer = payLayer::createLayer(2);
 			layer->setPosition(0, 0);
+			layer->setEventPont(m_skillID + 12);
 			Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer);
 			return false;
 		}

@@ -10,6 +10,8 @@ include $(PREBUILT_SHARED_LIBRARY)
 
 LOCAL_SHARED_LIBRARIES := libmegjb
 
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := libzimon
 
 LOCAL_SRC_FILES := prebuilt/libzimon.so
@@ -33,15 +35,16 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 
 
-# 遍历目录及子目录的函数
+
 define walk
 $(wildcard $(1)) $(foreach e, $(wildcard $(1)/*), $(call walk, $(e)))
 endef
 
-# 遍历Classes目录
+
 ALLFILES = $(call walk, $(LOCAL_PATH)/../../Classes)
 FILE_LIST := hellocpp/main.cpp
-# 从所有文件中提取出所有.cpp文件
+FILE_LIST += hellocpp/payproxy.cpp
+
 FILE_LIST += $(filter %.cpp, $(ALLFILES))
 
 LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)

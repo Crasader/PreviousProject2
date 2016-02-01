@@ -3,14 +3,7 @@
 #include "server/HttpClientUtill.h"
 using namespace cocos2d;
 
-struct payRequest
-{
-	std::string sessionid;
-	int pay_and_Event_version;
-	int pay_event_id;
-	int pay_point_id; 
-	std::string channel_id;
-};
+
 struct setNameRequest
 {
 	const char* nickname;

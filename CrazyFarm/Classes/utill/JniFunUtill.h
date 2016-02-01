@@ -7,6 +7,13 @@ class JniFunUtill{
 public:
 	static JniFunUtill* getInstance();
 	const char * getSDcardpath();
+
+	const char* getImei();
+	const char* getHdFactory();
+	const char* getHdType();
+
+
+	void pay(int price, const char* orderid);
 private:
 	JniFunUtill();
 	static JniFunUtill* _instance;

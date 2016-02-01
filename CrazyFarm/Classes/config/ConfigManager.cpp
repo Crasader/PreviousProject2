@@ -23,6 +23,8 @@
 #include "domain/gameConfig/gameConfig.h"
 #include "config/ConfigFishCollisionRange.h"
 #include "config/ConfigBox.h"
+#include "domain/pay/PayPointConfig.h"
+#include "domain/pay/PayEventPointConfig.h"
 ConfigManager* ConfigManager::_instance = NULL;
 
 ConfigManager::ConfigManager(){
@@ -39,13 +41,13 @@ void ConfigManager::LoadConfig() {
     //load json
 	(ConfigExp::getInstance()->LoadConfig());
 
-    
+	PayEventPointConfig::getInstance()->LoadConfig();
     
     ConfigItem::getInstance()->LoadConfig();
     ConfigVipLevel::getInstance()->LoadConfig();
     ConfigTurrent::getInstance()->LoadConfig();
     ConfigFish::getInstance()->LoadConfig();
-    
+	PayPointConfig::getInstance()->LoadConfig();
     ConfigRoom::getInstance()->LoadConfig();
     ConfigVipTurrent::getInstance()->LoadConfig();
     ConfigNormalTurrent::getInstance()->LoadConfig();

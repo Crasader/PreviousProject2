@@ -23,6 +23,7 @@ public:
 	void playScaleAni();
 	CC_SYNTHESIZE(bool, isLock, Islock);
 private:
+	~RoomCell();
 	Room m_room;
 	void clickCallBack(Ref*psend);
 	void TiPCallBack(Ref*psend);

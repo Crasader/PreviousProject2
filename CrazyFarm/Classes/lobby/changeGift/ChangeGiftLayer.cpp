@@ -51,7 +51,7 @@ bool ChangeGiftLayer::init()
 			{
 				cell->setisSelected(false);
 			}
-			cell->setPosition(139+12.5 + cell->getContentSize().width*i, 220);
+			cell->setPosition(139+12.5 + cell->getContentSize().width/2+cell->getContentSize().width*0.85*(i-1), 220);
 			addChild(cell, 1, i);
 		}
 

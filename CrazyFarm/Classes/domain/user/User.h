@@ -25,8 +25,7 @@ public:
 
 	int addCoins(int coins);
 	int getCoins();
-    
-	//int addNobillityCount(int counts);
+
 	int getNobillityCount();
 
 	int getExp(){ return UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0); }
@@ -60,6 +59,10 @@ public:
 	bool getIsHaveFirstPay(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVEFIRSTPAY,false); };
 	void setHaveFirstPay(){ UserDefault::getInstance()->setBoolForKey(KEY_ISHAVEFIRSTPAY, true); };
 
+	bool getIsHaveBycoin(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVEBYCOIN, false); };
+	void setHaveBycoin(){ UserDefault::getInstance()->setBoolForKey(KEY_ISHAVEBYCOIN, true); };
+
+
 	bool getIsHaveSetName(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVESETNAME, false); };
 	void setHaveSetName(){ UserDefault::getInstance()->setBoolForKey(KEY_ISHAVESETNAME, true); };
 
@@ -89,6 +92,7 @@ private:
     const char* KEY_CHEST_LEVEL = "KEY_CHEST_LEVEL";
 	const char* KEY_ISHAVEFIRSTPAY = "ISHAVEFIRSTPAY";
 	const char* KEY_ISHAVESETNAME = "ISHAVESETNAME";
+	const char* KEY_ISHAVEBYCOIN = "KEY_ISHAVEBYCOIN";
 	CC_SYNTHESIZE(std::string, session_id, Sessionid);
 
 };

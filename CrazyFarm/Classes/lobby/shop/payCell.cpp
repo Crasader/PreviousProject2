@@ -8,6 +8,7 @@
 #include "domain/logevent/LogEventPageChange.h"
 #include "domain/game/GameManage.h"
 #include "lobby/shop/payLayer.h"
+#include "widget/MyTableView.h"
 bool PayCell::init(){
 	if (!Sprite::initWithFile("payframe.png")){
 		return false;
@@ -35,9 +36,12 @@ bool PayCell::init(){
 }
 Good coingood[7] = { Good(18, 180000), Good(38, 380000), Good(108, 1080000), Good(388, 3880000), Good(688, 6880000) , Good(8, 40000), Good(58, 580000)};
 Good diamondGood[5] = { Good(18, 180), Good(38, 418), Good(58, 650), Good(108, 1346), Good(388, 4768) };
+int payCoinPoint[7] = { 2, 3, 5, 6, 7, 1, 4 };
+int payDiamondPoint[5] = { 8, 9, 10, 11, 12};
 void PayCell::setValue(int goodId)
 {
 	setgoodID(goodId);
+	m_payPointID = payCoinPoint[goodId-1];
 	m_PayType = 1;
 	auto spPath = String::createWithFormat("coin_%d.png", goodId);
 	paySprite->setTexture(spPath->getCString());
@@ -51,6 +55,7 @@ void PayCell::setValue(int goodId)
 void PayCell::setDiamondValue(int goodId)
 {
 	setgoodID(goodId);
+	m_payPointID = payCoinPoint[goodId - 1];
 	m_PayType = 2;
 	auto spPath = String::createWithFormat("diamond_%d.png", goodId);
 	paySprite->setTexture(spPath->getCString());
@@ -76,27 +81,14 @@ void PayCell::setVipValue()
 void PayCell::IsBeToued()
 {
 	auto level =  ConfigVipLevel::getInstance()->getVipLevel(User::getInstance()->getVipLevel());
+	auto tableview = getParent()->getParent()->getParent();
+	auto viewdelegate = ((MyTableView*)tableview)->getDelegate();
+	auto eventpoint = ((payView*)viewdelegate)->getEventPoint();
 	switch (m_PayType)
 	{
 	case 1:
-	{
-		payData data;
-		data.channel_id = 10000;
-		data.order_id = 0;
-		data.pay_event_id = 1000;
-		data.pay_point_id = 1000;
-		data.pay_event_vesion = 10001000;
-		data.pay_result = 0;
-		data.pay_type = 0;
-		auto sessionid = User::getInstance()->getSessionid();
-		HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, 100100, 1, 1, DeviceInfo::getChange_id());
-		User::getInstance()->addCoins(coingood[m_nGoodId - 1].count*level.pay_reward);
-		User::getInstance()->addChargeMoney(coingood[m_nGoodId - 1].RMB);
-	}
-		break;
 	case 2:
-		User::getInstance()->addDiamonds(diamondGood[m_nGoodId - 1].count*level.pay_reward);
-		User::getInstance()->addChargeMoney(diamondGood[m_nGoodId - 1].RMB);
+		Pay::getInstance()->Overbooking(m_payPointID,eventpoint);
 		break;
 	case 3:
 	{
@@ -106,9 +98,11 @@ void PayCell::IsBeToued()
 		auto node = scene->getChildByTag(888);
 		if (node)
 		{
+			
 			node->addChild(layer,21);
 			if ((GameGuiLayer*)node == GameManage::getInstance()->getGuiLayer())
 			{
+				layer->setEventPoint(4);
 				LogEventPageChange::getInstance()->addEventItems(2, 8, 0);
 			}
 			else
@@ -117,10 +111,12 @@ void PayCell::IsBeToued()
 				int shoptype = node->getShopType();
 				if (shoptype ==1)
 				{
+					layer->setEventPoint(22);
 					LogEventPageChange::getInstance()->addEventItems(12, 8, 0);
 				}
 				else if (shoptype ==2)
 				{
+					layer->setEventPoint(23);
 					LogEventPageChange::getInstance()->addEventItems(13, 8, 0);
 				}
 			}

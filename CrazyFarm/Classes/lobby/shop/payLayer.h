@@ -31,7 +31,7 @@ public:
 	virtual ssize_t numberOfCellsInTableView(cocos2d::extension::TableView *table);
 private:
 	CC_SYNTHESIZE(int, m_shopType, ShopType);////1金币2钻石
-
+	CC_SYNTHESIZE(int, m_payeventPoint, EventPoint);//事件点
 
 };
 
@@ -54,12 +54,14 @@ public:
 	static payLayer * createLayer(int payType);
 
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return true; };
-
+	void setEventPont(int eventPoitn){ tableviewDelegate->setEventPoint(eventPoitn); };
 private:
 	void update(float delta);
+	
 	virtual bool init(int payType);
 	void closeButtonCallBack(Ref*psend);
 	LabelTTF*ttf;
+	Sprite* topTip;
 	payView* tableviewDelegate;
 	void showVipCallback(Ref*psend);
 };

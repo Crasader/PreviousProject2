@@ -1,6 +1,11 @@
 #include "domain/pay/Pay.h"
 #include "utill/FunUtil.h"
-#include "domain/user/User.h"
+#include "domain/user/User.h".
+#include "platform\android\jni\JniHelper.h"
+#include "PayEventPointConfig.h"
+#include "domain/user/DeviceInfo.h"
+#include "server/HttpMannger.h"
+#include "utill/JniFunUtill.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
 
 Pay* Pay::_instance = NULL;
@@ -18,102 +23,68 @@ Pay* Pay::getInstance(){
     }
     return _instance;
 }
-void Pay::sendRequestBeforePay(payData data)
+void Pay::Overbooking(int paypoint, int eventPoint)
 {
-	std::vector<std::string> vecs;
-	/*vecs.push_back(NewAtoI(data.pay_event_vesion));
-	vecs.push_back(NewAtoI(data.pay_event_id));
-	vecs.push_back(NewAtoI(data.pay_point_id));
-	vecs.push_back(NewAtoI(data.pay_type));
-	vecs.push_back(NewAtoI(data.pay_result));
-	vecs.push_back(NewAtoI(data.channel_id));
-	vecs.push_back(NewAtoI(data.order_id));*/
-	vecs.push_back("pay_and_event_version=100100");
-	vecs.push_back("pay_event_id=1&");
-	vecs.push_back("pay_point_id=1&");
-	vecs.push_back("pay_type=0&");
-	vecs.push_back("result=0&");
-	vecs.push_back("channel_id=10000&");
-	auto s = String::createWithFormat("session_id=%s&", User::getInstance()->getSessionid().c_str());
-	vecs.push_back(s->getCString());
-	vecs.push_back("order_id=0");
-	/*auto str = SpliceDataForPostHttp(NewAtoI(data.pay_event_vesion), NewAtoI(data.pay_event_id), NewAtoI(data.pay_point_id), NewAtoI(data.pay_type), NewAtoI(data.pay_result), NewAtoI(data.channel_id), NewAtoI(data.order_id));*/
-	auto str = SpliceDataForPostHttp(vecs);
-	HttpClientUtill::getInstance()->onPostHttp(str, PAYPOSTREQUEST, CC_CALLBACK_2(Pay::onHttpRequestCompletedBeforePay, this));
+	int payeventVersion = PayEventPointConfig::getInstance()->getPayeventVersion();
+	int payPointVersion = PayPointConfig::getInstance()->getVersion();
+	auto payPointInfo = PayPointConfig::getInstance()->getPayPointInfoById(paypoint);
+	auto channel_id = DeviceInfo::getChannel_id();
+	auto sessionid = User::getInstance()->getSessionid();
+	HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, payPointVersion * 1000 + payeventVersion, eventPoint, paypoint, channel_id);
+}
 
-}
-void Pay::sendRequestAftetPay(payData data)
+void Pay::pay(payRequest*data, long int orderid)
 {
-	std::vector<std::string> vecs;
-	/*vecs.push_back(NewAtoI(data.pay_event_vesion));
-	vecs.push_back(NewAtoI(data.pay_event_id));
-	vecs.push_back(NewAtoI(data.pay_point_id));
-	vecs.push_back(NewAtoI(data.pay_type));
-	vecs.push_back(NewAtoI(data.pay_result));
-	vecs.push_back(NewAtoI(data.channel_id));
-	vecs.push_back(NewAtoI(data.order_id));*/
-	vecs.push_back("pay_and_event_version=100100");
-	vecs.push_back("pay_event_id=1&");
-	vecs.push_back("pay_point_id=1&");
-	auto s = String::createWithFormat("session_id=%s&", User::getInstance()->getSessionid().c_str());
-	vecs.push_back(s->getCString());
-	vecs.push_back("pay_type=1&");
-	auto str = String::createWithFormat("result=%d&", data.pay_result);
-	vecs.push_back(str->getCString());
-	vecs.push_back("channel_id=10000&");
-	str = String::createWithFormat("order_id=%d&", data.order_id);
-	vecs.push_back(str->getCString());
-	/*auto str = SpliceDataForPostHttp(NewAtoI(data.pay_event_vesion), NewAtoI(data.pay_event_id), NewAtoI(data.pay_point_id), NewAtoI(data.pay_type), NewAtoI(data.pay_result), NewAtoI(data.channel_id), NewAtoI(data.order_id));*/
-	auto strs = SpliceDataForPostHttp(vecs);
-	HttpClientUtill::getInstance()->onPostHttp(strs, PAYPOSTREQUEST, CC_CALLBACK_2(Pay::onHttpRequestCompletedAfterPay, this));
-}
-void Pay::onHttpRequestCompletedBeforePay(HttpClient *sender, HttpResponse *response)
-{
-	payData data;
-	data.pay_type = 1;
-	if (!response)
-	{
-		return;
-	}
-	if (!response->isSucceed())
-	{
-		log("error buffer: %s", response->getErrorBuffer());
-		data.pay_result = -100;
-		return;
-	}
+	nowData = data;
+	nowData->orderID = orderid;
+	auto str = String::createWithFormat("%ld", orderid);
 
-	long statusCode = response->getResponseCode();
-	char statusString[64] = {};
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	data.order_id = doc["order_id"].GetInt();
-	data.pay_result = doc["errorcode"].GetInt();
-	data.channel_id = 10000;
-	data.pay_event_id = 1000;
-	data.pay_point_id = 1000;
-	data.pay_event_vesion = 10001000;
-	data.pay_type = 1;
-	sendRequestAftetPay(data);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	payCallBack(0, "success");
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	return 1;
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	JniFunUtill::getInstance()->pay(PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id).price, str->getCString());
+#endif
 }
-void Pay::onHttpRequestCompletedAfterPay(HttpClient *sender, HttpResponse *response)
+
+
+void Pay::payCallBack(int code, const char* msg)
 {
-	if (!response)
+	if (code == 0)
 	{
-		return;
+		auto info = PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id);
+		//道具处理
+		for (auto var:info.items)
+		{
+			switch (var.ItemID)
+			{
+				case 1:
+					User::getInstance()->addCoins(var.ItemNum);
+					User::getInstance()->setHaveBycoin();
+					break;
+				case 2:
+					User::getInstance()->addDiamonds(var.ItemNum);
+					break;
+				case 3:
+					NobilityManager::getInstance()->addStepsDay(30);
+					break;
+			default:
+				break;
+			}
+		}
+		if (nowData->pay_point_id == 14)
+		{
+			User::getInstance()->setHaveFirstPay();
+		}
+		User::getInstance()->addChargeMoney(info.price / 100);
+		//上传订单结果
+		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, 0, nowData->orderID);
+
 	}
-	if (!response->isSucceed())
-	{
-		log("error buffer: %s", response->getErrorBuffer());
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	char statusString[64] = {};
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+}
+
+PayPointInfo Pay::getInfoByPaypoint(int paypoint)
+{
+	return PayPointConfig::getInstance()->getPayPointInfoById(paypoint);
 }
