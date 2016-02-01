@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.tbu.android.pay.sky.third.PayCallback;
 import com.tbu.android.pay.sky.third.SkyOrderInfo;
 import com.tbu.android.pay.sky.third.SkyThirdPay;
@@ -43,6 +44,16 @@ public class AppActivity extends Cocos2dxActivity {
 		Log.e(sdDir.toString(), "error");
 		return sdDir.toString();
 
-		}
+	}
+	
+	protected void onPause() {
+	    super.onPause();
+	    AVAnalytics.onPause(this);
+	}
+
+	protected void onResume() {
+	    super.onResume();
+	    AVAnalytics.onResume(this);
+	}
 
 }
