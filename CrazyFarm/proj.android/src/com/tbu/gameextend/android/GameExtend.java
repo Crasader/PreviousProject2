@@ -32,4 +32,8 @@ public class GameExtend {
 	public static String getHdType() {
 		return DeviceInfo.getHdType();
 	}
+	
+	public static String getChannelId() {
+		return AppInfo.getChannelId();
+	}
 }
