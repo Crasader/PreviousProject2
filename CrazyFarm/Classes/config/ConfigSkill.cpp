@@ -1,5 +1,6 @@
 #include "config/ConfigSkill.h"
 #include "utill/JniFunUtill.h"
+#include "ConfigDefine.h"
 ConfigSkill* ConfigSkill::_instance = NULL;
 
 ConfigSkill::ConfigSkill(){
@@ -16,10 +17,13 @@ bool ConfigSkill::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
-	#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+if (ISDEBUGCONFIG)
+{	
+	filename += JniFunUtill::getInstance()->getSDcardpath();
+	filename += "/CrazyFarm/";
+	}
+#endif
 		filename += "config/config_skill.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))

@@ -8,25 +8,25 @@ USING_NS_CC;
 class GlobalSchedule: public Node {  
     public:
 		static GlobalSchedule* getInstance();
-		CREATE_FUNC(GlobalSchedule);
 		float getGameTime();
 		float getRoomTime();
+		float getLogEventTime();
 		virtual bool init();
-		virtual void update(float delta);
 
     private:  
         GlobalSchedule();  
-        ~GlobalSchedule(); 
-		void onEnter();
 		
 		void updataByMin(float dt); 
 		
 		void addGameTime(float dt);
 		void addRoomTime(float dt);
-		
+		void addLogEventTime(float dt);
+
+
 		const char*   SCHEDULE_GAMETIME = "SCHEDULE_GAMETIME";
 		const char*   SCHEDULE_ROOMTIME = "SCHEDULE_ROOMTIME";
-       /* static GlobalSchedule* m_pSchedule;  */
+		const char*   SCHEDULE_LOGEVETTIME = "SCHEDULE_LOGEVETTIME";
+        static GlobalSchedule* m_pSchedule;  
 };  
    
 #endif /* GLOBALSCHEDULE_H_ */

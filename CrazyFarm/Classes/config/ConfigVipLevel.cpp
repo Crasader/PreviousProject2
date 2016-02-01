@@ -16,7 +16,7 @@ bool ConfigVipLevel::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&ISDEBUGCONFIG) 
 filename += JniFunUtill::getInstance()->getSDcardpath();
 		filename += "/CrazyFarm/";
 	#endif

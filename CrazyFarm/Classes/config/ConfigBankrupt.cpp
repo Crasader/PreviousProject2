@@ -1,5 +1,6 @@
 #include "config/ConfigBankrupt.h"
 #include "utill/JniFunUtill.h"
+#include "ConfigDefine.h"
 ConfigBankrupt* ConfigBankrupt::_instance = NULL;
 
 ConfigBankrupt::ConfigBankrupt(){
@@ -16,10 +17,13 @@ bool ConfigBankrupt::LoadConfig() {
 	bool bRet = false;
 	while (!bRet) {
 		std::string filename;			
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-		filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
-	#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		if (ISDEBUGCONFIG)
+		{	
+			filename += JniFunUtill::getInstance()->getSDcardpath();
+			filename += "/CrazyFarm/";
+	}
+#endif
 		filename += "config/config_bankrupt.json";
 
 		rapidjson::Document doc;

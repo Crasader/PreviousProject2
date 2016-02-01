@@ -35,8 +35,8 @@
 #include "domain/bankrupt/BankruptManager.h"
 #include "core/GetRewardNode.h"
 #include "domain/logevent//LogEventPageChange.h"
-#include "lobby/ChangeGiftLayer.h"
-#include "domain/globalschedule/TestNode.h"
+#include "lobby/changeGift/ChangeGiftLayer.h"
+
 enum
 {
 	kZorderMenu = 10,
@@ -81,9 +81,8 @@ bool LobbyScene::init()
 
 	/*Director::sharedDirector()->getScheduler()->scheduleUpdateForTarget(GlobalSchedule::getInstance(), 1, false);*/
 
-	auto timenode = TestNode::create();
-	timenode->setPosition(0, 0);
-	addChild(timenode);
+	
+	/*addChild(timenode);*/
 	Audio::getInstance()->playBGM(LOBBYBGM);
 
 

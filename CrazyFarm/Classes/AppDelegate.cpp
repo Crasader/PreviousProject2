@@ -4,6 +4,7 @@
 #include "domain/user/User.h"
 #include "server/HttpMannger.h"
 #include "domain/loading/LoadingScene.h"
+#include "domain/globalschedule/GlobalSchedule.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -79,6 +80,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("game/ui/ranklist");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand(time(NULL));
+	auto timenode = GlobalSchedule::getInstance();
 	// create a scene. it's an autorelease object
 	auto scene = LoadingScene::createScene();
 	

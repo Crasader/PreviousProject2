@@ -1,38 +1,27 @@
 #include "GlobalSchedule.h"  
 #include "domain/logevent/LogEventMannger.h"
 #include "data/GameData.h"
-//GlobalSchedule* GlobalSchedule::m_pSchedule = NULL;  
+#define LOGEVENTINTERVAL 300
+GlobalSchedule* GlobalSchedule::m_pSchedule = NULL;  
    
-GlobalSchedule::GlobalSchedule() {  
-
-} 
-GlobalSchedule::~GlobalSchedule()
-{}
-
+GlobalSchedule::GlobalSchedule() {
+	init();
+}
 
 GlobalSchedule* GlobalSchedule::getInstance(){
-	//if (m_pSchedule == NULL){
-	//	m_pSchedule = new GlobalSchedule();
-	//}
-	//return m_pSchedule;
-	return nullptr;
+	if (m_pSchedule == NULL){
+		m_pSchedule = new GlobalSchedule();
+	}
+	return m_pSchedule;
 }
 
 bool GlobalSchedule::init()
 {
-	this->schedule(schedule_selector(GlobalSchedule::updataByMin), 1.0f);
-	scheduleUpdate();
+	Director::getInstance()->getScheduler()->schedule(schedule_selector(GlobalSchedule::updataByMin), this, 1.0f, false);
 	return true;
 }
-void GlobalSchedule::onEnter()
-{
-	
-	/*_running = true;*/
-}
-void GlobalSchedule::update(float delta)
-{
-	CCLOG("UPDATA TIME");
-}
+
+
 void GlobalSchedule::updataByMin(float dt)
 {
 	if (GameData::getInstance()->getisOnGameScene())
@@ -44,9 +33,11 @@ void GlobalSchedule::updataByMin(float dt)
 		addRoomTime(dt);
 	}
 
+	addLogEventTime(dt);
 
-	if (getGameTime()+getRoomTime()>30)
+	if (getLogEventTime() > LOGEVENTINTERVAL)
 	{
+		addLogEventTime(-getLogEventTime());
 		LogEventMannger::getInstance()->sendMsg();
 	}
 }
@@ -68,4 +59,14 @@ float GlobalSchedule::getGameTime()
 float GlobalSchedule::getRoomTime()
 {
 	return UserDefault::getInstance()->getFloatForKey(SCHEDULE_ROOMTIME);
+}
+
+void GlobalSchedule::addLogEventTime(float dt)
+{
+	UserDefault::getInstance()->setFloatForKey(SCHEDULE_LOGEVETTIME, UserDefault::getInstance()->getFloatForKey(SCHEDULE_LOGEVETTIME, 0) + dt);
+}
+
+float GlobalSchedule::getLogEventTime()
+{
+	return UserDefault::getInstance()->getFloatForKey(SCHEDULE_LOGEVETTIME);
 }

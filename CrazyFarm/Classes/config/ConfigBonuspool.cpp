@@ -1,5 +1,6 @@
 #include "config/ConfigBonuspool.h"
 #include "utill/JniFunUtill.h"
+#include "ConfigDefine.h"
 ConfigBonuspool* ConfigBonuspool::_instance = NULL;
 
 ConfigBonuspool::ConfigBonuspool(){
@@ -18,10 +19,13 @@ bool ConfigBonuspool::LoadConfig() {
 	while (!bRet) {
 
 	std::string filename;			
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-	filename += JniFunUtill::getInstance()->getSDcardpath();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	if (ISDEBUGCONFIG)
+	{
+		filename += JniFunUtill::getInstance()->getSDcardpath();
 		filename += "/CrazyFarm/";
-	#endif
+	}
+#endif
 		filename += "config/config_bonuspool.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))

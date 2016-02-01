@@ -1,5 +1,6 @@
 #include "config/ConfigBox.h"
 #include "utill/JniFunUtill.h"
+#include "ConfigDefine.h"
 ConfigBox* ConfigBox::_instance = NULL;
 
 ConfigBox::ConfigBox(){
@@ -17,10 +18,13 @@ bool ConfigBox::LoadConfig() {
 	while (!bRet) {
 
 	std::string filename;			
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-	filename += JniFunUtill::getInstance()->getSDcardpath();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	if (ISDEBUGCONFIG)
+	{	
+		filename += JniFunUtill::getInstance()->getSDcardpath();
 		filename += "/CrazyFarm/";
-	#endif
+	}
+#endif
 		filename += "config/config_box.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))

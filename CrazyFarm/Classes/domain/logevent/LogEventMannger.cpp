@@ -19,6 +19,7 @@ LogEventMannger* LogEventMannger::getInstance(){
 }
 void LogEventMannger::sendMsg()
 {
+	CCLOG("send logevnt msg");
 	LogEventFish::getInstance()->sendDataToServer();
 	LogEventMagnate::getInstance()->sendDataToServer();
 	LogEventUseSkill::getInstance()->sendDataToServer();

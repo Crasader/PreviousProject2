@@ -1,5 +1,6 @@
 #include "config/ConfigVipTurrent.h"
 #include "domain/user/User.h"
+#include "ConfigDefine.h"
 #include "utill/JniFunUtill.h"
 ConfigVipTurrent* ConfigVipTurrent::_instance = NULL;
 
@@ -18,10 +19,13 @@ bool ConfigVipTurrent::LoadConfig() {
 	while (!bRet) {
 
 std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
-	#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+if (ISDEBUGCONFIG)
+{	
+	filename += JniFunUtill::getInstance()->getSDcardpath();
+	filename += "/CrazyFarm/";
+	}
+#endif
 		filename += "config/config_vip_turrent.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))

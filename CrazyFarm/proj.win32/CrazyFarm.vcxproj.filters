@@ -118,6 +118,9 @@
     <Filter Include="src\lobby\room">
       <UniqueIdentifier>{c2fa4a29-47c5-44a6-b6ee-679538fb308a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\lobby\changeGift">
+      <UniqueIdentifier>{14384839-a6d7-460c-b77c-842240665683}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -588,14 +591,14 @@
     <ClCompile Include="..\Classes\domain\globalschedule\GlobalSchedule.cpp">
       <Filter>src\mannager</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\lobby\ChangeGiftLayer.cpp">
-      <Filter>src\lobby</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\domain\logevent\LogEventMannger.cpp">
       <Filter>src\logevent</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\domain\globalschedule\TestNode.cpp">
-      <Filter>src\lobby</Filter>
+    <ClCompile Include="..\Classes\lobby\changeGift\ChangeGiftLayer.cpp">
+      <Filter>src\lobby\changeGift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\changeGift\ChangeGiftCell.cpp">
+      <Filter>src\lobby\changeGift</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1073,11 +1076,14 @@
     <ClInclude Include="..\Classes\domain\globalschedule\GlobalSchedule.h">
       <Filter>src\mannager</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\lobby\ChangeGiftLayer.h">
-      <Filter>src\lobby</Filter>
+    <ClInclude Include="..\Classes\lobby\changeGift\ChangeGiftLayer.h">
+      <Filter>src\lobby\changeGift</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\domain\globalschedule\TestNode.h">
-      <Filter>src\lobby</Filter>
+    <ClInclude Include="..\Classes\lobby\changeGift\ChangeGiftCell.h">
+      <Filter>src\lobby\changeGift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigDefine.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

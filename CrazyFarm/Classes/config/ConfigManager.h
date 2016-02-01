@@ -4,7 +4,7 @@
 #include "json/document.h"
 #include "json/stringbuffer.h"
 #include "json/writer.h"
-#define configDEBUG 0;
+
 USING_NS_CC;
 
 
@@ -17,7 +17,7 @@ public:
     
 	void LoadConfig();
 
-    
+	bool isDebugConfig(){ return true; };
 private:
 	static ConfigManager* _instance;
 };

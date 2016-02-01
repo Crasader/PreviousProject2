@@ -1,6 +1,6 @@
 #include "domain/gameConfig/gameConfig.h"
 #include "utill/JniFunUtill.h"
-
+#include "config/ConfigDefine.h"
 GameConfig* GameConfig::_instance = NULL;
 
 GameConfig::GameConfig(){
@@ -11,9 +11,12 @@ bool GameConfig::loadConfig(){
 	bool bRet = false;
 	while (!bRet) {
 		std::string filename;
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-		filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		if (ISDEBUGCONFIG)
+		{	
+			filename += JniFunUtill::getInstance()->getSDcardpath();
+			filename += "/CrazyFarm/";
+	}
 #endif
 	filename += "config/config_game.json";
 		rapidjson::Document doc;

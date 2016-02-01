@@ -1,5 +1,6 @@
 #include "config/ConfigRoom.h"
 #include "utill/JniFunUtill.h"
+#include "ConfigDefine.h"
 ConfigRoom* ConfigRoom::_instance = NULL;
 
 ConfigRoom::ConfigRoom(){
@@ -17,9 +18,12 @@ bool ConfigRoom::LoadConfig() {
     while (!bRet) {
         
         	std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-			filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+			if (ISDEBUGCONFIG)
+			{	
+				filename += JniFunUtill::getInstance()->getSDcardpath();
+				filename += "/CrazyFarm/";
+			}
 	#endif
 		filename += "config/config_room.json";
      

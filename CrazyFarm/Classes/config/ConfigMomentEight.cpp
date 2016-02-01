@@ -1,5 +1,6 @@
 #include "config/ConfigMomentEight.h"
 #include "utill/JniFunUtill.h"
+#include "ConfigDefine.h"
 ConfigMomentEight* ConfigMomentEight::_instance = NULL;
 
 ConfigMomentEight::ConfigMomentEight(){
@@ -56,10 +57,13 @@ bool ConfigMomentEight::LoadConfigType1() {
     while (!bRet) {
 
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-				filename += JniFunUtill::getInstance()->getSDcardpath();
-				filename += "/CrazyFarm/";
-	#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				if (ISDEBUGCONFIG)
+				{	
+					filename += JniFunUtill::getInstance()->getSDcardpath();
+					filename += "/CrazyFarm/";
+	}
+#endif
 		filename += "config/config_eight_type1.json";
         rapidjson::Document doc;
         if (!FileUtils::getInstance()->isFileExist(filename))
@@ -111,10 +115,13 @@ bool ConfigMomentEight::LoadConfigType2() {
         
         
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-				filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
-	#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				if (ISDEBUGCONFIG)
+				{	
+					filename += JniFunUtill::getInstance()->getSDcardpath();
+					filename += "/CrazyFarm/";
+	}
+#endif
 		filename += "config/config_eight_type2.json";
         rapidjson::Document doc;
         if (!FileUtils::getInstance()->isFileExist(filename))
@@ -165,10 +172,13 @@ bool ConfigMomentEight::LoadConfigType3() {
     while (!bRet) {
         
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-				filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
-	#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				if (ISDEBUGCONFIG)
+				{	
+					filename += JniFunUtill::getInstance()->getSDcardpath();
+					filename += "/CrazyFarm/";
+	}
+#endif
 		filename += "config/config_eight_type3.json";
        
         rapidjson::Document doc;
@@ -220,10 +230,13 @@ bool ConfigMomentEight::LoadConfigType4() {
 
 		
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-				filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
-	#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				if (ISDEBUGCONFIG)
+				{	
+					filename += JniFunUtill::getInstance()->getSDcardpath();
+					filename += "/CrazyFarm/";
+	}
+#endif
 		filename += "config/config_eight_type4.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
@@ -275,10 +288,13 @@ bool ConfigMomentEight::LoadConfigType5() {
 
 		
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-				filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
-	#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				if (ISDEBUGCONFIG)
+				{	
+					filename += JniFunUtill::getInstance()->getSDcardpath();
+					filename += "/CrazyFarm/";
+	}
+#endif
 		filename += "config/config_eight_type5.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
@@ -329,10 +345,13 @@ bool ConfigMomentEight::LoadConfigType6() {
 
 		
         		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID&&configDEBUG) 
-				filename += JniFunUtill::getInstance()->getSDcardpath();
-		filename += "/CrazyFarm/";
-	#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				if (ISDEBUGCONFIG)
+				{	
+					filename += JniFunUtill::getInstance()->getSDcardpath();
+					filename += "/CrazyFarm/";
+	}
+#endif
 		filename += "config/config_eight_type6.json";
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))

@@ -188,7 +188,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\gameConfig\gameConfig.cpp" />
     <ClCompile Include="..\Classes\domain\game\GameManage.cpp" />
     <ClCompile Include="..\Classes\domain\globalschedule\GlobalSchedule.cpp" />
-    <ClCompile Include="..\Classes\domain\globalschedule\TestNode.cpp" />
     <ClCompile Include="..\Classes\domain\loading\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\domain\logevent\LogEventBankrupt.cpp" />
     <ClCompile Include="..\Classes\domain\logevent\LogEventFish.cpp" />
@@ -238,7 +237,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\lobby\bag\ShowGiftLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\ShowSkillLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\TwiceSureBuySkill.cpp" />
-    <ClCompile Include="..\Classes\lobby\ChangeGiftLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\changeGift\ChangeGiftCell.cpp" />
+    <ClCompile Include="..\Classes\lobby\changeGift\ChangeGiftLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\FeedbackLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\FirstPayLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp" />
@@ -306,6 +306,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\config\ConfigBox.h" />
     <ClInclude Include="..\Classes\config\ConfigChest.h" />
     <ClInclude Include="..\Classes\config\ConfigDebugTest.h" />
+    <ClInclude Include="..\Classes\config\ConfigDefine.h" />
     <ClInclude Include="..\Classes\config\ConfigExp.h" />
     <ClInclude Include="..\Classes\config\ConfigFish.h" />
     <ClInclude Include="..\Classes\config\ConfigFishCollisionRange.h" />
@@ -349,7 +350,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\gameConfig\gameConfig.h" />
     <ClInclude Include="..\Classes\domain\game\GameManage.h" />
     <ClInclude Include="..\Classes\domain\globalschedule\GlobalSchedule.h" />
-    <ClInclude Include="..\Classes\domain\globalschedule\TestNode.h" />
     <ClInclude Include="..\Classes\domain\loading\LoadingScene.h" />
     <ClInclude Include="..\Classes\domain\logevent\LogEventBankrupt.h" />
     <ClInclude Include="..\Classes\domain\logevent\LogEventFish.h" />
@@ -399,7 +399,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\lobby\bag\ShowGiftLayer.h" />
     <ClInclude Include="..\Classes\lobby\bag\ShowSkillLayer.h" />
     <ClInclude Include="..\Classes\lobby\bag\TwiceSureBuySkill.h" />
-    <ClInclude Include="..\Classes\lobby\ChangeGiftLayer.h" />
+    <ClInclude Include="..\Classes\lobby\changeGift\ChangeGiftCell.h" />
+    <ClInclude Include="..\Classes\lobby\changeGift\ChangeGiftLayer.h" />
     <ClInclude Include="..\Classes\lobby\FeedbackLayer.h" />
     <ClInclude Include="..\Classes\lobby\FirstPayLayer.h" />
     <ClInclude Include="..\Classes\lobby\LobbyScene.h" />
