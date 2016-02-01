@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.tbu.android.pay.sky.third.PayCallback;
 import com.tbu.android.pay.sky.third.SkyOrderInfo;
 import com.tbu.android.pay.sky.third.SkyThirdPay;
@@ -25,7 +26,7 @@ public class AppActivity extends Cocos2dxActivity {
 		SkyThirdPay.getInstance().pay(this, skyOrderInfo, new PayCallback(){
 			@Override
 			public void result(int code, String msg) {
-				// TODO : æ˜¾ç¤ºç»“æžœ
+				// TODO : æ˜¾ç¤ºç»“æžœï¼Œå¹¶å°†ç»“æžœè¿”å›žåº”ç”¨
 				Toast.makeText(AppActivity.this, "code = " + code + ";msg = " + msg,
 						Toast.LENGTH_LONG).show();
 			}
@@ -35,14 +36,24 @@ public class AppActivity extends Cocos2dxActivity {
 	public  static String getSDPath(){
 		File sdDir = null;
 		boolean sdCardExist = Environment.getExternalStorageState()
-		.equals(android.os.Environment.MEDIA_MOUNTED); //ÅÐ¶Ïsd¿¨ÊÇ·ñ´æÔÚ
+		.equals(android.os.Environment.MEDIA_MOUNTED);
 		if (sdCardExist)
 		{
-		sdDir = Environment.getExternalStorageDirectory();//»ñÈ¡¸úÄ¿Â¼
+		sdDir = Environment.getExternalStorageDirectory();
 		}
 		Log.e(sdDir.toString(), "error");
 		return sdDir.toString();
 
-		}
+	}
+	
+	protected void onPause() {
+	    super.onPause();
+	    AVAnalytics.onPause(this);
+	}
+
+	protected void onResume() {
+	    super.onResume();
+	    AVAnalytics.onResume(this);
+	}
 
 }
