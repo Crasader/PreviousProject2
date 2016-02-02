@@ -107,11 +107,11 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 }
 
 
-void HttpMannger::HttpToPostRequestBeforePay(std::string sessionid,int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id,int result ,long int orderid,int paytype)
+void HttpMannger::HttpToPostRequestBeforePay(std::string sessionid,int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id,int price,int result ,long int orderid,int paytype)
 {
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_PAY);
-	auto requstData = String::createWithFormat("session_id=%s&pay_and_event_version=%d&pay_event_id=%d&pay_point_id=%d&channel_id=%s&pay_type=%d&result=%d&order_id=%ld",
-		sessionid.c_str(), pay_and_Event_version, pay_event_id, pay_point_id, channel_id.c_str(), paytype,result,orderid);
+	auto requstData = String::createWithFormat("session_id=%s&pay_and_event_version=%d&pay_event_id=%d&pay_point_id=%d&channel_id=%s&price=%d&pay_type=%d&result=%d&order_id=%ld",
+		sessionid.c_str(), pay_and_Event_version, pay_event_id, pay_point_id, channel_id.c_str(),price, paytype,result,orderid);
 	payRequest* quest = new payRequest();
 	quest->pay_and_Event_version = pay_and_Event_version;
 	quest->channel_id = channel_id;
@@ -156,11 +156,11 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 	
 
 }
-void HttpMannger::HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int result, long int orderid, int paytype )
+void HttpMannger::HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price,int result, long int orderid, int paytype )
 {
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_PAY);
-	auto requstData = String::createWithFormat("session_id=%s&pay_and_event_version=%d&pay_event_id=%d&pay_point_id=%d&channel_id=%s&pay_type=%d&result=%d&order_id=%ld",
-		sessionid.c_str(), pay_and_Event_version, pay_event_id, pay_point_id, channel_id.c_str(), paytype, result, orderid);
+	auto requstData = String::createWithFormat("session_id=%s&pay_and_event_version=%d&pay_event_id=%d&pay_point_id=%d&channel_id=%s&price=%d&pay_type=%d&result=%d&order_id=%ld",
+		sessionid.c_str(), pay_and_Event_version, pay_event_id, pay_point_id, channel_id.c_str(),price, paytype, result, orderid);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForAfterPay, this));
 }
 

@@ -30,7 +30,8 @@ void Pay::Overbooking(int paypoint, int eventPoint)
 	auto payPointInfo = PayPointConfig::getInstance()->getPayPointInfoById(paypoint);
 	auto channel_id = DeviceInfo::getChannel_id();
 	auto sessionid = User::getInstance()->getSessionid();
-	HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, payPointVersion * 1000 + payeventVersion, eventPoint, paypoint, channel_id);
+	int price = payPointInfo.price;
+	HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, payPointVersion * 1000 + payeventVersion, eventPoint, paypoint, channel_id, price);
 }
 
 void Pay::pay(payRequest*data, long int orderid)
@@ -79,7 +80,7 @@ void Pay::payCallBack(int code, const char* msg)
 		}
 		User::getInstance()->addChargeMoney(info.price / 100);
 		//上传订单结果
-		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, 0, nowData->orderID);
+		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,0, nowData->orderID);
 
 	}
 }

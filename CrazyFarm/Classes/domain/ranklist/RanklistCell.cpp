@@ -17,7 +17,7 @@ bool RanklistCell::init(){
 	rankSprite->setVisible(false);
 	addChild(rankSprite);
 
-	rankIndexTTF = LabelAtlas::create("0", "rankListNum.png", 26, 36, '0');
+	rankIndexTTF = LabelAtlas::create("0", "rankListNum2.png", 26, 36, '0');
 	rankIndexTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	rankIndexTTF->setPosition(45, size.height / 2);
 	rankIndexTTF->setVisible(false);
@@ -100,7 +100,7 @@ void RanklistCell::setCoinValue(int index)
 	auto str = String::createWithFormat("%ld", item.coin);
 	CoinNumTTF->setString(str->getCString());
 	NameTTF->setString(Value(item.name).asString().c_str());
-	str = ((item.gender== 1) ? String::createWithFormat("bagFamale.png") : String::createWithFormat("bagmale.png"));///缺少性别接口
+	str = ((item.gender== 0) ? String::createWithFormat("bagFamale.png") : String::createWithFormat("bagmale.png"));///缺少性别接口
 	sexSprite->setTexture(str->getCString());
 	if (index + 1 <= 3)
 	{
@@ -135,8 +135,7 @@ void RanklistCell::setExpValue(int index)
 	auto str = String::createWithFormat("%ld", item.coin);
 	CoinNumTTF->setString(str->getCString());
 	NameTTF->setString(Value(item.name).asString().c_str());
-	int k = rand() % 2;
-	str = ((k == 1) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));///缺少性别接口
+	str = ((item.gender == 0) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));///缺少性别接口
 	sexSprite->setTexture(str->getCString());
 
 

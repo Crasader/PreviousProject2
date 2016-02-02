@@ -13,7 +13,8 @@ enum TouchType
 	TouchInNormal,
 	TouchInLock,
 	TouchInBoom,
-	TouchInAutoShoot
+	TouchInAutoShoot,
+	TouchInLight
 };
 
 class GameLayer: public cocos2d::Layer{
@@ -45,13 +46,17 @@ private:
 	//Updata
 	void collisionUpdate(float dt);
 	void update(float dt);
-
+	//¼¤¹â
+public:
+	void beginLight();
+	void endLight();
+	void LightUpdata(float dt);
+	bool lightTouchEvent(Touch *touch, Event  *event){ return true; };
  //Ëø¶¨
 public:
 	void beginLock();
 	void endLock();
 private:
-   
 	void LockUpdata(float dt);
 	bool lockTouchEvent(Touch *touch, Event  *event);
 	CC_SYNTHESIZE(bool, bIsOnSkillLock, bisOnSkillLock);

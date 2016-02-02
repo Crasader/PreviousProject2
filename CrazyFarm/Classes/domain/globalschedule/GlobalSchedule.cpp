@@ -38,7 +38,7 @@ void GlobalSchedule::updataByMin(float dt)
 	if (getLogEventTime() > LOGEVENTINTERVAL)
 	{
 		addLogEventTime(-getLogEventTime());
-		LogEventMannger::getInstance()->sendMsg();
+	/*	LogEventMannger::getInstance()->sendMsg();*/
 	}
 }
 

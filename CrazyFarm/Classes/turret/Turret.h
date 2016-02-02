@@ -13,6 +13,9 @@ public:
 	  void initWithType(int type); 
 	  void upgradeTurret();
 	  void degradeTurret();
+
+	  void changeToLightTurret();
+	  void changeToNormalTurret();
 	  void shoot();
 	  Point getTampionPos(){ return emptySp->convertToWorldSpace(Point(0, 0)); }
 private:

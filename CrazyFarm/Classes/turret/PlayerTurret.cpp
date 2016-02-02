@@ -425,7 +425,101 @@ void PlayerTurret::refreshTurretInfo()
 {
 	initTurretWithType();
 }
+void PlayerTurret::setLightFish(Fish* fish)
+{
+	lightFish = fish;
+	if (fish == nullptr)
+	{
+		if (aniFishLockNode)
+		{
+			aniFishLockNode->removeFromParentAndCleanup(1);
+			aniFishLockNode = nullptr;
+		}
+		return;
+	}
 
+	if (aniFishLockNode)
+	{
+		if (aniFishLockNode->getParent() == NULL)
+		{
+			aniFishLockNode->removeAllChildrenWithCleanup(1);
+		}
+	}
+
+	aniFishLockNode = Sprite::create();
+	aniFishLockNode->setPosition(fish->getContentSize() / 2);
+	fish->addChild(aniFishLockNode);
+	aniFishLockNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniFishLock")));
+}
+
+void PlayerTurret::rorateAndShootOnlight(float dt)
+{
+	if (lightFish == nullptr)
+	{
+		return;
+	}
+	if (!isRobot&&GameData::getInstance()->getisOnBankrupt())
+	{
+		return;
+	}
+	auto pos = lightFish->getPosition();
+	float degree = GameLayer::getTurretRotation(getPosition(), pos);
+	rorateTurret(degree);
+	shootOnLight(dt);
+}
+void PlayerTurret::shootOnLight(float dt)
+{
+
+}
+
+void PlayerTurret::beginLightShoot()
+{
+	m_turret->changeToLightTurret();
+	auto aniNode = Sprite::create();
+	aniNode->setPosition(convertToWorldSpace(m_turret->getPosition()));
+	getParent()->addChild(aniNode, 7, "aniTurretLight");
+	aniNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniJiGuangBottom")));
+	jiguangSp = Sprite::create("");
+	schedule(schedule_selector(PlayerTurret::rorateAndShootOnlight), 0.0f);
+}
+void PlayerTurret::endLightShoot()
+{
+	m_turret->changeToNormalTurret();
+	getParent()->getChildByName("aniTurretLight")->removeFromParentAndCleanup(1);
+	if (aniFishLightNode&&aniFishLightNode->getParent())
+	{
+		aniFishLightNode->removeFromParentAndCleanup(1);
+	}
+	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlight));
+}
+
+
+void PlayerTurret::setLockFish(Fish* fish)
+{
+	lockFish = fish;
+	if (fish == nullptr)
+	{
+		if (aniFishLockNode)
+		{
+			aniFishLockNode->removeFromParentAndCleanup(1);
+			aniFishLockNode = nullptr;
+		}
+		return;
+	}
+
+	if (aniFishLockNode)
+	{
+		if (aniFishLockNode->getParent() == NULL)
+		{
+			aniFishLockNode->removeAllChildrenWithCleanup(1);
+		}
+	}
+
+	aniFishLockNode = Sprite::create();
+	aniFishLockNode->setPosition(fish->getContentSize() / 2);
+	fish->addChild(aniFishLockNode);
+	aniFishLockNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniFishLock")));
+}
 
 void PlayerTurret::beginLockShoot()
 {
@@ -438,9 +532,9 @@ void PlayerTurret::beginLockShoot()
 void PlayerTurret::endLockShoot()
 {
 	getChildByName("aniTurretLock")->removeFromParentAndCleanup(1);
-	if (aniFishNode&&aniFishNode->getParent())
+	if (aniFishLockNode&&aniFishLockNode->getParent())
 	{
-		aniFishNode->removeFromParentAndCleanup(1);
+		aniFishLockNode->removeFromParentAndCleanup(1);
 	}
 	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlock));
 }
@@ -547,32 +641,6 @@ void PlayerTurret::shootOnAuto(float dt){
 	costMoney();
 }
 
-void PlayerTurret::setLockFish(Fish* fish)
-{
-	lockFish = fish;
-	if (fish == nullptr)
-	{
-		if (aniFishNode)
-		{
-			aniFishNode->removeFromParentAndCleanup(1);
-			aniFishNode = nullptr;
-		}
-		return;
-	}
-	
-	if (aniFishNode)
-	{	
-		if (aniFishNode->getParent() == NULL)
-		{
-			aniFishNode->removeAllChildrenWithCleanup(1);
-		}
-	}
-
-	aniFishNode = Sprite::create();
-	aniFishNode->setPosition(fish->getContentSize() / 2);
-	fish->addChild(aniFishNode);
-	aniFishNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniFishLock")));
-}
 
 
 

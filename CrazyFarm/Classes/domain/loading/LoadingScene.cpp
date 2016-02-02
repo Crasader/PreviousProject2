@@ -27,7 +27,7 @@ bool LoadingScene::init()
 	{
 		return false;
 	}
-	auto bg = Sprite::create("lobbyBG.png");
+	auto bg = Sprite::create("SkyHappyNewYera.png");
 	bg->setPosition(480, 270);
 	addChild(bg);
 	
@@ -70,6 +70,7 @@ void LoadingScene::loadRes()
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("game_scene_frame.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("unlock_cannon_frame.plist");
 	///load ani
+	//大厅动画
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/water/aniWater%d.jpg", "aniWater", 3.0f, 30);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.5f, 5);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bubble/aniBubble%d.png", "aniBubble", 4.6f, 46);
@@ -99,6 +100,9 @@ void LoadingScene::loadRes()
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/lobbyfish1/TX_YU_%d.png", "aniLobbyFish1", 1.6f, 16);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/lobbyfish2/TX_YU2_%d.png", "aniLobbyFish2", 1.4f, 14);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/lobbyfish3/TX_YU3_%d.png", "aniLobbyFish3", 0.9f, 9);
+	//游戏内动画
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_DianGuang/TX_DianGuang_%d.png", "aniJiGuangBottom", 0.4f, 6);
+	
 	//load fish ani
 	int i = 1;
 	for (int i = 1; i < 100; i++)

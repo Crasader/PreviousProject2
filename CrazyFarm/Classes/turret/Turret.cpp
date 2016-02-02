@@ -14,6 +14,7 @@ void Turret::initWithType(int type){
 	auto path = String::createWithFormat("game/ui/turret/pao_%d.png", type);
 	initWithFile(path->getCString());
 	setScale(SCALETURRET);
+	turretType = type;
 	if (emptySp)
 	{
 		emptySp->removeAllChildrenWithCleanup(1);
@@ -42,4 +43,16 @@ void Turret::upgradeTurret()
 void Turret::degradeTurret()
 {
 	///½µ¼¶ÅÚËþ
+}
+
+
+void Turret::changeToLightTurret()
+{
+	auto str = String::createWithFormat("lightPao.png");
+	setTexture(str->getCString());
+}
+void Turret::changeToNormalTurret()
+{
+	auto path = String::createWithFormat("game/ui/turret/pao_%d.png", turretType);
+	setTexture(path->getCString());
 }

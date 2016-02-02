@@ -55,7 +55,7 @@ void PayCell::setValue(int goodId)
 void PayCell::setDiamondValue(int goodId)
 {
 	setgoodID(goodId);
-	m_payPointID = payCoinPoint[goodId - 1];
+	m_payPointID = payDiamondPoint[goodId - 1];
 	m_PayType = 2;
 	auto spPath = String::createWithFormat("diamond_%d.png", goodId);
 	paySprite->setTexture(spPath->getCString());

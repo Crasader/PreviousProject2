@@ -360,6 +360,18 @@ void GameLayer::RefreShmyPlayerTurret()
 	myTurret->refreshTurretInfo();
 }
 
+void GameLayer::beginLight()
+{
+	m_lasttouchType = m_touchType;
+	myTurret->beginLockShoot();
+	changeTouchFunByTouchType(TouchInLock);
+}
+void GameLayer::endLight()
+{
+	myTurret->endLockShoot();
+	changeTouchFunByTouchType(m_lasttouchType);
+}
+
 void GameLayer::beginLock()
 {
 	m_lasttouchType = m_touchType;
@@ -371,7 +383,6 @@ void GameLayer::endLock()
 	myTurret->endLockShoot();
 	changeTouchFunByTouchType(m_lasttouchType);
 }
-
 
 void GameLayer::beginSkillBoom()
 {
@@ -464,6 +475,9 @@ void GameLayer::changeTouchFunByTouchType(TouchType type)
 		break;
 	case TouchInAutoShoot:
 		touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::AutoShootTouchEvent, this);
+		break;
+	case TouchInLight:
+		touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::lightTouchEvent, this);
 		break;
 	default:
 		break;

@@ -1,29 +1,54 @@
-{	
-	"describe"	: "随机鱼产生配置,鱼群" ,
-	"version"	: 1,
-	"interval_time_start" : 95,
-	"interval_time_end"   : 105,
-			"count_start" : 1,
-			"count_end"   : 3,
-	"item_list"	:	[
-		{
-			"fish_id"	: 101,
-			"per"			: 30
-		},
-		{
-			"fish_id"	: 102,
-			"per"			: 30
-		},
-		{
-			"fish_id"	: 103,
-			"per"			: 20
-		},
-		{
-			"fish_id"	: 104,
-			"per"			: 20
-		}
-	]
+{
+    "describe": "随机鱼产生配置,鱼群",
+    "version": 1,
+    "launching_points": [
+        {
+            "interval_time_start": 118,
+            "interval_time_end": 122,
+            "count_start": 1,
+            "count_end": 1,
+            "item_list": [
+                {
+                    "fish_id": 101,
+                    "per": 30
+                },
+                {
+                    "fish_id": 102,
+                    "per": 30
+                },
+                {
+                    "fish_id": 103,
+                    "per": 20
+                },
+                {
+                    "fish_id": 104,
+                    "per": 20
+                }
+            ]
+        },
+        {
+            "interval_time_start": 118,
+            "interval_time_end": 122,
+            "count_start": 1,
+            "count_end": 1,
+            "item_list": [
+                {
+                    "fish_id": 101,
+                    "per": 30
+                },
+                {
+                    "fish_id": 102,
+                    "per": 30
+                },
+                {
+                    "fish_id": 103,
+                    "per": 20
+                },
+                {
+                    "fish_id": 104,
+                    "per": 20
+                }
+            ]
+        }
+    ]
 }
-
-
-

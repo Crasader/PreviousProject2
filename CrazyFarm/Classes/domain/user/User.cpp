@@ -181,7 +181,7 @@ void User::syncInfo()
 	auto diomad =getDiamonds();
 	auto exp =getExp();
 	auto lv = getMaxTurrentLevel();
-	auto mo = getChargeMoney();
+	auto mo = getChargeMoney()*100;
 	auto count = getNobillityCount();
 	HttpMannger::getInstance()->HttpToPostRequestSyncInfo(sessionid, coin, diomad, exp, lv, mo, count);
 }

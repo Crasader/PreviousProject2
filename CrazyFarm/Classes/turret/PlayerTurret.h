@@ -36,11 +36,21 @@ public:
 	  void setUpgradeButton();
 	  void rorateTurret(float angle);
 	  void shoot(float);
+	  //闪电射击
+	  void beginLightShoot();
+	  void endLightShoot();
+	  void rorateAndShootOnlight(float dt);
+	  void shootOnLight(float dt);
+	  void setLightFish(Fish* fish);
+	  Fish*getLightFish(){ return lightFish; };
+	  Sprite* jiguangSp;
 	  //锁定射击
 	  void beginLockShoot();
 	  void endLockShoot();
 	  void rorateAndShootOnlock(float dt);
 	  void shootOnLock(float dt);
+	  void setLockFish(Fish* fish);
+	  Fish*getLockFish(){ return lockFish; };
 	  ///自动射击
 	  void beginAutoShoot();
 	  void endAutoShoot();
@@ -62,8 +72,6 @@ public:
 	 
 	  ///更新炮塔信息
 	  void refreshTurretInfo();
-	  void setLockFish(Fish* fish);
-	  Fish*getLockFish(){ return lockFish; };
 	  //显示玩家信息
 	  bool onTurretTouch(Point pos);
 	  bool isTurretBeTouch(Point pos);
@@ -95,7 +103,9 @@ private:
 	  int nNowMoney;
 	  RoomPlayer* m_robotData;
 	  Fish* lockFish = nullptr;
+	  Fish* lightFish = nullptr;
 	  CC_SYNTHESIZE(Point, targetPos, TargetPos);
 	  CC_SYNTHESIZE(bool, m_isShowInfo, IsShowInfo);
-	  Sprite* aniFishNode=NULL;
+	  Sprite* aniFishLockNode = NULL;
+	  Sprite*aniFishLightNode = NULL;
 };

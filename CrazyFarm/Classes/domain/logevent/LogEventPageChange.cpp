@@ -55,22 +55,42 @@ std::string LogEventPageChange::getDataForJson()
 
 void LogEventPageChange::sendDataToServer()
 {
-	HttpMannger::getInstance()->HttpToPostRequestLogEvent(getDataForJson(),6);
+	auto jsonstr = getDataForJson();
+	if (jsonstr.size()>0)
+	{
+		HttpMannger::getInstance()->HttpToPostRequestLogEvent(jsonstr, 6);
+	}
+	
+	items.clear();
 }
 
 void LogEventPageChange::addEventItems(int from_page, int to_page, int channel)
 {
+
+	for (auto &var:items)
+	{
+		if (var.from_page == from_page&&var.channel==channel&&var.to_page==to_page)
+		{
+			var.num++;
+		}
+	}
+	EventPageChange info;
+	info.from_page = from_page;
+	info.to_page = to_page;
+	info.channel = channel;
+	info.num = 1;
+	items.push_back(info);/*
 	auto str = String::createWithFormat("%s%d%d%d", EventPageChangeNum, from_page, to_page, channel);
 	auto localdata = UserDefault::getInstance();
 	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
-	CCLOG("add loevetPageChange: from_page = %d,to_page = %d,channel=%d", from_page, to_page, channel);
+	CCLOG("add loevetPageChange: from_page = %d,to_page = %d,channel=%d", from_page, to_page, channel);*/
 }
 
 void LogEventPageChange::loadLocalData()
 {
 	items.clear();
 	//i:from_page, j: to_page, k: channel
-	for (int i = 1; i <= 13; i++)
+	/*for (int i = 1; i <= 13; i++)
 	{
 		for (int j = 1; j <= 13; j++)
 		{
@@ -90,13 +110,13 @@ void LogEventPageChange::loadLocalData()
 			
 		}
 
-	}
+	}*/
 }
 
 void LogEventPageChange::clearLocalData()
 {
 	//i:from_page, j: to_page, k: channel
-	for (int i = 1; i <= 13; i++)
+	/*for (int i = 1; i <= 13; i++)
 	{
 		for (int j = 1; j <= 13; j++)
 		{
@@ -108,10 +128,10 @@ void LogEventPageChange::clearLocalData()
 				item.channel = k;
 				auto str = String::createWithFormat("%s%d%d%d", EventPageChangeNum, item.from_page, item.to_page, item.channel);
 				UserDefault::getInstance()->setIntegerForKey(str->getCString(), 0);
-			
+
 			}
 
 		}
 
-	}
+	}*/
 }

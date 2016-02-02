@@ -476,7 +476,7 @@ void LobbyScene::RankListCallback(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
 	RanklistManager::getInstance()->loadConfig();
-	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([&]
+	runAction(Sequence::create(DelayTime::create(2.0f), CallFunc::create([&]
 	{
 		if (RanklistManager::getInstance()->IsSuccess())
 		{

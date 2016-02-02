@@ -32,6 +32,8 @@ public:
 	void addFishUserCostCoin(int fishid, int coin);
 	void sendDataToServer();
 
+	void sendLocaLData();
+	void sendMemoryData();
 	
 private:
 	void loadLocalData();

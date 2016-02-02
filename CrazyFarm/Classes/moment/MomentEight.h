@@ -12,17 +12,8 @@ public:
 	virtual bool updata(float dt);
 private:
 	MomentEightItemPer getFishByRandVec(std::vector<MomentEightItemPer> momentEightItemPers);
-	float fTemp1;
-	float fTemp2;
-	float fTemp3;
-	float fTemp4;
-	float fTemp5;
-	float fTemp6;
 	float nNowTime = 0;
-	MomentEightItem momentEightItemType1;
-	MomentEightItem momentEightItemType2;
-	MomentEightItem momentEightItemType3;
-	MomentEightItem momentEightItemType4;
-	MomentEightItem momentEightItemType5;
-	MomentEightItem momentEightItemType6;
+	float life_time;
+	std::vector<MomentEightItem>  momentEightItemType[5];
+
 };

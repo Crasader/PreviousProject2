@@ -19,13 +19,12 @@ bool ConfigMomentEight::LoadConfig() {
 	LoadConfigType3();
 	LoadConfigType4();
 	LoadConfigType5();
-	LoadConfigType6();
-    return true;
+	return true;
 }
 
 
 
-MomentEightItem ConfigMomentEight::getMomentEightItemByTypeId(int typeId) {
+std::vector<MomentEightItem> ConfigMomentEight::getMomentEightItemByTypeId(int typeId) {
 	switch (typeId)
 	{
 	case 1:
@@ -43,9 +42,6 @@ MomentEightItem ConfigMomentEight::getMomentEightItemByTypeId(int typeId) {
 	case 5:
 		return momentEightItemType5;
 		break;
-	case 6:
-		return momentEightItemType6;
-		break;
 	default:
 		break;
 	}
@@ -53,189 +49,203 @@ MomentEightItem ConfigMomentEight::getMomentEightItemByTypeId(int typeId) {
 }
 
 bool ConfigMomentEight::LoadConfigType1() {
-    bool bRet = false;
-    while (!bRet) {
+	bool bRet = false;
+	while (!bRet) {
 
-        		std::string filename;	
+		std::string filename;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-				if (ISDEBUGCONFIG)
-				{	
-					filename += JniFunUtill::getInstance()->getSDcardpath();
-					filename += "/CrazyFarm/";
-	}
+		if (ISDEBUGCONFIG)
+		{	
+			filename += JniFunUtill::getInstance()->getSDcardpath();
+			filename += "/CrazyFarm/";
+		}
 #endif
 		filename += "config/config_eight_type1.json";
-        rapidjson::Document doc;
-        if (!FileUtils::getInstance()->isFileExist(filename))
-        {
-            break;
-        }
-        
-        std::string data = FileUtils::getInstance()->getStringFromFile(filename);
-        doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
-        if (doc.HasParseError())
-        {
-            log("ConfigMomentEight get json data err!");
-            break;
-        }
-        
-        momentEightItemType1.life_time = doc["life_time"].GetInt();
-        momentEightItemType1.interval_time_start = doc["interval_time_start"].GetDouble();
-        momentEightItemType1.interval_time_end = doc["interval_time_end"].GetDouble();
-		momentEightItemType1.fish_startcount = doc["count_start"].GetInt();
-		momentEightItemType1.fish_endcount = doc["count_end"].GetInt();
-        rapidjson::Value& itemList = doc["item_list"];
-        if (!itemList.IsArray())
-        {
-            log("ConfigMomentEight The data is not json");
-            break;
-        }
-        for (unsigned int i = 0; i < itemList.Size(); ++i) {
-            const rapidjson::Value &val = itemList[i];
-            
-            MomentEightItemPer momentEightItemPer;
-            momentEightItemPer.fish_id	= val["fish_id"].GetInt();
-            momentEightItemPer.per = val["per"].GetInt();
-			if (val["fishRoute"].IsInt())
+		rapidjson::Document doc;
+		if (!FileUtils::getInstance()->isFileExist(filename))
+		{
+			break;
+		}
+
+		std::string data = FileUtils::getInstance()->getStringFromFile(filename);
+		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
+		if (doc.HasParseError())
+		{
+			log("ConfigMomentEight get json data err!");
+			break;
+		}
+		lifetime = doc["life_time"].GetInt();
+		auto &launching_points = doc["launching_points"];
+		for (unsigned int i = 0; i < launching_points.Size(); i++)
+		{
+			MomentEightItem item;
+			item.interval_time_start = launching_points[i]["interval_time_start"].GetDouble();
+			item.interval_time_end = launching_points[i]["interval_time_end"].GetDouble();
+			item.fish_startcount = launching_points[i]["count_start"].GetInt();
+			item.fish_endcount = launching_points[i]["count_end"].GetInt();
+			rapidjson::Value& itemList = launching_points[i]["item_list"];
+			if (!itemList.IsArray())
 			{
-				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+				log("ConfigMomentEight The data is not json");
+				break;
 			}
-            
-            momentEightItemType1.momentEightItemPers.push_back(momentEightItemPer);
-        }
-        
-        return true;
-    }
-    return true;
+			for (unsigned int i = 0; i < itemList.Size(); ++i) {
+				const rapidjson::Value &val = itemList[i];
+
+				MomentEightItemPer itemper;
+				itemper.fish_id = val["fish_id"].GetInt();
+				itemper.per = val["per"].GetInt();
+				if (val["fishRoute"].IsInt())
+				{
+					itemper.fishRoute = val["fishRoute"].GetInt();
+				}
+
+				item.momentEightItemPers.push_back(itemper);
+			}
+			momentEightItemType1.push_back(item);
+		}
+
+
+		return true;
+	}
+	return true;
 }
 
 bool ConfigMomentEight::LoadConfigType2() {
-    bool bRet = false;
-    while (!bRet) {
-        
-        
-        		std::string filename;	
+	bool bRet = false;
+	while (!bRet) {
+
+		std::string filename;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-				if (ISDEBUGCONFIG)
-				{	
-					filename += JniFunUtill::getInstance()->getSDcardpath();
-					filename += "/CrazyFarm/";
-	}
+		if (ISDEBUGCONFIG)
+		{	
+			filename += JniFunUtill::getInstance()->getSDcardpath();
+			filename += "/CrazyFarm/";
+		}
 #endif
 		filename += "config/config_eight_type2.json";
-        rapidjson::Document doc;
-        if (!FileUtils::getInstance()->isFileExist(filename))
-        {
-            break;
-        }
-        
-        std::string data = FileUtils::getInstance()->getStringFromFile(filename);
-        doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
-        if (doc.HasParseError())
-        {
-            log("ConfigMomentEight get json data err!");
-            break;
-        }
-        
-        momentEightItemType2.interval_time_start = doc["interval_time_start"].GetDouble();
-        momentEightItemType2.interval_time_end = doc["interval_time_end"].GetDouble();
-		momentEightItemType2.fish_startcount = doc["count_start"].GetInt();
-		momentEightItemType2.fish_endcount = doc["count_end"].GetInt();
-        rapidjson::Value& itemList = doc["item_list"];
-        if (!itemList.IsArray())
-        {
-            log("ConfigMomentEight The data is not json");
-            break;
-        }
-        for (unsigned int i = 0; i < itemList.Size(); ++i) {
-            const rapidjson::Value &val = itemList[i];
-            
-            MomentEightItemPer momentEightItemPer;
-            momentEightItemPer.fish_id	= val["fish_id"].GetInt();
-            momentEightItemPer.per = val["per"].GetInt();
-            
-			if (val["fishRoute"].IsInt())
-			{
-				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
-			}
+		rapidjson::Document doc;
+		if (!FileUtils::getInstance()->isFileExist(filename))
+		{
+			break;
+		}
 
-            momentEightItemType2.momentEightItemPers.push_back(momentEightItemPer);
-        }
-        
-        return true;
-    }
-    return true;
+		std::string data = FileUtils::getInstance()->getStringFromFile(filename);
+		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
+		if (doc.HasParseError())
+		{
+			log("ConfigMomentEight get json data err!");
+			break;
+		}
+		auto &launching_points = doc["launching_points"];
+		for (unsigned int i = 0; i < launching_points.Size(); i++)
+		{
+			MomentEightItem item;
+			item.interval_time_start = launching_points[i]["interval_time_start"].GetDouble();
+			item.interval_time_end = launching_points[i]["interval_time_end"].GetDouble();
+			item.fish_startcount = launching_points[i]["count_start"].GetInt();
+			item.fish_endcount = launching_points[i]["count_end"].GetInt();
+			rapidjson::Value& itemList = launching_points[i]["item_list"];
+			if (!itemList.IsArray())
+			{
+				log("ConfigMomentEight The data is not json");
+				break;
+			}
+			for (unsigned int i = 0; i < itemList.Size(); ++i) {
+				const rapidjson::Value &val = itemList[i];
+
+				MomentEightItemPer itemper;
+				itemper.fish_id = val["fish_id"].GetInt();
+				itemper.per = val["per"].GetInt();
+				if (val["fishRoute"].IsInt())
+				{
+					itemper.fishRoute = val["fishRoute"].GetInt();
+				}
+
+				item.momentEightItemPers.push_back(itemper);
+			}
+			momentEightItemType2.push_back(item);
+		}
+
+
+		return true;
+	}
+	return true;
 }
 
 bool ConfigMomentEight::LoadConfigType3() {
-    bool bRet = false;
-    while (!bRet) {
-        
-        		std::string filename;	
+	bool bRet = false;
+	while (!bRet) {
+
+		std::string filename;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-				if (ISDEBUGCONFIG)
-				{	
-					filename += JniFunUtill::getInstance()->getSDcardpath();
-					filename += "/CrazyFarm/";
-	}
+		if (ISDEBUGCONFIG)
+		{	
+			filename += JniFunUtill::getInstance()->getSDcardpath();
+			filename += "/CrazyFarm/";
+		}
 #endif
 		filename += "config/config_eight_type3.json";
-       
-        rapidjson::Document doc;
-        if (!FileUtils::getInstance()->isFileExist(filename))
-        {
-            break;
-        }
-        
-        std::string data = FileUtils::getInstance()->getStringFromFile(filename);
-        doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
-        if (doc.HasParseError())
-        {
-            log("ConfigMomentEight get json data err!");
-            break;
-        }
-        
-        momentEightItemType3.interval_time_start = doc["interval_time_start"].GetDouble();
-        momentEightItemType3.interval_time_end = doc["interval_time_end"].GetDouble();
-		momentEightItemType3.fish_startcount = doc["count_start"].GetInt();
-		momentEightItemType3.fish_endcount = doc["count_end"].GetInt();
-        rapidjson::Value& itemList = doc["item_list"];
-        if (!itemList.IsArray())
-        {
-            log("ConfigMomentEight The data is not json");
-            break;
-        }
-        for (unsigned int i = 0; i < itemList.Size(); ++i) {
-            const rapidjson::Value &val = itemList[i];
-            
-            MomentEightItemPer momentEightItemPer;
-            momentEightItemPer.fish_id	= val["fish_id"].GetInt();
-            momentEightItemPer.per = val["per"].GetInt();
-            
-			if (val["fishRoute"].IsInt())
+		rapidjson::Document doc;
+		if (!FileUtils::getInstance()->isFileExist(filename))
+		{
+			break;
+		}
+
+		std::string data = FileUtils::getInstance()->getStringFromFile(filename);
+		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
+		if (doc.HasParseError())
+		{
+			log("ConfigMomentEight get json data err!");
+			break;
+		}
+		auto &launching_points = doc["launching_points"];
+		for (unsigned int i = 0; i < launching_points.Size(); i++)
+		{
+			MomentEightItem item;
+			item.interval_time_start = launching_points[i]["interval_time_start"].GetDouble();
+			item.interval_time_end = launching_points[i]["interval_time_end"].GetDouble();
+			item.fish_startcount = launching_points[i]["count_start"].GetInt();
+			item.fish_endcount = launching_points[i]["count_end"].GetInt();
+			rapidjson::Value& itemList = launching_points[i]["item_list"];
+			if (!itemList.IsArray())
 			{
-				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+				log("ConfigMomentEight The data is not json");
+				break;
 			}
-            momentEightItemType3.momentEightItemPers.push_back(momentEightItemPer);
-        }
-        
-        return true;
-    }
-    return true;
+			for (unsigned int i = 0; i < itemList.Size(); ++i) {
+				const rapidjson::Value &val = itemList[i];
+
+				MomentEightItemPer itemper;
+				itemper.fish_id = val["fish_id"].GetInt();
+				itemper.per = val["per"].GetInt();
+				if (val["fishRoute"].IsInt())
+				{
+					itemper.fishRoute = val["fishRoute"].GetInt();
+				}
+
+				item.momentEightItemPers.push_back(itemper);
+			}
+			momentEightItemType3.push_back(item);
+		}
+
+
+		return true;
+	}
+	return true;
 }
 
 bool ConfigMomentEight::LoadConfigType4() {
 	bool bRet = false;
 	while (!bRet) {
 
-		
-        		std::string filename;	
+		std::string filename;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-				if (ISDEBUGCONFIG)
-				{	
-					filename += JniFunUtill::getInstance()->getSDcardpath();
-					filename += "/CrazyFarm/";
-	}
+		if (ISDEBUGCONFIG)
+		{	
+			filename += JniFunUtill::getInstance()->getSDcardpath();
+			filename += "/CrazyFarm/";
+		}
 #endif
 		filename += "config/config_eight_type4.json";
 		rapidjson::Document doc;
@@ -251,30 +261,36 @@ bool ConfigMomentEight::LoadConfigType4() {
 			log("ConfigMomentEight get json data err!");
 			break;
 		}
-
-		momentEightItemType4.interval_time_start = doc["interval_time_start"].GetDouble();
-		momentEightItemType4.interval_time_end = doc["interval_time_end"].GetDouble();
-		momentEightItemType4.fish_startcount = doc["count_start"].GetInt();
-		momentEightItemType4.fish_endcount = doc["count_end"].GetInt();
-		rapidjson::Value& itemList = doc["item_list"];
-		if (!itemList.IsArray())
+			auto &launching_points = doc["launching_points"];
+		for (unsigned int i = 0; i < launching_points.Size(); i++)
 		{
-			log("ConfigMomentEight The data is not json");
-			break;
-		}
-		for (unsigned int i = 0; i < itemList.Size(); ++i) {
-			const rapidjson::Value &val = itemList[i];
-
-			MomentEightItemPer momentEightItemPer;
-			momentEightItemPer.fish_id = val["fish_id"].GetInt();
-			momentEightItemPer.per = val["per"].GetInt();
-
-			if (val["fishRoute"].IsInt())
+			MomentEightItem item;
+			item.interval_time_start = launching_points[i]["interval_time_start"].GetDouble();
+			item.interval_time_end = launching_points[i]["interval_time_end"].GetDouble();
+			item.fish_startcount = launching_points[i]["count_start"].GetInt();
+			item.fish_endcount = launching_points[i]["count_end"].GetInt();
+			rapidjson::Value& itemList = launching_points[i]["item_list"];
+			if (!itemList.IsArray())
 			{
-				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+				log("ConfigMomentEight The data is not json");
+				break;
 			}
-			momentEightItemType4.momentEightItemPers.push_back(momentEightItemPer);
+			for (unsigned int i = 0; i < itemList.Size(); ++i) {
+				const rapidjson::Value &val = itemList[i];
+
+				MomentEightItemPer itemper;
+				itemper.fish_id = val["fish_id"].GetInt();
+				itemper.per = val["per"].GetInt();
+				if (val["fishRoute"].IsInt())
+				{
+					itemper.fishRoute = val["fishRoute"].GetInt();
+				}
+
+				item.momentEightItemPers.push_back(itemper);
+			}
+			momentEightItemType4.push_back(item);
 		}
+
 
 		return true;
 	}
@@ -286,14 +302,13 @@ bool ConfigMomentEight::LoadConfigType5() {
 	bool bRet = false;
 	while (!bRet) {
 
-		
-        		std::string filename;	
+		std::string filename;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-				if (ISDEBUGCONFIG)
-				{	
-					filename += JniFunUtill::getInstance()->getSDcardpath();
-					filename += "/CrazyFarm/";
-	}
+		if (ISDEBUGCONFIG)
+		{	
+			filename += JniFunUtill::getInstance()->getSDcardpath();
+			filename += "/CrazyFarm/";
+		}
 #endif
 		filename += "config/config_eight_type5.json";
 		rapidjson::Document doc;
@@ -309,85 +324,36 @@ bool ConfigMomentEight::LoadConfigType5() {
 			log("ConfigMomentEight get json data err!");
 			break;
 		}
-
-		momentEightItemType5.interval_time_start = doc["interval_time_start"].GetDouble();
-		momentEightItemType5.interval_time_end = doc["interval_time_end"].GetDouble();
-		momentEightItemType5.fish_startcount = doc["count_start"].GetInt();
-		momentEightItemType5.fish_endcount = doc["count_end"].GetInt();
-		rapidjson::Value& itemList = doc["item_list"];
-		if (!itemList.IsArray())
+		auto &launching_points = doc["launching_points"];
+		for (unsigned int i = 0; i < launching_points.Size(); i++)
 		{
-			log("ConfigMomentEight The data is not json");
-			break;
-		}
-		for (unsigned int i = 0; i < itemList.Size(); ++i) {
-			const rapidjson::Value &val = itemList[i];
-
-			MomentEightItemPer momentEightItemPer;
-			momentEightItemPer.fish_id = val["fish_id"].GetInt();
-			momentEightItemPer.per = val["per"].GetInt();
-			if (val["fishRoute"].IsInt())
+			MomentEightItem item;
+			item.interval_time_start = launching_points[i]["interval_time_start"].GetDouble();
+			item.interval_time_end = launching_points[i]["interval_time_end"].GetDouble();
+			item.fish_startcount = launching_points[i]["count_start"].GetInt();
+			item.fish_endcount = launching_points[i]["count_end"].GetInt();
+			rapidjson::Value& itemList = launching_points[i]["item_list"];
+			if (!itemList.IsArray())
 			{
-				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+				log("ConfigMomentEight The data is not json");
+				break;
 			}
+			for (unsigned int i = 0; i < itemList.Size(); ++i) {
+				const rapidjson::Value &val = itemList[i];
 
-			momentEightItemType5.momentEightItemPers.push_back(momentEightItemPer);
-		}
+				MomentEightItemPer itemper;
+				itemper.fish_id = val["fish_id"].GetInt();
+				itemper.per = val["per"].GetInt();
+				if (val["fishRoute"].IsInt())
+				{
+					itemper.fishRoute = val["fishRoute"].GetInt();
+				}
 
-		return true;
-	}
-	return true;
-}
-
-bool ConfigMomentEight::LoadConfigType6() {
-	bool bRet = false;
-	while (!bRet) {
-
-		
-        		std::string filename;	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-				if (ISDEBUGCONFIG)
-				{	
-					filename += JniFunUtill::getInstance()->getSDcardpath();
-					filename += "/CrazyFarm/";
-	}
-#endif
-		filename += "config/config_eight_type6.json";
-		rapidjson::Document doc;
-		if (!FileUtils::getInstance()->isFileExist(filename))
-		{
-			break;
-		}
-
-		std::string data = FileUtils::getInstance()->getStringFromFile(filename);
-		doc.Parse<rapidjson::kParseDefaultFlags>(data.c_str());
-		if (doc.HasParseError())
-		{
-			log("ConfigMomentEight get json data err!");
-			break;
-		}
-		momentEightItemType6.interval_time_start = doc["interval_time_start"].GetDouble();
-		momentEightItemType6.interval_time_end = doc["interval_time_end"].GetDouble();
-		momentEightItemType6.fish_startcount = doc["count_start"].GetInt();
-		momentEightItemType6.fish_endcount = doc["count_end"].GetInt();
-		rapidjson::Value& itemList = doc["item_list"];
-		if (!itemList.IsArray())
-		{
-			log("ConfigMomentEight The data is not json");
-			break;
-		}
-		for (unsigned int i = 0; i < itemList.Size(); ++i) {
-			const rapidjson::Value &val = itemList[i];
-
-			MomentEightItemPer momentEightItemPer;
-			momentEightItemPer.fish_id = val["fish_id"].GetInt();
-			momentEightItemPer.per = val["per"].GetInt();
-			if (val["fishRoute"].IsInt())
-			{
-				momentEightItemPer.fishRoute = val["fishRoute"].GetInt();
+				item.momentEightItemPers.push_back(itemper);
 			}
-			momentEightItemType6.momentEightItemPers.push_back(momentEightItemPer);
+			momentEightItemType5.push_back(item);
 		}
+
 
 		return true;
 	}

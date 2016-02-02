@@ -21,6 +21,10 @@ public:
 	void sendDataToServer();
 	void clearLocalData();
 private:
+
+	void sendLocaLData();
+	void sendMemoryData();
+
 	void loadLocalData();
 	LogEventPageChange();
 	std::string getDataForJson();

@@ -86,7 +86,15 @@ bool RanklistLayer::init()
 		label->setPosition(427, 445);
 		addChild(label);
 
-		labelRank = LabelAtlas::create(Value(RanklistManager::getInstance()->getRankByCoin(User::getInstance()->getCoins())).asString().c_str(), "rankListNum.png", 26, 36, '0');
+	
+		bool isZero = (User::getInstance()->getCoins() <= 0);
+		auto rank = RanklistManager::getInstance()->getRankByCoin(User::getInstance()->getCoins());
+		std::string rankTxt = Value(rank).asString().c_str();
+		if (isZero)
+		{
+			rankTxt += ":";
+		}
+		labelRank = LabelAtlas::create(rankTxt.c_str(), "rankListNum.png", 16, 22, '0');
 		labelRank->setPosition(554, 445);
 		labelRank->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(labelRank);
@@ -187,7 +195,14 @@ void RanklistLayer::changeTypeCallBack(Ref*psend)
 }
 void RanklistLayer::changeToexpRanklist()
 {
-	labelRank->setString(Value(RanklistManager::getInstance()->getRankByExp(User::getInstance()->getExp())).asString().c_str());
+	bool isZero = (User::getInstance()->getExp() <= 0);
+	auto rank = RanklistManager::getInstance()->getRankByCoin(User::getInstance()->getCoins());
+	std::string rankTxt = Value(rank).asString().c_str();
+	if (isZero)
+	{
+		rankTxt += ":";
+	}
+	labelRank->setString(rankTxt.c_str());
 	tableviewDelegate = new RanklistView();
 	tableviewDelegate->setType(1);
 	tableView->setDelegate(tableviewDelegate);
@@ -197,7 +212,14 @@ void RanklistLayer::changeToexpRanklist()
 
 void RanklistLayer::changeToCoinRanklist()
 {
-	labelRank->setString(Value(RanklistManager::getInstance()->getRankByCoin(User::getInstance()->getCoins())).asString().c_str());
+	bool isZero = (User::getInstance()->getCoins() <= 0);
+	auto rank = RanklistManager::getInstance()->getRankByCoin(User::getInstance()->getCoins());
+	std::string rankTxt = Value(rank).asString().c_str();
+	if (isZero)
+	{
+		rankTxt += ":";
+	}
+	labelRank->setString(rankTxt.c_str());
 	tableviewDelegate = new RanklistView();
 	tableviewDelegate->setType(2);
 	tableView->setDelegate(tableviewDelegate);

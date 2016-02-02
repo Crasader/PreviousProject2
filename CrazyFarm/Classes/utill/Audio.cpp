@@ -70,6 +70,6 @@ void Audio::playZhenrenVoice()
 
 void Audio::playShootVoic()
 {
-	auto str = String::createWithFormat("game/audio/shoot_%d.ogg", rand() % 3 + 1);
+	auto str = String::createWithFormat("game/audio/shoot_%d.ogg", 2);
 	playSound(str->getCString());
 }

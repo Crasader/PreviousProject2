@@ -209,7 +209,7 @@ void GameGuiLayer::createSettingBoard()
 
 void GameGuiLayer::onExit()
 {
-
+	
 	Layer::onExit();
 	Audio::getInstance()->pauseBGM();
 	User::getInstance()->syncInfo();

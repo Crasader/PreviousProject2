@@ -31,7 +31,7 @@ void LogEventMannger::clearData(int type)
 	switch (type)
 	{
 	case 1:
-		LogEventFish::getInstance()->clearLocalData();
+	/*	LogEventFish::getInstance()->clearLocalData();*/ //ÏÈ²»Çå
 		break;
 	case 3:
 		LogEventMagnate::getInstance()->clearLocalData();
