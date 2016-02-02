@@ -11,9 +11,9 @@ public:
 	virtual void init();
 	virtual bool updata(float dt);
 private:
-	MomentEightItemPer getFishByRandVec(std::vector<MomentEightItemPer> momentEightItemPers);
+	//MomentEightItemPer getFishByRandVec(std::vector<MomentEightItemPer> momentEightItemPers);
 	float nNowTime = 0;
 	float life_time;
-	std::vector<MomentEightItem>  momentEightItemType[5];
+	std::map<int, std::vector<MomentEightItem>> momentEightItemTypes;
 
 };

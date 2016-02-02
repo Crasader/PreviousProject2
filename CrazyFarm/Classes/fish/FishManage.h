@@ -21,7 +21,11 @@ class FishManage {
 public:
 	static FishManage* getInstance();
 	void cleanVector();
-	void createFishByEightMonment(MomentEightItemPer per);
+
+	void createFishByEightMonment(float delaytime,MomentEightItemPer per);
+
+	void addMomentEightItemFishs(MomentEightItemFishs fishs);
+	void clearMomentEightItemFishs();
 	Fish* createFishSingle();
 	Fish* createFishSingle(int type);
 	void createFishGroup(int grouptag);
@@ -45,6 +49,7 @@ public:
     Point getBestRewardPostion();
     
 	void UpdateWhenController(float dt);
+	void UpdataCreateFish(float dt);
 	void LoadOnement();
 	void createFishByOneMonet(OneMoment onemonent);
 	void onBoomFishDead(Fish*fish, PlayerTurret* pTurret);
@@ -54,6 +59,7 @@ private :
 	FishManage();
 	static FishManage* _instance;
 	Vector<Fish*> fishPool;
+	std::vector<MomentEightItemFishs> waitCreateMomentEightFishs;
 	Moment* m_nowMonent;
 	CC_SYNTHESIZE(GameLayer*, m_layer, layer);
  };

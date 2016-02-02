@@ -127,17 +127,17 @@ void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 
 	fish->addShader();
 }
-void FishManage::createFishByEightMonment(MomentEightItemPer per)
+void FishManage::createFishByEightMonment(float delaytime,MomentEightItemPer per)
 {
-	if (per.fishRoute!=-1)
+	if (per.fishRoute != -1)
 	{
 		createFishAssign(per.fish_id, per.fishRoute);
 
 	}
 	else
 	{
-		if (per.fish_id>=100&&per.fish_id
-			<200)
+		if (per.fish_id >= 100 && per.fish_id
+			< 200)
 		{
 			createFishArrangeRand(per.fish_id);
 		}
@@ -306,6 +306,42 @@ void FishManage::LoadOnement()
     m_nowMonent = MomentManager::getInstance()->getNewMoment();
 }
 
+void FishManage::UpdataCreateFish(float dt)
+{
+	for (auto it = waitCreateMomentEightFishs.begin(); it != waitCreateMomentEightFishs.end();)   //for循环中不要it++
+	{
+		it->wait_time -= dt;
+		if (it->wait_time<0)
+		{
+			int count = getintRandonNumByAtoB(it->fish_startcount, it->fish_endcount);
+			for (int i = 0; i < count;i++)
+			{
+				if (it->fishRoute != -1)
+				{
+					createFishAssign(it->fish_id,it->fishRoute);
+
+				}
+				else
+				{
+					if (it->fish_id >= 100 && it->fish_id
+						< 200)
+					{
+						createFishArrangeRand(it->fish_id);
+					}
+					else
+					{
+						createFishRand(it->fish_id);
+					}
+				}
+			}
+			it=waitCreateMomentEightFishs.erase(it);
+		}
+		else
+		{
+			it++;
+		}
+	}
+}
 void FishManage::UpdateWhenController(float dt)
 {
 	if (m_nowMonent)
@@ -450,4 +486,13 @@ void FishManage::onClearFish()
 {
 	m_layer->onClearFish();
 
+}
+
+void FishManage::clearMomentEightItemFishs()
+{
+	waitCreateMomentEightFishs.clear();
+}
+void FishManage::addMomentEightItemFishs(MomentEightItemFishs fishs)
+{
+	waitCreateMomentEightFishs.push_back(fishs);
 }

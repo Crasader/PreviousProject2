@@ -263,6 +263,7 @@ void GameLayer::rotateTurret(float degree,PlayerTurret* turret){
 
 void GameLayer::update(float dt){
 	FishManage::getInstance()->UpdateWhenController(dt);
+	FishManage::getInstance()->UpdataCreateFish(dt);
 }
 
 

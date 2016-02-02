@@ -1,0 +1,122 @@
+{
+    "description" :"movestate 1：直线运动 2：圆周运动：需填写参数运动圆心，圆周次数，缩放系数(无缩放填0)  3：播放动画：需填写动画名称   4：贝塞尔曲线",
+    "version" : 1,
+    "MotionConfig": [
+    {
+        
+            "tag": 1,
+            "startPos":{"x":0,"y":0},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":200,"y":270}, 
+                    "delay": 0,
+                    "time":  4
+                },
+                {
+                     "moveState": 2,
+                     "centrePos":{"x":300,"y":270},
+                     "ScaleDiff":  0, 
+                    "circleAngle": 180, 
+                    "isClockwise": true,
+                    "delay": 0,
+                    "time": 6
+                },
+                {
+                    "moveState": 2,
+                    "centrePos": { "x": 500, "y": 270 },
+                    "ScaleDiff": 0,
+                    "circleAngle": 180,
+                    "isClockwise": false,
+                    "delay": 0,
+                    "time": 6
+                },
+                {
+                     "moveState": 1,
+                   "MoveByPos":{"x":800,"y":0}, 
+                    "delay": 0,
+                    "time":  8
+                }
+            ]
+
+        
+        },
+        {
+        
+            "tag": 2,
+            "startPos":{"x":0,"y":540},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":200,"y":-270}, 
+                    "delay": 0,
+                    "time":  4
+                },
+                {
+                     "moveState": 2,
+                     "centrePos":{"x":300,"y":270},
+                     "ScaleDiff":  0, 
+                    "circleAngle": 360, 
+                    "isClockwise": true,
+                    "delay": 0,
+                    "time": 6
+                },
+                {
+                    "moveState": 2,
+                    "centrePos": { "x": 400, "y": 270 },
+                    "ScaleDiff": 0,
+                    "circleAngle": 360,
+                    "isClockwise": true,
+                    "delay": 0,
+                    "time": 12
+                },
+                {
+                     "moveState": 1,
+                   "MoveByPos":{"x":800,"y":0}, 
+                    "delay": 0,
+                    "time":  8
+                }
+            ]
+
+        
+        },
+        {
+        
+            "tag": 3,
+            "startPos":{"x":300,"y":0},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":0,"y":270}, 
+                    "delay": 0,
+                    "time":  4
+                },
+                {
+                     "moveState": 2,
+                     "centrePos":{"x":540,"y":270},
+                     "ScaleDiff":  0, 
+                    "circleAngle": 360, 
+                    "isClockwise": false,
+                    "delay": 0,
+                    "time": 10
+                }, 
+	      		{
+                     "moveState": 4,
+                    "endPos":{"x":500,"y":0},
+                    "bezierPos1":{"x":50,"y":200},
+                    "bezierPos2":{"x":100,"y":200}, 
+                    "delay": 0,
+                    "time": 5
+                }
+                ,{
+                     "moveState": 1,
+                   "MoveByPos":{"x":-1070,"y":0}, 
+                    "delay": 0,
+                    "time":  8
+                }
+            ]
+
+        
+        }
+    ]
+}
