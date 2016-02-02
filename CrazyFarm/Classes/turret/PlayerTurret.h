@@ -6,6 +6,7 @@
 #include "domain/room/RoomPlayer.h"
 #include "fish/Fish.h"
 #include "config/ConfigTurrent.h"
+
 USING_NS_CC;
 
 struct TurretData
@@ -37,6 +38,7 @@ public:
 	  void rorateTurret(float angle);
 	  void shoot(float);
 	  //ÉÁµçÉä»÷
+	  Point getLasterOrginPos(){ return m_turret->getTampionPos(); }
 	  void beginLightShoot();
 	  void endLightShoot();
 	  void rorateAndShootOnlight(float dt);
@@ -102,10 +104,10 @@ private:
 	  int nChairNoIndex = -1;
 	  int nNowMoney;
 	  RoomPlayer* m_robotData;
+	  CC_SYNTHESIZE(bool, m_isShowInfo, IsShowInfo);
+	  CC_SYNTHESIZE(Point, targetPos, TargetPos);
+	  Sprite* aniFishLockNode = NULL;
+	  Sprite*aniFishLightNode = NULL;	 
 	  Fish* lockFish = nullptr;
 	  Fish* lightFish = nullptr;
-	  CC_SYNTHESIZE(Point, targetPos, TargetPos);
-	  CC_SYNTHESIZE(bool, m_isShowInfo, IsShowInfo);
-	  Sprite* aniFishLockNode = NULL;
-	  Sprite*aniFishLightNode = NULL;
 };

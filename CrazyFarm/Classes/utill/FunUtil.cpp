@@ -168,7 +168,7 @@ int getRandValueInVec(std::vector<int> vec)
 
 Action* getForeverAcByNameAndInterval(const char* name, float interval)
 {
-	auto ac = RepeatForever::create(Sequence::create(DelayTime::create(interval), AnimationUtil::getInstance()->getAnimate(name), nullptr)); \
+	auto ac = RepeatForever::create(Sequence::create(DelayTime::create(interval), AnimationUtil::getInstance()->getAnimate(name), nullptr)); 
 		return ac;
 
 }

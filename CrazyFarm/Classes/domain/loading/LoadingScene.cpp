@@ -102,7 +102,7 @@ void LoadingScene::loadRes()
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/lobbyfish3/TX_YU3_%d.png", "aniLobbyFish3", 0.9f, 9);
 	//ÓÎÏ·ÄÚ¶¯»­
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_DianGuang/TX_DianGuang_%d.png", "aniJiGuangBottom", 0.4f, 6);
-	
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_JiGuang/TX_JiGuang_%d.png", "aniJiGuangBar", 0.2f, 3);
 	//load fish ani
 	int i = 1;
 	for (int i = 1; i < 100; i++)

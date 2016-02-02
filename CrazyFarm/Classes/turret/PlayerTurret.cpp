@@ -19,6 +19,7 @@
 #include "domain/game/GameManage.h"
 #include "lobby/Nobility/NobilityLayer.h"
 #include "domain/logevent/LogEventPageChange.h"
+#include "bullet/Laster.h"
 
 enum 
 {
@@ -504,6 +505,12 @@ void PlayerTurret::setLockFish(Fish* fish)
 			aniFishLockNode->removeFromParentAndCleanup(1);
 			aniFishLockNode = nullptr;
 		}
+		auto node = getChildByName("Laster");
+		if (node)
+		{
+			node->removeAllChildrenWithCleanup(1);
+			node = nullptr;
+		}
 		return;
 	}
 
@@ -514,6 +521,17 @@ void PlayerTurret::setLockFish(Fish* fish)
 			aniFishLockNode->removeAllChildrenWithCleanup(1);
 		}
 	}
+	auto node = getChildByName("Laster");
+	if (node)
+	{
+		node->removeAllChildrenWithCleanup(1);
+		node = nullptr;
+	}
+	auto spLaster = Laster::create();
+	spLaster->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniJiGuangBar")));
+	spLaster->setPosition(m_turret->getTampionPos());
+	spLaster->setTarget(fish);
+	spLaster->setPlayerTurret(this);
 
 	aniFishLockNode = Sprite::create();
 	aniFishLockNode->setPosition(fish->getContentSize() / 2);

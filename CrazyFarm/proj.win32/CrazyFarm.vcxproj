@@ -140,6 +140,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\bullet\Bullet.cpp" />
     <ClCompile Include="..\Classes\bullet\BulletManage.cpp" />
+    <ClCompile Include="..\Classes\bullet\Laster.cpp" />
     <ClCompile Include="..\Classes\config\ConfigBankrupt.cpp" />
     <ClCompile Include="..\Classes\config\ConfigBonuspool.cpp" />
     <ClCompile Include="..\Classes\config\ConfigBox.cpp" />
@@ -303,6 +304,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\bullet\Bullet.h" />
     <ClInclude Include="..\Classes\bullet\BulletManage.h" />
+    <ClInclude Include="..\Classes\bullet\Laster.h" />
     <ClInclude Include="..\Classes\config\ConfigBankrupt.h" />
     <ClInclude Include="..\Classes\config\ConfigBonuspool.h" />
     <ClInclude Include="..\Classes\config\ConfigBox.h" />
