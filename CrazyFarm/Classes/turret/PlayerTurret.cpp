@@ -67,7 +67,7 @@ void PlayerTurret::initTurretWithType(){
 	else
 	{
 		auto var = ConfigVipTurrent::getInstance()->getVipTurrent(User::getInstance()->getVipLevel());
-		turretdata.init(var.vip_turrent_id, var.turrent_ui_id+2, var.net_per, var.catch_per,var.ui_type, var.net_type);
+		turretdata.init(var.vip_turrent_id, var.turrent_ui_id, var.net_per, var.catch_per,var.ui_type, var.net_type);
 	}
 
 
