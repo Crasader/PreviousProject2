@@ -31,6 +31,7 @@ void SkillLightButton::skillClickCallBack(Ref* obj)
 /** 技能冷却完成回调 */
 void SkillLightButton::skillCoolDownCallBack()
 {
+	skillManager::getInstance()->useSkillLightEnd();
 	SkillButton::skillCoolDownCallBack();
 
 }

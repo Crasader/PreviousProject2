@@ -149,10 +149,15 @@ void FishManage::createFishByEightMonment(float delaytime,MomentEightItemPer per
 }
 
 void FishManage::removeFish(Fish* fish,bool isDead){
-	auto lockfish = m_layer->GetMyTurret()->getLockFish();
-	if (fish == lockfish)
+	auto targetfish = m_layer->GetMyTurret()->getLockFish();
+	if (fish == targetfish)
 	{
 		m_layer->GetMyTurret()->setLockFish(nullptr);
+	}
+	targetfish = m_layer->GetMyTurret()->getLightFish();
+	if (fish == targetfish)
+	{
+		m_layer->GetMyTurret()->setLightFish(nullptr);
 	}
 	fishPool.eraseObject(fish);
 	if (isDead)
@@ -289,11 +294,16 @@ void FishManage::createFishArrangeRand(int fishID)
 void FishManage::cleanVector()
 {
 	auto lockfish = m_layer->GetMyTurret()->getLockFish();
+	auto lightfish = m_layer->GetMyTurret()->getLightFish();
 	for (auto var:fishPool)
 	{
 		if (var == lockfish)
 		{
 			m_layer->GetMyTurret()->setLockFish(nullptr);
+		}
+		if (var == lightfish)
+		{
+			m_layer->GetMyTurret()->setLightFish(nullptr);
 		}
 		var->removeself();
 	}

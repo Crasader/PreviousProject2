@@ -6,8 +6,8 @@ class DeviceInfo{
 public:
 	static const char* getImei();
 	static std::string getChannel_id();
-	static int getHd_type();
-	static int getHd_factory();
+	static const char*  getHd_type();
+	static const char*  getHd_factory();
 	static int getVesion();
 
 };

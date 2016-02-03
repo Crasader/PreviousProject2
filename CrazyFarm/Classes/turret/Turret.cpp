@@ -48,7 +48,7 @@ void Turret::degradeTurret()
 
 void Turret::changeToLightTurret()
 {
-	auto str = String::createWithFormat("lightPao.png");
+	auto str = String::createWithFormat("pao_jiguang.png");
 	setTexture(str->getCString());
 }
 void Turret::changeToNormalTurret()

@@ -6,6 +6,8 @@
 #include "domain/user/DeviceInfo.h"
 #include "server/HttpMannger.h"
 #include "utill/JniFunUtill.h"
+#include "widget/TwiceSureDialog.h"
+#include "utill/Chinese.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
 
 Pay* Pay::_instance = NULL;
@@ -43,7 +45,7 @@ void Pay::pay(payRequest*data, long int orderid)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	payCallBack(0, "success");
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	return 1;
+	payCallBack(0, "success");
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	JniFunUtill::getInstance()->pay(PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id).price, str->getCString());
 #endif
@@ -82,6 +84,10 @@ void Pay::payCallBack(int code, const char* msg)
 		//上传订单结果
 		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,0, nowData->orderID);
 
+		//UI 操作
+		auto layer = TwiceSureDialog::createDialog(ChineseWord("paySuccess").c_str(), nullptr);
+		layer->setPosition(0, 0);
+		Director::getInstance()->getRunningScene()->addChild(layer);
 	}
 }
 

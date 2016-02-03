@@ -31,10 +31,10 @@ HttpMannger* HttpMannger::getInstance(){
 }
 
 
-void HttpMannger::HttpToPostRequestRegisterInfo(std::string channelId, const char* imei, int hd_type, int hd_factory)
+void HttpMannger::HttpToPostRequestRegisterInfo(std::string channelId, const char* imei, const char* hd_type, const char* hd_factory)
 {
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_REGISTER);
-	auto requstData = String::createWithFormat("channel_id=%s&imei=%s&hd_type=%d&hd_factory=%d", channelId.c_str(),imei, hd_type, hd_factory);
+	auto requstData = String::createWithFormat("channel_id=%s&imei=%s&hd_type=%s&hd_factory=%s", channelId.c_str(),imei, hd_type, hd_factory);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForRegisterInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, HttpResponse *response)
@@ -66,10 +66,10 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 
 
 
-void HttpMannger::HttpToPostRequestLogInInfo(std::string channelId, std::string username, const char* imei, int hd_type, int hd_factory)
+void HttpMannger::HttpToPostRequestLogInInfo(std::string channelId, std::string username, const char* imei, const char*  hd_type, const char*  hd_factory)
 {
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_LOGIN);
-	auto requstData = String::createWithFormat("channel_id=%s&user_name=%s&imei=%s&hd_type=%d&hd_factory=%d", channelId.c_str(),username.c_str(), imei, hd_type, hd_factory);
+	auto requstData = String::createWithFormat("channel_id=%s&user_name=%s&imei=%s&hd_type=%s&hd_factory=%s", channelId.c_str(),username.c_str(), imei, hd_type, hd_factory);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogInInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpResponse *response)

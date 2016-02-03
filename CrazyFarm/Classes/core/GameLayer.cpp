@@ -16,6 +16,7 @@
 #include "utill/CollisionUtill.h"
 #include "utill/Audio.h"
 #include "domain/logevent/LogEventMannger.h"
+#include "bullet/Laster.h"
 #define BOOMRADIUS 300
 enum
 {
@@ -76,6 +77,7 @@ bool GameLayer::init(){
 
 	GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
 	GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
+
 	return true;
 }
 
@@ -235,27 +237,7 @@ void  GameLayer::onTouchEnded(Touch *touch, Event  *event)
 }
 
 
-float GameLayer::getTurretRotation(Point start_pos, Point pos){
-	//计算两点之间的角度
-	double len_y = pos.y - start_pos.y;
-	double len_x = pos.x - start_pos.x;
 
-	double tan_yx = tan_yx = abs(len_y) / abs(len_x);
-	float angle = 0;
-	if (len_y > 0 && len_x < 0) {
-		angle = atan(tan_yx) * 180 / M_PI - 90;
-	}
-	else if (len_y > 0 && len_x > 0) {
-		angle = 90 - atan(tan_yx) * 180 / M_PI;
-	}
-	else if (len_y < 0 && len_x < 0) {
-		angle = -atan(tan_yx) * 180 / M_PI - 90;
-	}
-	else if (len_y < 0 && len_x > 0) {
-		angle = atan(tan_yx) * 180 / M_PI + 90;
-	}
-	return angle;
-}
 
 void GameLayer::rotateTurret(float degree,PlayerTurret* turret){
 	turret->rorateTurret(degree);
@@ -360,16 +342,30 @@ void GameLayer::RefreShmyPlayerTurret()
 {
 	myTurret->refreshTurretInfo();
 }
-
+bool GameLayer::lightTouchEvent(Touch *touch, Event *event)
+{
+	auto touchPos = touch->getLocation();
+	if (onTouTurret(touchPos))
+	{
+		return false;
+	}
+	removePlayerInfo();
+	auto fish = FishManage::getInstance()->getFishByPosInPool(touchPos);
+	if (fish)
+	{
+		myTurret->setLightFish(fish);
+	}
+	return false;
+}
 void GameLayer::beginLight()
 {
 	m_lasttouchType = m_touchType;
-	myTurret->beginLockShoot();
-	changeTouchFunByTouchType(TouchInLock);
+	myTurret->beginLightShoot();
+	changeTouchFunByTouchType(TouchInLight);
 }
 void GameLayer::endLight()
 {
-	myTurret->endLockShoot();
+	myTurret->endLightShoot();
 	changeTouchFunByTouchType(m_lasttouchType);
 }
 

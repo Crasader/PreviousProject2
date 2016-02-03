@@ -14,8 +14,8 @@ class HttpMannger {
 public:
 	static HttpMannger* getInstance();
 	
-	void HttpToPostRequestRegisterInfo(std::string channelId, const char* imei, int hd_type, int hd_factory);//注册请求
-	void HttpToPostRequestLogInInfo(std::string channelId,std::string username,const char* imei, int hd_type, int hd_factory);//登录请求
+	void HttpToPostRequestRegisterInfo(std::string channelId, const char* imei, const char* hd_type, const char* hd_factory);//注册请求
+	void HttpToPostRequestLogInInfo(std::string channelId, std::string username, const char* imei, const char* hd_type, const char* hd_factory);//登录请求
 	void HttpToPostRequestBeforePay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id,int price, int result = 0, long int orderid = 0, int paytype = 0);//下单
 	void HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price,int result, long int orderid, int paytype=1 );//上传购买信息
 	void HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp,int maxTurretLevel,int PayRMB,int nobillityCount);//上传同步信息

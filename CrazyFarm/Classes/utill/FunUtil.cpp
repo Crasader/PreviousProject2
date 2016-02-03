@@ -172,3 +172,25 @@ Action* getForeverAcByNameAndInterval(const char* name, float interval)
 		return ac;
 
 }
+
+float getTurretRotation(Point start_pos, Point pos){
+	//计算两点之间的角度
+	double len_y = pos.y - start_pos.y;
+	double len_x = pos.x - start_pos.x;
+
+	double tan_yx = tan_yx = abs(len_y) / abs(len_x);
+	float angle = 0;
+	if (len_y > 0 && len_x < 0) {
+		angle = atan(tan_yx) * 180 / M_PI - 90;
+	}
+	else if (len_y > 0 && len_x > 0) {
+		angle = 90 - atan(tan_yx) * 180 / M_PI;
+	}
+	else if (len_y < 0 && len_x < 0) {
+		angle = -atan(tan_yx) * 180 / M_PI - 90;
+	}
+	else if (len_y < 0 && len_x > 0) {
+		angle = atan(tan_yx) * 180 / M_PI + 90;
+	}
+	return angle;
+}

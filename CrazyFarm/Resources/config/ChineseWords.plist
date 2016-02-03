@@ -99,6 +99,9 @@
   
   <key>ChangeGiftTxt</key>
   <string>已拥有徽章    枚，请选择你要兑换的商品</string>
+  
+  <key>paySuccess</key>
+  <string>恭喜你充值成功!</string>
   </dict> 
 </array>
 </plist>

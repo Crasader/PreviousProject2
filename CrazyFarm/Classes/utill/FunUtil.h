@@ -26,3 +26,5 @@ int getRandValueInVec(std::vector<int> vec);
 
 
 Action* getForeverAcByNameAndInterval(const char* name,float interval);
+
+float getTurretRotation(Point start_pos, Point pos);

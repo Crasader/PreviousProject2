@@ -24,7 +24,6 @@ public:
 	void loadNewMonent();
 	void RefreShmyPlayerTurret();
 	
-	static float getTurretRotation(Point pos1,Point pos2);//获取炮塔需要旋转的角度
 	void createNet(Bullet *bullet);//打开渔网
 	PlayerTurret* GetMyTurret(){ return myTurret; }
 private:
@@ -51,7 +50,7 @@ public:
 	void beginLight();
 	void endLight();
 	void LightUpdata(float dt);
-	bool lightTouchEvent(Touch *touch, Event  *event){ return true; };
+	bool lightTouchEvent(Touch *touch, Event  *event);
  //锁定
 public:
 	void beginLock();

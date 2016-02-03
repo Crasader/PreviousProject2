@@ -103,11 +103,11 @@ void skillManager::useSkillBoom()
 
 void skillManager::useSkillLight()
 {
-	
+	m_gamelayer->beginLight();
 }
 void skillManager::useSkillLightEnd()
 {
-	
+	m_gamelayer->endLight();
 }
 
 

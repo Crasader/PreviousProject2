@@ -15,25 +15,25 @@ std::string DeviceInfo::getChannel_id()
 {
 	return "test";
 }
-int DeviceInfo::getHd_type()
+const char*  DeviceInfo::getHd_type()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	return 1;
+	return "win32";
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-    return 1;
+    return "mac";
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-return 1;//	return JniFunUtill::getInstance()->getHdType();
+	return JniFunUtill::getInstance()->getHdType();
 #endif
 }
 
-int DeviceInfo::getHd_factory()
+const char*  DeviceInfo::getHd_factory()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	return 1;
+	return "win32";
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-    return 1;
+    return "mac";
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-return 1;//	return JniFunUtill::getInstance()->getHdFactory();
+	return JniFunUtill::getInstance()->getHdFactory();
 #endif
 }
 
