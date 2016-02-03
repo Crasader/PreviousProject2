@@ -20,6 +20,7 @@
 #include "lobby/Nobility/NobilityLayer.h"
 #include "domain/logevent/LogEventPageChange.h"
 #include "bullet/Laster.h"
+#include "domain/gameConfig/gameConfig.h"
 
 enum 
 {
@@ -480,26 +481,25 @@ void PlayerTurret::rorateAndShootOnlight(float dt)
 	{
 		return;
 	};
-//	LogEventFish::getInstance()->addFishUserCostCoin(fish->getFishType(), m_bullet->getPlayerTurret()->getTurrentMupltData().multiple);
-//	float k = rand_0_1();
-//	if (k < (fish->getGrabProbability()*turretdata.catch_per))
-//	{
-//		//ui�Ƴ�
-//	}
-//
-//		}
-//	}
-	//auto data = GameData::getInstance();
-	//m_bullet->getCoinForFish(fishNeedRemove);
-	//for (Fish* fish : fishNeedRemove){
-	//	if (fish->getFishType() == 201)
-	//	{
-	//		FishManage::getInstance()->onBoomFishDead(fish, m_bullet->getPlayerTurret());
-	//	}
+	costMoney();
 
-	//	FishManage::getInstance()->removeFish(fish, 1);
-	//	fish = nullptr;
-	//}
+
+
+	LogEventFish::getInstance()->addFishUserCostCoin(lightFish->getFishType(), 2 * getTurrentMupltData().multiple);
+	LogEventFish::getInstance()->addFishHitTimes(lightFish->getFishType());
+	float k = rand_0_1();
+	if (k < (lightFish->getGrabProbability()*turretdata.catch_per * 2))
+	{
+		LogEventFish::getInstance()->addFishCatchTimes(lightFish->getFishType());
+		if (lightFish->getFishType() == 201)
+		{
+			FishManage::getInstance()->onBoomFishDead(lightFish, this);
+		}
+		getCoinByFish(lightFish);
+		FishManage::getInstance()->removeFish(lightFish, 1);
+		lightFish = nullptr;
+	}
+
 }
 void PlayerTurret::shootOnLight(float dt)
 {
@@ -517,7 +517,7 @@ void PlayerTurret::beginLightShoot()
 	auto ac = RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniJiGuangBottom"));
 	aniNode->runAction(ac);
 
-	schedule(schedule_selector(PlayerTurret::rorateAndShootOnlight), 0.0f);
+	schedule(schedule_selector(PlayerTurret::rorateAndShootOnlight), GameConfig::getInstance()->getShootData().shootInterval);
 }
 void PlayerTurret::endLightShoot()
 {

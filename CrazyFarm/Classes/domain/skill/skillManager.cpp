@@ -17,6 +17,7 @@ void skillManager::init(){
 	{
 		map_skill_isUsingnow[i] = false;
 	}
+	setIsUseSkillNow(false);
 }
 
 skillManager* skillManager::getInstance(){

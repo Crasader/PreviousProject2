@@ -34,6 +34,7 @@ private:
     void init();
 	GameLayer* m_gamelayer = nullptr;
 	static skillManager* _instance;
+	CC_SYNTHESIZE(bool, isUseSkillNow, IsUseSkillNow);
 	std::map<int, bool> map_skill_isUsingnow;
 	std::map<int, SkillButton*> map_id_skillbutton;
 

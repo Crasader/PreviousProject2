@@ -164,7 +164,7 @@ void MyMenuItemUpgrade::setValue()
 			break;
 		}
 	}
-	isFinish = diamondNum > turretData.unlockPrice ? true : false;
+	isFinish = diamondNum >= turretData.unlockPrice ? true : false;
 	auto node = (LabelAtlas*)commonNode->getChildByTag(kTagMutpleLabel);
 	node->setString(Value(turretData.multiple).asString().c_str());
 	if (isFinish)

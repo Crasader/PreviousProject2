@@ -120,6 +120,10 @@ bool SkillButton::JudgeUseSkill()
 	{
 		return false;
 	}
+	if (skillManager::getInstance()->getIsUseSkillNow())
+	{
+		return false;
+	}
 	auto num = skillManager::getInstance()->getSKillNumById(m_skillID);
 	auto price = skillManager::getInstance()->getSkillPriceById(m_skillID);
 	auto userdm = User::getInstance()->getDiamonds();
@@ -156,6 +160,7 @@ bool SkillButton::JudgeUseSkill()
 /** 技能按钮点击回调 */
 void SkillButton::skillClickCallBack(Ref* obj)
 {
+	skillManager::getInstance()->setIsUseSkillNow(true);
     // 冷却计时，即时状态技能按钮不可点击
     mItemSkill->setEnabled(false);
 
@@ -175,6 +180,7 @@ void SkillButton::skillClickCallBack(Ref* obj)
 /** 技能冷却完成回调 */
 void SkillButton::skillCoolDownCallBack()
 {
+	skillManager::getInstance()->setIsUseSkillNow(false);
     // 设置蒙板不可见
     mStencil->setVisible(false);
 

@@ -175,22 +175,29 @@ Action* getForeverAcByNameAndInterval(const char* name, float interval)
 
 float getTurretRotation(Point start_pos, Point pos){
 	//计算两点之间的角度
-	double len_y = pos.y - start_pos.y;
-	double len_x = pos.x - start_pos.x;
 
-	double tan_yx = tan_yx = abs(len_y) / abs(len_x);
-	float angle = 0;
-	if (len_y > 0 && len_x < 0) {
-		angle = atan(tan_yx) * 180 / M_PI - 90;
-	}
-	else if (len_y > 0 && len_x > 0) {
-		angle = 90 - atan(tan_yx) * 180 / M_PI;
-	}
-	else if (len_y < 0 && len_x < 0) {
-		angle = -atan(tan_yx) * 180 / M_PI - 90;
-	}
-	else if (len_y < 0 && len_x > 0) {
-		angle = atan(tan_yx) * 180 / M_PI + 90;
-	}
-	return angle;
+	//float len_y = pos.y - start_pos.y;
+	//float len_x = pos.x - start_pos.x;
+
+	//float tan_yx = abs(len_y) / abs(len_x);
+	//float angle = 0;
+	//if (len_y > 0 && len_x < 0) {
+	//	angle = atan(tan_yx) * 180 / 3.1415926 - 90;
+	//}
+	//else if (len_y > 0 && len_x > 0) {
+	//	angle = 90 - atan(tan_yx) * 180 / 3.1415926;
+	//}
+	//else if (len_y < 0 && len_x < 0) {
+	//	angle = -atan(tan_yx) * 180 / 3.1415926 - 90;
+	//}
+	//else if (len_y < 0 && len_x > 0) {
+	//	angle = atan(tan_yx) * 180 / 3.1415926 + 90;
+	//}
+	return 270-CC_RADIANS_TO_DEGREES((start_pos-pos).getAngle());
+	//CCLOG("********************");
+	//CCLOG("pos A X:%f,Y:%f", start_pos.x, start_pos.y);
+	//CCLOG("pos B X:%f,Y:%f", pos.x, pos.y);
+	//CCLOG("angle : %f",angle);
+	//CCLOG("********************");
+	//return angle;
 }

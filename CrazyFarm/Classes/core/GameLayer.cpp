@@ -180,16 +180,18 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	{
 		return true;
 	}
+	
 	float degree = getTurretRotation(myTurret->getPosition(), touchPos);
 	rotateTurret(degree, myTurret);
 	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([&]{
-		CCLOG("turret rotate%f", myTurret->getRarote());
+		CCLOG("shot turret rotate%f", myTurret->getRarote());
 		myTurret->shoot(myTurret->getRarote()); 
 	}), nullptr));
 	isShoot = false;
 	runAction(Sequence::create(DelayTime::create(shootInterval), CallFunc::create([&]{
 		isShoot = true;
 	}), nullptr));
+	CCLOG("shot  X:%f,Y:%f", touchPos.x, touchPos.y);
 	return true;
 }
 void GameLayer::removePlayerInfo()
@@ -252,7 +254,8 @@ void GameLayer::update(float dt){
 void GameLayer::createNet(Bullet *bullet){
 	Net* fishNet = Net::create();
 	fishNet->setBullet(bullet);
-	fishNet->setPosition(bullet->getPosition());
+	float dotPos = bullet->getContentSize().height*0.5;
+	fishNet->setPosition(bullet->getPosition()+Vec2(0,dotPos*sin(bullet->getRotation())));
 	fishNet->setRotation(bullet->getRotation());
 	fishNet->initNetByType();
 	this->addChild(fishNet, kZorderNet);
