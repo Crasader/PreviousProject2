@@ -42,8 +42,18 @@ public class AppActivity extends Cocos2dxActivity {
 				Log.i("TBU_DEBUG", "[ON UI THREAD]AppActivity->pay: price = " + price + ";orderId = " + orderId);
 				SkyThirdPay.getInstance().pay(activity, skyOrderInfo, new PayCallback(){
 					@Override
-					public void result(int code, String msg) {
+					public void result(final int code, final String msg) {
 						// TODO : 显示结果，并将结果返回应用
+						if(code != 0) {
+							AppActivity.activity.runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									Toast.makeText(AppActivity.activity, "支付失败:" + code, 
+											Toast.LENGTH_LONG).show();
+									
+								}
+							});
+						}
 						JniPayCallbackHelper.payResultCallBack(code,msg);
 						Log.i("TBU_DEBUG", "code = " + code + ";msg = " + msg);
 					}
