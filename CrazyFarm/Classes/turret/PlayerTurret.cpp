@@ -179,17 +179,17 @@ void PlayerTurret::shoot(float degree){
 	bullet->setPlayerTurret(this);
 	getParent()->addChild(bullet);
 	
-	//ÅÚ¿ÚÉìËõ
+	//ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	m_turret->shoot();
 
-	//¿ª»ð¶¯»­
+	//ï¿½ï¿½ï¿½ð¶¯»ï¿½
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(m_turret->getContentSize().width/2,m_turret->getContentSize().height*1.0);
 	m_turret->addChild(aniNode, 5);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"),RemoveSelf::create(1),nullptr));
 
-	//»¨·Ñ½ð±Ò
+	//ï¿½ï¿½ï¿½Ñ½ï¿½ï¿?
 	costMoney();
 	
 
@@ -329,19 +329,19 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		}
 		LogEventFish::getInstance()->addFishUserCatchTimes(fish->getFishType());
 		m_turretdata = GameData::getInstance()->getTurrentData();
-		//»ñµÃ½ð±Ò
+		//ï¿½ï¿½Ã½ï¿½ï¿½
 		Audio::getInstance()->playSound(CATCHGOLD);
 		num = fish->getFishGold()* m_turretdata.multiple;
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
-		//»ñµÃ¾­Ñé
+		//ï¿½ï¿½Ã¾ï¿½ï¿½ï¿?
 		auto exp = fish->getFishExperience();
 		if (User::getInstance()->addExp(exp))
 		{
 			onPlayerUpgrade();
 		}
-		//½±½ð³Ø
+		//ï¿½ï¿½ï¿½ï¿½ï¿?
 		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
-		//×êÊ¯Óã
+		//ï¿½ï¿½Ê¯ï¿½ï¿½
 		auto event = GameData::getInstance()->getDiamondevent();
 		if (GameData::getInstance()->getShotDiamondCount() >= event.fireTimes)
 		{
@@ -350,7 +350,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 			GameData::getInstance()->setShotDiamondCount(0);
 			GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
 			
-			//TODO::ÔÚÓãÉÏµÃµ½½±Æ·UIÏÔÊ¾
+			//TODO::ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÃµï¿½ï¿½ï¿½Æ·UIï¿½ï¿½Ê¾
 		}
 		event = GameData::getInstance()->getpropevent();
 		if (GameData::getInstance()->getShotPropCount() >= event.fireTimes)
@@ -359,7 +359,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 			LogEventMagnate::getInstance()->addMagnateNum(event.itemId, event.num);
 			GameData::getInstance()->setShotPropCount(0);
 			GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
-			//TODO::ÔÚÓãÉÏµÃµ½½±Æ·UIÏÔÊ¾
+			//TODO::ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÃµï¿½ï¿½ï¿½Æ·UIï¿½ï¿½Ê¾
 		}
 	}
 	fish->createDropOutAniByCoin(getPosition(),num);
@@ -479,11 +479,27 @@ void PlayerTurret::rorateAndShootOnlight(float dt)
 	if (!isRobot&&GameData::getInstance()->getisOnBankrupt())
 	{
 		return;
-	}
-	auto pos = lightFish->getPosition();
-	float degree = getTurretRotation(getPosition(), pos);
-	m_turret->setRotation(degree);
-	shootOnLight(dt);
+	};
+//	LogEventFish::getInstance()->addFishUserCostCoin(fish->getFishType(), m_bullet->getPlayerTurret()->getTurrentMupltData().multiple);
+//	float k = rand_0_1();
+//	if (k < (fish->getGrabProbability()*turretdata.catch_per))
+//	{
+//		//uiï¿½Æ³ï¿½
+//	}
+//
+//		}
+//	}
+	//auto data = GameData::getInstance();
+	//m_bullet->getCoinForFish(fishNeedRemove);
+	//for (Fish* fish : fishNeedRemove){
+	//	if (fish->getFishType() == 201)
+	//	{
+	//		FishManage::getInstance()->onBoomFishDead(fish, m_bullet->getPlayerTurret());
+	//	}
+
+	//	FishManage::getInstance()->removeFish(fish, 1);
+	//	fish = nullptr;
+	//}
 }
 void PlayerTurret::shootOnLight(float dt)
 {
@@ -609,14 +625,14 @@ void PlayerTurret::shootOnLock(float dt){
 
 	m_turret->shoot();
 
-	//¿ª»ð¶¯»­
+	//ï¿½ï¿½ï¿½ð¶¯»ï¿½
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(m_turret->getContentSize().width / 2, m_turret->getContentSize().height*1.0);
 	m_turret->addChild(aniNode, 5);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
 
 
-	//»¨·Ñ½ð±Ò
+	//ï¿½ï¿½ï¿½Ñ½ï¿½ï¿?
 	costMoney();
 }
 
@@ -625,7 +641,7 @@ void PlayerTurret::beginAutoShoot()
 {
 	setTargetPos(Vec2(-1, -1));
 
-	schedule(CC_CALLBACK_1(PlayerTurret::rorateAndShootOnAuto,this),0.2f,"AutoShoot"); //TODO:×Óµ¯·¢ÉäËÙ¶È¡£ÐèÒªÅäÖÃ
+	schedule(CC_CALLBACK_1(PlayerTurret::rorateAndShootOnAuto,this),0.2f,"AutoShoot"); //TODO:ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È¡ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 }
 void PlayerTurret::endAutoShoot()
 {
@@ -662,14 +678,14 @@ void PlayerTurret::shootOnAuto(float dt){
 	getParent()->addChild(bullet);
 	m_turret->shoot();
 
-	//¿ª»ð¶¯»­
+	//ï¿½ï¿½ï¿½ð¶¯»ï¿½
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(m_turret->getContentSize().width / 2, m_turret->getContentSize().height*1.0);
 	m_turret->addChild(aniNode, 5);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
 
 
-	//»¨·Ñ½ð±Ò
+	//ï¿½ï¿½ï¿½Ñ½ï¿½ï¿?
 	costMoney();
 }
 

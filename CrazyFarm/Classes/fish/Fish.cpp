@@ -7,6 +7,7 @@
 #include"utill/FunUtil.h"
 #include "utill/Audio.h"
 #include "Config/ConfigFishCollisionRange.h"
+#include "domain/game/GameManage.h"
 
 enum 
 {
@@ -414,7 +415,7 @@ void Fish::onDead()
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
 	m_shadesprite->onDead();
 	runAction(RepeatForever::create(ac));
-	runAction(Sequence::create(DelayTime::create(2.0f), CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
+	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
 	//…˘“Ù
 	if (fishType < 20)
 	{
@@ -462,7 +463,7 @@ void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
 	auto node = Node::create(); 
 	node->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	node->setPosition(getPositionX(), getPositionY() + 50);
-	getParent()->addChild(node);
+	GameManage::getInstance()->getGuiLayer()->addChild(node);
 	belongPos = node->convertToNodeSpace(belongPos);
 	auto data = ConfigFish::getInstance()->getFishDropCoinData(ConfigFish::getInstance()->getFish(fishType).uiId);
 	Sprite*sp;

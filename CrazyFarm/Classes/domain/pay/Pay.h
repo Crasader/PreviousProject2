@@ -11,25 +11,29 @@ struct payRequest
 	int pay_event_id;
 	int pay_point_id;
 	std::string channel_id;
-	long int orderID;
+	std::string orderID;
 };
 
 
-class Pay {
+class Pay:public Node {
 
 public:
     static Pay* getInstance();
 	void Overbooking(int paypoint, int eventPoint);//�µ�
 	
-	void pay(payRequest*data, long int orderid);//����֧���������ͬƽ�?
-	void payCallBack(int code, const char* msg);
+	void pay(payRequest*data,  const char* orderid);//����֧���������ͬƽ�?
+	void payCallBack(int code,  const char* msg);
+	void update(float dt);
 private:
+	
 
 	PayPointInfo getInfoByPaypoint(int paypoint);
     Pay();
-    void init();
+    bool init();
     static Pay* _instance;
 	payRequest* nowData;
+	
+	bool bIsSuccess = false;
 	
 };
 

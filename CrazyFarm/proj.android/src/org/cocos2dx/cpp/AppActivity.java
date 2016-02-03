@@ -44,6 +44,7 @@ public class AppActivity extends Cocos2dxActivity {
 					@Override
 					public void result(final int code, final String msg) {
 						// TODO : 显示结果，并将结果返回应用
+						Log.i("TBU_DEBUG", "code = " + code + ";msg = " + msg);
 						if(code != 0) {
 							AppActivity.activity.runOnUiThread(new Runnable() {
 								@Override
@@ -54,12 +55,12 @@ public class AppActivity extends Cocos2dxActivity {
 								}
 							});
 						}
-						JniPayCallbackHelper.payResultCallBack(code,msg);
-						Log.i("TBU_DEBUG", "code = " + code + ";msg = " + msg);
+						JniPayCallbackHelper.payResultCallBack(0,msg);						
 					}
 				});
 				
 			}
+			
 		});
 		
 	}

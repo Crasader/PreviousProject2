@@ -1,0 +1,37 @@
+{
+    "describe": "随机鱼产生配置,基础鱼",
+    "version": 1,
+    "life_time": 300,
+    "launching_points": [
+        {
+            "interval_time_start": 18,
+            "interval_time_end": 20,
+            "item_list": [
+                {
+                    "fish_id": 101,
+                    "count_start": 1,
+           			    "count_end": 2,
+           		      "wait_time": 0
+                },
+                {
+                    "fish_id": 102,
+                    "count_start": 1,
+           			    "count_end": 2,
+           			    "wait_time": 15
+                },
+                {
+                    "fish_id": 103,
+                    "count_start": 1,
+           			    "count_end": 2,
+           			    "wait_time": 31
+                },
+                {
+                    "fish_id": 104,
+                    "count_start": 1,
+           			    "count_end": 2,
+           			    "wait_time": 47
+                }
+            ]
+        }
+    ]
+}

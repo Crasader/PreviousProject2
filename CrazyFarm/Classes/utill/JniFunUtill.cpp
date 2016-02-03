@@ -33,7 +33,7 @@ const char* JniFunUtill::getImei()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	JniMethodInfo t;
-	if (JniHelper::getStaticMethodInfo(t, "org/cocos2dx/cpp/GameExtend", "getImei", "()Ljava/lang/String;")) {
+	if (JniHelper::getStaticMethodInfo(t, "com/tbu/gameextend/android/GameExtend", "getImei", "()Ljava/lang/String;")) {
 		jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
 		t.env->DeleteLocalRef(t.classID);
 		CCString *ret = new CCString(JniHelper::jstring2string(str).c_str());
@@ -49,7 +49,7 @@ const char*JniFunUtill::getHdFactory()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	JniMethodInfo t;
-	if (JniHelper::getStaticMethodInfo(t, "org/cocos2dx/cpp/GameExtend", "getHdFactory", "()Ljava/lang/String;")) {
+	if (JniHelper::getStaticMethodInfo(t, "com/tbu/gameextend/android/GameExtend", "getHdFactory", "()Ljava/lang/String;")) {
 		jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
 		t.env->DeleteLocalRef(t.classID);
 		CCString *ret = new CCString(JniHelper::jstring2string(str).c_str());
@@ -65,7 +65,7 @@ const char*JniFunUtill::getHdType()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	JniMethodInfo t;
-	if (JniHelper::getStaticMethodInfo(t, "org/cocos2dx/cpp/GameExtend", "getHdType", "()Ljava/lang/String;")) {
+	if (JniHelper::getStaticMethodInfo(t, "com/tbu/gameextend/android/GameExtend", "getHdType", "()Ljava/lang/String;")) {
 		jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
 		t.env->DeleteLocalRef(t.classID);
 		CCString *ret = new CCString(JniHelper::jstring2string(str).c_str());

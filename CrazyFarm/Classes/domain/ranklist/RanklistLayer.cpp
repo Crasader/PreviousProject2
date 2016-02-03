@@ -196,7 +196,7 @@ void RanklistLayer::changeTypeCallBack(Ref*psend)
 void RanklistLayer::changeToexpRanklist()
 {
 	bool isZero = (User::getInstance()->getExp() <= 0);
-	auto rank = RanklistManager::getInstance()->getRankByCoin(User::getInstance()->getCoins());
+	auto rank = RanklistManager::getInstance()->getRankByExp(User::getInstance()->getExp());
 	std::string rankTxt = Value(rank).asString().c_str();
 	if (isZero)
 	{

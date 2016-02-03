@@ -16,7 +16,9 @@ Pay::Pay(){
     this->init();
 }
 
-void Pay::init(){
+bool Pay::init(){
+	Director::getInstance()->getScheduler()->scheduleUpdate(this, 1, false);
+	return true;
 }
 
 Pay* Pay::getInstance(){
@@ -36,28 +38,33 @@ void Pay::Overbooking(int paypoint, int eventPoint)
 	HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, payPointVersion * 1000 + payeventVersion, eventPoint, paypoint, channel_id, price);
 }
 
-void Pay::pay(payRequest*data, long int orderid)
+void Pay::pay(payRequest*data, const char* orderid)
 {
 	nowData = data;
 	nowData->orderID = orderid;
-	auto str = String::createWithFormat("%ld", orderid);
+
+
+	bIsSuccess = false;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	payCallBack(0, "success");
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	payCallBack(0, "success");
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	JniFunUtill::getInstance()->pay(PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id).price, str->getCString());
+	JniFunUtill::getInstance()->pay(PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id).price, orderid);
 #endif
 }
 
 
-void Pay::payCallBack(int code, const char* msg)
+void Pay::payCallBack(int code,  const char* msg)
 {
+
+	log("pay callback success");
+	auto info = PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id);
 	if (code == 0)
 	{
-		auto info = PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id);
-		//µÀ¾ß´¦Àí
+		
+		//ï¿½ï¿½ï¿½ß´ï¿½ï¿½ï¿½
 		for (auto var:info.items)
 		{
 			switch (var.ItemID)
@@ -76,22 +83,40 @@ void Pay::payCallBack(int code, const char* msg)
 				break;
 			}
 		}
+		
 		if (nowData->pay_point_id == 14)
 		{
 			User::getInstance()->setHaveFirstPay();
 		}
 		User::getInstance()->addChargeMoney(info.price / 100);
-		//ÉÏ´«¶©µ¥½á¹û
-		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,0, nowData->orderID);
-
-		//UI ²Ù×÷
-		auto layer = TwiceSureDialog::createDialog(ChineseWord("paySuccess").c_str(), nullptr);
-		layer->setPosition(0, 0);
-		Director::getInstance()->getRunningScene()->addChild(layer);
+		//ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+		log("additem success");
+		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,0, nowData->orderID.c_str());
+		log("updata data success");
+		bIsSuccess = true;
+		//UI ï¿½ï¿½ï¿½ï¿½
+		
 	}
+	else
+	{
+		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
+	}
+	nowData = nullptr;
 }
 
 PayPointInfo Pay::getInfoByPaypoint(int paypoint)
 {
 	return PayPointConfig::getInstance()->getPayPointInfoById(paypoint);
+}
+
+void Pay::update(float dt)
+{
+	if (bIsSuccess)
+	{
+		auto layer = TwiceSureDialog::createDialog(ChineseWord("paySuccess").c_str(), nullptr);
+		layer->setPosition(0, 0);
+		Director::getInstance()->getRunningScene()->addChild(layer);
+		bIsSuccess = false;
+	}
+
 }

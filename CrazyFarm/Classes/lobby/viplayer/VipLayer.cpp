@@ -208,6 +208,6 @@ void VIPLayer::chankanCallBack(Ref*pesend)
 	auto layer = payLayer::createLayer(1);
 	layer->setPosition(Point::ZERO);
 	layer->setEventPont(21);
-	getParent()->addChild(layer);
+	getParent()->addChild(layer,20);
 	removeFromParentAndCleanup(1);
 }
