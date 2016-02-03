@@ -1,7 +1,7 @@
 #include "domain/pay/Pay.h"
 #include "utill/FunUtil.h"
-#include "domain/user/User.h".
-#include "platform\android\jni\JniHelper.h"
+#include "domain/user/User.h"
+#include "utill/JniFunUtill.h"
 #include "PayEventPointConfig.h"
 #include "domain/user/DeviceInfo.h"
 #include "server/HttpMannger.h"

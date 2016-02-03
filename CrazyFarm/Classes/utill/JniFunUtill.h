@@ -1,5 +1,8 @@
 #pragma once
 #include "cocos2d.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include "platform\android\jni\JniHelper.h"
+#endif
 
 using namespace cocos2d;
 

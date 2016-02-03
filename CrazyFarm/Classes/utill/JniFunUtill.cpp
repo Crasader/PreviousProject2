@@ -1,5 +1,4 @@
 #include "JniFunUtill.h"
-#include "platform\android\jni\JniHelper.h"
 
 
 JniFunUtill* JniFunUtill::_instance = 0;
