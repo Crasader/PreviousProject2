@@ -1,7 +1,7 @@
 #include "domain/pay/Pay.h"
 #include "utill/FunUtil.h"
-#include "domain/user/User.h".
-#include "platform\android\jni\JniHelper.h"
+#include "domain/user/User.h"
+#include "utill/JniFunUtill.h"
 #include "PayEventPointConfig.h"
 #include "domain/user/DeviceInfo.h"
 #include "server/HttpMannger.h"
@@ -43,7 +43,7 @@ void Pay::pay(payRequest*data, long int orderid)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	payCallBack(0, "success");
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	return 1;
+	payCallBack(0, "success");
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	JniFunUtill::getInstance()->pay(PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id).price, str->getCString());
 #endif
