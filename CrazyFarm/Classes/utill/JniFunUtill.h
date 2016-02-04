@@ -14,6 +14,7 @@ public:
 	const char* getImei();
 	const char* getHdFactory();
 	const char* getHdType();
+	const char* getChannelId();
 
 
 	void pay(int price, const char* orderid);

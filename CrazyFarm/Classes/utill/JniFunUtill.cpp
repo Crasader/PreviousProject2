@@ -28,6 +28,21 @@ const char * JniFunUtill::getSDcardpath()
 	return " ";
 }
 
+const char* JniFunUtill::getChannelId(){
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	JniMethodInfo t;
+	if (JniHelper::getStaticMethodInfo(t, "com/tbu/gameextend/android/GameExtend", "getChannelId", "()Ljava/lang/String;")) {
+		jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
+		t.env->DeleteLocalRef(t.classID);
+		CCString *ret = new CCString(JniHelper::jstring2string(str).c_str());
+		ret->autorelease();
+		t.env->DeleteLocalRef(str);
+		return ret->getCString();
+	}
+	return "";
+#endif
+	return " ";
+}
 
 const char* JniFunUtill::getImei()
 {

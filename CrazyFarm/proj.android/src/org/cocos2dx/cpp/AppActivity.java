@@ -26,14 +26,13 @@ public class AppActivity extends Cocos2dxActivity {
 	}
 	
 	public static void pay(final int price, final String orderId) {
-		// TODO : 测试支付
 		Log.i("TBU_DEBUG", "AppActivity->pay: price = " + price + ";orderId = " + orderId);
 		final SkyOrderInfo skyOrderInfo = new SkyOrderInfo(
 				orderId, 
 				price, 
-				"千炮捕鱼", 
+				"万炮捕鱼", 
 				SkyOrderInfo.PAY_TYPE_ITEM, 
-				"1000金币");
+				"道具购买");
 		
 		AppActivity.activity.runOnUiThread(new Runnable() {
 			
@@ -43,13 +42,12 @@ public class AppActivity extends Cocos2dxActivity {
 				SkyThirdPay.getInstance().pay(activity, skyOrderInfo, new PayCallback(){
 					@Override
 					public void result(final int code, final String msg) {
-						// TODO : 显示结果，并将结果返回应用
 						Log.i("TBU_DEBUG", "code = " + code + ";msg = " + msg);
 						if(code != 0) {
 							AppActivity.activity.runOnUiThread(new Runnable() {
 								@Override
 								public void run() {
-									Toast.makeText(AppActivity.activity, "支付失败:" + code, 
+									Toast.makeText(AppActivity.activity, "支付失败:" + msg, 
 											Toast.LENGTH_LONG).show();
 									
 								}

@@ -13,7 +13,13 @@ const char* DeviceInfo::getImei()
 }
 std::string DeviceInfo::getChannel_id()
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	return "test";
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	return "test";
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	return JniFunUtill::getInstance()->getChannelId();
+#endif
 }
 const char*  DeviceInfo::getHd_type()
 {
