@@ -27,14 +27,27 @@ bool LoadingScene::init()
 	{
 		return false;
 	}
-	auto bg = Sprite::create("SkyHappyNewYera.png");
+	auto bg = Sprite::create("SkyHappyNewYera.jpg");
 	bg->setPosition(480, 270);
 	addChild(bg);
 	
+	
 
-	runAction(Sequence::create(CallFunc::create([&]{login();
-		loadRes();}),DelayTime::create(2.0f), CallFunc::create([&]{Director::getInstance()->replaceScene(LobbyScene::createScene()); }), nullptr));
+	auto txt = Sprite::create("loading.png");
+	txt->setPosition(480, 100);
+	addChild(txt);
+
+
+	std::thread tB(&LoadingScene::load, this);//创建一个分支线程，回调到myThread函数里
+	tB.detach();
+
 	return true;
+}
+
+void LoadingScene::load()
+{
+	runAction(Sequence::create(CallFunc::create([&]{
+		loadRes(); }), CallFunc::create([&]{Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene())); }), nullptr));
 }
 void LoadingScene::addPlistPngRes(std::string filename)
 {
@@ -62,6 +75,7 @@ void LoadingScene::loadedCallBack()
 
 void LoadingScene::loadRes()
 {
+	login();
 
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("batch_frame_bullet.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("gun_frame.plist");
@@ -71,7 +85,7 @@ void LoadingScene::loadRes()
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("unlock_cannon_frame.plist");
 	///load ani
 	//大厅动画
-	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/water/aniWater%d.jpg", "aniWater", 3.0f, 30);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bowen/bowen_%d.png", "aniBowen", 3.0f, 30);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.5f, 5);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bubble/aniBubble%d.png", "aniBubble", 4.6f, 46);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/net_ice/netIce%d.png", "iceNet", 0.7f, 18);

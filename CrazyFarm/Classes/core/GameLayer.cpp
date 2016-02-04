@@ -44,10 +44,26 @@ bool GameLayer::init(){
 	skillManager::getInstance()->setlayer(this);
 	//add game bg to this layer
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	game_bg = Sprite::create("game/ui/ani/water/aniWater1.jpg");
+	game_bg = Sprite::create("aniWater1.jpg");
 	game_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(game_bg,-2);
-	game_bg->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniWater")));
+	
+
+	///水波纹
+	auto anibowennode = Sprite::create();
+	anibowennode->setScale(2);
+	anibowennode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniBowen")));
+	anibowennode->setPosition(0, 0);
+	anibowennode->setAnchorPoint(Point::ZERO);
+	addChild(anibowennode,-1);
+
+	anibowennode = Sprite::create();
+	anibowennode->setScale(2);
+	anibowennode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniBowen")));
+	anibowennode->setPosition(550, 0);
+	anibowennode->setAnchorPoint(Point::ZERO);
+	addChild(anibowennode, -1);
+
 	//TODO 游戏核心界面
 	
 	//TODO 产生鱼
@@ -508,7 +524,7 @@ bool GameLayer::AutoShootTouchEvent(Touch *touch, Event *event)
 void GameLayer::onFreezeBegin()
 {
 	unscheduleUpdate();
-	auto bg = ProgressTimer::create(Sprite::create("iceFram4.png"));
+	auto bg = ProgressTimer::create(Sprite::create("iceFram4.jpg"));
 	bg->setType(ProgressTimer::Type::BAR);
 	bg->setMidpoint(Vec2(0, 0));
 	bg->setBarChangeRate(Vec2(1, 0));

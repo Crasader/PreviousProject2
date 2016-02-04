@@ -5,6 +5,7 @@
 #include "server/HttpMannger.h"
 #include "domain/loading/LoadingScene.h"
 #include "domain/globalschedule/GlobalSchedule.h"
+#include "utill/Audio.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -87,13 +88,15 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// run
 	director->runWithScene(scene);
 
+	//LoadingScene* node = (LoadingScene*)(scene->getChildByTag(888));
+	//node->load();
 	return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
 	Director::getInstance()->stopAnimation();
-
+	Audio::getInstance()->pauseBGM();
 	// if you use SimpleAudioEngine, it must be pause
 	// SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
@@ -101,6 +104,7 @@ void AppDelegate::applicationDidEnterBackground() {
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
 	Director::getInstance()->startAnimation();
+	Audio::getInstance()->resumeBGM();
 	// if you use SimpleAudioEngine, it must resume here
 	// SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }

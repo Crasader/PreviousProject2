@@ -80,21 +80,27 @@ bool showFishLayer::init(){
 	}
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	
-	auto bg = Sprite::create("showfish/fishbg.png");
+	auto bg = Sprite::create("showfish.jpg");
 	bg->setPosition(visibleSize / 2);
 	addChild(bg);
 
 
-	auto fishes = ConfigFish::getInstance()->getFishes();
-	
-	for (auto it = fishes.begin(); it != fishes.end(); ++it)
-	{
-		auto cell = showFishCell::createCell();
-	/*	cell->addChild*/
-	}
+
+
+	auto listenr1 = EventListenerTouchOneByOne::create();
+	listenr1->onTouchBegan = CC_CALLBACK_2(showFishLayer::onTouchBegan, this);
+	listenr1->setSwallowTouches(true);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
+
+
+	auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(showFishLayer::closeButtonCallBack, this));
+	close->setPosition(860, 496);
 
 
 
+	auto menu = Menu::create(close, nullptr);
+	menu->setPosition(Point::ZERO);
+	addChild(menu);
 
 
 
@@ -102,4 +108,9 @@ bool showFishLayer::init(){
 
 	return true;
 
+}
+
+void showFishLayer::closeButtonCallBack(Ref*psend)
+{
+	removeFromParentAndCleanup(1);
 }

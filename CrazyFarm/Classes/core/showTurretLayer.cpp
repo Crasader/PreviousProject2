@@ -122,7 +122,7 @@ bool showTurretLayer::init(int type)
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(showTurretLayer::closeButtonCallBack, this));
-		close->setPosition(800, 480);
+		close->setPosition(900, 400);
 		auto menu = Menu::create(close, nullptr);
 		menu->setPosition(Point::ZERO);
 		addChild(menu);

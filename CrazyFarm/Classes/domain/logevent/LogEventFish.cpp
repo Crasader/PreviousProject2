@@ -26,9 +26,9 @@ LogEventFish* LogEventFish::getInstance(){
 void LogEventFish::addFishCreateTimes(int fishid)
 {
 	bool isHava = false;
-	for (auto var : logEventFishes)
+	for (auto &var : logEventFishes)
 	{
-		if (var.room_id == fishid)
+		if (var.room_id == GameData::getInstance()->getRoomID())
 		{
 			for (auto &var2:var.fishes)
 			{
@@ -62,9 +62,9 @@ void LogEventFish::addFishCreateTimes(int fishid)
 void LogEventFish::addFishCatchTimes(int fishid)
 {
 	bool isHava = false;
-	for (auto var : logEventFishes)
+	for (auto &var : logEventFishes)
 	{
-		if (var.room_id == fishid)
+		if (var.room_id == GameData::getInstance()->getRoomID())
 		{
 			for (auto &var2 : var.fishes)
 			{
@@ -98,9 +98,9 @@ void LogEventFish::addFishCatchTimes(int fishid)
 void LogEventFish::addFishHitTimes(int fishid)
 {
 	bool isHava = false;
-	for (auto var : logEventFishes)
+	for (auto& var : logEventFishes)
 	{
-		if (var.room_id == fishid)
+		if (var.room_id == GameData::getInstance()->getRoomID())
 		{
 			for (auto &var2 : var.fishes)
 			{
@@ -134,9 +134,9 @@ void LogEventFish::addFishHitTimes(int fishid)
 void LogEventFish::addFishUserCatchTimes(int fishid)
 {
 	bool isHava = false;
-	for (auto var : logEventFishes)
+	for (auto &var : logEventFishes)
 	{
-		if (var.room_id == fishid)
+		if (var.room_id == GameData::getInstance()->getRoomID())
 		{
 			for (auto &var2 : var.fishes)
 			{
@@ -173,9 +173,9 @@ void LogEventFish::addFishUserCatchTimes(int fishid)
 void LogEventFish::addFishUserCostCoin(int fishid, int coin)
 {
 	bool isHava = false;
-	for (auto var : logEventFishes)
+	for (auto& var : logEventFishes)
 	{
-		if (var.room_id == fishid)
+		if (var.room_id == GameData::getInstance()->getRoomID())
 		{
 			for (auto &var2 : var.fishes)
 			{

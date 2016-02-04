@@ -35,11 +35,11 @@ void GlobalSchedule::updataByMin(float dt)
 
 	addLogEventTime(dt);
 
-	if (getLogEventTime() > LOGEVENTINTERVAL)
-	{
-		addLogEventTime(-getLogEventTime());
-	/*	LogEventMannger::getInstance()->sendMsg();*/
-	}
+	//if (getLogEventTime() > LOGEVENTINTERVAL)
+	//{
+	//	addLogEventTime(-getLogEventTime());
+	///*	LogEventMannger::getInstance()->sendMsg();*/
+	//}
 }
 
 void GlobalSchedule::addGameTime(float dt)

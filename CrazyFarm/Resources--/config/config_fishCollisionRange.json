@@ -1,0 +1,201 @@
+{
+	"describe": "鱼碰撞范围" ,
+	"version" : 1,
+	"item_list": [
+		{
+			"fish_UiId"			:	1,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":11,"y":7},"size":{"weith" :34 , "high" :11}}
+			]
+		},
+		{
+			"fish_UiId"			:	2,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":14,"y":0},"size":{"weith" :40 , "high" :26}}
+			]
+		},
+		{
+			"fish_UiId"			:	3,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":12,"y":11},"size":{"weith" :31 , "high" :16}}
+			]
+		},
+		{
+			"fish_UiId"			:	4,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":13,"y":0},"size":{"weith" :43 , "high" :37}}
+			]
+		},
+		{
+			"fish_UiId"			:	5,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":18,"y":23},"size":{"weith" :35 , "high" :26}}
+			]
+		},
+		{
+			"fish_UiId"			:	6,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":5,"y":5},"size":{"weith" :50 , "high" :30}}
+			]
+		},
+		{
+			"fish_UiId"			:	7,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":20,"y":3},"size":{"weith" :26 , "high" :47}}
+			]
+		},
+		{
+			"fish_UiId"			:	8,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":23,"y":13},"size":{"weith" :46 , "high" :29}}
+			]
+		},
+		{
+			"fish_UiId"			:	9,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":17,"y":11},"size":{"weith" :61 , "high" :24}}
+			]
+		},
+		{
+			"fish_UiId"			:	10,
+			"figures"			:
+			[
+				{"figureType":2,"origin":{"x":22,"y":45},"radius":20},
+				{"figureType":2,"origin":{"x":59,"y":42},"radius":13}
+			]
+		},
+		{
+			"fish_UiId"			:	30,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":30,"y":23},"size":{"weith" :69 , "high" :27}}
+			]
+		},
+		{
+			"fish_UiId"			:	31,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":0,"y":1},"size":{"weith" :49 , "high" :34}},
+				{"figureType":1,"origin":{"x":0,"y":1},"size":{"weith" :46 , "high" :20}}
+			]
+		},
+		{
+			"fish_UiId"			:	32,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":18,"y":25},"size":{"weith" :63 , "high" :44}}
+			]
+		},
+		{
+			"fish_UiId"			:	33,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":21,"y":23},"size":{"weith" :54 , "high" :35}}
+			]
+		},
+		{
+			"fish_UiId"			:	34,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":29,"y":3},"size":{"weith" :61 , "high" :89}}
+			]
+		},
+		{
+			"fish_UiId"			:	35,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":32,"y":0},"size":{"weith" :76 , "high" :134}}
+			]
+		},
+		{
+			"fish_UiId"			:	36,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":41,"y":53},"size":{"weith" :127 , "high" :58}}
+			]
+		},
+		{
+			"fish_UiId"			:	37,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":52,"y":0},"size":{"weith" :174 , "high" :120}}
+			]
+		},
+		{
+			"fish_UiId"			:	40,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":46,"y":0},"size":{"weith" :114 , "high" :201}}
+			]
+		},
+		{
+			"fish_UiId"			:	41,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":0,"y":77},"size":{"weith" :77 , "high" :20}},
+				{"figureType":1,"origin":{"x":77,"y":20},"size":{"weith" :194 , "high" :125}}
+				
+			]
+		},
+		{
+			"fish_UiId"			:	42,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":32,"y":36},"size":{"weith" :191 , "high" :156}}
+			]
+		},
+		{
+			"fish_UiId"			:	43,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":0,"y":71},"size":{"weith" :287 , "high" :65}},
+				{"figureType":1,"origin":{"x":0,"y":71},"size":{"weith" :148 , "high" :25}}
+			]
+		},
+		{
+			"fish_UiId"			:	44,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":27,"y":34},"size":{"weith" :128 , "high" :135}}
+			]
+		},
+		{
+			"fish_UiId"			:	50,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":0,"y":43},"size":{"weith" :306 , "high" :123}},
+				{"figureType":1,"origin":{"x":175,"y":0},"size":{"weith" :52 , "high" :216}}
+			]
+		},
+		{
+			"fish_UiId"			:	51,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":108,"y":48},"size":{"weith" :377 , "high" :127}}
+			]
+		},
+		{
+			"fish_UiId"			:	52,
+			"figures"			:
+			[
+				{"figureType":1,"origin":{"x":30,"y":28.5},"size":{"weith" :334 , "high" :116}}
+			]
+		},
+		{
+			"fish_UiId"			:	60,
+			"figures"			:
+			[
+				{"figureType":2,"origin":{"x":98.5,"y":105.5},"radius":49.25}
+			]
+		}
+	]
+}

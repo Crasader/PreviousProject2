@@ -20,6 +20,6 @@ private:
 	Sprite* VIPname;
 	Sprite* VIPdec;
 	Sprite* sPoint;
-
+	Sprite* upgradeTxt;
 
 };

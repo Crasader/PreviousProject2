@@ -13,17 +13,22 @@ Audio* Audio::getInstance(){
 
 void Audio::playBGM(const char* soundName){
 	CCLOG("play BGM %s", soundName);
-	/*CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(soundName,true);*/
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(soundName,true);
 
 }
 void Audio::pauseBGM()
 {
+	CCLOG("pause BGM ");
 	CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
-
+void Audio::resumeBGM()
+{
+	CCLOG("resume BGM ");
+	CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+}
 void Audio::playSound(const char* soundName){
 	/*CCLOG("play sound %s", soundName);*/
-	/*CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(soundName);*/
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(soundName);
 }
 void Audio::setBGMValue(float value)
 {
@@ -64,12 +69,12 @@ void Audio::prepare(){
 
 void Audio::playZhenrenVoice()
 {
-	//auto str = String::createWithFormat("game/audio/zhenren/voice_%d.ogg", rand() % 6 + 1);
-	//playSound(str->getCString());
+	auto str = String::createWithFormat("game/audio/zhenren/voice_%d.ogg", rand() % 6 + 1);
+	playSound(str->getCString());
 }
 
 void Audio::playShootVoic()
 {
-	/*auto str = String::createWithFormat("game/audio/shoot_%d.ogg", 2);
-	playSound(str->getCString());*/
+	auto str = String::createWithFormat("game/audio/shoot_%d.ogg", 2);
+	playSound(str->getCString());
 }

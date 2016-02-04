@@ -47,6 +47,13 @@ bool VipCell::init(){
 	addChild(sPoint);
 	sPoint->setVisible(false);
 
+
+	upgradeTxt = Sprite::create("upgradeProp.png");
+	upgradeTxt->setPosition(size.width / 2, 91);
+	addChild(upgradeTxt);
+
+
+
 	return true;
 }
 
@@ -79,6 +86,14 @@ void VipCell::setValue(int vipLevel)
 	else
 	{
 		sPoint->setVisible(false);
+	}
+	if (vipLevel>3)
+	{
+		upgradeTxt->setVisible(true);
+	}
+	else
+	{
+		upgradeTxt->setVisible(false);
 	}
 
 }

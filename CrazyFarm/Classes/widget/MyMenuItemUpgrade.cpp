@@ -4,6 +4,8 @@
 #include "domain/bag/BagManager.h"
 #include "data/GameData.h"
 #include "core/showTurretLayer.h"
+#include "domain/logevent/LogEventTurrentUpgrade.h"
+#include "domain/globalschedule/GlobalSchedule.h"
 enum 
 {
 	kTagMutpleLabel = 10,
@@ -39,6 +41,7 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 			auto a = User::getInstance()->getMaxTurrentLevel();
 			auto m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(a);
 			User::getInstance()->setMaxTurrentLevel(m_turretdata.multiple);
+			LogEventTurrentUpgrade::getInstance()->sendDataToServer(m_turretdata.multiple, GlobalSchedule::getInstance()->getGameTime());
 			User::getInstance()->addDiamonds(-m_turretdata.unlockPrice);
 			auto vec = m_turretdata.rewardList;
 			for (auto var:vec)

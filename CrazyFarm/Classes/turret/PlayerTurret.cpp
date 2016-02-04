@@ -22,6 +22,7 @@
 #include "bullet/Laster.h"
 #include "domain/gameConfig/gameConfig.h"
 
+
 enum 
 {
 	kTagBankrupt = 20
@@ -583,6 +584,7 @@ void PlayerTurret::endLockShoot()
 	if (aniFishLockNode&&aniFishLockNode->getParent())
 	{
 		aniFishLockNode->removeFromParentAndCleanup(1);
+		aniFishLockNode = nullptr;
 	}
 	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlock));
 }

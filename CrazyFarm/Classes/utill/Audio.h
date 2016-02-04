@@ -35,6 +35,7 @@ public:
 	void playBGM(const char* soundName);
 	void playSound(const char* soundName);
 	void pauseBGM();
+	void resumeBGM();
 	void prepare();
 	void setBGMValue(float value);
 	void setEffectValue(float value);

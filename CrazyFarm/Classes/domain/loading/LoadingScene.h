@@ -2,8 +2,10 @@
 
 
 #include "cocos2d.h"
-
 using namespace cocos2d;
+
+
+
 class LoadingScene : public Layer
 {
 public:
@@ -12,13 +14,15 @@ public:
 
 	virtual bool init();
 
+	void load();
 	void login();
 	void loadRes();
 	void loadedCallBack();
 	//void update(float delta);
 
 	void addPlistPngRes(std::string filename);
-	
+private:
+
 };
 
 

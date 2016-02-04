@@ -82,7 +82,7 @@ bool LobbyScene::init()
 
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Sprite* lobby_bg = Sprite::create("lobbyBG.png");
+	Sprite* lobby_bg = Sprite::create("lobbyBG.jpg");
 	lobby_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(lobby_bg, -1);
 	lobby_bg->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(2.25f, 1.02), ScaleTo::create(2.25f, 1), nullptr)));

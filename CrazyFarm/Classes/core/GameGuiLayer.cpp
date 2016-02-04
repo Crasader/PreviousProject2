@@ -2,6 +2,7 @@
 #include "domain/bankrupt/BankruptManager.h"
 #include "lobby/FirstPayLayer.h"
 #include "domain/logevent/LogEventPageChange.h"
+#include "core/showFishLayer.h"
 enum
 {
 	kZorderMenu = 10,
@@ -178,7 +179,7 @@ void GameGuiLayer::createSettingBoard()
 	addChild(menuset,kZorderMenu);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	setttingBoard = MenuItemImage::create("settingBG.png", "settingBG.png", CC_CALLBACK_1(GameGuiLayer::showSettingCallback, this));
-	setttingBoard->setPosition(visibleSize.width / 2, visibleSize.height + 20);
+	setttingBoard->setPosition(visibleSize.width / 2, visibleSize.height + 15);
 	menuset->addChild(setttingBoard);
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
@@ -186,15 +187,15 @@ void GameGuiLayer::createSettingBoard()
 	
 
 	auto exitButton = MenuItemImage::create("exit_1.png", "exit_1.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
-	exitButton->setPosition(50, 65);
+	exitButton->setPosition(50, 80);
 	menu->addChild(exitButton);
 
 	auto settingButton = MenuItemImage::create("setting_button1.png", "setting_button1.png", CC_CALLBACK_1(GameGuiLayer::settingCallback, this));
-	settingButton->setPosition(114, 65);
+	settingButton->setPosition(114, 80);
 	menu->addChild(settingButton);
 
 	auto showFishButton = MenuItemImage::create("fish_button1.png", "fish_button1.png", CC_CALLBACK_1(GameGuiLayer::showFishCallback, this));
-	showFishButton->setPosition(178, 65);
+	showFishButton->setPosition(178, 80);
 	menu->addChild(showFishButton);
 
 
@@ -228,7 +229,9 @@ void GameGuiLayer::showFishCallback(Ref *pSender)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
 	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr));
-	pause();
+	auto layer = showFishLayer::create();
+	layer->setPosition(Point::ZERO);
+	addChild(layer, kZorderDialog);
 }
 void GameGuiLayer::showSettingCallback(Ref*pSender)//BUG
 {

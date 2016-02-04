@@ -23,8 +23,9 @@ class showFishLayer : public cocos2d::Node{
 public:
 	virtual bool init();
 	CREATE_FUNC(showFishLayer);
+	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return true; };
+	void closeButtonCallBack(Ref*psend);
 private :
 
-	MenuItemImage* setttingBoard;
 	 
 };
