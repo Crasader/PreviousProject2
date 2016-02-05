@@ -13,6 +13,8 @@ public:
 private:
 	void quickPayCallback(Ref* psend);
 	void closeButtonCallBack(Ref*psend);
+	LabelAtlas* dayTTF;
+	MenuItemImage* quickpay;
 	CC_SYNTHESIZE(int, m_eventPoint, EventPoint);
 };
 

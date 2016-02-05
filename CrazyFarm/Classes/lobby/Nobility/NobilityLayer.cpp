@@ -24,14 +24,14 @@ bool NobilityLayer::init()
 	close->setPosition(650, 450);
 
 	auto remainingDay = NobilityManager::getInstance()->RemainingNobilityday();
-	auto dayTTF = LabelAtlas::create(Value(remainingDay).asString(), "NobilitydayNum.png", 19, 29, '0');
+	dayTTF = LabelAtlas::create(Value(remainingDay).asString(), "NobilitydayNum.png", 19, 29, '0');
 	dayTTF->setPosition(visibleSize.width*0.49, visibleSize.height*0.19);
 	addChild(dayTTF);
 
 	int imgIndex = NobilityManager::getInstance()->isNobility() ? 2 : 1;
 	auto str1 = String::createWithFormat("payNobilitylayer_%d_%d.png", imgIndex, 1);
 	auto str2 = String::createWithFormat("payNobilitylayer_%d_%d.png", imgIndex, 2);
-	auto quickpay = MenuItemImage::create(str1->getCString(), str2->getCString(), CC_CALLBACK_1(NobilityLayer::quickPayCallback, this));
+	quickpay = MenuItemImage::create(str1->getCString(), str2->getCString(), CC_CALLBACK_1(NobilityLayer::quickPayCallback, this));
 	quickpay->setPosition(bg->getContentSize().width *0.85, bg->getContentSize().height*0.15);
 	auto menu = Menu::create(quickpay, close, nullptr);
 	menu->setPosition(0, 0);
@@ -69,6 +69,16 @@ void NobilityLayer::closeButtonCallBack(Ref*psend)
 void NobilityLayer::quickPayCallback(Ref* psend)
 {
 	Pay::getInstance()->Overbooking(13, m_eventPoint);
-	NobilityManager::getInstance()->addStepsDay(30); 
-		removeFromParentAndCleanup(1);
+	//NobilityManager::getInstance()->addStepsDay(30); 
+	//removeFromParentAndCleanup(1);
+	schedule(schedule_selector(NobilityLayer::updata), 1.0f, kRepeatForever, 0);
+}
+
+void NobilityLayer::updata(float dt){
+	dayTTF->setString(cocos2d::String::createWithFormat("%d", NobilityManager::getInstance()->RemainingNobilityday())->_string);
+	int imgIndex = NobilityManager::getInstance()->isNobility() ? 2 : 1;
+	auto str1 = String::createWithFormat("payNobilitylayer_%d_%d.png", imgIndex, 1);
+	auto str2 = String::createWithFormat("payNobilitylayer_%d_%d.png", imgIndex, 2);
+	quickpay->setNormalImage(Sprite::create(str1->getCString()));
+	quickpay->setSelectedImage(Sprite::create(str1->getCString()));
 }
