@@ -90,9 +90,8 @@ void Pay::payCallBack(int code,  const char* msg)
 		}
 		User::getInstance()->addChargeMoney(info.price / 100);
 		//ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
-		log("additem success");
+		log("pay paypoint %d success",nowData->pay_point_id);
 		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,0, nowData->orderID.c_str());
-		log("updata data success");
 		bIsSuccess = true;
 		//UI ï¿½ï¿½ï¿½ï¿½
 		

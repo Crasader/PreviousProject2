@@ -75,7 +75,7 @@ void NobilityLayer::quickPayCallback(Ref* psend)
 }
 
 void NobilityLayer::updata(float dt){
-	dayTTF->setString(cocos2d::String::createWithFormat("%d", NobilityManager::getInstance()->RemainingNobilityday())->_string);
+	dayTTF->setString(cocos2d::String::createWithFormat("%d", NobilityManager::getInstance()->RemainingNobilityday())->getCString());
 	int imgIndex = NobilityManager::getInstance()->isNobility() ? 2 : 1;
 	auto str1 = String::createWithFormat("payNobilitylayer_%d_%d.png", imgIndex, 1);
 	auto str2 = String::createWithFormat("payNobilitylayer_%d_%d.png", imgIndex, 2);

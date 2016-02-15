@@ -131,7 +131,7 @@ void GameGuiLayer::createGuizuGiftLayer()
 }
 void GameGuiLayer::addCoinCallBack(Ref*psend)
 {
-	if (User::getInstance()->getIsHaveFirstPay())
+	if (!User::getInstance()->getIsHaveFirstPay())
 	{
 		auto layer = FirstPayLayer::create();
 		layer->setPosition(Point::ZERO);
