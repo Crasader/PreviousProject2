@@ -127,26 +127,7 @@ void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 
 	fish->addShader();
 }
-void FishManage::createFishByEightMonment(float delaytime,MomentEightItemPer per)
-{
-	if (per.fishRoute != -1)
-	{
-		createFishAssign(per.fish_id, per.fishRoute);
 
-	}
-	else
-	{
-		if (per.fish_id >= 100 && per.fish_id
-			< 200)
-		{
-			createFishArrangeRand(per.fish_id);
-		}
-		else
-		{
-			createFishRand(per.fish_id);
-		}
-	}
-}
 
 void FishManage::removeFish(Fish* fish,bool isDead){
 	auto targetfish = m_layer->GetMyTurret()->getLockFish();
@@ -318,7 +299,7 @@ void FishManage::LoadOnement()
 
 void FishManage::UpdataCreateFish(float dt)
 {
-	for (auto it = waitCreateMomentEightFishs.begin(); it != waitCreateMomentEightFishs.end();)   //for循环中不要it++
+	for (auto it = waitCreateMomentEightFishs.begin(); it != waitCreateMomentEightFishs.end();)  
 	{
 		it->wait_time -= dt;
 		if (it->wait_time<0)
@@ -326,21 +307,22 @@ void FishManage::UpdataCreateFish(float dt)
 			int count = getintRandonNumByAtoB(it->fish_startcount, it->fish_endcount);
 			for (int i = 0; i < count;i++)
 			{
+				auto fishid = getRandValueInVec(it->fish_ids);
 				if (it->fishRoute != -1)
 				{
-					createFishAssign(it->fish_id,it->fishRoute);
+					createFishAssign(fishid, it->fishRoute);
 
 				}
 				else
 				{
-					if (it->fish_id >= 100 && it->fish_id
+					if (fishid >= 100 && fishid
 						< 200)
 					{
-						createFishArrangeRand(it->fish_id);
+						createFishArrangeRand(fishid);
 					}
 					else
 					{
-						createFishRand(it->fish_id);
+						createFishRand(fishid);
 					}
 				}
 			}

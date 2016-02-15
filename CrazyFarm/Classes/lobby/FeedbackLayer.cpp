@@ -120,6 +120,7 @@ void FeedbackLayer::quedingcallback(Ref*)
 	auto txt = _editName->getText();
 	auto sessionid = User::getInstance()->getSessionid();
 	checkTheName(txt);
+	////////TODO:°²×¿
 	HttpMannger::getInstance()->HttpToPostRequestFeedback(sessionid, txt);
 }
 

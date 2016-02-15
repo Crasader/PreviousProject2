@@ -11,7 +11,7 @@ using namespace cocos2d;
 
 
 
-class RoomCell :public MenuItemImage
+class RoomCell :public Sprite
 {
 public:
 	static RoomCell * createCell(Room room);
@@ -21,11 +21,13 @@ public:
 	void stopNormalAni();
 	void resumeNormalAni();
 	void playScaleAni();
+	void isBeClicked();
+	void setShade(bool isShade);
 	CC_SYNTHESIZE(bool, isLock, Islock);
 private:
 	~RoomCell();
 	Room m_room;
-	void clickCallBack(Ref*psend);
+
 	void TiPCallBack(Ref*psend);
 
 	void playNormalAni();

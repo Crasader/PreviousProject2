@@ -24,24 +24,36 @@ bool RoomCell::init(Room room)
 {
 	m_room = room;
 	auto str = String::createWithFormat("level_%d.png", m_room.room_id);
-	initWithNormalImage(str->getCString(), str->getCString(), "",CC_CALLBACK_1(RoomCell::clickCallBack, this));
-	playNormalAni();//播放基准动画	 卡顿原因
+	initWithFile(str->getCString());
+	playNormalAni();//播放基准动画
 	setPlayerNum();//虚构房间人数
-	lockRoom();//房间shangsuo
+	lockRoom();//房间上锁
 	return true;
 }
 RoomCell::~RoomCell()
 {
 	anis.clear();
 }
-void RoomCell::clickCallBack(Ref*psend)
+void RoomCell::setShade(bool isShade)
+{
+	auto color = isShade ? Color3B(128, 128, 128) : Color3B(255, 255, 255);
+	setColor(color);
+	getChildByName("onLinePlayer")->setColor(color);
+	getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(color);
+	if (isLock)
+	{
+		getChildByName("lock")->setColor(color);
+	}
+	
+}
+void RoomCell::isBeClicked()
 {
 	Audio::getInstance()->playSound(CLICKSURE);
 	if (isLock)
 	{
 		auto layer = TwiceSureDialog::createDialog(ChineseWord("enterRoomTip").c_str(),CC_CALLBACK_1(RoomCell::TiPCallBack,this));
 		layer->setPosition(-480,-270);
-		getParent()->getParent()->addChild(layer, 10, "tip");
+		getParent()->addChild(layer, 10, "tip");
 	}
 	else
 	{
@@ -82,7 +94,7 @@ void RoomCell::lockRoom()
 	{
 		auto lock = Sprite::create("lock.png");
 		lock->setPosition(getContentSize().width*0.2, getContentSize().height*0.8);
-		addChild(lock);
+		addChild(lock,0,"lock");
 		setIslock(true);
 	}
 	
@@ -252,12 +264,12 @@ void RoomCell::playScaleAni()
 	roomCircleLight = Sprite::create("roomCircleLight.png");
 	roomCircleLight->setPosition(Vec2(500 - 480, -30));
 	roomCircleLight->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
-	getParent()->getParent()->addChild(roomCircleLight);
+	getParent()->addChild(roomCircleLight);
 	roomCircleLight->runAction(RepeatForever::create(Sequence::create(Spawn::create(ScaleTo::create(1.5f, 3), FadeOut::create(1.5f), nullptr), DelayTime::create(0.0f), ScaleTo::create(0.0001f, 1), FadeIn::create(0.0001f), nullptr)));
 }
 
 void RoomCell::TiPCallBack(Ref*psend)
 {
-	auto node = getParent()->getParent()->getChildByName("tip");
+	auto node = getParent()->getChildByName("tip");
 	node->removeFromParentAndCleanup(1);
 }

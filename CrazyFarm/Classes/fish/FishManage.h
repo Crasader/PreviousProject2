@@ -22,7 +22,7 @@ public:
 	static FishManage* getInstance();
 	void cleanVector();
 
-	void createFishByEightMonment(float delaytime,MomentEightItemPer per);
+
 
 	void addMomentEightItemFishs(MomentEightItemFishs fishs);
 	void clearMomentEightItemFishs();

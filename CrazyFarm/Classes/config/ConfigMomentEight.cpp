@@ -75,13 +75,18 @@ bool ConfigMomentEight::LoadConfigByType(int type)
 				const rapidjson::Value &val = itemList[i];
 
 				MomentEightItemFishs itemfishes;
-				itemfishes.fish_id = val["fish_id"].GetInt();
 				itemfishes.fish_startcount = val["count_start"].GetInt();
 				itemfishes.fish_endcount = val["count_end"].GetInt();
-				itemfishes.wait_time = val["wait_time"].GetInt();
+				itemfishes.fish_wait_time_start = val["wait_time_start"].GetDouble();
+				itemfishes.fish_wait_time_end = val["wait_time_end"].GetDouble();
 				if (val["fishRoute"].IsInt())
 				{
 					itemfishes.fishRoute = val["fishRoute"].GetInt();
+				}
+				auto &fishids = val["fish_id"];
+				for (unsigned int j = 0; j < fishids.Size();j++)
+				{
+					itemfishes.fish_ids.push_back(fishids[j].GetInt());
 				}
 
 				item.momentEightItemFishs.push_back(itemfishes);

@@ -79,12 +79,13 @@ bool GameLayer::init(){
 
 	loadNewMonent();
 
-	//TEST FISH
-	//auto fish = FishManage::getInstance()->createFishArrange(103);
+
+	//auto fish = FishManage::getInstance()->createFishArrange(102);
 	//fish->setPosition(480, 270);
 	//fish->unscheduleUpdate();
+	//fish->setRotation(150);
 	//addChild(fish);
-	//for (auto var:fish->getBoundingFigures())
+	//for (auto var : fish->getBoundingFigures())
 	//{
 	//	var->draw(this);
 	//}

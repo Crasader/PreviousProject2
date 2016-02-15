@@ -58,7 +58,7 @@ bool ConfigFish::LoadConfig() {
 				fish.move_speeds.push_back(val["move_speed"][j].GetInt()) ;
 			}
             
-            fish.probability = (val["probability"].GetDouble())*0.6;
+            fish.probability = (val["probability"].GetDouble());
             fish.baseRewardStart = val["baseReward"]["start"].GetInt();
 			fish.baseRewardEnd = val["baseReward"]["end"].GetInt();
             fish.maxHitTime = val["maxHitTime"].GetInt();

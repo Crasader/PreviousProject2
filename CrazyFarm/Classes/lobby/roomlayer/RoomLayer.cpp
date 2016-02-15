@@ -30,12 +30,15 @@ bool RoomLayer::init()
 		setContentSize(Size(960, 340));
 		createRoomLayer();
 		//ÆÁ±ÎÏòÏÂ´¥Ãþ
+		touchnode = Node::create();
+		touchnode->setPosition(Point::ZERO);
+		addChild(touchnode,3);
 		auto listenr1 = EventListenerTouchOneByOne::create();
 		listenr1->onTouchBegan = CC_CALLBACK_2(RoomLayer::onTouchBegan, this);
 		listenr1->onTouchMoved = CC_CALLBACK_2(RoomLayer::onTouchMoved, this);
 		listenr1->onTouchEnded = CC_CALLBACK_2(RoomLayer::onTouchEnded, this);
-		listenr1->setSwallowTouches(true);
-		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
+		listenr1->setSwallowTouches(false);
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, touchnode);
 		this->scheduleUpdate();
 		bRet = true;
 	} while (0);
@@ -87,7 +90,20 @@ void RoomLayer::onTouchEnded(Touch *touch, Event *unused_event)
 	}
 	else
 	{
-		if (endPos.x > 480)
+		RoomCell*room;
+		for (auto cell:roomCells)
+		{
+			if (cell->getTag() == 2)
+			{
+				room = cell;
+				break;
+			}
+		}
+		if (room->getBoundingBox().containsPoint(endPos - Vec2(480, 270)))
+		{
+			room->isBeClicked();
+		}
+		else if (endPos.x > 480)
 		{
 			moveRoomLeft();
 			touchtime = 0;
@@ -113,7 +129,7 @@ void RoomLayer::createRoomLayer()
 	auto k = sortRoomByMaxlevel(maxlevl);
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
-	addChild(menu,2);
+	addChild(menu,2,"roomMenu");
 	for (size_t i = 0; i < k.size(); i++)
 	{
 		
@@ -123,7 +139,7 @@ void RoomLayer::createRoomLayer()
 		cell->setPosition(roomPos[i + 1]);
 		cell->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		roomCells.pushBack(cell);
-		menu->addChild(cell);
+		addChild(cell,2);
      
 
 		switch (i + 1)
@@ -133,27 +149,21 @@ void RoomLayer::createRoomLayer()
 			cell->setScale(0.7);
 			break;
 		case 1:
-			cell->setEnabled(false);
 			cell->setScale(0.7);
-			cell->setColor(Color3B(128, 128, 128));
 			cell->stopNormalAni();
-			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
+			cell->setShade(true);
 			break;
 		case 2:
-			
-			cell->setEnabled(true);
 			cell->resumeNormalAni(); 
 			cell->playScaleAni();
 			cell->setScale(1);
-			cell->setColor(Color3B(255, 255, 255));
-			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(255, 255, 255));
+			cell->setShade(false);
 			break;
 		case 3:
-			cell->setEnabled(false);
+
 			cell->setScale(0.7);
 			cell->stopNormalAni();
-			cell->setColor(Color3B(128, 128, 128));
-			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
+			cell->setShade(true);
 			break;
 		default:
 			break;
@@ -235,34 +245,26 @@ void RoomLayer::moveRoomLeft()
 			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
 			break;
 		case 1:
-			cell->setEnabled(false);
+		
 			cell->setScale(0.7);
-			cell->setColor(Color3B(128, 128, 128));
+		
 			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->stopNormalAni(); }), nullptr));
-			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
+			cell->setShade(true);
 			break;
 		case 2:	
 			cell->setScale(1);
-			cell->setColor(Color3B(255, 255, 255));
-			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->resumeNormalAni();cell->setEnabled(true);	cell->playScaleAni(); }), nullptr));
-			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(255, 255, 255));
+			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->resumeNormalAni();cell->playScaleAni(); }), nullptr));
+			cell->setShade(false);
 			break;
 		case 3:
 			cell->setPosition(roomPos[4]);
-			cell->setEnabled(false);
-			
 			cell->setScale(0.7);
-			cell->setColor(Color3B(128, 128, 128));
-			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
 			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->stopNormalAni(); }), nullptr));
+			cell->setShade(true);
 			break;
 		default:
 			break;
 		}
-	}
-	for (auto cell:roomCells)
-	{
-		CCLOG("kkkkkkkkkkkkkkkkkkkkk %f", cell->getScale());
 	}
 }
 void RoomLayer::moveRoomRight()
@@ -288,27 +290,20 @@ void RoomLayer::moveRoomRight()
 			cell->runAction(MoveTo::create(0.1f, roomPos[tag]));
 			break;
 		case 1:
-			cell->setEnabled(false);
 			cell->setScale(0.7);
-			cell->setColor(Color3B(128, 128, 128));
-			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
+			cell->setShade(true);
 			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->stopNormalAni(); }), nullptr));
 			break;
 		case 2:
 		
 			cell->setScale(1);
-		
-			cell->setColor(Color3B(255, 255, 255));
-			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(255, 255, 255));
-			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->resumeNormalAni();		cell->setEnabled(true);cell->playScaleAni(); }), nullptr));
+			cell->setShade(false);
+			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->resumeNormalAni();	;cell->playScaleAni(); }), nullptr));
 			break;
 		case 3:
 			cell->setPosition(roomPos[4]);
-			cell->setEnabled(false);
 			cell->setScale(0.7);
-			
-			cell->setColor(Color3B(128, 128, 128));
-			cell->getChildByName("onLinePlayer")->getChildByName("onLinePlayCount")->setColor(Color3B(128, 128, 128));
+			cell->setShade(true);
 			cell->runAction(Sequence::create(MoveTo::create(0.2f, roomPos[tag]), CallFunc::create([=]{cell->stopNormalAni();}),nullptr));
 			
 			break;

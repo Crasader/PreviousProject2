@@ -3,13 +3,12 @@
     "version" : 1,
     "MotionConfig": [
     {
-        
             "tag": 1,
             "startPos":{"x":0,"y":0},
             "routePoint":[
  								{
-                     "moveState": 1,
-                   "MoveByPos":{"x":200,"y":270}, 
+                    "moveState": 1,
+                   	"MoveByPos":{"x":200,"y":270}, 
                     "delay": 0,
                     "time":  4
                 },

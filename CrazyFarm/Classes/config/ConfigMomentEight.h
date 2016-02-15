@@ -8,20 +8,13 @@
 USING_NS_CC;
 
 
-struct  MomentEightItemPer
-{
-	int fish_id;
-	int fish_startcount;
-	int fish_endcount;
-	int per;
-	int fishRoute = -1; ///-1代表随机
-};
-
 struct MomentEightItemFishs {
-    int fish_id;
+	std::vector<int> fish_ids;
+	float  fish_wait_time_start;
+	float  fish_wait_time_end;
 	int fish_startcount;
 	int fish_endcount;
-	float wait_time;
+	float wait_time; //真正的等待时间
 	int fishRoute = -1; ///-1代表随机
 };
 

@@ -36,6 +36,7 @@ void FishArrangeTwo::initFishAnim(int fishType)
 	auto ac1 = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
 	auto ac2 = ac1->clone();
 	auto ac3 = ac1->clone();
+	auto ac4 = ac1->clone();
 	setAnchorPoint(Point::ANCHOR_MIDDLE);
 
 	auto sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
@@ -72,7 +73,7 @@ void FishArrangeTwo::initFishAnim(int fishType)
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	sp->setPosition(+mainSize.width  + AffiliateSize.width , mainSize.height  + AffiliateSize.height );
-	sp->runAction(ac3);
+	sp->runAction(ac4);
 	addChild(sp);
 	maggiceff = MagicEffect::create(3, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);

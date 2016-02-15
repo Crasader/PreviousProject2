@@ -104,6 +104,7 @@ void Fish::move(int moveType){
 		schedule(schedule_selector(Fish::moveFishRandomStraight), Director::getInstance()->getAnimationInterval(), CC_REPEAT_FOREVER, 0);	
 		break;
 	case 4:
+		moveFishRandomStraightForBigFish(5.0f);
 		schedule(schedule_selector(Fish::moveFishRandomStraightForBigFish), 5, CC_REPEAT_FOREVER, 0);
 		break;
 	}
@@ -124,10 +125,6 @@ void Fish::moveFishCircle(float dt){
 }
 
 void Fish::moveFishRandomStraight(float dt){
-	//TOOD 鱼的随机直线运动
-	
-
-
 	Point nextPos = getRandomPostion(speed,dt, fMoveAngle);
 	auto move = MoveBy::create(dt, nextPos);	
 	runAction(move);
@@ -135,8 +132,6 @@ void Fish::moveFishRandomStraight(float dt){
 }
 
 void Fish::moveFishRandomStraightForBigFish(float dt){
-	//TOOD 鱼的随机直线运动
-
 
 	Point nextPos = getRandomPostionForBigFish(speed, dt, fMoveAngle);
 	auto move = MoveBy::create(dt, nextPos);
@@ -160,7 +155,6 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 	if (degree < 0){
 		degree += 360;
 	}
-	pause();
 	//图片自身朝下
 	float next_x = speed*cos(CC_DEGREES_TO_RADIANS(degree));
 	float next_y = speed*sin(CC_DEGREES_TO_RADIANS(degree));
@@ -200,7 +194,7 @@ Point Fish::getRandomPostion(float speed, float dt, float &angle)
 Point Fish::getRandomPostionForBigFish(float speed, float dt, float &angle)
 {
 	speed *= dt;
-	float diffAngle = (rand_0_1() *6.0f - 3.0f)*3;
+	float diffAngle = (rand_0_1() *6.0f - 3.0f)*3.0;
 	angle += diffAngle;
 	return Vec2(speed*cos(CC_DEGREES_TO_RADIANS(angle)), speed*sin(CC_DEGREES_TO_RADIANS(angle)));
 

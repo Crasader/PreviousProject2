@@ -30,8 +30,9 @@ bool MomentEight::updata(float dt)
 			if (item.fTempTime <= 0)
 			{
 				item.fTempTime = getRandonNumByAtoB(item.interval_time_start, item.interval_time_end);
-				for (auto fishitem:item.momentEightItemFishs)
+				for (auto &fishitem:item.momentEightItemFishs)
 				{
+					fishitem.wait_time = getRandonNumByAtoB(fishitem.fish_wait_time_start, fishitem.fish_wait_time_end);
 					FishManage::getInstance()->addMomentEightItemFishs(fishitem);
 				}
 

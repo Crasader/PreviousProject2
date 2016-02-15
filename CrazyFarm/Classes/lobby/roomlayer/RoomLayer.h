@@ -26,5 +26,6 @@ private:
 	void moveRoomLeft();
 	float touchtime = 0;
 	bool isTouchMove = false;
+	Node* touchnode;
 	int diffx;
 };

@@ -8,70 +8,81 @@
             "interval_time_end": 9,
             "item_list": [
                 {
-                    "fish_id": 1,
+                    "fish_id": [1,2,3,4,5],
+                    "fishRoute": 2,
                     "count_start": 0,
            			    "count_end": 2,
-           		      "wait_time": 0
+           		      "wait_time_start": 0,
+           		      "wait_time_end": 4
                 },
                 {
-                    "fish_id": 2,
+                    "fish_id": [1,2,3,4,5,6,7,8],
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 5
+                     "wait_time_start": 2,
+           		      "wait_time_end": 3
                 },
                 {
-                    "fish_id": 3,
+                    "fish_id": [1,2,3,4,5,6,7],
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 2
+                     "wait_time_start": 3,
+           		      "wait_time_end": 4
                 },
                 {
-                    "fish_id": 4,
+                    "fish_id": [1,2,3,4,5,6],
                     "fishRoute": 1,
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 0
+                    "wait_time_start": 1,
+           		      "wait_time_end": 2
                 },
                 {
-                    "fish_id": 5,
+                    "fish_id": [1,2,3,4,5],
                     "fishRoute": 2,
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 0
+                     "wait_time_start": 2,
+           		      "wait_time_end": 5
                 },
                 {
-                    "fish_id": 6,
+                    "fish_id": [1,2,3,4],
                     "fishRoute": 3,
                     "count_start": 0,
                     "count_end": 1,
-                    "wait_time": 3
+                     "wait_time_start": 1,
+           		      "wait_time_end": 3
                 },
                 {
-                    "fish_id": 7,
+                    "fish_id": [1,2],
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 1
+                    "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 8,
+                    "fish_id": [1,2,3,6,7,8,9],
                     "fishRoute": 2,
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 5
+                    "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 9,
+                    "fish_id": [1,2,5,6,7,8,9],
                     "fishRoute": 1,
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 3
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 10,
+                    "fish_id": [1,2,3,4,5,6,8,9],
                     "fishRoute": 2,
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 4
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 }
             ]
         },
@@ -80,54 +91,62 @@
             "interval_time_end": 18,
             "item_list": [
                 {
-                    "fish_id": 30,
+                    "fish_id":[31,32,30,34],
                     "fishRoute": 2,
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 1
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 31,
+                    "fish_id": [31,32,30,34],
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 2
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 32,
+                    "fish_id": [31,32,30,34],
                     "fishRoute": 1,
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 3
+                    "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 33,
+                    "fish_id": [31,32,30,34],
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 8
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 34,
+                    "fish_id": [31,32,30,34],
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 5
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 35,
+                    "fish_id": [31,32,30,34],
                     "count_start": 0,
                     "count_end": 2,
-                    "wait_time": 0
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 36,
+                    "fish_id": [31,32,30,34],
                     "count_start": 1,
                     "count_end": 1,
-                    "wait_time": 4
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 37,
+                    "fish_id": [31,32,30,34],
                     "count_start": 1,
                     "count_end": 1,
-                    "wait_time": 6
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 }
             ]
         },
@@ -136,28 +155,32 @@
             "interval_time_end": 32,
             "item_list": [
                 {
-                    "fish_id": 40,
+                    "fish_id": [41,42,43,44],
                     "count_start": 0,
                     "count_end": 1,
-                    "wait_time": 0
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 42,
+                    "fish_id": [41,42,43,44],
                     "count_start": 0,
                     "count_end": 1,
-                    "wait_time": 10
+                    "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 41,
+                    "fish_id": [41,42,43,44],
                     "count_start": 0,
                     "count_end": 1,
-                    "wait_time": 15
+                    "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 44,
+                    "fish_id": [41,42,43,44],
                     "count_start": 0,
                     "count_end": 1,
-                    "wait_time": 22
+                     "wait_time_start": 0,
+           		      "wait_time_end": 0
                 }
             ]
         },
@@ -166,10 +189,11 @@
             "interval_time_end": 240,
             "item_list": [
                 {
-                    "fish_id": 50,
+                    "fish_id": [50,51,52],
                     "count_start": 1,
                         "count_end": 1,
-                      "wait_time": 0
+                       "wait_time_start": 0,
+           		      "wait_time_end": 0
                 }
             ]
         },
@@ -178,28 +202,32 @@
             "interval_time_end": 20,
             "item_list": [
                 {
-                    "fish_id": 101,
+                    "fish_id":[101,102,103],
                     "count_start": 0,
                         "count_end": 1,
-                      "wait_time": 0
+                       "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 102,
+                    "fish_id": [101,102,103],
                     "count_start": 0,
                         "count_end": 1,
-                        "wait_time": 15
+                      "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 103,
+                    "fish_id": [101,102,103],
                     "count_start": 0,
                         "count_end": 1,
-                        "wait_time": 31
+                      "wait_time_start": 0,
+           		      "wait_time_end": 0
                 },
                 {
-                    "fish_id": 104,
+                    "fish_id": [101,102,103],
                     "count_start": 0,
                         "count_end": 1,
-                        "wait_time": 47
+                       "wait_time_start": 0,
+           		      "wait_time_end": 0
                 }
             ]
         },
@@ -208,10 +236,11 @@
             "interval_time_end": 200,
             "item_list": [
                 {
-                    "fish_id": 201,
+                    "fish_id": [201],
                     "count_start": 1,
                         "count_end": 1,
-                      "wait_time": 0
+                       "wait_time_start": 0,
+           		      "wait_time_end": 0
                 }
             ]
         }
