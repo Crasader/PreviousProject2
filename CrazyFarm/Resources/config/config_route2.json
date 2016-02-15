@@ -1,5 +1,5 @@
 {
-    "description": "movestate 1-16曲线运动"
+    "description": "movestate 1-16曲线运动",
     "version": 1,
     "MotionConfig": [
         {
@@ -455,8 +455,8 @@
                 {
                     "moveState": 4,
                     "endPos": { "x": 320, "y": -180 },
-                    "bezierPos1": { "x": -64, "y": -122 },
-                    "bezierPos2": { "x": -238, "y": -191 },
+                    "bezierPos1": { "x": 64, "y": -122 },
+                    "bezierPos2": { "x": 238, "y": -191 },
                     "delay": 0,
                     "time": 5
                 },
