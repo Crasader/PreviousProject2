@@ -110,7 +110,7 @@ void FishManage::createFishGroup(int grouptag)
 
 void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 {
-	
+	momentEightroutetag = rand() % 16 + 1;
 	Fish*fish;
 	if (fishId>=100)
 	{

@@ -38,6 +38,7 @@ public:
 
 	Turrent getTurrentByIndex(int index);
 
+	int     getIndexByMaxlv(int maxlv);
 	std::vector<Turrent> getUnUpgradeTurrents();
 private:
 	static ConfigTurrent* _instance;

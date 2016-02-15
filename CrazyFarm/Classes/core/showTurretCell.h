@@ -14,6 +14,7 @@ public:
 	  void setVippaoValue(int index);
 	  void IsBeToued();
 	  void ButtonCallback(Ref* psend);
+
 private:
 	MenuItemImage* button;
 
@@ -22,8 +23,12 @@ private:
 	Sprite*showVipPaoName;
 	LabelAtlas* muptleTTF;
 	LabelTTF* PriceDecTTF;
-	Sprite* lockSp;
+	Sprite*lock;
+	Sprite*lockTTf;
 	Sprite* propSprite;
 	Sprite* ShowPaoshade;
-
+	Sprite* ShowPaolight;
+	Sprite* SendCoin;
+	LabelAtlas* zengCoinTTf;
+	Sprite*quex3;
 };

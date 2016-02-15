@@ -87,7 +87,9 @@ public:
 	  Turrent getTurrentMupltData(){ return m_turretdata; };
 	  //¹¥»÷ÏûºÄ½ð±Ò
 	  void costMoney();
+	  Vec2 getCoinLabelPos(){ return m_coinLabelPos+getPosition()-getContentSize()/2; };
 private:
+	Vec2 m_coinLabelPos;
 	Turrent  m_turretdata;
 	  int turretType;
 	  void upgradeTurret(Ref* psend);

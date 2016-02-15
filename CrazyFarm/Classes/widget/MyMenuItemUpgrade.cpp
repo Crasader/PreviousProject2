@@ -6,6 +6,7 @@
 #include "core/showTurretLayer.h"
 #include "domain/logevent/LogEventTurrentUpgrade.h"
 #include "domain/globalschedule/GlobalSchedule.h"
+#include "domain/game/GameManage.h"
 enum 
 {
 	kTagMutpleLabel = 10,
@@ -61,6 +62,44 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 							
 			}
 			GameData::getInstance()->setnowLevel(m_turretdata.multiple);
+			//解锁成功字样提示
+			auto layer = Director::getInstance()->getRunningScene()->getChildByTag(777);
+			auto pos = GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPosition();
+			auto txt1 = Sprite::create("lockTurretTXT2.png");
+			txt1->setPosition(pos.x+5, pos.y + 150);
+			GameManage::getInstance()->getGuiLayer()->addChild(txt1);
+			auto ttf = LabelAtlas::create(Value(m_turretdata.multiple).asString().c_str(),"unLockNumTTF.png", 13, 19,'0');
+			ttf->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+			ttf->setPosition(0, txt1->getContentSize().height/2);
+			txt1->addChild(ttf);
+			auto txt2 = Sprite::create("lockTurretTXT1.png");
+			txt2->setAnchorPoint(Point(1, 0.5));
+			txt2->setPosition(0,ttf->getContentSize().height/2);
+			ttf->addChild(txt2);
+			auto ttf1 = LabelAtlas::create(Value(m_turretdata.rewardList.at(0).num).asString().c_str(), "multipleNum.png", 15, 21, '0');
+			ttf1->setPosition(txt1->getContentSize().width, txt1->getContentSize().height/2);
+			ttf1->setAnchorPoint(Point(0, 0.5));
+			txt1->addChild(ttf1);
+			txt1->runAction(Sequence::create(DelayTime::create(2.0f), RemoveSelf::create(1), nullptr));
+			//金币掉落
+			for (int i = 0; i < 15;i++)
+			{
+				auto aniCoin = Sprite::create();
+				aniCoin->setPosition(pos.x+40*(rand_0_1()-0.5), pos.y + 70);
+				aniCoin->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGold")));
+				aniCoin->runAction(Sequence::create(DelayTime::create(0.05f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, pos), RemoveSelf::create(1), nullptr));
+				GameManage::getInstance()->getGuiLayer()->addChild(aniCoin);
+			}
+			//金币数字
+			auto str = String::createWithFormat(":%d", m_turretdata.rewardList.at(0).num);
+			auto label = LabelAtlas::create(str->getCString(),"TTFaniGold.png", 23, 34, '0');
+			label->setAnchorPoint(Point::ANCHOR_MIDDLE);
+			label->setPosition(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getCoinLabelPos()+Vec2(0,60));
+			label->setScale(0);
+			label->runAction(ScaleTo::create(0.1, 1));
+			label->runAction(Sequence::create(DelayTime::create(2.0f), RemoveSelf::create(), nullptr));
+			GameManage::getInstance()->getGuiLayer()->addChild(label);
+
 		}
 		else
 		{

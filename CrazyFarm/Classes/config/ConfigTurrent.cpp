@@ -129,14 +129,26 @@ Turrent ConfigTurrent::getLastTurrent(int turrentId)
 
 Turrent ConfigTurrent::getTurrentByIndex(int index)
 {
-	for (auto var:turrents)
+	return turrents.at(index);
+	/*for (auto var:turrents)
 	{
-		if (var.turrentId == index)
+	if (var.turrentId == index)
+	{
+	return var;
+	}
+	}
+	return Turrent();*/
+}
+int   ConfigTurrent::getIndexByMaxlv(int maxlv)
+{
+	for (int i = 0; i < turrents.size();i++)
+	{
+		if (turrents[i].multiple == maxlv)
 		{
-			return var;
+			return i;
 		}
 	}
-	return Turrent();
+	return -1;
 }
 
 std::vector<Turrent> ConfigTurrent::getUnUpgradeTurrents()

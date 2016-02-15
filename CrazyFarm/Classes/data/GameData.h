@@ -32,6 +32,8 @@ private:
 	CC_SYNTHESIZE(int, nShotPropCount, ShotPropCount);
 	CC_SYNTHESIZE(MagnateEvent, m_Diamondevent, Diamondevent);
 	CC_SYNTHESIZE(MagnateEvent, m_propevent, propevent);
+
+	CC_SYNTHESIZE(int, nChairNo, chairNo);
 };
 
 #endif

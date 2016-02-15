@@ -9,7 +9,7 @@ void VIPView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
 Size VIPView::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx){
-	return CCSizeMake(230, 600);
+	return CCSizeMake(230, 400);
 }
 cocos2d::extension::TableViewCell* VIPView::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx){
 	VipCell *cell = (VipCell*)table->dequeueCell();
@@ -149,15 +149,17 @@ bool VIPLayer::init()
 
 
 		//tableview
-		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(800,500));
+		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(800,600));
 		tableView->setDirection(ScrollView::Direction::HORIZONTAL);
-		tableView->setPosition(63,165);
+		tableView->setPosition(63,160);
 		tableView->setDelegate(tableviewDelegate);
+		tableView->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(tableView);
 		tableView->reloadData();
 		tableView->setContentOffset(Vec2(nowVip*-230, 0));
 
 
+	
 
 		auto listenr1 = EventListenerTouchOneByOne::create();
 		listenr1->onTouchBegan = CC_CALLBACK_2(VIPLayer::onTouchBegan, this);

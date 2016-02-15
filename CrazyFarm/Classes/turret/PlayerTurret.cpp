@@ -235,7 +235,7 @@ void PlayerTurret::createPlayerCoin(User* user, int index)
 	auto spCoinBG = Sprite::create("coinAnddiamondBG.png");
 	spCoinBG->setPosition(coinPos[index]);
 	addChild(spCoinBG, 10, index);
-
+	m_coinLabelPos = spCoinBG->getPosition();
 	m_CoinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "multipleNum.png", 15, 21, '0');
 	m_CoinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
 	m_CoinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
@@ -257,7 +257,7 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 	auto spCoinBG = Sprite::create("coinAnddiamondBG.png");
 	spCoinBG->setPosition(coinPos[user->getRoomPosition()]);
 	addChild(spCoinBG, 10, user->getRoomPosition());
-
+	m_coinLabelPos = spCoinBG->getPosition();
 	nNowMoney = user->getCoins();
 	m_CoinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "multipleNum.png", 15, 21, '0');
 	m_CoinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);

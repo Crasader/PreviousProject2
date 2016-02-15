@@ -4,6 +4,7 @@
 #include "config/ConfigVipTurrent.h"
 #include "config/ConfigTurrent.h"
 #include "lobby/shop/payLayer.h"
+#include "domain/user/User.h"
 void showTurretView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
@@ -22,22 +23,26 @@ cocos2d::extension::TableViewCell* showTurretView::tableCellAtIndex(cocos2d::ext
 	}
 	if (nViewTp == 1)
 	{
-		cell->setVippaoValue(ConfigVipTurrent::getInstance()->getUnUpgradeTurrents().at(idx).vip_turrent_id);
+		cell->setVippaoValue(idx+1);
 	}
 	else if (nViewTp == 2)
 	{
-		cell->setMultipleValue(ConfigTurrent::getInstance()->getUnUpgradeTurrents().at(idx).turrentId);
+		cell->setMultipleValue(idx);
 	}
 	return cell;
 }
 ssize_t showTurretView::numberOfCellsInTableView(cocos2d::extension::TableView *table){
 	if (nViewTp==1)
 	{
-		return ConfigVipTurrent::getInstance()->getUnUpgradeTurrents().size();
+		return  ConfigVipTurrent::getInstance()->getVipTurrents().size();
 	}
 	else if (nViewTp==2)
 	{
-		return ConfigTurrent::getInstance()->getUnUpgradeTurrents().size();
+		return ConfigTurrent::getInstance()->getTurrent().size();
+	}
+	else
+	{
+		return 0;
 	}
 }
 
@@ -108,11 +113,14 @@ bool showTurretLayer::init(int type)
 		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(810,260)
 			);
 		tableView->setDirection(ScrollView::Direction::HORIZONTAL);
-		tableView->setPosition(70,120);
+		tableView->setPosition(70,140);
 		tableView->setDelegate(tableviewDelegate);
 		addChild(tableView);
 		tableView->reloadData();
-
+		if (type == 2)
+		{
+			tableView->setContentOffset(Vec2(ConfigTurrent::getInstance()->getIndexByMaxlv(User::getInstance()->getMaxTurrentLevel())*-194, 0));
+		}
 
 
 		auto listenr1 = EventListenerTouchOneByOne::create();

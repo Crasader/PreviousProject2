@@ -4,52 +4,56 @@
 bool VipCell::init(){
 
 	auto bg = Sprite::create("VIPFrame.png");
-	bg->setPosition(88, 142.5);
+	bg->setPosition(88, 121.5+40);
 	addChild(bg);
 	auto size = bg->getContentSize();
 
 	propSprite = Sprite::create();
-	propSprite->setPosition(size / 2);
+	propSprite->setPosition(size.width/2,size.height/2+40);
 	addChild(propSprite);
 
 	auto bottomFrame = Sprite::create("VIPbottomFrame.png");
 	bottomFrame->setAnchorPoint(Point::ZERO);
-	bottomFrame->setPosition(0,41);
+	bottomFrame->setPosition(0,40);
 	addChild(bottomFrame);
 
 
 	 VIPtitle = Sprite::create("VIPtxt.png");
-	VIPtitle->setPosition(size.width*0.45, size.height*0.8+21);
+	VIPtitle->setPosition(size.width*0.45, size.height*0.8+58);
 	addChild(VIPtitle);
 	
 	VIPTTF = LabelAtlas::create("0", "VIPnum.png", 31, 43, '0');
 	VIPTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	VIPTTF->setPosition(size.width*0.75, size.height*0.8+21);
+	VIPTTF->setPosition(size.width*0.75, size.height*0.8+58);
 	addChild(VIPTTF);
 
 
 
 	VIPname = Sprite::create();
-	VIPname->setPosition(size.width / 2, size.height*0.23+36);
+	VIPname->setPosition(size.width / 2, size.height*0.23+45);
 	addChild(VIPname);
 
 	VIPdec = Sprite::create();
-	VIPdec->setPosition(size.width *0.51, size.height*0.1+36);
+	VIPdec->setPosition(size.width *0.51, size.height*0.1+40);
 	addChild(VIPdec);
 
 
+	auto priceFrame = Sprite::create("txtPriceDes.png");
+	priceFrame->setPosition(size.width *0.51, -size.height*0.1+40);
+	addChild(priceFrame);
+
 	PriceDecTTF = LabelTTF::create("0", "arial", 20);
-	PriceDecTTF->setPosition(size.width *0.51, size.height*0.1-10);
-	addChild(PriceDecTTF);
+	PriceDecTTF->setPosition(priceFrame->getContentSize()/2);
+	priceFrame->addChild(PriceDecTTF);
 
 	sPoint = Sprite::create("sPoint.png");
-	sPoint->setPosition(size.width*1.16, size.height*0.5);
+	sPoint->setPosition(size.width*1.16, size.height*0.5+40);
 	addChild(sPoint);
 	sPoint->setVisible(false);
 
 
 	upgradeTxt = Sprite::create("upgradeProp.png");
-	upgradeTxt->setPosition(size.width / 2, 91);
+	upgradeTxt->setPosition(size.width / 2, 100+40);
 	addChild(upgradeTxt);
 
 

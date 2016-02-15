@@ -15,6 +15,9 @@ public:
 	GameGuiLayer* getGuiLayer(){
 		return m_pGuilayer;
 	}
+	GameLayer* getGameLayer(){
+		return m_pGameyer;
+	}
 	
 	//µ¯³ö×êÊ¯
 	void showLockTurrent();
