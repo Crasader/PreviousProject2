@@ -110,7 +110,7 @@ void FishManage::createFishGroup(int grouptag)
 
 void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 {
-	if (fishId>110&fishId<120)
+	if (fishId>300&fishId<600)
 	{
 		createFishQueue(fishId, momentEightroutetag);
 		return;
@@ -135,11 +135,9 @@ void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 
 void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 {
-	switch (fishId)
+	if (fishId>300&fishId<400)
 	{
-	case 111:
-	{
-		int id = rand() % 10 + 1;	
+		int id = fishId-300;
 		//鱼1
 		auto fish = createFishSingle(id);
 		auto size = createFishSingle(id)->getContentSize();
@@ -147,7 +145,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
 		m_layer->addChild(fish, 5);
-		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(size.width/2+10, 0));
+		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(size.width / 2 + 10, 0));
 		fish->addShader();
 		//鱼2
 		fish = createFishSingle(id);
@@ -155,7 +153,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
 		m_layer->addChild(fish, 5);
-		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(-size.width/2-10, 20+size.height/2));
+		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(-size.width / 2 - 10, 20 + size.height / 2));
 		fish->addShader();
 		//鱼3
 		fish = createFishSingle(id);
@@ -163,14 +161,12 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
 		m_layer->addChild(fish, 5);
-		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(-size.width/2-10, -20-size.height/2));
+		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(-size.width / 2 - 10, -20 - size.height / 2));
 		fish->addShader();
-
 	}
-		break;
-	case 112:
+	else if (fishId>400&&fishId<500)
 	{
-		int id = rand() % 10 + 1;
+		int id = fishId-400;
 		//鱼1
 		auto fish = createFishSingle(id);
 		auto size = createFishSingle(id)->getContentSize();
@@ -202,14 +198,12 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
 		m_layer->addChild(fish, 5);
-		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(size.width / 2 +10, 20 + size.height / 2));
+		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(size.width / 2 + 10, 20 + size.height / 2));
 		fish->addShader();
-
 	}
-		break;
-	case 113:
+	else 
 	{
-		int id = rand() % 10 + 1;
+		int id = fishId-500;
 		//鱼1
 		auto fish = createFishSingle(id);
 		auto size = createFishSingle(id)->getContentSize();
@@ -249,12 +243,8 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
 		m_layer->addChild(fish, 5);
-		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(0,0));
+		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(0, 0));
 		fish->addShader();
-	}
-		break;
-	default:
-		break;
 	}
 }
 

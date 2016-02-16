@@ -80,10 +80,9 @@ bool GameLayer::init(){
 	loadNewMonent();
 
 
-	//auto fish = FishManage::getInstance()->createFishArrange(102);
+	//auto fish = FishManage::getInstance()->createFishArrange(104);
 	//fish->setPosition(480, 270);
 	//fish->unscheduleUpdate();
-	//fish->setRotation(150);
 	//addChild(fish);
 	//for (auto var : fish->getBoundingFigures())
 	//{

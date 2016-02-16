@@ -3,84 +3,53 @@
 #include "utill/MagicEffect.h"
 #include "utill/FunUtil.h"
 #include "config/ConfigFishCollisionRange.h"
-void FishArrangeFourh::initFish(int fishType){
-	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
-	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
-	this->grabProbability = fishdata.probability;
-	this->fishType = fishType;
-	this->speed = getRandValueInVec(fishdata.move_speeds);
-	this->experience = getFishExperienceByType(fishType);
-	initFishAnim(fishdata.uiId);
-	LogEventFish::getInstance()->addFishCreateTimes(fishType);
-}
 void FishArrangeFourh::initFishAnim(int fishType)
 {
 	//Ö÷Óã
-	int id = rand()%2? rand() % 8 + 30:rand() % 10 + 1;
+	int randarray[9] = { 4,7,8,9,10, 30, 31, 32, 33 };
+	int id = randarray[rand() % 9];
+	auto maggiceff = MagicEffect::create(5, true);
+	maggiceff->setPosition(0, 0);
+	maggiceff->setAnchorPoint(Point::ZERO);
+	addChild(maggiceff, -1);
 	auto mainfish = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
-	mainfish->setPosition(0, 0);
+	mainfish->setPosition(maggiceff->getContentSize() / 2);
 	addChild(mainfish);
 	auto acName = String::createWithFormat("swim_%d", id);
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+	auto ac1 = ac->clone();
+	auto ac2 = ac->clone();
+	auto ac3 = ac->clone();
 	mainfish->runAction(ac);
-	auto maggiceff = MagicEffect::create(3, true);
-	maggiceff->setPosition(mainfish->getContentSize() / 2);
-	maggiceff->setScale(mainfish->getContentSize().width / maggiceff->getContentSize().width);
-	mainfish->addChild(maggiceff, -1);
-	pushBackFigureVec(id, mainfish->getPosition()-mainfish->getContentSize()/2);
-
-	//¸±Óã
+	pushBackFigureVec(id, mainfish->getPosition() - mainfish->getContentSize() / 2);
 	
-	auto mainSize = mainfish->getContentSize();
-	acName = String::createWithFormat("swim_%d", id);
-	auto ac1 = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
-	auto ac2 = ac1->clone();
-	auto ac3 = ac1->clone();
-	setAnchorPoint(Point::ANCHOR_MIDDLE);
-
+	auto maggiceff1 = MagicEffect::create(5, true);
+	maggiceff1->setPosition(108, maggiceff->getContentSize().height / 2);
+	addChild(maggiceff1, -1);
 	auto sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
-	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sp->setPosition(-mainSize.width*0.5, -mainSize.height*1);
+	sp->setPosition(maggiceff1->getPosition());
 	sp->runAction(ac1);
 	addChild(sp);
-	maggiceff = MagicEffect::create(3, true);
-	maggiceff->setPosition(sp->getContentSize() / 2);
-	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
-	sp->addChild(maggiceff, -1);
-	pushBackFigureVec(id, sp->getPosition()-sp->getContentSize()/2);
+	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 
+
+	auto maggiceff2 = MagicEffect::create(5, true);
+	maggiceff2->setPosition(130, -20);
+	addChild(maggiceff2, -1);
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
-	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sp->setPosition(-mainSize.width *1.0 , 0);
+	sp->setPosition(maggiceff2->getPosition());
 	sp->runAction(ac2);
 	addChild(sp);
-	maggiceff = MagicEffect::create(3, true);
-	maggiceff->setPosition(sp->getContentSize() / 2);
-	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
-	sp->addChild(maggiceff, -1);
 	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
+
+
+	auto maggiceff3 = MagicEffect::create(5, true);
+	maggiceff3->setPosition(130+72,-20);
+	addChild(maggiceff3, -1);
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
-	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sp->setPosition(mainSize.width *-1.5 , -mainSize.height *1);
+	sp->setPosition(maggiceff3->getPosition());
 	sp->runAction(ac3);
 	addChild(sp);
-	maggiceff = MagicEffect::create(3, true);
-	maggiceff->setPosition(sp->getContentSize() / 2);
-	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
-	sp->addChild(maggiceff, -1);
 	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 }
 
-void FishArrangeFourh::onDead()
-{
-	removeFromParentAndCleanup(1);
-}
-
-void FishArrangeFourh::pushBackFigureVec(int uiid, Point pos)
-{
-	auto vec = ConfigFishCollisionRange::getInstance()->getFishFigures(uiid);
-	for (auto var : vec)
-	{
-		figures.push_back(var->addposWithFigure(pos));
-	}
-}

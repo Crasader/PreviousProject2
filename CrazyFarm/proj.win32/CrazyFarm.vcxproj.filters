@@ -609,6 +609,9 @@
     <ClCompile Include="..\Classes\bullet\Laster.cpp">
       <Filter>src\bullet</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\fish\FishArrange.cpp">
+      <Filter>src\fish</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1102,6 +1105,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\bullet\Laster.h">
       <Filter>src\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\fish\FishArrange.h">
+      <Filter>src\fish</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

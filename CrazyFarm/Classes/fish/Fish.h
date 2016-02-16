@@ -43,7 +43,7 @@ public:
 	virtual void addShader();
 	void removeself();		
 	virtual void onDead();
-	void onHeart();
+	virtual void onHeart();
 	void onFreeze();
 	void onFreezeResume();
 	void createDropOutAniByCoin(Point belongPos,int curMoney);
@@ -63,7 +63,7 @@ protected:
 	int getFishGoldByType(int type);
 	int getFishExperienceByType(int type);
 	float getFishSpeedByType(int type);
-	void initFishAnim(int fishType);
+	virtual void initFishAnim(int fishType);
 	void moveFishStraight(float dt);//直线移动
 	void moveFishCircle(float dt);//圆周运动
 	void moveFishRandomStraight(float dt);//随机直线运动

@@ -100,6 +100,6 @@ CFigure*CCircle::addposWithFigure(Point pos)
 void CCircle::draw(Node*parent)
 {
 	auto node = DrawNode::create();
-	node->drawCircle(getMCenter(), getMRadius(), 360, 1, 1, Color4F::RED);
+	node->drawCircle(getMCenter(), getMRadius(), 360, 100, 0, Color4F::RED);
 	parent->addChild(node,100);
 }

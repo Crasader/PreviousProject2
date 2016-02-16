@@ -17,23 +17,25 @@ void FishArrangeOne::initFish(int fishType){
 void FishArrangeOne::initFishAnim(int fishType)
 {
 	//主鱼
-	int id = rand() % 8 + 30;
-	initWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+	int randarray[7] = { 10, 30, 31, 32, 33, 34, 35 };
+	int id = randarray[rand()%7];
 	auto acName = String::createWithFormat("swim_%d", id);
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
-	runAction(ac);
-	auto maggiceff = MagicEffect::create(2, true);
-	maggiceff->setPosition(getContentSize() / 2);
-	maggiceff->setScale(getContentSize().width / maggiceff->getContentSize().width);
-	addChild(maggiceff,-1);
+	auto sp1 = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+	sp1->setAnchorPoint(Point::ZERO);
+	sp1->setPosition(0,0);
+	sp1->runAction(ac);
+	addChild(sp1);
+	auto maggiceff = MagicEffect::create(1, true);
+	maggiceff->setPosition(sp1->getContentSize() / 2);
+	sp1->addChild(maggiceff, -1);
 	pushBackFigureVec(id, Point(0, 0));
 	
 
-
-	////TODO ： 挂载光圈 下班处理 需计算每只鱼大小，缩小放大光圈
 	//副鱼
-	id = rand() % 10 + 1;
-	auto mainSize = getContentSize();
+	int randarray1[6] = { 2,3,4,7,8,9 };
+	id = randarray1[rand() % 6];
+	auto mainSize = sp1->getContentSize();
 	auto AffiliateSize = FishAniMannage::getInstance()->getSpriteById(id)->getOriginalSize();
 	acName = String::createWithFormat("swim_%d", id);
 	auto ac1 = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
@@ -42,24 +44,22 @@ void FishArrangeOne::initFishAnim(int fishType)
 
 	auto sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);	
-	sp->setPosition(-mainSize.width *0 - AffiliateSize.width / 2, mainSize.height / 2);
+	sp->setPosition(-35, mainSize.height / 2);
 	sp->runAction(ac1);
 	addChild(sp);
 	maggiceff = MagicEffect::create(2, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);
-	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
 	sp->addChild(maggiceff, -1);
 	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	sp->setPosition(mainSize.width *1.0 + AffiliateSize.width/2, mainSize.height/2);
+	sp->setPosition(137, mainSize.height/2);
 	sp->runAction(ac2);
 	addChild(sp);
 	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
 	maggiceff = MagicEffect::create(2, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);
-	maggiceff->setScale(sp->getContentSize().width / maggiceff->getContentSize().width);
 	sp->addChild(maggiceff, -1);
 }
 void FishArrangeOne::addShader()

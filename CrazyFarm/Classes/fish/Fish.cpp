@@ -415,7 +415,10 @@ void Fish::onDead()
 	unscheduleAllCallbacks();
 	auto acName = String::createWithFormat("dead_%d", nUiID);
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
-	m_shadesprite->onDead();
+	if (m_shadesprite)
+	{
+		m_shadesprite->onDead();
+	}
 	runAction(RepeatForever::create(ac));
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
 	//…˘“Ù

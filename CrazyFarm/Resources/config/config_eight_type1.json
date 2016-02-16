@@ -8,7 +8,7 @@
             "interval_time_end": 10,
             "item_list": [
                 {
-                    "fish_id": [ 111],
+                    "fish_id": [ 301],
                     "fishRoute": 21,
                     "count_start": 1,
                     "count_end": 1,
@@ -16,7 +16,7 @@
                     "wait_time_end": 4
                 },
                 {
-                    "fish_id": [ 112],
+                    "fish_id": [ 302,401,402,501],
                     "fishRoute": 22,
                     "count_start": 1,
                     "count_end": 1,
@@ -25,7 +25,7 @@
                 }
                 ,
                 {
-                    "fish_id": [ 113],
+                    "fish_id": [ 501,502,503],
                     "fishRoute": 23,
                     "count_start": 1,
                     "count_end": 1,

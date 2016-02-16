@@ -222,6 +222,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\user\User.cpp" />
     <ClCompile Include="..\Classes\fish\Fish.cpp" />
     <ClCompile Include="..\Classes\fish\FishAniMannage.cpp" />
+    <ClCompile Include="..\Classes\fish\FishArrange.cpp" />
     <ClCompile Include="..\Classes\fish\FishArrangeFourh.cpp" />
     <ClCompile Include="..\Classes\fish\FishArrangeOne.cpp" />
     <ClCompile Include="..\Classes\fish\FishArrangeThree.cpp" />
@@ -387,6 +388,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\user\User.h" />
     <ClInclude Include="..\Classes\fish\Fish.h" />
     <ClInclude Include="..\Classes\fish\FishAniMannage.h" />
+    <ClInclude Include="..\Classes\fish\FishArrange.h" />
     <ClInclude Include="..\Classes\fish\FishArrangeFourh.h" />
     <ClInclude Include="..\Classes\fish\FishArrangeOne.h" />
     <ClInclude Include="..\Classes\fish\FishArrangeThree.h" />

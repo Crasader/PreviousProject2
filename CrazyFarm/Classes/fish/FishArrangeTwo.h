@@ -1,6 +1,6 @@
 #pragma once
 #include "cocos2d.h"
-#include "fish/Fish.h"
+#include "fish/FishArrange.h"
 using namespace cocos2d;
 
 
@@ -8,12 +8,9 @@ using namespace cocos2d;
 
 
 
-class FishArrangeTwo :public Fish{
+class FishArrangeTwo :public FishArrange{
 public:
 	CREATE_FUNC(FishArrangeTwo);
-	virtual void initFish(int fishType);
 	virtual void initFishAnim(int fishType);
-	void addShader(){};
-	virtual void onDead();
-	void pushBackFigureVec(int uiid, Point pos);
+
 };
