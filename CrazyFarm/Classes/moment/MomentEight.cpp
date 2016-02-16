@@ -1,7 +1,7 @@
 #include "moment/MomentEight.h"
 #include "utill/FunUtil.h"
 
-void MomentEight::init()
+void MomentEight::init(float FFOneTime)
 {
 	life_time = ConfigMomentEight::getInstance()->getLifeTime();
 	momentEightItemTypes = ConfigMomentEight::getInstance()->getMomentEightItemTypes();
@@ -13,7 +13,17 @@ void MomentEight::init()
 			item.fTempTime = getRandonNumByAtoB(item.interval_time_start, item.interval_time_end);
 		}
 	}
+	updata(FFOneTime);
+	FishManage::getInstance()->cleanVector();///暂时处理先清空所有的鱼
+	///////////////////////////TODO:时间的问题
+	//float fps = Director::getInstance()->getAnimationInterval();
+	//for (float k = FFOneTime - 5.0; k < FFOneTime; k += fps)
+	//{
+	//	/*updata(fps);*/
+	//	Director::getInstance()->getScheduler()->update(fps);
+	//}
 }
+
 
 bool MomentEight::updata(float dt)
 {
@@ -34,6 +44,7 @@ bool MomentEight::updata(float dt)
 				{
 					fishitem.wait_time = getRandonNumByAtoB(fishitem.fish_wait_time_start, fishitem.fish_wait_time_end);
 					FishManage::getInstance()->addMomentEightItemFishs(fishitem);
+					
 				}
 
 			}
@@ -41,25 +52,3 @@ bool MomentEight::updata(float dt)
 	}
 	return false;
 }
-//
-//MomentEightItemPer MomentEight::getFishByRandVec(std::vector<MomentEightItemPer> momentEightItemPers)
-//{
-//	std::vector<MomentEightItemPer> vec;
-//	vec.resize(momentEightItemPers.size());
-//	for (int i = 0; i < momentEightItemPers.size(); i++)
-//	{
-//		vec.at(i).fish_id = momentEightItemPers[i].fish_id;
-//		vec.at(i).fishRoute = momentEightItemPers[i].fishRoute;
-//		int lastPer = (i == 0 ? 0 : vec[i - 1].per);
-//		vec.at(i).per = lastPer + momentEightItemPers[i].per;
-//	}
-//	int randNum = rand() % 100 + 1;
-//	for (auto ite = vec.begin(); ite != vec.end(); ite++)
-//	{
-//		if (randNum <=ite->per)
-//		{
-//			return *ite;
-//		}
-//	}
-//	return momentEightItemPers.at(0);
-//}

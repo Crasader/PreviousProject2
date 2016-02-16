@@ -7,7 +7,7 @@ using namespace cocos2d;
 class Moment {
 
 public:
-	virtual void init() = 0;
+	virtual void init(float FFOneTime) = 0;
 	virtual bool updata(float dt) = 0;
 
 	

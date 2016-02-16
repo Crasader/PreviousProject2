@@ -20,15 +20,15 @@ MomentManager* MomentManager::getInstance(){
     return _instance;
 }
 
-Moment* MomentManager::getNewMoment() {
+Moment* MomentManager::getNewMoment(float FFOneTime) {
     
-    return getNewMomentByType(getCurrentType());
+	return getNewMomentByType(getCurrentType(), FFOneTime);
 }
 
-Moment* MomentManager::getNewMomentByType(int momentType) {
+Moment* MomentManager::getNewMomentByType(int momentType, float FFOneTime) {
     if(momentType == 1) {
         Moment* moment = new MomentOne();
-        moment->init();
+		moment->init(FFOneTime);
         return moment;
     }
 	switch (momentType)
@@ -36,25 +36,25 @@ Moment* MomentManager::getNewMomentByType(int momentType) {
 	case 1:
 	{
 		Moment* moment = new MomentOne();
-		moment->init();
+		moment->init(FFOneTime);
 		return moment;
 	}
 	case 2:
 	{
 		Moment* moment = new MomentTwo();
-		moment->init();
+		moment->init(FFOneTime);
 		return moment;
 	}
 	case 3:
 	{
 		Moment* moment = new MomentThree();
-		moment->init();
+		moment->init(FFOneTime);
 		return moment;
 	}
 	case 4:
 	{
 		Moment* moment = new MomentFour();
-		moment->init();
+		moment->init(FFOneTime);
 		return moment;
 	}
 	case 5:
@@ -62,7 +62,7 @@ Moment* MomentManager::getNewMomentByType(int momentType) {
 
 			
 				Moment* moment = new MomentFive();
-				moment->init();
+				moment->init(FFOneTime);
 				return moment;
 			
 		}
@@ -71,20 +71,20 @@ Moment* MomentManager::getNewMomentByType(int momentType) {
 
 
 			Moment* moment = new MomentSix();
-			moment->init();
+			moment->init(FFOneTime);
 			return moment;
 
 		}
 	case 8:
 	{
 		Moment* moment = new MomentEight();
-		moment->init();
+		moment->init(FFOneTime);
 		return moment;
 	}
 	case 9:
 	{
 		Moment* moment = new MomentNine();
-		moment->init();
+		moment->init(FFOneTime);
 		return moment;
 	}
 	default:
@@ -92,7 +92,7 @@ Moment* MomentManager::getNewMomentByType(int momentType) {
 	}
     
     Moment* moment = new MomentOne();
-    moment->init();
+	moment->init(FFOneTime);
     return moment;
 }
 

@@ -15,7 +15,7 @@ struct MomentEightItemFishs {
 	int fish_startcount;
 	int fish_endcount;
 	float wait_time; //真正的等待时间
-	int fishRoute = -1; ///-1代表随机
+	std::vector<int> fishRoutes;
 };
 
 

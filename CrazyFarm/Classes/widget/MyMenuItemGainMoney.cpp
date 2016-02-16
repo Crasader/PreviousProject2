@@ -25,10 +25,18 @@ MyMenuItemGainMoney * MyMenuItemGainMoney::create()
 }
 void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 {
+	isFinish = true;
+	 BonusPoolManager::getInstance()->addCoins(100000);
+	 BonusPoolManager::getInstance()->addCoins(100000);
+	 BonusPoolManager::getInstance()->addCoins(100000);
+	 BonusPoolManager::getInstance()->addCoins(100000);
+	 BonusPoolManager::getInstance()->addCoins(100000);
+	 BonusPoolManager::getInstance()->addCoins(100000);
+	 BonusPoolManager::getInstance()->addCoins(100000);
 	if (isElongate)
 	{
 		commonNode->setVisible(false);
-		runAction(MoveBy::create(0.5f, Vec2(180, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(166, 0)));
 		isElongate = false;
 		if (isFinish)
 		{
@@ -46,7 +54,16 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-180, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
+		runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]{
+			if (isElongate == false)
+			{
+				return;
+			}
+			runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+			commonNode->setVisible(false);
+			isElongate = false;
+		}), nullptr));
 	}
 }
 
@@ -59,12 +76,12 @@ void MyMenuItemGainMoney::initItem()
 	commonNode->setVisible(false);
 	auto size = getContentSize();
 	auto txt = Sprite::create("fishPoolTxt.png");
-	txt->setPosition(size.width*0.38, size.height/2);
+	txt->setPosition(size.width*0.38+5, size.height/2);
 	commonNode->addChild(txt);
 
 	//¾­ÑéÌõ
 	auto exeBarFrame = Sprite::create("exeBarFrameDiamond.png");
-	exeBarFrame->setPosition(size.width*0.40 + 11, 58);
+	exeBarFrame->setPosition(size.width*0.40 + 16, 50);
 	commonNode->addChild(exeBarFrame, 1, "exeFrame");
 	auto exeBar = Sprite::create("exeBarDiamond.png");
 	exeBar->setPosition(2, exeBarFrame->getContentSize().height/2);
@@ -81,10 +98,10 @@ void MyMenuItemGainMoney::initItem()
 	
 	auto coinNum = LabelAtlas::create(Value(0).asString().c_str(), "bonusNumTTF.png", 14, 21, '0');
 	coinNum->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	coinNum->setPosition(size.width*0.28+20, size.height*0.29);
+	coinNum->setPosition(size.width*0.28+24, size.height*0.29-4);
 	commonNode->addChild(coinNum, 1, kTagCoinLabel);
 	auto coin = Sprite::create("smallCoin.png");
-	coin->setPosition(size.width*0.6, size.height*0.29);
+	coin->setPosition(size.width*0.6, size.height*0.29-2);
 	commonNode->addChild(coin);
 	
 	

@@ -17,7 +17,7 @@ class MomentManager {
 public:
     static MomentManager* getInstance();
     
-    Moment* getNewMoment();
+    Moment* getNewMoment(float FFOneTime);//是否快进某个时间
     
 private:
     MomentManager();
@@ -27,7 +27,7 @@ private:
     std::vector<MomentOrderItem> momentOrderItems;
     int currentPos = 0;
     
-    Moment* getNewMomentByType(int momentType);
+	Moment* getNewMomentByType(int momentType,float FFOneTime);
     int getCurrentType();
     
 };

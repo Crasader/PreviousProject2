@@ -1,7 +1,7 @@
 #include "MomentFive.h"
 #include "fish/FishGroupData.h"
 
-void MomentFive::init()
+void MomentFive::init(float FFOneTime)
 {
 	datas.push_back(MomentFiveData(8, 0,Vec2(-270,342)));
 	datas.push_back(MomentFiveData(9, 5, Vec2(-270, 200)));

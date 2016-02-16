@@ -16,7 +16,7 @@ struct MomentFiveData
 class MomentFive : public Moment {
 
 public:
-	virtual void init();
+	virtual void init(float FFOneTime);
 	virtual bool updata(float dt);
 private:
 	float nNowTime = 0;

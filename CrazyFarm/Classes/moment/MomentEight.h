@@ -8,10 +8,9 @@ using namespace cocos2d;
 class MomentEight : public Moment {
 
 public:
-	virtual void init();
+	virtual void init(float FFOneTime);
 	virtual bool updata(float dt);
 private:
-	//MomentEightItemPer getFishByRandVec(std::vector<MomentEightItemPer> momentEightItemPers);
 	float nNowTime = 0;
 	float life_time;
 	std::map<int, std::vector<MomentEightItem>> momentEightItemTypes;

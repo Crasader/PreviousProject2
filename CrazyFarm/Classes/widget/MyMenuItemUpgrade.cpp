@@ -35,8 +35,9 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		commonNode->setVisible(false);
 		unfinishedNode->setVisible(false);
 		nodeZeng->setVisible(false);
-		runAction(MoveBy::create(0.5f, Vec2(180, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(166, 0)));
 		isElongate = false;
+	
 		if (isFinish)
 		{
 			auto a = User::getInstance()->getMaxTurrentLevel();
@@ -108,12 +109,24 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 			getParent()->getParent()->addChild(layer,20,50);
 			///////弹出充值
 		}
+		
 	}
 	else
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-180, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
+		runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]{
+			if (isElongate==false)
+			{
+				return;
+			}
+			runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+			commonNode->setVisible(false);
+			unfinishedNode->setVisible(false);
+			nodeZeng->setVisible(false);
+			isElongate = false;
+		}), nullptr));
 	}
 }
 
@@ -145,38 +158,39 @@ void MyMenuItemUpgrade::initItem()
 	unfinishedNode->setVisible(false);
 	auto size = getContentSize();
 	auto unLockTxt = Sprite::create("clickLockTXT.png");
-	unLockTxt->setPosition(size.width*0.38, 38/*size.height*0.40*/);
+	unLockTxt->setPosition(size.width*0.41, 33);
 	commonNode->addChild(unLockTxt);
 	auto mutpleLabel = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
 	mutpleLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	mutpleLabel->setPosition(size.width*0.41,56 /*size.height*0.50*/);
+	mutpleLabel->setPosition(size.width*0.44+5,49.5);
 	commonNode->addChild(mutpleLabel, 1, kTagMutpleLabel);
 
 	//已经满足条件
 	auto zeng = Sprite::create("zeng.png");
-	zeng->setPosition(size.width*0.15+5, size.height*0.29);
+	zeng->setPosition(size.width*0.14, size.height*0.29);
 	nodeZeng->addChild(zeng, 1);
 	auto coinNum = LabelAtlas::create(Value(coinnum).asString().c_str(), "bonusNumTTF.png", 14, 21, '0');
 	coinNum->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	coinNum->setPosition(size.width*0.28+20, size.height*0.29);
+	coinNum->setPosition(size.width*0.28+23, size.height*0.29);
 	nodeZeng->addChild(coinNum, 1,kTagCoinLabel);
 	auto coin = Sprite::create("smallCoin.png");
 	coin->setPosition(size.width*0.6, size.height*0.29);
 	nodeZeng->addChild(coin);
 	//不满足条件
 	auto diamond = Sprite::create("smallDiamond.png");
-	diamond->setPosition(size.width*0.15+5, size.height*0.29);
+	diamond->setPosition(size.width*0.15+2, size.height*0.29);
 	unfinishedNode->addChild(diamond);
 	//经验条
 	auto exeBarFrame = Sprite::create("exeBarFrameDiamond.png");
 	exeBarFrame->setPosition(size.width*0.40+10, size.height*0.29);
 	unfinishedNode->addChild(exeBarFrame,1,"exeFrame");
 	auto exeBar = Sprite::create("exeBarDiamond.png");
-	exeBar->setPosition(0, 0);
-	exeBar->setAnchorPoint(Point::ZERO);
+	exeBar->setPosition(0+2,exeBarFrame->getContentSize().height/2);
+	exeBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 	exeBarFrame->addChild(exeBar,1,kTagExeBar);
 
 	auto exeDec = LabelAtlas::create("0", "bonusNumTTF.png", 14, 21, '0');
+	exeDec->setScale(0.8);
 	exeDec->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	exeDec->setPosition(exeBarFrame->getContentSize() / 2);
 	exeBarFrame->addChild(exeDec,1,kTagExeDec);
@@ -238,7 +252,7 @@ void MyMenuItemUpgrade::showPopup()
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-180, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
 
 		if (isFinish)
 		{
@@ -252,7 +266,7 @@ void MyMenuItemUpgrade::showPopup()
 					commonNode->setVisible(false);
 					unfinishedNode->setVisible(false);
 					nodeZeng->setVisible(false);
-					runAction(MoveBy::create(0.5f, Vec2(180, 0)));
+					runAction(MoveBy::create(0.5f, Vec2(166, 0)));
 					isElongate = false;
 				};
 

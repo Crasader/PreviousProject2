@@ -1,7 +1,7 @@
 #include "moment/MomentOne.h"
 
 
-void MomentOne::init()
+void MomentOne::init(float FFOneTime)
 {
     oneMomentList = ConfigOnemoment::getInstance()->loadOneMomentListConfig();
     nNowTime = 0;

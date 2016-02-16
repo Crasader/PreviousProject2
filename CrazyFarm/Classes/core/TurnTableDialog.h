@@ -8,6 +8,7 @@ public:
 	CREATE_FUNC(TurnTableDialog);
 	virtual bool init();
 	void onGetRewards(BonuspoolRewardItem reward);
+	void createBottomFrame(bool isFinish);
 protected:
 	void closeButtonCallBack(Ref*psend);
 	virtual bool onTouchBegan(Touch *pTouch, Event *pEvent){ return true; };

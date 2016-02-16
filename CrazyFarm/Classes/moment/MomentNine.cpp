@@ -1,7 +1,7 @@
 #include "moment/MomentNine.h"
 #include "utill/FunUtil.h"
 #include "fish/FishManage.h"
-void MomentNine::init()
+void MomentNine::init(float FFOneTime)
 {
 	FishManage::getInstance()->onClearFish();
 }

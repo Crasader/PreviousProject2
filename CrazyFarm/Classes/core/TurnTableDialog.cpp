@@ -30,8 +30,17 @@ bool TurnTableDialog::init()
 
 		//¾­ÑéÌõ
 		auto bonus = BonusPoolManager::getInstance()->getNextBonuspool();
+		int nextCoin;
+		if (bonus)
+		{
+			nextCoin = bonus->start_coins;
+		}
+		else
+		{
+			nextCoin = -1;
+		}
 		auto nowCoin = BonusPoolManager::getInstance()->getCoins();
-		auto nextCoin = bonus.start_coins;
+		
 
 		
 
@@ -79,4 +88,12 @@ void TurnTableDialog::onGetRewards(BonuspoolRewardItem reward)
 {
 	BagManager::getInstance()->changeItemCount(reward.item_id, reward.num);
 	BonusPoolManager::getInstance()->cleanCoinsAndFishCounts();
+}
+
+void TurnTableDialog::createBottomFrame(bool isFinish)
+{
+	if (isFinish)
+	{
+
+	}
 }

@@ -81,13 +81,22 @@ BonuspoolResult BonusPoolManager::getBonuspoolResult() {
 }
 
 ///TODO::È±ÉÙ±£»¤
-BonuspoolItem  BonusPoolManager::getNextBonuspool() {
+BonuspoolItem*  BonusPoolManager::getNextBonuspool() {
 	int coins = getCoins();
 	Bonuspool bonuspool = ConfigBonuspool::getInstance()->getBonuspool();
 	for (int i = 0; i < bonuspool.bonuspoolItems.size(); i++) {
 		if ((coins >= bonuspool.bonuspoolItems.at(i).start_coins) &&
 			(coins < bonuspool.bonuspoolItems.at(i).end_coins)) {
-			return bonuspool.bonuspoolItems.at(i + 1);
+
+			if (i+1>=bonuspool.bonuspoolItems.size())
+			{
+				return nullptr;
+			}
+			else
+			{
+				return &bonuspool.bonuspoolItems.at(i + 1);
+			}
+
 		}
 	}
 }

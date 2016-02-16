@@ -2,7 +2,7 @@
 
 MermaidTask::MermaidTask(){
     mermaidTaskConfigInfo.start_wait_time = 3 + rand()%8; //[3, 11]
-    mermaidTaskConfigInfo.continue_time = 10;///正式时间300
+    mermaidTaskConfigInfo.continue_time = 300;///正式时间300
     
     mermaidTaskOnlineInfo.coins = 0;
     

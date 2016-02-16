@@ -79,16 +79,21 @@ bool ConfigMomentEight::LoadConfigByType(int type)
 				itemfishes.fish_endcount = val["count_end"].GetInt();
 				itemfishes.fish_wait_time_start = val["wait_time_start"].GetDouble();
 				itemfishes.fish_wait_time_end = val["wait_time_end"].GetDouble();
-				if (val["fishRoute"].IsInt())
+				if (val["fishRoute"].IsArray())
 				{
-					itemfishes.fishRoute = val["fishRoute"].GetInt();
+					auto &fishroutes = val["fishRoute"];
+					for (unsigned int j = 0; j < fishroutes.Size(); j++)
+					{
+						itemfishes.fishRoutes.push_back(fishroutes[j].GetInt());
+					}
+
 				}
 				auto &fishids = val["fish_id"];
 				for (unsigned int j = 0; j < fishids.Size();j++)
 				{
 					itemfishes.fish_ids.push_back(fishids[j].GetInt());
 				}
-
+				
 				item.momentEightItemFishs.push_back(itemfishes);
 			}
 			items.push_back(item);

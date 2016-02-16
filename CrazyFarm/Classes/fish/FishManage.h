@@ -55,6 +55,7 @@ public:
 	void UpdateWhenController(float dt);
 	void UpdataCreateFish(float dt);
 	void LoadOnement();
+	void LoadOldment();///TODO: 
 	void createFishByOneMonet(OneMoment onemonent);
 	void onBoomFishDead(Fish*fish, PlayerTurret* pTurret);
 
@@ -64,7 +65,7 @@ private :
 	static FishManage* _instance;
 	Vector<Fish*> fishPool;
 	std::vector<MomentEightItemFishs> waitCreateMomentEightFishs;
-	Moment* m_nowMonent;
+	Moment* m_nowMonent = nullptr;
 	CC_SYNTHESIZE(GameLayer*, m_layer, layer);
  };
 #endif

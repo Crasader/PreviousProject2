@@ -29,23 +29,23 @@ bool GameGuiLayer::init(){
 
 	auto sprbg = Sprite::create("EarnCoins.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	sprbg->setPosition(visibleSize.width, visibleSize.height*0.31);
+	sprbg->setPosition(visibleSize.width-5, visibleSize.height*0.305);
 	addChild(sprbg, 11);
 
 	sEainCoin = MyMenuItemGainMoney::create();
-	sEainCoin->setPosition(visibleSize.width + 40, visibleSize.height*0.3);
+	sEainCoin->setPosition(visibleSize.width + 50, visibleSize.height*0.3);
 	menu->addChild(sEainCoin);
 
 
 	
 	sUpgradeTurret = MyMenuItemUpgrade::create();
-	sUpgradeTurret->setPosition(visibleSize.width+40, visibleSize.height*0.5);
+	sUpgradeTurret->setPosition(visibleSize.width+50, visibleSize.height*0.5);
 	menu->addChild(sUpgradeTurret);
 
 
 	sprbg = Sprite::create("UpgradeButton.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	sprbg->setPosition(visibleSize.width,visibleSize.height*0.51);
+	sprbg->setPosition(visibleSize.width-5,visibleSize.height*0.505);
 	addChild(sprbg,11);
 
 	///¶³½á

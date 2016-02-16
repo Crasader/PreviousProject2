@@ -331,19 +331,19 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		}
 		LogEventFish::getInstance()->addFishUserCatchTimes(fish->getFishType());
 		m_turretdata = GameData::getInstance()->getTurrentData();
-		//��ý��
+	
 		Audio::getInstance()->playSound(CATCHGOLD);
 		num = fish->getFishGold()* m_turretdata.multiple;
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
-		//��þ���?
+	
 		auto exp = fish->getFishExperience();
 		if (User::getInstance()->addExp(exp))
 		{
 			onPlayerUpgrade();
 		}
-		//�����?
+		
 		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
-		//��ʯ��
+
 		auto event = GameData::getInstance()->getDiamondevent();
 		if (GameData::getInstance()->getShotDiamondCount() >= event.fireTimes)
 		{
@@ -352,7 +352,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 			GameData::getInstance()->setShotDiamondCount(0);
 			GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
 			
-			//TODO::�����ϵõ���ƷUI��ʾ
+		
 		}
 		event = GameData::getInstance()->getpropevent();
 		if (GameData::getInstance()->getShotPropCount() >= event.fireTimes)
@@ -361,7 +361,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 			LogEventMagnate::getInstance()->addMagnateNum(event.itemId, event.num);
 			GameData::getInstance()->setShotPropCount(0);
 			GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
-			//TODO::�����ϵõ���ƷUI��ʾ
+	
 		}
 	}
 	fish->createDropOutAniByCoin(getPosition(),num);

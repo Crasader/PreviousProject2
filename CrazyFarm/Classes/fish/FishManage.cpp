@@ -110,9 +110,29 @@ void FishManage::createFishGroup(int grouptag)
 
 void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 {
-	if (fishId>300&fishId<600)
+	if (fishId>300&&fishId<600)
 	{
 		createFishQueue(fishId, momentEightroutetag);
+		return;
+	}
+	if (fishId>1000&&fishId<10000)
+	{
+		int count = fishId / 1000;
+		int id = (fishId - count * 1000) / 10;
+		float interval = fishId % 10;
+		for (int i = 0; i < count;i++)
+		{
+			m_layer->runAction(Sequence::create(DelayTime::create(i*interval), CallFunc::create([=]{
+				Fish* fish = fish = createFishSingle(id);
+				fish->setVisible(false);
+				fish->setisAutoRemove(false);
+				fish->setMonentEightRoute(momentEightroutetag);
+				m_layer->addChild(fish, 5);
+				fish->addShader();
+
+			}), nullptr));
+			
+		}
 		return;
 	}
 	Fish*fish;
@@ -397,7 +417,7 @@ void FishManage::cleanVector()
 {
 	auto lockfish = m_layer->GetMyTurret()->getLockFish();
 	auto lightfish = m_layer->GetMyTurret()->getLightFish();
-	for (auto var:fishPool)
+	for (auto var : fishPool)
 	{
 		if (var == lockfish)
 		{
@@ -415,7 +435,12 @@ void FishManage::cleanVector()
 
 void FishManage::LoadOnement()
 {
-    m_nowMonent = MomentManager::getInstance()->getNewMoment();
+	///需要优化
+    m_nowMonent = MomentManager::getInstance()->getNewMoment(0);
+}
+void FishManage::LoadOldment()
+{
+	
 }
 
 void FishManage::UpdataCreateFish(float dt)
@@ -429,22 +454,33 @@ void FishManage::UpdataCreateFish(float dt)
 			for (int i = 0; i < count;i++)
 			{
 				auto fishid = getRandValueInVec(it->fish_ids);
-				if (it->fishRoute != -1)
+				auto routesize = it->fishRoutes.size();
+				if (routesize>0)
 				{
-					if (it->fishRoute == -2)
+					auto route = getRandValueInVec(it->fishRoutes);
+					switch (route)
 					{
-						createFishAssign(fishid,  rand() % 16 + 1);
-					}
-					else if (it->fishRoute == -3)
-					{
+					case -1:
+						if (fishid >= 100 && fishid
+							< 200)
+						{
+							createFishArrangeRand(fishid);
+						}
+						else
+						{
+							createFishRand(fishid);
+						}
+						break;
+					case -2:
+						createFishAssign(fishid, rand() % 16 + 1);
+						break;
+					case -3:
 						createFishAssign(fishid, rand() % 4 + 17);
+						break;
+					default:
+						createFishAssign(fishid, route);
+						break;
 					}
-					else
-					{
-						createFishAssign(fishid, it->fishRoute);
-					}
-					
-
 				}
 				else
 				{

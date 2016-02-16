@@ -77,8 +77,8 @@ bool GameLayer::init(){
 	createTurret();
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
-	loadNewMonent();
-
+	
+	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{loadNewMonent(); }), nullptr));
 
 	//auto fish = FishManage::getInstance()->createFishArrange(104);
 	//fish->setPosition(480, 270);

@@ -9,7 +9,7 @@ class MomentIntervalCreate :public Moment{
 
 public:
 	virtual void initData();
-	virtual void init();
+	virtual void init(float FFOneTime);
 	virtual bool updata(float dt);
 protected:
 	int m_groupTag;

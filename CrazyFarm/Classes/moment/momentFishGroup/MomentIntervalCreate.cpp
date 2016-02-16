@@ -18,7 +18,7 @@ bool MomentIntervalCreate::updata(float dt)
 	return false;
 }
 
-void MomentIntervalCreate::init()
+void MomentIntervalCreate::init(float FFOneTime)
 {
 	initData();
 	Audio::getInstance()->playBGM(FISHFLOCKBGM);
