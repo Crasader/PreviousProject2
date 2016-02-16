@@ -32,8 +32,12 @@ public:
 	Fish* createFishArrange(int type);
 	void createFishRand(int fishId);
 	void createFishArrangeRand(int fishId);
-
 	void createFishAssign(int fishId, int momentEightroutetag);
+	///队列鱼  同生不共死
+	void createFishQueue(int fishId, int momentEightroutetag);
+
+
+
 
 	void removeFish(Fish* fish,bool);
 	void decideFishPos(Fish* fish);//决定鱼的出生位置

@@ -376,11 +376,12 @@ bool LobbyScene::init()
 
 	langspEmpty = Sprite::create();
 	langspEmpty->setPosition(visibleSize.width / 2 + 20, visibleSize.height*0.3 + 20);
-	langspEmpty->runAction(RepeatForever::create(/*EaseSineIn::create*/(RotateBy::create(10.0f, 360))));
+	langspEmpty->runAction(RepeatForever::create((RotateBy::create(10.0f, 360))));
 	addChild(langspEmpty);
 	lang = Sprite::create("spindrift.png");
 	lang->setPosition(10, 10);
 	langspEmpty->addChild(lang);
+	
 	return true;
 }
 void LobbyScene::showSign(float dt)

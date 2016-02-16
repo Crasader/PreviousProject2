@@ -69,6 +69,14 @@ void Fish::update(float dt)
 		LastPos = getPosition();
 
 	}
+//#ifdef COCOS2D_DEBUG
+//	auto drawnode = DrawNode::create();
+//	drawnode->drawPoint(getPosition(), 1, Color4F::RED);
+//	getParent()->addChild(drawnode);
+//#endif // DEBUG
+
+	
+
 }
 
 

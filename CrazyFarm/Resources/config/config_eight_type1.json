@@ -1,76 +1,37 @@
 {
-    "describe": "随机鱼产生配置,基础鱼",
+    "describe": "鱼路线产生时间配置   fishRoute ：-1或者不填，随机运动 -2：随机S曲线运动 -3：随机圆运动  1-16曲线运动 17-20 圆运动  21-24 对角直线运动",
     "version": 1,
     "life_time": 300,
     "launching_points": [
         {
-            "interval_time_start": 5,
-            "interval_time_end": 9,
+            "interval_time_start": 0,
+            "interval_time_end": 10,
             "item_list": [
                 {
-                    "fish_id": [ 1, 2, 3, 4, 5 ],
-                    "fishRoute": 9,
-                    "count_start": 0,
-                    "count_end": 2,
+                    "fish_id": [ 111],
+                    "fishRoute": 21,
+                    "count_start": 1,
+                    "count_end": 1,
                     "wait_time_start": 0,
                     "wait_time_end": 4
                 },
                 {
-                    "fish_id": [ 1, 2, 3, 4, 5 ],
-                    "fishRoute": 2,
-                    "count_start": 0,
-                    "count_end": 2,
+                    "fish_id": [ 112],
+                    "fishRoute": 22,
+                    "count_start": 1,
+                    "count_end": 1,
                     "wait_time_start": 0,
                     "wait_time_end": 4
-                },
+                }
+                ,
                 {
-                    "fish_id": [ 1, 2, 3, 4, 5 ],
-                    "fishRoute": 3,
-                    "count_start": 0,
-                    "count_end": 2,
+                    "fish_id": [ 113],
+                    "fishRoute": 23,
+                    "count_start": 1,
+                    "count_end": 1,
                     "wait_time_start": 0,
                     "wait_time_end": 4
-                },
-                {
-                    "fish_id": [ 1, 2, 3, 4, 5 ],
-                    "fishRoute": 4,
-                    "count_start": 0,
-                    "count_end": 2,
-                    "wait_time_start": 0,
-                    "wait_time_end": 4
-                },
-                {
-                    "fish_id": [ 1, 2, 3, 4, 5 ],
-                    "fishRoute": 5,
-                    "count_start": 0,
-                    "count_end": 2,
-                    "wait_time_start": 0,
-                    "wait_time_end": 4
-                },
-                {
-                    "fish_id": [ 1, 2, 3, 4, 5 ],
-                    "fishRoute": 6,
-                    "count_start": 0,
-                    "count_end": 2,
-                    "wait_time_start": 0,
-                    "wait_time_end": 4
-                },
-                {
-                    "fish_id": [ 1, 2, 3, 4, 5 ],
-                    "fishRoute": 7,
-                    "count_start": 0,
-                    "count_end": 2,
-                    "wait_time_start": 0,
-                    "wait_time_end": 4
-                },
-                {
-                    "fish_id": [ 1, 2, 3, 4, 5 ],
-                    "fishRoute": 8,
-                    "count_start": 0,
-                    "count_end": 2,
-                    "wait_time_start": 0,
-                    "wait_time_end": 4
-                } 
+                }
             ]
         }
     ]

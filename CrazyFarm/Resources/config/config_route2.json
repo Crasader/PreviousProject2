@@ -1,5 +1,5 @@
 {
-    "description": "movestate 1-16曲线运动",
+    "description": "movestate 1-16曲线运动 ",
     "version": 1,
     "MotionConfig": [
         {
@@ -535,7 +535,7 @@
                 {
                     "moveState": 4,
                     "endPos": { "x": -320, "y": 180 },
-                    "bezierPos1": { "x": -116, "y": -11 },
+                    "bezierPos1": { "x": -116, "y": 11 },
                     "bezierPos2": { "x": -279, "y": 71 },
                     "delay": 0,
                     "time": 5
@@ -551,30 +551,210 @@
                 {
                     "moveState": 4,
                     "endPos": { "x": -320, "y": 180 },
-                    "bezierPos1": { "x": 48, "y": -122 },
-                    "bezierPos2": { "x": 166, "y": -164 },
+                    "bezierPos1": { "x": -48, "y": 122 },
+                    "bezierPos2": { "x": -166, "y": 164 },
                     "delay": 0,
                     "time": 5
                 },
                 {
                     "moveState": 4,
                     "endPos": { "x": -320, "y": 180 },
-                    "bezierPos1": { "x": 116, "y": 11 },
-                    "bezierPos2": { "x": 279, "y": -71 },
+                    "bezierPos1": { "x": -116, "y": 11 },
+                    "bezierPos2": { "x": -279, "y": -71 },
                     "delay": 0,
                     "time": 5
                 },
                 {
                     "moveState": 4,
                     "endPos": { "x": -320, "y": 180 },
-                    "bezierPos1": { "x": 48, "y": -122 },
-                    "bezierPos2": { "x": 166, "y": -164 },
+                    "bezierPos1": { "x": -48, "y": 122 },
+                    "bezierPos2": { "x": -166, "y": 164 },
+                    "delay": 0,
+                    "time": 5
+                }
+            ]
+        },
+        {
+        
+            "tag": 17,
+            "startPos":{"x":0,"y":540},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":200,"y":-270}, 
+                    "delay": 0,
+                    "time":  4
+                },
+                {
+                     "moveState": 2,
+                     "centrePos":{"x":300,"y":270},
+                     "ScaleDiff":  0, 
+                    "circleAngle": 270, 
+                    "isClockwise": false,
+                    "delay": 0,
+                    "time": 6
+                },
+                {
+                    "moveState": 1,
+                    "MoveByPos": { "x": -350, "y": -200 },
                     "delay": 0,
                     "time": 5
                 }
             ]
 
+        
+        }
+        ,
+        {
+        
+            "tag": 18,
+            "startPos":{"x":0,"y":0},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":200,"y":270}, 
+                    "delay": 0,
+                    "time":  4
+                },
+                {
+                     "moveState": 2,
+                     "centrePos":{"x":300,"y":270},
+                     "ScaleDiff":  0, 
+                    "circleAngle": 270, 
+                    "isClockwise": true,
+                    "delay": 0,
+                    "time": 6
+                },
+                {
+                    "moveState": 1,
+                    "MoveByPos": { "x": -350, "y": 200 },
+                    "delay": 0,
+                    "time": 5
+                }
+            ]
 
+        
+        }
+        ,
+        {
+        
+            "tag": 19,
+            "startPos":{"x":960,"y":540},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":-200,"y":-270}, 
+                    "delay": 0,
+                    "time":  4
+                },
+                {
+                     "moveState": 2,
+                     "centrePos":{"x":660,"y":270},
+                     "ScaleDiff":  0, 
+                    "circleAngle": 270, 
+                    "isClockwise": true,
+                    "delay": 0,
+                    "time": 6
+                },
+                {
+                    "moveState": 1,
+                    "MoveByPos": { "x": 350, "y": -200 },
+                    "delay": 0,
+                    "time": 5
+                }
+            ]
+
+        
+        }
+        ,
+        {
+        
+            "tag": 20,
+            "startPos":{"x":960,"y":0},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":-200,"y":270}, 
+                    "delay": 0,
+                    "time":  4
+                },
+                {
+                     "moveState": 2,
+                     "centrePos":{"x":660,"y":270},
+                     "ScaleDiff":  0, 
+                    "circleAngle": 270, 
+                    "isClockwise": false,
+                    "delay": 0,
+                    "time": 6
+                },
+                {
+                    "moveState": 1,
+                    "MoveByPos": { "x": 350, "y": 200 },
+                    "delay": 0,
+                    "time": 5
+                }
+            ]
+
+        
+        }
+        ,
+        {
+        
+            "tag": 21,
+            "startPos":{"x":0,"y":0},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":960,"y":540}, 
+                    "delay": 0,
+                    "time":  20
+                }
+            ]
+        }
+        ,
+        {
+        
+            "tag": 22,
+            "startPos":{"x":960,"y":540},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":-960,"y":-540}, 
+                    "delay": 0,
+                    "time":  20
+                }
+            ]
+        
+        }
+        ,
+        {
+        
+            "tag": 23,
+            "startPos":{"x":0,"y":540},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":960,"y":-540}, 
+                    "delay": 0,
+                    "time":  20
+                }
+            ]
+        
+        }
+        ,
+        {
+        
+            "tag": 24,
+            "startPos":{"x":960,"y":0},
+            "routePoint":[
+ 								{
+                     "moveState": 1,
+                   "MoveByPos":{"x":-960,"y":540}, 
+                    "delay": 0,
+                    "time":  20
+                }
+            ]
+        
         }
     ]
 }
