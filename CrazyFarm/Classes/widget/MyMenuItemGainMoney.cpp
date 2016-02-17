@@ -1,6 +1,6 @@
 #include "MyMenuItemGainMoney.h"
 #include "domain/bonuspool/BonusPoolManager.h"
-#include "core/TurnTableDialog.h"
+#include "domain/turntable/TurnTableDialog.h"
 #include "domain/logevent/LogEventPageChange.h"
 enum 
 {
@@ -25,30 +25,16 @@ MyMenuItemGainMoney * MyMenuItemGainMoney::create()
 }
 void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 {
-	isFinish = true;
-	 BonusPoolManager::getInstance()->addCoins(100000);
-	 BonusPoolManager::getInstance()->addCoins(100000);
-	 BonusPoolManager::getInstance()->addCoins(100000);
-	 BonusPoolManager::getInstance()->addCoins(100000);
-	 BonusPoolManager::getInstance()->addCoins(100000);
-	 BonusPoolManager::getInstance()->addCoins(100000);
-	 BonusPoolManager::getInstance()->addCoins(100000);
 	if (isElongate)
 	{
 		commonNode->setVisible(false);
 		runAction(MoveBy::create(0.5f, Vec2(166, 0)));
 		isElongate = false;
-		if (isFinish)
-		{
 			auto dioag = TurnTableDialog::create();
 			dioag->setPosition(Point::ZERO);
 			LogEventPageChange::getInstance()->addEventItems(2, 10, 0);
 			getParent()->getParent()->addChild(dioag,20);
-		}
-		else
-		{
-			
-		}
+		
 	}
 	else
 	{

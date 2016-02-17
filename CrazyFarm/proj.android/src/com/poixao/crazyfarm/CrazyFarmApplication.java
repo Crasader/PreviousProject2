@@ -1,11 +1,12 @@
 package com.poixao.crazyfarm;
 
+import android.app.Application;
+
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
+import com.bugtags.library.Bugtags;
 import com.tbu.android.pay.sky.third.SkyThirdPay;
 import com.tbu.gameextend.android.GameExtend;
-
-import android.app.Application;
 
 public class CrazyFarmApplication extends Application {
 
@@ -20,6 +21,6 @@ public class CrazyFarmApplication extends Application {
         AVAnalytics.enableCrashReport(this, true);
 		
 	SkyThirdPay.getInstance().initOnApplication(getApplicationContext());
-
+	Bugtags.start("a03524eaf40ac0590023b0e3bc5534b6", this, Bugtags.BTGInvocationEventBubble);
 	}
 }

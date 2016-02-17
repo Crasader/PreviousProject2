@@ -21,7 +21,7 @@
 #include "core/SettingDialog.h"
 #include "domain/marquee/MarqueeManager.h"
 #include "utill/FunUtil.h"
-#include "core/TurnTableDialog.h"
+#include "domain/turntable/TurnTableDialog.h"
 #include "domain/ranklist/RanklistLayer.h"
 #include "utill/Audio.h"
 #include "lobby/FeedbackLayer.h"

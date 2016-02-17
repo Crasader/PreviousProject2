@@ -1,7 +1,8 @@
 #include "CTurntable.h"
 
-#include "lobby/signlayer/SignCell.h"
-#include "core/TurnTableDialog.h"
+#include "TurntableCell.h"
+#include "TurnTableDialog.h"
+
 
 #define MAX_COUNT 8 
 bool CTurntable::init()
@@ -24,21 +25,22 @@ bool CTurntable::init()
     
 
     Sprite* pSprite_point = Sprite::create("bg_point.png");
-    pSprite_point->setPosition(visibleSize.width/2,visibleSize.height/2+25);
+    pSprite_point->setPosition(visibleSize.width/2,visibleSize.height/2);
     addChild(pSprite_point, 1);
     
 	//创建奖励Item
       int size = pool.size();
+	/*  float angle[8] = {}*/
 	 for (int i = 0; i < size; i++) 
 	{
 	  auto item = pool[i];
 	  int id = item.item_id;
 	  int num = item.num;
-		auto cell = SignCell::create(id, num);
+		auto cell = TurntableCell::create(id, num);
 		cell->setTag(i);
 		cell->setAnchorPoint(ccp(0.5, -1.2));
 		cell->setPosition(visibleSize.width/2,visibleSize.height/2);
-		cell->setRotation(360 / size * i+22.5);
+		cell->setRotation(360 / size * i);
 		pSprite_circle->addChild(cell);   
     }
     

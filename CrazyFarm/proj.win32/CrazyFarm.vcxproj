@@ -173,7 +173,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\core\showFishLayer.cpp" />
     <ClCompile Include="..\Classes\core\showTurretCell.cpp" />
     <ClCompile Include="..\Classes\core\showTurretLayer.cpp" />
-    <ClCompile Include="..\Classes\core\TurnTableDialog.cpp" />
     <ClCompile Include="..\Classes\data\GameData.cpp" />
     <ClCompile Include="..\Classes\data\GameState.cpp" />
     <ClCompile Include="..\Classes\domain\ai\AI.cpp" />
@@ -218,6 +217,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\skill\skillManager.cpp" />
     <ClCompile Include="..\Classes\domain\skill\SkillSummonButton.cpp" />
     <ClCompile Include="..\Classes\domain\turntable\CTurntable.cpp" />
+    <ClCompile Include="..\Classes\domain\turntable\TurntableCell.cpp" />
+    <ClCompile Include="..\Classes\domain\turntable\TurnTableDialog.cpp" />
     <ClCompile Include="..\Classes\domain\user\DeviceInfo.cpp" />
     <ClCompile Include="..\Classes\domain\user\User.cpp" />
     <ClCompile Include="..\Classes\fish\Fish.cpp" />
@@ -339,7 +340,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\core\showFishLayer.h" />
     <ClInclude Include="..\Classes\core\showTurretCell.h" />
     <ClInclude Include="..\Classes\core\showTurretLayer.h" />
-    <ClInclude Include="..\Classes\core\TurnTableDialog.h" />
     <ClInclude Include="..\Classes\data\GameData.h" />
     <ClInclude Include="..\Classes\data\GameState.h" />
     <ClInclude Include="..\Classes\domain\ai\AI.h" />
@@ -384,6 +384,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\skill\skillManager.h" />
     <ClInclude Include="..\Classes\domain\skill\SkillSummonButton.h" />
     <ClInclude Include="..\Classes\domain\turntable\CTurntable.h" />
+    <ClInclude Include="..\Classes\domain\turntable\TurntableCell.h" />
+    <ClInclude Include="..\Classes\domain\turntable\TurnTableDialog.h" />
     <ClInclude Include="..\Classes\domain\user\DeviceInfo.h" />
     <ClInclude Include="..\Classes\domain\user\User.h" />
     <ClInclude Include="..\Classes\fish\Fish.h" />

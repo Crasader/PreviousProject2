@@ -453,9 +453,6 @@
     <ClCompile Include="..\Classes\domain\turntable\CTurntable.cpp">
       <Filter>src\core\dialog\turntable</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\core\TurnTableDialog.cpp">
-      <Filter>src\core\dialog\turntable</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\widget\MyMenuItemGainMoney.cpp">
       <Filter>src\widget</Filter>
     </ClCompile>
@@ -611,6 +608,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\fish\FishArrange.cpp">
       <Filter>src\fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\turntable\TurntableCell.cpp">
+      <Filter>src\core\dialog\turntable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\turntable\TurnTableDialog.cpp">
+      <Filter>src\core\dialog\turntable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -947,9 +950,6 @@
     <ClInclude Include="..\Classes\domain\turntable\CTurntable.h">
       <Filter>src\core\dialog\turntable</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\core\TurnTableDialog.h">
-      <Filter>src\core\dialog\turntable</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\widget\MyMenuItemGainMoney.h">
       <Filter>src\widget</Filter>
     </ClInclude>
@@ -1108,6 +1108,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\fish\FishArrange.h">
       <Filter>src\fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\turntable\TurntableCell.h">
+      <Filter>src\core\dialog\turntable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\turntable\TurnTableDialog.h">
+      <Filter>src\core\dialog\turntable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

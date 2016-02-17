@@ -31,7 +31,7 @@ public:
     BonuspoolResult getBonuspoolResult();       // 获取奖励区间和奖励结果
 	BonuspoolItem*  getNextBonuspool();       // 获取下一级奖金池
 	
-    
+	int getFishNeedCatchToChoujiang(){ return getAllowCatchFishCounts() - getFishCounts(); };
     
     
 private:

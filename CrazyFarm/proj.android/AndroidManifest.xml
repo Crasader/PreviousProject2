@@ -5,7 +5,7 @@
       android:versionName="1.0"
       android:installLocation="auto">
       
-    <!-- AVOS CONFIG START -->
+    <!-- Bugtags CONFIG START -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,7 +13,21 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <!-- AVOS CONFIG END -->
-
+	
+	 <!-- Bugtags CONFIG START -->
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_LOGS" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	 <!-- AVOS CONFIG END -->
+	
+	
 	<uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -49,6 +63,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        
+        
+        <activity
+    android:name="com.bugtags.library.BugtagsActivity"
+    android:configChanges="keyboardHidden|orientation|screenSize"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+<receiver
+    android:name="com.bugtags.library.BugtagsReceiver">
+    <intent-filter>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+    </intent-filter>
+</receiver>
+<service
+    android:name="com.bugtags.library.BugtagsService"/>
+        
+        
+        
+        
         
         <!-- 指盟sdk配置内容 -->
         <activity android:name="com.skymobi.pay.sdk.normal.zimon.EpsActivity"
@@ -88,7 +121,7 @@
             android:value="xxxx" /> -->
             
         <meta-data android:name="Channel ID"
-            android:value="tad_ma_1"	/>
+            android:value="test"	/>
     </application>
 
     <supports-screens android:anyDensity="true"

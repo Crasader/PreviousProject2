@@ -85,14 +85,14 @@
 			"figures"			:
 			[
 				{"figureType":1,"origin":{"x":0,"y":1},"size":{"weith" :49 , "high" :34}},
-				{"figureType":1,"origin":{"x":0,"y":1},"size":{"weith" :46 , "high" :20}}
+				{"figureType":1,"origin":{"x":49,"y":12},"size":{"weith" :46 , "high" :20}}
 			]
 		},
 		{
 			"fish_UiId"			:	32,
 			"figures"			:
 			[
-				{"figureType":1,"origin":{"x":18,"y":25},"size":{"weith" :63 , "high" :44}}
+				{"figureType":1,"origin":{"x":10,"y":25},"size":{"weith" :63 , "high" :44}}
 			]
 		},
 		{

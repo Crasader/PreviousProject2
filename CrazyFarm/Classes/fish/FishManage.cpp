@@ -136,7 +136,7 @@ void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 		return;
 	}
 	Fish*fish;
-	if (fishId>=100)
+	if (fishId>=100&&fishId<=200)
 	{
 		fish = createFishArrange(fishId);
 	}

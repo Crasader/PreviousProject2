@@ -2,7 +2,7 @@
   "describe": "炮台配置;unlock_type,1金币;2,钻石;" ,
   "version" : 1,
   "item_list": [
-    {
+  {
       "turrent_id"  :	1,
       "unlock_type" :	2,
       "unlock_price"	:	0,

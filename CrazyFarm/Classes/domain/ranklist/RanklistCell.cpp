@@ -1,6 +1,7 @@
 #include "RanklistCell.h"
 #include "utill/Chinese.h"
 #include "domain/ranklist/RanklistManager.h"
+#include "config/ConfigExp.h"
 bool RanklistCell::init(){
 
 	bg = Sprite::create("ranklistBar1.png");
@@ -96,11 +97,11 @@ void RanklistCell::setCoinValue(int index)
 	auto data = RanklistManager::getInstance()->getCoinRankListData();
 	auto item = data.at(index);
 	VIPLvTTF->setString(Value(item.vipLevel).asString().c_str());
-	LvTTF->setString(Value(item.vipLevel).asString().c_str()); ///缺少等级接口
+	LvTTF->setString(Value(ConfigExp::getInstance()->getLevelData(item.exp).levelId).asString().c_str()); 
 	auto str = String::createWithFormat("%ld", item.coin);
 	CoinNumTTF->setString(str->getCString());
 	NameTTF->setString(Value(item.name).asString().c_str());
-	str = ((item.gender== 0) ? String::createWithFormat("bagFamale.png") : String::createWithFormat("bagmale.png"));///缺少性别接口
+	str = ((item.gender== 0) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));
 	sexSprite->setTexture(str->getCString());
 	if (index + 1 <= 3)
 	{
@@ -131,11 +132,11 @@ void RanklistCell::setExpValue(int index)
 	auto data = RanklistManager::getInstance()->getExpRankListData();
 	auto item = data.at(index);
 	VIPLvTTF->setString(Value(item.vipLevel).asString().c_str());
-	LvTTF->setString(Value(item.vipLevel).asString().c_str()); ///缺少等级接口
+	LvTTF->setString(Value(ConfigExp::getInstance()->getLevelData(item.exp).levelId).asString().c_str()); 
 	auto str = String::createWithFormat("%ld", item.coin);
 	CoinNumTTF->setString(str->getCString());
 	NameTTF->setString(Value(item.name).asString().c_str());
-	str = ((item.gender == 0) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));///缺少性别接口
+	str = ((item.gender == 0) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));
 	sexSprite->setTexture(str->getCString());
 
 

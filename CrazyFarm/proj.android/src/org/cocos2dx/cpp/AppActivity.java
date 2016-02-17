@@ -8,8 +8,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
+import com.bugtags.library.Bugtags;
 import com.avos.avoscloud.AVAnalytics;
 import com.tbu.android.pay.sky.third.PayCallback;
 import com.tbu.android.pay.sky.third.SkyOrderInfo;
@@ -79,11 +81,18 @@ public class AppActivity extends Cocos2dxActivity {
 	protected void onPause() {
 	    super.onPause();
 	    AVAnalytics.onPause(this);
+	    Bugtags.onPause(this);
 	}
 
 	protected void onResume() {
 	    super.onResume();
 	    AVAnalytics.onResume(this);
+	    Bugtags.onResume(this);
 	}
+	 public boolean dispatchTouchEvent(MotionEvent event) {
+	        //注：回调 3
+	        Bugtags.onDispatchTouchEvent(this, event);
+	        return super.dispatchTouchEvent(event);
+	    }
 
 }

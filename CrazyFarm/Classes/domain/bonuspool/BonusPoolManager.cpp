@@ -55,9 +55,10 @@ bool BonusPoolManager::allowBonusPool() {
 }
 
 BonuspoolResult BonusPoolManager::getBonuspoolResult() {
-    BonuspoolResult bonuspoolResult;
+    BonuspoolResult bonuspoolResult; 
+	int coins = getCoins();
     if(allowBonusPool()) {
-        int coins = getCoins();
+      
         Bonuspool bonuspool = ConfigBonuspool::getInstance()->getBonuspool();
         for(int i=0; i < bonuspool.bonuspoolItems.size(); i++) {
             if( ( coins >= bonuspool.bonuspoolItems.at(i).start_coins ) &&
@@ -77,7 +78,19 @@ BonuspoolResult BonusPoolManager::getBonuspoolResult() {
             }
         }
     }
-    return bonuspoolResult;
+	else
+	{
+		Bonuspool bonuspool = ConfigBonuspool::getInstance()->getBonuspool();
+		for (int i = 0; i < bonuspool.bonuspoolItems.size(); i++) {
+			if (coins < bonuspool.bonuspoolItems.at(i).start_coins)
+			{
+				bonuspoolResult.reward_list = bonuspool.bonuspoolItems.at(i).reward_list; 
+				bonuspoolResult.reward_position = 0;
+				return bonuspoolResult;
+			}
+		}
+	}
+   
 }
 
 ///TODO::È±ÉÙ±£»¤
