@@ -8,6 +8,8 @@
 #include "data/GameData.h"
 #include "utill/CCircle.h"
 #include "utill/CollisionUtill.h"
+#include "domain/game/GameManage.h"
+#include "fish/FishOfAllKilled.h"
 #define BOOMFISHCIRCLE 300
 FishManage* FishManage::_instance = 0;
 
@@ -22,7 +24,7 @@ FishManage::FishManage(){
 
 }
 
-Vector<Fish*> FishManage::getAllFishInPool(){
+Vector<Fish*> &FishManage::getAllFishInPool(){
 	return fishPool;
 }
 
@@ -37,7 +39,7 @@ Point FishManage::getBestRewardPostion() {
     int current_id = 0;
     
     for(int i=0; i<fishPool.size(); i++) {
-        if(current_id < fishPool.at(i)->getFishType()) {
+        if(current_id < fishPool.at(i)->getFishID()) {
             point = fishPool.at(i)->getPosition();
         }
     }
@@ -53,10 +55,22 @@ Fish* FishManage::createFishSingle(){
 	return fish;
 }
 Fish* FishManage::createFishSingle(int type){
-	auto fish = Fish::create();
+	Fish* fish;
+	if (type == 202)
+	{
+		fish = FishOfAllKilled::create();
+	}
+	else
+	{
+		fish = Fish::create();
+	}
 	fish->initFish(type);
 	fishPool.pushBack(fish);	
 	fish->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	if (type>=50&&type<60)
+	{
+		GameManage::getInstance()->getGuiLayer()->onBossWarning(type);
+	}
 	return fish;
 }
 Fish* FishManage::createFishArrange(int type){
@@ -155,7 +169,7 @@ void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 
 void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 {
-	if (fishId>300&fishId<400)
+	if (fishId>300&&fishId<400)
 	{
 		int id = fishId-300;
 		//鱼1
@@ -290,9 +304,9 @@ void FishManage::removeFish(Fish* fish,bool isDead){
 			auto vec = data->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
 			for (auto var : vec)
 			{
-				if (fish->getFishType() == var.fishId)
+				if (fish->getFishID() == var.fishId)
 				{
-					data->getmermaidTask()->addOneCatchFishById(fish->getFishType());
+					data->getmermaidTask()->addOneCatchFishById(fish->getFishID());
 					break;
 				}
 			}
@@ -358,7 +372,7 @@ void FishManage::removeFishWhichSwimOut()
 	for (auto fish : fishPool)
 	{
 		auto box = ((Fish*)fish)->getBoundingBox();
-		Rect rect = Rect(-50-box.size.width, -50-box.size.height, visibisize.width + box.size.width*2+200, visibisize.height + box.size.height*2+200);
+		Rect rect = Rect(-10-box.size.width, -10-box.size.height, visibisize.width + box.size.width*2+20, visibisize.height + box.size.height*2+20);
 		auto pos = fish->getPosition();
 		if (!rect.containsPoint(pos)&&fish->getisAutoRemove())
 		{
@@ -367,7 +381,7 @@ void FishManage::removeFishWhichSwimOut()
 	}
 	for (auto fish : needRemoveFishs)
 	{
-		removeFish(fish,0);
+		GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 0, nullptr);
 		
 	}
 }
@@ -433,14 +447,10 @@ void FishManage::cleanVector()
 }
 
 
-void FishManage::LoadOnement()
+void FishManage::LoadOnement(float ffTime)
 {
 	///需要优化
-    m_nowMonent = MomentManager::getInstance()->getNewMoment(0);
-}
-void FishManage::LoadOldment()
-{
-	
+    m_nowMonent = MomentManager::getInstance()->getNewMoment(ffTime);
 }
 
 void FishManage::UpdataCreateFish(float dt)
@@ -489,7 +499,7 @@ void FishManage::UpdataCreateFish(float dt)
 					{
 						createFishArrangeRand(fishid);
 					}
-					else
+					else if (fishid<100||(fishid>200&&fishid<300))
 					{
 						createFishRand(fishid);
 					}
@@ -509,7 +519,7 @@ void FishManage::UpdateWhenController(float dt)
 	{
 		if (m_nowMonent->updata(dt))
 		{
-			m_layer->loadNewMonent();
+			m_layer->loadNewMonent(0);
 		}
 		
 	}
@@ -611,7 +621,7 @@ void FishManage::createCycleFish(int count, int Radius, int fishID, Point center
 		Fish* fish = FishManage::getInstance()->createFishSingle(fishID); 
 		fish->setisAutoRemove(false);
 		fish->setPosition(center.x + Radius*cos(CC_DEGREES_TO_RADIANS(i*diffAngle)), center.y + Radius*sin(CC_DEGREES_TO_RADIANS(diffAngle*i)));
-		auto moveto = MoveTo::create(moveTime,curPos);
+		auto moveto = MoveBy::create(moveTime,curPos);
 		fish->runAction(Sequence::create(moveto, RemoveSelf::create(), nullptr));	
 		m_layer->addChild(fish,5);
 		fish->addShader();
@@ -619,12 +629,60 @@ void FishManage::createCycleFish(int count, int Radius, int fishID, Point center
 	
 
 }
+void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
+{
+	//TODO::一网打尽死亡动画
+	Vector<Fish*> needDeadFishs;
+	for (auto var:fishPool)
+	{
+		if (var->getuiId() == fish->getuiId())
+		{
+			needDeadFishs.pushBack(var);
+		}
+	}
+	if (needDeadFishs.size()>0)
+	{
+		auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
+		shandian->setPosition(fish->getContentSize() / 2);
+		fish->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
+		fish->addChild(shandian);
+		shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
+		auto rorate = getTurretRotation(fish->getPosition(), needDeadFishs.at(0)->getPosition());
+		auto distans = fish->getPosition().distance(needDeadFishs.at(0)->getPosition());
+		shandian->setRotation(rorate);
+		shandian->setScaleX(distans / 392.0f);
+	}
+	for (int i = 0; i < needDeadFishs.size();i++)
+	{	
+		auto var = needDeadFishs.at(i);
+		//闪电光圈
+		auto sp = Sprite::create("ShandianCycle.png");
+		sp->setPosition(var->getContentSize() / 2);
+		var->addChild(sp);
+		//闪电
+		if ((i+1)<needDeadFishs.size())
+		{
+			auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
+			shandian->setPosition(var->getContentSize() / 2);
+			var->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
+			var->addChild(shandian);
+			shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
+			auto rorate = getTurretRotation(var->getPosition(), needDeadFishs.at(i + 1)->getPosition());
+			auto distans = var->getPosition().distance(needDeadFishs.at(i + 1)->getPosition());
+			shandian->setRotation(rorate);
+			shandian->setScaleX(distans / 392.0f);
+		}
+		GameManage::getInstance()->CatchTheFishOntheTurrent(var, 1, pTurret);
+	/*	m_layer->runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{GameManage::getInstance()->CatchTheFishOntheTurrent(var, 1, pTurret); }),nullptr));*/
+	}
+	
 
+}
 void FishManage::onBoomFishDead(Fish*fish, PlayerTurret* pTurret)
 {
 	auto pos = fish->getPosition();
 	auto cicle = CCircle(pos, BOOMFISHCIRCLE);
-#if 1
+#if 0
 	auto draw = DrawNode::create();
 	draw->drawCircle(cicle.getMCenter(), cicle.getMRadius(), 360, 100, false, Color4F::RED);
 	m_layer->addChild(draw);
@@ -634,10 +692,8 @@ void FishManage::onBoomFishDead(Fish*fish, PlayerTurret* pTurret)
 	for (auto fish : fishPool)
 	{
 		if (CollisionUtill::isCollisionCircle(fish->getBoundingFigures(), cicle))
-	
 		{
-			pTurret->getCoinByFish(fish);
-			FishManage::getInstance()->removeFish(fish, 1);
+			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, pTurret);
 		}
 	}
 }

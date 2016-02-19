@@ -9,7 +9,7 @@ void MomentNine::init(float FFOneTime)
 bool MomentNine::updata(float dt)
 {
 	nNowtime += dt;
-	if (nNowtime>20)
+	if (nNowtime>10)
 	{
 		return true;
 	}

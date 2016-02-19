@@ -3,15 +3,15 @@
   "version" : 1,
   "item_list": [
     {
-      "coins"  :	2000,
+      "coins"  :    1000,
       "wait_time" :	30
     },
     {
-      "coins"  :  2000,
+      "coins"  :    2000,
       "wait_time" : 120
     },
     {
-      "coins"  :  2000,
+      "coins"  :    3000,
       "wait_time" : 300
     }
   ]

@@ -33,14 +33,9 @@ BoxConfigInfo CoinBox::getBoxConfigInfoByItemID(int itemid)
 	return ConfigBox::getInstance()->getBoxConfigInfoByItemId(itemid);
 }
 
-int CoinBox::useTimeByItemID(int itemid)
-{
-	auto str = String::createWithFormat("%s%d", USEITEM, itemid);
-	return UserDefault::getInstance()->getIntegerForKey(str->getCString(), 0);
-}
 
-void CoinBox::addUseTimeByItemId(int itemid)
+float CoinBox::getCatchPer(int userboxlevel)
 {
-	auto str = String::createWithFormat("%s%d", USEITEM, itemid);
-	UserDefault::getInstance()->setIntegerForKey(str->getCString(),UserDefault::getInstance()->getIntegerForKey(str->getCString()) + 1);
+	float catchper[4] = { 1.0, 1.1, 1.2, 1.3 };
+	return catchper[userboxlevel];
 }

@@ -41,7 +41,7 @@ public:
 
 	void removeFish(Fish* fish,bool);
 	void decideFishPos(Fish* fish);//决定鱼的出生位置
-	Vector<Fish*> getAllFishInPool();
+	Vector<Fish*>& getAllFishInPool();
     int getAllFishInPoolCount();
 	void removeFishWhichSwimOut();///移除屏幕外的鱼
 
@@ -54,10 +54,10 @@ public:
     
 	void UpdateWhenController(float dt);
 	void UpdataCreateFish(float dt);
-	void LoadOnement();
-	void LoadOldment();///TODO: 
+	void LoadOnement(float ffTime);
 	void createFishByOneMonet(OneMoment onemonent);
 	void onBoomFishDead(Fish*fish, PlayerTurret* pTurret);
+	void onAllKilledFishDead(Fish*fish, PlayerTurret*pTurret);
 
 	void onClearFish();   //鱼潮来临，清场
 private :

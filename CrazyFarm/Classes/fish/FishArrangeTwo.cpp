@@ -4,7 +4,7 @@
 #include "utill/FunUtil.h"
 #include "config/ConfigFishCollisionRange.h"
 
-void FishArrangeTwo::initFishAnim(int fishType)
+void FishArrangeTwo::initFishAnim(int fishID)
 {
 	//жїгу
 	int randarray[7] = { 10, 30, 31, 32, 33, 34, 35 };

@@ -71,6 +71,7 @@ void Audio::playZhenrenVoice()
 {
 	auto str = String::createWithFormat("game/audio/zhenren/voice_%d.ogg", rand() % 6 + 1);
 	playSound(str->getCString());
+	CCLOG("play zhenren sound");
 }
 
 void Audio::playShootVoic()

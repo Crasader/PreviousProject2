@@ -79,6 +79,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("game/ui/gamelayer/turntable");
 	paths.push_back("game/ui/gamelayer/mermaid");
 	paths.push_back("game/ui/ranklist");
+	paths.push_back("game/ui/NewBie");
+	paths.push_back("game/ui/gamelayer/playerturret");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand(time(NULL));
 	auto timenode = GlobalSchedule::getInstance();
@@ -97,6 +99,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 void AppDelegate::applicationDidEnterBackground() {
 	Director::getInstance()->stopAnimation();
 	Audio::getInstance()->pauseBGM();
+	log("come to backgroud");
 	// if you use SimpleAudioEngine, it must be pause
 	// SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
@@ -105,6 +108,7 @@ void AppDelegate::applicationDidEnterBackground() {
 void AppDelegate::applicationWillEnterForeground() {
 	Director::getInstance()->startAnimation();
 	Audio::getInstance()->resumeBGM();
+	log("come to game");
 	// if you use SimpleAudioEngine, it must resume here
 	// SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }

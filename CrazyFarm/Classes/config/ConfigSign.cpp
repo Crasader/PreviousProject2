@@ -46,27 +46,22 @@ void ConfigSign::onHttpRequestCompleted(HttpClient *sender, HttpResponse *respon
 	for (size_t i = 0; i < itemlists.Size(); i++)
 	{
 		auto &dayrewards = itemlists[i];
-		std::vector<SignRewardItem> temp;
-		for (size_t j = 0; j < dayrewards.Size();j++)
-		{
-			SignRewardItem item;
-			item.probability = dayrewards[j]["probability"].GetInt();
-			item.propNum = dayrewards[j]["num"].GetInt();
-			item.propID = dayrewards[j]["item_id"].GetInt();
-			temp.push_back(item);
-		}
-		dayToRewards[i + 1] = temp;
+		SignRewardItem item;
+		item.probability = dayrewards["probability"].GetInt();
+		item.propNum = dayrewards["num"].GetInt();
+		item.propID = dayrewards["item_id"].GetInt();
+		rewards.push_back(item);
 	}
-	if (dayToRewards.size() == 7)
+	if (rewards.size() > 0)
 	{
 		bIsGetDataSuccess = true;
 	}	
 }
 
 
-std::vector<SignRewardItem> ConfigSign::getRewardsByDay(int day)
+std::vector<SignRewardItem> ConfigSign::getRewards()
 {
-	return dayToRewards[day];
+	return rewards;
 }
 
 int ConfigSign::CalculateTheDayToSign()

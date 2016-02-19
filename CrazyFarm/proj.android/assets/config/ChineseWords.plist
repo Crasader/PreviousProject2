@@ -102,6 +102,8 @@
   
   <key>paySuccess</key>
   <string>恭喜你充值成功!</string>
+    <key>choujiangSure</key>
+  <string>你离下一级更多话费抽奖仅差%d金币了，确定现在抽奖吗!</string>
   </dict> 
 </array>
 </plist>

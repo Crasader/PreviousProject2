@@ -13,7 +13,7 @@
 #define SKILLSUMMON "game/audio/propEffect/summon.ogg"
 #define BOSSWARN "game/audio/BossWarn.ogg"
 #define CATCHGIRLFISH "game/audio/CatchGirlFish.ogg"
-#define CATCHGOLD "game/audio/CatchGold.ogg"
+#define CATCHGOLD "game/audio/sfx_coin.mp3"
 #define CLEARFISH "game/audio/clearFish.ogg"
 #define CLICKCANCER "game/audio/clickcancer.ogg"
 #define CLICKSURE "game/audio/clicksure.ogg"

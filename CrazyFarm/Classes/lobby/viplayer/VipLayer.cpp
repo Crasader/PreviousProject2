@@ -101,12 +101,12 @@ bool VIPLayer::init()
 		VIPTTF->setPosition(visibleSize.width*0.1 + 40, visibleSize.height*0.2);
 		addChild(VIPTTF);
 		VIPTTF->setScale(0.7);
-		auto scale = ((float)nowChargeMoney) / ((float)nextVip.charge_money)*286/15+1;
+		auto scale = ((float)nowChargeMoney) / ((float)nextVip.charge_money)*286;
 
-		auto VipExpBar = Scale9Sprite::create("VIP_expBar.png");
+		auto VipExpBar = Scale9Sprite::create("VIP_expBar.png",Rect(2,0,11,31));
 		VipExpBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		VipExpBar->setPosition(15,VipExpFram->getContentSize().height/2);
-		VipExpBar->setContentSize(Size(scale,32));
+		VipExpBar->setContentSize(Size(scale,31));
 		VipExpFram->addChild(VipExpBar);
 
 		auto VIPtitle1 = Sprite::create("VIPtxt.png");

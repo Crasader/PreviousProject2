@@ -21,11 +21,15 @@ class GameLayer: public cocos2d::Layer{
 public:
 	virtual bool init();
 	CREATE_FUNC(GameLayer);
-	void loadNewMonent();
+	void loadNewMonent(float ffTime);
 	void RefreShmyPlayerTurret();
 	
+	void addReward(int itemid, int num);
+
 	void createNet(Bullet *bullet);//打开渔网
 	PlayerTurret* GetMyTurret(){ return myTurret; }
+	//抽奖奖励动画
+	void onGetReward(int itemid, int num);
 private:
 	void createTurret();//按照类型生成炮塔
 	void addTouchEvent();

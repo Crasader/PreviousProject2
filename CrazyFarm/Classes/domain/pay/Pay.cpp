@@ -8,6 +8,7 @@
 #include "utill/JniFunUtill.h"
 #include "widget/TwiceSureDialog.h"
 #include "utill/Chinese.h"
+#include "data/GameData.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
 
 Pay* Pay::_instance = NULL;
@@ -44,7 +45,7 @@ void Pay::pay(payRequest*data, const char* orderid)
 	nowData->orderID = orderid;
 
 
-	bIsSuccess = false;
+	payResult = -1;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	payCallBack(0, "success");
@@ -89,15 +90,16 @@ void Pay::payCallBack(int code,  const char* msg)
 			User::getInstance()->setHaveFirstPay();
 		}
 		User::getInstance()->addChargeMoney(info.price / 100);
-		//ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+		GameData::getInstance()->setisOnPay(false);
 		log("pay paypoint %d success",nowData->pay_point_id);
 		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,0, nowData->orderID.c_str());
-		bIsSuccess = true;
-		//UI ï¿½ï¿½ï¿½ï¿½
+		payResult = 1;
+		
 		
 	}
 	else
 	{
+		payResult = 2;
 		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
 	}
 	nowData = nullptr;
@@ -109,13 +111,27 @@ PayPointInfo Pay::getInfoByPaypoint(int paypoint)
 }
 
 void Pay::update(float dt)
-{
-	if (bIsSuccess)
+{	
+	switch (payResult)
+	{
+	case 1:
 	{
 		auto layer = TwiceSureDialog::createDialog(ChineseWord("paySuccess").c_str(), nullptr);
 		layer->setPosition(0, 0);
-		Director::getInstance()->getRunningScene()->addChild(layer);
-		bIsSuccess = false;
+		Director::getInstance()->getRunningScene()->addChild(layer, 10);
+		payResult = -1;
 	}
+		break;
+	case 2:
+	{
+		auto layer = TwiceSureDialog::createDialog(ChineseWord("payFailed").c_str(), nullptr);
+		layer->setPosition(0, 0);
+		Director::getInstance()->getRunningScene()->addChild(layer, 10);
+		payResult = -1;
+	}
+		break;
 
+	default:
+		break;
+	}
 }

@@ -35,12 +35,14 @@ public:
     
 	bool LoadConfig();
 	std::map<int, std::vector<MomentEightItem>> getMomentEightItemTypes();
-	float getLifeTime(){ return lifetime; };
+	std::vector<MomentEightItem> getMomentEightItemBytype(int type){ return momentEightItemTypes[type];};
+	float getLifeTime(int type){ return lifeTimeForType[type]; };
     
 private:
 	static ConfigMomentEight* _instance;
-	float lifetime;//只从json1中读取
 
+
+	std::map<int, float> lifeTimeForType;
 	std::map<int, std::vector<MomentEightItem>> momentEightItemTypes;
 	bool LoadConfigByType(int type);
 

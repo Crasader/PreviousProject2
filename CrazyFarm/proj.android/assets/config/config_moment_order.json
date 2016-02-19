@@ -4,23 +4,23 @@
 	"item_list": [
 		[
 			{
-			"moment_id"	: 8,
+			"moment_id"	: 6,
 			"per"		: 100
 			}
 		],
 		[
 			{
-			"moment_id"	: 2,
+			"moment_id"	: 6,
 			"per"		: 50
 			},
 			{
-			"moment_id"	: 4,
+			"moment_id"	: 6,
 			"per"		: 50
 			}
 		],
 		[
 			{
-			"moment_id"	: 8,
+			"moment_id"	: 6,
 			"per"		: 100
 			}
 		]	

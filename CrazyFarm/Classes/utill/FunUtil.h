@@ -28,3 +28,20 @@ int getRandValueInVec(std::vector<int> vec);
 Action* getForeverAcByNameAndInterval(const char* name,float interval);
 
 float getTurretRotation(Point start_pos, Point pos);
+
+
+template<typename Fwd>
+void upsetVector(std::vector<Fwd> &vec)
+{
+	int n = vec.size();
+	int T = 10;
+	int temp,i,j;
+	while (T--)
+	{
+		i = rand() % n;
+		j = rand() % n;
+		temp = vec[i];
+		vec[i] = vec[j];
+		vec[j] = temp;
+	}
+}

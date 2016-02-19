@@ -16,27 +16,26 @@ bool FirstPayLayer::init()
 		addChild(layer,-1);
 		auto size = Director::getInstance()->getVisibleSize();
 		auto bg = Sprite::create("firstPayBg.png");
-		bg->setPosition(size / 2);
+		bg->setPosition(size / 2+Size(0,50));
 		addChild(bg);
 
 
 		
 
 		auto bt = MenuItemImage::create("btn_huoqu_1.png", "btn_huoqu_2.png", CC_CALLBACK_1(FirstPayLayer::quedingcallback, this));
-		bt->setPosition(bg->getContentSize().width*0.6, 110);
+		bt->setPosition(bg->getContentSize().width*0.5, 110);
 	
 
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(FirstPayLayer::closeButtonCallBack, this));
-		close->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
-		close->setPosition(bg->getContentSize());
+		close->setPosition(562,329);
 
 
 
 		auto menu = Menu::create(bt, close, nullptr);
 		menu->setPosition(0, 0);
-		bg->addChild(menu);
+		addChild(menu);
 
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->setSwallowTouches(true);

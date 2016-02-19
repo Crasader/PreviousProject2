@@ -41,6 +41,16 @@ bool GetRewardNode::init(Bankrupt baknrupt)
 		listenr1->onTouchBegan = CC_CALLBACK_2(GetRewardNode::onTouchBegan, this);
 		listenr1->setSwallowTouches(false);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
+
+		///今日很能领取几次救济金
+		auto txt = Sprite::create("TXTBankruptCount.png");
+		txt->setPosition(getContentSize().width / 2, -15);
+		addChild(txt);
+		auto countlabel = LabelAtlas::create(Value(3 - BankruptManager::getInstance()->getTodayRequestTimes()).asString(), "multipleNum.png", 15, 21, '0');
+		countlabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		countlabel->setPosition(1.25 + 152.75, txt->getContentSize().height / 2);
+		txt->addChild(countlabel);
+
 		bRet = true;
 	} while (0);
 	return bRet;

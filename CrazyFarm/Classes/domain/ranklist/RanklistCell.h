@@ -24,5 +24,6 @@ private:
 	Sprite* rankSprite;
 	Sprite* sexSprite;
 	Sprite* bg;
+	LabelTTF* haveCoinTTF;
 
 };

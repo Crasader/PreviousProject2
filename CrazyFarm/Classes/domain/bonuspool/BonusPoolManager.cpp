@@ -63,6 +63,7 @@ BonuspoolResult BonusPoolManager::getBonuspoolResult() {
         for(int i=0; i < bonuspool.bonuspoolItems.size(); i++) {
             if( ( coins >= bonuspool.bonuspoolItems.at(i).start_coins ) &&
                     ( coins < bonuspool.bonuspoolItems.at(i).end_coins ) ) {
+				bonuspoolResult.bouns_position = i;
                 bonuspoolResult.reward_list = bonuspool.bonuspoolItems.at(i).reward_list;
 				int random = rand() % 100;
 				int count = 0;
@@ -107,7 +108,11 @@ BonuspoolItem*  BonusPoolManager::getNextBonuspool() {
 			}
 			else
 			{
-				return &bonuspool.bonuspoolItems.at(i + 1);
+				BonuspoolItem* item = new BonuspoolItem();
+				item->start_coins = bonuspool.bonuspoolItems.at(i + 1).start_coins;
+				item->end_coins = bonuspool.bonuspoolItems.at(i + 1).end_coins;
+				item->reward_list = bonuspool.bonuspoolItems.at(i + 1).reward_list;
+				return item;
 			}
 
 		}

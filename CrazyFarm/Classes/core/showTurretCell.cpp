@@ -5,6 +5,7 @@
 #include "lobby/shop/payLayer.h"
 #include "domain/logevent/LogEventPageChange.h"
 #include "lobby/viplayer/VipLayer.h"
+#include "domain/game/GameManage.h"
 bool showTurretCell::init(){
 
 	setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -276,8 +277,8 @@ void showTurretCell::ButtonCallback(Ref* psend)
 		///VIP³äÖµ	
 		auto layer = VIPLayer::create();
 		layer->setPosition(0, 0);
-		Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer, 20);
-		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
+		GameManage::getInstance()->getGuiLayer()->addChild(layer, 20);
+		GameManage::getInstance()->getGuiLayer()->getChildByTag(50)->removeFromParentAndCleanup(1);
 		LogEventPageChange::getInstance()->addEventItems(2, 7, 0);
 	}
 	else

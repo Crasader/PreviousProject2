@@ -24,7 +24,7 @@ public:
 	static ConfigSign* getInstance();
    	bool LoadConfig();
 	std::string getToday(){ return today; };
-	std::vector<SignRewardItem> getRewardsByDay(int day);
+	std::vector<SignRewardItem> getRewards();
 	void onHttpRequestCompleted(HttpClient *sender, HttpResponse *response);
 	bool isGetDataSuccess(){ return bIsGetDataSuccess; };
 	//Ç©µ½Âß¼­
@@ -35,6 +35,7 @@ private:
 	static ConfigSign* _instance;
 	bool bIsGetDataSuccess = false;
 	std::string today;
+	std::vector<SignRewardItem> rewards;
 	std::map<int, std::vector<SignRewardItem>> dayToRewards;
 };
 

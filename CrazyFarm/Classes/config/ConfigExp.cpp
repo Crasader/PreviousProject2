@@ -63,6 +63,10 @@ bool ConfigExp::LoadConfig() {
                 levelRewardItem.num	= item["num"].GetInt();
                 levelExp.levelRewardItems.push_back(levelRewardItem);
             }
+			LevelRewardItem levelRewardItem;
+			levelRewardItem.item_id = 1012;
+			levelRewardItem.num = levelExp.level_id;
+			levelExp.levelRewardItems.push_back(levelRewardItem);
             levelExps.push_back(levelExp);
         }
         

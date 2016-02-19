@@ -45,16 +45,16 @@ public class AppActivity extends Cocos2dxActivity {
 					@Override
 					public void result(final int code, final String msg) {
 						Log.i("TBU_DEBUG", "code = " + code + ";msg = " + msg);
-						if(code != 0) {
-							AppActivity.activity.runOnUiThread(new Runnable() {
-								@Override
-								public void run() {
-									Toast.makeText(AppActivity.activity, "支付失败:" + msg, 
-											Toast.LENGTH_LONG).show();
-									
-								}
-							});
-						}
+//						if(code != 0) {
+//							AppActivity.activity.runOnUiThread(new Runnable() {
+//								@Override
+//								public void run() {
+//									Toast.makeText(AppActivity.activity, "支付失败:" + msg, 
+//											Toast.LENGTH_LONG).show();
+//									
+//								}
+//							});
+//						}
 						JniPayCallbackHelper.payResultCallBack(code,msg);						
 					}
 				});

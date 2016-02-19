@@ -17,18 +17,27 @@ class MomentManager {
 public:
     static MomentManager* getInstance();
     
-    Moment* getNewMoment(float FFOneTime);//是否快进某个时间
-    
+	Moment* getNewMoment(float FFOneTime);//是否快进某个时间
 private:
     MomentManager();
     void init();
     static MomentManager* _instance;
+	Moment* getNewMomentEight(float FFOneTime);
     
+	Moment*getNewMomentGroupfish(float FFOneTime);
     std::vector<MomentOrderItem> momentOrderItems;
+
+	std::vector<int> momentEightVec;
+	std::vector<int> momentFishGroupVec;
+
+	int getCurrentMomentEight();
+	int getCurrentMomentFishGroup();
+
     int currentPos = 0;
     
 	Moment* getNewMomentByType(int momentType,float FFOneTime);
     int getCurrentType();
+	int nowMomentType  = -1;
     
 };
 

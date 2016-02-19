@@ -102,6 +102,7 @@ void LoadingScene::loadRes()
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/VipButton/TX_VIP_%d.png", "aniVipButton", 1.3, 20);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/firstPay/TX_ShouChong_%d.png", "aniFirstPay",1.3f, 10);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/guizu/TX_GuiZu_%d.png", "aniGuizu", 1.3f, 10);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/firstBox/firstBox_%d.png", "anifirstBox", 0.5f, 5);
 	//房间动画
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/roomcell/roomAni_2_%d.png", "aniRoom_id2", 0.5f, 4);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/roomcell/roomAni_3_%d.png", "aniRoom_id3", 0.5f, 4);
@@ -109,7 +110,6 @@ void LoadingScene::loadRes()
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/LightPoint/TX_ShanGuang_%d.png", "aniLightPoint", 1.0f, 14);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/capLight/capLight_%d.png", "anicapLight", 0.8f, 8);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/caidai/TX_CaiDai_%d.png", "aniCaidai", 1.5f, 24);
-	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/raroteLight/TX_XuanZhuanGuang_%d.png", "aniraroteLight", 1.0f, 11);
 	//大厅鱼
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/lobbyfish1/TX_YU_%d.png", "aniLobbyFish1", 1.6f, 16);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/lobbyfish2/TX_YU2_%d.png", "aniLobbyFish2", 1.4f, 14);
@@ -117,6 +117,10 @@ void LoadingScene::loadRes()
 	//游戏内动画
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_DianGuang/TX_DianGuang_%d.png", "aniJiGuangBottom", 0.4f, 6);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_JiGuang/TX_JiGuang_%d.png", "aniJiGuangBar", 0.2f, 3);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_BossLight/TX_BOSS_%d.png", "aniBossLight", 1.0f, 16);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_GoldFish/aniGoldfish_%d.png", "aniGoldfish", 2.0f, 18);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_DianQiu/TX_DianQiu_%d.png", "aniDianQiu", 1.0f, 13);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_shandian/shandian_%d.png", "aniShandian", 0.5f, 4);
 	//load fish ani
 	int i = 1;
 	for (int i = 1; i < 100; i++)

@@ -5,7 +5,8 @@
 #include "config/ConfigExp.h"
 #include "config/ConfigVipLevel.h"
 #include "domain/nobility/NobilityManager.h"
-
+#include "utill/define.h"
+#include "domain/logevent/LogEventConsume.h"
 using namespace cocos2d;
 
 class User{
@@ -36,18 +37,14 @@ public:
 
     bool setMaxTurrentLevel(int maxTurrentLevel);
 
-
-	float getCatchPer();
-
-	void addCatchPer(float catchper);
+	const char*USERBOXLEVEL = "USERBOXLEVEL";
+	CC_SYNTHESIZELOCALINT(USERBOXLEVEL, UserBoxLevel, 0);
 	
     int getVipLevel();
     
     bool addChargeMoney(int money);
     int getChargeMoney();
-    
-    int getChestLevel();
-    bool setChestLevel(int chestLevel);
+
     
 
 	int getGuizuDay();

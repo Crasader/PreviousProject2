@@ -65,7 +65,7 @@ int VIPprice[9] = { 20, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000 };
 
 void VipCell::setValue(int vipLevel)
 {
-	auto spPath = String::createWithFormat("game/ui/turret/pao_%d.png", vipLevel);
+	auto spPath = String::createWithFormat("game/ui/turret/pao_%d.png", vipLevel+2);
 	propSprite->setTexture(spPath->getCString());
 	spPath = String::createWithFormat("VIPname_%d.png", vipLevel);
 	VIPname->setTexture(spPath->getCString());
@@ -80,7 +80,7 @@ void VipCell::setValue(int vipLevel)
 	}
 	else
 	{
-		auto dec = String::createWithFormat(ChineseWord("priceVIPdes").c_str(), VIPprice[vipLevel]);
+		auto dec = String::createWithFormat(ChineseWord("priceVIPdes").c_str(), VIPprice[vipLevel-1]);
 		PriceDecTTF->setString(dec->getCString());
 	}
 	if (vipLevel<9)

@@ -49,17 +49,22 @@ void skillManager::useSkillSummon()
 	auto randPos = Vec2(100, 150 + rand() % 200);
 
 
-	///TODO::¶¯»­ÈÓ³öÈ¥
+	auto SummonBottle = Sprite::create("SummonBottle.png");
+	SummonBottle->setPosition(m_gamelayer->GetMyTurret()->getPosition());
+	m_gamelayer->addChild(SummonBottle, 5);
+	SummonBottle->runAction(Spawn::create(MoveTo::create(1.0f, randPos), RotateBy::create(1.0f, 360),RemoveSelf::create(), nullptr));
+
+
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(randPos);
 	m_gamelayer->addChild(aniNode, 10);
-	aniNode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniZhaoHuan"), 2), CallFunc::create([=]{
+	aniNode->runAction(Sequence::create(DelayTime::create(1.0f),Repeat::create(AnimationUtil::getInstance()->getAnimate("aniZhaoHuan"), 2), CallFunc::create([=]{
 	auto fish = FishManage::getInstance()->createFishSingle(40 + rand() % 5);
 	fish->setPosition(randPos);
 	fish->setMoveAngle(0);
 	fish->setScale(0);
 	fish->runAction(Sequence::create(ScaleTo::create(0.4, 1), CallFunc::create([=]{fish->move(3); aniNode->removeFromParentAndCleanup(1); }), nullptr));
-	m_gamelayer->addChild(fish); 
+	m_gamelayer->addChild(fish,5); 
 	}),nullptr));
 }
 

@@ -3,7 +3,7 @@
 #include "utill/MagicEffect.h"
 #include "utill/FunUtil.h"
 #include "config/ConfigFishCollisionRange.h"
-void FishArrangeFourh::initFishAnim(int fishType)
+void FishArrangeFourh::initFishAnim(int fishID)
 {
 	//жїгу
 	int randarray[9] = { 4,7,8,9,10, 30, 31, 32, 33 };

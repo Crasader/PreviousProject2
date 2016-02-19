@@ -25,7 +25,7 @@ bool RanklistCell::init(){
 	addChild(rankIndexTTF);
 
 	sexSprite = Sprite::create();
-	sexSprite->setPosition(125, size.height / 2);
+	sexSprite->setPosition(125, size.height / 2+3);
 	sexSprite->setScale(0.7);
 	addChild(sexSprite);
 
@@ -51,7 +51,7 @@ bool RanklistCell::init(){
 
 	NameTTF = LabelTTF::create("", "arial", 20);
 	NameTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-	NameTTF->setPosition(vipLvFrame->getPositionX() + vipLvFrame->getContentSize().width, vipLvFrame->getPositionY());
+	NameTTF->setPosition(vipLvFrame->getPositionX() + vipLvFrame->getContentSize().width-5, vipLvFrame->getPositionY()+3);
 	addChild(NameTTF);
 
 	auto lvSp = Sprite::create("LVTXT.png");
@@ -62,8 +62,8 @@ bool RanklistCell::init(){
 	LvTTF->setAnchorPoint(Point::ZERO);
 	LvTTF->setPosition(Point(lvSp->getContentSize().width, 0));
 	lvSp->addChild(LvTTF);
-	//拥有金币
-	auto haveCoinTTF = LabelTTF::create(ChineseWord("haveCoin").c_str(), "arial", 20);
+	//拥有金币 和经验
+	 haveCoinTTF = LabelTTF::create("", "arial", 20);
 	haveCoinTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	haveCoinTTF->setPosition(642, size.height / 2);
 	addChild(haveCoinTTF);
@@ -71,7 +71,8 @@ bool RanklistCell::init(){
 	auto coinsp = Sprite::create("coin.png");
 	coinsp->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	coinsp->setPosition(700, size.height / 2);
-	addChild(coinsp);
+	coinsp->setVisible(false);
+	addChild(coinsp,0,"coinsp");
 
 	CoinNumTTF = LabelAtlas::create("0", "coinnumTxt.png", 14, 18, '0');
 	CoinNumTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
@@ -98,7 +99,9 @@ void RanklistCell::setCoinValue(int index)
 	auto item = data.at(index);
 	VIPLvTTF->setString(Value(item.vipLevel).asString().c_str());
 	LvTTF->setString(Value(ConfigExp::getInstance()->getLevelData(item.exp).levelId).asString().c_str()); 
+	getChildByName("coinsp")->setVisible(true);
 	auto str = String::createWithFormat("%ld", item.coin);
+	haveCoinTTF->setString(ChineseWord("haveCoin").c_str());
 	CoinNumTTF->setString(str->getCString());
 	NameTTF->setString(Value(item.name).asString().c_str());
 	str = ((item.gender== 0) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));
@@ -133,7 +136,9 @@ void RanklistCell::setExpValue(int index)
 	auto item = data.at(index);
 	VIPLvTTF->setString(Value(item.vipLevel).asString().c_str());
 	LvTTF->setString(Value(ConfigExp::getInstance()->getLevelData(item.exp).levelId).asString().c_str()); 
-	auto str = String::createWithFormat("%ld", item.coin);
+	auto str = String::createWithFormat("%ld", item.exp);
+	haveCoinTTF->setString(ChineseWord("haveExp").c_str());
+	getChildByName("coinsp")->setVisible(false);
 	CoinNumTTF->setString(str->getCString());
 	NameTTF->setString(Value(item.name).asString().c_str());
 	str = ((item.gender == 0) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));

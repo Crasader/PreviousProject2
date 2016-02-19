@@ -2,8 +2,13 @@
 #include "domain/turntable/CTurntable.h"
 #include "domain/bag/BagManager.h"
 #include "domain/bonuspool/BonusPoolManager.h"
-#include "extensions/cocos-ext.h"
-USING_NS_CC_EXT;
+
+#include "core/showFishLayer.h"
+#include "widget/TwiceSureDialog.h"
+#include "utill/Chinese.h"
+#include "domain/game/GameManage.h"
+#include "domain/logevent/LogEventTurnTable.h"
+
 bool TurnTableDialog::init()
 {
 	Layer::init();
@@ -17,23 +22,29 @@ bool TurnTableDialog::init()
 		addChild(colorlayer, -1);
 
 		auto size = Director::getInstance()->getVisibleSize();
-		auto table = CTurntable::create();
-		table->setPosition(size / 2);
-		addChild(table,1);
+		table = CTurntable::create();
+		table->setPosition(size.width/2,size.height*0.58);
+		addChild(table);
 
 		auto title = Sprite::create("turntableTitle.png");
-		title->setPosition(size.width / 2, 480);
+		title->setPosition(size.width / 2, 510);
 		addChild(title);
 
 		
 
 		createBottomFrame(BonusPoolManager::getInstance()->allowBonusPool());
 
+		auto nowBounsLabel = LabelAtlas::create(Value(BonusPoolManager::getInstance()->getCoins()).asString(), "bounspoolnum.png", 15, 24,'0');
+		nowBounsLabel->setPosition(480, 300);
+		nowBounsLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		addChild(nowBounsLabel); 
+		
 
-		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(TurnTableDialog::closeButtonCallBack, this));
-		close->setPosition(730, 430);
+		auto close = MenuItemImage::create("smallX_1.png", "smallX_2.png", CC_CALLBACK_1(TurnTableDialog::closeButtonCallBack, this));
+		close->setPosition(581, 480);
 		auto menu = Menu::create(close, nullptr);
 		menu->setPosition(Point::ZERO);
+		menu->setName("close");
 		addChild(menu);
 
 		auto listenr1 = EventListenerTouchOneByOne::create();
@@ -55,29 +66,72 @@ void TurnTableDialog::closeButtonCallBack(Ref*psend)
 }
 void TurnTableDialog::choujiangButtonCallBack(Ref*psend)
 {
+	auto bonus = BonusPoolManager::getInstance()->getNextBonuspool();
+	int nextCoin;
+	if (bonus)
+	{
+		nextCoin = bonus->start_coins;
+	}
+	else
+	{
+		nextCoin = -1;
+	}
+	if (nextCoin!=-1)
+	{
+		auto str = String::createWithFormat(ChineseWord("choujiangSure").c_str(), nextCoin);
+		auto toast = TwiceSureDialog::createDialog(str->getCString(), CC_CALLBACK_1(TurnTableDialog::beginChoujiangButtonCallBack, this));
+		toast->setPosition(0, 0);
+		addChild(toast, 20,"toast");
+	}
+	else
+	{
+		beginChoujiangButtonCallBack(nullptr);
+	}
+	
+	
+}
+void TurnTableDialog::beginChoujiangButtonCallBack(Ref*psend)
+{
+	auto node = getChildByName("toast");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+	}
+	table->menuButtonCallback(nullptr);
 
+
+
+
+
+
+	BonusPoolManager::getInstance()->cleanCoinsAndFishCounts();
+	((Menu*)getChildByName("close"))->setEnabled(false);
+	((Menu*)(getChildByName("bottomframe")->getChildByName("choujiang")))->setEnabled(false);
 }
 void TurnTableDialog::showGoldFishButtonCallBack(Ref*psend)
 {
+	auto layer = showFishLayer::create();
+	layer->setPosition(Point::ZERO);
+	getParent()->addChild(layer, 20);
 
 }
 
 void TurnTableDialog::onGetRewards(BonuspoolRewardItem reward)
 {
-	BagManager::getInstance()->changeItemCount(reward.item_id, reward.num);
-	BonusPoolManager::getInstance()->cleanCoinsAndFishCounts();
+	GameManage::getInstance()->getGameLayer()->onGetReward(reward.item_id, reward.num);
+	removeFromParentAndCleanup(1);
 }
 
 void TurnTableDialog::createBottomFrame(bool isFinish)
 {
 	auto sp = Sprite::create("nowBounsPool.png");
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
-	sp->setPosition(960 / 2, 38);
-	addChild(sp);
+	sp->setPosition(960 / 2, 35);
+	addChild(sp,0,"bottomframe");
 
 	auto tiptxt = Sprite::create("TXTbounsTip.png");
 	tiptxt->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
-	tiptxt->setPosition(960 / 2, 9);
+	tiptxt->setPosition(960 / 2, 6);
 	addChild(tiptxt);
 	if (isFinish)
 	{
@@ -103,7 +157,7 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 		barframe->setPosition(181, 33);
 		sp->addChild(barframe);
 
-		auto bar = Scale9Sprite::create("turnTableExeBar.png", Rect(0, 0, 26, 24), Rect(8, 0, 11, 24));
+		bar = ui::Scale9Sprite::create("turnTableExeBar.png", Rect(0, 0, 26, 24), Rect(8, 0, 11, 24));
 		bar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		bar->setPosition(5, barframe->getContentSize().height / 2);
 		barframe->addChild(bar);
@@ -133,17 +187,22 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 		else
 		{
 			auto nextlabel = LabelAtlas::create(Value(nextCoin).asString(), "nextPoolNum.png", 11, 19, '0');
-			label->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-			label->setPosition(label->getPositionX() + label->getContentSize().width / 2, label->getPositionY());
-			barframe->addChild(label);
-			auto scale = (float)nowCoin / (float)nextCoin;
-			bar->setContentSize(Size(scale*26.0f / 197, 24));
+			nextlabel->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+			nextlabel->setPosition(label->getPositionX() + label->getContentSize().width / 2, label->getPositionY());
+			barframe->addChild(nextlabel);
+			auto scale = (float)nowCoin / (float)nextCoin*197.0 / 26.0+26;
+			if (scale>197)
+			{
+				scale =197.0;
+			}
+			bar->setContentSize(Size(scale, 24));
 		}
 		//°´Å¥
 		auto bt = MenuItemImage::create("btn_choujiang_1.png", "btn_choujiang_2.png", CC_CALLBACK_1(TurnTableDialog::choujiangButtonCallBack, this));
 		bt->setPosition(382, 45);
 		auto menu = Menu::create(bt, nullptr);
 		menu->setPosition(Point::ZERO);
+		menu->setName("choujiang");
 		sp->addChild(menu);
 	}
 	else
@@ -168,7 +227,7 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 		barframe->setPosition(181, 33);
 		sp->addChild(barframe);
 
-		auto bar = Scale9Sprite::create("turnTableExeBar.png", Rect(0, 0, 26, 24), Rect(8, 0, 11, 24));
+		auto bar = ui::Scale9Sprite::create("turnTableExeBar.png", Rect(0, 0, 26, 24), Rect(8, 0, 11, 24));
 		bar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		bar->setPosition(5, barframe->getContentSize().height / 2);
 		barframe->addChild(bar);

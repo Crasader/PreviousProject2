@@ -19,6 +19,7 @@ bool ConfigMomentEight::LoadConfig() {
 	{
 		if (!LoadConfigByType(type))
 		{
+			CCLOG(" load %d MommentEightConfigs", type - 1);
 			break;
 		}
 		else
@@ -55,10 +56,7 @@ bool ConfigMomentEight::LoadConfigByType(int type)
 			return false;
 		}
 		std::vector<MomentEightItem> items;
-		if (type==1)
-		{
-			lifetime = doc["life_time"].GetDouble();
-		}
+		lifeTimeForType[type] = doc["life_time"].GetDouble();
 		auto &launching_points = doc["launching_points"];
 		for (unsigned int i = 0; i < launching_points.Size(); i++)
 		{

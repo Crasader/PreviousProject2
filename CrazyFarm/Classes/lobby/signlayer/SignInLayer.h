@@ -18,6 +18,7 @@ private:
 	SignRewardItem getRewardInVectorByProbability(std::vector<SignRewardItem>);
 	int nSeqSignDay = 0;
 	Vector<SpliceCell*> cells;
+	std::vector<SignRewardItem> rewards;
 };
 
 

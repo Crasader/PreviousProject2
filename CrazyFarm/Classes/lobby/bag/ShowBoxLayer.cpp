@@ -7,6 +7,7 @@
 #include "lobby/viplayer/VipLayer.h"
 #include "domain/coinBox/CoinBox.h"
 #include "lobby/bag/bagLayer.h"
+#include "config/ConfigChest.h"
 ShowBoxLayer*ShowBoxLayer::create(int itemid)
 {
 	ShowBoxLayer *pRet = new ShowBoxLayer();
@@ -67,16 +68,10 @@ bool ShowBoxLayer::init(int itemid)
 		}
 		else
 		{
-			if (CoinBox::getInstance()->useTimeByItemID(m_itemId)>0)
-			{
-				auto str2 = String::createWithFormat(ChineseWord("nextBox").c_str(),CoinBox::getInstance()->getBoxConfigInfoByItemID(m_itemId).money);
-				auto label2 = LabelTTF::create(str2->getCString(), "arail", 18);
-				label2->setColor(Color3B::YELLOW);
-				label2->setPosition(480, 200);
-				label2->setAnchorPoint(Point::ANCHOR_MIDDLE);
-				addChild(label2);
-			}
-			else
+
+			auto lv = User::getInstance()->getUserBoxLevel();
+			auto box = ConfigChest::getInstance()->getChestByItemId(m_itemId);
+			if (lv < box.chest_level)
 			{
 				auto str3 = String::createWithFormat(ChineseWord("firstBox").c_str(), CoinBox::getInstance()->getBoxConfigInfoByItemID(m_itemId).catch_fish_per);
 				auto label3 = LabelTTF::create(str3->getCString(), "arail", 18);
@@ -85,6 +80,16 @@ bool ShowBoxLayer::init(int itemid)
 				label3->setAnchorPoint(Point::ANCHOR_MIDDLE);
 				addChild(label3);
 			}
+			else
+			{
+				auto str2 = String::createWithFormat(ChineseWord("nextBox").c_str(), CoinBox::getInstance()->getBoxConfigInfoByItemID(m_itemId).money);
+				auto label2 = LabelTTF::create(str2->getCString(), "arail", 18);
+				label2->setColor(Color3B::YELLOW);
+				label2->setPosition(480, 200);
+				label2->setAnchorPoint(Point::ANCHOR_MIDDLE);
+				addChild(label2);
+			}
+	
 			
 		}
 		
@@ -138,22 +143,23 @@ bool ShowBoxLayer::onTouchBegan(Touch *touch, Event *unused_event)
 
 void ShowBoxLayer::quedingcallback(Ref*)
 {
+
 	if (m_itemId ==1008)
 	{
 		User::getInstance()->addCoins(CoinBox::getInstance()->getPerCoinBox());
 	}
 	else
 	{
-		auto time = CoinBox::getInstance()->useTimeByItemID(m_itemId);
-		if (time == 0)
+		auto lv = User::getInstance()->getUserBoxLevel();
+		auto box = ConfigChest::getInstance()->getChestByItemId(m_itemId);
+		if (lv<box.chest_level)
 		{
-			User::getInstance()->addCatchPer(CoinBox::getInstance()->getBoxConfigInfoByItemID(m_itemId).catch_fish_per);
+			User::getInstance()->setUserBoxLevel(box.chest_level);
 		}
 		else
 		{
-			User::getInstance()->addCoins(ConfigBox::getInstance()->getBoxConfigInfoByItemId(m_itemId).money);
+			User::getInstance()->addCoins(box.have_get_reward);
 		}
-		CoinBox::getInstance()->addUseTimeByItemId(m_itemId);
 	}
 	BagManager::getInstance()->changeItemCount(m_itemId, -1);
 	((BagLayer*)getParent())->gettableview()->reloadData();

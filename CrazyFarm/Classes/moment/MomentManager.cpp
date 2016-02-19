@@ -3,6 +3,7 @@
 #include "moment/momentFishGroup/MomentFive.h"
 #include "moment/momentFishGroup/MomentSix.h"
 #include "moment/MomentNine.h"
+#include "utill/FunUtil.h"
 MomentManager* MomentManager::_instance = NULL;
 
 MomentManager::MomentManager(){
@@ -20,81 +21,145 @@ MomentManager* MomentManager::getInstance(){
     return _instance;
 }
 
-Moment* MomentManager::getNewMoment(float FFOneTime) {
-    
-	return getNewMomentByType(getCurrentType(), FFOneTime);
+Moment*MomentManager::getNewMoment(float FFOneTime)
+{
+	if (nowMomentType>80)
+	{
+		return getNewMomentByType(9,FFOneTime);
+	}
+	else if (nowMomentType == 9)
+	{
+		return getNewMomentGroupfish(FFOneTime);
+	}
+	else
+	{
+		return getNewMomentEight(FFOneTime);
+	}
+
 }
 
+Moment* MomentManager::getNewMomentEight(float FFOneTime) {
+    
+	return getNewMomentByType(getCurrentMomentEight(), FFOneTime);
+}
+
+Moment* MomentManager::getNewMomentGroupfish(float FFOneTime) {
+
+	return getNewMomentByType(getCurrentMomentFishGroup(), FFOneTime);
+}
+
+
 Moment* MomentManager::getNewMomentByType(int momentType, float FFOneTime) {
-    if(momentType == 1) {
-        Moment* moment = new MomentOne();
+	Moment* moment;
+    if (momentType>80)
+	{
+		moment = new MomentEight();
+		((MomentEight*)moment)->setMomentEightType(momentType - 80);
 		moment->init(FFOneTime);
-        return moment;
+		if (nowMomentType == -1)
+		{
+			((MomentEight*)moment)->clearFish();
+		}
     }
 	switch (momentType)
 	{
 	case 1:
 	{
-		Moment* moment = new MomentOne();
+		moment = new MomentOne();
 		moment->init(FFOneTime);
-		return moment;
+		break;
+	
 	}
 	case 2:
 	{
-		Moment* moment = new MomentTwo();
+		moment = new MomentTwo();
 		moment->init(FFOneTime);
-		return moment;
+		break;
 	}
 	case 3:
 	{
-		Moment* moment = new MomentThree();
+		moment = new MomentThree();
 		moment->init(FFOneTime);
-		return moment;
+		break;
 	}
 	case 4:
 	{
-		Moment* moment = new MomentFour();
+		moment = new MomentFour();
 		moment->init(FFOneTime);
-		return moment;
+		break;
 	}
 	case 5:
 		{
-
-			
-				Moment* moment = new MomentFive();
-				moment->init(FFOneTime);
-				return moment;
-			
+			moment = new MomentFive();
+			moment->init(FFOneTime);
+			break;
 		}
 	case 6:
 		{
 
 
-			Moment* moment = new MomentSix();
+			moment = new MomentSix();
 			moment->init(FFOneTime);
-			return moment;
+			break;
 
 		}
-	case 8:
-	{
-		Moment* moment = new MomentEight();
-		moment->init(FFOneTime);
-		return moment;
-	}
 	case 9:
 	{
-		Moment* moment = new MomentNine();
+		moment = new MomentNine();
 		moment->init(FFOneTime);
-		return moment;
+		break;
 	}
 	default:
 		break;
 	}
-    
-    Moment* moment = new MomentOne();
-	moment->init(FFOneTime);
-    return moment;
+	nowMomentType = momentType;
+	return moment;
 }
+
+
+int MomentManager::getCurrentMomentEight()
+{
+	return 81;
+	int size = momentEightVec.size();
+	if (size>1)
+	{
+		
+	}
+	else
+	{
+		momentEightVec.clear();
+		momentEightVec.push_back(81);
+		momentEightVec.push_back(82); 
+		momentEightVec.push_back(83);
+		upsetVector(momentEightVec);
+	}
+	int curValue = momentEightVec.back();
+	momentEightVec.pop_back();
+	return curValue;
+}
+
+int MomentManager::getCurrentMomentFishGroup()
+{
+	
+	int size = momentFishGroupVec.size();
+	if (size > 1)
+	{
+		
+	}
+	else
+	{
+		momentFishGroupVec.clear();
+		momentFishGroupVec.push_back(2);
+		momentFishGroupVec.push_back(5);
+		momentFishGroupVec.push_back(4);
+		upsetVector(momentFishGroupVec);
+	}
+	int curValue = momentFishGroupVec.back();
+	momentFishGroupVec.pop_back();
+	return curValue;
+}
+
+
 
 int MomentManager::getCurrentType() {
     if(momentOrderItems.size() > 0) {

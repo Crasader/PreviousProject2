@@ -16,7 +16,7 @@
       "desc"    : "锁定",
       "unlock_buy_turretLv"  : 30,
       "unlock_buy_vipLv"  : 0,
-      "cd_time" : 18
+      "cd_time" : 15
     },
     {
       "skill_id"  : 3,
@@ -40,7 +40,7 @@
       "desc"    : "激光炮",
       "unlock_buy_turretLv"  : 0,
       "unlock_buy_vipLv"  : 2,
-      "cd_time" : 18
+      "cd_time" : 15
     }
   ]
 }

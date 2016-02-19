@@ -21,6 +21,11 @@ SkillLockButton* SkillLockButton::createSkillLockButton()
 /** 技能按钮点击回调 */
 void SkillLockButton::skillClickCallBack(Ref* obj)
 {
+	auto nd = getChildByName("tipnode");
+	if (nd)
+	{
+		nd->removeFromParentAndCleanup(1);
+	}
 	if (JudgeUseSkill())
 	{
 		SkillButton::skillClickCallBack(obj);

@@ -1,5 +1,6 @@
 #include "Turret/Turret.h"
 #include "utill/Audio.h"
+#include "domain/Newbie/NewbieMannger.h"
 #define SCALETURRET 0.75
 bool Turret::init(){
 	if (!Sprite::init()){
@@ -30,11 +31,17 @@ void Turret::initWithType(int type){
 
 void Turret::shoot()
 {
+
 	Audio::getInstance()->playShootVoic();
 	auto distance = getContentSize().height*SCALETURRET*0.1;
 	auto movebypos = Vec2(distance*cos(CC_DEGREES_TO_RADIANS(90-getRotation())), distance*sin(CC_DEGREES_TO_RADIANS(90-getRotation())));
 	runAction(Sequence::createWithTwoActions(Spawn::create(ScaleTo::create(0.025f, 1 * SCALETURRET, 0.8*SCALETURRET), MoveBy::create(0.025, Vec2(-movebypos.x, -movebypos.y)),nullptr),
 		Spawn::create(ScaleTo::create(0.025f, 1 * SCALETURRET, 1.0*SCALETURRET), MoveBy::create(0.025, movebypos), nullptr)));
+
+	if (NewbieMannger::getInstance()->getNBShootCounts()!=-1)
+	{
+		NewbieMannger::getInstance()->setNBShootCounts(NewbieMannger::getInstance()->getNBShootCounts() + 1);
+	}
 }
 void Turret::upgradeTurret()
 {

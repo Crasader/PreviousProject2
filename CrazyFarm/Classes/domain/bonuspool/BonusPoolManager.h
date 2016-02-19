@@ -9,6 +9,7 @@
 using namespace cocos2d;
 
 struct BonuspoolResult {
+	int bouns_position;
     int reward_position;
     std::vector<BonuspoolRewardItem> reward_list;
 };

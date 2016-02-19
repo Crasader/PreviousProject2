@@ -25,10 +25,10 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 	bool bRet = false;
 	do
 	{
-		auto colorlayer = LayerColor::create();
+		/*auto colorlayer = LayerColor::create();
 		colorlayer->setColor(ccc3(0, 0, 0));
 		colorlayer->setOpacity(180);
-		addChild(colorlayer, -1);
+		addChild(colorlayer, -1);*/
 		
 		auto bg = Sprite::create("TwiceSureDialog.png");
 		bg->setPosition(480, 270);
@@ -80,6 +80,9 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 			}
 		};
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+		/////////µ¯³ö¶¯»­
+		setScale(0);
+		runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), nullptr));
 		bRet = true;
 	} while (0);
 

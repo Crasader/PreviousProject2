@@ -17,6 +17,9 @@
 #include "utill/Audio.h"
 #include "domain/logevent/LogEventMannger.h"
 #include "bullet/Laster.h"
+#include "domain/bag/BagManager.h"
+#include "domain/game/GameManage.h"
+#include "domain/Newbie/NewbieMannger.h"
 #define BOOMRADIUS 300
 enum
 {
@@ -78,22 +81,30 @@ bool GameLayer::init(){
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
 	
-	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{loadNewMonent(); }), nullptr));
+	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{loadNewMonent(rand()%(300-35)+35); }), nullptr));
 
-	//auto fish = FishManage::getInstance()->createFishArrange(104);
-	//fish->setPosition(480, 270);
-	//fish->unscheduleUpdate();
-	//addChild(fish);
-	//for (auto var : fish->getBoundingFigures())
-	//{
-	//	var->draw(this);
-	//}
+
 
 	setbisOnSkillLock(false);
 
 	GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
 	GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
 
+
+	if (!NewbieMannger::getInstance()->getisOverTeachMode())
+	{
+		myTurret->showPlayerInfo();
+		auto txtclick = Sprite::create("TXTClickCatch.png");
+		txtclick->setPosition(480, 270);
+		addChild(txtclick, kZorderDialog, "clickcatch");
+
+	}
+	
+
+
+	BagManager::getInstance()->changeItemCount(1010, 1);
+	BagManager::getInstance()->changeItemCount(1009, 1);
+	BagManager::getInstance()->changeItemCount(1011, 1);
 	return true;
 }
 
@@ -181,6 +192,26 @@ void GameLayer::addTouchEvent(){
 
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
+	auto node = getChildByName("clickcatch");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+		auto sp = Sprite::create("TXTYourChairno.png");
+		sp->setPosition(myTurret->getPosition() + Vec2(0, 50));
+		addChild(sp,20);
+		sp->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
+		sp->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(), nullptr));
+
+		auto pos = myTurret->getPosition() + Vec2(0,100);
+		auto sPoint = Sprite::create("yellowSpoint.png");
+		sPoint->setPosition(pos);
+		addChild(sPoint,20);
+		sPoint->runAction(RepeatForever::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.6f, Vec2(0, 30))), EaseSineOut::create(MoveBy::create(0.6f, Vec2(0, -30))), nullptr)));
+
+		sPoint->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(), nullptr));
+
+		NewbieMannger::getInstance()->setisOverTeachMode(1);
+	}
 	auto touchPos = touch->getLocation();
 	if (onTouTurret(touchPos))
 	{
@@ -352,9 +383,9 @@ void GameLayer::onExit()
 	otherTurrets.clear();
 }
 
-void GameLayer::loadNewMonent()
+void GameLayer::loadNewMonent(float ffTime)
 {
-	FishManage::getInstance()->LoadOnement();
+	FishManage::getInstance()->LoadOnement(ffTime);
 }
 
 void GameLayer::RefreShmyPlayerTurret()
@@ -381,11 +412,16 @@ void GameLayer::beginLight()
 	m_lasttouchType = m_touchType;
 	myTurret->beginLightShoot();
 	changeTouchFunByTouchType(TouchInLight);
+
+	auto txt = Sprite::create("TXTUseLight.png");
+	txt->setPosition(myTurret->getPosition() + Vec2(0, 100));
+	addChild(txt, kZorderDialog, "TXTTip");
 }
 void GameLayer::endLight()
 {
 	myTurret->endLightShoot();
 	changeTouchFunByTouchType(m_lasttouchType);
+	getChildByName("TXTTip")->removeFromParentAndCleanup(1);
 }
 
 void GameLayer::beginLock()
@@ -393,11 +429,16 @@ void GameLayer::beginLock()
 	m_lasttouchType = m_touchType;
 	myTurret->beginLockShoot();
 	changeTouchFunByTouchType(TouchInLock);
+
+	auto txt = Sprite::create("TXTUseLock.png");
+	txt->setPosition(myTurret->getPosition() + Vec2(0, 100));
+	addChild(txt, kZorderDialog, "TXTTip");
 }
 void GameLayer::endLock()
 {
 	myTurret->endLockShoot();
 	changeTouchFunByTouchType(m_lasttouchType);
+	getChildByName("TXTTip")->removeFromParentAndCleanup(1);
 }
 
 void GameLayer::beginSkillBoom()
@@ -405,11 +446,17 @@ void GameLayer::beginSkillBoom()
 	m_lasttouchType = m_touchType;
 	skillManager::getInstance()->getButtonByID(4)->setEnable(false);
 	changeTouchFunByTouchType(TouchInBoom);
+
+	auto txt = Sprite::create("TXTUseBomb.png");
+	txt->setPosition(myTurret->getPosition() + Vec2(0, 100));
+	addChild(txt, kZorderDialog, "TXTTip");
 }
 void GameLayer::endSkillBoom()
 {
 	skillManager::getInstance()->getButtonByID(4)->setEnable(true);
 	changeTouchFunByTouchType(m_lasttouchType);
+
+	getChildByName("TXTTip")->removeFromParentAndCleanup(1);
 }
 
 
@@ -424,8 +471,7 @@ void GameLayer::onBoomCatchFish(Point pos)
 	{
 		if (CollisionUtill::isCollisionCircle(fish->getBoundingFigures(),cicle))
 		{
-			myTurret->getCoinByFish(fish);
-			FishManage::getInstance()->removeFish(fish, 1);
+			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, myTurret);
 		}
 
 	}
@@ -560,7 +606,7 @@ void GameLayer::onClearFish()
 {
 	auto txt = Sprite::create("yuchaoTXT.png");
 	txt->setPosition(480, 270);
-	addChild(txt,kZorderFish+1,"yuchaotxt");
+	addChild(txt,kZorderFish+2,"yuchaotxt");
 
 	auto lang = Sprite::create("wave.png");
 	lang->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
@@ -589,9 +635,46 @@ void GameLayer::onClearFishUpdata(float dt)
 		}
 		for (auto fish : needRemove)
 		{
-			FishManage::getInstance()->removeFish(fish, 0);
+			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 0, nullptr);
 
 		}
 	}
 
 }
+
+void GameLayer::addReward(int itemid, int num)
+{
+	BagManager::getInstance()->changeItemCount(itemid, num);
+	if (itemid==1001)
+	{
+		User::getInstance()->addCoins(num);
+	}
+	else if (itemid ==1002)
+	{
+
+		User::getInstance()->addDiamonds(num);
+	}
+}
+
+void GameLayer::onGetReward(int itemid, int num)
+{
+	auto spPath = String::createWithFormat("item_%d.png", itemid);
+	auto lightsp = Sprite::create("light1.png");
+	lightsp->setPosition(480, 270);
+	addChild(lightsp);
+	lightsp->runAction(RotateTo::create(3.0f, 360.0));
+	auto sp = Sprite::create(spPath->getCString());
+	sp->setPosition(480, 270);
+	sp->setScale(0);
+	sp->runAction(ScaleTo::create(0.2, 1.0f));
+	addChild(sp);
+	//缺少放烟花素材
+	auto aninode = Sprite::create();
+	aninode->setPosition(480, 270);
+	addChild(aninode);
+	aninode->setScale(2);
+	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 3), RemoveSelf::create(), nullptr));
+	sp->runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{lightsp->removeFromParentAndCleanup(1); }), MoveTo::create(1.0f, myTurret->getPosition()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
+
+}
+

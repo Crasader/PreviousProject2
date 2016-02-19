@@ -24,9 +24,9 @@ bool Fish::init(){
 	return true;
 }
 
-void Fish::initFish(int fishType){
-	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
-	if (fishType==44)
+void Fish::initFish(int fishID){
+	auto fishdata = ConfigFish::getInstance()->getFish(fishID);
+	if (fishID==44)
 	{
 		fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd,50);
 	}
@@ -36,24 +36,50 @@ void Fish::initFish(int fishType){
 	}
 	
 	this->grabProbability = fishdata.probability;
-	this->fishType = fishType;
+	this->fishID = fishID;
 	this->speed = getRandValueInVec(fishdata.move_speeds);
-	this->experience = getFishExperienceByType(fishType);
+	this->experience = getFishExperienceByID(fishID);
+	setFishType(getFishTypeByID(fishID));
 	BonusPoorGold = fishdata.bonus_pool_reward;
 	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
 	figures = ConfigFishCollisionRange::getInstance()->getFishFigures(fishdata.uiId);
-	LogEventFish::getInstance()->addFishCreateTimes(fishType);
+	LogEventFish::getInstance()->addFishCreateTimes(fishID);
 }
 
-void Fish::initFishAnim(int fishType){
-	initWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(fishType));
+void Fish::initFishAnim(int fishID){
+	initWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(fishID));
 
-	auto acName = String::createWithFormat("swim_%d", fishType);
+	auto acName = String::createWithFormat("swim_%d", fishID);
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
 	ac->setTag(kTagAcNormal);
 	runAction(ac);
 
+	//BOSS鱼特效
+	if (fishID>=50&&fishID<60)
+	{
+		auto aninode = Sprite::create();
+		aninode->setPosition(getContentSize().width*0.6, getContentSize().height / 2);
+		addChild(aninode,-1);
+		aninode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniBossLight")));
+	}
+	//黄金鱼特效
+	else if (fishID >= 40 && fishID<50)
+	{
+		auto aninode = Sprite::create();
+		aninode->setPosition(getContentSize().width*0.4, getContentSize().height / 2);
+		addChild(aninode);
+		aninode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGoldfish")));
+
+		if (fishID == 44 )
+		{
+			auto aninode1 = Sprite::create("game/ui/effect/frogEffect.png");
+			aninode1->setPosition(getContentSize() / 2);
+			addChild(aninode1, -1);
+			aninode1->runAction(RepeatForever::create(RotateBy::create(5, 360)));
+
+		}
+	}
 	
 	
 
@@ -69,31 +95,49 @@ void Fish::update(float dt)
 		LastPos = getPosition();
 
 	}
-//#ifdef COCOS2D_DEBUG
-//	auto drawnode = DrawNode::create();
-//	drawnode->drawPoint(getPosition(), 1, Color4F::RED);
-//	getParent()->addChild(drawnode);
-//#endif // DEBUG
-
-	
 
 }
 
 
 
-int Fish::getFishGoldByType(int type){
+int Fish::getFishGoldByID(int fishID){
 	//TODO
 	return 0;
 }
-
-
-int Fish::getFishExperienceByType(int type){
-	//TODO
-	return ConfigFish::getInstance()->getFish(type).exp;
+FISHTYPE Fish::getFishTypeByID(int fishID)
+{
+	if (fishID<40)
+	{
+		return NormalFish;
+	}
+	else if (fishID>=40&&fishID<50)
+	{
+		return GoldFish;
+	}
+	else if (fishID >= 50 && fishID < 60)
+	{
+		return BossFish;
+	}
+	else if (fishID ==201)
+	{
+		return BoomFish;
+	}
+	else if (fishID == 202)
+	{
+		return AllKilledFish;
+	}
+	else if (fishID >=100&&fishID<200)
+	{
+		return ArrangeFish;
+	}
 }
 
+int Fish::getFishExperienceByID(int fishID){
+	//TODO
+	return ConfigFish::getInstance()->getFish(fishID).exp;
+}
 
-float Fish::getFishSpeedByType(int type){
+float Fish::getFishSpeedByID(int fishID){
 	return 80;
 }
 
@@ -245,7 +289,7 @@ void Fish::setRoute(int routeTag)
 		break;
 		case 3:
 		{
-			auto str = String::createWithFormat("%s_%d", p->aniName.c_str(), fishType);
+			auto str = String::createWithFormat("%s_%d", p->aniName.c_str(), fishID);
 			acArray->pushBack(FishAniMannage::getInstance()->getAnimate(str->getCString()));
 		}
 		break;
@@ -267,7 +311,7 @@ void Fish::setRoute(int routeTag)
 	{
 		delay = DelayTime::create(0);
 	}
-	auto ac = Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{FishManage::getInstance()->removeFish(this, 0); }), nullptr);
+	auto ac = Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{GameManage::getInstance()->CatchTheFishOntheTurrent(this, 0,nullptr); }), nullptr);
 	ac->setTag(kTagAcNormal);
 	this->runAction(ac);
 	if (RepetActionArray.size() > 0)
@@ -313,7 +357,7 @@ void Fish::setMonentEightRoute(int routeTag)
 		break;
 		case 3:
 		{
-			auto str = String::createWithFormat("%s_%d", p->aniName.c_str(), fishType);
+			auto str = String::createWithFormat("%s_%d", p->aniName.c_str(), fishID);
 			acArray->pushBack(FishAniMannage::getInstance()->getAnimate(str->getCString()));
 		}
 		break;
@@ -344,7 +388,7 @@ void Fish::setMonentEightRoute(int routeTag)
 	{
 		delay = DelayTime::create(0);
 	}
-	this->runAction(Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{FishManage::getInstance()->removeFish(this,0); }), nullptr));
+	this->runAction(Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{GameManage::getInstance()->CatchTheFishOntheTurrent(this, 0, nullptr); }), nullptr));
 
 }
 
@@ -353,8 +397,6 @@ void Fish::addShader()
 {
 	m_shadesprite = FishShader::createShader(this);
 
-
-	
 }
 void Fish::ShadeUpdata(float dt)
 {
@@ -371,8 +413,8 @@ Sprite* Fish::getRectSprite(){
 	return image;
 }
 
-int Fish::getFishType() {
-    return fishType;
+int Fish::getFishID() {
+    return fishID;
 }
 
 
@@ -422,19 +464,19 @@ void Fish::onDead()
 	runAction(RepeatForever::create(ac));
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
 	//声音
-	if (fishType < 20)
+	if (fishID < 20)
 	{
 		/*Audio::getInstance()->playSound(CATCHSMALL);*/
 	}
-	else if (fishType >= 20 && fishType<30)
+	else if (fishID >= 20 && fishID<30)
 	{
 		/*Audio::getInstance()->playSound(CATCHMID);*/
 	}
-	else if (fishType >= 30 && fishType<40)
+	else if (fishID >= 30 && fishID<40)
 	{
 		/*Audio::getInstance()->playSound(CATCHBIG);*/
 	}
-	else if (fishType >= 40 && fishType<50)
+	else if (fishID >= 40 && fishID<50)
 	{
 		Audio::getInstance()->playSound(CATCHGOLD);
 	}
@@ -470,7 +512,7 @@ void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
 	node->setPosition(getPositionX(), getPositionY() + 50);
 	GameManage::getInstance()->getGuiLayer()->addChild(node);
 	belongPos = node->convertToNodeSpace(belongPos);
-	auto data = ConfigFish::getInstance()->getFishDropCoinData(ConfigFish::getInstance()->getFish(fishType).uiId);
+	auto data = ConfigFish::getInstance()->getFishDropCoinData(getuiId());
 	Sprite*sp;
 	for (int i = 0; i < data.num;i++)
 	{

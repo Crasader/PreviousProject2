@@ -62,6 +62,11 @@ int User::getCoins() {
 }
 
 int User::addCoins(int coins) {
+	LogEventConsume::getInstance()->addEventCoin(coins);
+	if (coins>0)
+	{
+		CCLOG("add coins %d", coins);
+	}
     UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS,
             this->getCoins() + coins);
     if(this->getCoins() < 0 ) {
@@ -76,6 +81,7 @@ int User::getDiamonds() {
 }
 
 int User::addDiamonds(int diamonds) {
+	LogEventConsume::getInstance()->addEventDiamond(diamonds);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS,
             this->getDiamonds() + diamonds);
     if(this->getDiamonds() < 0 ) {
@@ -98,16 +104,7 @@ bool User::setMaxTurrentLevel(int maxTurrentLevel) {
 }
 
 
-float User::getCatchPer()
-{
-	return UserDefault::getInstance()->getFloatForKey(User::KEY_CATCHPER, 1);
-}
 
-void User::addCatchPer(float catchper)
-{
-	auto per = getCatchPer();
-	UserDefault::getInstance()->setFloatForKey(User::KEY_CATCHPER, per*catchper);
-}
 
 
 bool User::addExp(int exp) {
@@ -144,18 +141,7 @@ int User::getChargeMoney() {
     return UserDefault::getInstance()->getIntegerForKey(User::KEY_CHARGE_MONEY, 0);
 }
 
-int User::getChestLevel() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_CHEST_LEVEL, 0);
-}
 
-bool User::setChestLevel(int chestLevel) {
-    if(chestLevel > 0 && chestLevel > getChestLevel()) {
-        UserDefault::getInstance()->setIntegerForKey(User::KEY_CHEST_LEVEL,chestLevel);
-        return true;
-    }
-    return false;
-    
-}
 
 void User::resetInfo() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)

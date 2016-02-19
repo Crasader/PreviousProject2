@@ -4,17 +4,8 @@
 #include "utill/FunUtil.h"
 #include "config/ConfigFishCollisionRange.h"
 
-void FishArrangeOne::initFish(int fishType){
-	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
-	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
-	this->grabProbability = fishdata.probability;
-	this->fishType = fishType;
-	this->speed = getRandValueInVec(fishdata.move_speeds);
-	this->experience = getFishExperienceByType(fishType);
-	initFishAnim(fishdata.uiId);
-	LogEventFish::getInstance()->addFishCreateTimes(fishType);
-}
-void FishArrangeOne::initFishAnim(int fishType)
+
+void FishArrangeOne::initFishAnim(int fishID)
 {
 	//жїгу
 	int randarray[7] = { 10, 30, 31, 32, 33, 34, 35 };
@@ -61,21 +52,5 @@ void FishArrangeOne::initFishAnim(int fishType)
 	maggiceff = MagicEffect::create(2, true);
 	maggiceff->setPosition(sp->getContentSize() / 2);
 	sp->addChild(maggiceff, -1);
-}
-void FishArrangeOne::addShader()
-{
 
-}
-void FishArrangeOne::onDead()
-{
-	removeFromParentAndCleanup(1);
-}
-
-void FishArrangeOne::pushBackFigureVec(int uiid,Point pos)
-{
-	auto vec = ConfigFishCollisionRange::getInstance()->getFishFigures(uiid);
-	for (auto var:vec)
-	{
-		figures.push_back(var->addposWithFigure(pos));
-	}
 }

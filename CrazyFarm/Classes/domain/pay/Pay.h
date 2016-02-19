@@ -33,7 +33,9 @@ private:
     static Pay* _instance;
 	payRequest* nowData;
 	
-	bool bIsSuccess = false;
+
+
+	int payResult = -1;   //初始值-1,成功1，失败2'
 	
 };
 

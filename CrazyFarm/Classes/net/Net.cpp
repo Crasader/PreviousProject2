@@ -5,6 +5,7 @@
 #include "utill/AnimationUtil.h"
 #include "utill/CollisionUtill.h"
 #include "domain/logevent/LogEventFish.h"
+#include "domain/game/GameManage.h"
 bool Net::init(){
 	if (!Sprite::init()){
 		return false;
@@ -93,10 +94,10 @@ void Net::checkCatchFish(){
 	for (Fish* fish : allFish){
 		if (CollisionUtill::isCollisionRect(fish->getBoundingFigures(), getBoundingBox())){
 			float k = rand_0_1();
-			LogEventFish::getInstance()->addFishHitTimes(fish->getFishType());
+			LogEventFish::getInstance()->addFishHitTimes(fish->getFishID());
 			if (!m_bullet->getPlayerTurret()->isRobot)
 			{
-				LogEventFish::getInstance()->addFishUserCostCoin(fish->getFishType(),m_bullet->getPlayerTurret()->getTurrentMupltData().multiple);
+				LogEventFish::getInstance()->addFishUserCostCoin(fish->getFishID(),m_bullet->getPlayerTurret()->getTurrentMupltData().multiple);
 			}
 			if (k<(fish->getGrabProbability()*turretdata.catch_per))
 			{
@@ -108,14 +109,8 @@ void Net::checkCatchFish(){
 		}
 	}
 	auto data = GameData::getInstance();
-	m_bullet->getCoinForFish(fishNeedRemove);
-	for (Fish* fish : fishNeedRemove){
-		if (fish->getFishType() == 201)
-		{
-			FishManage::getInstance()->onBoomFishDead(fish, m_bullet->getPlayerTurret());
-		}
-	
-		FishManage::getInstance()->removeFish(fish,1);
+	for (Fish* fish : fishNeedRemove){	
+		GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, m_bullet->getPlayerTurret());
 		fish = nullptr;
 	}
 }

@@ -1,14 +1,16 @@
 #include "FishArrange.h"
 #include "config/ConfigFishCollisionRange.h"
-void FishArrange::initFish(int fishType){
-	auto fishdata = ConfigFish::getInstance()->getFish(fishType);
+void FishArrange::initFish(int fishID){
+	auto fishdata = ConfigFish::getInstance()->getFish(fishID);
 	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
 	this->grabProbability = fishdata.probability;
-	this->fishType = fishType;
+	this->fishID = fishID;
 	this->speed = getRandValueInVec(fishdata.move_speeds);
-	this->experience = getFishExperienceByType(fishType);
+	this->experience = getFishExperienceByID(fishID);
+	setFishType(getFishTypeByID(fishID));
+	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
-	LogEventFish::getInstance()->addFishCreateTimes(fishType);
+	LogEventFish::getInstance()->addFishCreateTimes(fishID);
 }
 void FishArrange::addShader()
 {

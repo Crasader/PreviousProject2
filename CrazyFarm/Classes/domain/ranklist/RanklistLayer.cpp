@@ -7,7 +7,7 @@ void RanklistView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
 Size RanklistView::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx){
-	return CCSizeMake(892, 100);
+	return CCSizeMake(892, 90);
 }
 cocos2d::extension::TableViewCell* RanklistView::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx){
 	RanklistCell *cell = (RanklistCell*)table->dequeueCell();
@@ -69,7 +69,9 @@ bool RanklistLayer::init()
 		bg->setPosition(visibleSize / 2);
 		addChild(bg);
 
-
+		auto title = Sprite::create("ranklistTitle.png");
+		title->setPosition(480, 511);
+		addChild(title);
 
 		//tableview
 		tableView = MyTableView::create(tableviewDelegate, Size(894,387));

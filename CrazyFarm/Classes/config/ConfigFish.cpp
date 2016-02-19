@@ -52,7 +52,7 @@ bool ConfigFish::LoadConfig() {
             
 			FishData fish;
 			fish.fishId	= val["fish_id"].GetInt();
-            fish.fishType = val["fish_type"].GetInt();
+            fish.fishID = val["fish_type"].GetInt();
 			for (unsigned int j = 0; j < val["move_speed"].Size();j++)
 			{
 				fish.move_speeds.push_back(val["move_speed"][j].GetInt()) ;
@@ -121,6 +121,7 @@ void ConfigFish::initFishDropCoinData()
 	FishDropCoinDatas[103] = FishDropCoin("aniGold", 10);
 	FishDropCoinDatas[104] = FishDropCoin("aniGold", 10);
 	FishDropCoinDatas[60] = FishDropCoin("aniGold", 10);
+
 }
 
 FishDropCoin ConfigFish::getFishDropCoinData(int uiid)

@@ -21,7 +21,7 @@ FishShader*FishShader::createShader(Fish*fish)
 
 
 bool FishShader::init(Fish*fish){
-	auto fishdata = ConfigFish::getInstance()->getFish(fish->getFishType());
+	auto fishdata = ConfigFish::getInstance()->getFish(fish->getFishID());
 	if (!Sprite::initWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(fishdata.uiId)))
 	{
 		return false;
@@ -54,7 +54,7 @@ void FishShader::onDead()
 {
 	stopAllActions();
 	unscheduleAllCallbacks();
-	auto acName = String::createWithFormat("dead_%d", ConfigFish::getInstance()->getFish(target->getFishType()).uiId);
+	auto acName = String::createWithFormat("dead_%d", ConfigFish::getInstance()->getFish(target->getFishID()).uiId);
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),CC_REPEAT_FOREVER);
 	runAction(ac);
 }

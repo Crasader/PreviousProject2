@@ -21,5 +21,7 @@ private:
     Sprite* pSprite_circle;
     MenuItemImage *m_menuBegin;
 	BonuspoolRewardItem reward;
+	BonuspoolResult result;
+	float angle[8];
 };
 

@@ -1,6 +1,5 @@
 #include "LogEventMannger.h"
-
-
+#include "LogEventConsume.h"
 LogEventMannger* LogEventMannger::_instance = NULL;
 
 LogEventMannger::LogEventMannger(){
@@ -25,6 +24,7 @@ void LogEventMannger::sendMsg()
 	LogEventUseSkill::getInstance()->sendDataToServer();
 	LogEventPageChange::getInstance()->sendDataToServer();
 	LogEventSpcEvent::getInstance()->sendDataToServer();
+	LogEventConsume::getInstance()->sendDataToServer();
 }
 void LogEventMannger::clearData(int type)
 {
@@ -44,6 +44,9 @@ void LogEventMannger::clearData(int type)
 		break;
 	case 7:
 		LogEventSpcEvent::getInstance()->clearLocalData();
+		break;
+	case 10:
+		LogEventConsume::getInstance()->clearLocalData();
 		break;
 	case 8:
 	case 2:

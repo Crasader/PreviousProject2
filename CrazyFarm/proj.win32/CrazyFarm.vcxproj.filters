@@ -121,6 +121,9 @@
     <Filter Include="src\lobby\changeGift">
       <UniqueIdentifier>{14384839-a6d7-460c-b77c-842240665683}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Newbie">
+      <UniqueIdentifier>{8e44575f-f344-4260-904d-e49c6be7dd11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -614,6 +617,27 @@
     </ClCompile>
     <ClCompile Include="..\Classes\domain\turntable\TurnTableDialog.cpp">
       <Filter>src\core\dialog\turntable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\fish\FishOfAllKilled.cpp">
+      <Filter>src\fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\Newbie\NewbieMannger.cpp">
+      <Filter>src\Newbie</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\Newbie\NewbieFirstGetRewardLayer.cpp">
+      <Filter>src\Newbie</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\Newbie\NewbieSureDialog.cpp">
+      <Filter>src\Newbie</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\core\UpgradeSureDialog.cpp">
+      <Filter>src\core\dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventTurnTable.cpp">
+      <Filter>src\logevent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\logevent\LogEventConsume.cpp">
+      <Filter>src\logevent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1114,6 +1138,27 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\turntable\TurnTableDialog.h">
       <Filter>src\core\dialog\turntable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\fish\FishOfAllKilled.h">
+      <Filter>src\fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\Newbie\NewbieMannger.h">
+      <Filter>src\Newbie</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\Newbie\NewbieFirstGetRewardLayer.h">
+      <Filter>src\Newbie</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\Newbie\NewbieSureDialog.h">
+      <Filter>src\Newbie</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\UpgradeSureDialog.h">
+      <Filter>src\core\dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventTurnTable.h">
+      <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\logevent\LogEventConsume.h">
+      <Filter>src\logevent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

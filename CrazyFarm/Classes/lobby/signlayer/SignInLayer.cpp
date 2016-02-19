@@ -6,6 +6,7 @@
 #include "SpliceCell.h"
 #include "domain/user/User.h"
 #include "lobby/LobbyScene.h"
+#include "domain/bag/BagManager.h"
 bool SignInLayer::init(int seqday)
 {
 	if (!Layer::init()){
@@ -38,14 +39,16 @@ bool SignInLayer::init(int seqday)
 		}
 		else
 		{
-			auto reward = getRewardInVectorByProbability(ConfigSign::getInstance()->getRewardsByDay(nSeqSignDay));
-			auto sp = SignCell::create(reward.propID,reward.propNum);
+			auto reward = getRewardInVectorByProbability(ConfigSign::getInstance()->getRewards());
+			auto sp = SignCell::create(reward.propID, reward.propNum);
 			if (User::getInstance()->getVipLevel()>0)
 			{
+				reward.propNum *= 2;
 				sp->setVipX2();
 			}
 			sp->setPosition(90.28 / 2 + (i - 1)*90.28, 71);
 			frame->addChild(sp);
+			rewards.push_back(reward);
 		}
 	}
 
@@ -97,6 +100,22 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 	UserDefault::getInstance()->setIntegerForKey(KEY_SEQSIGNDAY, nSeqSignDay );
 	UserDefault::getInstance()->setStringForKey(KEY_LASTSIGNDAY,ConfigSign::getInstance()->getToday());
 	((LobbyScene*)getParent())->guizuCallback(nullptr);
+	for (auto var:rewards)
+	{
+		if (var.propID==1001)
+		{
+			User::getInstance()->addCoins(var.propNum);
+		}
+		else if (var.propID ==1002)
+		{
+			User::getInstance()->addDiamonds(var.propNum);
+		}
+		else
+		{
+			BagManager::getInstance()->changeItemCount(var.propID, var.propNum);
+		}
+	}
+
 	this->removeFromParentAndCleanup(1);
 }
 

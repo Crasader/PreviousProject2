@@ -80,6 +80,11 @@ void PayCell::setVipValue()
 
 void PayCell::IsBeToued()
 {
+	if (GameData::getInstance()->getisOnPay())
+	{
+		return;
+	}
+	GameData::getInstance()->setisOnPay(true);
 	auto level =  ConfigVipLevel::getInstance()->getVipLevel(User::getInstance()->getVipLevel());
 	auto tableview = getParent()->getParent()->getParent();
 	auto viewdelegate = ((MyTableView*)tableview)->getDelegate();

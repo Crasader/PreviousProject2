@@ -34,6 +34,7 @@ public:
 	void guizuCallback(Ref*psend);
 	void refreshCoinLabel();
 	void showVipCallBack(Ref*psend);
+	void quickBeginCallback(Ref*psend);
 private:
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
 	void showSign(float dt);
@@ -44,7 +45,7 @@ private:
 	void payDiamondCallback(Ref*psend);
 	void bagButtonCallback(Ref*psend);
 	void changeRewardCallback(Ref*psend);
-	void quickBeginCallback(Ref*psend);
+
 	void RankListCallback(Ref*psend);
 	void FirstPayCallback(Ref*psend);
 	void onExitCallback(Ref*psend);
@@ -60,5 +61,6 @@ private:
 	Sprite*lang;
 	Sprite*langspEmpty;
 	Vector<roomCell*> roomCells;
+	LabelTTF* userName;
 };
 #endif

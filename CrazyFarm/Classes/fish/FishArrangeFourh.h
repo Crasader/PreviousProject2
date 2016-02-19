@@ -7,6 +7,6 @@ using namespace cocos2d;
 class FishArrangeFourh :public FishArrange{
 public:
 	CREATE_FUNC(FishArrangeFourh);
-	virtual void initFishAnim(int fishType);
+	virtual void initFishAnim(int fishID);
 
 };

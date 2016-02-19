@@ -47,18 +47,22 @@ private :
 	void createSettingBoard();
 	void createGuizuGiftLayer();
 	
+	void ShowUseLockTip();
 	/////////美人鱼相关///////////////////////////////////////////////
 	float fmaridNowTime = 0;
 	void maridTaskTime(float dt);
 	void createMermaidTaskPlane();
+
 public:
 	void beginMaridTaskTime();
 
 	void showLockUpdataTurret();
 
+	void onBossWarning(int fishID);
 private:
 	////
 	//播放真人声音
+	void update(float delta);
 	void playRandVoice(float dt);
 	virtual void onExit();
 	MenuItemImage* setttingBoard;

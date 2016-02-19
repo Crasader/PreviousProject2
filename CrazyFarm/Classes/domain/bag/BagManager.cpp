@@ -20,6 +20,10 @@ BagManager* BagManager::getInstance(){
 }
 
 bool BagManager::changeItemCount(int itemId, int num) {
+	if (itemId == 1012)
+	{
+		return true;
+	}
     int currentCount = getItemNum(itemId);
     auto key = String::createWithFormat("%s%d", BagManager::KEY_ITEMID_HEAD, itemId);
     UserDefault::getInstance()->setIntegerForKey(key->getCString(), currentCount+num);

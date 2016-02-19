@@ -21,7 +21,7 @@
 #include "domain/logevent/LogEventPageChange.h"
 #include "bullet/Laster.h"
 #include "domain/gameConfig/gameConfig.h"
-
+#include "config/ConfigChest.h"
 
 enum 
 {
@@ -34,17 +34,16 @@ bool PlayerTurret::init(){
 		return false;
 	}
 	setIsShowInfo(false);
-	auto levelBg = Sprite::create("multipleBg.png");
-	levelBg->setPosition(getContentSize().width / 2, levelBg->getContentSize().height / 2);
-	addChild(levelBg,10);
-	nCurLevel = LabelAtlas::create("0", "multipleNum.png", 15, 21, '0');
-	nCurLevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	nCurLevel->setPosition(levelBg->getContentSize() / 2);
-	levelBg->addChild(nCurLevel);
+	
 	m_turret = Turret::create();
 
 	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
 	addChild(m_turret,1);
+
+	auto sp = Sprite::create("circyleLight.png");
+	sp->setPosition(getContentSize().width / 2, 0);
+	sp->runAction(RepeatForever::create(RotateBy::create(5.0, 360)));
+	addChild(sp, -1);
 	scheduleUpdate();
 	return true;
 }
@@ -56,7 +55,7 @@ void PlayerTurret::setUpgradeButton()
 	degradeButton->setPosition(this->getContentSize().width*0.1, this->getContentSize().height*0.2);
 	auto menu = Menu::create(upgradeButton, degradeButton, nullptr);
 	menu->setPosition(Point::ZERO);
-	addChild(menu,1,"menuUpDe");
+	addChild(menu,11,"menuUpDe");
 }
 void PlayerTurret::initTurretWithType(){
 	auto vipLevel = User::getInstance()->getVipLevel();
@@ -279,6 +278,23 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 
 void PlayerTurret::initWithDate(User* user,int index)
 {
+
+
+
+	int boxlv = user->getUserBoxLevel();
+	
+	auto str = String::createWithFormat("turretBg_%d.png", boxlv);
+	setTexture(str->getCString());
+
+	str = String::createWithFormat("multipleBg_%d.png", boxlv);
+	auto levelBg = Sprite::create(str->getCString());
+	levelBg->setPosition(getContentSize().width/2, levelBg->getContentSize().height / 2);
+	addChild(levelBg, 10, "multipleBg");
+	nCurLevel = LabelAtlas::create("0", "multipleNum.png", 15, 21, '0');
+	nCurLevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	nCurLevel->setPosition(107.0 / 2, 33.0 / 2);
+	levelBg->addChild(nCurLevel);
+
 	GameData::getInstance()->setnowLevel(User::getInstance()->getMaxTurrentLevel());
 	m_turretdata = GameData::getInstance()->getTurrentData();
 	initTurretWithType();
@@ -294,6 +310,21 @@ void PlayerTurret::initWithDate(User* user,int index)
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
 {
+	int boxlv = rand()%4;
+	
+	auto str = String::createWithFormat("turretBg_%d.png", boxlv);
+	setTexture(str->getCString());
+
+	str = String::createWithFormat("multipleBg_%d.png", boxlv);
+	auto levelBg = Sprite::create(str->getCString());
+	levelBg->setPosition(getContentSize().width / 2, levelBg->getContentSize().height / 2);
+	addChild(levelBg, 10, "multipleBg");
+	nCurLevel = LabelAtlas::create("0", "multipleNum.png", 15, 21, '0');
+	nCurLevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	nCurLevel->setPosition(107.0 / 2, 33.0 / 2);
+	levelBg->addChild(nCurLevel);
+
+
 	m_robotData = user;
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurretLevel());
 	nChairNoIndex = user->getRoomPosition();
@@ -313,7 +344,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 {
 
 	int num = 0;
-	LogEventFish::getInstance()->addFishCatchTimes(fish->getFishType());
+	LogEventFish::getInstance()->addFishCatchTimes(fish->getFishID());
 		
 
 	if (isRobot)
@@ -329,11 +360,11 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		{
 			return;
 		}
-		LogEventFish::getInstance()->addFishUserCatchTimes(fish->getFishType());
+		LogEventFish::getInstance()->addFishUserCatchTimes(fish->getFishID());
 		m_turretdata = GameData::getInstance()->getTurrentData();
 	
 		Audio::getInstance()->playSound(CATCHGOLD);
-		num = fish->getFishGold()* m_turretdata.multiple;
+		num = fish->getFishGold()* m_turretdata.multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
 	
 		auto exp = fish->getFishExperience();
@@ -403,7 +434,7 @@ void PlayerTurret::onBankrupt()
 		{
 			auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
 			auto node = GetRewardNode::create(bankrupt);
-			node->setPosition(28.8, 390);
+			node->setPosition(getPosition()+Vec2(0,80));
 			layer->addChild(node, 10);
 			BankruptManager::getInstance()->setgetRewardNode(node);
 			LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),2, 1);
@@ -464,12 +495,13 @@ void PlayerTurret::setLightFish(Fish* fish)
 	}
 	auto spLaster = Laster::create();
 	spLaster->setPlayerTurret(this);
-	getParent()->addChild(spLaster,20,"Laster");
+	getParent()->addChild(spLaster,6,"Laster");
 
 	aniFishLightNode = Sprite::create();
 	aniFishLightNode->setPosition(fish->getContentSize() / 2);
 	fish->addChild(aniFishLightNode);
-	aniFishLightNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniJiGuangBottom")));
+	aniFishLightNode->setGlobalZOrder(7);
+	aniFishLightNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniDianQiu")));
 }
 
 void PlayerTurret::rorateAndShootOnlight(float dt)
@@ -484,20 +516,16 @@ void PlayerTurret::rorateAndShootOnlight(float dt)
 	};
 	costMoney();
 
+	auto pos = lightFish->getPosition();
+	float degree = getTurretRotation(getPosition(), pos);
+	rorateTurret(degree);
 
-
-	LogEventFish::getInstance()->addFishUserCostCoin(lightFish->getFishType(), 2 * getTurrentMupltData().multiple);
-	LogEventFish::getInstance()->addFishHitTimes(lightFish->getFishType());
+	LogEventFish::getInstance()->addFishUserCostCoin(lightFish->getFishID(), 2 * getTurrentMupltData().multiple);
+	LogEventFish::getInstance()->addFishHitTimes(lightFish->getFishID());
 	float k = rand_0_1();
 	if (k < (lightFish->getGrabProbability()*turretdata.catch_per * 2))
 	{
-		LogEventFish::getInstance()->addFishCatchTimes(lightFish->getFishType());
-		if (lightFish->getFishType() == 201)
-		{
-			FishManage::getInstance()->onBoomFishDead(lightFish, this);
-		}
-		getCoinByFish(lightFish);
-		FishManage::getInstance()->removeFish(lightFish, 1);
+		GameManage::getInstance()->CatchTheFishOntheTurrent(lightFish, 1,this);
 		lightFish = nullptr;
 	}
 
@@ -525,6 +553,7 @@ void PlayerTurret::endLightShoot()
 	getChildByName("aniTurretLight")->removeFromParentAndCleanup(1);
 	getChildByName("menuUpDe")->setVisible(true);
 	m_turret->changeToNormalTurret();
+	setLightFish(nullptr);
 	stopActionByTag(123);
 	if (aniFishLightNode&&aniFishLightNode->getParent())
 	{
@@ -772,7 +801,7 @@ void PlayerTurret::changeTurrentCallback(Ref*psend)
 	auto node = (Node*)psend;
 	auto layer = showTurretLayer::create(1);
 	layer->setPosition(Point::ZERO);
-	Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer, 20);
+	GameManage::getInstance()->getGuiLayer()->addChild(layer, 20,50);
 	node->getParent()->removeFromParentAndCleanup(1);
 	
 }
@@ -805,18 +834,7 @@ void PlayerTurret::autoShootCallback(Ref*psend)
 
 void PlayerTurret::onPlayerUpgrade()
 {
-	Audio::getInstance()->playSound("UPDATALEVEL");
-	auto rewards = ConfigExp::getInstance()->getLevelRewardItemsByLevelId(User::getInstance()->getLevelData().levelId);
-	for (auto var:rewards)
-	{
-		BagManager::getInstance()->changeItemCount(var.item_id, var.num);
-	}
-	auto layer = (GameGuiLayer*)Director::getInstance()->getRunningScene()->getChildByTag(888);
-	layer->refreshSkillNum();
-	auto aninode = Sprite::create();
-	aninode->setPosition(480, 270);
-	layer->addChild(aninode);
-	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 3), RemoveSelf::create(), nullptr));
+	GameManage::getInstance()->onPlayerUpgrade();
 }
 
 void PlayerTurret::costMoney()

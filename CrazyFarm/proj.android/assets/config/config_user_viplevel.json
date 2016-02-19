@@ -102,7 +102,7 @@
                     "vip_turrent_id" : 7,
                     "double_login_reward" : 2,
                     "pay_reward" : 1.2,
-                    "kill_per_add" : 1.01,
+                    "kill_per_add" : 1.0,
                     "send_coins_over" : 500000,
                     "send_coins_over_day_time" : 1
                   },
@@ -115,7 +115,7 @@
                     "vip_turrent_id" : 8,
                     "double_login_reward" : 2,
                     "pay_reward" : 1.2,
-                    "kill_per_add" : 1.02,
+                    "kill_per_add" : 1.0,
                     "send_coins_over" : 1000000,
                     "send_coins_over_day_time" : 1
                   },
@@ -128,7 +128,7 @@
                     "vip_turrent_id" : 9,
                     "double_login_reward" : 2,
                     "pay_reward" : 1.2,
-                    "kill_per_add" : 1.04,
+                    "kill_per_add" : 1.0,
                     "send_coins_over" : 2000000,
                     "send_coins_over_day_time" : 1
                   }

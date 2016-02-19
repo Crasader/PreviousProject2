@@ -36,6 +36,8 @@
 #include "core/GetRewardNode.h"
 #include "domain/logevent//LogEventPageChange.h"
 #include "lobby/changeGift/ChangeGiftLayer.h"
+#include "domain/Newbie/NewbieMannger.h"
+#include "domain/Newbie/NewbieFirstGetRewardLayer.h"
 
 enum
 {
@@ -114,7 +116,7 @@ bool LobbyScene::init()
 	addChild(userFrame);
 	auto sssize = userFrame->getContentSize();
 
-	auto userName = LabelTTF::create(user->getUserName(), "arial", 20);
+	userName = LabelTTF::create(user->getUserName(), "arial", 20);
 	userName->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	userName->setPosition(sssize.width*0.5, sssize.height*0.5);
 	userFrame->addChild(userName);
@@ -258,15 +260,15 @@ bool LobbyScene::init()
 	auto quickBegin = MenuItemImage::create("quickbegin_1.png", "quickbegin_2.png", CC_CALLBACK_1(LobbyScene::quickBeginCallback, this));
 	quickBegin->setPosition(820, 87);
 
-	auto aninode1 = Sprite::create("quickStart2.png");
+	auto aninode1 = Sprite::create("quickStart.png");
 	aninode1->setPosition(quickBegin->getPosition());
 	addChild(aninode1);
 	aninode1->runAction(RepeatForever::create(Sequence::create(Spawn::create(FadeIn::create(0.001), ScaleTo::create(0.001, 0), nullptr), Spawn::create(FadeOut::create(3.0), ScaleTo::create(3.0, 1.5), nullptr), nullptr)));
 
-	auto aninode2 = Sprite::create();
-	aninode2->setPosition(quickBegin->getContentSize() / 2);
+	auto aninode2 = Sprite::create("quickStart2.png");
+	aninode2->setPosition(quickBegin->getContentSize() / 2+Size(0,7));
 	quickBegin->addChild(aninode2);
-	aninode2->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniraroteLight")));
+	aninode2->runAction(RepeatForever::create(RotateBy::create(3,360)));
 
 
 
@@ -328,7 +330,7 @@ bool LobbyScene::init()
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
 
 
-	this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);  //Ç©µ½±ÀÀ£
+	
 
 	this->scheduleOnce(schedule_selector(LobbyScene::showMarquee), 1.0f);
 	scheduleUpdate();
@@ -382,6 +384,17 @@ bool LobbyScene::init()
 	lang->setPosition(10, 10);
 	langspEmpty->addChild(lang);
 	
+
+	if (!NewbieMannger::getInstance()->getisGetFirstReward())
+	{
+		auto nblayer = NewbieFirstGetRewardLayer::create();
+		nblayer->setPosition(Point::ZERO);
+		addChild(nblayer, kZorderDialog);
+	}
+	else
+	{
+		this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);  
+	}
 	return true;
 }
 void LobbyScene::showSign(float dt)
@@ -419,6 +432,7 @@ void LobbyScene::showMarquee(float dt)
 void LobbyScene::update(float delta)
 {
 	lang->setRotation(-langspEmpty->getRotation());
+	userName->setString(User::getInstance()->getUserName());
 	refreshCoinLabel();
 }
 

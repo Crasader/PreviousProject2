@@ -18,9 +18,14 @@ public:
 	GameLayer* getGameLayer(){
 		return m_pGameyer;
 	}
+
+	//Éı¼¶
+	void onPlayerUpgrade();
 	
 	//µ¯³ö×êÊ¯
 	void showLockTurrent();
+	//Ä³Ëş²¶»ñÄ³Óã
+	void CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret* turret); 
 private :
 	GameManage();
 	static GameManage* _instance;

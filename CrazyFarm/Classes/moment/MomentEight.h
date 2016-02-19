@@ -10,9 +10,12 @@ class MomentEight : public Moment {
 public:
 	virtual void init(float FFOneTime);
 	virtual bool updata(float dt);
+	void setMomentEightType(int type);
+	void clearFish();
 private:
+
 	float nNowTime = 0;
 	float life_time;
-	std::map<int, std::vector<MomentEightItem>> momentEightItemTypes;
+std::vector<MomentEightItem> momentEightItemType;
 
 };

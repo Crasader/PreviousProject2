@@ -5,6 +5,7 @@
 #include "domain/bag/BagManager.h"
 #include "core/GameGuiLayer.h"
 #include "domain/logevent/LogEventMermaid.h"
+#include "domain/game/GameManage.h"
 
 
 bool maridTaskPlane::init()
@@ -50,25 +51,37 @@ void maridTaskPlane::update(float delta)
 	nNowtime += delta;
 	auto info = GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
 	auto isSuccess = GameData::getInstance()->getmermaidTask()->isSuccess();
-	if (isSuccess)
-	{
-		LogEventMermaid::getInstance()->addDataToSend(GameData::getInstance()->getRoomID(), nNowtime, GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
-		CoinBox::getInstance()->addCoinBox(GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
-		BagManager::getInstance()->changeItemCount(1008, 1);
-		((GameGuiLayer*)getParent())->beginMaridTaskTime();
-		removeFromParentAndCleanup(1);
-		return;
-	}
-	
 	for (auto var : info)
 	{
 		auto label = (LabelAtlas*)getChildByTag(var.fishId);
 		label->setString(Value(var.current_num).asString().c_str());
 	}
-	if (nNowtime>GameData::getInstance()->getmermaidTask()->getMermaidTaskConfigInfo().continue_time)
+	if (isSuccess)//完成
+	{
+		LogEventMermaid::getInstance()->addDataToSend(GameData::getInstance()->getRoomID(), nNowtime, GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
+		CoinBox::getInstance()->addCoinBox(GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
+		GameManage::getInstance()->getGameLayer()->onGetReward(1008, 1);
+		((GameGuiLayer*)getParent())->beginMaridTaskTime();
+		auto sp = Sprite::create("TXTFinished.png");
+		sp->setPosition(480, 270);
+		auto nameLabel = LabelTTF::create(User::getInstance()->getUserName(), "arial", 20);
+		nameLabel->setPosition(192, 71);
+		nameLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		sp->addChild(nameLabel);
+		getParent()->addChild(sp, 10);
+		sp->runAction(Sequence::create(DelayTime::create(1.0f), RemoveSelf::create(1), nullptr));
+		removeFromParentAndCleanup(1);
+		return;
+	}
+	if (nNowtime>GameData::getInstance()->getmermaidTask()->getMermaidTaskConfigInfo().continue_time)//未完成
 	{	
 		LogEventMermaid::getInstance()->addDataToSend(GameData::getInstance()->getRoomID(), 0, GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
 		((GameGuiLayer*)getParent())->beginMaridTaskTime();
+		auto sp = Sprite::create("TXTNoFinished.png");
+		sp->setPosition(480, 270);
+		getParent()->addChild(sp, 10);
+		sp->runAction(Sequence::create(DelayTime::create(1.0f), RemoveSelf::create(1), nullptr));
+
 		removeFromParentAndCleanup(1);
 		return;
 	}

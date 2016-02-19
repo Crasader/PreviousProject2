@@ -24,20 +24,29 @@ struct ShadeData
 	ShadeData(int id, Point p){ uiid = id; pos = p; };
 };
 
+enum FISHTYPE
+{
+	NormalFish,
+	GoldFish,
+	BossFish,
+	BoomFish,
+	AllKilledFish,
+	ArrangeFish
+};
 
 class FishShader;
 class Fish :public Sprite{
 public:
 	virtual bool init();
 	CREATE_FUNC(Fish);
-	virtual void initFish(int fishType);
+	virtual void initFish(int fishID);
 	void move(int moveType);
 	void setRoute(int routeTag);
 	void setMonentEightRoute(int monentEightrouteTag);
 	Sprite* getRectSprite();
 	int getFishGold(){ return fishGold; }
 	float getGrabProbability(){ return grabProbability; }
-    int getFishType();
+    int getFishID();
 	int getFishExperience(){ return experience; };
 	int getBounsPoorGold(){ return BonusPoorGold; };
 	virtual void addShader();
@@ -55,15 +64,16 @@ protected:
 	float grabProbability;
 	std::vector<CFigure*> figures;
 	int speed;//鱼的移动速度
-	int fishType;//鱼的类型
+	int fishID;//鱼的类型
 	int experience;//鱼的经验值
 	int fishGold;//鱼的金钱
 	int BonusPoorGold;//奖金池的金币
 	float  rotation;//旋转的角度
-	int getFishGoldByType(int type);
-	int getFishExperienceByType(int type);
-	float getFishSpeedByType(int type);
-	virtual void initFishAnim(int fishType);
+	int getFishGoldByID(int fishID);
+	FISHTYPE getFishTypeByID(int fishID);
+	int getFishExperienceByID(int fishID);
+	float getFishSpeedByID(int fishID);
+	virtual void initFishAnim(int fishID);
 	void moveFishStraight(float dt);//直线移动
 	void moveFishCircle(float dt);//圆周运动
 	void moveFishRandomStraight(float dt);//随机直线运动
@@ -81,6 +91,7 @@ protected:
 	CC_SYNTHESIZE(float, fMoveAngle, MoveAngle);
 	CC_SYNTHESIZE(int, nUiID, uiId);
 	CC_SYNTHESIZE(bool, bIsAutoRemove, isAutoRemove);
+	CC_SYNTHESIZE(FISHTYPE, m_FishType, FishType);
 	Vector<FiniteTimeAction*> RepetActionArray;
 	//路径
 	Route m_Route;
