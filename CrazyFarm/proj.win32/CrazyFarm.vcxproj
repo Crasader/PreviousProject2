@@ -154,6 +154,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\config\ConfigManager.cpp" />
     <ClCompile Include="..\Classes\config\ConfigMomentEight.cpp" />
     <ClCompile Include="..\Classes\config\ConfigMomentOrder.cpp" />
+    <ClCompile Include="..\Classes\config\ConfigNewbieFishCatch.cpp" />
     <ClCompile Include="..\Classes\config\ConfigNormalTurrent.cpp" />
     <ClCompile Include="..\Classes\config\ConfigOnemoment.cpp" />
     <ClCompile Include="..\Classes\config\ConfigRoom.cpp" />
@@ -178,6 +179,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\data\GameState.cpp" />
     <ClCompile Include="..\Classes\domain\ai\AI.cpp" />
     <ClCompile Include="..\Classes\domain\ai\AIHu.cpp" />
+    <ClCompile Include="..\Classes\domain\ai\AIJun.cpp" />
     <ClCompile Include="..\Classes\domain\ai\AIManager.cpp" />
     <ClCompile Include="..\Classes\domain\ai\AIMolo.cpp" />
     <ClCompile Include="..\Classes\domain\ai\PlayerWork.cpp" />
@@ -222,6 +224,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\skill\SkillLockButton.cpp" />
     <ClCompile Include="..\Classes\domain\skill\skillManager.cpp" />
     <ClCompile Include="..\Classes\domain\skill\SkillSummonButton.cpp" />
+    <ClCompile Include="..\Classes\domain\ToolTip\ToolTipMannger.cpp" />
+    <ClCompile Include="..\Classes\domain\ToolTip\TwiceSureDialog.cpp" />
     <ClCompile Include="..\Classes\domain\turntable\CTurntable.cpp" />
     <ClCompile Include="..\Classes\domain\turntable\TurntableCell.cpp" />
     <ClCompile Include="..\Classes\domain\turntable\TurnTableDialog.cpp" />
@@ -308,7 +312,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\widget\MyMenuItemGainMoney.cpp" />
     <ClCompile Include="..\Classes\widget\MyMenuItemUpgrade.cpp" />
     <ClCompile Include="..\Classes\widget\MyTableView.cpp" />
-    <ClCompile Include="..\Classes\widget\TwiceSureDialog.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +333,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\config\ConfigManager.h" />
     <ClInclude Include="..\Classes\config\ConfigMomentEight.h" />
     <ClInclude Include="..\Classes\config\ConfigMomentOrder.h" />
+    <ClInclude Include="..\Classes\config\ConfigNewbieFishCatch.h" />
     <ClInclude Include="..\Classes\config\ConfigNormalTurrent.h" />
     <ClInclude Include="..\Classes\config\ConfigOnemoment.h" />
     <ClInclude Include="..\Classes\config\ConfigRoom.h" />
@@ -354,6 +358,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\data\GameState.h" />
     <ClInclude Include="..\Classes\domain\ai\AI.h" />
     <ClInclude Include="..\Classes\domain\ai\AIHu.h" />
+    <ClInclude Include="..\Classes\domain\ai\AIJun.h" />
     <ClInclude Include="..\Classes\domain\ai\AIManager.h" />
     <ClInclude Include="..\Classes\domain\ai\AIMolo.h" />
     <ClInclude Include="..\Classes\domain\ai\PlayerWork.h" />
@@ -398,6 +403,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\skill\SkillLockButton.h" />
     <ClInclude Include="..\Classes\domain\skill\skillManager.h" />
     <ClInclude Include="..\Classes\domain\skill\SkillSummonButton.h" />
+    <ClInclude Include="..\Classes\domain\ToolTip\ToolTipMannger.h" />
+    <ClInclude Include="..\Classes\domain\ToolTip\TwiceSureDialog.h" />
     <ClInclude Include="..\Classes\domain\turntable\CTurntable.h" />
     <ClInclude Include="..\Classes\domain\turntable\TurntableCell.h" />
     <ClInclude Include="..\Classes\domain\turntable\TurnTableDialog.h" />
@@ -485,7 +492,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\widget\MyMenuItemGainMoney.h" />
     <ClInclude Include="..\Classes\widget\MyMenuItemUpgrade.h" />
     <ClInclude Include="..\Classes\widget\MyTableView.h" />
-    <ClInclude Include="..\Classes\widget\TwiceSureDialog.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

@@ -26,11 +26,7 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 	bool bRet = false;
 	do
 	{
-		auto colorlayer = LayerColor::create();
-		colorlayer->setColor(ccc3(0, 0, 0));
-		colorlayer->setOpacity(180);
-		addChild(colorlayer, -1);
-		
+
 		auto bg = Sprite::create("TwiceSureDialog.png");
 		bg->setPosition(480, 270);
 		addChild(bg, -1,"bg");
@@ -40,7 +36,7 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 		
 		
 		sure = MenuItemImage::create("btn_queding.png", "btn_queding_2.png");
-		sure->setPosition(bg->getContentSize().width / 2, 40);
+		sure->setPosition(bg->getContentSize().width / 2, 48);
 		if (callback)
 		{
 			sure->setCallback(callback);
@@ -74,7 +70,6 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 			case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
 				break;
 			case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-				/*removeFromParentAndCleanup(1);*/
 				break;
 			default:
 				break;
@@ -102,12 +97,12 @@ void TwiceSureDialog::showRandonBubbleAni()
 	auto node = getChildByName("bg");
 
 	auto aniNode = Sprite::create();
-	aniNode->setPosition(0,100);
+	aniNode->setPosition(20,100);
 	node->addChild(aniNode, 5);
 	aniNode->runAction(getForeverAcByNameAndInterval("aniBubble",0.1f));
 
 	aniNode = Sprite::create();
-	aniNode->setPosition(node->getContentSize().width, 100);
+	aniNode->setPosition(node->getContentSize().width-20, 100);
 	node->addChild(aniNode, 5);
 	aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0.2f));
 	

@@ -30,7 +30,7 @@
 #include "domain/logevent/LogEventTurrentUpgrade.h"
 #include "lobby/roomlayer/RoomLayer.h"
 #include "lobby/FeedbackLayer.h"
-#include "widget/TwiceSureDialog.h"
+#include "domain/ToolTip/TwiceSureDialog.h"
 #include "widget/LightEffect.h"
 #include "domain/bankrupt/BankruptManager.h"
 #include "core/GetRewardNode.h"
@@ -395,6 +395,7 @@ bool LobbyScene::init()
 	{
 		this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);  
 	}
+
 	return true;
 }
 void LobbyScene::showSign(float dt)

@@ -23,8 +23,7 @@
       "item_id" : 1005,
       "desc"    : "召唤",
       "unlock_buy_turretLv"  : 10,
-      "unlock_buy_vipLv"  : 0,
-      "cd_time" : 0
+      "unlock_buy_vipLv"  :  0
     },
     {
       "skill_id"  : 4,

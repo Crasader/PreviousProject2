@@ -26,16 +26,14 @@ bool ChangeGiftLayer::init()
 
 
 		auto label = LabelTTF::create(ChineseWord("ChangeGiftTxt").c_str(), "arial", 20);
-		label->setPosition(bg->getContentSize().width / 2, 380);
+		label->setPosition(bg->getContentSize().width / 2+10, 380);
 		label->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		bg->addChild(label);
 
-		auto num = LabelAtlas::create(Value(BagManager::getInstance()->getItemNum(1013)).asString().c_str(), "medalNum.png",16,24,'0');
-		num->setPosition(105, 0);
+		auto str = Value(BagManager::getInstance()->getItemNum(1013)).asString();
+		auto num = LabelAtlas::create(str.c_str(), "medalNum.png", 16, 24, '0');
+		num->setPosition(104, 0);
 		label->addChild(num);
-
-
-
 
 		//»»½±Æ·ÁÐ±í
 		for (int i = 1; i <= 3;i++)

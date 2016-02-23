@@ -131,8 +131,7 @@ bool VIPLayer::init()
 		expPercentLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 
 		auto chinaword = ChineseWord("VIPdes");
-		auto strdec = String::createWithFormat(chinaword.c_str());
-		auto ttf = LabelTTF::create(strdec->getCString(), "Airal", 20);
+		auto ttf = LabelTTF::create(chinaword.c_str(), "Airal", 20);
 		ttf->setColor(Color3B::YELLOW);
 		ttf->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		ttf->setPosition(95, visibleSize.height*0.1);
@@ -238,5 +237,5 @@ void VIPLayer::chankanCallBack(Ref*pesend)
 	layer->setEventPont(21);
 	getParent()->addChild(layer,20);
 	removeFromParentAndCleanup(1);
-	LogEventPageChange::getInstance()->addEventItems(9, 13,0 );
+	LogEventPageChange::getInstance()->addEventItems(7, 13,0 );
 }

@@ -5,7 +5,7 @@
 #include "utill/FunUtil.h"
 #include "domain/skill/skillManager.h"
 #include "lobby/viplayer/VipLayer.h"
-#include "widget/TwiceSureDialog.h"
+#include "domain/ToolTip/TwiceSureDialog.h"
 #include "utill/Chinese.h"
 #include "lobby/shop/payLayer.h"
 #include "lobby/bag/TwiceSureBuySkill.h"
@@ -67,25 +67,28 @@ bool ShowSkillLayer::init(int itemid)
 		addChild(label);
 
 		///¹ºÂòÌõ¼þ
+		float PosY = 0;
 		auto info = skillManager::getInstance()->getSkillInfoByitemId(m_itemId);
 		if (info.unlock_buy_vipLv>0)
 		{
 			str = String::createWithFormat(ChineseWord("bySkillNeedVIP").c_str(), info.unlock_buy_vipLv);
 			label = LabelTTF::create(str->getCString(), "arail", 18);
+			label->setPosition(340, 230);
+			label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+			addChild(label);
+			PosY = 190;
 			
 		}
 		else
 		{
-			label = LabelTTF::create(ChineseWord("bySkillNoNeedVIP").c_str(), "arail", 18);
+			PosY = 210;
+			/*label = LabelTTF::create(ChineseWord("bySkillNoNeedVIP").c_str(), "arail", 18);*/
 		}
-			label->setPosition(340, 230);
-			label->setDimensions(Size(283, 0));
-			label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-			addChild(label);
+			
 
 
 		label = LabelTTF::create(Iitem.itemDesc.c_str(), "arail", 18);
-		label->setPosition(340, 190);
+		label->setPosition(340, PosY);
 		label->setDimensions(Size(283, 0));
 		label->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
 		addChild(label);
@@ -147,14 +150,14 @@ void ShowSkillLayer::quedingcallback(Ref*)
 		layer->setPosition(Point::ZERO);
 		addChild(layer, 30,"tip");
 	}
-	else if (isSatisfy == 2)
+	else /*if (isSatisfy == 2)
 	{
 
 		TwiceSureDialog* layer = TwiceSureDialog::createDialog(ChineseWord("bySkillNoNeedTurrentTIP").c_str(), CC_CALLBACK_1(ShowSkillLayer::LackTurrentCallBack, this));
 		layer->setPosition(Point::ZERO);
 		addChild(layer, 30,"tip");
 	}
-	else
+	else*/
 	{
 		auto diamond = User::getInstance()->getDiamonds();
 		if (diamond>=200)
@@ -165,7 +168,9 @@ void ShowSkillLayer::quedingcallback(Ref*)
 		}
 		else
 		{
-			auto layer = TwiceSureDialog::createDialog(ChineseWord("lackOfdiamond").c_str(), CC_CALLBACK_1(ShowSkillLayer::satisfyCallBack,this));
+			auto name = ConfigItem::getInstance()->getItemById(m_itemId).itemName;
+			auto str = String::createWithFormat(ChineseWord("lackOfdiamond").c_str(), name.c_str(), 200 / price);
+			auto layer = TwiceSureDialog::createDialog(str->getCString(), CC_CALLBACK_1(ShowSkillLayer::satisfyCallBack,this));
 			layer->setPosition(Point::ZERO);
 			addChild(layer, 30,"tip");
 		}
@@ -202,4 +207,5 @@ void ShowSkillLayer::satisfyCallBack(Ref*psend)
 	removeChildByName("tip", 1);
 	auto layer = payLayer::createLayer(2); layer->setPosition(0, 0); addChild(layer);
 	layer->setEventPont(m_itemId - 996);
+	LogEventPageChange::getInstance()->addEventItems(3, 13, skillManager::getInstance()->getSkillInfoByitemId(m_itemId).skill_id);
 }

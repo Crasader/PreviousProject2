@@ -30,11 +30,13 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 	if (fish == targetfish)
 	{
 		turret->setLockFish(nullptr);
+		m_pGameyer->GetMyTurret()->setLockFish(nullptr);
 	}
 	targetfish = turret->getLightFish();
 	if (fish == targetfish)
 	{
 		turret->setLightFish(nullptr);
+		m_pGameyer->GetMyTurret()->setLightFish(nullptr);
 	}
 	FishManage::getInstance()->getAllFishInPool().eraseObject(fish);
 	if (isDead)

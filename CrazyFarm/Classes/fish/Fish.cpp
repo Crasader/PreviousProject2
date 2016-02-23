@@ -20,7 +20,8 @@ bool Fish::init(){
 	}
 	scheduleUpdate();
 	setisAutoRemove(true);
-	
+	aniEmptyNode = Node::create();
+	addChild(aniEmptyNode);
 	return true;
 }
 
@@ -43,6 +44,7 @@ void Fish::initFish(int fishID){
 	BonusPoorGold = fishdata.bonus_pool_reward;
 	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
+	rewards = fishdata.rewards;
 	figures = ConfigFishCollisionRange::getInstance()->getFishFigures(fishdata.uiId);
 	LogEventFish::getInstance()->addFishCreateTimes(fishID);
 	centerPos = getContentSize() / 2;
@@ -473,6 +475,8 @@ void Fish::onHeart()
 		TintTo::create(0.1f, 255, 255, 255),
 		nullptr);
 	runAction(action);
+
+	aniEmptyNode->runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([&]{this->setColor(Color3B(255, 0, 0)); }), DelayTime::create(0.1f), CallFunc::create([&]{this->setColor(Color3B(255, 255, 255)); }), nullptr));
 }
 void Fish::onFreeze()
 {

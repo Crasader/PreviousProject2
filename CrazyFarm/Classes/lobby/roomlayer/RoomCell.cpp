@@ -4,7 +4,7 @@
 #include "data/GameData.h"
 #include "utill/Chinese.h"
 #include "core/GameScene.h"
-#include "widget/TwiceSureDialog.h"
+#include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/bankrupt/BankruptManager.h"
 RoomCell*RoomCell::createCell(Room room)
 {

@@ -19,7 +19,7 @@ void FishOfAllKilled::initFish(int fishID){
 	initFishAnim(fishdata.uiId);
 	setuiId(fishdata.uiId);
 	figures = ConfigFishCollisionRange::getInstance()->getFishFigures(fishdata.uiId);
-
+	rewards = fishdata.rewards;
 	centerPos = getContentSize() / 2;
 	auto aninode = Sprite::create("game/ui/effect/allkilledEffect.png");
 	aninode->setPosition(getContentSize() / 2);

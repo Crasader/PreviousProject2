@@ -4,6 +4,7 @@
 #include "domain/user/DeviceInfo.h"
 #include "domain/logevent/LogEventMannger.h"
 #include "domain/pay/Pay.h"
+#include "domain/ToolTip/ToolTipMannger.h"
 #define URL_HEAD "http://114.119.39.150:1701"
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
@@ -125,12 +126,10 @@ void HttpMannger::HttpToPostRequestBeforePay(std::string sessionid,int pay_and_E
 }
 void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpResponse *response)
 {
-	if (!response)
+	if (!response||!response->isSucceed())
 	{
-		return;
-	}
-	if (!response->isSucceed())
-	{
+		log("http back  before pay info falied");
+		ToolTipMannger::ShowPayTimeoutTip();
 		return;
 	}
 	long statusCode = response->getResponseCode();
@@ -145,7 +144,7 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 		log("get json data err!");;
 	}
 	int result = doc["errorcode"].GetInt();
-	CCLOG("pay http errormsg = %s", doc["errormsg"].GetString());
+	log("pay http errormsg = %s", doc["errormsg"].GetString());
 	if (result == 0)
 	{
 		const char* orderId = doc["order_id"].GetString();
@@ -153,8 +152,6 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 		auto userdata = (payRequest*)response->getHttpRequest()->getUserData();
 		Pay::getInstance()->pay(userdata, orderId);
 	}
-	
-
 }
 void HttpMannger::HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price,int result, const char* orderid, int paytype )
 {

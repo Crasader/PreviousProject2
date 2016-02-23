@@ -37,10 +37,10 @@ Point FishManage::getBestRewardPostion() {
     Point point;
     point.x = 480;
     point.y = 270;
-    int current_id = 0;
+    int coin = 0;
     
     for(int i=0; i<fishPool.size(); i++) {
-        if(current_id < fishPool.at(i)->getFishID()) {
+        if(coin < fishPool.at(i)->getFishGold()) {
             point = fishPool.at(i)->getPosition();
         }
     }
@@ -68,7 +68,7 @@ Fish* FishManage::createFishSingle(int type){
 	fish->initFish(type);
 	fishPool.pushBack(fish);	
 	fish->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	if (fish->getFishType()==BOOMFISHCIRCLE)
+	if (fish->getFishType()==BossFish)
 	{
 		GameManage::getInstance()->getGuiLayer()->onBossWarning(type);
 	}
@@ -290,42 +290,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 
 
 
-void FishManage::removeFish(Fish* fish,bool isDead){
-	auto targetfish = m_layer->GetMyTurret()->getLockFish();
-	if (fish == targetfish)
-	{
-		m_layer->GetMyTurret()->setLockFish(nullptr);
-	}
-	targetfish = m_layer->GetMyTurret()->getLightFish();
-	if (fish == targetfish)
-	{
-		m_layer->GetMyTurret()->setLightFish(nullptr);
-	}
-	fishPool.eraseObject(fish);
-	if (isDead)
-	{	
-		auto data = GameData::getInstance();
-		if (data->getIsOnMaridTask())
-		{
-			auto vec = data->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
-			for (auto var : vec)
-			{
-				if (fish->getFishID() == var.fishId)
-				{
-					data->getmermaidTask()->addOneCatchFishById(fish->getFishID());
-					break;
-				}
-			}
-		}
-		fish->onDead();
-	}
-	else
-	{
-		fish->removeself();
-	}
-	fish = nullptr;
-	
-}
+
 
 
 void FishManage::decideFishPos(Fish* fish){

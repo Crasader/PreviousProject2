@@ -73,7 +73,21 @@ bool ConfigFish::LoadConfig() {
             fish.exp = val["exp"].GetInt();
             fish.bonus_pool_reward = val["bonus_pool_reward"].GetInt();
             fish.be_hit_logic = val["be_hit_logic"].GetInt();
+			
+			auto &rewardVal = val["reward_list"];
+			if (rewardVal.IsArray())
+			{
+				for (unsigned int k = 0; k < rewardVal.Size();k++)
+				{
+					FishReward data;
+					data.item_id = rewardVal[k]["item_id"].GetInt();
+					data.num = rewardVal[k]["num"].GetInt();
+					fish.rewards.push_back(data);
+				}
+			}
 			fishes[fish.fishId] = fish;
+
+
 		}
 		
 		return true;

@@ -21,6 +21,7 @@
 #include "domain/game/GameManage.h"
 #include "domain/Newbie/NewbieMannger.h"
 #include "domain/bankrupt/BankruptManager.h"
+#include "config/ConfigNewbieFishCatch.h"
 #define BOOMRADIUS 300
 enum
 {
@@ -105,7 +106,7 @@ bool GameLayer::init(){
 
 
 	auto node = BankruptManager::getInstance()->getgetRewardNode();
-	if (node&&User::getInstance()->getCoins()<=0)
+	if (node)
 	{
 		if (node->getParent())
 		{
@@ -394,14 +395,21 @@ void GameLayer::collisionUpdate(float dt)
 				if (curryFish == nullptr)
 				{
 					return;
-				}
-				float k = rand_0_1();
+				}	
 				LogEventFish::getInstance()->addFishHitTimes(curryFish->getFishID());
+				float k = rand_0_1();
+				float per = curryFish->getGrabProbability();
+
 				if (!bullet->getPlayerTurret()->isRobot)
 				{
 					LogEventFish::getInstance()->addFishUserCostCoin(curryFish->getFishID(), bullet->getPlayerTurret()->getTurrentMupltData().multiple);
+					float perForLevel = ConfigNewbieFishCatch::getInstance()->getperByLevelAndFishID(User::getInstance()->getLevelData().levelId, fish->getFishID());
+					if (perForLevel>0)
+					{
+						per = perForLevel;
+					}
 				}
-				if (k < (curryFish->getGrabProbability()*turretdata.catch_per))
+				if (k < (per*turretdata.catch_per))
 				{
 					GameManage::getInstance()->CatchTheFishOntheTurrent(curryFish, 1, bullet->getPlayerTurret());
 				}
@@ -617,6 +625,7 @@ bool GameLayer::AutoShootTouchEvent(Touch *touch, Event *event)
 void GameLayer::useFreeze(PlayerTurret*turret)
 {
 	unscheduleUpdate();
+	stopAllActions();
 	auto bg = ProgressTimer::create(Sprite::create("iceFram4.jpg"));
 	bg->setType(ProgressTimer::Type::BAR);
 	bg->setMidpoint(Vec2(0, 0));
@@ -646,7 +655,7 @@ void GameLayer::useFreeze(PlayerTurret*turret)
 
 void GameLayer::onFreezeEnd(PlayerTurret*turret)
 {
-	scheduleUpdate();
+	resumeSchedulerAndActions();
 	getChildByTag(kTagFrezzebg)->removeFromParentAndCleanup(1);
 	turret->getChildByName("freezetxt")->removeFromParentAndCleanup(1);
 }
@@ -745,12 +754,22 @@ void GameLayer::onGetRewardByfish(PlayerTurret*turrent, Fish*fish, int itemid, i
 		auto str = String::createWithFormat("sign_%d.png", itemid);
 		sp = Sprite::create(str->getCString());
 	}
-	sp->setPosition(fish->getPosition());
+	sp->setPosition(480,270);
 	sp->setScale(0);
 	addChild(sp,10);
-	sp->runAction(Sequence::create(Spawn::create(MoveBy::create(0.5f, Vec2(30, 30)), ScaleTo::create(0.5f, 1.0f), nullptr), EaseExponentialIn::create(MoveTo::create(1.0f, turrent->getCoinLabelPos())), CallFunc::create([=]
+	auto distans = turrent->getCoinLabelPos().distance(sp->getPosition());
+	sp->runAction(Sequence::create(Spawn::create(MoveBy::create(0.5f, Vec2(0,0)), ScaleTo::create(0.5f, 1.0f), nullptr), EaseExponentialIn::create(MoveTo::create(2.0f, turrent->getCoinLabelPos())), CallFunc::create([=]
 	{
 		BagManager::getInstance()->addreward(itemid, num);
+		if (itemid==1001)
+		{
+			turrent->ShowAddCoinAni(1, num);
+		}
+		else if (itemid == 1002)
+		{
+			turrent->ShowAddCoinAni(2, num);
+		}
+		
 	}), RemoveSelf::create(1), nullptr));
 
 }

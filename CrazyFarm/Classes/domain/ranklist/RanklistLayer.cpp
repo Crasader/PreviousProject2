@@ -104,17 +104,17 @@ bool RanklistLayer::init()
 
 
 		//с╣сп╫П╠р
-		auto haveCoinTTF = LabelTTF::create(ChineseWord("haveCoin").c_str(), "arial", 20);
+		haveCoinTTF = LabelTTF::create(ChineseWord("haveCoin").c_str(), "arial", 20);
 		haveCoinTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		haveCoinTTF->setPosition(700, 445);
 		addChild(haveCoinTTF);
 
-		auto coinsp = Sprite::create("coin.png");
+		coinsp = Sprite::create("coin.png");
 		coinsp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		coinsp->setPosition(758, 445);
+		coinsp->setPosition(765, 445);
 		addChild(coinsp);
 
-		auto CoinNumTTF = LabelAtlas::create(Value(User::getInstance()->getCoins()).asString().c_str(), "coinnumTxt.png", 14, 18, '0');
+		CoinNumTTF = LabelAtlas::create(Value(User::getInstance()->getCoins()).asString().c_str(), "coinnumTxt.png", 14, 18, '0');
 		CoinNumTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 		CoinNumTTF->setPosition(915, 445);
 		addChild(CoinNumTTF);
@@ -197,6 +197,14 @@ void RanklistLayer::changeTypeCallBack(Ref*psend)
 }
 void RanklistLayer::changeToexpRanklist()
 {
+	coinsp->setTexture("EXP.png");
+	
+	haveCoinTTF->setString(ChineseWord("haveExp").c_str());
+	CoinNumTTF->setString(Value(User::getInstance()->getExp()).asString().c_str());
+
+
+
+
 	bool isZero = (User::getInstance()->getExp() <= 0);
 	auto rank = RanklistManager::getInstance()->getRankByExp(User::getInstance()->getExp());
 	std::string rankTxt = Value(rank).asString().c_str();
@@ -214,6 +222,13 @@ void RanklistLayer::changeToexpRanklist()
 
 void RanklistLayer::changeToCoinRanklist()
 {
+	coinsp->setTexture("coin.png");
+	haveCoinTTF->setString(ChineseWord("haveCoin").c_str());
+	CoinNumTTF->setString(Value(User::getInstance()->getCoins()).asString().c_str());
+
+
+
+
 	bool isZero = (User::getInstance()->getCoins() <= 0);
 	auto rank = RanklistManager::getInstance()->getRankByCoin(User::getInstance()->getCoins());
 	std::string rankTxt = Value(rank).asString().c_str();

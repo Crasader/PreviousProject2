@@ -55,7 +55,8 @@ public class AppActivity extends Cocos2dxActivity {
 //								}
 //							});
 //						}
-						JniPayCallbackHelper.payResultCallBack(code,msg);						
+//						JniPayCallbackHelper.payResultCallBack(code,msg);	
+						JniPayCallbackHelper.payResultCallBack(code,msg);		
 					}
 				});
 				

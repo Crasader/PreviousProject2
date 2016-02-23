@@ -124,6 +124,20 @@ bool SkillButton::JudgeUseSkill()
 	{
 		return false;
 	}
+	int type = skillManager::getInstance()->isSatisfyBuySkill(m_skillID);
+	switch (type)
+	{
+	//TODO：VIP等级不足
+	case 1:
+
+		break;
+
+	//TODO：炮塔等级不足
+	case 2:
+		break;
+	default:
+		break;
+	}
 	auto num = skillManager::getInstance()->getSKillNumById(m_skillID);
 	auto price = skillManager::getInstance()->getSkillPriceById(m_skillID);
 	auto userdm = User::getInstance()->getDiamonds();

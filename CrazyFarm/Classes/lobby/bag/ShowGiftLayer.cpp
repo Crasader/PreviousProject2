@@ -51,22 +51,23 @@ bool ShowGiftLayer::init()
 		addChild(cell);
 		
 		Iitem = ConfigItem::getInstance()->getItemById(1012);
-		auto label = LabelTTF::create(Iitem.itemName.c_str(), "arial", 20);
-		label->setPosition(480, 300);
+		auto str = String::createWithFormat(Iitem.itemName.c_str(), User::getInstance()->getLevelData().levelId + 1);
+		auto label = LabelTTF::create(str->getCString(), "arial", 20);
+		label->setPosition(480, 298);
 		label->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(label);
 
 
 		label = LabelTTF::create(ChineseWord("jiangliwupin").c_str(), "arail", 18);
 		label->setColor(Color3B::YELLOW);
-		label->setPosition(480, 250);
+		label->setPosition(480, 246);
 		label->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(label);
 
 
 		//½±ÀøÁÐ±í
-		float startX = 60;
-		float startY = 145;
+		float startX = 57;
+		float startY = 142;
 		float diffx = 78;
 
 		auto rewards = ConfigExp::getInstance()->getLevelRewardItemsByLevelId(User::getInstance()->getLevelData().levelId + 1);

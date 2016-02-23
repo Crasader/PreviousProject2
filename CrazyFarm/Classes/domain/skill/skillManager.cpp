@@ -74,6 +74,7 @@ void skillManager::robotUseSkillFreeze(PlayerTurret*turret)
 void skillManager::useSkillFreeze(PlayerTurret*turret)
 {
 	Audio::getInstance()->playSound(SKILLFREEZE);
+	getButtonByID(1)->setEnable(false);
 	auto fishes = FishManage::getInstance()->getAllFishInPool();
 	for (auto fish : fishes)
 	{
@@ -82,7 +83,7 @@ void skillManager::useSkillFreeze(PlayerTurret*turret)
 	}
 	m_gamelayer->useFreeze(turret);
 
-	m_gamelayer->runAction(Sequence::create(DelayTime::create(getSkillInfoByID(1003).cd_time), CallFunc::create([=]{useSkillFreezeEnd(turret); }), nullptr));
+	m_gamelayer->runAction(Sequence::create(DelayTime::create(getSkillInfoByID(1).cd_time), CallFunc::create([=]{useSkillFreezeEnd(turret); getButtonByID(1)->setEnable(false); }), nullptr));
 
 }
 

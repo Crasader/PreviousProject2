@@ -1,6 +1,6 @@
 #include "ChangeGiftCell.h"
-
-
+#include "domain/ToolTip/TwiceSureDialog.h"
+#include "domain/bag/BagManager.h"
 
 bool ChangeGiftCell::init()
 {
@@ -14,11 +14,11 @@ bool ChangeGiftCell::init()
 		addChild(colorBg, 1);
 
 		giftCell = Sprite::create();
-		giftCell->setPosition(getContentSize().width / 2, 130);
+		giftCell->setPosition(getContentSize().width / 2, 145);
 		addChild(giftCell);
 
 		giftName = Sprite::create();
-		giftName->setPosition(getContentSize().width / 2, 214);
+		giftName->setPosition(getContentSize().width / 2, 202);
 		addChild(giftName);
 
 		bt = MenuItemImage::create("btn_duihuan_1.png", "btn_duihuan_2.png", CC_CALLBACK_1(ChangeGiftCell::changeButtonCallback, this));
@@ -62,6 +62,18 @@ void ChangeGiftCell::update(float delta)
 }
 void ChangeGiftCell::changeButtonCallback(Ref* psend)
 {
-
+	auto num = BagManager::getInstance()->getItemNum(1013);
+	if (num>=300)
+	{
+		auto layer = TwiceSureDialog::createDialog(ChineseWord("changeGiftOverMedal").c_str(), nullptr);
+		layer->setPosition(0, 0);
+		getParent()->addChild(layer, 10);
+	}
+	else
+	{
+		auto layer = TwiceSureDialog::createDialog(ChineseWord("changeGiftLackMedal").c_str(), nullptr);
+		layer->setPosition(0, 0);
+		getParent()->addChild(layer, 10);
+	}
 }
 

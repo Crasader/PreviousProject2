@@ -12,5 +12,7 @@ protected:
 	void update(float);
 	//“ı”∞
 	Fish* target;
+
+	
 };
 

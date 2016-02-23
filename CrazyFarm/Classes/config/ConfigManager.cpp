@@ -23,6 +23,7 @@
 #include "domain/gameConfig/gameConfig.h"
 #include "config/ConfigFishCollisionRange.h"
 #include "config/ConfigBox.h"
+#include "config/ConfigNewbieFishCatch.h"
 #include "domain/pay/PayPointConfig.h"
 #include "domain/pay/PayEventPointConfig.h"
 ConfigManager* ConfigManager::_instance = NULL;
@@ -70,6 +71,8 @@ void ConfigManager::LoadConfig() {
 	ConfigFishCollisionRange::getInstance()->LoadConfig();
 	MonmetEightRoutedata::getInstance()->loadConfig();
 	ConfigBox::getInstance()->LoadConfig();
+
+	ConfigNewbieFishCatch::getInstance()->LoadConfig();
 }
 
 

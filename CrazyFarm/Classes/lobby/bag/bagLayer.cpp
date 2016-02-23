@@ -319,10 +319,10 @@ bool BagLayer::init()
 
 		auto chakan = MenuItemImage::create("btn_small_1.png", "btn_small_2.png", CC_CALLBACK_1(BagLayer::chankanCallBack, this));
 		chakan->setName("VIP");
-		chakan->setPosition(visibleSize.width*0.48, visibleSize.height * 0.3103);
+		chakan->setPosition(visibleSize.width*0.48, visibleSize.height * 0.3103-3);
 		auto chakan1 = MenuItemImage::create("btn_small_1.png", "btn_small_2.png", CC_CALLBACK_1(BagLayer::chankanCallBack, this));
 		chakan1->setName("guizu");
-		chakan1->setPosition(visibleSize.width*0.48, visibleSize.height * 0.2303);
+		chakan1->setPosition(visibleSize.width*0.48, visibleSize.height * 0.2303-3);
 		auto setname = MenuItemImage::create("btn_setname_1.png", "btn_setname_2.png", CC_CALLBACK_1(BagLayer::setNameCallBack, this));
 		setname->setPosition(visibleSize.width*0.30, visibleSize.height * 0.125);
 
@@ -354,9 +354,6 @@ bool BagLayer::init()
 
 
 
-
-
-
 	//添加系统返回键监听
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
@@ -365,7 +362,7 @@ bool BagLayer::init()
 		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-			removeFromParentAndCleanup(1);
+			Director::getInstance()->replaceScene(LobbyScene::createScene());
 			break;
 		default:
 			break;

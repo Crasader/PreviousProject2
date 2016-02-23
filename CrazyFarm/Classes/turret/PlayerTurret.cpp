@@ -22,6 +22,7 @@
 #include "bullet/Laster.h"
 #include "domain/gameConfig/gameConfig.h"
 #include "config/ConfigChest.h"
+#include "config/ConfigNewbieFishCatch.h"
 
 enum 
 {
@@ -78,17 +79,21 @@ void PlayerTurret::initTurretWithType(){
 
 void PlayerTurret::addGoldFishForAi()
 {
-	goldfishcounts++;
-	//使用冰冻
-	if (goldfishcounts%5 == 0&&GameData::getInstance()->getRoomID()>1)
+	if (isRobot)
 	{
-		skillManager::getInstance()->robotUseSkillFreeze(this);
+		goldfishcounts++;
+		//使用冰冻
+		if (goldfishcounts % 5 == 0 && GameData::getInstance()->getRoomID() > 1)
+		{
+			skillManager::getInstance()->robotUseSkillFreeze(this);
+		}
+		//使用召唤
+		if (goldfishcounts % 30 == 0 && GameData::getInstance()->getRoomID() > 1)
+		{
+			skillManager::getInstance()->robotUseSkillFreeze(this);
+		}
 	}
-	//使用召唤
-	if (goldfishcounts% 30 == 0 && GameData::getInstance()->getRoomID() > 1)
-	{
-		skillManager::getInstance()->robotUseSkillFreeze(this);
-	}
+	
 }
 void PlayerTurret::update(float delta)
 {
@@ -220,11 +225,12 @@ void PlayerTurret::setAIinfo(AI*info)
 
 void PlayerTurret::doAIthing(float dt)
 {
+
+	auto walk = m_aiinfo->nextStep(nNowMoney, getPosition());
+	auto angle = /*nChairNoIndex < 2 ? walk.getAngle() : 180 - */walk.getAngle();
+	rorateTurret(angle);
 	
-	auto walk = m_aiinfo->nextStep(10, getPosition());
-	rorateTurret(walk.getAngle());
-	
-	
+	CCLOG("ai anlge %f", angle);
 	if (walk.getFire())
 	{
 		runAction(Sequence::create(DelayTime::create(0.10f), CallFunc::create([&]{shoot(m_turret->getRotation()); }), nullptr));
@@ -328,7 +334,7 @@ void PlayerTurret::initWithDate(User* user,int index)
 	
 	createPlayerCoin(user,index);
 	nChairNoIndex = index;
-	if (user->getCoins()<=0)
+	if (GameData::getInstance()->getisOnBankrupt()||user->getCoins()<=0)
 	{
 		onBankrupt();
 	}
@@ -412,7 +418,6 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		auto event = GameData::getInstance()->getDiamondevent();
 		if (GameData::getInstance()->getShotDiamondCount() >= event.fireTimes)
 		{
-		/*	User::getInstance()->addDiamonds(event.num);*/
 			GameManage::getInstance()->getGameLayer()->onGetRewardByfish(this, fish, 1002, event.num);
 			LogEventMagnate::getInstance()->addMagnateNum(event.itemId, event.num);
 			GameData::getInstance()->setShotDiamondCount(0);
@@ -431,6 +436,12 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		}
 	}
 	fish->createDropOutAniByCoin(getPosition(),num);
+	for (auto reward:fish->getFishRewards())
+	{
+		GameManage::getInstance()->getGameLayer()->onGetRewardByfish(this, fish, reward.item_id, reward.num);
+	}
+
+
 }
 
 void PlayerTurret::onExit()
@@ -445,10 +456,6 @@ void PlayerTurret::onExit()
 
 void PlayerTurret::onBankrupt()
 {
-	if (Value(m_CoinLabel->getString()).asInt()>0)
-	{
-		return;
-	}
 	auto sp = Sprite::create("bankrupt.png");
 	sp->setPosition(getContentSize() / 2);
 	addChild(sp, 10, kTagBankrupt);
@@ -546,7 +553,7 @@ void PlayerTurret::rorateAndShootOnlight(float dt)
 	{
 		return;
 	}
-	if (!isRobot&&GameData::getInstance()->getisOnBankrupt())
+	if (isRobot&&GameData::getInstance()->getisOnBankrupt())
 	{
 		return;
 	};
@@ -559,7 +566,19 @@ void PlayerTurret::rorateAndShootOnlight(float dt)
 	LogEventFish::getInstance()->addFishUserCostCoin(lightFish->getFishID(), 2 * getTurrentMupltData().multiple);
 	LogEventFish::getInstance()->addFishHitTimes(lightFish->getFishID());
 	float k = rand_0_1();
-	if (k < (lightFish->getGrabProbability()*turretdata.catch_per * 2))
+
+	float per = lightFish->getGrabProbability();
+
+	if (!isRobot)
+	{
+		float perForLevel = ConfigNewbieFishCatch::getInstance()->getperByLevelAndFishID(User::getInstance()->getLevelData().levelId, lightFish->getFishID());
+		if (perForLevel != -1)
+		{
+			per = perForLevel;
+		}
+	}
+
+	if (k < (per*turretdata.catch_per * 2))
 	{
 		GameManage::getInstance()->CatchTheFishOntheTurrent(lightFish, 1,this);
 		lightFish = nullptr;
@@ -892,4 +911,21 @@ void PlayerTurret::costMoney()
 			GameData::getInstance()->getmermaidTask()->addCoins(num);
 		}
 	}
+}
+
+void PlayerTurret::ShowAddCoinAni(int type, int num)
+{
+	auto str = String::createWithFormat(":%d", num);
+	auto label = LabelAtlas::create(str->getCString(), "TTFaniGold.png", 23, 34, '0');
+	label->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	label->setPosition(m_coinLabelPos);
+	addChild(label,15);
+
+	auto coinpath = type == 1 ? "smallCoin.png" : "smallDiamond.png";
+	auto sp = Sprite::create(coinpath);
+	sp->setPosition(label->getContentSize().width, label->getContentSize().height / 2);
+	sp->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	label->addChild(sp);
+
+	label->runAction(Sequence::create(Spawn::create(MoveBy::create(1.0f, Vec2(0, 50)), ScaleTo::create(1.0f, 1.5), FadeOut::create(1.5f), nullptr), RemoveSelf::create(),nullptr));
 }

@@ -33,7 +33,7 @@ Moment*MomentManager::getNewMoment(float FFOneTime)
 	}
 	else
 	{
-		return getNewMomentEight(FFOneTime);
+		return getNewMomentEight(15+rand()%10);
 	}
 
 }

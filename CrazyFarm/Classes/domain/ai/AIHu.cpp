@@ -20,7 +20,7 @@ PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
 		return playerWork;
 	}
     
-    int fire = rand()%100;
+    int fire = rand()%10;
     
     if(fire < 6) { // TODO : just test value
         angle = 60 - rand()%120;

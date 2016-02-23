@@ -47,6 +47,7 @@ public:
 	int getFishGold(){ return fishGold; }
 	float getGrabProbability(){ return grabProbability; }
     int getFishID();
+	std::vector<FishReward> getFishRewards(){ return rewards; }
 	int getFishExperience(){ return experience; };
 	int getBounsPoorGold(){ return BonusPoorGold; };
 	virtual void addShader();
@@ -112,6 +113,10 @@ protected:
 	void ShadeUpdata(float dt);
 	void ShadeResume();
 	void ShadePause();
+
+	Node*aniEmptyNode;
+
+	std::vector<FishReward> rewards;
 };
 
 #endif

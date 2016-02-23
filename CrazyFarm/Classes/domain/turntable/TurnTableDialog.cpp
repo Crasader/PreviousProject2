@@ -4,7 +4,7 @@
 #include "domain/bonuspool/BonusPoolManager.h"
 
 #include "core/showFishLayer.h"
-#include "widget/TwiceSureDialog.h"
+#include "domain/ToolTip/TwiceSureDialog.h"
 #include "utill/Chinese.h"
 #include "domain/game/GameManage.h"
 #include "domain/logevent/LogEventTurnTable.h"

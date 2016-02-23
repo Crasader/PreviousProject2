@@ -46,7 +46,7 @@ PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion) {
     }
     
     if(fire < currentFireLevel) {
-		angle = getTurretRotation(currentPostion, FishManage::getInstance()->getBestRewardPostion());
+		angle = CC_RADIANS_TO_DEGREES(currentPostion.getAngle(FishManage::getInstance()->getBestRewardPostion()));
         playerWork.setAngle((float)angle);
         playerWork.setFire(true);
         lastFire = true;

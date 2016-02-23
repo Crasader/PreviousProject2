@@ -237,7 +237,7 @@ bool payLayer::init(int payType)
 			ttf1->setPosition(ttf->getPosition().x + ttf->getContentSize().width, ttf->getPositionY());
 			topTip->addChild(ttf1,0,"100");
 
-			auto sp = Sprite::create("coin.png");
+			auto sp = Sprite::create("smallDiamond.png");
 			sp->setPosition(ttf1->getPosition().x + ttf1->getContentSize().width, ttf1->getPositionY());
 			sp->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 			topTip->addChild(sp, 0, "coin");

@@ -54,4 +54,9 @@ private:
 	RanklistView* tableviewDelegate;
 	MyTableView* tableView;
 	LabelAtlas *labelRank;
+
+
+	LabelTTF* haveCoinTTF;
+	Sprite* coinsp;
+	LabelAtlas* CoinNumTTF;
 };

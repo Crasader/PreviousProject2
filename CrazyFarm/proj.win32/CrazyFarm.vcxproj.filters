@@ -124,6 +124,9 @@
     <Filter Include="src\Newbie">
       <UniqueIdentifier>{8e44575f-f344-4260-904d-e49c6be7dd11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ToolTip">
+      <UniqueIdentifier>{2613e345-58fd-41f2-8b7f-eccc34bc9f2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -564,9 +567,6 @@
     <ClCompile Include="..\Classes\domain\logevent\LogEventSpcEvent.cpp">
       <Filter>src\logevent</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\widget\TwiceSureDialog.cpp">
-      <Filter>src\widget</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\lobby\bag\TwiceSureBuySkill.cpp">
       <Filter>src\lobby\bag</Filter>
     </ClCompile>
@@ -644,6 +644,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\utill\CShake.cpp">
       <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigNewbieFishCatch.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\ai\AIJun.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\ToolTip\ToolTipMannger.cpp">
+      <Filter>src\ToolTip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\ToolTip\TwiceSureDialog.cpp">
+      <Filter>src\ToolTip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1091,9 +1103,6 @@
     <ClInclude Include="..\Classes\domain\logevent\LogEventSpcEvent.h">
       <Filter>src\logevent</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\widget\TwiceSureDialog.h">
-      <Filter>src\widget</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\lobby\bag\TwiceSureBuySkill.h">
       <Filter>src\lobby\bag</Filter>
     </ClInclude>
@@ -1171,6 +1180,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utill\CShake.h">
       <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigNewbieFishCatch.h">
+      <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ai\AIJun.h">
+      <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ToolTip\ToolTipMannger.h">
+      <Filter>src\ToolTip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ToolTip\TwiceSureDialog.h">
+      <Filter>src\ToolTip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

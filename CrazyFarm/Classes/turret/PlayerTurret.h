@@ -90,6 +90,8 @@ public:
 	  //攻击消耗金币
 	  void costMoney();
 	  Vec2 getCoinLabelPos(){ return m_coinLabelPos+getPosition()-getContentSize()/2; };
+	  ///金币框获得金币飘数字 +XX
+	  void ShowAddCoinAni(int type, int num);//type：1 金币 2：钻石
 private:
 	Vec2 m_coinLabelPos;
 	Turrent  m_turretdata;

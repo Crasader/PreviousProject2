@@ -7,6 +7,13 @@
 
 USING_NS_CC;
 
+struct FishReward
+{
+	int item_id;
+	int num;
+};
+
+
 struct FishData {
     int fishId;
     int fishID;   // 0 基础鱼；1 礼品鱼；2 Boss鱼;
@@ -21,6 +28,7 @@ struct FishData {
     int exp;            // 捕获鱼的经验
     int bonus_pool_reward; // 奖金池奖励基数
     int be_hit_logic;   // 受击中反应
+	std::vector<FishReward> rewards;
 };
 struct FishDropCoin
 {

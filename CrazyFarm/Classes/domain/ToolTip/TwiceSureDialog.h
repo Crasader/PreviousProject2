@@ -1,5 +1,6 @@
 #pragma once
 #include "cocos2d.h"
+#include "utill/Chinese.h"
 USING_NS_CC;
 class TwiceSureDialog : public Layer
 {
@@ -9,7 +10,7 @@ protected:
 	MenuItemImage* close;
 	MenuItemImage*sure;
 public:
-	static TwiceSureDialog* createDialog(const char* tipStr, const ccMenuCallback& surecallback);
+	static TwiceSureDialog* createDialog(const char* tipStr, const ccMenuCallback& surecallback = nullptr);
 	void setCloseButtonCallback(const ccMenuCallback& closecallback);
 	virtual bool init(const char* tipStr, const ccMenuCallback& callback);
 	void showRandonBubbleAni();

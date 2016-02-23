@@ -10,7 +10,7 @@
   <string>再充值%d元，即可升级到VIP%d</string>
   
   <key>VIPdes</key>
-  <string>再充值%d元，即可升级到VIP%d高级VIP可同时享受低级特权</string>
+  <string>再充值    元，即可升级到         高级VIP可同时享受低级特权</string>
   
   <key>payCoinFirst</key>
   <string>首次充值任意金额赠送</string>
@@ -26,7 +26,7 @@
   <key>haveExp</key>
   <string>累计经验：</string>
      <key>wopaizaiXXming</key>
-  <string>我排在                       名</string>
+  <string>我排在                      名</string>
   
      <key>nichengTip</key>
   <string>昵称最多不能超过八个字</string>
@@ -107,6 +107,10 @@
   <string>充值失败!</string>
     <key>choujiangSure</key>
   <string>你离下一级更多话费抽奖仅差%d金币了，确定现在抽奖吗!</string>
+  
+   <key>netTimeOut</key>
+  <string>网络连接失败</string>
+  
   </dict> 
 </array>
 </plist>

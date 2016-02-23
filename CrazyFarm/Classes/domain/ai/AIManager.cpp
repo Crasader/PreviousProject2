@@ -2,6 +2,7 @@
 #include "data/GameData.h"
 #include "domain/game/GameManage.h"
 #include "utill/FunUtil.h"
+#include "AIJun.h"
 AIManager* AIManager::_instance = NULL;
 
 AIManager::AIManager(){
@@ -20,9 +21,10 @@ AIManager* AIManager::getInstance(){
 }
 
 AI* AIManager::getAI( int maxTurrentLevel) {
-
+	
+	
     int who = rand()%100;
-    if(who < 60) {
+    if(who < 40) {
 		AI* molo = new AIMolo();
         if(maxTurrentLevel > 0) {
             molo->setMaxTurrentLevel(maxTurrentLevel);
@@ -32,17 +34,29 @@ AI* AIManager::getAI( int maxTurrentLevel) {
         
         molo->setReqSteps(0.4f);
         return molo;
-    }else {
-        AI* hu = new AIHu();
-        if(maxTurrentLevel > 0) {
-            hu->setMaxTurrentLevel(maxTurrentLevel);
-        }else {
-            hu->setMaxTurrentLevel(1);
-        }
-        
-        hu->setReqSteps(0.4f);
-        return hu;
+    }else if (who<60)
+    {
+		AIJun*jun = new AIJun();
+		jun->setMaxTurrentLevel(maxTurrentLevel);
+		jun->setReqSteps(0.3f);
+		return jun;
     }
+	else
+	{
+		{
+			AI* hu = new AIHu();
+			if (maxTurrentLevel > 0) {
+				hu->setMaxTurrentLevel(maxTurrentLevel);
+			}
+			else {
+				hu->setMaxTurrentLevel(1);
+			}
+
+			hu->setReqSteps(0.4f);
+			return hu;
+		}
+	}
+   
     
     
 }

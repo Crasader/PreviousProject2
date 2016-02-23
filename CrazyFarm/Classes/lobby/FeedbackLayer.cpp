@@ -122,6 +122,7 @@ void FeedbackLayer::quedingcallback(Ref*)
 	checkTheName(txt);
 	////////TODO:°²×¿
 	HttpMannger::getInstance()->HttpToPostRequestFeedback(sessionid, txt);
+	removeFromParentAndCleanup(1);
 }
 
 void FeedbackLayer::closeButtonCallBack(Ref*psend)

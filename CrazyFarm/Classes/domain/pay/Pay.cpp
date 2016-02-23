@@ -6,7 +6,7 @@
 #include "domain/user/DeviceInfo.h"
 #include "server/HttpMannger.h"
 #include "utill/JniFunUtill.h"
-#include "widget/TwiceSureDialog.h"
+#include "domain/ToolTip/TwiceSureDialog.h"
 #include "utill/Chinese.h"
 #include "data/GameData.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
@@ -72,7 +72,12 @@ void Pay::payCallBack(int code, const char* msg)
 			{
 				case 1:
 					User::getInstance()->addCoins(var.ItemNum);
-					User::getInstance()->setHaveBycoin();
+					if (!User::getInstance()->getIsHaveBycoin())
+					{
+						User::getInstance()->setHaveBycoin();
+						User::getInstance()->addDiamonds(100);
+					}
+					
 					break;
 				case 2:
 					User::getInstance()->addDiamonds(var.ItemNum);

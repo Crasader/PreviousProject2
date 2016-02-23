@@ -73,7 +73,8 @@ bool ShowBoxLayer::init(int itemid)
 			auto box = ConfigChest::getInstance()->getChestByItemId(m_itemId);
 			if (lv < box.chest_level)
 			{
-				auto str3 = String::createWithFormat(ChineseWord("firstBox").c_str(), CoinBox::getInstance()->getBoxConfigInfoByItemID(m_itemId).catch_fish_per);
+				auto chineseKey = String::createWithFormat("TXTBox_%d", m_itemId);
+				auto str3 = String::createWithFormat(ChineseWord(chineseKey->getCString()).c_str(), CoinBox::getInstance()->getBoxConfigInfoByItemID(m_itemId).catch_fish_per);
 				auto label3 = LabelTTF::create(str3->getCString(), "arail", 18);
 				label3->setColor(Color3B::YELLOW);
 				label3->setPosition(480, 200);

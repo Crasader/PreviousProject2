@@ -10,6 +10,7 @@ void FishArrange::initFish(int fishID){
 	setFishType(getFishTypeByID(fishID));
 	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
+	rewards = fishdata.rewards;
 	LogEventFish::getInstance()->addFishCreateTimes(fishID);
 }
 void FishArrange::addShader()
