@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "payCell.h"
+#include "widget/BaseLayer.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 
@@ -47,7 +48,7 @@ private:
 
 
 
-class payLayer : public cocos2d::Layer
+class payLayer : public BaseLayer
 {
 public:
 	//1 ½ð±Ò 2×êÊ¯
@@ -55,6 +56,7 @@ public:
 
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event){ return true; };
 	void setEventPont(int eventPoitn){ tableviewDelegate->setEventPoint(eventPoitn); };
+	payView* tableviewDelegate;
 private:
 	void update(float delta);
 	
@@ -62,6 +64,6 @@ private:
 	void closeButtonCallBack(Ref*psend);
 	LabelTTF*ttf;
 	Sprite* topTip;
-	payView* tableviewDelegate;
+
 	void showVipCallback(Ref*psend);
 };

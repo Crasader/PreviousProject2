@@ -103,8 +103,11 @@ bool TwiceSureBuySkill::init(int itemid)
 
 void TwiceSureBuySkill::sureButtonCallBack(Ref*psend)
 {
-	User::getInstance()->addDiamonds(-200);
-	BagManager::getInstance()->changeItemCount(m_itemid, 200 / skillManager::getInstance()->getSkillPriceById(skillManager::getInstance()->getSkillInfoByitemId(m_itemid).skill_id));
+	if (User::getInstance()->getDiamonds()>=200)
+	{
+		User::getInstance()->addDiamonds(-200);
+		BagManager::getInstance()->changeItemCount(m_itemid, 200 / skillManager::getInstance()->getSkillPriceById(skillManager::getInstance()->getSkillInfoByitemId(m_itemid).skill_id));
+	}
 	getParent()->removeFromParentAndCleanup(1);
 }
 

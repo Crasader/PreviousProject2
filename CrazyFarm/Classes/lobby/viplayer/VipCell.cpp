@@ -47,7 +47,7 @@ bool VipCell::init(){
 	priceFrame->addChild(PriceDecTTF);
 
 	sPoint = Sprite::create("sPoint.png");
-	sPoint->setPosition(size.width*1.16, size.height*0.5+40);
+	sPoint->setPosition(size.width*1.13, size.height*0.5+40);
 	addChild(sPoint);
 	sPoint->setVisible(false);
 

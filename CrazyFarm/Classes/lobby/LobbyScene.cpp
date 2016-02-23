@@ -299,7 +299,7 @@ bool LobbyScene::init()
 
 	//ÆÆ²ú
 	auto node = BankruptManager::getInstance()->getgetRewardNode();
-	if (node)
+	if (node&&User::getInstance()->getCoins() <= 0)
 	{
 		node->setPosition(824, 480);
 		addChild(node);
@@ -542,8 +542,8 @@ void LobbyScene::guizuCallback(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
 	auto guizulayer = NobilityLayer::createLayer();
-	guizulayer->setEventPoint(3);
-	guizulayer->setPosition(Point::ZERO);
+	guizulayer->setEventPoint(4);
+	guizulayer->setPosition(0,0);
 	addChild(guizulayer, kZorderDialog);
 	if (psend)
 	{
@@ -577,7 +577,7 @@ void LobbyScene::quickBeginCallback(Ref*psend)
 	}
 
 	auto node = BankruptManager::getInstance()->getgetRewardNode();
-	if (node)
+	if (node&&User::getInstance()->getCoins() <= 0)
 	{
 		node->retain();
 		node->removeFromParentAndCleanup(false);

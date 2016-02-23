@@ -89,28 +89,12 @@ void Net::setBullet(Bullet* bullet)
 
 void Net::checkCatchFish(){
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
-	Vector<Fish*> fishNeedRemove;
-	auto turretdata = m_bullet->getTurretdata();
+
 	for (Fish* fish : allFish){
 		if (CollisionUtill::isCollisionRect(fish->getBoundingFigures(), getBoundingBox())){
-			float k = rand_0_1();
-			LogEventFish::getInstance()->addFishHitTimes(fish->getFishID());
-			if (!m_bullet->getPlayerTurret()->isRobot)
-			{
-				LogEventFish::getInstance()->addFishUserCostCoin(fish->getFishID(),m_bullet->getPlayerTurret()->getTurrentMupltData().multiple);
-			}
-			if (k<(fish->getGrabProbability()*turretdata.catch_per))
-			{
-				fishNeedRemove.pushBack(fish);
-			//uiÒÆ³ý
-				
-			}
-			
+			fish->onHeart();
+
 		}
 	}
-	auto data = GameData::getInstance();
-	for (Fish* fish : fishNeedRemove){	
-		GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, m_bullet->getPlayerTurret());
-		fish = nullptr;
-	}
+
 }

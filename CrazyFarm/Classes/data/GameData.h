@@ -25,7 +25,6 @@ private:
 	CC_SYNTHESIZE(bool, bIsOnBankrupt, isOnBankrupt);
 	CC_SYNTHESIZE(bool, bisPlayerOneGame, isPlayerOneGame);//是否进行过一次游戏
 
-	CC_SYNTHESIZE(bool, bIsOnPay, isOnPay);//是否进行过一次游戏
 	CC_SYNTHESIZE(bool, bIsOnGameScene, isOnGameScene);
 	//事件变量
 	CC_SYNTHESIZE(int, nShotDiamondCount, ShotDiamondCount);
@@ -34,6 +33,8 @@ private:
 	CC_SYNTHESIZE(MagnateEvent, m_propevent, propevent);
 
 	CC_SYNTHESIZE(int, nChairNo, chairNo);
+
+	
 };
 
 #endif

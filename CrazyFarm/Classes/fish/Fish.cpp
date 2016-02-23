@@ -45,6 +45,7 @@ void Fish::initFish(int fishID){
 	initFishAnim(fishdata.uiId);
 	figures = ConfigFishCollisionRange::getInstance()->getFishFigures(fishdata.uiId);
 	LogEventFish::getInstance()->addFishCreateTimes(fishID);
+	centerPos = getContentSize() / 2;
 }
 
 void Fish::initFishAnim(int fishID){
@@ -233,6 +234,42 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 	}
 	return  Point(pos.x, pos.y);
 }
+
+
+void Fish::onLockShoot()
+{
+	auto aniFishLockNode = Sprite::create();
+	aniFishLockNode->setPosition(centerPos);
+	addChild(aniFishLockNode,1,"lockani");
+	aniFishLockNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniFishLock")));
+}
+void Fish::stopLockShoot()
+{
+	auto node = getChildByName("lockani");
+	if (node)
+	{
+		node->removeAllChildrenWithCleanup(1);
+	}
+	
+}
+
+void Fish::onLightShoot()
+{
+	auto aniFishLightNode = Sprite::create();
+	aniFishLightNode->setPosition(centerPos);
+	addChild(aniFishLightNode,-1,"lightani");
+	aniFishLightNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniDianQiu")));
+
+}
+void Fish::stopLightShoot()
+{
+	auto node = getChildByName("lightani");
+	if (node)
+	{
+		node->removeAllChildrenWithCleanup(1);
+	}
+}
+
 
 Point Fish::getRandomPostion(float speed, float dt, float &angle)
 {
@@ -426,6 +463,7 @@ void Fish::removeself()
 		m_shadesprite->removeFromParentAndCleanup(1);
 	}
 	removeFromParentAndCleanup(1);
+
 }
 
 void Fish::onHeart()

@@ -17,12 +17,21 @@ public:
     bool allowAiFire();
     void setAiFire(bool allow);
     
+
+	void addCreateGoldFish();
+	void  MainUpdata(float dt);
 private:
     AIManager();
     void init();
     static AIManager* _instance;
     
     bool aiFire = true;
+
+	
+
+	///AIÊý¾Ý
+	CC_SYNTHESIZE(int, nNowCreateGoldFish, NowCreateGoldFish);
+
 };
 
 #endif

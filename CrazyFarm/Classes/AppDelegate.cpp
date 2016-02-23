@@ -80,6 +80,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("game/ui/gamelayer/mermaid");
 	paths.push_back("game/ui/ranklist");
 	paths.push_back("game/ui/NewBie");
+	paths.push_back("game/ui/txt");
 	paths.push_back("game/ui/gamelayer/playerturret");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand(time(NULL));

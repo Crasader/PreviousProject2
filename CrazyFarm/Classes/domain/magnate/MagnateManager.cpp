@@ -22,8 +22,8 @@ MagnateManager* MagnateManager::getInstance(){
 
 MagnateEvent MagnateManager::getDiamandMagnateEvent(){
     MagnateEvent magnateEvent;
-    magnateEvent.fireTimes = diamandConfig.fire_time_from +
-            rand()%(diamandConfig.fire_time_to - diamandConfig.fire_time_from);
+	magnateEvent.fireTimes =  diamandConfig.fire_time_from +
+		rand() % (diamandConfig.fire_time_to - diamandConfig.fire_time_from);
     magnateEvent.itemId = 1002;
     magnateEvent.num = 1;
     return magnateEvent;

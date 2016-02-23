@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "domain/pay/Pay.h"
+#include "utill/dayUtil.h"
 using namespace cocos2d;
 USING_NS_CC_EXT;
 
@@ -31,4 +32,6 @@ private:
 	Sprite* propNum;
 	Sprite* giftNum;
 	Sprite* hotTxt;
+
+	unsigned long lastTouchTime = 0;
 };

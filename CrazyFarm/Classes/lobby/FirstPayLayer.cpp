@@ -1,6 +1,7 @@
 #include "lobby/FirstPayLayer.h"
 #include "domain/user/User.h"
 #include "domain/pay/Pay.h"
+#include "data/GameData.h"
 bool FirstPayLayer::init()
 {
 	if ( !Layer::init() )
@@ -12,7 +13,7 @@ bool FirstPayLayer::init()
 	{
 		auto layer = LayerColor::create();
 		layer->setColor(Color3B::BLACK);
-		layer->setOpacity(128);
+		layer->setOpacity(192);
 		addChild(layer,-1);
 		auto size = Director::getInstance()->getVisibleSize();
 		auto bg = Sprite::create("firstPayBg.png");
@@ -22,14 +23,14 @@ bool FirstPayLayer::init()
 
 		
 
-		auto bt = MenuItemImage::create("btn_huoqu_1.png", "btn_huoqu_2.png", CC_CALLBACK_1(FirstPayLayer::quedingcallback, this));
-		bt->setPosition(bg->getContentSize().width*0.5, 110);
+		auto bt = MenuItemImage::create("btn_goumai_1.png", "btn_goumai_2.png", CC_CALLBACK_1(FirstPayLayer::quedingcallback, this));
+		bt->setPosition(480, 110);
 	
 
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(FirstPayLayer::closeButtonCallBack, this));
-		close->setPosition(562,329);
+		close->setPosition(754,450);
 
 
 
@@ -71,6 +72,7 @@ bool FirstPayLayer::onTouchBegan(Touch *touch, Event *unused_event)
 void FirstPayLayer::quedingcallback(Ref*)
 {
 	//Ê×³åHTTPÇëÇó
+
 	Pay::getInstance()->Overbooking(14, m_eventPoint);
 
 	removeFromParentAndCleanup(1);

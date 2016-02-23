@@ -54,12 +54,15 @@ public:
     
 	void UpdateWhenController(float dt);
 	void UpdataCreateFish(float dt);
-	void LoadOnement(float ffTime);
+	void LoadOnement(Moment*monent);
 	void createFishByOneMonet(OneMoment onemonent);
 	void onBoomFishDead(Fish*fish, PlayerTurret* pTurret);
 	void onAllKilledFishDead(Fish*fish, PlayerTurret*pTurret);
 
 	void onClearFish();   //”„≥±¿¥¡Ÿ£¨«Â≥°
+
+
+	static Fish*getHignSoreInVec(Vector<Fish*> vec);
 private :
 	FishManage();
 	static FishManage* _instance;

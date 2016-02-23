@@ -2,7 +2,7 @@
 #define _BAGMANAGER_H_
 #include "cocos2d.h"
 #include "domain/bag/BagItem.h"
-
+#include "domain/user/User.h"
 using namespace cocos2d;
 
 
@@ -15,6 +15,7 @@ public :
     bool changeItemCount(int itemId, int num);
     int getItemNum(int itemId);
 
+	void addreward(int itemId, int num);
 	
 	
     std::vector<BagItem> getBagList();

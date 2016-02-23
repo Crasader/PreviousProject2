@@ -121,3 +121,19 @@ BagItem BagManager::getBagByItemId(int itemid)
 		}
 	}
 }
+
+void BagManager::addreward(int itemId, int num)
+{
+	if (itemId==1001)
+	{
+		User::getInstance()->addCoins(num);
+	}
+	else if (itemId==1002)
+	{
+		User::getInstance()->addDiamonds(num);
+	}
+	else
+	{
+		changeItemCount(itemId, num);
+	}
+}

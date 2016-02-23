@@ -57,12 +57,12 @@ void Pay::pay(payRequest*data, const char* orderid)
 }
 
 
-void Pay::payCallBack(int code,  const char* msg)
+void Pay::payCallBack(int code, const char* msg)
 {
 
 	log("pay callback success");
 	auto info = PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id);
-	if (code == 0)
+	if (code == 0||code==201)
 	{
 		
 		//���ߴ���
@@ -90,9 +90,9 @@ void Pay::payCallBack(int code,  const char* msg)
 			User::getInstance()->setHaveFirstPay();
 		}
 		User::getInstance()->addChargeMoney(info.price / 100);
-		GameData::getInstance()->setisOnPay(false);
+		
 		log("pay paypoint %d success",nowData->pay_point_id);
-		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,0, nowData->orderID.c_str());
+		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
 		payResult = 1;
 		
 		
@@ -102,6 +102,7 @@ void Pay::payCallBack(int code,  const char* msg)
 		payResult = 2;
 		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
 	}
+
 	nowData = nullptr;
 }
 

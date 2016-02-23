@@ -21,6 +21,9 @@ void FishArrangeTwo::initFishAnim(int fishID)
 	maggiceff->stopAllActions();
 	mainfish->addChild(maggiceff, -1);
 	pushBackFigureVec(id, Vec2(0,0));
+
+	centerPos = mainfish->getContentSize() / 2;
+
 	//¸±Óã
 	int randarray1[6] = { 2,4,7,8,32,33 };
 id = randarray1[rand() % 6];

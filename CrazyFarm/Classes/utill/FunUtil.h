@@ -28,7 +28,7 @@ int getRandValueInVec(std::vector<int> vec);
 Action* getForeverAcByNameAndInterval(const char* name,float interval);
 
 float getTurretRotation(Point start_pos, Point pos);
-
+unsigned long getCurrentTime();
 
 template<typename Fwd>
 void upsetVector(std::vector<Fwd> &vec)
@@ -44,4 +44,11 @@ void upsetVector(std::vector<Fwd> &vec)
 		vec[i] = vec[j];
 		vec[j] = temp;
 	}
+}
+
+
+template<typename Fkd>
+Fkd getRandValueInVector(Vector<Fkd> &vec)
+{
+	return vec.at(rand() % vec.size());
 }

@@ -58,7 +58,7 @@ bool User::setUserName(std::string newUserName) {
 
 
 int User::getCoins() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_COINS, 200);
+    return UserDefault::getInstance()->getIntegerForKey(User::KEY_COINS, 0);
 }
 
 int User::addCoins(int coins) {

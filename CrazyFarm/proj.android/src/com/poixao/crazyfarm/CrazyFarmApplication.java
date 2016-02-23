@@ -4,9 +4,10 @@ import android.app.Application;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
-import com.bugtags.library.Bugtags;
+//import com.bugtags.library.Bugtags;
 import com.tbu.android.pay.sky.third.SkyThirdPay;
 import com.tbu.gameextend.android.GameExtend;
+
 
 public class CrazyFarmApplication extends Application {
 
@@ -15,12 +16,15 @@ public class CrazyFarmApplication extends Application {
 		super.onCreate();
 		GameExtend.init(getApplicationContext()); // 设备环境变量初始化
 		
+//		AVOSCloud.initialize(this, 
+//				"FMmrXq8mMagQj6vDFnBtTaHr-gzGzoHsz", 
+//				"FoOVWWpQeL4IjJ7SJIOyk7if");
 		AVOSCloud.initialize(this, 
-				"FMmrXq8mMagQj6vDFnBtTaHr-gzGzoHsz", 
-				"FoOVWWpQeL4IjJ7SJIOyk7if");
+				"QboLa9qa1f9GUcHDGSc4c80v-gzGzoHsz",  //APPID
+				"T073vt0MSU1BGOe2KJcJgqUG");//APPKEY
         AVAnalytics.enableCrashReport(this, true);
 		
 	SkyThirdPay.getInstance().initOnApplication(getApplicationContext());
-	Bugtags.start("a03524eaf40ac0590023b0e3bc5534b6", this, Bugtags.BTGInvocationEventBubble);
+//	Bugtags.start("a03524eaf40ac0590023b0e3bc5534b6", this, Bugtags.BTGInvocationEventBubble);
 	}
 }

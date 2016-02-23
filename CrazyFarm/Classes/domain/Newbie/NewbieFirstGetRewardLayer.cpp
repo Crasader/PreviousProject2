@@ -40,7 +40,7 @@ bool NewbieFirstGetRewardLayer::init()
 		addChild(tipTxt);
 		tipTxt->runAction(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr));
 
-		auto listenr1 = EventListenerTouchOneByOne::create();
+		listenr1 = EventListenerTouchOneByOne::create();
 		listenr1->onTouchBegan = CC_CALLBACK_2(NewbieFirstGetRewardLayer::onTouchBegan, this);
 		listenr1->setSwallowTouches(true);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
@@ -50,6 +50,11 @@ bool NewbieFirstGetRewardLayer::init()
 }
 bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 {
+	if (istouched)
+	{
+		return true;
+	}
+	istouched = true;
 	colorlayer->removeFromParentAndCleanup(1);
 	sPoint->removeFromParentAndCleanup(1);
 	tipTxt->removeFromParentAndCleanup(1);

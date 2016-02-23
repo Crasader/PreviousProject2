@@ -7,6 +7,7 @@ public:
 	CREATE_FUNC(MyDialog);
 	virtual bool init();
 protected:
+	void showRandonBubbleAni();
 	virtual bool onTouchBegan(Touch *pTouch, Event *pEvent){ return true; };
 };
 

@@ -17,7 +17,7 @@ void GameData::init(){
 	setShotDiamondCount(0);
 	setShotPropCount(0);
 	setisOnGameScene(false);
-	setisOnPay(false); 
+
 }
 
 GameData* GameData::getInstance(){

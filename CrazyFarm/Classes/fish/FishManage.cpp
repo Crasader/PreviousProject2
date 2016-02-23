@@ -10,6 +10,7 @@
 #include "utill/CollisionUtill.h"
 #include "domain/game/GameManage.h"
 #include "fish/FishOfAllKilled.h"
+#include "domain/ai/AIManager.h"
 #define BOOMFISHCIRCLE 300
 FishManage* FishManage::_instance = 0;
 
@@ -67,10 +68,15 @@ Fish* FishManage::createFishSingle(int type){
 	fish->initFish(type);
 	fishPool.pushBack(fish);	
 	fish->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	if (type>=50&&type<60)
+	if (fish->getFishType()==BOOMFISHCIRCLE)
 	{
 		GameManage::getInstance()->getGuiLayer()->onBossWarning(type);
 	}
+	else if (fish->getFishType() == GoldFish)
+	{
+		AIManager::getInstance()->addCreateGoldFish();
+	}
+
 	return fish;
 }
 Fish* FishManage::createFishArrange(int type){
@@ -317,6 +323,7 @@ void FishManage::removeFish(Fish* fish,bool isDead){
 	{
 		fish->removeself();
 	}
+	fish = nullptr;
 	
 }
 
@@ -447,10 +454,10 @@ void FishManage::cleanVector()
 }
 
 
-void FishManage::LoadOnement(float ffTime)
+void FishManage::LoadOnement(Moment*monent)
 {
 	///需要优化
-    m_nowMonent = MomentManager::getInstance()->getNewMoment(ffTime);
+    m_nowMonent = monent;
 }
 
 void FishManage::UpdataCreateFish(float dt)
@@ -604,8 +611,8 @@ Fish*FishManage::getFishByPosInPool(Point pos)
 {
 	for (auto var:fishPool)
 	{
-		auto rect = var->getBoundingBox();
-		if (rect.containsPoint(pos))
+		auto figures = var->getBoundingFigures();
+		if (CollisionUtill::isCollisionPoint(figures,pos))
 		{
 			return var;
 		}
@@ -712,4 +719,21 @@ void FishManage::clearMomentEightItemFishs()
 void FishManage::addMomentEightItemFishs(MomentEightItemFishs fishs)
 {
 	waitCreateMomentEightFishs.push_back(fishs);
+}
+
+Fish*FishManage::getHignSoreInVec(Vector<Fish*> vec)
+{
+	if (vec.size()==0)
+	{
+		return nullptr;
+	}
+	Fish* fish = vec.at(0);
+	for (auto var:vec)
+	{
+		if (var->getFishGold()>=fish->getFishGold())
+		{
+			fish = var;
+		}
+	}
+	return fish;
 }

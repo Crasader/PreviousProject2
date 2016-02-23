@@ -639,6 +639,12 @@
     <ClCompile Include="..\Classes\domain\logevent\LogEventConsume.cpp">
       <Filter>src\logevent</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\widget\BaseLayer.cpp">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utill\CShake.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1159,6 +1165,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\logevent\LogEventConsume.h">
       <Filter>src\logevent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\widget\BaseLayer.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\CShake.h">
+      <Filter>src\utill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

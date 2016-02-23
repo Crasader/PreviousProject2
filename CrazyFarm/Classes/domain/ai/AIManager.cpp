@@ -1,6 +1,7 @@
 #include "domain/ai/AIManager.h"
-
-
+#include "data/GameData.h"
+#include "domain/game/GameManage.h"
+#include "utill/FunUtil.h"
 AIManager* AIManager::_instance = NULL;
 
 AIManager::AIManager(){
@@ -8,6 +9,7 @@ AIManager::AIManager(){
 }
 
 void AIManager::init(){
+	setNowCreateGoldFish(1);
 }
 
 AIManager* AIManager::getInstance(){
@@ -53,4 +55,45 @@ void AIManager::setAiFire(bool allow) {
      aiFire = allow;
 }
 
+void  AIManager::MainUpdata(float dt)
+{
+	
+}
 
+void AIManager::addCreateGoldFish()
+{
+	auto turrets = GameManage::getInstance()->getGameLayer()->GetOtherTurret();
+	auto turret = getRandValueInVector(turrets);
+	nNowCreateGoldFish++;
+	auto roomid = GameData::getInstance()->getRoomID();
+	switch (roomid)
+	{
+	case 1:
+		if (nNowCreateGoldFish % 10 ==0)
+		{
+			///some one use lock
+		}
+		break;
+	case 2:
+	case 3:
+	case 4:
+		if (nNowCreateGoldFish % 18 == 0)
+		{
+			skillManager::getInstance()->robotUseSkillFreeze(turret);
+			break;
+		}
+		if (nNowCreateGoldFish % 6 == 0)
+		{
+			///some one use lock
+			break;
+		}
+		if (nNowCreateGoldFish % 60 == 0)
+		{
+			skillManager::getInstance()->useSkillSummon(turret);
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+}

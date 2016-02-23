@@ -67,6 +67,8 @@ public:
 	  void setAIinfo(AI* info);
 	  void doAIthing(float dt);
 	  void stopAI();
+	  void addGoldFishForAi();
+
 	  //ÆÆ²ú
 	  void onBankrupt();
 	  void onAIResurgenceCallBack(Node* sender, void* data);
@@ -112,4 +114,5 @@ private:
 	  Sprite*aniFishLightNode = NULL;	 
 	  Fish* lockFish = nullptr;
 	  Fish* lightFish = nullptr;
+	  int goldfishcounts = 1;
 };

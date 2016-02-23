@@ -101,6 +101,8 @@ bool GameGuiLayer::init(){
 	GameData::getInstance()->setisOnGameScene(true);
 	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), rand() % 4 + 5);
 	scheduleUpdate();
+
+	
 	return true;
 
 }
@@ -194,12 +196,6 @@ void GameGuiLayer::createSettingBoard()
 	menu->addChild(showFishButton);
 
 
-	auto node = BankruptManager::getInstance()->getgetRewardNode();
-	if (node)
-	{
-		node->setPosition(28.8, 390);
-		addChild(node);
-	}
 
 }
 

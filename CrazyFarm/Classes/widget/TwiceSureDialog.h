@@ -12,6 +12,6 @@ public:
 	static TwiceSureDialog* createDialog(const char* tipStr, const ccMenuCallback& surecallback);
 	void setCloseButtonCallback(const ccMenuCallback& closecallback);
 	virtual bool init(const char* tipStr, const ccMenuCallback& callback);
-
+	void showRandonBubbleAni();
 };
 

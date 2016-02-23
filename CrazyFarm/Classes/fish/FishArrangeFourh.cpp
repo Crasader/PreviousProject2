@@ -23,6 +23,9 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	mainfish->runAction(ac);
 	pushBackFigureVec(id, mainfish->getPosition() - mainfish->getContentSize() / 2);
 	
+	centerPos = maggiceff->getContentSize() / 2;
+
+
 	auto maggiceff1 = MagicEffect::create(5, true);
 	maggiceff1->setPosition(108, maggiceff->getContentSize().height / 2);
 	addChild(maggiceff1, -1);

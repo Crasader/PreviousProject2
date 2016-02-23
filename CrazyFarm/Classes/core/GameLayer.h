@@ -26,10 +26,16 @@ public:
 	
 	void addReward(int itemid, int num);
 
+
+
+	Vector<PlayerTurret*> GetOtherTurret(){ return otherTurrets; }
+
 	void createNet(Bullet *bullet);//打开渔网
 	PlayerTurret* GetMyTurret(){ return myTurret; }
-	//抽奖奖励动画
+	//抽奖奖励动画有烟花
 	void onGetReward(int itemid, int num);
+	//某条鱼掉落道具或钻石
+	void onGetRewardByfish(PlayerTurret*turrent,Fish*fish,int itemid,int num);
 private:
 	void createTurret();//按照类型生成炮塔
 	void addTouchEvent();
@@ -49,6 +55,7 @@ private:
 	//Updata
 	void collisionUpdate(float dt);
 	void update(float dt);
+	void shootUpdata(float dt);
 	//激光
 public:
 	void beginLight();
@@ -80,8 +87,8 @@ private:
 	bool AutoShootTouchEvent(Touch *touch, Event  *event);
 ////////////冻结
 public:
-	void onFreezeBegin();
-	void onFreezeEnd();
+	void useFreeze(PlayerTurret*turret);
+	void onFreezeEnd(PlayerTurret*turret);
 ////鱼潮来临
 	void onClearFish();
 	void onClearFishUpdata(float dt);
@@ -103,5 +110,10 @@ private:
 	TouchType m_touchType;
 	TouchType m_lasttouchType;
 	Sprite* game_bg;
+
+
+	Point touchpos;
+	bool istouched = false;
+	float shootTemp = 0;
 };
 #endif

@@ -53,6 +53,13 @@ public:
 	void removeself();		
 	virtual void onDead();
 	virtual void onHeart();
+
+	virtual void onLockShoot();
+	virtual void stopLockShoot();
+
+	virtual void onLightShoot();
+	virtual void stopLightShoot();
+
 	void onFreeze();
 	void onFreezeResume();
 	void createDropOutAniByCoin(Point belongPos,int curMoney);
@@ -84,6 +91,9 @@ protected:
 	Point getRandomPostionForBigFish(float speed, float dt, float &angle);
 	
 	Sprite* image;
+
+
+	Point centerPos;//用来展示瞄准和激光
 
 	CC_SYNTHESIZE(swimDirection, nDirection, Direction);
 	Point LastPos;

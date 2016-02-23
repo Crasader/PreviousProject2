@@ -27,7 +27,7 @@ cocos2d::extension::TableViewCell* showTurretView::tableCellAtIndex(cocos2d::ext
 	}
 	else if (nViewTp == 2)
 	{
-		cell->setMultipleValue(idx);
+		cell->setMultipleValue(idx+1);
 	}
 	return cell;
 }
@@ -38,7 +38,7 @@ ssize_t showTurretView::numberOfCellsInTableView(cocos2d::extension::TableView *
 	}
 	else if (nViewTp==2)
 	{
-		return ConfigTurrent::getInstance()->getTurrent().size();
+		return ConfigTurrent::getInstance()->getTurrent().size()-1;
 	}
 	else
 	{

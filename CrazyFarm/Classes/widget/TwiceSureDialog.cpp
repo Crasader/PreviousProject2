@@ -1,5 +1,6 @@
 #include "TwiceSureDialog.h"
-
+#include "utill/AnimationUtil.h"
+#include "utill/FunUtil.h"
 TwiceSureDialog* TwiceSureDialog::createDialog(const char* tipStr, const ccMenuCallback& callback)
 {
 	TwiceSureDialog* ref = new TwiceSureDialog();
@@ -25,14 +26,14 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 	bool bRet = false;
 	do
 	{
-		/*auto colorlayer = LayerColor::create();
+		auto colorlayer = LayerColor::create();
 		colorlayer->setColor(ccc3(0, 0, 0));
 		colorlayer->setOpacity(180);
-		addChild(colorlayer, -1);*/
+		addChild(colorlayer, -1);
 		
 		auto bg = Sprite::create("TwiceSureDialog.png");
 		bg->setPosition(480, 270);
-		addChild(bg, -1);
+		addChild(bg, -1,"bg");
 
 		close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(TwiceSureDialog::closeButtonCallBack, this));
 		close->setPosition(bg->getContentSize());
@@ -83,6 +84,7 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 		/////////µ¯³ö¶¯»­
 		setScale(0);
 		runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), nullptr));
+		showRandonBubbleAni();
 		bRet = true;
 	} while (0);
 
@@ -93,4 +95,20 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 void TwiceSureDialog::closeButtonCallBack(Ref*psend)
 {
 	removeFromParentAndCleanup(1);
+}
+
+void TwiceSureDialog::showRandonBubbleAni()
+{
+	auto node = getChildByName("bg");
+
+	auto aniNode = Sprite::create();
+	aniNode->setPosition(0,100);
+	node->addChild(aniNode, 5);
+	aniNode->runAction(getForeverAcByNameAndInterval("aniBubble",0.1f));
+
+	aniNode = Sprite::create();
+	aniNode->setPosition(node->getContentSize().width, 100);
+	node->addChild(aniNode, 5);
+	aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0.2f));
+	
 }

@@ -1,6 +1,7 @@
 #include "NobilityLayer.h"
 #include "domain/nobility/NobilityManager.h"
 #include "domain/pay/Pay.h"
+#include "data/GameData.h"
 bool NobilityLayer::init()
 {
 	if (!Layer::init()){
@@ -12,27 +13,27 @@ bool NobilityLayer::init()
 	colorlayer->setColor(ccc3(0, 0, 0));
 	colorlayer->setOpacity(180);
 	addChild(colorlayer, -1);
-	auto visibleSize = Director::getInstance()->getVisibleSize();
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
 	
 	auto bg = Sprite::create("NobilityBG.png");
-	bg->setPosition(visibleSize / 2);
+	bg->setPosition(visibleSize / 2 + Size(0, 20));
 	addChild(bg);
 
 
 	auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(NobilityLayer::closeButtonCallBack, this));
-	close->setPosition(650, 450);
+	close->setPosition(650, 470);
 
 	auto remainingDay = NobilityManager::getInstance()->RemainingNobilityday();
 	dayTTF = LabelAtlas::create(Value(remainingDay).asString(), "NobilitydayNum.png", 19, 29, '0');
-	dayTTF->setPosition(visibleSize.width*0.49, visibleSize.height*0.19);
+	dayTTF->setPosition(visibleSize.width*0.49, visibleSize.height*0.19+20);
 	addChild(dayTTF);
 
 	int imgIndex = NobilityManager::getInstance()->isNobility() ? 2 : 1;
 	auto str1 = String::createWithFormat("payNobilitylayer_%d_%d.png", imgIndex, 1);
 	auto str2 = String::createWithFormat("payNobilitylayer_%d_%d.png", imgIndex, 2);
 	quickpay = MenuItemImage::create(str1->getCString(), str2->getCString(), CC_CALLBACK_1(NobilityLayer::quickPayCallback, this));
-	quickpay->setPosition(bg->getContentSize().width *0.85, bg->getContentSize().height*0.15);
+	quickpay->setPosition(bg->getContentSize().width *0.85, bg->getContentSize().height*0.15+20);
 	auto menu = Menu::create(quickpay, close, nullptr);
 	menu->setPosition(0, 0);
 	bg->addChild(menu);
@@ -68,6 +69,21 @@ void NobilityLayer::closeButtonCallBack(Ref*psend)
 
 void NobilityLayer::quickPayCallback(Ref* psend)
 {
+	if (lastTouchTime == 0)
+	{
+
+	}
+	else
+	{
+		auto nowTime = getCurrentTime();
+		if (nowTime - lastTouchTime < 1000)
+		{
+			return;
+		}
+	}
+	lastTouchTime = getCurrentTime();
+
+	log("touch pay");
 	Pay::getInstance()->Overbooking(13, m_eventPoint);
 	//NobilityManager::getInstance()->addStepsDay(30); 
 	//removeFromParentAndCleanup(1);

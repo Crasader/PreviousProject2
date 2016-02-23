@@ -22,6 +22,9 @@ void FishArrangeThree::initFishAnim(int fishID)
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
 	mainfish->runAction(ac);
 	pushBackFigureVec(id, mainfish->getPosition() - mainfish->getContentSize() / 2);
+
+
+	centerPos = maggiceff->getContentSize() / 2;
 	//¸±Óã
 	int randarray1[6] = { 2,3,4,7,8,9};
 	id = randarray1[rand() % 6];

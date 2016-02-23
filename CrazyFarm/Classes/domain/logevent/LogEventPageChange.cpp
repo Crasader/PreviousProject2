@@ -79,7 +79,9 @@ void LogEventPageChange::addEventItems(int from_page, int to_page, int channel)
 	info.to_page = to_page;
 	info.channel = channel;
 	info.num = 1;
-	items.push_back(info);/*
+	items.push_back(info);
+	sendDataToServer();
+	/*
 	auto str = String::createWithFormat("%s%d%d%d", EventPageChangeNum, from_page, to_page, channel);
 	auto localdata = UserDefault::getInstance();
 	localdata->setIntegerForKey(str->getCString(), localdata->getIntegerForKey(str->getCString(), 0) + 1);
@@ -115,6 +117,7 @@ void LogEventPageChange::loadLocalData()
 
 void LogEventPageChange::clearLocalData()
 {
+	items.clear();
 	//i:from_page, j: to_page, k: channel
 	/*for (int i = 1; i <= 13; i++)
 	{

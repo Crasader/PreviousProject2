@@ -20,6 +20,7 @@
 #include "domain/bag/BagManager.h"
 #include "domain/game/GameManage.h"
 #include "domain/Newbie/NewbieMannger.h"
+#include "domain/bankrupt/BankruptManager.h"
 #define BOOMRADIUS 300
 enum
 {
@@ -79,9 +80,9 @@ bool GameLayer::init(){
 	calculateFreeChair();
 	createTurret();
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
-
+	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	
-	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{loadNewMonent(rand()%(300-35)+35); }), nullptr));
+	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81, rand() % (300 - 35) + 35)); }), nullptr));
 
 
 
@@ -102,9 +103,31 @@ bool GameLayer::init(){
 	
 
 
-	BagManager::getInstance()->changeItemCount(1010, 1);
-	BagManager::getInstance()->changeItemCount(1009, 1);
-	BagManager::getInstance()->changeItemCount(1011, 1);
+
+	auto node = BankruptManager::getInstance()->getgetRewardNode();
+	if (node&&User::getInstance()->getCoins()<=0)
+	{
+		if (node->getParent())
+		{
+			node->removeFromParentAndCleanup(false);
+		}
+		node->setPosition(myTurret->getPosition()+Vec2(0,150));
+		addChild(node);
+	}
+
+
+
+
+	//runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{auto fish = FishManage::getInstance()->createFishSingle(42);
+	//fish->setPosition(480, 270);
+	//addChild(fish, 10);
+	//GameManage::getInstance()->CatchTheFishOntheTurrent(fish, true, myTurret); }), nullptr));
+
+
+
+
+
+
 	return true;
 }
 
@@ -190,6 +213,29 @@ void GameLayer::addTouchEvent(){
 	m_touchType = TouchInNormal;
 }
 
+void GameLayer::shootUpdata(float dt)
+{
+	if (istouched == true)
+	{
+		const float shootInterval = GameConfig::getInstance()->getShootData().shootInterval;
+		if (!isShoot)
+		{
+			return ;
+		}
+		CCLOG("%f,%f", touchpos.x, touchpos.y);
+		float degree = getTurretRotation(myTurret->getPosition(), touchpos);
+		rotateTurret(degree, myTurret);
+		runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([&]{
+			CCLOG("shot turret rotate%f", myTurret->getRarote());
+			myTurret->shoot(myTurret->getRarote());
+		}), nullptr));
+		isShoot = false;
+		runAction(Sequence::create(DelayTime::create(shootInterval), CallFunc::create([&]{
+			isShoot = true;
+		}), nullptr));
+	}
+}
+
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
 	auto node = getChildByName("clickcatch");
@@ -222,23 +268,9 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 		return true;
 	}
 	removePlayerInfo();
-	const float shootInterval = GameConfig::getInstance()->getShootData().shootInterval;
-	if (!isShoot)
-	{
-		return true;
-	}
 	
-	float degree = getTurretRotation(myTurret->getPosition(), touchPos);
-	rotateTurret(degree, myTurret);
-	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([&]{
-		CCLOG("shot turret rotate%f", myTurret->getRarote());
-		myTurret->shoot(myTurret->getRarote()); 
-	}), nullptr));
-	isShoot = false;
-	runAction(Sequence::create(DelayTime::create(shootInterval), CallFunc::create([&]{
-		isShoot = true;
-	}), nullptr));
-	CCLOG("shot  X:%f,Y:%f", touchPos.x, touchPos.y);
+	istouched = true;
+	touchpos = touch->getLocation();
 	return true;
 }
 void GameLayer::removePlayerInfo()
@@ -276,13 +308,13 @@ bool GameLayer::lockTouchEvent(Touch *touch, Event  *event)
 
 void GameLayer::onTouchMoved(Touch *touch, Event  *event)
 {
-
-
+	touchpos = touch->getLocation();
+	CCLOG("%f,%f", touchpos.x, touchpos.y);
 }
 
 void  GameLayer::onTouchEnded(Touch *touch, Event  *event)
 {
-	
+	istouched = false; 
 }
 
 
@@ -335,7 +367,7 @@ void GameLayer::calculateFreeChair()
 
 void GameLayer::AiUpdata(float dt)
 {
-	
+	//AIManager::getInstance()->mainUpdata(dt);
 }
 
 void GameLayer::collisionUpdate(float dt)
@@ -353,13 +385,28 @@ void GameLayer::collisionUpdate(float dt)
 	{
 		for (auto fish : allFish)
 		{
-			if (/*collision(fish, bullet)*/CollisionUtill::isCollisionRect(fish->getBoundingFigures(), bullet->getBoundingBox())){
-				//发生碰撞,移除子弹
+			if (CollisionUtill::isCollisionRect(fish->getBoundingFigures(), bullet->getBoundingBox())){
+				//发生碰撞,移除子弹,在这里计算捕获鱼，渔网只有UI作用，无影响
 				bulletNeedRemove.pushBack(bullet);
 				bullet->removeFromParent();
-				//TODO打开渔网
+				auto turretdata = bullet->getTurretdata();
+				auto curryFish = fish;
+				if (curryFish == nullptr)
+				{
+					return;
+				}
+				float k = rand_0_1();
+				LogEventFish::getInstance()->addFishHitTimes(curryFish->getFishID());
+				if (!bullet->getPlayerTurret()->isRobot)
+				{
+					LogEventFish::getInstance()->addFishUserCostCoin(curryFish->getFishID(), bullet->getPlayerTurret()->getTurrentMupltData().multiple);
+				}
+				if (k < (curryFish->getGrabProbability()*turretdata.catch_per))
+				{
+					GameManage::getInstance()->CatchTheFishOntheTurrent(curryFish, 1, bullet->getPlayerTurret());
+				}
+				//打开渔网
 				createNet(bullet);
-				fish->onHeart();
 				break;
 			}
 		}
@@ -385,7 +432,7 @@ void GameLayer::onExit()
 
 void GameLayer::loadNewMonent(float ffTime)
 {
-	FishManage::getInstance()->LoadOnement(ffTime);
+	FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMoment(ffTime));
 }
 
 void GameLayer::RefreShmyPlayerTurret()
@@ -567,7 +614,7 @@ bool GameLayer::AutoShootTouchEvent(Touch *touch, Event *event)
 	myTurret->setTargetPos(touchPos);
 }
 
-void GameLayer::onFreezeBegin()
+void GameLayer::useFreeze(PlayerTurret*turret)
 {
 	unscheduleUpdate();
 	auto bg = ProgressTimer::create(Sprite::create("iceFram4.jpg"));
@@ -575,31 +622,33 @@ void GameLayer::onFreezeBegin()
 	bg->setMidpoint(Vec2(0, 0));
 	bg->setBarChangeRate(Vec2(1, 0));
 	addChild(bg, 0, kTagFrezzebg);
-	bg->setPosition(480,270);
+	bg->setPosition(480, 270);
 	bg->runAction(ProgressTo::create(2, 100));
 
-	auto aniSp = ProgressTimer::create(Sprite::create("ani/TX_DongJie/TX_qpdj_1.png"));
+	auto aniSp = ProgressTimer::create(Sprite::create("game/ui/ani/TX_DongJie/TX_qpdj_1.png"));
 	aniSp->setType(ProgressTimer::Type::BAR);
 	aniSp->setMidpoint(Vec2(0, 0));
 	aniSp->setBarChangeRate(Vec2(1, 0));
-	bg->addChild(aniSp);
-	aniSp->setPosition(282, 412);
+	aniSp->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	aniSp->setPosition(Vec2(aniSp->getContentSize().width*0.4,150));
+	turret->addChild(aniSp);
+
 	aniSp->runAction(Sequence::create(ProgressTo::create(1, 100), CallFunc::create([=]{
 		auto anisp = Sprite::create();
 		anisp->setPosition(aniSp->getPosition());
-		bg->addChild(anisp);
+		turret->addChild(anisp, 0, "freezetxt");
 		anisp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniTXTdj")));
 		aniSp->removeFromParentAndCleanup(1);
-			
+
 	}
 	), nullptr));
-	
 }
 
-void GameLayer::onFreezeEnd()
+void GameLayer::onFreezeEnd(PlayerTurret*turret)
 {
 	scheduleUpdate();
 	getChildByTag(kTagFrezzebg)->removeFromParentAndCleanup(1);
+	turret->getChildByName("freezetxt")->removeFromParentAndCleanup(1);
 }
 
 void GameLayer::onClearFish()
@@ -610,7 +659,7 @@ void GameLayer::onClearFish()
 
 	auto lang = Sprite::create("wave.png");
 	lang->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-	lang->setPosition(960, 270);
+	lang->setPosition(1100, 270);
 	lang->runAction(Sequence::create(MoveTo::create(10, Vec2(-300, 270)), CallFunc::create([&]{ unschedule(schedule_selector(GameLayer::onClearFishUpdata)); getChildByName("yuchaotxt")->removeFromParentAndCleanup(1); FishManage::getInstance()->cleanVector(); }), RemoveSelf::create(), nullptr));
 	addChild(lang, kZorderFish+1, "lang");
 	schedule(schedule_selector(GameLayer::onClearFishUpdata), 0, CC_REPEAT_FOREVER, 0);
@@ -623,6 +672,7 @@ void GameLayer::onClearFishUpdata(float dt)
 	if (node)
 	{
 		auto rect = node->getBoundingBox();
+		rect.setRect(rect.origin.x,rect.origin.y-200, rect.size.width, rect.size.height + 400);
 		auto vec = FishManage::getInstance()->getAllFishInPool();
 		Vector<Fish*> needRemove;
 		for (auto var:vec)
@@ -678,3 +728,29 @@ void GameLayer::onGetReward(int itemid, int num)
 
 }
 
+
+void GameLayer::onGetRewardByfish(PlayerTurret*turrent, Fish*fish, int itemid, int num)
+{
+	Sprite*sp;
+	if (itemid ==1002)
+	{
+		sp = Sprite::create("bigDiamond.png");
+		auto ani = Sprite::create("dropLightRorate.png");
+		ani->setPosition(sp->getContentSize() / 2);
+		sp->addChild(ani, -1);
+		ani->runAction(RepeatForever::create(RotateBy::create(5.0, 360)));
+	}
+	else
+	{
+		auto str = String::createWithFormat("sign_%d.png", itemid);
+		sp = Sprite::create(str->getCString());
+	}
+	sp->setPosition(fish->getPosition());
+	sp->setScale(0);
+	addChild(sp,10);
+	sp->runAction(Sequence::create(Spawn::create(MoveBy::create(0.5f, Vec2(30, 30)), ScaleTo::create(0.5f, 1.0f), nullptr), EaseExponentialIn::create(MoveTo::create(1.0f, turrent->getCoinLabelPos())), CallFunc::create([=]
+	{
+		BagManager::getInstance()->addreward(itemid, num);
+	}), RemoveSelf::create(1), nullptr));
+
+}

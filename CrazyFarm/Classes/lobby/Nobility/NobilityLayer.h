@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "NobilityLayer.h"
+#include "utill/FunUtil.h"
 USING_NS_CC;
 
 class NobilityLayer : public Layer
@@ -16,5 +17,6 @@ private:
 	LabelAtlas* dayTTF;
 	MenuItemImage* quickpay;
 	CC_SYNTHESIZE(int, m_eventPoint, EventPoint);
+	unsigned long lastTouchTime;
 };
 

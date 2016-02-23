@@ -157,7 +157,7 @@ void ShowSkillLayer::quedingcallback(Ref*)
 	else
 	{
 		auto diamond = User::getInstance()->getDiamonds();
-		if (diamond>=price)
+		if (diamond>=200)
 		{
 			auto layer = TwiceSureBuySkill::createTwiceBuySkillTip(m_itemId);
 			layer->setPosition(0,0);

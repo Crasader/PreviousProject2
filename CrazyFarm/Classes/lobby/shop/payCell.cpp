@@ -80,11 +80,22 @@ void PayCell::setVipValue()
 
 void PayCell::IsBeToued()
 {
-	if (GameData::getInstance()->getisOnPay())
+
+	if (lastTouchTime==0)
 	{
-		return;
+		
 	}
-	GameData::getInstance()->setisOnPay(true);
+	else
+	{
+		auto nowTime = getCurrentTime();
+		if (nowTime-lastTouchTime<1000)
+		{
+			return;
+		}
+	}
+	lastTouchTime = getCurrentTime();
+
+	log("touch the pay");
 	auto level =  ConfigVipLevel::getInstance()->getVipLevel(User::getInstance()->getVipLevel());
 	auto tableview = getParent()->getParent()->getParent();
 	auto viewdelegate = ((MyTableView*)tableview)->getDelegate();
@@ -112,8 +123,10 @@ void PayCell::IsBeToued()
 			}
 			else
 			{
-				auto node = (payView*)getParent();
-				int shoptype = node->getShopType();
+
+				auto node = (MyTableView*)(getParent()->getParent()->getParent());
+				auto delegate =(payView*)( node->getDelegate());
+				int shoptype = delegate->getShopType();
 				if (shoptype ==1)
 				{
 					layer->setEventPoint(22);

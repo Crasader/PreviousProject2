@@ -24,3 +24,15 @@ bool CollisionUtill::isCollisionCircle(std::vector<CFigure*> figures, CCircle ci
 	}
 	return false;
 }
+
+bool CollisionUtill::isCollisionPoint(std::vector<CFigure*> figures, Point pos)
+{
+	for (auto var : figures)
+	{
+		if (var->intersectsPoint(pos))
+		{
+			return true;
+		}
+	}
+	return false;
+}

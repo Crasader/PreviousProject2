@@ -59,12 +59,17 @@ bool ConfigFish::LoadConfig() {
 			}
             
             fish.probability = (val["probability"].GetDouble());
+
             fish.baseRewardStart = val["baseReward"]["start"].GetInt();
 			fish.baseRewardEnd = val["baseReward"]["end"].GetInt();
+	
+
             fish.maxHitTime = val["maxHitTime"].GetInt();
             fish.protectedTime = val["protectedTime"].GetInt();
             fish.uiId = val["ui_id"].GetInt();
             fish.catch_ui_type = val["catch_ui_type"].GetInt();
+
+
             fish.exp = val["exp"].GetInt();
             fish.bonus_pool_reward = val["bonus_pool_reward"].GetInt();
             fish.be_hit_logic = val["be_hit_logic"].GetInt();

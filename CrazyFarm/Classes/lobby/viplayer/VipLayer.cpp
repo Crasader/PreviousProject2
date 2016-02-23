@@ -4,12 +4,13 @@
 #include "widget/MyTableView.h"
 #include "utill/Chinese.h"
 #include "lobby/shop/payLayer.h"
+#include "domain/logevent/LogEventPageChange.h"
 
 void VIPView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
 Size VIPView::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx){
-	return CCSizeMake(230, 400);
+	return CCSizeMake(220, 400);
 }
 cocos2d::extension::TableViewCell* VIPView::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx){
 	VipCell *cell = (VipCell*)table->dequeueCell();
@@ -59,7 +60,7 @@ Scene* VIPLayer::createScene()
 
 bool VIPLayer::init()
 {
-	if ( !Layer::init() )
+	if ( !BaseLayer::init() )
 	{
 		return false;
 	}
@@ -68,10 +69,7 @@ bool VIPLayer::init()
 	{
 		tableviewDelegate = new VIPView();
 		Size visibleSize = Director::getInstance()->getVisibleSize();
-		auto colorlayer = LayerColor::create();
-		colorlayer->setColor(ccc3(0, 0, 0));
-		colorlayer->setOpacity(180);
-		addChild(colorlayer, -1);
+	
 		auto bg = Sprite::create("VIP_di.png");
 		bg->setPosition(visibleSize / 2);
 		addChild(bg);
@@ -84,7 +82,8 @@ bool VIPLayer::init()
 	
 
 
-	
+
+
 		
 
 		auto VipExpFram = Sprite::create("VIP_exp.png");
@@ -132,20 +131,41 @@ bool VIPLayer::init()
 		expPercentLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 
 		auto chinaword = ChineseWord("VIPdes");
-		auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
+		auto strdec = String::createWithFormat(chinaword.c_str());
 		auto ttf = LabelTTF::create(strdec->getCString(), "Airal", 20);
 		ttf->setColor(Color3B::YELLOW);
 		ttf->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		ttf->setPosition(80, visibleSize.height*0.1);
+		ttf->setPosition(95, visibleSize.height*0.1);
 		addChild(ttf);
 
 
 		
+		auto attention = Sprite::create("attention.png");
+		attention->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		attention->setPosition(80, visibleSize.height*0.1);
+		addChild(attention);
 
+		///, nextVip.charge_money - nowChargeMoney, nextVip.vip_level
+		auto needPayMoney = LabelAtlas::create(Value(nextVip.charge_money - nowChargeMoney).asString(), "multipleNum.png", 15, 21, '0');
+		needPayMoney->setPosition(177, visibleSize.height*0.1);
+		needPayMoney->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		addChild(needPayMoney);
 
+		auto vipSp = Sprite::create("VIPtxt.png");
+		vipSp->setPosition(363, visibleSize.height*0.1);
+		
+		addChild(vipSp);
 
+		auto VIPLvTTF = LabelAtlas::create(Value(nextVip.vip_level).asString(), "VIPnum.png", 31, 43, '0');
+		VIPLvTTF->setAnchorPoint(Point::ZERO);
+		VIPLvTTF->setPosition(Point(vipSp->getContentSize().width, 0));
+		vipSp->addChild(VIPLvTTF);
+		vipSp->setScale(0.6);
 
-
+		attention = Sprite::create("attention.png");
+		attention->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		attention->setPosition(412, visibleSize.height*0.1);
+		addChild(attention);
 
 
 		//tableview
@@ -156,7 +176,7 @@ bool VIPLayer::init()
 		tableView->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(tableView);
 		tableView->reloadData();
-		tableView->setContentOffset(Vec2(nowVip*-230, 0));
+		tableView->setContentOffset(Vec2(nowVip*-210, 0));
 
 
 	
@@ -178,6 +198,10 @@ bool VIPLayer::init()
 		addChild(menu);
 
 
+
+
+
+
 	//添加系统返回键监听
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
@@ -197,6 +221,8 @@ bool VIPLayer::init()
 	} while (0);
 	
 
+
+
 	return bRet;
 }
 
@@ -212,4 +238,5 @@ void VIPLayer::chankanCallBack(Ref*pesend)
 	layer->setEventPont(21);
 	getParent()->addChild(layer,20);
 	removeFromParentAndCleanup(1);
+	LogEventPageChange::getInstance()->addEventItems(9, 13,0 );
 }

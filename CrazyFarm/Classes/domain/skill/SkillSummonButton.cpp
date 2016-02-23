@@ -1,6 +1,7 @@
 #include "SkillSummonButton.h"
 #include "domain/bag/BagManager.h"
 #include "data/GameData.h"
+#include "domain/game/GameManage.h"
 SkillSummonButton* SkillSummonButton::createSkillSummonButton()
 {
 
@@ -25,7 +26,7 @@ void SkillSummonButton::skillClickCallBack(Ref* obj)
 	if (JudgeUseSkill())
 	{
 		SkillButton::skillClickCallBack(obj);
-		skillManager::getInstance()->useSkillSummon();
+		skillManager::getInstance()->useSkillSummon(GameManage::getInstance()->getGameLayer()->GetMyTurret());
 	}
 }
 

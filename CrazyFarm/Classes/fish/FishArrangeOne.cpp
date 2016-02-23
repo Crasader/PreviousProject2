@@ -22,7 +22,7 @@ void FishArrangeOne::initFishAnim(int fishID)
 	sp1->addChild(maggiceff, -1);
 	pushBackFigureVec(id, Point(0, 0));
 	
-
+	centerPos =sp1->getContentSize() / 2;
 	//¸±Óã
 	int randarray1[6] = { 2,3,4,7,8,9 };
 	id = randarray1[rand() % 6];
@@ -54,3 +54,4 @@ void FishArrangeOne::initFishAnim(int fishID)
 	sp->addChild(maggiceff, -1);
 
 }
+

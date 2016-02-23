@@ -14,6 +14,8 @@ private:
 	Sprite* sLight;
 	Sprite*tipTxt;
 	LayerColor*colorlayer;
+	EventListenerTouchOneByOne* listenr1;
 	virtual bool onTouchBegan(Touch *pTouch, Event *pEvent);
+	bool istouched = false;
 };
 

@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "lobby/viplayer/VipCell.h"
+#include "widget/BaseLayer.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 
@@ -35,7 +36,7 @@ private:
 
 
 
-class VIPLayer : public cocos2d::Layer
+class VIPLayer : public BaseLayer
 {
 public:
     static cocos2d::Scene* createScene();

@@ -1,6 +1,8 @@
 #include "SkillFreezeButton.h"
 #include "domain/bag/BagManager.h"
 #include "data/GameData.h"
+#include "turret/PlayerTurret.h"
+#include "domain/game/GameManage.h"
 SkillFreezeButton* SkillFreezeButton::createSkillFreezeButton()
 {
 	SkillConfigInfo info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(1);
@@ -25,7 +27,7 @@ void SkillFreezeButton::skillClickCallBack(Ref* obj)
 	if (JudgeUseSkill())
 	{
 		SkillButton::skillClickCallBack(obj);
-		skillManager::getInstance()->useSkillFreeze();
+		skillManager::getInstance()->useSkillFreeze(GameManage::getInstance()->getGameLayer()->GetMyTurret());
 	}
 
 }
@@ -34,6 +36,6 @@ void SkillFreezeButton::skillClickCallBack(Ref* obj)
 void SkillFreezeButton::skillCoolDownCallBack()
 {
 	SkillButton::skillCoolDownCallBack();
-	skillManager::getInstance()->useSkillFreezeEnd();
+	
 }
 

@@ -294,12 +294,14 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\utill\CircleMoveTo.cpp" />
     <ClCompile Include="..\Classes\utill\CMyrect.cpp" />
     <ClCompile Include="..\Classes\utill\CollisionUtill.cpp" />
+    <ClCompile Include="..\Classes\utill\CShake.cpp" />
     <ClCompile Include="..\Classes\utill\dayUtil.cpp" />
     <ClCompile Include="..\Classes\utill\FunUtil.cpp" />
     <ClCompile Include="..\Classes\utill\JniFunUtill.cpp" />
     <ClCompile Include="..\Classes\utill\MagicEffect.cpp" />
     <ClCompile Include="..\Classes\utill\SkillButton.cpp" />
     <ClCompile Include="..\Classes\utill\Toast.cpp" />
+    <ClCompile Include="..\Classes\widget\BaseLayer.cpp" />
     <ClCompile Include="..\Classes\widget\GiftCell.cpp" />
     <ClCompile Include="..\Classes\widget\LightEffect.cpp" />
     <ClCompile Include="..\Classes\widget\MyDialog.cpp" />
@@ -468,6 +470,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\utill\CircleMoveTo.h" />
     <ClInclude Include="..\Classes\utill\CMyrect.h" />
     <ClInclude Include="..\Classes\utill\CollisionUtill.h" />
+    <ClInclude Include="..\Classes\utill\CShake.h" />
     <ClInclude Include="..\Classes\utill\dayUtil.h" />
     <ClInclude Include="..\Classes\utill\define.h" />
     <ClInclude Include="..\Classes\utill\FunUtil.h" />
@@ -475,6 +478,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\utill\MagicEffect.h" />
     <ClInclude Include="..\Classes\utill\SkillButton.h" />
     <ClInclude Include="..\Classes\utill\Toast.h" />
+    <ClInclude Include="..\Classes\widget\BaseLayer.h" />
     <ClInclude Include="..\Classes\widget\GiftCell.h" />
     <ClInclude Include="..\Classes\widget\LightEffect.h" />
     <ClInclude Include="..\Classes\widget\MyDialog.h" />

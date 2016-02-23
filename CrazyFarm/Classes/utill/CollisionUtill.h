@@ -9,6 +9,7 @@ class CollisionUtill
 public:
 	static bool isCollisionRect(std::vector<CFigure*> figures, Rect rect);
 	static bool isCollisionCircle(std::vector<CFigure*> figures, CCircle circle);
+	static bool isCollisionPoint(std::vector<CFigure*> figures, Point pos);
 };
 
 

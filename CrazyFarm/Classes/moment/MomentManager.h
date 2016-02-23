@@ -18,6 +18,8 @@ public:
     static MomentManager* getInstance();
     
 	Moment* getNewMoment(float FFOneTime);//是否快进某个时间
+
+	Moment* getNewMomentByType(int momentType, float FFOneTime);
 private:
     MomentManager();
     void init();
@@ -35,7 +37,7 @@ private:
 
     int currentPos = 0;
     
-	Moment* getNewMomentByType(int momentType,float FFOneTime);
+	
     int getCurrentType();
 	int nowMomentType  = -1;
     

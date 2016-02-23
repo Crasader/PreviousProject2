@@ -22,7 +22,7 @@ void LogEventMannger::sendMsg()
 	LogEventFish::getInstance()->sendDataToServer();
 	LogEventMagnate::getInstance()->sendDataToServer();
 	LogEventUseSkill::getInstance()->sendDataToServer();
-	LogEventPageChange::getInstance()->sendDataToServer();
+	//LogEventPageChange::getInstance()->sendDataToServer();
 	LogEventSpcEvent::getInstance()->sendDataToServer();
 	LogEventConsume::getInstance()->sendDataToServer();
 }

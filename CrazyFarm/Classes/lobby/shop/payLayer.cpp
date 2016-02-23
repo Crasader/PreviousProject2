@@ -150,17 +150,13 @@ payLayer * payLayer::createLayer(int payType)
 
 bool payLayer::init(int payType)
 {
-	if ( !Layer::init() )
+	if ( !BaseLayer::init())
 	{
 		return false;
 	}
 	bool bRet = false;
 	do 
 	{
-		auto colorlayer = LayerColor::create();
-		colorlayer->setColor(ccc3(0, 0, 0));
-		colorlayer->setOpacity(180);
-		addChild(colorlayer,-1);
 		tableviewDelegate = new payView();
 		tableviewDelegate->setShopType(payType);
 		Size visibleSize = Director::getInstance()->getVisibleSize();

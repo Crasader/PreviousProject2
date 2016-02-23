@@ -95,7 +95,7 @@ void UpgradeSureDialog::sureButtonCallBack(Ref*psend)
 		removeFromParentAndCleanup(1);
 		for (auto var : m_levelRewardItems)
 		{
-			BagManager::getInstance()->changeItemCount(var.item_id, var.num);
+			BagManager::getInstance()->addreward(var.item_id, var.num);
 		}
 	}
 	), nullptr));
