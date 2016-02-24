@@ -9,6 +9,7 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "utill/Chinese.h"
 #include "data/GameData.h"
+#include "domain/game/GameManage.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
 
 Pay* Pay::_instance = NULL;
@@ -64,7 +65,7 @@ void Pay::payCallBack(int code, const char* msg)
 	auto info = PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id);
 	if (code == 0||code==201)
 	{
-		
+		int lastlv = User::getInstance()->getVipLevel();
 		//���ߴ���
 		for (auto var:info.items)
 		{
@@ -101,6 +102,17 @@ void Pay::payCallBack(int code, const char* msg)
 		payResult = 1;
 		
 		
+
+		///VIP升级
+		int nowlv = User::getInstance()->getVipLevel();
+		if (nowlv>lastlv)
+		{
+			auto layer = GameManage::getInstance()->getGameLayer();
+			if (layer)
+			{
+				layer->RefreShmyPlayerTurret();
+			}
+		}
 	}
 	else
 	{

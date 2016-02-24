@@ -24,12 +24,12 @@ SkillFreezeButton* SkillFreezeButton::createSkillFreezeButton()
 /** 技能按钮点击回调 */
 void SkillFreezeButton::skillClickCallBack(Ref* obj)
 {
-	if (JudgeUseSkill())
-	{
-		SkillButton::skillClickCallBack(obj);
-		skillManager::getInstance()->useSkillFreeze(GameManage::getInstance()->getGameLayer()->GetMyTurret());
-	}
-
+	//if (JudgeUseSkill())
+	//{
+	//	SkillButton::skillClickCallBack(obj);
+	//	skillManager::getInstance()->useSkillFreeze(GameManage::getInstance()->getGameLayer()->GetMyTurret());
+	//}
+	useSkill();
 }
 
 /** 技能冷却完成回调 */

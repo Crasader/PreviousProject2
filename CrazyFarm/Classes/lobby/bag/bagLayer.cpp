@@ -340,7 +340,7 @@ bool BagLayer::init()
 
 
 
-		//교관
+		//교관 tableviewBUg
 		tableView = MyTableView::create(tableviewDelegate, baginfoFram->getContentSize());
 		tableView->setAnchorPoint(Point::ZERO);
 		tableView->setDirection(ScrollView::Direction::VERTICAL);
@@ -349,7 +349,7 @@ bool BagLayer::init()
 		tableView->setDelegate(tableviewDelegate);
 		baginfoFram->addChild(tableView);
 		tableView->reloadData();
-
+		
 		schedule(schedule_selector(BagLayer::refreshCoinLabel),0);
 
 

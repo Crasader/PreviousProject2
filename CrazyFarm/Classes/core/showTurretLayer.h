@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "core/showTurretCell.h"
+
 USING_NS_CC;
 USING_NS_CC_EXT;
 
@@ -19,6 +20,7 @@ public:
 	virtual ssize_t numberOfCellsInTableView(cocos2d::extension::TableView *table);
 private:
 	CC_SYNTHESIZE(int, nViewTp, viewTp);
+	CC_SYNTHESIZE(std::vector<int>, m_viewData,viewData);
 
 };
 

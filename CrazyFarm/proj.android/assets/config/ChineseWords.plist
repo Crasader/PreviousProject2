@@ -21,10 +21,10 @@
   
   
     <key>haveCoin</key>
-  <string>拥有金币：</string>
+  <string>拥有金币</string>
   
   <key>haveExp</key>
-  <string>累计经验：</string>
+  <string>累计经验</string>
      <key>wopaizaiXXming</key>
   <string>我排在                      名</string>
   
@@ -39,11 +39,11 @@
   <string> 单价：%d钻石/个</string>
   
   <key>jiangliwupin</key>
-  <string>奖励物品</string>
+  <string>角色等级不够，无法领取</string>
   
   
      <key>bySkillNeedVIP</key>
-  <string>购买条件：需要VIP%d级且炮塔解锁等级达到300级</string>
+  <string>购买条件：需要VIP%d级</string>
   
      <key>bySkillNoNeedVIP</key>
   <string>购买条件：需要炮塔解锁等级达到300级</string>
@@ -54,8 +54,12 @@
   <key>bySkillNoNeedTurrentTIP</key>
   <string>请先用钻石解锁300级炮才可使用钻石购买</string>
   
+  <key>bySkillNoNeedTurrentTIPEx</key>
+  <string>请先用钻石解锁%d级炮才可使用钻石购买</string>
+  
+  
   <key>lackOfdiamond</key>
-  <string>您的钻石不足200，是否充值</string>
+  <string>您的钻石不足200（%s 200钻石%d个），是否充值</string>
   
    <key>propName_1003</key>
   <string>道具名称：冰冻</string>
@@ -74,11 +78,17 @@
   <string>道具价格：%d钻石</string>
   
   
-  <key>firstBox</key>
+  <key>TXTBox_1009</key>
+  <string>青铜圣衣加身,捕鱼概率提升%f％</string>
+  <key>TXTBox_1010</key>
+  <string>白银圣衣加身,捕鱼概率提升%f％</string>
+  <key>TXTBox_1011</key>
   <string>黄金圣衣加身,捕鱼概率提升%f％</string>
   
+  
+  
   <key>nextBox</key>
-  <string>获得%d万金币数量</string>
+  <string>获得%d万金币</string>
   
     <key>coinBox</key>
   <string>获得?万金币数量</string>
@@ -99,7 +109,7 @@
   
   
   <key>ChangeGiftTxt</key>
-  <string>已拥有徽章    枚，请选择你要兑换的商品</string>
+  <string>已拥有勋章         枚,请选择你要兑换的商品</string>
   
   <key>paySuccess</key>
   <string>恭喜你充值成功!</string>
@@ -111,6 +121,19 @@
    <key>netTimeOut</key>
   <string>网络连接失败</string>
   
+  <key>changeGiftLackMedal</key>
+  <string>您的勋章不足300个，游戏中捕获黄金鱼，累计奖池抽奖，可获得勋章确定按钮</string>
+  
+  <key>changeGiftOverMedal</key>
+  <string>捕获黄金鱼累计奖池可以抽奖，获得更多勋章，官方有权对作弊行为进行处罚</string>
+  
+  
+    <key>havenoSkillIsToBuy</key>
+  <string>没有免费技能次数，是否消耗钻石使用道具？</string>
+   <key>nextWithOutRemind</key>
+  <string>以后不再提醒</string>
+    <key>havanoDmToUseskill</key>
+  <string>您的钻石不足，请充值钻石</string>
   </dict> 
 </array>
 </plist>

@@ -110,6 +110,8 @@ private:
 	  int nChairNoIndex = -1;
 	  int nNowMoney;
 	  RoomPlayer* m_robotData;
+
+	  CC_SYNTHESIZE(bool, m_isUsingLight, isUsingLight);
 	  CC_SYNTHESIZE(bool, m_isShowInfo, IsShowInfo);
 	  CC_SYNTHESIZE(Point, targetPos, TargetPos);
 	  Sprite* aniFishLockNode = NULL;

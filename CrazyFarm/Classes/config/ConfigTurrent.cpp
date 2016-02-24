@@ -151,16 +151,33 @@ int   ConfigTurrent::getIndexByMaxlv(int maxlv)
 	return -1;
 }
 
-std::vector<Turrent> ConfigTurrent::getUnUpgradeTurrents()
+std::vector<int> ConfigTurrent::getCurrentShowTurrentIndexs()
 {
-	std::vector<Turrent> vec;
+	std::vector<int> vec;
 	auto maxlv = User::getInstance()->getMaxTurrentLevel();
-	for (auto var : turrents)
+	if (maxlv == 1 || maxlv == 2)
 	{
-		if (var.turrentId>maxlv)
+		for (auto iter = turrents.begin(); iter != turrents.end();iter++)
 		{
-			vec.push_back(var);
+			vec.push_back(getIndexByMaxlv(iter->turrentId));
+			if (vec.size()>=5)
+			{
+				break;
+			}
 		}
+	}
+	else
+	{
+		Turrent turrent3 = getTurrent(maxlv);
+		Turrent turrent2 = getLastTurrent(turrent3.turrentId);
+		Turrent turrent1 = getLastTurrent(turrent2.turrentId);
+		Turrent turrent4 = getNextTurrent(turrent3.turrentId);
+		Turrent turrent5 = getNextTurrent(turrent4.turrentId);
+		vec.push_back(getIndexByMaxlv(turrent1.turrentId));
+		vec.push_back(getIndexByMaxlv(turrent2.turrentId));
+		vec.push_back(getIndexByMaxlv(turrent3.turrentId));
+		vec.push_back(getIndexByMaxlv(turrent4.turrentId));
+		vec.push_back(getIndexByMaxlv(turrent5.turrentId));
 	}
 	return vec;
 }

@@ -286,7 +286,7 @@ void GameGuiLayer::playRandVoice(float dt)
 
 }
 
-void GameGuiLayer::showLockUpdataTurret()
+void GameGuiLayer::showLockUpgradeTurret()
 {
 	sUpgradeTurret->showPopup();
 }

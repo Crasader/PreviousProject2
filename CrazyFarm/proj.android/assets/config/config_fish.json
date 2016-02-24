@@ -337,7 +337,13 @@
 			"catch_ui_type"     :	2,
 			"exp"               :   300,
 			"bonus_pool_reward" :   0,
-			"be_hit_logic"	    :   0
+			"be_hit_logic"	    :   0,
+			"reward_list" :[
+        {
+          "item_id" : 1002,
+          "num"     : 20
+        }
+      ]
 		},
 		{
 			"fish_id"			:	51,
@@ -351,7 +357,13 @@
 			"catch_ui_type"     :	2,
 			"exp"               :   500,
 			"bonus_pool_reward" :   0,
-			"be_hit_logic"	    :   0
+			"be_hit_logic"	    :   0,
+			"reward_list" :[
+        {
+          "item_id" : 1002,
+          "num"     : 20
+        }
+      ]
 		},
 		{
 			"fish_id"			:	52,

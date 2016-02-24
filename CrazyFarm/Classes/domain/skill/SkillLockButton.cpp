@@ -26,11 +26,12 @@ void SkillLockButton::skillClickCallBack(Ref* obj)
 	{
 		nd->removeFromParentAndCleanup(1);
 	}
-	if (JudgeUseSkill())
-	{
-		SkillButton::skillClickCallBack(obj);
-		skillManager::getInstance()->useSkillLock();
-	}
+	//if (JudgeUseSkill())
+	//{
+	//	SkillButton::skillClickCallBack(obj);
+	//	skillManager::getInstance()->useSkillLock();
+	//}
+	useSkill();
 }
 
 /** 技能冷却完成回调 */

@@ -22,6 +22,8 @@ bool Fish::init(){
 	setisAutoRemove(true);
 	aniEmptyNode = Node::create();
 	addChild(aniEmptyNode);
+	setTargeLightTurret(nullptr);
+	setTargeLockTurret(nullptr);
 	return true;
 }
 
@@ -238,29 +240,31 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 }
 
 
-void Fish::onLockShoot()
+void Fish::onLockShoot(PlayerTurret*turret)
 {
 	auto aniFishLockNode = Sprite::create();
 	aniFishLockNode->setPosition(centerPos);
 	addChild(aniFishLockNode,1,"lockani");
 	aniFishLockNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniFishLock")));
+	setTargeLockTurret(turret);
 }
 void Fish::stopLockShoot()
 {
 	auto node = getChildByName("lockani");
 	if (node)
 	{
-		node->removeAllChildrenWithCleanup(1);
+		node->removeFromParentAndCleanup(1);
 	}
-	
+	setTargeLockTurret(nullptr);
 }
 
-void Fish::onLightShoot()
+void Fish::onLightShoot(PlayerTurret*turret)
 {
 	auto aniFishLightNode = Sprite::create();
 	aniFishLightNode->setPosition(centerPos);
-	addChild(aniFishLightNode,-1,"lightani");
+	addChild(aniFishLightNode,0,"lightani");
 	aniFishLightNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniDianQiu")));
+	setTargeLightTurret(turret);
 
 }
 void Fish::stopLightShoot()
@@ -268,8 +272,9 @@ void Fish::stopLightShoot()
 	auto node = getChildByName("lightani");
 	if (node)
 	{
-		node->removeAllChildrenWithCleanup(1);
+		node->removeFromParentAndCleanup(1);
 	}
+	setTargeLightTurret(nullptr);
 }
 
 
@@ -495,6 +500,8 @@ void Fish::onFreezeResume()
 
 void Fish::onDead()
 {
+	stopLightShoot();
+	stopLockShoot();
 	stopAllActions();
 	unscheduleAllCallbacks();
 	auto acName = String::createWithFormat("dead_%d", nUiID);

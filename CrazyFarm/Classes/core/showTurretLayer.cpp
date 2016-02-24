@@ -2,14 +2,14 @@
 #include "widget/MyTableView.h"
 #include "showTurretCell.h"
 #include "config/ConfigVipTurrent.h"
-#include "config/ConfigTurrent.h"
 #include "lobby/shop/payLayer.h"
 #include "domain/user/User.h"
+#include "config/ConfigTurrent.h"
 void showTurretView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
 Size showTurretView::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx){
-	return CCSizeMake(194, 260);
+	return CCSizeMake(170, 260);
 }
 cocos2d::extension::TableViewCell* showTurretView::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx){
 	showTurretCell *cell = (showTurretCell*)table->dequeueCell();
@@ -27,18 +27,18 @@ cocos2d::extension::TableViewCell* showTurretView::tableCellAtIndex(cocos2d::ext
 	}
 	else if (nViewTp == 2)
 	{
-		cell->setMultipleValue(idx+1);
+		cell->setMultipleValue(m_viewData[idx]);
 	}
 	return cell;
 }
 ssize_t showTurretView::numberOfCellsInTableView(cocos2d::extension::TableView *table){
 	if (nViewTp==1)
 	{
-		return  ConfigVipTurrent::getInstance()->getVipTurrents().size();
+		return  ConfigVipTurrent::getInstance()->getVipTurrents().size()-1;
 	}
 	else if (nViewTp==2)
 	{
-		return ConfigTurrent::getInstance()->getTurrent().size()-1;
+		return 5;
 	}
 	else
 	{
@@ -90,6 +90,10 @@ bool showTurretLayer::init(int type)
 		m_type = type;
 		tableviewDelegate = new showTurretView();
 		tableviewDelegate->setviewTp(type);
+		if (type==2)
+		{
+			tableviewDelegate->setviewData(ConfigTurrent::getInstance()->getCurrentShowTurrentIndexs());
+		}
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		auto colorlayer = LayerColor::create();
 		colorlayer->setColor(ccc3(0, 0, 0));
@@ -110,16 +114,21 @@ bool showTurretLayer::init(int type)
 
 		
 		//tableview
-		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(810,260)
+		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(860,260)
 			);
 		tableView->setDirection(ScrollView::Direction::HORIZONTAL);
-		tableView->setPosition(70,140);
+		tableView->setPosition(60,140);
 		tableView->setDelegate(tableviewDelegate);
 		addChild(tableView);
 		tableView->reloadData();
 		if (type == 2)
 		{
-			tableView->setContentOffset(Vec2(ConfigTurrent::getInstance()->getIndexByMaxlv(User::getInstance()->getMaxTurrentLevel())*-194, 0));
+			int index = ConfigTurrent::getInstance()->getIndexByMaxlv(User::getInstance()->getMaxTurrentLevel());
+			if (index>2)
+			{
+				/*tableView->setContentOffset(Vec2((index-3)*-170, 0));*/
+			}
+			
 		}
 
 

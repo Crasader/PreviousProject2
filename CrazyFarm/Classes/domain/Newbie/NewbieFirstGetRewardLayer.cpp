@@ -20,7 +20,7 @@ bool NewbieFirstGetRewardLayer::init()
 		box->setPosition(480, 254);
 		addChild(box);
 		box->setRotation(-0.3);
-		auto ac = Sequence::create(RotateTo::create(0.05, 3), RotateTo::create(0.05, -3), RotateTo::create(0.05, 3), RotateTo::create(0.05, -3), DelayTime::create(0.5f), nullptr);
+		auto ac = Sequence::create(RotateTo::create(0.05, 3), RotateTo::create(0.05, -3), RotateTo::create(0.05, 3), RotateTo::create(0.05, -3), RotateTo::create(0.025, 0), DelayTime::create(0.5f), nullptr);
 		box->runAction(RepeatForever::create(ac));
 
 		sPoint = Sprite::create("yellowSpoint.png");

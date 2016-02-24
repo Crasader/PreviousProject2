@@ -92,7 +92,7 @@ bool GameLayer::init(){
 	GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
 	GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
 
-
+	showYourChairno();
 	if (!NewbieMannger::getInstance()->getisOverTeachMode())
 	{
 		myTurret->showPlayerInfo();
@@ -102,7 +102,7 @@ bool GameLayer::init(){
 
 	}
 	
-
+	skillManager::getInstance()->init();
 
 
 	auto node = BankruptManager::getInstance()->getgetRewardNode();
@@ -133,7 +133,22 @@ bool GameLayer::init(){
 }
 
 
+void GameLayer::showYourChairno()
+{
+	auto sp = Sprite::create("TXTYourChairno.png");
+	sp->setPosition(myTurret->getPosition() + Vec2(0, 50));
+	addChild(sp, 20);
+	sp->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
+	sp->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(), nullptr));
 
+	auto pos = myTurret->getPosition() + Vec2(0, 100);
+	auto sPoint = Sprite::create("yellowSpoint.png");
+	sPoint->setPosition(pos);
+	addChild(sPoint, 20);
+	sPoint->runAction(RepeatForever::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.6f, Vec2(0, 30))), EaseSineOut::create(MoveBy::create(0.6f, Vec2(0, -30))), nullptr)));
+
+	sPoint->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(), nullptr));
+}
 
 
 void GameLayer::createFish(float dt){
@@ -243,19 +258,7 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	if (node)
 	{
 		node->removeFromParentAndCleanup(1);
-		auto sp = Sprite::create("TXTYourChairno.png");
-		sp->setPosition(myTurret->getPosition() + Vec2(0, 50));
-		addChild(sp,20);
-		sp->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
-		sp->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(), nullptr));
-
-		auto pos = myTurret->getPosition() + Vec2(0,100);
-		auto sPoint = Sprite::create("yellowSpoint.png");
-		sPoint->setPosition(pos);
-		addChild(sPoint,20);
-		sPoint->runAction(RepeatForever::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.6f, Vec2(0, 30))), EaseSineOut::create(MoveBy::create(0.6f, Vec2(0, -30))), nullptr)));
-
-		sPoint->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(), nullptr));
+		
 
 		NewbieMannger::getInstance()->setisOverTeachMode(1);
 	}
@@ -296,6 +299,11 @@ bool GameLayer::lockTouchEvent(Touch *touch, Event  *event)
 	if (onTouTurret(touchPos))
 	{
 		return false;
+	}
+	auto node = getChildByName("TXTTip");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
 	}
 	removePlayerInfo();
 	auto fish = FishManage::getInstance()->getFishByPosInPool(touchPos);
@@ -454,6 +462,11 @@ bool GameLayer::lightTouchEvent(Touch *touch, Event *event)
 	{
 		return false;
 	}
+	auto node = getChildByName("TXTTip");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+	}
 	removePlayerInfo();
 	auto fish = FishManage::getInstance()->getFishByPosInPool(touchPos);
 	if (fish)
@@ -476,7 +489,11 @@ void GameLayer::endLight()
 {
 	myTurret->endLightShoot();
 	changeTouchFunByTouchType(m_lasttouchType);
-	getChildByName("TXTTip")->removeFromParentAndCleanup(1);
+	auto node = getChildByName("TXTTip");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+	}
 }
 
 void GameLayer::beginLock()
@@ -493,7 +510,11 @@ void GameLayer::endLock()
 {
 	myTurret->endLockShoot();
 	changeTouchFunByTouchType(m_lasttouchType);
-	getChildByName("TXTTip")->removeFromParentAndCleanup(1);
+	auto node = getChildByName("TXTTip");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+	}
 }
 
 void GameLayer::beginSkillBoom()
@@ -544,8 +565,15 @@ bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
 	auto sp = Sprite::create("sign_1006.png");
 	sp->setPosition(myTurret->getPosition());
 	sp->runAction(Sequence::create(Spawn::create(ScaleTo::create(0.13f, 1), MoveTo::create(0.13f, pos), nullptr), RemoveSelf::create(), CallFunc::create([=]{
+		auto boombg = Sprite::create("boomBg.png");
+		boombg->setPosition(pos);
+		boombg->setScale(2);
+		addChild(boombg);
+		boombg->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));
+
 		auto anisp = Sprite::create();
 		anisp->setPosition(pos);
+		anisp->setScale(2);
 		addChild(anisp);
 		onBoomCatchFish(pos);
 		anisp->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniTXTBoom"),RemoveSelf::create(),nullptr));
@@ -625,7 +653,6 @@ bool GameLayer::AutoShootTouchEvent(Touch *touch, Event *event)
 void GameLayer::useFreeze(PlayerTurret*turret)
 {
 	unscheduleUpdate();
-	stopAllActions();
 	auto bg = ProgressTimer::create(Sprite::create("iceFram4.jpg"));
 	bg->setType(ProgressTimer::Type::BAR);
 	bg->setMidpoint(Vec2(0, 0));
@@ -655,7 +682,7 @@ void GameLayer::useFreeze(PlayerTurret*turret)
 
 void GameLayer::onFreezeEnd(PlayerTurret*turret)
 {
-	resumeSchedulerAndActions();
+	scheduleUpdate();
 	getChildByTag(kTagFrezzebg)->removeFromParentAndCleanup(1);
 	turret->getChildByName("freezetxt")->removeFromParentAndCleanup(1);
 }
@@ -672,7 +699,7 @@ void GameLayer::onClearFish()
 	lang->runAction(Sequence::create(MoveTo::create(10, Vec2(-300, 270)), CallFunc::create([&]{ unschedule(schedule_selector(GameLayer::onClearFishUpdata)); getChildByName("yuchaotxt")->removeFromParentAndCleanup(1); FishManage::getInstance()->cleanVector(); }), RemoveSelf::create(), nullptr));
 	addChild(lang, kZorderFish+1, "lang");
 	schedule(schedule_selector(GameLayer::onClearFishUpdata), 0, CC_REPEAT_FOREVER, 0);
-	Audio::getInstance()->playSound("CLEARFISH");
+	Audio::getInstance()->playSound(CLEARFISH);
 }
 
 void GameLayer::onClearFishUpdata(float dt)

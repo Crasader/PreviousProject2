@@ -144,12 +144,7 @@ void PayCell::IsBeToued()
 	default:
 		break;
 	}
-	auto scene = Director::getInstance()->getRunningScene();
-	auto node = scene->getChildByTag(777);
-	if (node)
-	{
-		((GameLayer*)node)->RefreShmyPlayerTurret();
-	}
+	
 
 
 }

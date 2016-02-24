@@ -54,6 +54,10 @@
   <key>bySkillNoNeedTurrentTIP</key>
   <string>请先用钻石解锁300级炮才可使用钻石购买</string>
   
+  <key>bySkillNoNeedTurrentTIPEx</key>
+  <string>请先用钻石解锁%d级炮才可使用钻石购买</string>
+  
+  
   <key>lackOfdiamond</key>
   <string>您的钻石不足200（%s 200钻石%d个），是否充值</string>
   
@@ -123,6 +127,13 @@
   <key>changeGiftOverMedal</key>
   <string>捕获黄金鱼累计奖池可以抽奖，获得更多勋章，官方有权对作弊行为进行处罚</string>
   
+  
+    <key>havenoSkillIsToBuy</key>
+  <string>没有免费技能次数，是否消耗钻石使用道具？</string>
+   <key>nextWithOutRemind</key>
+  <string>以后不再提醒</string>
+    <key>havanoDmToUseskill</key>
+  <string>您的钻石不足，请充值钻石</string>
   </dict> 
 </array>
 </plist>

@@ -110,7 +110,6 @@ void showTurretCell::setMultipleValue(int index)
 	
 	bg->setTexture("ShowPaobg.png");
 	auto maxlevl = User::getInstance()->getMaxTurrentLevel();
-	auto nextTurret = ConfigTurrent::getInstance()->getNextTurrent(maxlevl);
 	auto turret = ConfigTurrent::getInstance()->getTurrentByIndex(index);
 	auto nowIndex = ConfigTurrent::getInstance()->getIndexByMaxlv(maxlevl);
 	muptleTTF->setString(Value(turret.multiple).asString().c_str());
@@ -154,18 +153,16 @@ void showTurretCell::setMultipleValue(int index)
 		lock->setVisible(true);
 		button->setVisible(true);
 		lockTTf->setVisible(false);
-		ShowPaoshade->setVisible(false);
+		ShowPaoshade->setVisible(true);
 		ShowPaolight->setVisible(false);
 
 		SendCoin->setVisible(true);
 	
-		zengCoinTTf->setVisible(true);
-		zengCoinTTf->setString(Value(turret.rewardList.at(0).num).asString());
-		quex3->setVisible(false);
+		zengCoinTTf->setVisible(false);
+		quex3->setVisible(true);
 		if (nowIndex<(index-3))
 		{
-			zengCoinTTf->setVisible(false);
-			quex3->setVisible(true);
+			
 		}
 		
 	}

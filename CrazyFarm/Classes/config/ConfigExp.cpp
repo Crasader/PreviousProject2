@@ -65,7 +65,7 @@ bool ConfigExp::LoadConfig() {
             }
 			LevelRewardItem levelRewardItem;
 			levelRewardItem.item_id = 1012;
-			levelRewardItem.num = levelExp.level_id;
+			levelRewardItem.num = levelExp.level_id+1;
 			levelExp.levelRewardItems.push_back(levelRewardItem);
             levelExps.push_back(levelExp);
         }

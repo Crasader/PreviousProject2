@@ -13,7 +13,7 @@ PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion) {
         return playerWork;
     }
     
-    if(FishManage::getInstance()->getAllFishInPoolCount() < 20) {
+    if(FishManage::getInstance()->getAllFishInPoolCount() < 5) {
         playerWork.setAngle((float)angle);
         playerWork.setFire(false);
         lastFire = false;

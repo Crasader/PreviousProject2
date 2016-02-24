@@ -141,7 +141,7 @@ bool ShowSkillLayer::onTouchBegan(Touch *touch, Event *unused_event)
 void ShowSkillLayer::quedingcallback(Ref*)
 {
 
-	int isSatisfy = skillManager::getInstance()->isSatisfyBuySkill(skillManager::getInstance()->getSkillInfoByitemId(m_itemId).skill_id);
+	int isSatisfy = skillManager::getInstance()->isSatisfyBuySkillInBag(skillManager::getInstance()->getSkillInfoByitemId(m_itemId).skill_id);
 	auto price = skillManager::getInstance()->getSkillPriceById(skillManager::getInstance()->getSkillInfoByitemId(m_itemId).skill_id);
 	if (isSatisfy == 1)
 	{

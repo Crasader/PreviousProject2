@@ -27,15 +27,19 @@ public:
 	void setEnable(bool isEnable){ mItemSkill->setEnabled(isEnable); };
 	/** 技能按钮点击回调 */
 	virtual void    skillClickCallBack(Ref* obj);
-protected:
+	void skillButonUi();
 
+protected:
+	void useSkill();
+
+	void ToPayShopCallBack(Ref*psend);
    void update(float dt);
     /** 技能冷却完毕回调*/
    virtual void    skillCoolDownCallBack();
+   void LackVipCallBack(Ref*psend);
 
-
-   virtual bool  JudgeUseSkill();
-    /** 初始化 */
+   virtual int  JudgeUseSkill();  //-1不能使用，1：vip等级不足，2：炮塔等级不够 3:符合购买条件 0：直接使用
+   /** 初始化 */
    bool    init(int skillID, const char* stencil_file_name, const char* button_normal_name, const char* button_click_name);
 	int m_skillID;
 private:

@@ -14,6 +14,9 @@ public:
 	  void upgradeTurret();
 	  void degradeTurret();
 
+
+	  void changeToNewTurret(int uiid);
+
 	  void changeToLightTurret();
 	  void changeToNormalTurret();
 	  void shoot();
@@ -21,6 +24,7 @@ public:
 private:
 	  int turretType;
 	  Sprite* emptySp;
+	  CC_SYNTHESIZE(bool, isrobot, IsRobot);
 	
 	  
 

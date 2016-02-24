@@ -33,7 +33,7 @@ enum FISHTYPE
 	AllKilledFish,
 	ArrangeFish
 };
-
+class PlayerTurret;
 class FishShader;
 class Fish :public Sprite{
 public:
@@ -55,10 +55,10 @@ public:
 	virtual void onDead();
 	virtual void onHeart();
 
-	virtual void onLockShoot();
+	virtual void onLockShoot(PlayerTurret*turret);
 	virtual void stopLockShoot();
 
-	virtual void onLightShoot();
+	virtual void onLightShoot(PlayerTurret*turret);
 	virtual void stopLightShoot();
 
 	void onFreeze();
@@ -102,6 +102,10 @@ protected:
 	CC_SYNTHESIZE(float, fMoveAngle, MoveAngle);
 	CC_SYNTHESIZE(int, nUiID, uiId);
 	CC_SYNTHESIZE(bool, bIsAutoRemove, isAutoRemove);
+
+	CC_SYNTHESIZE(PlayerTurret*, m_targeLightTurret, TargeLightTurret);
+	CC_SYNTHESIZE(PlayerTurret*, m_targeLockTurret, TargeLockTurret);
+
 	CC_SYNTHESIZE(FISHTYPE, m_FishType, FishType);
 	Vector<FiniteTimeAction*> RepetActionArray;
 	//Â·¾¶

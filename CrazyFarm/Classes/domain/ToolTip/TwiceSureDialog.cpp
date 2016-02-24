@@ -52,9 +52,9 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 
 		auto label = LabelTTF::create(tipStr, "arial", 20);
 		label->setColor(Color3B(12, 64, 109));
-		label->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
+		label->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		label->setDimensions(Size(261, 0));
-		label->setPosition(bg->getContentSize().width / 2, 163);
+		label->setPosition(bg->getContentSize().width / 2, 165);
 			bg->addChild(label);
 
 		auto listenr1 = EventListenerTouchOneByOne::create();

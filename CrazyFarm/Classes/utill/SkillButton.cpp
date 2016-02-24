@@ -4,6 +4,9 @@
 #include "domain/logevent/LogEventUseSkill.h"
 #include "data/GameData.h"
 #include "domain/logevent/LogEventPageChange.h"
+#include "domain/ToolTip/TwiceSureDialog.h"
+#include "domain/game/GameManage.h"
+#include "domain/ToolTip/TwiceSkillSureDialog.h"
 USING_NS_CC;
 
 SkillButton::SkillButton() :
@@ -114,67 +117,13 @@ void SkillButton::update(float dt)
 
 
 }
-bool SkillButton::JudgeUseSkill()
-{
-	if (GameData::getInstance()->getisOnBankrupt())
-	{
-		return false;
-	}
-	if (skillManager::getInstance()->getIsUseSkillNow())
-	{
-		return false;
-	}
-	int type = skillManager::getInstance()->isSatisfyBuySkill(m_skillID);
-	switch (type)
-	{
-	//TODO：VIP等级不足
-	case 1:
 
-		break;
-
-	//TODO：炮塔等级不足
-	case 2:
-		break;
-	default:
-		break;
-	}
-	auto num = skillManager::getInstance()->getSKillNumById(m_skillID);
-	auto price = skillManager::getInstance()->getSkillPriceById(m_skillID);
-	auto userdm = User::getInstance()->getDiamonds();
-	if (num <= 0)
-	{
-		if (userdm > price)
-		{
-			LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, price);
-			User::getInstance()->addDiamonds(-price);
-			//todo:技能二次确认
-			return true;
-		}
-		else
-		{
-			LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 2, 0);
-			LogEventPageChange::getInstance()->addEventItems(2, m_skillID-1, 13);
-			auto layer = payLayer::createLayer(2);
-			layer->setPosition(0, 0);
-			layer->setEventPont(m_skillID + 12);
-			Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer);
-			return false;
-		}
-
-	}
-	else
-	{
-		LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 0, 0);
-		BagManager::getInstance()->changeItemCount(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id, -1);
-		return true;
-	}
-}
 
 
 /** 技能按钮点击回调 */
 void SkillButton::skillClickCallBack(Ref* obj)
 {
-	skillManager::getInstance()->setIsUseSkillNow(true);
+
     // 冷却计时，即时状态技能按钮不可点击
     mItemSkill->setEnabled(false);
 
@@ -194,7 +143,7 @@ void SkillButton::skillClickCallBack(Ref* obj)
 /** 技能冷却完成回调 */
 void SkillButton::skillCoolDownCallBack()
 {
-	skillManager::getInstance()->setIsUseSkillNow(false);
+
     // 设置蒙板不可见
     mStencil->setVisible(false);
 
@@ -204,4 +153,150 @@ void SkillButton::skillCoolDownCallBack()
     // 按钮置为可用
     mItemSkill->setEnabled(true);
 }
+void SkillButton::skillButonUi()
+{
 
+
+	// 冷却计时，即时状态技能按钮不可点击
+	mItemSkill->setEnabled(false);
+
+	// 模版可见
+	mStencil->setVisible(true);
+
+	// 设置精灵进度条为顺时针
+	mProgressTimer->setVisible(true);
+	mProgressTimer->setType(ProgressTimer::Type::RADIAL);
+	mProgressTimer->stopAllActions();
+	//准备一个5秒旋转360度的动画(逐渐覆盖半透模板形成冷却效果;这里进行计时冷却动画的实现和时间控制)
+	ActionInterval* action_progress_to = Sequence::create(ProgressTo::create(mCDTime, 100), ProgressTo::create(0, 0), nullptr);
+	auto action_callback = CallFunc::create(CC_CALLBACK_0(SkillButton::skillCoolDownCallBack, this));
+	mProgressTimer->runAction(Sequence::create(action_progress_to, action_callback, NULL));
+}
+
+
+void SkillButton::useSkill()
+{
+	int type = JudgeUseSkill();
+	log("skill using condition is %d", type);
+	switch (type)
+	{
+	case -1:
+		//TODO;
+	break;
+	case 1: //vip等级不够
+	{
+		auto str = String::createWithFormat(ChineseWord("bySkillNoNeedVIPTIP").c_str(), skillManager::getInstance()->getSkillInfoByID(m_skillID).unlock_buy_vipLv, skillManager::getInstance()->getSkillInfoByID(m_skillID).unlock_buy_vipLv);
+		auto layer = TwiceSureDialog::createDialog(str->getCString(), CC_CALLBACK_1(SkillButton::LackVipCallBack, this));
+		layer->setPosition(Point::ZERO);
+		getParent()->addChild(layer, 30, "tip");
+	}
+	break;
+	case 2: //炮台等级不够
+	{
+		auto str = String::createWithFormat(ChineseWord("bySkillNoNeedTurrentTIPEx").c_str(), skillManager::getInstance()->getSkillInfoByID(m_skillID).unlock_buy_turretLv);
+		auto layer = TwiceSureDialog::createDialog(str->getCString(),nullptr);
+		layer->setPosition(Point::ZERO);
+		getParent()->addChild(layer, 30, "tip");
+	}
+	break;
+	case 3: //符合购买条件
+	{
+		if (GameData::getInstance()->getisDirectUseSkill())
+		{
+			auto price = skillManager::getInstance()->getSkillPriceById(m_skillID);
+			auto userdm = User::getInstance()->getDiamonds();
+			if (userdm > price)
+			{
+				LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, price);
+				User::getInstance()->addDiamonds(-price);
+				skillManager::getInstance()->getButtonByID(m_skillID)->skillButonUi();
+				skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());
+			}
+			else
+			{
+				auto dialog = TwiceSureDialog::createDialog(ChineseWord("havanoDmToUseskill").c_str(), CC_CALLBACK_1(SkillButton::ToPayShopCallBack, this));
+				dialog->setPosition(Point::ZERO);
+				GameManage::getInstance()->getGuiLayer()->addChild(dialog, 20);
+			}
+		}
+		else
+		{
+			auto layer = TwiceSkillSureDialog::createDialog();
+			layer->setSkillId(m_skillID);
+			layer->setPosition(Point::ZERO);
+			getParent()->addChild(layer, 30);
+		}
+		
+	}
+	break;
+	case 0: //直接使用
+	{
+		LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, 0);
+		BagManager::getInstance()->changeItemCount(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id, -1);
+		skillManager::getInstance()->getButtonByID(m_skillID)->skillButonUi();
+		skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());
+	}
+	break;
+	default:
+		break;
+	}
+}
+
+int SkillButton::JudgeUseSkill()
+{
+	if (GameData::getInstance()->getisOnBankrupt())
+	{
+		return -1;
+	}
+	for (int i = 1; i <= 5; i++)
+	{
+		if (skillManager::getInstance()->isUseSkillNow(i))
+		{
+			//TODO:技能不能组合使用;
+			return -1;
+		}
+	}
+	auto num = skillManager::getInstance()->getSKillNumById(m_skillID);
+	if (num > 0)
+	{
+		return 0;
+
+	}
+	
+	int type = skillManager::getInstance()->isSatisfyBuySkill(m_skillID);
+	switch (type)
+	{
+	case 1:
+		return 1;
+	case 2:
+		return 2;
+	default:
+		break;
+	}
+	return 3;
+	
+	
+}
+
+void SkillButton::LackVipCallBack(Ref*psend)
+{
+
+	getParent()->removeChildByName("tip", 1);
+	auto layer = payLayer::createLayer(2);
+	layer->setPosition(0, 0);
+	GameManage::getInstance()->getGuiLayer()->addChild(layer,20);
+	layer->setEventPont(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id - 996);
+	LogEventPageChange::getInstance()->addEventItems(3, 13, m_skillID);
+}
+
+void SkillButton::ToPayShopCallBack(Ref*psend)
+{
+	LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 2, 0);
+	LogEventPageChange::getInstance()->addEventItems(2, m_skillID - 1, 13);
+	auto layer = payLayer::createLayer(2);
+	layer->setPosition(0, 0);
+	layer->setEventPont(m_skillID + 12);
+	GameManage::getInstance()->getGuiLayer()->addChild(layer, 20);
+	auto node = (Node*)psend;
+	node->getParent()->getParent()->removeFromParentAndCleanup(1);
+}

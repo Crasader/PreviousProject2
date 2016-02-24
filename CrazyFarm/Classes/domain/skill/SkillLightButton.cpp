@@ -21,11 +21,12 @@ SkillLightButton* SkillLightButton::createSkillLightButton()
 /** 技能按钮点击回调 */
 void SkillLightButton::skillClickCallBack(Ref* obj)
 {
-	if (JudgeUseSkill())
-	{
-		SkillButton::skillClickCallBack(obj);
-		skillManager::getInstance()->useSkillLight();
-	}
+	//if (JudgeUseSkill())
+	//{
+	//	SkillButton::skillClickCallBack(obj);
+	//	skillManager::getInstance()->useSkillLight();
+	//}
+	useSkill();
 }
 
 /** 技能冷却完成回调 */

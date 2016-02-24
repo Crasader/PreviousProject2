@@ -56,7 +56,7 @@ private :
 public:
 	void beginMaridTaskTime();
 
-	void showLockUpdataTurret();
+	void showLockUpgradeTurret();
 
 	void onBossWarning(int fishID);
 private:

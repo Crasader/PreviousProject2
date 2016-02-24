@@ -654,11 +654,8 @@ void FishManage::onBoomFishDead(Fish*fish, PlayerTurret* pTurret)
 {
 	auto pos = fish->getPosition();
 	auto cicle = CCircle(pos, BOOMFISHCIRCLE);
-#if 0
-	auto draw = DrawNode::create();
-	draw->drawCircle(cicle.getMCenter(), cicle.getMRadius(), 360, 100, false, Color4F::RED);
-	m_layer->addChild(draw);
-#endif
+
+
 	auto fishPool = FishManage::getInstance()->getAllFishInPool();
 	auto data = GameData::getInstance();
 	for (auto fish : fishPool)

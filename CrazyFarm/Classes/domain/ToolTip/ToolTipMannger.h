@@ -5,5 +5,6 @@ class ToolTipMannger
 {
 public:
 	static void ShowPayTimeoutTip();
+
 };
 

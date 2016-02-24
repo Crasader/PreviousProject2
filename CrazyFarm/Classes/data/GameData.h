@@ -34,7 +34,8 @@ private:
 
 	CC_SYNTHESIZE(int, nChairNo, chairNo);
 
-	
+	//是否直接使用技能
+	CC_SYNTHESIZE(bool, m_isDirectUseSkill, isDirectUseSkill);
 };
 
 #endif

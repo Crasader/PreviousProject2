@@ -22,14 +22,7 @@ SkillBombButton* SkillBombButton::createSkillBombButton()
 /** 技能按钮点击回调 */
 void SkillBombButton::skillClickCallBack(Ref* obj)
 {
-	if (JudgeUseSkill())
-	{
-		SkillButton::skillClickCallBack(obj);
-		skillManager::getInstance()->useSkillBoom();
-	}
-
-
-	
+	useSkill();
 }
 
 /** 技能冷却完成回调 */

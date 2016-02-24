@@ -17,26 +17,18 @@ GameManage::GameManage(){
 }
 void GameManage::showLockTurrent()
 {
-	m_pGuilayer->showLockUpdataTurret();
+	m_pGuilayer->showLockUpgradeTurret();
 }
 
 void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret* turret)
 {
-	if (turret==nullptr)
+	if (fish->getTargeLightTurret())
 	{
-		turret = m_pGameyer->GetMyTurret();
+		fish->getTargeLightTurret()->setLightFish(nullptr);
 	}
-	auto targetfish = turret->getLockFish();
-	if (fish == targetfish)
+	if (fish->getTargeLockTurret())
 	{
-		turret->setLockFish(nullptr);
-		m_pGameyer->GetMyTurret()->setLockFish(nullptr);
-	}
-	targetfish = turret->getLightFish();
-	if (fish == targetfish)
-	{
-		turret->setLightFish(nullptr);
-		m_pGameyer->GetMyTurret()->setLightFish(nullptr);
+		fish->getTargeLockTurret()->setLockFish(nullptr);
 	}
 	FishManage::getInstance()->getAllFishInPool().eraseObject(fish);
 	if (isDead)
@@ -84,7 +76,15 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 		switch (fish->getFishType())
 		{
 		case BoomFish:
+		{
 			FishManage::getInstance()->onBoomFishDead(fish, turret);
+			auto aninode = Sprite::create();
+			aninode->setPosition(fish->getPosition());
+			aninode->setScale(2);
+			aninode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniTXTBoom"), RemoveSelf::create(1), nullptr));
+			m_pGameyer->addChild(aninode, 1);
+		}
+			
 			break;
 		case AllKilledFish:
 			FishManage::getInstance()->onAllKilledFishDead(fish, turret);

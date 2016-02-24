@@ -225,6 +225,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\skill\skillManager.cpp" />
     <ClCompile Include="..\Classes\domain\skill\SkillSummonButton.cpp" />
     <ClCompile Include="..\Classes\domain\ToolTip\ToolTipMannger.cpp" />
+    <ClCompile Include="..\Classes\domain\ToolTip\TwiceSkillSureDialog.cpp" />
     <ClCompile Include="..\Classes\domain\ToolTip\TwiceSureDialog.cpp" />
     <ClCompile Include="..\Classes\domain\turntable\CTurntable.cpp" />
     <ClCompile Include="..\Classes\domain\turntable\TurntableCell.cpp" />
@@ -404,6 +405,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\skill\skillManager.h" />
     <ClInclude Include="..\Classes\domain\skill\SkillSummonButton.h" />
     <ClInclude Include="..\Classes\domain\ToolTip\ToolTipMannger.h" />
+    <ClInclude Include="..\Classes\domain\ToolTip\TwiceSkillSureDialog.h" />
     <ClInclude Include="..\Classes\domain\ToolTip\TwiceSureDialog.h" />
     <ClInclude Include="..\Classes\domain\turntable\CTurntable.h" />
     <ClInclude Include="..\Classes\domain\turntable\TurntableCell.h" />

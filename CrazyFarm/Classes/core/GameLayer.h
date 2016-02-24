@@ -50,6 +50,8 @@ private:
 
 	void rotateTurret(float degree, PlayerTurret* turret);//Ğı×ªÅÚËş
 
+	void showYourChairno();
+
 	void AiUpdata(float dt);
 	void onExit();
 	//Updata

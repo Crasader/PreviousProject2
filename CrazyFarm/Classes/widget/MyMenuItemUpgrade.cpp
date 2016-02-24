@@ -40,6 +40,12 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 	
 		if (isFinish)
 		{
+			auto pNode = getChildByName("blinkAni");
+			if (pNode)
+			{
+				pNode->removeFromParentAndCleanup(1);
+			}
+
 			auto a = User::getInstance()->getMaxTurrentLevel();
 			auto m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(a);
 			User::getInstance()->setMaxTurrentLevel(m_turretdata.multiple);
@@ -89,7 +95,7 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 				aniCoin->setPosition(pos.x+40*(rand_0_1()-0.5), pos.y + 70);
 				aniCoin->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGold")));
 				aniCoin->runAction(Sequence::create(DelayTime::create(0.05f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, pos), RemoveSelf::create(1), nullptr));
-				GameManage::getInstance()->getGuiLayer()->addChild(aniCoin);
+				GameManage::getInstance()->getGuiLayer()->addChild(aniCoin,5);
 			}
 			//½ð±ÒÊý×Ö
 			auto str = String::createWithFormat(":%d", m_turretdata.rewardList.at(0).num);
@@ -98,9 +104,9 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 			label->setPosition(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getCoinLabelPos()+Vec2(0,60));
 			label->setScale(0);
 			label->runAction(ScaleTo::create(0.1, 1));
-			label->runAction(Sequence::create(DelayTime::create(2.0f), RemoveSelf::create(), nullptr));
-			GameManage::getInstance()->getGuiLayer()->addChild(label);
-
+			label->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));
+			GameManage::getInstance()->getGuiLayer()->addChild(label,5);
+			GameManage::getInstance()->getGameLayer()->RefreShmyPlayerTurret();
 		}
 		else
 		{
@@ -116,10 +122,15 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		isElongate = true;
 		setValue();
 		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
-		runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]{
+		runAction(Sequence::create(DelayTime::create(4.0f), CallFunc::create([&]{
 			if (isElongate==false)
 			{
 				return;
+			}
+			auto pNode = getChildByName("blinkAni");
+			if (pNode)
+			{
+				pNode->removeFromParentAndCleanup(1);
 			}
 			runAction(MoveBy::create(0.5f, Vec2(166, 0)));
 			commonNode->setVisible(false);
@@ -149,11 +160,11 @@ void MyMenuItemUpgrade::initItem()
 	nodeZeng->setPosition(Point::ZERO);
 	unfinishedNode = Node::create();
 	unfinishedNode->setPosition(Point::ZERO);
-	addChild(unfinishedNode);
-	addChild(nodeZeng);
+	addChild(unfinishedNode,1);
+	addChild(nodeZeng,1);
 	commonNode = Node::create();
 	commonNode->setPosition(Point::ZERO);
-	addChild(commonNode);
+	addChild(commonNode,1);
 	nodeZeng->setVisible(false);
 	unfinishedNode->setVisible(false);
 	auto size = getContentSize();
@@ -228,6 +239,7 @@ void MyMenuItemUpgrade::setValue()
 		nodeZeng->setVisible(true);
 		node = (LabelAtlas*)nodeZeng->getChildByTag(kTagCoinLabel);
 		node->setString(Value(coinnum).asString().c_str());
+		showBlinkAni();
 	}
 	else
 	{
@@ -241,7 +253,13 @@ void MyMenuItemUpgrade::setValue()
 	}
 }
 
-
+void MyMenuItemUpgrade::showBlinkAni()
+{
+	auto node = Sprite::create("UnlockFrame_2.png");
+	node->setPosition(getContentSize() / 2);
+	addChild(node, 0, "blinkAni");
+	node->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), nullptr)));
+}
 void MyMenuItemUpgrade::showPopup()
 {
 	if (isElongate == true)
@@ -256,13 +274,18 @@ void MyMenuItemUpgrade::showPopup()
 
 		if (isFinish)
 		{
-			//ÉÁË¸¶¯»­
+			showBlinkAni();
 		}
 		else
 		{
-			runAction(Sequence::create(DelayTime::create(3.5f), CallFunc::create([&]{
+			runAction(Sequence::create(DelayTime::create(4.0f), CallFunc::create([&]{
 				if (isElongate == true)
 				{
+					auto pNode = getChildByName("blinkAni");
+					if (pNode)
+					{
+						pNode->removeFromParentAndCleanup(1);
+					}
 					commonNode->setVisible(false);
 					unfinishedNode->setVisible(false);
 					nodeZeng->setVisible(false);

@@ -5,7 +5,7 @@ bool Laster::init(){
 	bool bRet = false;
 	do 
 	{
-		CC_BREAK_IF(!ui::Scale9Sprite::initWithFile("game/ui/ani/TX_JiGuang/TX_JiGuang_1.png"));
+		CC_BREAK_IF(!ui::Scale9Sprite::initWithFile("game/ui/ani/TX_JiGuang/TX_JiGuang_1.png",Rect(0,0,710,192),Rect(98,81,403,32)));
 		setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		//runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniJiGuangBar")));
 
@@ -22,6 +22,10 @@ bool Laster::init(){
 
 void Laster::update(float delta)
 {
+	if (pPlayerTurret->getisUsingLight()==false)
+	{
+		removeFromParentAndCleanup(1);
+	}
 	auto fish = pPlayerTurret->getLightFish();
 	if (fish)
 	{

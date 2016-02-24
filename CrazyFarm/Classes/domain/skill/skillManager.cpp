@@ -5,6 +5,7 @@
 #include "utill/Audio.h"
 #include "domain/logevent/LogEventMannger.h"
 #include "config/ConfigItem.h"
+#include "domain/game/GameManage.h"
 skillManager* skillManager::_instance = NULL;
 
 skillManager::skillManager(){
@@ -17,7 +18,7 @@ void skillManager::init(){
 	{
 		map_skill_isUsingnow[i] = false;
 	}
-	setIsUseSkillNow(false);
+	
 }
 
 skillManager* skillManager::getInstance(){
@@ -67,14 +68,41 @@ void skillManager::useSkillSummon(PlayerTurret*turret)
 	m_gamelayer->addChild(fish,5); 
 	}),nullptr));
 }
+void skillManager::useSkillById(int skillid, PlayerTurret*turret)
+{
+	switch (skillid)
+	{
+	case 1:
+		useSkillFreeze(turret);
+		break;
+	case 2:
+		useSkillLock();
+		break;
+	case 3:
+		useSkillSummon(turret);
+		break;
+	case 5:
+		useSkillLight();
+		break;
+	case 4:
+		useSkillBoom();
+		break;
+	default:
+		break;
+	}
+}
 void skillManager::robotUseSkillFreeze(PlayerTurret*turret)
 {
 	useSkillFreeze(turret);
 }
 void skillManager::useSkillFreeze(PlayerTurret*turret)
 {
+	if (map_skill_isUsingnow[1])
+	{
+		return;
+	}
+	map_skill_isUsingnow[1] = true;
 	Audio::getInstance()->playSound(SKILLFREEZE);
-	getButtonByID(1)->setEnable(false);
 	auto fishes = FishManage::getInstance()->getAllFishInPool();
 	for (auto fish : fishes)
 	{
@@ -83,12 +111,13 @@ void skillManager::useSkillFreeze(PlayerTurret*turret)
 	}
 	m_gamelayer->useFreeze(turret);
 
-	m_gamelayer->runAction(Sequence::create(DelayTime::create(getSkillInfoByID(1).cd_time), CallFunc::create([=]{useSkillFreezeEnd(turret); getButtonByID(1)->setEnable(false); }), nullptr));
+	GameManage::getInstance()->getGuiLayer()->runAction(Sequence::create(DelayTime::create(getSkillInfoByID(1).cd_time), CallFunc::create([=]{useSkillFreezeEnd(turret); }), nullptr));
 
 }
 
 void skillManager::useSkillFreezeEnd(PlayerTurret*turret)
 {
+	map_skill_isUsingnow[1] = false;
 	auto fishes = FishManage::getInstance()->getAllFishInPool();
 	for (auto fish : fishes)
 	{
@@ -100,10 +129,16 @@ void skillManager::useSkillFreezeEnd(PlayerTurret*turret)
 
 void skillManager::useSkillLock()
 {
+	if (map_skill_isUsingnow[2])
+	{
+		return;
+	}
+	map_skill_isUsingnow[2] = true;
 	m_gamelayer->beginLock();
 }
 void skillManager::useSkillLockEnd()
 {
+	map_skill_isUsingnow[2] = false;
 	m_gamelayer->endLock();
 }
 
@@ -116,10 +151,16 @@ void skillManager::useSkillBoom()
 
 void skillManager::useSkillLight()
 {
+	if (map_skill_isUsingnow[5])
+	{
+		return;
+	}
+	map_skill_isUsingnow[5] = true;
 	m_gamelayer->beginLight();
 }
 void skillManager::useSkillLightEnd()
 {
+	map_skill_isUsingnow[5] = false;
 	m_gamelayer->endLight();
 }
 
@@ -139,7 +180,23 @@ int skillManager::isSatisfyBuySkill(int skillid) //·µ»ØÖµ1£ºVIPµÈ¼¶²»¹» 2£ºÅÚËşµ
 	{
 		return 1;
 	}
-	if (info.unlock_buy_turretLv < maxlv)
+	if (info.unlock_buy_turretLv > maxlv)
+	{
+		return 2;
+	}
+	return 0;
+}
+
+int skillManager::isSatisfyBuySkillInBag(int skillid) //·µ»ØÖµ1£ºVIPµÈ¼¶²»¹» 2£ºÅÚËşµÈ¼¶²»¹» 0: Âú×ã
+{
+	auto info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(skillid);
+	auto maxlv = User::getInstance()->getMaxTurrentLevel();
+	auto viplv = User::getInstance()->getVipLevel();
+	if (info.unlock_buy_vipLv > viplv)
+	{
+		return 1;
+	}
+	if (300> maxlv)
 	{
 		return 2;
 	}

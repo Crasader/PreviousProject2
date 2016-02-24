@@ -43,9 +43,6 @@
     <Filter Include="src\data">
       <UniqueIdentifier>{e69ddaf4-b32d-4701-a94a-5a7e8626646c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\AI">
-      <UniqueIdentifier>{bc11c115-20d7-4246-b5f2-fed33e1d0c85}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Interface">
       <UniqueIdentifier>{345f2edd-22db-4925-b3ae-b4af8300efb3}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,9 @@
     </Filter>
     <Filter Include="src\ToolTip">
       <UniqueIdentifier>{2613e345-58fd-41f2-8b7f-eccc34bc9f2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\bullet\AI">
+      <UniqueIdentifier>{bc11c115-20d7-4246-b5f2-fed33e1d0c85}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -388,19 +388,19 @@
       <Filter>src\lobby</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\ai\AIManager.cpp">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\ai\AIMolo.cpp">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\ai\PlayerWork.cpp">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\ai\AI.cpp">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\ai\AIHu.cpp">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\bag\BagManager.cpp">
       <Filter>src\Interface\bag</Filter>
@@ -649,13 +649,16 @@
       <Filter>src\Interface</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\ai\AIJun.cpp">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\ToolTip\ToolTipMannger.cpp">
       <Filter>src\ToolTip</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\ToolTip\TwiceSureDialog.cpp">
       <Filter>src\ToolTip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\ToolTip\TwiceSkillSureDialog.cpp">
+      <Filter>src\skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -921,19 +924,19 @@
       <Filter>src\lobby</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ai\AIHu.h">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ai\AIManager.h">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ai\AIMolo.h">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ai\PlayerWork.h">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ai\AI.h">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\bag\BagItem.h">
       <Filter>src\Interface\bag</Filter>
@@ -1185,13 +1188,16 @@
       <Filter>src\Interface</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ai\AIJun.h">
-      <Filter>src\AI</Filter>
+      <Filter>src\bullet\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ToolTip\ToolTipMannger.h">
       <Filter>src\ToolTip</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ToolTip\TwiceSureDialog.h">
       <Filter>src\ToolTip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ToolTip\TwiceSkillSureDialog.h">
+      <Filter>src\skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

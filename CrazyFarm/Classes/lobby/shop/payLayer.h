@@ -24,8 +24,8 @@ class payView :public TableViewDelegate
 	, public TableViewDataSource
 {
 public:
-	virtual void scrollViewDidScroll(ScrollView* view) {}
-	virtual void scrollViewDidZoom(ScrollView* view){}
+	virtual void scrollViewDidScroll(cocos2d::extension::ScrollView* view) {}
+	virtual void scrollViewDidZoom(cocos2d::extension::ScrollView* view){}
 	virtual void tableCellTouched(TableView* table, TableViewCell* cell);
 	virtual cocos2d::Size tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t  idx);
 	virtual cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx);

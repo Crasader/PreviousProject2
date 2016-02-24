@@ -11,6 +11,7 @@ public:
 private:
 	void ItemCallBack(Ref* psend);
 	void initItem();
+	void showBlinkAni();
 	Node* nodeZeng;
 	Node*unfinishedNode;
 	Node* commonNode;
