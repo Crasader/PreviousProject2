@@ -20,10 +20,16 @@ UpgradeSureDialog*UpgradeSureDialog::create(std::vector<LevelRewardItem> levelRe
 
 bool UpgradeSureDialog::init(std::vector<LevelRewardItem> levelRewardItems)
 {
+	auto colorlayer = LayerColor::create();
+	colorlayer->setColor(ccc3(0, 0, 0));
+	colorlayer->setOpacity(180);
+	addChild(colorlayer, -1);
+
+
 	m_levelRewardItems = levelRewardItems;
 	auto bg = Sprite::create("dialogCommonBg.png");
 	bg->setPosition(480, 270);
-	addChild(bg, -1,"bg");
+	addChild(bg, 1,"bg");
 
 	auto size = bg->getContentSize();
 	auto title = Sprite::create("lingqujiangliTXT.png");
@@ -39,14 +45,15 @@ bool UpgradeSureDialog::init(std::vector<LevelRewardItem> levelRewardItems)
 	sure->setCallback(CC_CALLBACK_1(UpgradeSureDialog::sureButtonCallBack, this));
 	
 	auto menu = Menu::create(sure, nullptr);
-	menu->setPosition(bg->getPosition() - bg->getContentSize() / 2);
-	addChild(menu,0,"menu");
+	menu->setPosition(0,0);
+	bg->addChild(menu,0,"menu");
 
 	for (int i = 0; i < m_levelRewardItems.size();i++)
 	{
 		auto cell = GiftCell::create(m_levelRewardItems[i].item_id, m_levelRewardItems[i].num);
 		cell->setPosition(290 + i * 125, 278);
-		addChild(cell);
+		addChild(cell,2);
+		cell->setVisible(false); 
 		cells.pushBack(cell);
 	}
 	
@@ -75,8 +82,13 @@ bool UpgradeSureDialog::init(std::vector<LevelRewardItem> levelRewardItems)
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	/////////µ¯³ö¶¯»­
-	setScale(0);
-	runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), nullptr));
+	bg->setScale(0);
+	bg->runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), CallFunc::create([=]{
+		for (auto cell:cells)
+	{
+		cell->setVisible(true);
+	}
+	}), nullptr));
 	return true;
 }
 
@@ -85,7 +97,6 @@ bool UpgradeSureDialog::init(std::vector<LevelRewardItem> levelRewardItems)
 void UpgradeSureDialog::sureButtonCallBack(Ref*psend)
 {
 	getChildByName("bg")->removeFromParentAndCleanup(1);
-	getChildByName("menu")->removeFromParentAndCleanup(1);
 	for (auto var:cells)
 	{
 		var->runAction(Sequence::create(Spawn::create(ScaleTo::create(0.5f, 1.5f), MoveBy::create(0.5f, Vec2(0, 100)), nullptr), DelayTime::create(0.5f), MoveTo::create(1.0f, convertToNodeSpace(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPosition())), RemoveSelf::create(), nullptr));

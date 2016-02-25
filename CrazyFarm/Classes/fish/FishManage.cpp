@@ -683,8 +683,9 @@ void FishManage::addMomentEightItemFishs(MomentEightItemFishs fishs)
 	waitCreateMomentEightFishs.push_back(fishs);
 }
 
-Fish*FishManage::getHignSoreInVec(Vector<Fish*> vec)
+Fish*FishManage::getHignSoreInVec()
 {
+	auto vec = fishPool;
 	if (vec.size()==0)
 	{
 		return nullptr;

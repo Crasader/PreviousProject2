@@ -22,6 +22,10 @@ bool Laster::init(){
 
 void Laster::update(float delta)
 {
+	if (!pPlayerTurret)
+	{
+		removeFromParentAndCleanup(1);
+	}
 	if (pPlayerTurret->getisUsingLight()==false)
 	{
 		removeFromParentAndCleanup(1);
@@ -33,7 +37,7 @@ void Laster::update(float delta)
 		Vec2 m_pos = pPlayerTurret->getLasterOrginPos();
 		Vec2 targetPos = fish->getPosition();
 		auto distance = m_pos.distance(targetPos);
-		setScaleX(distance/792);
+		setContentSize(Size(distance,getContentSize().height));
 		auto angle = getTurretRotation(m_pos,targetPos);
 		setRotation(-90+angle);
 	}
@@ -41,4 +45,10 @@ void Laster::update(float delta)
 	{
 		removeFromParentAndCleanup(1); 
 	}
+}
+void Laster::removeFromParentAndCleanup(bool cleanup)
+{
+	pPlayerTurret = nullptr;
+	unscheduleUpdate();
+	Node::removeFromParentAndCleanup(cleanup);
 }

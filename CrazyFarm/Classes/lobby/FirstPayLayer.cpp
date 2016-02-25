@@ -2,6 +2,9 @@
 #include "domain/user/User.h"
 #include "domain/pay/Pay.h"
 #include "data/GameData.h"
+#include "domain/game/GameManage.h"
+#include "FirstPayLayer.h"
+#include "domain/logevent/LogEventPageChange.h"
 bool FirstPayLayer::init()
 {
 	if ( !Layer::init() )
@@ -11,6 +14,9 @@ bool FirstPayLayer::init()
 	bool bRet = false;
 	do 
 	{
+
+
+		
 		auto layer = LayerColor::create();
 		layer->setColor(Color3B::BLACK);
 		layer->setOpacity(192);
@@ -80,6 +86,14 @@ void FirstPayLayer::quedingcallback(Ref*)
 
 void FirstPayLayer::closeButtonCallBack(Ref*psend)
 {
+	if (getParent()==GameManage::getInstance()->getGuiLayer())
+	{
+		auto layer = payLayer::createLayer(1);
+		layer->setPosition(Point::ZERO);
+		getParent()->addChild(layer, 20);
+		layer->setEventPont(1);
+		LogEventPageChange::getInstance()->addEventItems(2, 12, 0);
+	}
 	removeFromParentAndCleanup(1);
 }
 

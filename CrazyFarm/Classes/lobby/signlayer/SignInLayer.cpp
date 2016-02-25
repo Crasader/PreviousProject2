@@ -54,7 +54,7 @@ bool SignInLayer::init(int seqday)
 
 
 	auto button = MenuItemImage::create("gainButton_1.png", "gainButton_2.png", CC_CALLBACK_1(SignInLayer::gainRewardsCallback, this));
-	button->setPosition(bg->getContentSize().width / 2, bg->getContentSize().height*0.2);
+	button->setPosition(bg->getContentSize().width / 2, bg->getContentSize().height*0.2-20);
 	auto menu = Menu::create(button, nullptr);
 	menu->setPosition(0, 0);
 	bg->addChild(menu);

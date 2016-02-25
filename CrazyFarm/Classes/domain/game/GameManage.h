@@ -24,11 +24,13 @@ public:
 	
 	//µ¯³ö×êÊ¯
 	void showLockTurrent();
+	//µ¯³ö³é½±
+	void showGainMoneyTurrent();
 	//Ä³Ëþ²¶»ñÄ³Óã
 	void CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret* turret); 
 private :
 	GameManage();
 	static GameManage* _instance;
-	GameGuiLayer* m_pGuilayer;
-	GameLayer*m_pGameyer;
+	GameGuiLayer* m_pGuilayer = nullptr;
+	GameLayer*m_pGameyer= nullptr;
  };

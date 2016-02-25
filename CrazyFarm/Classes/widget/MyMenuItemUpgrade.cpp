@@ -257,7 +257,7 @@ void MyMenuItemUpgrade::showBlinkAni()
 {
 	auto node = Sprite::create("UnlockFrame_2.png");
 	node->setPosition(getContentSize() / 2);
-	addChild(node, 0, "blinkAni");
+	addChild(node, -1, "blinkAni");
 	node->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), nullptr)));
 }
 void MyMenuItemUpgrade::showPopup()

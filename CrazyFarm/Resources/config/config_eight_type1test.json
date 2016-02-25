@@ -1,0 +1,24 @@
+{
+    "describe": "鱼路线产生时间配置   fishRoute ：-1或者不填，随机运动 -2：随机S曲线运动 -3：随机圆运动  1-16曲线运动 17-20 圆运动  21-24 对角直线运动  fishid：   300-600  x0y  表示条数为x，fishid为y的队列鱼",
+    "version": 1,
+    "life_time": 300,
+    "launching_points": [
+        {
+            "interval_time_start": 0,
+            "interval_time_end": 5,
+            "item_list": [
+                {
+                    "fish_id": [201],
+                    "fishRoute": [-1],
+                    "count_start": 1,
+                    "count_end": 1,
+                    "wait_time_start": 0,
+                    "wait_time_end": 0
+                }
+            ]
+    	}
+           
+        
+
+    ]
+}

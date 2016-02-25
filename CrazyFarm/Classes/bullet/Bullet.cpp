@@ -30,7 +30,7 @@ string Bullet::getSrcByType(int ui_type, int net_type){
 void Bullet::moveToLockfish(float time, Fish*fish)
 {
 	runAction(Sequence::create(MoveTo::create(time, fish->getPosition()), CallFunc::create([&]{
-		setVisible(false); ((GameLayer*)getParent())->createNet(this); removeAllChildrenWithCleanup(1); }
+		setVisible(false); ((GameLayer*)getParent())->createNet(this); removeFromParentAndCleanup(1); }
 	), nullptr));
 }
 

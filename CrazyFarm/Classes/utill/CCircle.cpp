@@ -75,7 +75,7 @@ bool CCircle::intersectsCircle(CCircle circle)
 bool CCircle::intersectsPoint(Point pos)
 {
 	auto d = pow(pos.y - m_center.y,2) + pow(pos.x - m_center.x,2);
-	return d <= m_radius;
+	return d <= (m_radius*m_radius);
 }
 CFigure*CCircle::clone()
 {

@@ -3,9 +3,15 @@
 
 bool NewbieSureDialog::init()
 {
+
+	auto colorlayer = LayerColor::create();
+	colorlayer->setColor(ccc3(0, 0, 0));
+	colorlayer->setOpacity(180);
+	addChild(colorlayer, -1);
+
 	auto bg = Sprite::create("TwiceSureDialog.png");
 	bg->setPosition(480, 270);
-	addChild(bg, -1);
+	addChild(bg);
 
 	auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(NewbieSureDialog::closeButtonCallBack, this));
 	close->setPosition(bg->getContentSize());
@@ -16,8 +22,8 @@ bool NewbieSureDialog::init()
 	sure->setCallback(CC_CALLBACK_1(NewbieSureDialog::sureButtonCallBack, this));
 	
 	auto menu = Menu::create(close, sure, nullptr);
-	menu->setPosition(bg->getPosition() - bg->getContentSize() / 2);
-	addChild(menu);
+	menu->setPosition(0,0);
+	bg->addChild(menu);
 
 
 	auto sp = Sprite::create("NewBieTxt1.png");
@@ -55,8 +61,8 @@ bool NewbieSureDialog::init()
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	/////////µ¯³ö¶¯»­
-	setScale(0);
-	runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), nullptr));
+	bg->setScale(0);
+	bg->runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), nullptr));
 	return true;
 }
 

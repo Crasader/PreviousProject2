@@ -61,7 +61,7 @@ public:
 	void onClearFish();   //”„≥±¿¥¡Ÿ£¨«Â≥°
 
 
-	static Fish*getHignSoreInVec(Vector<Fish*> vec);
+	Fish*getHignSoreInVec();
 private :
 	FishManage();
 	static FishManage* _instance;

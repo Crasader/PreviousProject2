@@ -1,6 +1,7 @@
 #include "SkillLockButton.h"
 #include "domain/bag/BagManager.h"
 #include "data/GameData.h"
+#include "domain/game/GameManage.h"
 SkillLockButton* SkillLockButton::createSkillLockButton()
 {
 	SkillLockButton* skillButton = new SkillLockButton();
@@ -21,17 +22,13 @@ SkillLockButton* SkillLockButton::createSkillLockButton()
 /** 技能按钮点击回调 */
 void SkillLockButton::skillClickCallBack(Ref* obj)
 {
+	useSkill();	
 	auto nd = getChildByName("tipnode");
 	if (nd)
 	{
 		nd->removeFromParentAndCleanup(1);
+		GameManage::getInstance()->getGameLayer()->GetMyTurret()->setLockFish(FishManage::getInstance()->getHignSoreInVec());
 	}
-	//if (JudgeUseSkill())
-	//{
-	//	SkillButton::skillClickCallBack(obj);
-	//	skillManager::getInstance()->useSkillLock();
-	//}
-	useSkill();
 }
 
 /** 技能冷却完成回调 */

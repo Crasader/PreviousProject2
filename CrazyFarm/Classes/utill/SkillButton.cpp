@@ -111,11 +111,6 @@ void SkillButton::update(float dt)
 		getChildByTag(52)->setVisible(true);
 		((LabelAtlas*)getChildByTag(51))->setString(Value(price).asString().c_str());
 	}
-
-
-	
-
-
 }
 
 
@@ -280,7 +275,6 @@ int SkillButton::JudgeUseSkill()
 
 void SkillButton::LackVipCallBack(Ref*psend)
 {
-
 	getParent()->removeChildByName("tip", 1);
 	auto layer = payLayer::createLayer(2);
 	layer->setPosition(0, 0);

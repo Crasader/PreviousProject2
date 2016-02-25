@@ -13,12 +13,19 @@ GameManage* GameManage::getInstance(){
 }
 
 GameManage::GameManage(){
-
+	
 }
 void GameManage::showLockTurrent()
 {
 	m_pGuilayer->showLockUpgradeTurret();
 }
+
+void GameManage::showGainMoneyTurrent()
+{
+	m_pGuilayer->showGainMoneyTurrent();
+}
+
+
 
 void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret* turret)
 {
@@ -36,6 +43,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 
 		if (fish->getFishType() == GoldFish)
 		{
+			
 			//黄金鱼捕获动画
 			m_pGuilayer->runAction(CCShake::create(0.2, 10));
 			auto aninode = Node::create();
@@ -68,6 +76,9 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			txtframe->setScale(0.7);
 
 			aninode->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(1), nullptr));
+
+
+		
 		}
 
 
@@ -93,6 +104,11 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			break;
 		}
 		turret->getCoinByFish(fish);
+		//如果是自己捕获到
+		if (!turret->isRobot&&fish->getFishType()==GoldFish)
+		{
+			showGainMoneyTurrent();
+		}
 		auto data = GameData::getInstance();
 		if (data->getIsOnMaridTask())
 		{
@@ -118,17 +134,23 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 
 void GameManage::onPlayerUpgrade()
 {
+	auto rewards = ConfigExp::getInstance()->getLevelRewardItemsByLevelId(User::getInstance()->getLevelData().levelId);
 	Audio::getInstance()->playSound("UPDATALEVEL");
+	auto colorlayer = LayerColor::create();
+	colorlayer->setColor(ccc3(0, 0, 0));
+	colorlayer->setOpacity(180);
+	m_pGuilayer->addChild(colorlayer, 20);
 	auto aninode = Sprite::create();
 	aninode->setPosition(480, 270);
-	m_pGuilayer->addChild(aninode,10);
+	m_pGuilayer->addChild(aninode, 20);
 	aninode->setScale(2);
-	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 10), RemoveSelf::create(), nullptr));	
-	
-	
-	auto rewards = ConfigExp::getInstance()->getLevelRewardItemsByLevelId(User::getInstance()->getLevelData().levelId);
-
-	auto node = UpgradeSureDialog::create(rewards);
+	;
+	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), CallFunc::create([=]{auto node = UpgradeSureDialog::create(rewards);
 	node->setPosition(0, 0);
-	m_pGuilayer->addChild(node, 20);
+	m_pGuilayer->addChild(node, 20); colorlayer->removeFromParentAndCleanup(1); }), RemoveSelf::create(), nullptr));
+	
+	
+	
+
+	
 }

@@ -18,8 +18,8 @@ void Net::initNetByType(){
 	initWithFile(getFrameNameByType(turretdata.ui_type, turretdata.net_type));
 	initAniByType(turretdata.ui_type, turretdata.net_type);
 	setScale(0);
-	
-	runAction(Sequence::create(ScaleTo::create(0.1, 1.2), ScaleTo::create(0.05, 0.9), ScaleTo::create(0.05, 1.0),CallFunc::create([&]{checkCatchFish(); }),FadeOut::create(0.5), CallFunc::create([&]{m_bullet->cleanup(); }), RemoveSelf::create(1), nullptr));
+	m_bullet->removeFromParentAndCleanup(1);
+	runAction(Sequence::create(ScaleTo::create(0.1, 1.2), ScaleTo::create(0.05, 0.9), ScaleTo::create(0.05, 1.0),CallFunc::create([&]{checkCatchFish(); }),FadeOut::create(0.5), RemoveSelf::create(1), nullptr));
 }
 
 //

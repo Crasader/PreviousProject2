@@ -355,7 +355,7 @@ void Fish::setRoute(int routeTag)
 	{
 		delay = DelayTime::create(0);
 	}
-	auto ac = Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{GameManage::getInstance()->CatchTheFishOntheTurrent(this, 0,nullptr); }), nullptr);
+	auto ac = Sequence::create(delay, CallFunc::create([&]{GameManage::getInstance()->CatchTheFishOntheTurrent(this, 0,nullptr); }), nullptr);
 	ac->setTag(kTagAcNormal);
 	this->runAction(ac);
 	if (RepetActionArray.size() > 0)
@@ -432,7 +432,7 @@ void Fish::setMonentEightRoute(int routeTag)
 	{
 		delay = DelayTime::create(0);
 	}
-	this->runAction(Sequence::create(delay, RemoveSelf::create(1), CallFunc::create([&]{GameManage::getInstance()->CatchTheFishOntheTurrent(this, 0, nullptr); }), nullptr));
+	this->runAction(Sequence::create(delay,CallFunc::create([&]{GameManage::getInstance()->CatchTheFishOntheTurrent(this, 0, nullptr); }), nullptr));
 
 }
 

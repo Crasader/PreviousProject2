@@ -46,6 +46,11 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 			{
 				return;
 			}
+			auto pNode = getChildByName("blinkAni");
+			if (pNode)
+			{
+				pNode->removeFromParentAndCleanup(1);
+			}
 			runAction(MoveBy::create(0.5f, Vec2(166, 0)));
 			commonNode->setVisible(false);
 			isElongate = false;
@@ -59,14 +64,17 @@ void MyMenuItemGainMoney::initItem()
 	commonNode = Node::create();
 	commonNode->setPosition(Point::ZERO);
 	addChild(commonNode);
+
+
+
 	commonNode->setVisible(false);
 	auto size = getContentSize();
-	auto txt = Sprite::create("fishPoolTxt.png");
+	txt = Sprite::create("fishPoolTxt.png");
 	txt->setPosition(size.width*0.38+5, size.height/2);
 	commonNode->addChild(txt);
 
 	//¾­ÑéÌõ
-	auto exeBarFrame = Sprite::create("exeBarFrameDiamond.png");
+	exeBarFrame = Sprite::create("exeBarFrameDiamond.png");
 	exeBarFrame->setPosition(size.width*0.40 + 16, 50);
 	commonNode->addChild(exeBarFrame, 1, "exeFrame");
 	auto exeBar = Sprite::create("exeBarDiamond.png");
@@ -109,6 +117,7 @@ void MyMenuItemGainMoney::setValue()
 
 	
 	isFinish = nowFish >= alowdFish ? true : false;
+	
 	auto node = (LabelAtlas*)commonNode->getChildByTag(kTagCoinLabel);
 	node->setString(Value(poolNum).asString().c_str());
 	auto frame = commonNode->getChildByName("exeFrame");
@@ -116,5 +125,55 @@ void MyMenuItemGainMoney::setValue()
 	node->setString(str->getCString());
 	auto node1 = frame->getChildByTag(kTagExeBar);
 	node1->setScaleX(0.93*scalex);
+
+	if (isFinish)
+	{
+		exeBarFrame->setVisible(false);
+		txt->setTexture("fishPoolTxt2.png");
+	}
+	else
+	{
+		exeBarFrame->setVisible(true);
+		txt->setTexture("fishPoolTxt.png");
+	}
 	
+}
+void MyMenuItemGainMoney::showBlinkAni()
+{
+	auto node = Sprite::create("UnlockFrame_2.png");
+	node->setPosition(getContentSize() / 2);
+	addChild(node, -1, "blinkAni");
+	node->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), nullptr)));
+}
+void MyMenuItemGainMoney::showPopup()
+{
+	if (isElongate == true)
+	{
+		return;
+	}
+	else
+	{
+		isElongate = true;
+		setValue();
+		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
+
+		if (isFinish)
+		{
+			showBlinkAni();
+		}
+		else
+		{
+			
+		}
+		runAction(Sequence::create(DelayTime::create(3.0f), CallFunc::create([&]{
+			if (isElongate == true)
+			{
+				commonNode->setVisible(false);
+				runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+				isElongate = false;
+			};
+
+		}), nullptr));
+	}
+
 }

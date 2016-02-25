@@ -41,7 +41,7 @@ bool TurnTableDialog::init()
 		
 
 		auto close = MenuItemImage::create("smallX_1.png", "smallX_2.png", CC_CALLBACK_1(TurnTableDialog::closeButtonCallBack, this));
-		close->setPosition(581, 480);
+		close->setPosition(638, 465);
 		auto menu = Menu::create(close, nullptr);
 		menu->setPosition(Point::ZERO);
 		menu->setName("close");
@@ -160,6 +160,8 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 		bar = ui::Scale9Sprite::create("turnTableExeBar.png", Rect(0, 0, 26, 24), Rect(8, 0, 11, 24));
 		bar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		bar->setPosition(5, barframe->getContentSize().height / 2);
+
+	
 		barframe->addChild(bar);
 
 		auto nowCoin = BonusPoolManager::getInstance()->getCoins();
@@ -232,6 +234,8 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 		bar->setPosition(5, barframe->getContentSize().height / 2);
 		barframe->addChild(bar);
 
+		float ScaleX = (float)nowfish / (float)allowdfish * 200;
+		bar->setContentSize(Size(ScaleX, bar->getContentSize().height));
 		
 		auto label = LabelAtlas::create(Value(nowfish).asString(), "nowPoolNum.png", 13, 21, '0');
 		label->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);

@@ -12,6 +12,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(Laster);
 	void update(float delta);
+	virtual void removeFromParentAndCleanup(bool cleanup = true);
 private:
 	CC_SYNTHESIZE(PlayerTurret*, pPlayerTurret, PlayerTurret);
 

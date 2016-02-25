@@ -1,7 +1,7 @@
 #include "domain/mermaid/MermaidTask.h"
 
 MermaidTask::MermaidTask(){
-    mermaidTaskConfigInfo.start_wait_time = 3 + rand()%8; //[3, 11]
+    mermaidTaskConfigInfo.start_wait_time = 420 + rand()%8; //[3, 11]
     mermaidTaskConfigInfo.continue_time = 300;///正式时间300
     
     mermaidTaskOnlineInfo.coins = 0;

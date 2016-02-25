@@ -230,7 +230,6 @@ void PlayerTurret::doAIthing(float dt)
 	auto angle = /*nChairNoIndex < 2 ? walk.getAngle() : 180 - */walk.getAngle();
 	rorateTurret(angle);
 	
-	CCLOG("ai anlge %f", angle);
 	if (walk.getFire())
 	{
 		runAction(Sequence::create(DelayTime::create(0.10f), CallFunc::create([&]{shoot(m_turret->getRotation()); }), nullptr));
@@ -530,31 +529,37 @@ void PlayerTurret::setLightFish(Fish* fish)
 {
 	if (fish == nullptr)
 	{
-
-		auto node = getChildByName("Laster");
+		lightFish = nullptr;
+		auto node = getParent()->getChildByName("Laster");
 		if (node)
 		{
 			node->removeFromParentAndCleanup(1);
 			node = nullptr;
 		}
+		
 		return;
 	}
 	else
 	{
 		if (lightFish)
 		{
-			lightFish->stopLightShoot();
+			if (lightFish->getTargeLightTurret() == this)
+			{
+				lightFish->stopLightShoot();
+			}
 		}
+		
 
 		fish->onLightShoot(this);
 	}
 	lightFish = fish;
 
 
-	auto node = getChildByName("Laster");
+	auto node = getParent()->getChildByName("Laster");
 	if (node)
 	{
 		node->removeFromParentAndCleanup(1);
+
 		node = nullptr;
 	}
 	auto spLaster = Laster::create();
@@ -625,20 +630,23 @@ void PlayerTurret::endLightShoot()
 {
 	setisUsingLight(false);
 	getChildByName("aniTurretLight")->removeFromParentAndCleanup(1);
-	getChildByName("menuUpDe")->setVisible(true);
+	getChildByName("menuUpDe")->setVisible(true);	
+	auto node = getParent()->getChildByName("Laster");
+	if (node)
+	{
+		node->unscheduleUpdate();
+		node->removeFromParentAndCleanup(1);
+		node = nullptr;
+	}
 	m_turret->changeToNormalTurret();
 	if (lightFish)
 	{
 		lightFish->stopLightShoot();
+		setLightFish(nullptr);
 	}
 	stopActionByTag(123);
 
-	auto node = getParent()->getChildByName("Laster");
-	if (node)
-	{
-		node->removeFromParentAndCleanup(1);
-		node = nullptr;
-	}
+
 	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlight));
 }
 
@@ -659,8 +667,12 @@ void PlayerTurret::setLockFish(Fish* fish)
 		}
 		if (lockFish)
 		{
-			lockFish->stopLockShoot();
+			if (lockFish->getTargeLockTurret() == this)
+			{
+				lockFish->stopLockShoot();
+			}
 		}
+		
 	
 		fish->onLockShoot(this);
 	}	
@@ -682,6 +694,7 @@ void PlayerTurret::endLockShoot()
 	if (lockFish)
 	{
 		lockFish->stopLockShoot();
+		setLightFish(nullptr);
 	}
 	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlock));
 }

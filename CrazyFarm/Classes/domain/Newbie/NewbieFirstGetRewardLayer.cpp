@@ -55,7 +55,6 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 		return true;
 	}
 	istouched = true;
-	colorlayer->removeFromParentAndCleanup(1);
 	sPoint->removeFromParentAndCleanup(1);
 	tipTxt->removeFromParentAndCleanup(1);
 	box->stopAllActions();

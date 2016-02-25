@@ -59,6 +59,8 @@ public:
 	void showLockUpgradeTurret();
 
 	void onBossWarning(int fishID);
+
+	void showGainMoneyTurrent();
 private:
 	////
 	//≤•∑≈’Ê»À…˘“Ù

@@ -10,6 +10,7 @@
 #include "utill/Chinese.h"
 #include "data/GameData.h"
 #include "domain/game/GameManage.h"
+#include "config/ConfigVipLevel.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
 
 Pay* Pay::_instance = NULL;
@@ -66,13 +67,14 @@ void Pay::payCallBack(int code, const char* msg)
 	if (code == 0||code==201)
 	{
 		int lastlv = User::getInstance()->getVipLevel();
+		auto lvdata = ConfigVipLevel::getInstance()->getVipLevel(lastlv);
 		//���ߴ���
 		for (auto var:info.items)
 		{
 			switch (var.ItemID)
 			{
 				case 1:
-					User::getInstance()->addCoins(var.ItemNum);
+					User::getInstance()->addCoins(var.ItemNum*lvdata.pay_reward);
 					if (!User::getInstance()->getIsHaveBycoin())
 					{
 						User::getInstance()->setHaveBycoin();
@@ -81,7 +83,7 @@ void Pay::payCallBack(int code, const char* msg)
 					
 					break;
 				case 2:
-					User::getInstance()->addDiamonds(var.ItemNum);
+					User::getInstance()->addDiamonds(var.ItemNum*lvdata.pay_reward);
 					break;
 				case 3:
 					NobilityManager::getInstance()->addStepsDay(30);

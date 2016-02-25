@@ -45,6 +45,7 @@ bool GameLayer::init(){
 	{
 		return false;
 	}
+	setIsShowYourChairno(false);
 	FishManage::getInstance()->setlayer(this);
 	skillManager::getInstance()->setlayer(this);
 	//add game bg to this layer
@@ -92,14 +93,14 @@ bool GameLayer::init(){
 	GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
 	GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
 
-	showYourChairno();
+
 	if (!NewbieMannger::getInstance()->getisOverTeachMode())
 	{
 		myTurret->showPlayerInfo();
 		auto txtclick = Sprite::create("TXTClickCatch.png");
 		txtclick->setPosition(480, 270);
 		addChild(txtclick, kZorderDialog, "clickcatch");
-
+		txtclick->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
 	}
 	
 	skillManager::getInstance()->init();
@@ -116,18 +117,16 @@ bool GameLayer::init(){
 		addChild(node);
 	}
 
+	//FishManage::getInstance()->createFishRand(201);
 
 
-
-	//runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{auto fish = FishManage::getInstance()->createFishSingle(42);
-	//fish->setPosition(480, 270);
-	//addChild(fish, 10);
-	//GameManage::getInstance()->CatchTheFishOntheTurrent(fish, true, myTurret); }), nullptr));
-
-
-
-
-
+	//for (int i = 0; i <= 5;i++)
+	//{
+	//	
+	//	runAction(Sequence::create(DelayTime::create(i * 5), CallFunc::create([=]{
+	//		auto fish = FishManage::getInstance()->createFishSingle(42);
+	//		GameManage::getInstance()->CatchTheFishOntheTurrent(fish, true, myTurret); }), nullptr));
+	//}
 
 	return true;
 }
@@ -136,18 +135,18 @@ bool GameLayer::init(){
 void GameLayer::showYourChairno()
 {
 	auto sp = Sprite::create("TXTYourChairno.png");
-	sp->setPosition(myTurret->getPosition() + Vec2(0, 50));
+	sp->setPosition(myTurret->getPosition() + Vec2(0, 80));
 	addChild(sp, 20);
 	sp->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
-	sp->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(), nullptr));
+	sp->runAction(Sequence::create(DelayTime::create(8.0f), RemoveSelf::create(), nullptr));
 
-	auto pos = myTurret->getPosition() + Vec2(0, 100);
+	auto pos = myTurret->getPosition() + Vec2(0, 130);
 	auto sPoint = Sprite::create("yellowSpoint.png");
 	sPoint->setPosition(pos);
 	addChild(sPoint, 20);
 	sPoint->runAction(RepeatForever::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.6f, Vec2(0, 30))), EaseSineOut::create(MoveBy::create(0.6f, Vec2(0, -30))), nullptr)));
 
-	sPoint->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(), nullptr));
+	sPoint->runAction(Sequence::create(DelayTime::create(8.0f), RemoveSelf::create(), nullptr));
 }
 
 
@@ -254,6 +253,12 @@ void GameLayer::shootUpdata(float dt)
 
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
+	if (getIsShowYourChairno()==false)
+	{
+		showYourChairno();
+		setIsShowYourChairno(true);
+	}
+	
 	auto node = getChildByName("clickcatch");
 	if (node)
 	{

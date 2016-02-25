@@ -194,7 +194,7 @@
 			"fish_UiId"			:	60,
 			"figures"			:
 			[
-				{"figureType":2,"origin":{"x":98.5,"y":105.5},"radius":49.25}
+				{"figureType":1,"origin":{"x":50,"y":53},"size":{"weith" :80 , "high" :80}}
 			]
 		}
 	]

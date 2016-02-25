@@ -114,19 +114,19 @@ bool showTurretLayer::init(int type)
 
 		
 		//tableview
-		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(860,260)
+		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(830,260)
 			);
 		tableView->setDirection(ScrollView::Direction::HORIZONTAL);
 		tableView->setPosition(60,140);
 		tableView->setDelegate(tableviewDelegate);
 		addChild(tableView);
 		tableView->reloadData();
-		if (type == 2)
+		if (type == 1)
 		{
-			int index = ConfigTurrent::getInstance()->getIndexByMaxlv(User::getInstance()->getMaxTurrentLevel());
+			int index = User::getInstance()->getVipLevel()+1;
 			if (index>2)
 			{
-				/*tableView->setContentOffset(Vec2((index-3)*-170, 0));*/
+				tableView->setContentOffset(Vec2((index-3)*-170, 0));
 			}
 			
 		}

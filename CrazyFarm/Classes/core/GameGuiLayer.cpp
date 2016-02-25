@@ -4,6 +4,7 @@
 #include "domain/logevent/LogEventPageChange.h"
 #include "core/showFishLayer.h"
 #include "domain/Newbie/NewbieMannger.h"
+#include "domain/game/GameManage.h"
 enum
 {
 	kZorderMenu = 10,
@@ -26,8 +27,6 @@ bool GameGuiLayer::init(){
 	
 	Audio::getInstance()->playBGM(GAMEBGM);
 	
-
-
 	auto sprbg = Sprite::create("EarnCoins.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	sprbg->setPosition(visibleSize.width-5, visibleSize.height*0.305);
@@ -102,15 +101,14 @@ bool GameGuiLayer::init(){
 	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), rand() % 4 + 5);
 	scheduleUpdate();
 
-	
+	/*Test fun begin*/
+	/*runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([&]{GameManage::getInstance()->onPlayerUpgrade(); }), nullptr));*/
+	/*Test fun end*/
 	return true;
 
 }
 void GameGuiLayer::refreshSkillNum()
 {
-	//auto vec = skillManager::getInstance()->getSkillButtons();
-	//for (auto it = vec.begin(); it != vec.end(); ++it)
-	//	it->second->refreshPropNumLabel();
 
 }
 
@@ -255,7 +253,7 @@ void GameGuiLayer::createMermaidTaskPlane()
 	txt->setPosition(sp->getContentSize().width*0.6,sp->getContentSize().height/2);
 	sp->addChild(txt);
 	sp->runAction(Sequence::create(MoveTo::create(0.3, size / 2), DelayTime::create(1.0f), CallFunc::create([=]{txt->runAction(Sequence::create(MoveBy::create(0.3f, Vec2(-800, 0)), CallFunc::create([=]{txt->setPosition(txt->getPositionX() + 1600, txt->getPositionY()); txt->setTexture("TXTmermaidDec.png"); }), MoveBy::create(0.3f, Vec2(-800, 0)), nullptr)); }), DelayTime::create(3.0f),
-		/*FadeOut::create(1.0f),*/ CallFunc::create([=]{txt->removeFromParentAndCleanup(1),sp->setTexture("txt_3.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
+		 CallFunc::create([=]{txt->removeFromParentAndCleanup(1),sp->setTexture("txt_3.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
 		CallFunc::create([sp]{sp->setTexture("txt_2.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
 		 CallFunc::create([sp]{sp->setTexture("txt_1.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
 		 CallFunc::create([sp]{sp->setTexture("txt_GO.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
@@ -290,7 +288,10 @@ void GameGuiLayer::showLockUpgradeTurret()
 {
 	sUpgradeTurret->showPopup();
 }
-
+void GameGuiLayer::showGainMoneyTurrent()
+{
+	sEainCoin->showPopup();
+}
 
 void GameGuiLayer::onBossWarning(int fishID)
 {
@@ -321,32 +322,30 @@ void GameGuiLayer::onBossWarning(int fishID)
 
 void GameGuiLayer::ShowUseLockTip()
 {
-		
-		auto tipnode = Node::create();
-		tipnode->setPosition(0, 0);
-		auto bt = skillManager::getInstance()->getButtonByID(2);
-		bt->addChild(tipnode,1,"tipnode");
-		auto sp = Sprite::create("SkillHighLight.png");
-		sp->setPosition(bt->getContentSize() / 2);
-		tipnode->addChild(sp, 1);
-		sp->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
+	auto tipnode = Node::create();
+	tipnode->setPosition(0, 0);
+	auto bt = skillManager::getInstance()->getButtonByID(2);
+	bt->addChild(tipnode, 1, "tipnode");
+	auto sp = Sprite::create("SkillHighLight.png");
+	sp->setPosition(bt->getContentSize() / 2);
+	tipnode->addChild(sp, 1);
+	sp->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
 
-		auto sPoint = Sprite::create("yellowSpoint.png");
-		sPoint->setPosition(Vec2(0, 60));
-		tipnode->addChild(sPoint, 20);
-		sPoint->runAction(RepeatForever::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, 30))), EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, -30))), nullptr)));
+	auto sPoint = Sprite::create("yellowSpoint.png");
+	sPoint->setPosition(Vec2(0, 60));
+	tipnode->addChild(sPoint, 20);
+	sPoint->runAction(RepeatForever::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, 30))), EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, -30))), nullptr)));
 
-		auto tiptxt = Sprite::create("TXTUseLock.png");
-		tiptxt->setPosition(Vec2(0, 130));
-		tipnode->addChild(tiptxt);
-		tiptxt->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
+	auto tiptxt = Sprite::create("TXTUseLock.png");
+	tiptxt->setPosition(Vec2(0, 130));
+	tipnode->addChild(tiptxt);
+	tiptxt->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
 }
 void GameGuiLayer::update(float delta)
 {
-	if (NewbieMannger::getInstance()->getNBShootCounts()>=15)
+	if (NewbieMannger::getInstance()->getNBShootCounts()>=50)
 	{
 		NewbieMannger::getInstance()->setNBShootCounts(-1);
-
 		ShowUseLockTip();
 	}
 }

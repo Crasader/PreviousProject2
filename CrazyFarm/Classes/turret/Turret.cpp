@@ -19,7 +19,7 @@ void Turret::initWithType(int type){
 	turretType = type;
 	if (emptySp)
 	{
-		emptySp->removeAllChildrenWithCleanup(1);
+		emptySp->removeFromParentAndCleanup(1);
 	}
 	emptySp = Sprite::create();
 	emptySp->setPosition(getContentSize().width/2, getContentSize().height*0.9);
@@ -42,7 +42,7 @@ void Turret::shoot()
 	runAction(Sequence::createWithTwoActions(Spawn::create(ScaleTo::create(0.025f, 1 * SCALETURRET, 0.8*SCALETURRET), MoveBy::create(0.025, Vec2(-movebypos.x, -movebypos.y)),nullptr),
 		Spawn::create(ScaleTo::create(0.025f, 1 * SCALETURRET, 1.0*SCALETURRET), MoveBy::create(0.025, movebypos), nullptr)));
 
-	if (NewbieMannger::getInstance()->getNBShootCounts()!=-1)
+	if (NewbieMannger::getInstance()->getNBShootCounts() != -1&&!isrobot)
 	{
 		NewbieMannger::getInstance()->setNBShootCounts(NewbieMannger::getInstance()->getNBShootCounts() + 1);
 	}

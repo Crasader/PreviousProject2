@@ -68,9 +68,9 @@ bool RanklistCell::init(){
 	haveCoinTTF->setPosition(642, size.height / 2);
 	addChild(haveCoinTTF);
     
-	auto coinsp = Sprite::create("coin.png");
+	coinsp = Sprite::create("coin.png");
 	coinsp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	coinsp->setPosition(700, size.height / 2);
+	coinsp->setPosition(702, size.height / 2);
 	coinsp->setVisible(false);
 	addChild(coinsp,0,"coinsp");
 
@@ -84,6 +84,7 @@ bool RanklistCell::init(){
 
 void RanklistCell::setCoinValue(int index)
 {
+	coinsp->setTexture("coin.png");
 	if (index%2==1)
 	{
 		bg->setTexture("ranklistBar2.png");
@@ -124,6 +125,7 @@ void RanklistCell::setCoinValue(int index)
 
 void RanklistCell::setExpValue(int index)
 {
+	coinsp->setTexture("EXP.png");
 	if (index % 2 == 1)
 	{
 		bg->setTexture("ranklistBar2.png");
@@ -141,7 +143,6 @@ void RanklistCell::setExpValue(int index)
 	LvTTF->setString(Value(ConfigExp::getInstance()->getLevelData(item.exp).levelId).asString().c_str()); 
 	auto str = String::createWithFormat("%ld", item.exp);
 	haveCoinTTF->setString(ChineseWord("haveExp").c_str());
-	getChildByName("coinsp")->setVisible(false);
 	CoinNumTTF->setString(str->getCString());
 	NameTTF->setString(Value(item.name).asString().c_str());
 	str = ((item.gender == 0) ? String::createWithFormat("bagMale.png") : String::createWithFormat("bagFamale.png"));
