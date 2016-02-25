@@ -23,6 +23,7 @@
 #include "domain/gameConfig/gameConfig.h"
 #include "config/ConfigChest.h"
 #include "config/ConfigNewbieFishCatch.h"
+#include "domain/ToolTip/TwiceSureDialog.h"
 
 enum 
 {
@@ -73,7 +74,23 @@ void PlayerTurret::initTurretWithType(){
 	
 }
 
+void PlayerTurret::changeNewTurret()
+{
+	auto vipLevel = User::getInstance()->getVipLevel();
+	if (vipLevel == 0)
+	{
+		auto var = ConfigNormalTurrent::getInstance()->getNormalTurrent(User::getInstance()->getMaxTurrentLevel());
+		turretdata.init(var.normal_turrent_id, var.turrent_ui_id, var.net_per, var.catch_per, var.ui_type, var.net_type);
+	}
+	else
+	{
+		auto var = ConfigVipTurrent::getInstance()->getVipTurrent(User::getInstance()->getVipLevel());
+		turretdata.init(var.vip_turrent_id, var.turrent_ui_id, var.net_per, var.catch_per, var.ui_type, var.net_type);
+	}
 
+
+	m_turret->changeToNewTurret(turretdata.turrent_ui_id);
+}
 
 
 
@@ -152,28 +169,52 @@ void PlayerTurret::upgradeTurret(Ref* psend)
 {
 	m_turretdata = GameData::getInstance()->getTurrentData();
 	m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(m_turretdata.multiple);
-	if (m_turretdata.turrentId>User::getInstance()->getMaxTurrentLevel())
-	{
-		m_turretdata = ConfigTurrent::getInstance()->getTurrent(1);
-	}
+	
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
 	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
 	m_turret->upgradeTurret();
+	LogEventSpcEvent::getInstance()->addEventItems(1, 0);
+	changeNewTurret();
+	if (m_turretdata.turrentId > User::getInstance()->getMaxTurrentLevel())
+	{
+		m_btType = 1;
+		ShowLockTurretTip();
+	}
+	
 }
 void PlayerTurret::degradeTurret(Ref* psend)
 {
+	/////TODO:
+	/*auto node = getChildByName("locknode");
+	if (node)
+	{
+	node->removeFromParentAndCleanup(1);
+	}*/
+
 	m_turretdata = GameData::getInstance()->getTurrentData();
 	auto nowlevel = m_turretdata.turrentId;
 	m_turretdata = ConfigTurrent::getInstance()->getLastTurrent(nowlevel);
 	auto room = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
-	if (m_turretdata.turrentId < room.unlock_turrent_level||m_turretdata.turrentId==-1)
+	if ( m_turretdata.turrentId == -1)
 	{
 		m_turretdata = ConfigTurrent::getInstance()->getTurrent(User::getInstance()->getMaxTurrentLevel());
+		return;
 	}
+	changeNewTurret();
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
-	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
 	m_turret->degradeTurret();
+	GameData::getInstance()->setnowLevel(m_turretdata.turrentId);
 	LogEventSpcEvent::getInstance()->addEventItems(2, 0);
+	if (m_turretdata.turrentId < room.unlock_turrent_level )
+	{
+		m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(User::getInstance()->getMaxTurrentLevel());
+		changeNewTurret();
+		nCurLevel->setString(Value(m_turretdata.turrentId).asString());
+		GameData::getInstance()->setnowLevel(m_turretdata.turrentId);
+		m_turret->degradeTurret();
+		m_btType = -1;
+		ShowLockTurretTip();
+	}
 }
 
 
@@ -182,6 +223,55 @@ void PlayerTurret::rorateTurret(float angle)
 {
 	auto rotate = RotateTo::create(0.1, angle);
 	m_turret->runAction(rotate);
+}
+void PlayerTurret::ShowLockTurretTip()
+{
+	((Menu*)getChildByName("menuUpDe"))->setEnabled(false);
+	auto locknode = Node::create();
+	locknode->setPosition(0, 0);
+	addChild(locknode, 13, "locknode");
+	auto lock = Sprite::create("lock.png");
+	lock->setPosition(getContentSize() / 2+Size(0,10));
+	lock->setVisible(false);
+	lock->runAction(Sequence::create(DelayTime::create(0.15f), CallFunc::create([=]{lock->setVisible(true); }), nullptr));
+	locknode->addChild(lock, 2);
+	auto tip = Sprite::create("TXTClickLock.png");
+	tip->setPosition(getContentSize()/2 + Size(0, 70));
+	locknode->addChild(tip);
+	tip->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.5f, Vec2(0, -30)), MoveBy::create(0.5f, Vec2(0, 30)), nullptr)));
+
+
+	auto listenr1 = EventListenerTouchOneByOne::create();
+	listenr1->onTouchBegan = CC_CALLBACK_2(PlayerTurret::TouchTheLockNode, this);
+	listenr1->setSwallowTouches(true);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, locknode);
+}
+
+
+bool PlayerTurret::TouchTheLockNode(Touch *pTouch, Event *pEvent)
+{
+	//runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{((Menu*)getChildByName("menuUpDe"))->setEnabled(true); }), nullptr));
+	auto node = getChildByName("locknode");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+	}
+	GameManage::getInstance()->showLockTurrent();
+	//µ¯¸¶·Ñ
+
+
+	if (m_btType == 1)
+	{
+		m_turretdata = ConfigTurrent::getInstance()->getTurrent(ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID()).unlock_turrent_level);
+	}
+	else if (m_btType == -1)
+	{
+		m_turretdata = ConfigTurrent::getInstance()->getTurrent(User::getInstance()->getMaxTurrentLevel());
+	}
+	changeNewTurret();
+	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
+	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
+	return true;
 }
 
 
@@ -523,7 +613,7 @@ void PlayerTurret::refreshTurretInfo()
 	}
 
 
-	m_turret->changeToNewTurret(turretdata.turrent_ui_id);
+	changeNewTurret();
 }
 void PlayerTurret::setLightFish(Fish* fish)
 {

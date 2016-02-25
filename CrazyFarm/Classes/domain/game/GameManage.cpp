@@ -144,8 +144,11 @@ void GameManage::onPlayerUpgrade()
 	aninode->setPosition(480, 270);
 	m_pGuilayer->addChild(aninode, 20);
 	aninode->setScale(2);
-	;
-	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), CallFunc::create([=]{auto node = UpgradeSureDialog::create(rewards);
+	auto txt = Sprite::create("TXTUpGrade.png");
+	txt->setPosition(480, 350);
+	m_pGuilayer->addChild(txt, 20);
+
+	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), CallFunc::create([=]{txt->removeFromParentAndCleanup(1); auto node = UpgradeSureDialog::create(rewards);
 	node->setPosition(0, 0);
 	m_pGuilayer->addChild(node, 20); colorlayer->removeFromParentAndCleanup(1); }), RemoveSelf::create(), nullptr));
 	

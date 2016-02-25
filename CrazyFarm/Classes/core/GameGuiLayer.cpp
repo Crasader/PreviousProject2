@@ -248,7 +248,7 @@ void GameGuiLayer::createMermaidTaskPlane()
 	auto size = Director::getInstance()->getVisibleSize();
 	auto sp = Sprite::create("mermaidFrame.png");
 	sp->setPosition(-300, size.height*0.5);
-	addChild(sp);
+	addChild(sp,20);
 	auto txt = Sprite::create("TXTmermaid.png");
 	txt->setPosition(sp->getContentSize().width*0.6,sp->getContentSize().height/2);
 	sp->addChild(txt);

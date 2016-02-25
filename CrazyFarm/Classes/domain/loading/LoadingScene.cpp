@@ -121,7 +121,7 @@ void LoadingScene::loadRes()
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_GoldFish/aniGoldfish_%d.png", "aniGoldfish", 2.0f, 18);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_DianQiu/TX_DianQiu_%d.png", "aniDianQiu", 1.0f, 13);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_shandian/shandian_%d.png", "aniShandian", 0.5f, 4);
-	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_huanpao/aniHuanpao_%d.png", "aniHuanpao", 0.5f, 7);
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/TX_huanpao/aniHuanpao_%d.png", "aniHuanpao", 0.3f, 7);
 
 	//load fish ani
 	int i = 1;

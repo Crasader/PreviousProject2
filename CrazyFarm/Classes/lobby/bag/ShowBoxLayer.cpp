@@ -8,6 +8,7 @@
 #include "domain/coinBox/CoinBox.h"
 #include "lobby/bag/bagLayer.h"
 #include "config/ConfigChest.h"
+#include "domain/ToolTip/TwiceSureDialog.h"
 ShowBoxLayer*ShowBoxLayer::create(int itemid)
 {
 	ShowBoxLayer *pRet = new ShowBoxLayer();
@@ -161,7 +162,12 @@ void ShowBoxLayer::quedingcallback(Ref*)
 		{
 			User::getInstance()->addCoins(box.have_get_reward);
 		}
+		auto str = String::createWithFormat("getXXcoin", box.have_get_reward);
+		auto dioag = TwiceSureDialog::createDialog(str->getCString(), nullptr);
+		dioag->setPosition(0, 0);
+		getParent()->addChild(dioag, 20);
 	}
+	
 	BagManager::getInstance()->changeItemCount(m_itemId, -1);
 	((BagLayer*)getParent())->gettableview()->reloadData();
 	removeFromParentAndCleanup(1);

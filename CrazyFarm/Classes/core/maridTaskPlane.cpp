@@ -17,18 +17,17 @@ bool maridTaskPlane::init()
 	bool bRet = false;
 	do
 	{  
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("game/ui/fish/fish_frame.plist");
 		auto size = getContentSize();
 		auto info = GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo();
 		for (int i = 0; i < info.mermaidTaskItems.size();i++)
 		{
 			auto var = info.mermaidTaskItems[i];
-			auto sp = Fish::create();
-			sp->initFish(var.fishId);
-			sp->unscheduleUpdate();
+			auto str = String::createWithFormat("%d.png", var.fishId);
+			auto sp = Sprite::createWithSpriteFrameName(str->getCString());
 			sp->setPosition(size.width*0.53, 32+33*(2-i));
 			addChild(sp);
-			sp->setScaleX(65.0 / sp->getContentSize().width);
-			sp->setScaleY(43.0 / sp->getContentSize().height);
+		/*	sp->setScale(30.0f/ sp->getContentSize().height);*/
 			auto label = LabelAtlas::create(Value(var.current_num).asString(), "taskNum.png", 16, 22, '0');
 			label->setPosition(size.width*0.77, 32+33*(2-i));
 			label->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -36,7 +35,10 @@ bool maridTaskPlane::init()
 			label->setTag(var.fishId);
 			scheduleUpdate();
 		}
-		
+		labelNum = LabelTTF::create("0","Arial",20);
+		labelNum->setPosition(43, 22);
+		labelNum->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		addChild(labelNum);
 		
 		bRet = true;
 	} while (0);
@@ -49,6 +51,17 @@ bool maridTaskPlane::init()
 void maridTaskPlane::update(float delta)
 {
 	nNowtime += delta;
+	char* mtime = new char[100];
+	int s = ((int)(300.0f - nNowtime)) % 60;
+	int m = (300.0f - nNowtime) / 60;
+	if (s < 0){
+		s = 00;
+	}
+	if (m < 0){
+		m = 00;
+	}
+	sprintf(mtime, "%.2d:%.2d", m, s);
+	labelNum->setString(mtime);
 	auto info = GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
 	auto isSuccess = GameData::getInstance()->getmermaidTask()->isSuccess();
 	for (auto var : info)
@@ -68,8 +81,8 @@ void maridTaskPlane::update(float delta)
 		nameLabel->setPosition(192, 71);
 		nameLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		sp->addChild(nameLabel);
-		getParent()->addChild(sp, 10);
-		sp->runAction(Sequence::create(DelayTime::create(1.0f), RemoveSelf::create(1), nullptr));
+		getParent()->addChild(sp, 20);
+		sp->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(1), nullptr));
 		removeFromParentAndCleanup(1);
 		return;
 	}
@@ -79,8 +92,8 @@ void maridTaskPlane::update(float delta)
 		((GameGuiLayer*)getParent())->beginMaridTaskTime();
 		auto sp = Sprite::create("TXTNoFinished.png");
 		sp->setPosition(480, 270);
-		getParent()->addChild(sp, 10);
-		sp->runAction(Sequence::create(DelayTime::create(1.0f), RemoveSelf::create(1), nullptr));
+		getParent()->addChild(sp, 20);
+		sp->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(1), nullptr));
 
 		removeFromParentAndCleanup(1);
 		return;

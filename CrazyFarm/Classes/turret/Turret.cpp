@@ -69,12 +69,17 @@ void Turret::changeToNormalTurret()
 }
 void Turret::changeToNewTurret(int uiid)
 {
-
+	auto ac = getActionByTag(102); 
+	if (ac)
+	{
+		stopActionByTag(102);
+	}
 	auto path = String::createWithFormat("game/ui/turret/pao_%d.png", uiid);
 	setTexture(path->getCString());
 	setScale(SCALETURRET);
 	turretType = uiid;
-	
-	runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniHuanpao"), CallFunc::create([=]{setScale(0); }), ScaleTo::create(0.1f, SCALETURRET), nullptr));
+	auto ac1= Sequence::create(AnimationUtil::getInstance()->getAnimate("aniHuanpao"), CallFunc::create([=]{setScale(0); }), ScaleTo::create(0.1f, SCALETURRET), nullptr);
+	ac1->setTag(102);
+	runAction(ac1);
 
 }

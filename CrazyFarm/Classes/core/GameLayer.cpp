@@ -84,7 +84,7 @@ bool GameLayer::init(){
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	
-	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81, rand() % (300 - 35) + 35)); }), nullptr));
+	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81, rand() % (300 - 35) + 0)); }), nullptr));
 
 
 
@@ -117,16 +117,7 @@ bool GameLayer::init(){
 		addChild(node);
 	}
 
-	//FishManage::getInstance()->createFishRand(201);
 
-
-	//for (int i = 0; i <= 5;i++)
-	//{
-	//	
-	//	runAction(Sequence::create(DelayTime::create(i * 5), CallFunc::create([=]{
-	//		auto fish = FishManage::getInstance()->createFishSingle(42);
-	//		GameManage::getInstance()->CatchTheFishOntheTurrent(fish, true, myTurret); }), nullptr));
-	//}
 
 	return true;
 }
@@ -750,22 +741,26 @@ void GameLayer::addReward(int itemid, int num)
 void GameLayer::onGetReward(int itemid, int num)
 {
 	auto spPath = String::createWithFormat("item_%d.png", itemid);
-	auto lightsp = Sprite::create("light1.png");
-	lightsp->setPosition(480, 270);
-	addChild(lightsp);
-	lightsp->runAction(RotateTo::create(3.0f, 360.0));
+
 	auto sp = Sprite::create(spPath->getCString());
 	sp->setPosition(480, 270);
 	sp->setScale(0);
-	sp->runAction(ScaleTo::create(0.2, 1.0f));
-	addChild(sp);
-	//缺少放烟花素材
+	addChild(sp, 21);	
+	auto lightsp = Sprite::create("light1.png");
+	lightsp->setPosition(sp->getContentSize()/2);
+	lightsp->runAction(RotateTo::create(3.0f, 360.0));
+	sp->addChild(lightsp,-1);
+	auto colorlayer = LayerColor::create();
+	colorlayer->setColor(ccc3(0, 0, 0));
+	colorlayer->setOpacity(180);
+	addChild(colorlayer, 20);
+
 	auto aninode = Sprite::create();
 	aninode->setPosition(480, 270);
-	addChild(aninode);
+	addChild(aninode,20);
 	aninode->setScale(2);
-	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 3), RemoveSelf::create(), nullptr));
-	sp->runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{lightsp->removeFromParentAndCleanup(1); }), MoveTo::create(1.0f, myTurret->getPosition()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
+	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), RemoveSelf::create(), nullptr));
+	sp->runAction(Sequence::create(DelayTime::create(2.0f), ScaleTo::create(0.2, 1.0f),CallFunc::create([=]{lightsp->removeFromParentAndCleanup(1), colorlayer->removeFromParentAndCleanup(1); }), MoveTo::create(1.0f, myTurret->getPosition()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
 
 }
 

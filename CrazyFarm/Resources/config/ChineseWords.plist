@@ -134,6 +134,10 @@
   <string>以后不再提醒</string>
     <key>havanoDmToUseskill</key>
   <string>您的钻石不足，请充值钻石</string>
+  <key>UpdataMaxTurrent</key>
+  <string>您已经升级到最大等级炮</string>
+   <key>getXXcoin</key>
+  <string>恭喜你，获得%d金币</string>
   </dict> 
 </array>
 </plist>

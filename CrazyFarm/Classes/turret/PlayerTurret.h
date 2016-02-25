@@ -92,9 +92,15 @@ public:
 	  Vec2 getCoinLabelPos(){ return m_coinLabelPos+getPosition()-getContentSize()/2; };
 	  ///金币框获得金币飘数字 +XX
 	  void ShowAddCoinAni(int type, int num);//type：1 金币 2：钻石
+
+	  ///点击解锁炮
+	  void ShowLockTurretTip();
+	  bool TouchTheLockNode(Touch *pTouch, Event *pEvent);
+	  void changeNewTurret();
 private:
 	Vec2 m_coinLabelPos;
 	Turrent  m_turretdata;
+	int m_btType=0; //0普通 1升级 -1降级；
 	  int turretType;
 	  void upgradeTurret(Ref* psend);
 	  void degradeTurret(Ref* psend);

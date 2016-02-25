@@ -10,5 +10,6 @@ private:
 	virtual bool init();
 	void update(float delta);
 	float nNowtime = 0;
+	LabelTTF* labelNum;
 };
 

@@ -23,7 +23,7 @@ void CoinBox::addCoinBox(int money)
 }
 int CoinBox::getPerCoinBox()
 {
-	auto endCoin = *CoinBoxs.end();
+	auto endCoin = CoinBoxs.at(CoinBoxs.size()-1);
 	CoinBoxs.pop_back();
 	return endCoin;
 }
