@@ -101,6 +101,8 @@ bool GameGuiLayer::init(){
 	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), rand() % 4 + 5);
 	scheduleUpdate();
 
+	GameData::getInstance()->setisPlayerOneGame(true);
+
 	/*Test fun begin*/
 	/*runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([&]{GameManage::getInstance()->onPlayerUpgrade(); }), nullptr));*/
 	/*Test fun end*/
