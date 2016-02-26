@@ -157,10 +157,15 @@ std::vector<int> ConfigTurrent::getCurrentShowTurrentIndexs()
 	auto maxlv = User::getInstance()->getMaxTurrentLevel();
 	if (maxlv == 1 || maxlv == 2)
 	{
-		for (auto iter = turrents.begin(); iter != turrents.end();iter++)
+		///*	for (int i = maxlv + 1; i <= maxlv + 5;i++)
+		//	{
+		//	vec.push_back(getIndexByMaxlv(turrents.at(i).turrentId));
+		//	}*/
+		for (auto iter = (++(turrents.begin())); iter != turrents.end(); iter++)
 		{
-			vec.push_back(getIndexByMaxlv(iter->turrentId));
-			if (vec.size()>=5)
+
+			vec.push_back(getIndexByMaxlv(iter->multiple));
+			if (vec.size() >= 5)
 			{
 				break;
 			}
@@ -168,9 +173,9 @@ std::vector<int> ConfigTurrent::getCurrentShowTurrentIndexs()
 	}
 	else
 	{
-		Turrent turrent3 = getTurrent(maxlv);
-		Turrent turrent2 = getLastTurrent(turrent3.turrentId);
+		Turrent turrent2 = getTurrent(maxlv);
 		Turrent turrent1 = getLastTurrent(turrent2.turrentId);
+		Turrent turrent3 = getNextTurrent(turrent2.turrentId);
 		Turrent turrent4 = getNextTurrent(turrent3.turrentId);
 		Turrent turrent5 = getNextTurrent(turrent4.turrentId);
 		vec.push_back(getIndexByMaxlv(turrent1.turrentId));

@@ -38,7 +38,7 @@ public:
 	  void rorateTurret(float angle);
 	  void shoot(float);
 	  //ÉÁµçÉä»÷
-	  Point getLasterOrginPos(){ return m_turret->getTampionPos(); }
+	  Point getLasterOrginPos(){ return m_turret->getLightLaughPos(); }
 	  void beginLightShoot();
 	  void endLightShoot();
 	  void rorateAndShootOnlight(float dt);

@@ -82,7 +82,7 @@ bool GameGuiLayer::init(){
 	auto addcoinButton = MenuItemImage::create("huoquCoinBT.png", "huoquCoinBT.png", CC_CALLBACK_1(GameGuiLayer::addCoinCallBack, this));
 	addcoinButton->setPosition(910, 397);
 	auto addcoinani = Sprite::create("rorateLightCoin.png");
-	addcoinani->setPosition(addcoinButton->getPosition()+Point(0,30));
+	addcoinani->setPosition(addcoinButton->getPosition()+Point(0,10));
 	addChild(addcoinani);
 	addcoinani->runAction(RepeatForever::create(RotateBy::create(5, 360)));
 	menu->addChild(addcoinButton);

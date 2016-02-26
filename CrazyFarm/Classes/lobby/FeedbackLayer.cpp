@@ -36,7 +36,7 @@ bool FeedbackLayer::init()
 		_editName->setFontSize(25);
 		_editName->setFontColor(Color3B::YELLOW);
 		_editName->setPlaceHolder(ChineseWord("feedbackTip").c_str());
-		_editName->setPlaceholderFontColor(Color3B::GRAY);
+		_editName->setPlaceholderFontColor(Color3B::BLACK);
 		_editName->setPlaceholderFontSize(25);
 		_editName->setMaxLength(70);
 		_editName->setReturnType(ui::EditBox::KeyboardReturnType::DONE);

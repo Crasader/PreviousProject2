@@ -9,6 +9,7 @@ bool Turret::init(){
 	}
 	
 	emptySp = nullptr;
+	lightSp = nullptr;
 	return true;
 }
 
@@ -25,6 +26,14 @@ void Turret::initWithType(int type){
 	emptySp->setPosition(getContentSize().width/2, getContentSize().height*0.9);
 	addChild(emptySp);
 	 
+	if (lightSp)
+	{
+		lightSp->removeFromParentAndCleanup(1);
+	}
+	lightSp = Sprite::create();
+	lightSp->setPosition(getContentSize().width / 2, getContentSize().height*0.5);
+	addChild(lightSp);
+
 
 }
 

@@ -113,6 +113,7 @@ private:
 	TouchType m_lasttouchType;
 	Sprite* game_bg;
 
+	CC_SYNTHESIZE(Node*, createFishAcNode, CreateFishAcNode);
 	CC_SYNTHESIZE(bool, isShowYourChairno, IsShowYourChairno);
 	Point touchpos;
 	bool istouched = false;

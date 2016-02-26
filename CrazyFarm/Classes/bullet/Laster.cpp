@@ -5,9 +5,9 @@ bool Laster::init(){
 	bool bRet = false;
 	do 
 	{
-		CC_BREAK_IF(!ui::Scale9Sprite::initWithFile("game/ui/ani/TX_JiGuang/TX_JiGuang_1.png",Rect(0,0,710,192),Rect(98,81,403,32)));
+		CC_BREAK_IF(!Sprite::initWithFile("game/ui/ani/TX_JiGuang/TX_JiGuang_1.png"));
 		setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		//runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniJiGuangBar")));
+	
 
 
 
@@ -37,7 +37,8 @@ void Laster::update(float delta)
 		Vec2 m_pos = pPlayerTurret->getLasterOrginPos();
 		Vec2 targetPos = fish->getPosition();
 		auto distance = m_pos.distance(targetPos);
-		setContentSize(Size(distance,getContentSize().height));
+		setTextureRect(Rect(0, 0, distance, getContentSize().height));
+		//setContentSize(Size(distance,getContentSize().height));
 		auto angle = getTurretRotation(m_pos,targetPos);
 		setRotation(-90+angle);
 	}

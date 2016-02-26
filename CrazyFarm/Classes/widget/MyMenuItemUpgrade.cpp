@@ -217,9 +217,10 @@ void MyMenuItemUpgrade::setValue()
 
 	commonNode->setVisible(true);
 	auto maxlevel = User::getInstance()->getMaxTurrentLevel();
-	auto turretData = ConfigTurrent::getInstance()->getNextTurrent(maxlevel);
+	auto turretData = ConfigTurrent::getInstance()->getNextTurrent(maxlevel);	
 	auto zengList = turretData.rewardList;
 	auto diamondNum = User::getInstance()->getDiamonds();
+	isFinish = diamondNum >= turretData.unlockPrice ? true : false;
 	auto str = String::createWithFormat("%d:%d", diamondNum, turretData.unlockPrice);
 	auto scalex = ((float)diamondNum)/((float)turretData.unlockPrice);
 	int coinnum;
@@ -231,7 +232,7 @@ void MyMenuItemUpgrade::setValue()
 			break;
 		}
 	}
-	isFinish = diamondNum >= turretData.unlockPrice ? true : false;
+
 	auto node = (LabelAtlas*)commonNode->getChildByTag(kTagMutpleLabel);
 	node->setString(Value(turretData.multiple).asString().c_str());
 	if (isFinish)

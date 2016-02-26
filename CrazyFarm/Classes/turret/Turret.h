@@ -21,9 +21,13 @@ public:
 	  void changeToNormalTurret();
 	  void shoot();
 	  Point getTampionPos(){ return emptySp->convertToWorldSpace(Point(0, 0)); }
+
+	  Point getLightLaughPos(){ return lightSp->convertToWorldSpace(Point(0, 0)); }
 private:
 	  int turretType;
 	  Sprite* emptySp;
+
+	  Sprite*lightSp;
 	  CC_SYNTHESIZE(bool, isrobot, IsRobot);
 	
 	  

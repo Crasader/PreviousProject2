@@ -263,6 +263,7 @@ void Fish::onLightShoot(PlayerTurret*turret)
 	auto aniFishLightNode = Sprite::create();
 	aniFishLightNode->setPosition(centerPos);
 	addChild(aniFishLightNode,0,"lightani");
+	aniFishLightNode->setGlobalZOrder(10);
 	aniFishLightNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniDianQiu")));
 	setTargeLightTurret(turret);
 

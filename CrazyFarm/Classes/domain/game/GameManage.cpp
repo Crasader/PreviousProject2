@@ -61,6 +61,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			auto lb = LabelAtlas::create(Value(Value(num).asInt()).asString(), "coinNum.png", 32, 48, '0');
 			lb->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			lb->setPosition(Vec2(80, 180));
+			lb->setScale(0.8);
 			lb->setRotation(-30);
 			lb->runAction(RepeatForever::create(Sequence::create(RotateTo::create(0.5f, 30), RotateTo::create(0.5f, -30), nullptr)));
 			aninode->addChild(lb);

@@ -7,7 +7,7 @@
 USING_NS_CC_EXT;
 using namespace cocos2d;
 
-class Laster :public ui::Scale9Sprite{
+class Laster :public Sprite{
 public:
 	virtual bool init();
 	CREATE_FUNC(Laster);

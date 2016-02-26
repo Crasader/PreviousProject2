@@ -50,6 +50,6 @@ int DeviceInfo::getVesion()
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	return 2;
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	return 2;
+	return 3;
 #endif
 }

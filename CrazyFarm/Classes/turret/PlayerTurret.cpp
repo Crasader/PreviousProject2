@@ -250,13 +250,15 @@ void PlayerTurret::ShowLockTurretTip()
 
 bool PlayerTurret::TouchTheLockNode(Touch *pTouch, Event *pEvent)
 {
-	//runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{((Menu*)getChildByName("menuUpDe"))->setEnabled(true); }), nullptr));
+	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{((Menu*)getChildByName("menuUpDe"))->setEnabled(true); }), nullptr));
 	auto node = getChildByName("locknode");
 	if (node)
 	{
 		node->removeFromParentAndCleanup(1);
 	}
-	GameManage::getInstance()->showLockTurrent();
+	auto layer = showTurretLayer::create(2);
+	layer->setPosition(Point::ZERO);
+	GameManage::getInstance()->getGuiLayer()->addChild(layer, 20, 50);
 	//µ¯¸¶·Ñ
 
 
@@ -289,7 +291,7 @@ void PlayerTurret::shoot(float degree){
 	bullet->setRotation(degree);
 	bullet->setPosition(/*this->getPosition()*/m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
-	getParent()->addChild(bullet);
+	getParent()->addChild(bullet,8);
 	
 	//ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½
 
@@ -654,7 +656,7 @@ void PlayerTurret::setLightFish(Fish* fish)
 	}
 	auto spLaster = Laster::create();
 	spLaster->setPlayerTurret(this);
-	getParent()->addChild(spLaster,6,"Laster");
+	getParent()->addChild(spLaster,9,"Laster");
 
 	
 }
@@ -820,7 +822,7 @@ void PlayerTurret::shootOnLock(float dt){
 	bullet->setPlayerTurret(this);
 	auto duration = pos.distance(lockFish->getPosition()) / 800.0f;
 	bullet->moveToLockfish(duration, lockFish);
-	getParent()->addChild(bullet);
+	getParent()->addChild(bullet,8);
 
 
 
@@ -877,7 +879,7 @@ void PlayerTurret::shootOnAuto(float dt){
 	auto pos = m_turret->getTampionPos();
 	bullet->setPosition(m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
-	getParent()->addChild(bullet);
+	getParent()->addChild(bullet,8);
 	m_turret->shoot();
 
 	//ï¿½ï¿½ï¿½ð¶¯»ï¿½

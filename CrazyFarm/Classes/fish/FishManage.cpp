@@ -111,7 +111,7 @@ void FishManage::createFishGroup(int grouptag)
 		auto singlegp = gp.singleTypefishGroups[i];
 		for (int j = 0; j < singlegp.fishCount; j++)
 		{
-			m_layer->runAction(Sequence::create(DelayTime::create(j*singlegp.IntervalCreateTime), CallFunc::create([=]{
+			m_layer->getCreateFishAcNode()->runAction(Sequence::create(DelayTime::create(j*singlegp.IntervalCreateTime), CallFunc::create([=]{
 				Fish* fish = FishManage::getInstance()->createFishSingle(singlegp.fishID);
 				fish->setVisible(false);
 				fish->setisAutoRemove(false);
@@ -142,7 +142,7 @@ void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 		float interval = fishId % 10;
 		for (int i = 0; i < count;i++)
 		{
-			m_layer->runAction(Sequence::create(DelayTime::create(i*interval), CallFunc::create([=]{
+			m_layer->getCreateFishAcNode()->runAction(Sequence::create(DelayTime::create(i*interval), CallFunc::create([=]{
 				Fish* fish = fish = createFishSingle(id);
 				fish->setVisible(false);
 				fish->setisAutoRemove(false);
@@ -645,7 +645,6 @@ void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 			shandian->setScaleX(distans / 392.0f);
 		}
 		GameManage::getInstance()->CatchTheFishOntheTurrent(var, 1, pTurret);
-	/*	m_layer->runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{GameManage::getInstance()->CatchTheFishOntheTurrent(var, 1, pTurret); }),nullptr));*/
 	}
 	
 
@@ -670,6 +669,7 @@ void FishManage::onBoomFishDead(Fish*fish, PlayerTurret* pTurret)
 
 void FishManage::onClearFish()
 {
+	clearMomentEightItemFishs();
 	m_layer->onClearFish();
 
 }

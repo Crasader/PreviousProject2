@@ -117,7 +117,9 @@ bool GameLayer::init(){
 		addChild(node);
 	}
 
-
+	createFishAcNode = Node::create();
+	createFishAcNode->setPosition(0, 0);
+	addChild(createFishAcNode);
 
 	return true;
 }
@@ -649,6 +651,7 @@ bool GameLayer::AutoShootTouchEvent(Touch *touch, Event *event)
 void GameLayer::useFreeze(PlayerTurret*turret)
 {
 	unscheduleUpdate();
+	createFishAcNode->pause();
 	auto bg = ProgressTimer::create(Sprite::create("iceFram4.jpg"));
 	bg->setType(ProgressTimer::Type::BAR);
 	bg->setMidpoint(Vec2(0, 0));
@@ -679,6 +682,7 @@ void GameLayer::useFreeze(PlayerTurret*turret)
 void GameLayer::onFreezeEnd(PlayerTurret*turret)
 {
 	scheduleUpdate();
+	createFishAcNode->resume();
 	getChildByTag(kTagFrezzebg)->removeFromParentAndCleanup(1);
 	turret->getChildByName("freezetxt")->removeFromParentAndCleanup(1);
 }
