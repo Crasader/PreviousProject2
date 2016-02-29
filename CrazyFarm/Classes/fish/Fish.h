@@ -113,7 +113,7 @@ protected:
 	//“ı”∞
 	std::vector<ShadeData> shadedatas;
 	Vector<Sprite*>  m_shadesprites;
-	FishShader* m_shadesprite = nullptr;
+	Sprite* m_shadesprite = nullptr;
 	void ShadeUpdata(float dt);
 	void ShadeResume();
 	void ShadePause();

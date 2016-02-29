@@ -4,6 +4,7 @@
 #include "config/ConfigVipTurrent.h"
 #include "lobby/shop/payLayer.h"
 #include "domain/user/User.h"
+#include "domain/game/GameManage.h"
 #include "config/ConfigTurrent.h"
 void showTurretView::tableCellTouched(TableView* table, TableViewCell* cell){
 
@@ -169,6 +170,7 @@ bool showTurretLayer::init(int type)
 
 void showTurretLayer::closeButtonCallBack(Ref*psend)
 {
+	GameManage::getInstance()->getGameLayer()->GetMyTurret()->changeDataByBtnType();
 	removeFromParentAndCleanup(1);
 }
 

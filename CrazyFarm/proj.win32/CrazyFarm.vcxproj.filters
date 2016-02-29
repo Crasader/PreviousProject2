@@ -127,6 +127,9 @@
     <Filter Include="src\bullet\resource">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\login">
+      <UniqueIdentifier>{60fbd3c7-e426-43c4-9378-1d09899bc6ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -659,6 +662,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\domain\ToolTip\TwiceSkillSureDialog.cpp">
       <Filter>src\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\login\LoginMannger.cpp">
+      <Filter>src\login</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1198,6 +1204,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ToolTip\TwiceSkillSureDialog.h">
       <Filter>src\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\login\LoginMannger.h">
+      <Filter>src\login</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

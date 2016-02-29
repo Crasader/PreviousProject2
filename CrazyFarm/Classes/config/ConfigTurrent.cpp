@@ -101,7 +101,9 @@ Turrent ConfigTurrent::getNextTurrent(int turrentId)
 			}
 			else
 			{
-				return turrents[i];
+				Turrent turrent;
+				turrent.turrentId = -1;
+				return turrent;
 			}
 		}
 	}
@@ -126,18 +128,15 @@ Turrent ConfigTurrent::getLastTurrent(int turrentId)
 	}
 }
 
+Turrent ConfigTurrent::getMaxNextTurrent()
+{
+	int maxlv = User::getInstance()->getMaxTurrentLevel();
+	return getNextTurrent(maxlv);
+}
 
 Turrent ConfigTurrent::getTurrentByIndex(int index)
 {
 	return turrents.at(index);
-	/*for (auto var:turrents)
-	{
-	if (var.turrentId == index)
-	{
-	return var;
-	}
-	}
-	return Turrent();*/
 }
 int   ConfigTurrent::getIndexByMaxlv(int maxlv)
 {
@@ -157,10 +156,6 @@ std::vector<int> ConfigTurrent::getCurrentShowTurrentIndexs()
 	auto maxlv = User::getInstance()->getMaxTurrentLevel();
 	if (maxlv == 1 || maxlv == 2)
 	{
-		///*	for (int i = maxlv + 1; i <= maxlv + 5;i++)
-		//	{
-		//	vec.push_back(getIndexByMaxlv(turrents.at(i).turrentId));
-		//	}*/
 		for (auto iter = (++(turrents.begin())); iter != turrents.end(); iter++)
 		{
 
@@ -170,6 +165,20 @@ std::vector<int> ConfigTurrent::getCurrentShowTurrentIndexs()
 				break;
 			}
 		}
+	}
+	else if (maxlv == 900||maxlv == 1000)
+	{
+		maxlv = 800;
+		Turrent turrent2 = getTurrent(maxlv);
+		Turrent turrent1 = getLastTurrent(turrent2.turrentId);
+		Turrent turrent3 = getNextTurrent(turrent2.turrentId);
+		Turrent turrent4 = getNextTurrent(turrent3.turrentId);
+		Turrent turrent5 = getNextTurrent(turrent4.turrentId);
+		vec.push_back(getIndexByMaxlv(turrent1.turrentId));
+		vec.push_back(getIndexByMaxlv(turrent2.turrentId));
+		vec.push_back(getIndexByMaxlv(turrent3.turrentId));
+		vec.push_back(getIndexByMaxlv(turrent4.turrentId));
+		vec.push_back(getIndexByMaxlv(turrent5.turrentId));
 	}
 	else
 	{

@@ -50,4 +50,5 @@ private:
 	void chankanCallBack(Ref*);
 	showTurretView* tableviewDelegate;
 	int m_type;
+	CC_SYNTHESIZE(int, m_btType, btType);
 };

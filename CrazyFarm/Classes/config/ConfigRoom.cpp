@@ -75,6 +75,27 @@ Room ConfigRoom::getRoombyId(int nId) {
     return rooms.at(0);
 }
 
+Room ConfigRoom::getNextRoombyId(int nId) {
+	for (int i = 0; i < rooms.size();i++)
+	{
+		if (rooms[i].room_id==nId)
+		{
+			if (i+1<rooms.size())
+			{
+				return rooms[i + 1];
+			}
+		}
+		else
+		{
+			Room room;
+			room.room_id = 1;
+			return room;
+		}
+	}
+	Room room;
+	room.room_id = 1;
+	return room;
+}
 
 int ConfigRoom::getPlayerCounts(int currentHour, int roomId) {
     if(roomId < 1 || roomId > 4) {

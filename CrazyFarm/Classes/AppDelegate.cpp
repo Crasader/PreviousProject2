@@ -5,6 +5,7 @@
 #include "server/HttpMannger.h"
 #include "domain/loading/LoadingScene.h"
 #include "domain/globalschedule/GlobalSchedule.h"
+#include "domain/logevent/LogEventMannger.h"
 #include "utill/Audio.h"
 USING_NS_CC;
 
@@ -100,6 +101,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 void AppDelegate::applicationDidEnterBackground() {
 	Director::getInstance()->stopAnimation();
 	Audio::getInstance()->pauseBGM();
+	LogEventMannger::getInstance()->sendMsg();
 	log("come to backgroud");
 	// if you use SimpleAudioEngine, it must be pause
 	// SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
@@ -109,6 +111,7 @@ void AppDelegate::applicationDidEnterBackground() {
 void AppDelegate::applicationWillEnterForeground() {
 	Director::getInstance()->startAnimation();
 	Audio::getInstance()->resumeBGM();
+	
 	log("come to game");
 	// if you use SimpleAudioEngine, it must resume here
 	// SimpleAudioEngine::getInstance()->resumeBackgroundMusic();

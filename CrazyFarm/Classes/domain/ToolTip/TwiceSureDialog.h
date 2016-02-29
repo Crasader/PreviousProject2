@@ -9,6 +9,7 @@ protected:
 	void closeButtonCallBack(Ref*psend);
 	MenuItemImage* close;
 	MenuItemImage*sure;
+	LayerColor*colorLayer;
 public:
 	static TwiceSureDialog* createDialog(const char* tipStr, const ccMenuCallback& surecallback = nullptr);
 	void setCloseButtonCallback(const ccMenuCallback& closecallback);

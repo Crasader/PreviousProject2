@@ -51,7 +51,7 @@ bool showTurretCell::init(){
 	button->setCallback(CC_CALLBACK_1(showTurretCell::ButtonCallback,this));
 	auto diamondNumTTF = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
 	diamondNumTTF->setPosition(Point::ANCHOR_MIDDLE);
-	diamondNumTTF->setPosition(button->getContentSize()/2);
+	diamondNumTTF->setPosition(button->getContentSize()/2+Size(0,-2));
 	diamondNumTTF->setVisible(false);
 	button->addChild(diamondNumTTF,1,10);
 
@@ -96,6 +96,12 @@ bool showTurretCell::init(){
 	quex3->setPosition(zengCoinTTf->getPosition());
 	addChild(quex3);
 	quex3->setVisible(false);
+
+
+	quexprice3 = Sprite::create("quex3.png");
+	quexprice3->setPosition(button->getContentSize()/2+Size(8,3));
+	button->addChild(quexprice3,1);
+	quexprice3->setVisible(false);
 	return true;
 }
 
@@ -132,15 +138,18 @@ void showTurretCell::setMultipleValue(int index)
 		lockTTf->setVisible(true);
 		ShowPaoshade->setVisible(false);
 		
-
+		quexprice3->setVisible(false); 
 		zengCoinTTf->setVisible(false);
 		SendCoin->setVisible(false);
 		quex3->setVisible(false);
 	}
 	else if ((nowIndex+1) == index)//下一级
 	{
+		quexprice3->setVisible(false);
+		diamondNumTTF->setVisible(true);
 		lock->setVisible(true);
 		button->setVisible(true);
+		button->setEnabled(true);
 		lockTTf->setVisible(false);
 		ShowPaoshade->setVisible(false);
 		ShowPaolight->setVisible(true);
@@ -152,8 +161,11 @@ void showTurretCell::setMultipleValue(int index)
 	}
 	else//未解锁
 	{
+		quexprice3->setVisible(true);
+		diamondNumTTF->setVisible(false);	
 		lock->setVisible(true);
 		button->setVisible(true);
+		button->setEnabled(false);
 		lockTTf->setVisible(false);
 		ShowPaoshade->setVisible(true);
 		ShowPaolight->setVisible(false);
@@ -168,47 +180,6 @@ void showTurretCell::setMultipleValue(int index)
 		}
 		
 	}
-
-	/*if (nextTurret.turrentId < turret.turrentId)
-	{
-		lock->setVisible(false);
-		button->setVisible(true);
-		lockTTf->setVisible(false);
-		ShowPaoshade->setVisible(true);
-
-		zengCoinTTf->setVisible(false);
-		SendCoin->setVisible(false);
-		quex3->setVisible(false);
-	}	
-	else if (nextTurret.turrentId == turret.turrentId)
-	{
-		lock->setVisible(true);
-		button->setVisible(true);
-		lockTTf->setVisible(false);
-		ShowPaoshade->setVisible(false);
-		ShowPaolight->setVisible(true);
-
-		SendCoin->setVisible(true);
-		zengCoinTTf->setVisible(true);
-		zengCoinTTf->setString(Value(turret.rewardList.at(0).num).asString());
-		quex3->setVisible(false);
-	}
-	else
-	{
-		lock->setVisible(true);
-		button->setVisible(false);
-		lockTTf->setVisible(true);
-		ShowPaoshade->setVisible(false);
-
-
-		if (nextTurret.turrentId > (turret.turrentId+5))
-		{
-		}
-		SendCoin->setVisible(true);
-		zengCoinTTf->setString(Value(turret.rewardList.at(0).num).asString());
-	}
-
-*/
 	if (turret.multiple>30)
 	{
 		propSprite->setTexture("pao_2.png");
@@ -289,67 +260,7 @@ void showTurretCell::ButtonCallback(Ref* psend)
 		bool isFinish = diamondNum >= turretData.unlockPrice ? true : false;
 		if (isFinish)
 		{
-			auto a = User::getInstance()->getMaxTurrentLevel();
-			auto m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(a);
-			User::getInstance()->setMaxTurrentLevel(m_turretdata.multiple);
-			LogEventTurrentUpgrade::getInstance()->sendDataToServer(m_turretdata.multiple, GlobalSchedule::getInstance()->getGameTime());
-			User::getInstance()->addDiamonds(-m_turretdata.unlockPrice);
-			auto vec = m_turretdata.rewardList;
-			for (auto var : vec)
-			{
-				if (var.itemId == 1001)
-				{
-					User::getInstance()->addCoins(var.num);
-				}
-				else if (var.itemId == 1002)
-				{
-					User::getInstance()->addDiamonds(var.num);
-				}
-				else
-				{
-					BagManager::getInstance()->changeItemCount(var.itemId, var.num);
-				}
-
-			}
-			GameData::getInstance()->setnowLevel(m_turretdata.multiple);
-			//解锁成功字样提示
-			auto layer = Director::getInstance()->getRunningScene()->getChildByTag(777);
-			auto pos = GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPosition();
-			auto txt1 = Sprite::create("lockTurretTXT2.png");
-			txt1->setPosition(pos.x + 5, pos.y + 150);
-			GameManage::getInstance()->getGuiLayer()->addChild(txt1);
-			auto ttf = LabelAtlas::create(Value(m_turretdata.multiple).asString().c_str(), "unLockNumTTF.png", 13, 19, '0');
-			ttf->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-			ttf->setPosition(0, txt1->getContentSize().height / 2);
-			txt1->addChild(ttf);
-			auto txt2 = Sprite::create("lockTurretTXT1.png");
-			txt2->setAnchorPoint(Point(1, 0.5));
-			txt2->setPosition(0, ttf->getContentSize().height / 2);
-			ttf->addChild(txt2);
-			auto ttf1 = LabelAtlas::create(Value(m_turretdata.rewardList.at(0).num).asString().c_str(), "multipleNum.png", 15, 21, '0');
-			ttf1->setPosition(txt1->getContentSize().width, txt1->getContentSize().height / 2);
-			ttf1->setAnchorPoint(Point(0, 0.5));
-			txt1->addChild(ttf1);
-			txt1->runAction(Sequence::create(DelayTime::create(2.0f), RemoveSelf::create(1), nullptr));
-			//金币掉落
-			for (int i = 0; i < 15; i++)
-			{
-				auto aniCoin = Sprite::create();
-				aniCoin->setPosition(pos.x + 40 * (rand_0_1() - 0.5), pos.y + 70);
-				aniCoin->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGold")));
-				aniCoin->runAction(Sequence::create(DelayTime::create(0.05f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, pos), RemoveSelf::create(1), nullptr));
-				GameManage::getInstance()->getGuiLayer()->addChild(aniCoin, 5);
-			}
-			//金币数字
-			auto str = String::createWithFormat(":%d", m_turretdata.rewardList.at(0).num);
-			auto label = LabelAtlas::create(str->getCString(), "TTFaniGold.png", 23, 34, '0');
-			label->setAnchorPoint(Point::ANCHOR_MIDDLE);
-			label->setPosition(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getCoinLabelPos() + Vec2(0, 60));
-			label->setScale(0);
-			label->runAction(ScaleTo::create(0.1, 1));
-			label->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));
-			GameManage::getInstance()->getGuiLayer()->addChild(label, 5);
-			GameManage::getInstance()->getGameLayer()->RefreShmyPlayerTurret();
+			GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent();
 			Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
 		}
 		else

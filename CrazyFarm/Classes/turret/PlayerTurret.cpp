@@ -24,7 +24,8 @@
 #include "config/ConfigChest.h"
 #include "config/ConfigNewbieFishCatch.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
-
+#include "domain/logevent/LogEventTurrentUpgrade.h"
+#include "core/GameScene.h"
 enum 
 {
 	kTagBankrupt = 20
@@ -54,7 +55,7 @@ void PlayerTurret::setUpgradeButton()
 	degradeButton->setPosition(this->getContentSize().width*0.1, this->getContentSize().height*0.2);
 	auto menu = Menu::create(upgradeButton, degradeButton, nullptr);
 	menu->setPosition(Point::ZERO);
-	addChild(menu,11,"menuUpDe");
+	addChild(menu,10,"menuUpDe");
 }
 void PlayerTurret::initTurretWithType(){
 	auto vipLevel = User::getInstance()->getVipLevel();
@@ -167,54 +168,88 @@ void PlayerTurret::initTurretWithTypeForRobot(){
 
 void PlayerTurret::upgradeTurret(Ref* psend)
 {
-	m_turretdata = GameData::getInstance()->getTurrentData();
-	m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(m_turretdata.multiple);
-	
-	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
-	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
-	m_turret->upgradeTurret();
 	LogEventSpcEvent::getInstance()->addEventItems(1, 0);
-	changeNewTurret();
-	if (m_turretdata.turrentId > User::getInstance()->getMaxTurrentLevel())
+	int nowlv = GameData::getInstance()->getnowLevel();
+	if (User::getInstance()->getMaxTurrentLevel()<nowlv)
 	{
-		m_btType = 1;
-		ShowLockTurretTip();
+		auto node = getChildByName("locknode");
+		if (node)
+		{
+			node->removeFromParentAndCleanup(1);
+		}
+		int roomlv = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID()).unlock_turrent_level;
+		m_turretdata = ConfigTurrent::getInstance()->getTurrent(roomlv);
+		GameData::getInstance()->setnowLevel(m_turretdata.multiple);
+		changeNewTurret();
 	}
-	
+	else
+	{
+		m_turretdata = GameData::getInstance()->getTurrentData();
+		m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(m_turretdata.multiple);
+		if (m_turretdata.turrentId == -1)
+		{
+			m_turretdata = GameData::getInstance()->getTurrentData();
+			auto dioag = TwiceSureDialog::createDialog(ChineseWord("UpdataMaxTurrent").c_str(),nullptr);
+			dioag->setPosition(0, 0);
+			GameManage::getInstance()->getGuiLayer()->addChild(dioag, 20);
+			return;
+		}
+		GameData::getInstance()->setnowLevel(m_turretdata.multiple);
+		changeNewTurret();
+		if (m_turretdata.turrentId > User::getInstance()->getMaxTurrentLevel())
+		{
+			m_btType = 1;
+			ShowLockTurretTip();
+		}
+	}	
 }
 void PlayerTurret::degradeTurret(Ref* psend)
 {
-	/////TODO:
-	/*auto node = getChildByName("locknode");
-	if (node)
-	{
-	node->removeFromParentAndCleanup(1);
-	}*/
-
+	LogEventSpcEvent::getInstance()->addEventItems(2, 0);
 	m_turretdata = GameData::getInstance()->getTurrentData();
 	auto nowlevel = m_turretdata.turrentId;
-	m_turretdata = ConfigTurrent::getInstance()->getLastTurrent(nowlevel);
-	auto room = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
-	if ( m_turretdata.turrentId == -1)
+
+	if (User::getInstance()->getMaxTurrentLevel() < nowlevel)
 	{
+		auto node = getChildByName("locknode");
+		if (node)
+		{
+			node->removeFromParentAndCleanup(1);
+		}
 		m_turretdata = ConfigTurrent::getInstance()->getTurrent(User::getInstance()->getMaxTurrentLevel());
-		return;
+		GameData::getInstance()->setnowLevel(m_turretdata.multiple);
+		changeNewTurret();
 	}
-	changeNewTurret();
-	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
-	m_turret->degradeTurret();
-	GameData::getInstance()->setnowLevel(m_turretdata.turrentId);
-	LogEventSpcEvent::getInstance()->addEventItems(2, 0);
-	if (m_turretdata.turrentId < room.unlock_turrent_level )
+	else
 	{
-		m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(User::getInstance()->getMaxTurrentLevel());
+		m_turretdata = ConfigTurrent::getInstance()->getLastTurrent(nowlevel);
+		auto room = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
+
+		if (m_turretdata.turrentId < room.unlock_turrent_level || m_turretdata.turrentId == -1)
+		{
+			m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(User::getInstance()->getMaxTurrentLevel());
+			if (m_turretdata.turrentId==-1)
+			{
+				m_turretdata = ConfigTurrent::getInstance()->getTurrent(User::getInstance()->getMaxTurrentLevel());
+				GameData::getInstance()->setnowLevel(m_turretdata.turrentId);
+				changeNewTurret();
+			}
+			else
+			{
+				changeNewTurret();
+				GameData::getInstance()->setnowLevel(m_turretdata.turrentId);
+				m_btType = -1;
+				ShowLockTurretTip();
+			}
+			
+			return;
+		}
 		changeNewTurret();
 		nCurLevel->setString(Value(m_turretdata.turrentId).asString());
-		GameData::getInstance()->setnowLevel(m_turretdata.turrentId);
 		m_turret->degradeTurret();
-		m_btType = -1;
-		ShowLockTurretTip();
+		GameData::getInstance()->setnowLevel(m_turretdata.turrentId);
 	}
+	
 }
 
 
@@ -226,10 +261,9 @@ void PlayerTurret::rorateTurret(float angle)
 }
 void PlayerTurret::ShowLockTurretTip()
 {
-	((Menu*)getChildByName("menuUpDe"))->setEnabled(false);
 	auto locknode = Node::create();
 	locknode->setPosition(0, 0);
-	addChild(locknode, 13, "locknode");
+	addChild(locknode, 10, "locknode");
 	auto lock = Sprite::create("lock.png");
 	lock->setPosition(getContentSize() / 2+Size(0,10));
 	lock->setVisible(false);
@@ -246,23 +280,119 @@ void PlayerTurret::ShowLockTurretTip()
 	listenr1->setSwallowTouches(true);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, locknode);
 }
-
-
-bool PlayerTurret::TouchTheLockNode(Touch *pTouch, Event *pEvent)
+void  PlayerTurret::onLockTheTurrent()
 {
-	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{((Menu*)getChildByName("menuUpDe"))->setEnabled(true); }), nullptr));
+	m_btType = 0;
 	auto node = getChildByName("locknode");
 	if (node)
 	{
 		node->removeFromParentAndCleanup(1);
 	}
-	auto layer = showTurretLayer::create(2);
-	layer->setPosition(Point::ZERO);
-	GameManage::getInstance()->getGuiLayer()->addChild(layer, 20, 50);
-	//弹付费
+	auto a = User::getInstance()->getMaxTurrentLevel();
+	m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(a);
+	User::getInstance()->setMaxTurrentLevel(m_turretdata.multiple);
+	LogEventTurrentUpgrade::getInstance()->sendDataToServer(m_turretdata.multiple, GlobalSchedule::getInstance()->getGameTime());
+	User::getInstance()->addDiamonds(-m_turretdata.unlockPrice);
+	auto vec = m_turretdata.rewardList;
+	for (auto var : vec)
+	{
+		if (var.itemId == 1001)
+		{
+			User::getInstance()->addCoins(var.num);
+		}
+		else if (var.itemId == 1002)
+		{
+			User::getInstance()->addDiamonds(var.num);
+		}
+		else
+		{
+			BagManager::getInstance()->changeItemCount(var.itemId, var.num);
+		}
+
+	}
+	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
+	//解锁成功字样提示
+	auto layer = Director::getInstance()->getRunningScene()->getChildByTag(777);
+	auto pos = GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPosition();
+	auto txt1 = Sprite::create("lockTurretTXT2.png");
+	txt1->setPosition(pos.x + 5, pos.y + 150);
+	GameManage::getInstance()->getGuiLayer()->addChild(txt1,10);
+	auto ttf = LabelAtlas::create(Value(m_turretdata.multiple).asString().c_str(), "unLockNumTTF.png", 13, 19, '0');
+	ttf->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	ttf->setPosition(0, txt1->getContentSize().height / 2);
+	txt1->addChild(ttf);
+	auto txt2 = Sprite::create("lockTurretTXT1.png");
+	txt2->setAnchorPoint(Point(1, 0.5));
+	txt2->setPosition(0, ttf->getContentSize().height / 2);
+	ttf->addChild(txt2);
+	auto ttf1 = LabelAtlas::create(Value(m_turretdata.rewardList.at(0).num).asString().c_str(), "multipleNum.png", 15, 21, '0');
+	ttf1->setPosition(txt1->getContentSize().width, txt1->getContentSize().height / 2);
+	ttf1->setAnchorPoint(Point(0, 0.5));
+	txt1->addChild(ttf1);
+	txt1->runAction(Sequence::create(DelayTime::create(2.0f), RemoveSelf::create(1), nullptr));
+	//金币掉落
+	for (int i = 0; i < 15; i++)
+	{
+		auto aniCoin = Sprite::create();
+		aniCoin->setPosition(pos.x + 40 * (rand_0_1() - 0.5), pos.y + 70);
+		aniCoin->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGold")));
+		aniCoin->runAction(Sequence::create(DelayTime::create(0.05f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, pos), RemoveSelf::create(1), nullptr));
+		GameManage::getInstance()->getGuiLayer()->addChild(aniCoin, 5);
+	}
+	//金币数字
+	auto str = String::createWithFormat(":%d", m_turretdata.rewardList.at(0).num);
+	auto label = LabelAtlas::create(str->getCString(), "TTFaniGold.png", 23, 34, '0');
+	label->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	label->setPosition(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getCoinLabelPos() + Vec2(0, 60));
+	label->setScale(0);
+	label->runAction(ScaleTo::create(0.1, 1));
+	label->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));
+	GameManage::getInstance()->getGuiLayer()->addChild(label, 5);
+	GameManage::getInstance()->getGameLayer()->RefreShmyPlayerTurret();
+	//弹出下一级房间提示
+	int maxlv = User::getInstance()->getMaxTurrentLevel();
+	auto nextroom = ConfigRoom::getInstance()->getNextRoombyId(GameData::getInstance()->getRoomID());
+	if (maxlv == nextroom.unlock_turrent_level)
+	{
+		auto dioag = TwiceSureDialog::createDialog(ChineseWord("LockNewRoom").c_str(), CC_CALLBACK_1(PlayerTurret::ChangeNextRoom,this));
+		dioag->setPosition(0, 0);
+		GameManage::getInstance()->getGuiLayer()->addChild(dioag, 20);
+	}
+}
+void PlayerTurret::ChangeNextRoom(Ref*psend)
+{
+	auto nextroom = ConfigRoom::getInstance()->getNextRoombyId(GameData::getInstance()->getRoomID());
+
+	auto node = BankruptManager::getInstance()->getgetRewardNode();
+	if (node&&User::getInstance()->getCoins() <= 0)
+	{
+		node->retain();
+		node->removeFromParentAndCleanup(false);
+
+	}
+	GameData::getInstance()->setRoomID(nextroom.room_id);
+	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
+}
 
 
-	if (m_btType == 1)
+
+
+void PlayerTurret::changeDataByBtnType()
+{
+	auto node = getChildByName("locknode");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+	}
+	else
+	{
+		return;
+	}
+	if (m_btType==0)
+	{
+		return;
+	}
+	else if (m_btType == 1)
 	{
 		m_turretdata = ConfigTurrent::getInstance()->getTurrent(ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID()).unlock_turrent_level);
 	}
@@ -273,15 +403,42 @@ bool PlayerTurret::TouchTheLockNode(Touch *pTouch, Event *pEvent)
 	changeNewTurret();
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString());
 	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
+	m_btType = 0;
+}
+bool PlayerTurret::TouchTheLockNode(Touch *pTouch, Event *pEvent)
+{
+
+	auto layer = showTurretLayer::create(2);
+	layer->setPosition(Point::ZERO);
+	layer->setbtType(m_btType);
+	GameManage::getInstance()->getGuiLayer()->addChild(layer, 20, 50);
+	//弹付费
+
+
+	//if (m_btType == 1)
+	//{
+	//	m_turretdata = ConfigTurrent::getInstance()->getTurrent(ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID()).unlock_turrent_level);
+	//}
+	//else if (m_btType == -1)
+	//{
+	//	m_turretdata = ConfigTurrent::getInstance()->getTurrent(User::getInstance()->getMaxTurrentLevel());
+	//}
+	//changeNewTurret();
+	//nCurLevel->setString(Value(m_turretdata.turrentId).asString());
+	//GameData::getInstance()->setnowLevel(m_turretdata.multiple);
 	return true;
 }
 
 
 void PlayerTurret::shoot(float degree){
 
-	if (!isRobot&&GameData::getInstance()->getisOnBankrupt())
+	if (!isRobot&&GameData::getInstance()->getisOnBankrupt() )
 	{
 		return;
+	}
+	if (!isCanShoot())
+	{
+		return ; 
 	}
 	if (nChairNoIndex > 1)
 	{
@@ -576,7 +733,8 @@ void PlayerTurret::onBankrupt()
 			node->setPosition(getPosition()+Vec2(0,150));
 			layer->addChild(node, 10);
 			BankruptManager::getInstance()->setgetRewardNode(node);
-			LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),2, 1);
+			int num = BankruptManager::getInstance()->getTodayRequestTimes();
+			LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),2, num+1);
 		}
 		else if (bankrupt.coins==0)
 		{
@@ -671,6 +829,10 @@ void PlayerTurret::rorateAndShootOnlight(float dt)
 	{
 		return;
 	};
+	if (!isCanShoot())
+	{
+		return;
+	}
 	costMoney();
 
 	auto pos = lightFish->getPosition();
@@ -778,7 +940,7 @@ void PlayerTurret::beginLockShoot()
 	aniNode->setPosition(m_turret->getPosition());
 	addChild(aniNode, 5, "aniTurretLock");
 	aniNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniTurretLock")));
-	schedule(schedule_selector(PlayerTurret::rorateAndShootOnlock),0.2f);
+	schedule(schedule_selector(PlayerTurret::rorateAndShootOnlock),0.15f);
 }
 void PlayerTurret::endLockShoot()
 {
@@ -786,7 +948,7 @@ void PlayerTurret::endLockShoot()
 	if (lockFish)
 	{
 		lockFish->stopLockShoot();
-		setLightFish(nullptr);
+		setLockFish(nullptr);
 	}
 	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlock));
 }
@@ -809,6 +971,10 @@ void PlayerTurret::rorateAndShootOnlock(float dt)
 void PlayerTurret::shootOnLock(float dt){
 
 	if (lockFish == nullptr)
+	{
+		return;
+	}
+	if (!isCanShoot())
 	{
 		return;
 	}
@@ -871,7 +1037,10 @@ void PlayerTurret::rorateAndShootOnAuto(float dt)
 }
 void PlayerTurret::shootOnAuto(float dt){
 
-
+	if (!isCanShoot())
+	{
+		return;
+	}
 
 	auto degree = m_turret->getRotation();
 	auto bullet = BulletManage::getInstance()->createBullet(turretdata, 90);
@@ -1025,6 +1194,14 @@ void PlayerTurret::costMoney()
 	}
 	else
 	{
+		Turrent data = m_turretdata;
+		auto node = getChildByName("locknode");
+		if (node)
+		{
+			node->removeFromParentAndCleanup(1);
+		}
+
+
 		GameData::getInstance()->setShotDiamondCount(1 + (GameData::getInstance()->getShotDiamondCount()));
 		GameData::getInstance()->setShotPropCount(1 + (GameData::getInstance()->getShotPropCount()));
 		auto num = Value(m_turretdata.multiple).asInt();
@@ -1057,4 +1234,17 @@ void PlayerTurret::ShowAddCoinAni(int type, int num)
 	label->addChild(sp);
 
 	label->runAction(Sequence::create(Spawn::create(MoveBy::create(1.0f, Vec2(0, 50)), ScaleTo::create(1.0f, 1.5), FadeOut::create(1.5f), nullptr), RemoveSelf::create(),nullptr));
+}
+
+bool PlayerTurret::isCanShoot()
+{
+	auto node = getChildByName("locknode");
+	if (node)
+	{
+		return false; 
+	}
+	else
+	{
+		return true;
+	}
 }

@@ -14,6 +14,7 @@ bool NewbieSureDialog::init()
 	addChild(bg);
 
 	auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(NewbieSureDialog::closeButtonCallBack, this));
+	close->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	close->setPosition(bg->getContentSize());
 
 
@@ -53,7 +54,6 @@ bool NewbieSureDialog::init()
 		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-			/*removeFromParentAndCleanup(1);*/
 			break;
 		default:
 			break;

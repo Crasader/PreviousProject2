@@ -121,7 +121,11 @@ void FeedbackLayer::quedingcallback(Ref*)
 	auto sessionid = User::getInstance()->getSessionid();
 	checkTheName(txt);
 	////////TODO:°²×¿
-	HttpMannger::getInstance()->HttpToPostRequestFeedback(sessionid, txt);
+	if (strlen(txt)>0)
+	{
+		HttpMannger::getInstance()->HttpToPostRequestFeedback(sessionid, txt);
+	}
+	
 	removeFromParentAndCleanup(1);
 }
 

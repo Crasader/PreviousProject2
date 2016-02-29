@@ -35,6 +35,9 @@ public:
 
 	Turrent getNextTurrent(int turrentId);
 	Turrent getLastTurrent(int turrentId);
+	Turrent getMaxNextTurrent();
+
+
 
 	Turrent getTurrentByIndex(int index);
 

@@ -100,7 +100,6 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 		User::getInstance()->resetInfo();
 		return;
 	}
-	//User::getInstance()->setUserID(doc["user_name"].GetString());
 	User::getInstance()->setSessionid(doc["session_id"].GetString());
 
 	CCLOG("login success");
@@ -294,7 +293,7 @@ void HttpMannger::onHttpRequestCompletedForLogEventCommon(HttpClient *sender, Ht
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back logeventfish info: %s", temp.c_str());
+	log("http back logevent info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 	if (doc.HasParseError())

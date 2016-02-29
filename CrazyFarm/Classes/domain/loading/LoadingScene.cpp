@@ -9,6 +9,7 @@
 #include "lobby/LobbyScene.h"
 #include "domain/user/DeviceInfo.h"
 #include "core/GameScene.h"
+#include "domain/login/LoginMannger.h"
 
 Scene* LoadingScene::createScene()
 {
@@ -143,13 +144,5 @@ void LoadingScene::loadRes()
 
 void LoadingScene::login()
 {
-	auto name = User::getInstance()->getUserId();
-	if (name == "guest")
-	{
-		HttpMannger::getInstance()->HttpToPostRequestRegisterInfo(DeviceInfo::getChannel_id(), DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
-	}
-	else
-	{
-		HttpMannger::getInstance()->HttpToPostRequestLogInInfo(DeviceInfo::getChannel_id(), name, DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
-	}
+	LoginMannger::getInstance()->login();
 }

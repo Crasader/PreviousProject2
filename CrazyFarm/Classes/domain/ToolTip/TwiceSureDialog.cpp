@@ -27,12 +27,18 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 	do
 	{
 
+		colorLayer = LayerColor::create();
+		colorLayer->setColor(ccc3(0, 0, 0));
+		colorLayer->setOpacity(180);
+		colorLayer->setPosition(0, 0);
+		addChild(colorLayer, -1);
 		auto bg = Sprite::create("TwiceSureDialog.png");
 		bg->setPosition(480, 270);
-		addChild(bg, -1,"bg");
+		addChild(bg, 1,"bg");
 
 		close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(TwiceSureDialog::closeButtonCallBack, this));
-		close->setPosition(bg->getContentSize());
+		close->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
+		close->setPosition(bg->getContentSize()+Size(10,10));
 		
 		
 		sure = MenuItemImage::create("btn_queding.png", "btn_queding_2.png");
@@ -46,8 +52,8 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 			sure->setCallback(CC_CALLBACK_1(TwiceSureDialog::closeButtonCallBack, this));
 		}
 		auto menu = Menu::create(close, sure, nullptr);
-		menu->setPosition(bg->getPosition()-bg->getContentSize()/2);
-		addChild(menu);
+		menu->setPosition(0,0);
+		bg->addChild(menu);
 
 
 		auto label = LabelTTF::create(tipStr, "arial", 20);
@@ -77,8 +83,8 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 		};
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 		/////////µ¯³ö¶¯»­
-		setScale(0);
-		runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), nullptr));
+		bg->setScale(0);
+		bg->runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), nullptr));
 		showRandonBubbleAni();
 		bRet = true;
 	} while (0);

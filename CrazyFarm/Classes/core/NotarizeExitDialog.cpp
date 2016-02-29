@@ -40,7 +40,6 @@ void NotarizeExitDialog::querenCallback(Ref*psend)
 		node->removeFromParentAndCleanup(false);
 	
 	}
-	LogEventMannger::getInstance()->sendMsg();
 	LogEventPageChange::getInstance()->addEventItems(2, 1, 0);
 	Director::getInstance()->replaceScene(LobbyScene::createScene());
 	GameData::getInstance()->setisOnGameScene(false);

@@ -80,31 +80,26 @@ void PayCell::setVipValue()
 
 void PayCell::IsBeToued()
 {
+	auto tableview = getParent()->getParent()->getParent();
+	auto viewdelegate = (payView*)(((MyTableView*)tableview)->getDelegate());
 
-	if (lastTouchTime==0)
+	bool isallow = viewdelegate->getIsAllowTouch();
+	if (!isallow)
 	{
-		
+		return;
 	}
 	else
 	{
-		auto nowTime = getCurrentTime();
-		if (nowTime-lastTouchTime<1000)
-		{
-			return;
-		}
+		viewdelegate->setLastTouchTiem();
 	}
-	lastTouchTime = getCurrentTime();
-
 	log("touch the pay");
 	auto level =  ConfigVipLevel::getInstance()->getVipLevel(User::getInstance()->getVipLevel());
-	auto tableview = getParent()->getParent()->getParent();
-	auto viewdelegate = ((MyTableView*)tableview)->getDelegate();
 	auto eventpoint = ((payView*)viewdelegate)->getEventPoint();
 	switch (m_PayType)
 	{
 	case 1:
 	case 2:
-		Pay::getInstance()->Overbooking(m_payPointID,eventpoint);
+		Pay::getInstance()->Overbooking(m_payPointID,eventpoint,this);
 		break;
 	case 3:
 	{

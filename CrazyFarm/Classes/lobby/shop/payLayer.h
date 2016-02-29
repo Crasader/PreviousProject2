@@ -30,9 +30,21 @@ public:
 	virtual cocos2d::Size tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t  idx);
 	virtual cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx);
 	virtual ssize_t numberOfCellsInTableView(cocos2d::extension::TableView *table);
+
+
+
 private:
 	CC_SYNTHESIZE(int, m_shopType, ShopType);////1金币2钻石
 	CC_SYNTHESIZE(int, m_payeventPoint, EventPoint);//事件点
+
+
+	//按键保护
+	unsigned long lastTouchTime = 0;
+	bool isAllowTouch = false;
+public:
+	void setLastTouchTiem();
+	void TouchHelpUpdata();
+	bool getIsAllowTouch(){ return isAllowTouch; };
 
 };
 

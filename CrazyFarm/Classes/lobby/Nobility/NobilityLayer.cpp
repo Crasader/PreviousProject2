@@ -84,9 +84,7 @@ void NobilityLayer::quickPayCallback(Ref* psend)
 	lastTouchTime = getCurrentTime();
 
 	log("touch pay");
-	Pay::getInstance()->Overbooking(13, m_eventPoint);
-	//NobilityManager::getInstance()->addStepsDay(30); 
-	//removeFromParentAndCleanup(1);
+	Pay::getInstance()->Overbooking(13, m_eventPoint,this);
 	schedule(schedule_selector(NobilityLayer::updata), 1.0f, kRepeatForever, 0);
 }
 

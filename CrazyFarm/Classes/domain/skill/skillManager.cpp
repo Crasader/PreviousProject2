@@ -107,7 +107,6 @@ void skillManager::useSkillFreeze(PlayerTurret*turret)
 	for (auto fish : fishes)
 	{
 		fish->pause();
-		fish->ShadePause();
 	}
 	m_gamelayer->useFreeze(turret);
 
@@ -122,7 +121,6 @@ void skillManager::useSkillFreezeEnd(PlayerTurret*turret)
 	for (auto fish : fishes)
 	{
 		fish->resume();
-		fish->ShadeResume();
 	}
 	m_gamelayer->onFreezeEnd(turret);
 }

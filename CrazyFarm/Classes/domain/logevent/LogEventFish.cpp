@@ -268,7 +268,7 @@ void LogEventFish::sendMemoryData()
 			
 		}	
 	}
-	logEventFishes.clear();
+	
 }
 void LogEventFish::sendLocaLData()
 {
@@ -289,118 +289,125 @@ void LogEventFish::sendLocaLData()
 
 void LogEventFish::clearLocalData() //TODO::¸ÄÐ´³Éjson´æ´¢
 {
-	auto localdata = UserDefault::getInstance();
+	logEventFishes.clear();
+	for (int i = 1; i <= 4; i++)
+	{
+		FishEventData data;
+		data.room_id = i;
+		logEventFishes.push_back(data);
+	}
+	/*auto localdata = UserDefault::getInstance();
 	for (int j = 1; j <= 4; j++)
 	{
-		for (int i = 1; i <= 20; i++)
-		{
-			
+	for (int i = 1; i <= 20; i++)
+	{
 
-			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
 
-			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
+	auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
 
-			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
+	str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
 
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
+	str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
 
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
-			localdata->setIntegerForKey(str->getCString(), 0);
-	
-		}
-		for (int i = 30; i <= 37; i++)
-		{
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
 
-			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+	localdata->setIntegerForKey(str->getCString(), 0);
 
-			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
-			localdata->setIntegerForKey(str->getCString(), 0);
-		}
-		for (int i = 40; i <= 44; i++)
-		{
-			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
-			localdata->setIntegerForKey(str->getCString(), 0);
-		}
-		for (int i = 50; i <= 52; i++)
-		{
-			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
-			localdata->setIntegerForKey(str->getCString(), 0);
-	
-		}
-		for (int i = 101; i <= 104; i++)
-		{
-			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
-			localdata->setIntegerForKey(str->getCString(), 0);
-		
-		}
-		for (int i = 201; i <= 201; i++)
-		{
-	
-			auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
-			localdata->setIntegerForKey(str->getCString(), 0);
-
-			str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
-			localdata->setIntegerForKey(str->getCString(), 0);
-		
-		}
 	}
+	for (int i = 30; i <= 37; i++)
+	{
+
+	auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+	localdata->setIntegerForKey(str->getCString(), 0);
+	}
+	for (int i = 40; i <= 44; i++)
+	{
+	auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+	localdata->setIntegerForKey(str->getCString(), 0);
+	}
+	for (int i = 50; i <= 52; i++)
+	{
+	auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	}
+	for (int i = 101; i <= 104; i++)
+	{
+	auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	}
+	for (int i = 201; i <= 201; i++)
+	{
+
+	auto str = String::createWithFormat("%d%d%s", j, i, FISHCATCHTIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHCREATETIME);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHHITTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCATCHTIMES);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	str = String::createWithFormat("%d%d%s", j, i, FISHUSERCOSTCOIN);
+	localdata->setIntegerForKey(str->getCString(), 0);
+
+	}
+	}*/
 }

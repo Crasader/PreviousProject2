@@ -21,23 +21,20 @@
 #include "core/SettingDialog.h"
 #include "domain/marquee/MarqueeManager.h"
 #include "utill/FunUtil.h"
-#include "domain/turntable/TurnTableDialog.h"
 #include "domain/ranklist/RanklistLayer.h"
 #include "utill/Audio.h"
 #include "lobby/FeedbackLayer.h"
 #include "lobby/FirstPayLayer.h"
-#include "domain/logevent/LogEventSpcEvent.h"
-#include "domain/logevent/LogEventTurrentUpgrade.h"
 #include "lobby/roomlayer/RoomLayer.h"
 #include "lobby/FeedbackLayer.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "widget/LightEffect.h"
 #include "domain/bankrupt/BankruptManager.h"
 #include "core/GetRewardNode.h"
-#include "domain/logevent//LogEventPageChange.h"
 #include "lobby/changeGift/ChangeGiftLayer.h"
 #include "domain/Newbie/NewbieMannger.h"
 #include "domain/Newbie/NewbieFirstGetRewardLayer.h"
+#include "domain/logevent/LogEventMannger.h"
 
 enum
 {
@@ -395,6 +392,7 @@ bool LobbyScene::init()
 	{
 		this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);  
 	}
+	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg(); }), nullptr));
 
 	return true;
 }

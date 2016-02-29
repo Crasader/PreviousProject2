@@ -23,7 +23,7 @@ public:
 	bool LoadConfig();
 	std::vector<Room> getRooms();
 	Room getRoombyId(int nId);
-    
+	Room getNextRoombyId(int nId);
     int getPlayerCounts(int currentHour, int roomId);
     
 private:

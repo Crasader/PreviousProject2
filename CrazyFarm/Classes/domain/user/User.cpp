@@ -8,6 +8,7 @@ User::User(){
 }
 
 void User::init(){
+	setSessionid("");
     // TODO : first use init user name and id
 }
 

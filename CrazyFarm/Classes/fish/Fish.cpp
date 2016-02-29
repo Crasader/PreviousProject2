@@ -440,7 +440,16 @@ void Fish::setMonentEightRoute(int routeTag)
 
 void Fish::addShader()
 {
-	m_shadesprite = FishShader::createShader(this);
+	m_shadesprite = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(nUiID));
+	m_shadesprite->setPosition(getContentSize().width*0.65,getContentSize().height*0.35);
+	addChild(m_shadesprite, -1);
+
+
+	auto acName = String::createWithFormat("swim_%d", nUiID);
+	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+	m_shadesprite->setColor(Color3B::BLACK);
+	m_shadesprite->setOpacity(GLubyte(150));
+	m_shadesprite->runAction(ac);
 
 }
 void Fish::ShadeUpdata(float dt)
@@ -465,11 +474,11 @@ int Fish::getFishID() {
 
 void Fish::removeself()
 {
+	stopLightShoot();
+	stopLockShoot();
+	stopAllActions();
 	
-	if (m_shadesprite)
-	{
-		m_shadesprite->removeFromParentAndCleanup(1);
-	}
+	
 	removeFromParentAndCleanup(1);
 
 }
@@ -501,15 +510,14 @@ void Fish::onFreezeResume()
 
 void Fish::onDead()
 {
-	stopLightShoot();
-	stopLockShoot();
-	stopAllActions();
 	unscheduleAllCallbacks();
+	stopAllActions();
 	auto acName = String::createWithFormat("dead_%d", nUiID);
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
+	auto ac1 = ac->clone();
 	if (m_shadesprite)
 	{
-		m_shadesprite->onDead();
+		m_shadesprite->runAction(RepeatForever::create(ac));
 	}
 	runAction(RepeatForever::create(ac));
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));

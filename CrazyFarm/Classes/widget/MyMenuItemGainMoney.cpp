@@ -63,7 +63,7 @@ void MyMenuItemGainMoney::initItem()
 
 	commonNode = Node::create();
 	commonNode->setPosition(Point::ZERO);
-	addChild(commonNode);
+	addChild(commonNode,1);
 
 
 
@@ -142,7 +142,7 @@ void MyMenuItemGainMoney::showBlinkAni()
 {
 	auto node = Sprite::create("UnlockFrame_2.png");
 	node->setPosition(getContentSize() / 2);
-	addChild(node, -1, "blinkAni");
+	addChild(node, 0, "blinkAni");
 	node->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), nullptr)));
 }
 void MyMenuItemGainMoney::showPopup()

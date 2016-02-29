@@ -97,13 +97,21 @@ public:
 	  void ShowLockTurretTip();
 	  bool TouchTheLockNode(Touch *pTouch, Event *pEvent);
 	  void changeNewTurret();
+	  void changeDataByBtnType();
+	  void upgradeTurret(Ref* psend);
+	  void degradeTurret(Ref* psend);
+	  void onLockTheTurrent();
+
+
+	  bool isCanShoot();
+	  //进入下一个房间
+	  void ChangeNextRoom(Ref*psend);
 private:
 	Vec2 m_coinLabelPos;
 	Turrent  m_turretdata;
 	int m_btType=0; //0普通 1升级 -1降级；
 	  int turretType;
-	  void upgradeTurret(Ref* psend);
-	  void degradeTurret(Ref* psend);
+	
 	  void onExit();
 	  LabelAtlas* nCurLevel;
 	  LabelAtlas*m_CoinLabel;

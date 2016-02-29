@@ -18,7 +18,7 @@ bool GameGuiLayer::init(){
 		return false;
 	}
 
-	User::getInstance()->syncInfo();
+
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto menu = Menu::create();
@@ -204,7 +204,7 @@ void GameGuiLayer::onExit()
 	
 	Layer::onExit();
 	Audio::getInstance()->pauseBGM();
-	User::getInstance()->syncInfo();
+
 
 }
 

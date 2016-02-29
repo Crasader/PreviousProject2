@@ -31,4 +31,5 @@ private:
 	Sprite* SendCoin;
 	LabelAtlas* zengCoinTTf;
 	Sprite*quex3;
+	Sprite*quexprice3;
 };

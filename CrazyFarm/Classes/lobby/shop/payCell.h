@@ -33,5 +33,4 @@ private:
 	Sprite* giftNum;
 	Sprite* hotTxt;
 
-	unsigned long lastTouchTime = 0;
 };

@@ -1,5 +1,6 @@
 #include "LogEventMannger.h"
 #include "LogEventConsume.h"
+#include "domain/user/User.h"
 LogEventMannger* LogEventMannger::_instance = NULL;
 
 LogEventMannger::LogEventMannger(){
@@ -18,6 +19,12 @@ LogEventMannger* LogEventMannger::getInstance(){
 }
 void LogEventMannger::sendMsg()
 {
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid=="")
+	{
+		CCLOG("send logevnt msg failed with no sessionid");
+		return;
+	}
 	CCLOG("send logevnt msg");
 	LogEventFish::getInstance()->sendDataToServer();
 	LogEventMagnate::getInstance()->sendDataToServer();
@@ -25,13 +32,14 @@ void LogEventMannger::sendMsg()
 	//LogEventPageChange::getInstance()->sendDataToServer();
 	LogEventSpcEvent::getInstance()->sendDataToServer();
 	LogEventConsume::getInstance()->sendDataToServer();
+	User::getInstance()->syncInfo();
 }
 void LogEventMannger::clearData(int type)
 {
 	switch (type)
 	{
 	case 1:
-	/*	LogEventFish::getInstance()->clearLocalData();*/ //先不清
+		LogEventFish::getInstance()->clearLocalData(); //先不清
 		break;
 	case 3:
 		LogEventMagnate::getInstance()->clearLocalData();

@@ -19,14 +19,17 @@ class Pay:public Node {
 
 public:
     static Pay* getInstance();
-	void Overbooking(int paypoint, int eventPoint);//ï¿½Âµï¿½
+
+
+	void Overbooking(int paypoint, int eventPoint,Node*paynode);
 	
-	void pay(payRequest*data,  const char* orderid);//ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Æ½Ì?
+	
+	void pay(payRequest*data,  const char* orderid);//ÆðÖ§¸¶²å¼þ
 	void payCallBack(int code,  const char* msg);
 	void update(float dt);
 private:
 	
-
+	void OverbookingActual(int paypoint, int eventPoint);//ÏÂµ¥
 	PayPointInfo getInfoByPaypoint(int paypoint);
     Pay();
     bool init();
@@ -34,7 +37,7 @@ private:
 	payRequest* nowData;
 	
 
-
+	bool isPaying = false;
 	int payResult = -1;   //³õÊ¼Öµ-1,³É¹¦1£¬Ê§°Ü2'
 	
 };

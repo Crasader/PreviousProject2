@@ -5,12 +5,15 @@
 #include "widget/MyTableView.h"
 #include "utill/Chinese.h"
 #include "lobby/viplayer/VipLayer.h"
+#include "utill/FunUtil.h"
 enum 
 {
 	kDesignTagCell1,
 	kDesignTagCell2,
 
 };
+
+
 
 
 void payTableViewCell::setCoinValue(int idx)
@@ -74,8 +77,30 @@ bool payTableViewCell::init()
 	return ret;
 }
 
-
-
+void payView::TouchHelpUpdata()
+{
+	if (isAllowTouch)
+	{
+		return;
+	}
+	if (lastTouchTime == 0)
+	{
+		isAllowTouch = true;
+	}
+	else
+	{
+		auto nowTime = getCurrentTime();
+		if (nowTime - lastTouchTime > 1000)
+		{
+			isAllowTouch = true;
+		}
+	}
+}
+void payView::setLastTouchTiem()
+{
+	lastTouchTime = getCurrentTime();
+	isAllowTouch = false;
+}
 void payView::tableCellTouched(TableView* table, TableViewCell* cell){
 	MyTableView * myTableView = (MyTableView*)table;
 	Point lastEnd = myTableView->getLastEnd();
@@ -282,6 +307,7 @@ bool payLayer::init(int payType)
 
 void payLayer::update(float delta)
 {
+	tableviewDelegate->TouchHelpUpdata();
 	if (!User::getInstance()->getIsHaveBycoin())
 	{
 		return;

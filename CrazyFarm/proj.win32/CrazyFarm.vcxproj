@@ -203,6 +203,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\logevent\LogEventTurnTable.cpp" />
     <ClCompile Include="..\Classes\domain\logevent\LogEventTurrentUpgrade.cpp" />
     <ClCompile Include="..\Classes\domain\logevent\LogEventUseSkill.cpp" />
+    <ClCompile Include="..\Classes\domain\login\LoginMannger.cpp" />
     <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp" />
     <ClCompile Include="..\Classes\domain\marquee\MarqueeManager.cpp" />
     <ClCompile Include="..\Classes\domain\mermaid\MermaidTask.cpp" />
@@ -383,6 +384,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\logevent\LogEventTurnTable.h" />
     <ClInclude Include="..\Classes\domain\logevent\LogEventTurrentUpgrade.h" />
     <ClInclude Include="..\Classes\domain\logevent\LogEventUseSkill.h" />
+    <ClInclude Include="..\Classes\domain\login\LoginMannger.h" />
     <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h" />
     <ClInclude Include="..\Classes\domain\marquee\MarqueeManager.h" />
     <ClInclude Include="..\Classes\domain\mermaid\MermaidTask.h" />

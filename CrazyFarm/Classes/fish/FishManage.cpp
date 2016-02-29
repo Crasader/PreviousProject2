@@ -401,20 +401,6 @@ void FishManage::createFishArrangeRand(int fishID)
 
 void FishManage::cleanVector()
 {
-	auto lockfish = m_layer->GetMyTurret()->getLockFish();
-	auto lightfish = m_layer->GetMyTurret()->getLightFish();
-	for (auto var : fishPool)
-	{
-		if (var == lockfish)
-		{
-			m_layer->GetMyTurret()->setLockFish(nullptr);
-		}
-		if (var == lightfish)
-		{
-			m_layer->GetMyTurret()->setLightFish(nullptr);
-		}
-		var->removeself();
-	}
 	fishPool.clear();
 }
 
@@ -594,7 +580,7 @@ void FishManage::createCycleFish(int count, int Radius, int fishID, Point center
 		fish->setisAutoRemove(false);
 		fish->setPosition(center.x + Radius*cos(CC_DEGREES_TO_RADIANS(i*diffAngle)), center.y + Radius*sin(CC_DEGREES_TO_RADIANS(diffAngle*i)));
 		auto moveto = MoveBy::create(moveTime,curPos);
-		fish->runAction(Sequence::create(moveto, RemoveSelf::create(), nullptr));	
+		fish->runAction(Sequence::create(moveto, CallFunc::create([=]{GameManage::getInstance()->CatchTheFishOntheTurrent(fish, false, nullptr); }), nullptr));
 		m_layer->addChild(fish,5);
 		fish->addShader();
 	}

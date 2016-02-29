@@ -138,6 +138,10 @@
   <string>您已经升级到最大等级炮</string>
    <key>getXXcoin</key>
   <string>恭喜你，获得%d金币</string>
+  <key>LockNewRoom</key>
+  <string>您已解锁新的渔场，是否进入？</string>
+  
+  
   </dict> 
 </array>
 </plist>

@@ -11,6 +11,7 @@
 #include "data/GameData.h"
 #include "domain/game/GameManage.h"
 #include "config/ConfigVipLevel.h"
+#include "domain/ToolTip/ToolTipMannger.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
 
 Pay* Pay::_instance = NULL;
@@ -30,8 +31,34 @@ Pay* Pay::getInstance(){
     }
     return _instance;
 }
-void Pay::Overbooking(int paypoint, int eventPoint)
+void Pay::Overbooking(int paypoint, int eventPoint, Node*paynode)
 {
+	if (isPaying)
+	{
+		return;
+	}
+	isPaying = true;
+	auto sessioned = User::getInstance()->getSessionid();
+	if (sessioned=="")
+	{
+		HttpMannger::getInstance()->HttpToPostRequestLogInInfo(DeviceInfo::getChannel_id(), User::getInstance()->getUserId(), DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
+		paynode->runAction(Sequence::create(DelayTime::create(2.0f), CallFunc::create([=]{OverbookingActual(paypoint, eventPoint); }), nullptr));
+	}
+	else
+	{
+		OverbookingActual(paypoint, eventPoint);
+	}
+
+}
+void Pay::OverbookingActual(int paypoint, int eventPoint)
+{
+	auto sessioned = User::getInstance()->getSessionid();
+	if (sessioned == "")
+	{
+		isPaying = false;
+		ToolTipMannger::ShowPayTimeoutTip();
+		return;
+	}
 	int payeventVersion = PayEventPointConfig::getInstance()->getPayeventVersion();
 	int payPointVersion = PayPointConfig::getInstance()->getVersion();
 	auto payPointInfo = PayPointConfig::getInstance()->getPayPointInfoById(paypoint);
@@ -61,7 +88,7 @@ void Pay::pay(payRequest*data, const char* orderid)
 
 void Pay::payCallBack(int code, const char* msg)
 {
-
+	isPaying = false;
 	log("pay callback success");
 	auto info = PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id);
 	if (code == 0||code==201)
@@ -93,15 +120,16 @@ void Pay::payCallBack(int code, const char* msg)
 			}
 		}
 		
-		if (nowData->pay_point_id == 14)
+		if (nowData->pay_point_id == 15)
 		{
 			User::getInstance()->setHaveFirstPay();
 		}
 		User::getInstance()->addChargeMoney(info.price / 100);
 		
 		log("pay paypoint %d success",nowData->pay_point_id);
-		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
 		payResult = 1;
+		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
+		
 		
 		
 
