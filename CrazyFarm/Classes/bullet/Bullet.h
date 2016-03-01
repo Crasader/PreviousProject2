@@ -3,6 +3,7 @@
 #include "cocos2d.h" 
 #include "turret/PlayerTurret.h"
 #include "fish/Fish.h"
+#include "utill/OBB.h"
 using namespace cocos2d;
 using namespace std;
 
@@ -27,6 +28,7 @@ public:
 
 	void moveToLockfish(float time,Fish*fish);
 	void moveTolockFishUpadate(float dt);
+	std::vector<OBBEX*> getObbs();
 private:
 	int bulletSpeed;
 	int bulletRotation;

@@ -50,7 +50,7 @@ bool GameGuiLayer::init(){
 
 	///¶³½á
 	auto skillbutton = SkillFreezeButton::createSkillFreezeButton();
-	skillbutton->setPosition(visibleSize.width*0.45, visibleSize.height*0.073);
+	skillbutton->setPosition(visibleSize.width*0.45, visibleSize.height*0.073+7);
 	skillbutton->setScale(0.9);
 	addChild(skillbutton);
 	skillManager::getInstance()->addskillButton(1, skillbutton);
@@ -74,7 +74,7 @@ bool GameGuiLayer::init(){
 	skillManager::getInstance()->addskillButton(5, skillbutton3);
 	//Ëø¶¨
 	auto skillbutton4 = SkillLockButton::createSkillLockButton();
-	skillbutton4->setPosition(visibleSize.width*0.55, visibleSize.height*0.073);
+	skillbutton4->setPosition(visibleSize.width*0.55, visibleSize.height*0.073+7);
 	skillbutton4->setScale(0.9);
 	addChild(skillbutton4);
 	skillManager::getInstance()->addskillButton(2, skillbutton4);
@@ -330,6 +330,7 @@ void GameGuiLayer::ShowUseLockTip()
 	bt->addChild(tipnode, 1, "tipnode");
 	auto sp = Sprite::create("SkillHighLight.png");
 	sp->setPosition(bt->getContentSize() / 2);
+	sp->setScale(1.0 / 0.9);
 	tipnode->addChild(sp, 1);
 	sp->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
 
@@ -338,7 +339,7 @@ void GameGuiLayer::ShowUseLockTip()
 	tipnode->addChild(sPoint, 20);
 	sPoint->runAction(RepeatForever::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, 30))), EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, -30))), nullptr)));
 
-	auto tiptxt = Sprite::create("TXTUseLock.png");
+	auto tiptxt = Sprite::create("TXTUseLockTip.png");
 	tiptxt->setPosition(Vec2(0, 130));
 	tipnode->addChild(tiptxt);
 	tiptxt->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));

@@ -18,9 +18,11 @@ public:
 	void setBullet(Bullet* bullet);
 	void initNetByType();
 	void checkCatchFish();
+	std::vector<OBBEX*> getObbs();
 private:
 	void initAniByType(int ui_type, int net_type);
 	std::string getFrameNameByType(int ui_type, int net_type);
 	Bullet*m_bullet;
+	int m_netType;
 };
 #endif

@@ -6,7 +6,6 @@
 #include "utill/AnimationUtil.h"
 #include"utill/FunUtil.h"
 #include "utill/Audio.h"
-#include "Config/ConfigFishCollisionRange.h"
 #include "domain/game/GameManage.h"
 
 enum 
@@ -19,6 +18,7 @@ bool Fish::init(){
 		return false;
 	}
 	scheduleUpdate();
+	setRotation(150);
 	setisAutoRemove(true);
 	aniEmptyNode = Node::create();
 	addChild(aniEmptyNode);
@@ -47,7 +47,7 @@ void Fish::initFish(int fishID){
 	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);
 	rewards = fishdata.rewards;
-	figures = ConfigFishCollisionRange::getInstance()->getFishFigures(fishdata.uiId);
+	obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(fishdata.uiId);
 	LogEventFish::getInstance()->addFishCreateTimes(fishID);
 	centerPos = getContentSize() / 2;
 }
@@ -92,11 +92,11 @@ void Fish::initFishAnim(int fishID){
 void Fish::update(float dt)
 {
 
-	
+
 	if (getPosition().distance(LastPos) > 0)
 	{
 		auto raroAngle = 1.5*3.1415926f - (getPosition() - LastPos).getAngle();
-		setRotation(CC_RADIANS_TO_DEGREES(raroAngle)+90);
+		setRotation(CC_RADIANS_TO_DEGREES(raroAngle) + 90);
 		LastPos = getPosition();
 
 	}
@@ -603,14 +603,13 @@ void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
 	node->runAction(Sequence::create(DelayTime::create(data.num*0.1f + 1.5f), RemoveSelf::create(), nullptr));
 }
 
-std::vector<CFigure*> Fish::getBoundingFigures()
+std::vector<OBBEX*> Fish::getOBBs()
 {
-	std::vector<CFigure*> vec;
-	for (auto var:figures)
+	std::vector<OBBEX*> vec;
+	for (auto var:obbdatas)
 	{
-		vec.push_back(var->ApplyAffineTransform(var,getNodeToParentAffineTransform()));
+		vec.push_back(new OBBEX(convertToWorldSpace(var.leftBottom), convertToWorldSpace(var.rightBottom), convertToWorldSpace(var.rightTop), convertToWorldSpace(var.leftTop)));
 	}
 	return vec;
-	
 }
 

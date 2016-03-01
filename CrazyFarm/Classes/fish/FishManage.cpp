@@ -6,12 +6,11 @@
 #include "fish/FishArrangeThree.h"
 #include "fish/FishArrangeFourh.h"
 #include "data/GameData.h"
-#include "utill/CCircle.h"
 #include "utill/CollisionUtill.h"
 #include "domain/game/GameManage.h"
 #include "fish/FishOfAllKilled.h"
 #include "domain/ai/AIManager.h"
-#define BOOMFISHCIRCLE 300
+#define BOOMFISHCIRCLE 200
 FishManage* FishManage::_instance = 0;
 
 FishManage* FishManage::getInstance(){
@@ -67,7 +66,6 @@ Fish* FishManage::createFishSingle(int type){
 	}
 	fish->initFish(type);
 	fishPool.pushBack(fish);	
-	fish->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	if (fish->getFishType()==BossFish)
 	{
 		GameManage::getInstance()->getGuiLayer()->onBossWarning(type);
@@ -562,8 +560,8 @@ Fish*FishManage::getFishByPosInPool(Point pos)
 {
 	for (auto var:fishPool)
 	{
-		auto figures = var->getBoundingFigures();
-		if (CollisionUtill::isCollisionPoint(figures,pos))
+		auto figures = var->getOBBs();
+		if (CollisionUtill::isCollisionOBBsAndPoint(figures,pos))
 		{
 			return var;
 		}
@@ -638,14 +636,12 @@ void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 void FishManage::onBoomFishDead(Fish*fish, PlayerTurret* pTurret)
 {
 	auto pos = fish->getPosition();
-	auto cicle = CCircle(pos, BOOMFISHCIRCLE);
-
 
 	auto fishPool = FishManage::getInstance()->getAllFishInPool();
 	auto data = GameData::getInstance();
 	for (auto fish : fishPool)
 	{
-		if (CollisionUtill::isCollisionCircle(fish->getBoundingFigures(), cicle))
+		if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBs(), new OBBEX(pos + Vec2(-200, -200), pos + Vec2(200, -200), pos + Vec2(200, 200), pos + Vec2(-200, 200))))
 		{
 			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, pTurret);
 		}

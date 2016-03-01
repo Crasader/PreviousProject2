@@ -18,6 +18,11 @@ void Net::initNetByType(){
 	initWithFile(getFrameNameByType(turretdata.ui_type, turretdata.net_type));
 	initAniByType(turretdata.ui_type, turretdata.net_type);
 	setScale(0);
+
+	//ÍøµÄÅö×²Ãæ»ý
+	m_netType = turretdata.net_type;
+
+
 	m_bullet->removeFromParentAndCleanup(1);
 	runAction(Sequence::create(ScaleTo::create(0.1, 1.2), ScaleTo::create(0.05, 0.9), ScaleTo::create(0.05, 1.0),CallFunc::create([&]{checkCatchFish(); }),FadeOut::create(0.5), RemoveSelf::create(1), nullptr));
 }
@@ -91,10 +96,31 @@ void Net::checkCatchFish(){
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
 
 	for (Fish* fish : allFish){
-		if (CollisionUtill::isCollisionRect(fish->getBoundingFigures(), getBoundingBox())){
+		if (CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), getObbs())){
 			fish->onHeart();
 
 		}
 	}
 
+}
+
+std::vector<OBBEX*> Net::getObbs()
+{
+	std::vector<OBBEX*> vec;
+	switch (m_netType)
+	{
+	case 1:
+		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(99, 0)), convertToWorldSpace(Vec2(99, 97)), convertToWorldSpace(Vec2(0, 97))));
+		break;
+	case 2:
+		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(159, 0)), convertToWorldSpace(Vec2(159, 97)), convertToWorldSpace(Vec2(0, 97))));
+		break;
+	case 3:
+		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(159,0)), convertToWorldSpace(Vec2(159, 73)), convertToWorldSpace(Vec2(0, 73))));
+		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(39, 72)), convertToWorldSpace(Vec2(119, 72)), convertToWorldSpace(Vec2(119, 153)), convertToWorldSpace(Vec2(39, 153))));
+		break;
+	default:
+		break;
+	}
+	return vec;
 }

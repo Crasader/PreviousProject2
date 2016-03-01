@@ -5,9 +5,9 @@
 #include "config/ConfigFish.h"
 #include "fish/FishRouteData.h"
 #include "fish/FishShader.h"
-#include "utill/CFigure.h"
 #include "domain/logevent/LogEventFish.h"
 #include "utill/FunUtil.h"
+#include "config/ConfigFishCollisionOBB.h"
 using namespace cocos2d;
 
 enum swimDirection
@@ -64,13 +64,18 @@ public:
 	void onFreeze();
 	void onFreezeResume();
 	void createDropOutAniByCoin(Point belongPos,int curMoney);
-	std::vector<CFigure*> getBoundingFigures();
 	
+	virtual std::vector<OBBEX*> getOBBs();
+
+	Vec2 getCentrenPos(){ return centerPos; };
 protected:
 	
 	void update(float);
 	float grabProbability;
-	std::vector<CFigure*> figures;
+
+	std::vector<ObbData> obbdatas;
+
+	
 	int speed;//鱼的移动速度
 	int fishID;//鱼的类型
 	int experience;//鱼的经验值

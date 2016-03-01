@@ -3,8 +3,8 @@
   "version" : 1,
   "shootList": 
   {
-  	"shootInterval":0.15,
-		"bulletSpeed":700
+  	"shootInterval":0.12,
+	"bulletSpeed":800
   }
 	
 }

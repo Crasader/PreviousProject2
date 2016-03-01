@@ -1,5 +1,4 @@
 #include "FishOfAllKilled.h"
-#include "config/ConfigFishCollisionRange.h"
 void FishOfAllKilled::initFish(int fishID){
 	int fishid = rand() % 2 ? rand() % 7 + 4 : rand() % 6 + 30;
 	auto fishdata = ConfigFish::getInstance()->getFish(fishid);
@@ -18,7 +17,7 @@ void FishOfAllKilled::initFish(int fishID){
 	setFishType(getFishTypeByID(fishID));
 	initFishAnim(fishdata.uiId);
 	setuiId(fishdata.uiId);
-	figures = ConfigFishCollisionRange::getInstance()->getFishFigures(fishdata.uiId);
+	obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(fishdata.uiId);
 	rewards = fishdata.rewards;
 	centerPos = getContentSize() / 2;
 	auto aninode = Sprite::create("game/ui/effect/allkilledEffect.png");

@@ -1,38 +1,76 @@
 #include "utill/CollisionUtill.h"
 
-
-bool CollisionUtill::isCollisionRect(std::vector<CFigure*> figures, Rect rect)
+bool CollisionUtill::isCollisionOBB1AndOBB2(OBBEX *obb1, OBBEX *obb2)
 {
-	for (auto var :figures)
-	{
-		if (var->intersectsRect(rect))
-		{
-			return true;
-		}
-	}
-	return false;
+	bool isconllision = obb1->isCollidWithOBB(obb2);
+	delete obb1;
+	delete obb2;
+	return isconllision;
 }
 
-bool CollisionUtill::isCollisionCircle(std::vector<CFigure*> figures, CCircle circle)
+bool CollisionUtill::isCollisionOBBsAndOBB(std::vector<OBBEX*> obbs, OBBEX *obb)
 {
-	for (auto var : figures)
+	bool isconllision = false;
+	for (auto var:obbs)
 	{
-		if (var->intersectsCircle(circle))
+		if (var->isCollidWithOBB(obb))
 		{
-			return true;
+			isconllision =  true;
+			break;
 		}
 	}
-	return false;
+	for (auto var:obbs)
+	{
+		delete var;
+	}
+	delete obb;
+	return isconllision;
 }
 
-bool CollisionUtill::isCollisionPoint(std::vector<CFigure*> figures, Point pos)
+bool CollisionUtill::isCollisionOBBsAndOBBs(std::vector<OBBEX*> obbs1, std::vector<OBBEX*> obbs2)
 {
-	for (auto var : figures)
+	bool isconllision = false;
+	for (auto var1 : obbs1)
 	{
-		if (var->intersectsPoint(pos))
+		if (isconllision)
 		{
-			return true;
+			break;
+		}
+		for (auto var2:obbs2)
+		{
+			if (var1->isCollidWithOBB(var2))
+			{
+				isconllision = true;
+				break;
+			}
 		}
 	}
-	return false;
+	for (auto var : obbs1)
+	{
+		delete var;
+	}
+	for (auto var : obbs2)
+	{
+		delete var;
+	}
+	return isconllision;
+}
+
+bool CollisionUtill::isCollisionOBBsAndPoint(std::vector<OBBEX*> obbs1, Vec2 pos)
+{
+	bool isconllision = false;
+	for (auto var1 : obbs1)
+	{
+		if (var1->isCollidWithPoint(pos))
+		{
+			isconllision = true;
+			break;
+		}
+	}
+	for (auto var : obbs1)
+	{
+		delete var;
+	}
+
+	return isconllision;
 }

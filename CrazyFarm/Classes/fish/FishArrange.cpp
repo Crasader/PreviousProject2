@@ -1,5 +1,5 @@
 #include "FishArrange.h"
-#include "config/ConfigFishCollisionRange.h"
+#include "config/ConfigFishCollisionOBB.h"
 void FishArrange::initFish(int fishID){
 	auto fishdata = ConfigFish::getInstance()->getFish(fishID);
 	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
@@ -24,10 +24,15 @@ void FishArrange::onDead()
 
 void FishArrange::pushBackFigureVec(int uiid, Point pos)
 {
-	auto vec = ConfigFishCollisionRange::getInstance()->getFishFigures(uiid);
-	for (auto var:vec)
+	auto data = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(uiid);
+	for (auto var:data)
 	{
-		figures.push_back(var->addposWithFigure(pos));
+		ObbData val;
+		val.leftBottom = var.leftBottom + pos;
+		val.rightBottom = var.rightBottom + pos;
+		val.leftTop = var.leftTop + pos;
+		val.rightTop = var.rightTop + pos;
+		obbdatas.push_back(val);
 	}
 }
 

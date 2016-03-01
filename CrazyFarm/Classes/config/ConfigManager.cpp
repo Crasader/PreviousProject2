@@ -21,11 +21,11 @@
 #include "domain/mermaid/MermaidTask.h"
 #include "moment/MonmetEightRoute.h"
 #include "domain/gameConfig/gameConfig.h"
-#include "config/ConfigFishCollisionRange.h"
 #include "config/ConfigBox.h"
 #include "config/ConfigNewbieFishCatch.h"
 #include "domain/pay/PayPointConfig.h"
 #include "domain/pay/PayEventPointConfig.h"
+#include "config/ConfigFishCollisionOBB.h"
 ConfigManager* ConfigManager::_instance = NULL;
 
 ConfigManager::ConfigManager(){
@@ -58,7 +58,7 @@ void ConfigManager::LoadConfig() {
     ConfigOnemoment::getInstance()->LoadConfig();
     ConfigChest::getInstance()->LoadConfig();
     
-    
+	ConfigFishCollisionOBB::getInstance()->LoadConfig();
     ConfigMagnate::getInstance()->LoadConfig();
     
     ConfigBonuspool::getInstance()->LoadConfig();
@@ -68,7 +68,6 @@ void ConfigManager::LoadConfig() {
 	GameConfig::getInstance()->loadConfig();
 	FishRouteData::getInstance()->loadConfig();
 	FishGroupData::getInstance()->loadConfig();
-	ConfigFishCollisionRange::getInstance()->LoadConfig();
 	MonmetEightRoutedata::getInstance()->loadConfig();
 	ConfigBox::getInstance()->LoadConfig();
 

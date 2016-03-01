@@ -23,7 +23,7 @@ void Turret::initWithType(int type){
 		emptySp->removeFromParentAndCleanup(1);
 	}
 	emptySp = Sprite::create();
-	emptySp->setPosition(getContentSize().width/2, getContentSize().height*0.9);
+	emptySp->setPosition(getContentSize().width/2, getContentSize().height*1.3);
 	addChild(emptySp);
 	 
 	if (lightSp)

@@ -1,20 +1,20 @@
-#include "config/ConfigFishCollisionRange.h"
+#include "config/ConfigFishCollisionOBB.h"
 #include "utill/JniFunUtill.h"
 #include "ConfigDefine.h"
-ConfigFishCollisionRange* ConfigFishCollisionRange::_instance = NULL;
+ConfigFishCollisionOBB* ConfigFishCollisionOBB::_instance = NULL;
 
-ConfigFishCollisionRange::ConfigFishCollisionRange(){
+ConfigFishCollisionOBB::ConfigFishCollisionOBB(){
 
 }
 
-ConfigFishCollisionRange* ConfigFishCollisionRange::getInstance(){
+ConfigFishCollisionOBB* ConfigFishCollisionOBB::getInstance(){
 	if (_instance == NULL){
-		_instance = new ConfigFishCollisionRange();
+		_instance = new ConfigFishCollisionOBB();
 	}
 	return _instance;
 }
 
-bool ConfigFishCollisionRange::LoadConfig() {
+bool ConfigFishCollisionOBB::LoadConfig() {
 	bool bRet = false;
 	
 	while (!bRet) {
@@ -26,7 +26,7 @@ bool ConfigFishCollisionRange::LoadConfig() {
 		filename += "/CrazyFarm/";
 	}
 #endif
-		filename += "config/config_fishCollisionRange.json";
+		filename += "config/config_fishCollisionOBB.json";
 
 		rapidjson::Document doc;
 		if (!FileUtils::getInstance()->isFileExist(filename))
@@ -51,20 +51,18 @@ bool ConfigFishCollisionRange::LoadConfig() {
 
 			const rapidjson::Value &val = itemList[i];
 			auto &figures = val["figures"];
-			std::vector<CFigure*> vec;
+			std::vector<ObbData> vec;
 			for (unsigned int i = 0; i < figures.Size();i++)
 			{
 				auto &figure = figures[i];
-				if (figure["figureType"].GetInt() == 1)
-				{
-					vec.push_back(new CMyrect(Point(figure["origin"]["x"].GetDouble(), figure["origin"]["y"].GetDouble()), Size(figure["size"]["weith"].GetDouble(), figure["size"]["high"].GetDouble())));
-				}
-				else
-				{
-					vec.push_back(new CCircle(Point(figure["origin"]["x"].GetDouble(), figure["origin"]["y"].GetDouble()), (float)(figure["radius"].GetDouble())));
-				}
+				ObbData var;
+				var.leftBottom = Vec2(figure["leftBottom"]["x"].GetDouble(), figure["leftBottom"]["y"].GetDouble());
+				var.rightBottom = Vec2(figure["rightBottom"]["x"].GetDouble(), figure["rightBottom"]["y"].GetDouble());
+				var.rightTop = Vec2(figure["rightTop"]["x"].GetDouble(), figure["rightTop"]["y"].GetDouble());
+				var.leftTop = Vec2(figure["leftBottom"]["x"].GetDouble(), figure["leftTop"]["y"].GetDouble());
+				vec.push_back(var);
 			}
-			uiidToFigures[val["fish_UiId"].GetInt()] = vec;
+			uiidToOBBdatas[val["fish_UiId"].GetInt()] = vec;
 		}
 		
 		return true;
@@ -73,7 +71,7 @@ bool ConfigFishCollisionRange::LoadConfig() {
 }
 
 
-std::vector<CFigure*> ConfigFishCollisionRange::getFishFigures(int uiId)
+std::vector<ObbData> ConfigFishCollisionOBB::getFishFOBBPoints(int uiId)
 {
-	return uiidToFigures[uiId];
+	return uiidToOBBdatas[uiId];
 }

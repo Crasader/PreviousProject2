@@ -36,7 +36,6 @@ public:
     
     
 private:
-	int getRewardByRandVec(std::vector<BonuspoolRewardItem> momentEightItemPers);
     BonusPoolManager();
     void init();
     static BonusPoolManager* _instance;

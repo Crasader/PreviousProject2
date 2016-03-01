@@ -256,7 +256,7 @@ void PlayerTurret::degradeTurret(Ref* psend)
 
 void PlayerTurret::rorateTurret(float angle)
 {
-	auto rotate = RotateTo::create(0.1, angle);
+	auto rotate = RotateTo::create(0.01, angle);
 	m_turret->runAction(rotate);
 }
 void PlayerTurret::ShowLockTurretTip()
@@ -986,7 +986,7 @@ void PlayerTurret::shootOnLock(float dt){
 	auto pos = m_turret->getTampionPos();
 	bullet->setPosition(m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
-	auto duration = pos.distance(lockFish->getPosition()) / 800.0f;
+	auto duration = pos.distance(lockFish->getCentrenPos()) / 800.0f;
 	bullet->moveToLockfish(duration, lockFish);
 	getParent()->addChild(bullet,8);
 

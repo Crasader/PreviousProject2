@@ -36,28 +36,6 @@ void Bullet::moveToLockfish(float time, Fish*fish)
 
 int Bullet::getSpeedByType(int type){
 	return GameConfig::getInstance()->getShootData().shootSpeed;
-	return 800;
-	switch (type)
-	{
-	case BULLETTYPE_1:
-		return 300;
-	case BULLETTYPE_2:
-		return 300;
-	case BULLETTYPE_3:
-		return 300;
-	case BULLETTYPE_4:
-		return 300;
-	case BULLETTYPE_5:
-		return 300;
-	case BULLETTYPE_6:
-		return 300;
-	case BULLETTYPE_7:
-		return 300;
-	case BULLETTYPE_8:
-		return 300;
-	default:
-		return 300;
-	}
 }
 
 void Bullet::update(float dt){
@@ -118,4 +96,26 @@ void Bullet::moveTolockFishUpadate(float dt)
 	{
 	//TODO::改写成跟踪模式，每帧获得目标位置
 	}
+}
+std::vector<OBBEX*> Bullet::getObbs()
+{
+	std::vector<OBBEX*> vec;
+	switch (m_turretdata.net_type)
+	{
+	case 1:
+		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(16, 0)), convertToWorldSpace(Vec2(16, 42)), convertToWorldSpace(Vec2(0, 42))));
+		break;
+	case 2:
+		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(16, 0)), convertToWorldSpace(Vec2(16, 42)), convertToWorldSpace(Vec2(0, 42))));
+		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(38, 0)), convertToWorldSpace(Vec2(54, 0)), convertToWorldSpace(Vec2(54, 42)), convertToWorldSpace(Vec2(38, 42))));
+		break;
+	case 3:
+		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(16, 0)), convertToWorldSpace(Vec2(16, 42)), convertToWorldSpace(Vec2(0, 42))));
+		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(40, 0)), convertToWorldSpace(Vec2(56, 0)), convertToWorldSpace(Vec2(56, 42)), convertToWorldSpace(Vec2(40, 42))));
+		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(20, 11)), convertToWorldSpace(Vec2(36, 11)), convertToWorldSpace(Vec2(36, 53)), convertToWorldSpace(Vec2(20, 53))));
+		break;
+	default:
+		break;
+	}
+	return vec;
 }

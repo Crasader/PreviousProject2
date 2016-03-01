@@ -507,20 +507,8 @@
     <ClCompile Include="..\Classes\lobby\FeedbackLayer.cpp">
       <Filter>src\lobby</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utill\CFigure.cpp">
-      <Filter>src\utill\figure</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utill\CMyrect.cpp">
-      <Filter>src\utill\figure</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utill\CCircle.cpp">
-      <Filter>src\utill\figure</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\utill\CollisionUtill.cpp">
       <Filter>src\utill\figure</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\config\ConfigFishCollisionRange.cpp">
-      <Filter>src\Interface</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\moment\MomentNine.cpp">
       <Filter>src\moment</Filter>
@@ -665,6 +653,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\domain\login\LoginMannger.cpp">
       <Filter>src\login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utill\OBB.cpp">
+      <Filter>src\utill\figure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\ConfigFishCollisionOBB.cpp">
+      <Filter>src\Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1046,20 +1040,8 @@
     <ClInclude Include="..\Classes\lobby\FeedbackLayer.h">
       <Filter>src\lobby</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\utill\CFigure.h">
-      <Filter>src\utill\figure</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utill\CMyrect.h">
-      <Filter>src\utill\figure</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utill\CCircle.h">
-      <Filter>src\utill\figure</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\utill\CollisionUtill.h">
       <Filter>src\utill\figure</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\config\ConfigFishCollisionRange.h">
-      <Filter>src\Interface</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\moment\MomentNine.h">
       <Filter>src\moment</Filter>
@@ -1207,6 +1189,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\login\LoginMannger.h">
       <Filter>src\login</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\OBB.h">
+      <Filter>src\utill\figure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\ConfigFishCollisionOBB.h">
+      <Filter>src\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

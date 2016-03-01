@@ -10,7 +10,6 @@
 #include "config/ConfigRoom.h"
 #include "fish/FishArrangeOne.h"
 #include "domain/skill/skillManager.h"
-#include "utill/CCircle.h"
 #include "domain/gameConfig/gameConfig.h"
 #include "fish/FishAniMannage.h"
 #include "utill/CollisionUtill.h"
@@ -22,6 +21,7 @@
 #include "domain/Newbie/NewbieMannger.h"
 #include "domain/bankrupt/BankruptManager.h"
 #include "config/ConfigNewbieFishCatch.h"
+#include "utill/OBB.h"
 #define BOOMRADIUS 300
 enum
 {
@@ -70,12 +70,8 @@ bool GameLayer::init(){
 	anibowennode->setAnchorPoint(Point::ZERO);
 	addChild(anibowennode, -1);
 
-	//TODO 游戏核心界面
-	
-	//TODO 产生鱼
-	/*schedule(schedule_selector(GameLayer::createFish), 0.3f,CC_REPEAT_FOREVER, 20.0f);
-	schedule(schedule_selector(GameLayer::createFishGroup), 180.0f, CC_REPEAT_FOREVER, 2.0f);*/
-	scheduleUpdate();
+
+	scheduleUpdate(); //TEST
 	addTouchEvent();	
     auto roominfo = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
 	players = RoomManager::getInstance()->initRoomConfig(roominfo.unlock_turrent_level);
@@ -84,7 +80,7 @@ bool GameLayer::init(){
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	
-	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 0)); }), nullptr));
+	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 10)); }), nullptr));
 
 
 
@@ -120,6 +116,17 @@ bool GameLayer::init(){
 	createFishAcNode = Node::create();
 	createFishAcNode->setPosition(0, 0);
 	addChild(createFishAcNode);
+
+
+	//auto fish = FishManage::getInstance()->createFishArrange(104);
+	//fish->unscheduleUpdate();
+	//fish->setRotation(0);
+	//fish->setPosition(480, 270);
+	//addChild(fish, 20);
+	//for (auto var:fish->getOBBs())
+	//{
+	//	var->draw(this);
+	//}
 
 	return true;
 }
@@ -339,11 +346,15 @@ void GameLayer::update(float dt){
 
 void GameLayer::createNet(Bullet *bullet){
 	Net* fishNet = Net::create();
+	fishNet->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	fishNet->setBullet(bullet);
-	float dotPos = bullet->getContentSize().height*0.5;
-	fishNet->setPosition(bullet->getPosition()+Vec2(0,dotPos*sin(bullet->getRotation())));
+	float dotdistance = bullet->getContentSize().height*0.5;
+	float angle = bullet->getRotation();
+	auto dotpos = Vec2(dotdistance*sin(CC_DEGREES_TO_RADIANS(angle)), dotdistance*cos(CC_DEGREES_TO_RADIANS(angle)));
+	fishNet->setPosition(bullet->getPosition() + dotpos);
 	fishNet->setRotation(bullet->getRotation());
 	fishNet->initNetByType();
+	CCLOG("bullet pos :(%f,%f),  angle: %f,dotpos :(%f,%f)", bullet->getPositionX(), bullet->getPositionY(), angle, dotpos.x, dotpos.y);
 	this->addChild(fishNet, kZorderNet);
 }
 
@@ -392,7 +403,7 @@ void GameLayer::collisionUpdate(float dt)
 	{
 		for (auto fish : allFish)
 		{
-			if (CollisionUtill::isCollisionRect(fish->getBoundingFigures(), bullet->getBoundingBox())){
+			if (CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), bullet->getObbs())){
 				//发生碰撞,移除子弹,在这里计算捕获鱼，渔网只有UI作用，无影响
 				bulletNeedRemove.pushBack(bullet);
 				bullet->removeFromParent();
@@ -536,14 +547,11 @@ void GameLayer::endSkillBoom()
 
 void GameLayer::onBoomCatchFish(Point pos)
 {
-
-	auto cicle = CCircle(pos, 200);
-
 	auto fishPool = FishManage::getInstance()->getAllFishInPool();
 	auto data = GameData::getInstance();
 	for (auto fish : fishPool)
 	{
-		if (CollisionUtill::isCollisionCircle(fish->getBoundingFigures(),cicle))
+		if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBs(), new OBBEX(pos + Vec2(-200, -200), pos + Vec2(200, -200), pos + Vec2(200, 200), pos + Vec2(-200, 200))))
 		{
 			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, myTurret);
 		}
@@ -713,7 +721,7 @@ void GameLayer::onClearFishUpdata(float dt)
 		Vector<Fish*> needRemove;
 		for (auto var:vec)
 		{
-			if (CollisionUtill::isCollisionRect(var->getBoundingFigures(), rect))
+			if (CollisionUtill::isCollisionOBBsAndOBB(var->getOBBs(), new OBBEX(rect.origin, Vec2(rect.getMaxX(), rect.getMinY()), Vec2(rect.getMaxX(), rect.getMaxY()), Vec2(rect.getMinX(), rect.getMaxY()))))
 			{
 				needRemove.pushBack(var);
 			}

@@ -12,5 +12,4 @@ class FishArrangeTwo :public FishArrange{
 public:
 	CREATE_FUNC(FishArrangeTwo);
 	virtual void initFishAnim(int fishID);
-
 };

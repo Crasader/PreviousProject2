@@ -35,10 +35,9 @@ void Laster::update(float delta)
 	{
 		setPosition(pPlayerTurret->getLasterOrginPos());
 		Vec2 m_pos = pPlayerTurret->getLasterOrginPos();
-		Vec2 targetPos = fish->getPosition();
+		Vec2 targetPos = fish->getCentrenPos();
 		auto distance = m_pos.distance(targetPos);
 		setTextureRect(Rect(0, 0, distance, getContentSize().height));
-		//setContentSize(Size(distance,getContentSize().height));
 		auto angle = getTurretRotation(m_pos,targetPos);
 		setRotation(-90+angle);
 	}

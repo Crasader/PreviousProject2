@@ -2,7 +2,6 @@
 #include "fish/FishAniMannage.h"
 #include "utill/MagicEffect.h"
 #include "utill/FunUtil.h"
-#include "config/ConfigFishCollisionRange.h"
 void FishArrangeFourh::initFishAnim(int fishID)
 {
 	//жїгу
@@ -21,7 +20,7 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	auto ac2 = ac->clone();
 	auto ac3 = ac->clone();
 	mainfish->runAction(ac);
-	pushBackFigureVec(id, mainfish->getPosition() - mainfish->getContentSize() / 2);
+	obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(104);
 	
 	centerPos = maggiceff->getContentSize() / 2;
 
@@ -33,7 +32,7 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	sp->setPosition(maggiceff1->getPosition());
 	sp->runAction(ac1);
 	addChild(sp);
-	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
+
 
 
 	auto maggiceff2 = MagicEffect::create(5, true);
@@ -43,7 +42,7 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	sp->setPosition(maggiceff2->getPosition());
 	sp->runAction(ac2);
 	addChild(sp);
-	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
+	
 
 
 	auto maggiceff3 = MagicEffect::create(5, true);
@@ -53,6 +52,6 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	sp->setPosition(maggiceff3->getPosition());
 	sp->runAction(ac3);
 	addChild(sp);
-	pushBackFigureVec(id, sp->getPosition() - sp->getContentSize() / 2);
+
 }
 
