@@ -11,7 +11,7 @@ public:
 
 	void initAnimationBySplitIMG(const char* filename,float time,int numOfpng);
 
-	void addAnimationBySpriteFrameName(const char *animatname,float time,int numOfpng);
+	void addAnimationBySpriteFrameName(const char *filepath, const char *animatname, float time, int numOfpng);
 
 	void addAnimationBySpriteName(const char *filepath , const char *animatname, float time, int numOfpng);
 

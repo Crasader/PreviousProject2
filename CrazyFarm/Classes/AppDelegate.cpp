@@ -83,6 +83,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("game/ui/NewBie");
 	paths.push_back("game/ui/txt");
 	paths.push_back("game/ui/gamelayer/playerturret");
+	paths.push_back("game/ui/loading");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand(time(NULL));
 	auto timenode = GlobalSchedule::getInstance();

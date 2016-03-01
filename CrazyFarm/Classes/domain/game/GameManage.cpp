@@ -153,8 +153,4 @@ void GameManage::onPlayerUpgrade()
 	node->setPosition(0, 0);
 	m_pGuilayer->addChild(node, 20); colorlayer->removeFromParentAndCleanup(1); }), RemoveSelf::create(), nullptr));
 	
-	
-	
-
-	
 }

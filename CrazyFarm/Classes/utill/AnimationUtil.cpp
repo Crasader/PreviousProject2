@@ -41,21 +41,16 @@ void AnimationUtil::initAnimationBySplitIMG(const char* filename,float time,int 
 
 
 
-void AnimationUtil::addAnimationBySpriteFrameName(const char *animatname, float time, int numOfpng){
-
-
+void AnimationUtil::addAnimationBySpriteFrameName(const char *filepath, const char *animatname, float time, int numOfpng){
 	if (AnimationCache::getInstance()->getAnimation(animatname) != NULL){
 		return;
 	}
-
-	
-
-	char str[30] = {0};
+	char str[100] = {0};
 
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(time / numOfpng);
 	for(int i = 1; i <= numOfpng; i++ ){
-		sprintf(str, "%s%d.png", animatname, i);
+		sprintf(str, filepath,  i);
 		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
 		animation->addSpriteFrame(frame);
 	}
