@@ -5,6 +5,7 @@
 #include "core/showFishLayer.h"
 #include "domain/Newbie/NewbieMannger.h"
 #include "domain/game/GameManage.h"
+#include "domain/bag/BagManager.h"
 enum
 {
 	kZorderMenu = 10,
@@ -17,7 +18,10 @@ bool GameGuiLayer::init(){
 	{
 		return false;
 	}
-
+	colorBg = LayerColor::create();
+	colorBg->setColor(Color3B::BLACK);
+	colorBg->setOpacity(0);
+	addChild(colorBg, -1);
 
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -322,33 +326,80 @@ void GameGuiLayer::onBossWarning(int fishID)
 	sp->runAction(ac2);
 }
 
-void GameGuiLayer::ShowUseLockTip()
+void GameGuiLayer::ShowUseLockTip(Point dmDropPos)
 {
+	auto bt = skillManager::getInstance()->getButtonByID(2);
+
+	auto str = String::createWithFormat("item_%d.png", 1004);
+	auto itemcell = Sprite::create(str->getCString());
+	itemcell->setPosition(dmDropPos);
+	itemcell->setScale(0);
+	addChild(itemcell, 10);
+	auto duration = dmDropPos.distance(bt->getPosition()) / 800.0f;
+	itemcell->runAction(Sequence::create(Spawn::create(ScaleTo::create(0.5f, 1.0f), MoveTo::create(0.5f, Vec2(403, 373)), nullptr), EaseSineIn::create(MoveTo::create(1.5f, bt->getPosition())), CallFunc::create([=]{
+		bt->runAction(Sequence::createWithTwoActions(ScaleTo::create(0.1, 1.1f), ScaleTo::create(0.1, 0.9f)));
+		BagManager::getInstance()->addreward(1004, 1);
+	})
+		, DelayTime::create(0.5f), CallFunc::create([=]{
+		auto tipnode = Node::create();
+		tipnode->setPosition(0, 0);
+
+		bt->addChild(tipnode, 5, "tipnode");
+		auto sp = Sprite::create("SkillHighLight.png");
+		sp->setPosition(bt->getContentSize() / 2);
+		sp->setScale(1.0 / 0.9);
+		tipnode->addChild(sp, 1);
+		sp->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
+
+		auto sPoint = Sprite::create("yellowSpoint.png");
+		sPoint->setPosition(Vec2(0, 80));
+		tipnode->addChild(sPoint, 20);
+		sPoint->runAction(RepeatForever::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, 30))), EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, -30))), nullptr)));
+
+		auto tiptxt = Sprite::create("TXTUseLockTip.png");
+		tiptxt->setPosition(Vec2(0, 150));
+		tipnode->addChild(tiptxt);
+		tiptxt->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr))); 
+
+		colorBg->setOpacity(127);
+
+
+		tipnode->runAction(Sequence::createWithTwoActions(DelayTime::create(10.0f), CallFunc::create([=]{colorBg->setOpacity(0	), tipnode->removeFromParentAndCleanup(1); })));
+	}),
+
+		RemoveSelf::create(), nullptr));
+
+}
+void GameGuiLayer::ShowUpgradeTurretTip()
+{
+	sUpgradeTurret->showPopup();
 	auto tipnode = Node::create();
 	tipnode->setPosition(0, 0);
-	auto bt = skillManager::getInstance()->getButtonByID(2);
-	bt->addChild(tipnode, 1, "tipnode");
-	auto sp = Sprite::create("SkillHighLight.png");
-	sp->setPosition(bt->getContentSize() / 2);
-	sp->setScale(1.0 / 0.9);
-	tipnode->addChild(sp, 1);
-	sp->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
 
+	addChild(tipnode, 5, "tipUpGradenode");
+
+	setLayerAlpha(127);
 	auto sPoint = Sprite::create("yellowSpoint.png");
-	sPoint->setPosition(Vec2(0, 60));
+	sPoint->setPosition(Vec2(794, 335));
+	sPoint->setVisible(false);
+	sPoint->runAction(Sequence::create(DelayTime::create(0.5f), CallFunc::create([=]{sPoint->setVisible(true); }), nullptr));
 	tipnode->addChild(sPoint, 20);
 	sPoint->runAction(RepeatForever::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, 30))), EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, -30))), nullptr)));
 
-	auto tiptxt = Sprite::create("TXTUseLockTip.png");
-	tiptxt->setPosition(Vec2(0, 130));
-	tipnode->addChild(tiptxt);
-	tiptxt->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
+	tipnode->runAction(Sequence::create(DelayTime::create(10.0f), CallFunc::create([=]{setLayerAlpha(0); }), RemoveSelf::create(), nullptr));
 }
-void GameGuiLayer::update(float delta)
+void GameGuiLayer::setLayerAlpha(int alpha)
 {
-	if (NewbieMannger::getInstance()->getNBShootCounts()>=50)
+	colorBg->setOpacity(alpha);
+}
+
+
+
+void GameGuiLayer::update(float delta)
+{/*
+	if (NewbieMannger::getInstance()->getNBShootCounts()>=40)
 	{
 		NewbieMannger::getInstance()->setNBShootCounts(-1);
 		ShowUseLockTip();
-	}
+	}*/
 }

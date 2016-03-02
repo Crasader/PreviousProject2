@@ -32,8 +32,7 @@ std::vector<RoomPlayer> RoomManager::initRoomConfig(int roomMinTurrentLevel) {
             player.setDiamonds(getInitDiamondsByMinTurrentLevel(player.getMaxTurretLevel()));
             player.setLevel(getInitPlayerLevelByMinTurrentLevel(player.getMaxTurretLevel()));
             player.setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
-            player.setRoomPosition(i);
-            
+        
             AI* ai = AIManager::getInstance()->getAI( player.getMaxTurretLevel() );
             player.setAi(ai);
             

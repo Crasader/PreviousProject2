@@ -228,6 +228,7 @@ void HttpMannger::onHttpRequestCompletedForSetName(HttpClient *sender, HttpRespo
 		User::getInstance()->setUserGender(data->gender);
 		User::getInstance()->setHaveSetName();
 		Director::getInstance()->getRunningScene()->getChildByTag(50)->getChildByName("setnamelayer")->removeFromParentAndCleanup(1);
+		delete data;
 	}
 	log("http back setname info: %s", temp.c_str());
 }
@@ -305,5 +306,6 @@ void HttpMannger::onHttpRequestCompletedForLogEventCommon(HttpClient *sender, Ht
 	{
 		auto userdata = (int*)response->getHttpRequest()->getUserData();
 		LogEventMannger::getInstance()->clearData(*userdata);
+		delete userdata;
 	}
 }

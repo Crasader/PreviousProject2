@@ -119,7 +119,6 @@ Moment* MomentManager::getNewMomentByType(int momentType, float FFOneTime) {
 
 int MomentManager::getCurrentMomentEight()
 {
-	return 81;
 	int size = momentEightVec.size();
 	if (size>1)
 	{

@@ -3,6 +3,8 @@
 #include "domain/magnate/MagnateManager.h"
 #include "core/GameLayer.h"
 #include "domain/gameConfig/gameConfig.h"
+#include "config/ConfigNewbieFishCatch.h"
+#include "domain/game/GameManage.h"
 bool Bullet::init(){
 	if (!Sprite::init()){
 		return false;
@@ -29,8 +31,38 @@ string Bullet::getSrcByType(int ui_type, int net_type){
 
 void Bullet::moveToLockfish(float time, Fish*fish)
 {
-	runAction(Sequence::create(MoveTo::create(time, fish->getPosition()), CallFunc::create([&]{
-		setVisible(false); ((GameLayer*)getParent())->createNet(this); removeFromParentAndCleanup(1); }
+	runAction(Sequence::create(MoveTo::create(time, fish->convertToWorldSpace(fish->getCentrenPos())), CallFunc::create([=]{
+
+		setVisible(false); 
+		((GameLayer*)getParent())->createNet(this);
+		auto turretdata = getTurretdata();
+		auto curryFish = fish;
+		if (curryFish == nullptr)
+		{
+			return;
+		}
+		LogEventFish::getInstance()->addFishHitTimes(curryFish->getFishID());
+		float k = rand_0_1();
+		float per = curryFish->getGrabProbability();
+
+		if (!getPlayerTurret()->isRobot)
+		{
+			LogEventFish::getInstance()->addFishUserCostCoin(curryFish->getFishID(), getPlayerTurret()->getTurrentMupltData().multiple);
+			float perForLevel = ConfigNewbieFishCatch::getInstance()->getperByLevelAndFishID(User::getInstance()->getLevelData().levelId, fish->getFishID());
+			if (perForLevel > 0)
+			{
+				per = perForLevel;
+			}
+		}
+		if (k < (per*turretdata.catch_per))
+		{
+			GameManage::getInstance()->CatchTheFishOntheTurrent(curryFish, 1, getPlayerTurret());
+		}
+		removeFromParentAndCleanup(1); 
+	
+	
+	
+	}
 	), nullptr));
 }
 

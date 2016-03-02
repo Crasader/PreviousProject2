@@ -148,20 +148,8 @@ void PlayerTurret::update(float delta)
 
 }
 void PlayerTurret::initTurretWithTypeForRobot(){
-	//auto viplevel = rand() % 4;
-	//if (viplevel == 0)
-	//{
 		auto var = ConfigNormalTurrent::getInstance()->getNormalTurrent(m_robotData->getMaxTurretLevel());
 		turretdata.init(var.normal_turrent_id, var.turrent_ui_id, var.catch_per,var.net_per, var.ui_type, var.net_type);
-	//}
-	//else
-	//{
-	//	auto var = ConfigVipTurrent::getInstance()->getVipTurrent(User::getInstance()->getVipLevel());
-	//	turretdata.init(var.vip_turrent_id, var.turrent_ui_id + 2, var.net_per, var.ui_type, var.net_type);
-	//}
-
-
-
 
 	m_turret->initWithType(turretdata.turrent_ui_id);
 }
@@ -256,8 +244,7 @@ void PlayerTurret::degradeTurret(Ref* psend)
 
 void PlayerTurret::rorateTurret(float angle)
 {
-	auto rotate = RotateTo::create(0.01, angle);
-	m_turret->runAction(rotate);
+	m_turret->setRotation(angle);
 }
 void PlayerTurret::ShowLockTurretTip()
 {
@@ -476,12 +463,11 @@ void PlayerTurret::doAIthing(float dt)
 {
 
 	auto walk = m_aiinfo->nextStep(nNowMoney, getPosition());
-	auto angle = /*nChairNoIndex < 2 ? walk.getAngle() : 180 - */walk.getAngle();
-	rorateTurret(angle);
-	
+	auto angle = walk.getAngle();
+	m_turret->setRotation(angle);
 	if (walk.getFire())
 	{
-		runAction(Sequence::create(DelayTime::create(0.10f), CallFunc::create([&]{shoot(m_turret->getRotation()); }), nullptr));
+		runAction(Sequence::create( CallFunc::create([&]{shoot(m_turret->getRotation()); }), nullptr));
 		
 	}
 }
@@ -966,7 +952,7 @@ void PlayerTurret::rorateAndShootOnlock(float dt)
 	auto pos = lockFish->getPosition();
 	float degree =getTurretRotation(getPosition(), pos);
 	rorateTurret(degree);
-	scheduleOnce(schedule_selector(PlayerTurret::shootOnLock), 0.1f);
+	scheduleOnce(schedule_selector(PlayerTurret::shootOnLock), 0.12f);
 }
 void PlayerTurret::shootOnLock(float dt){
 
@@ -986,7 +972,7 @@ void PlayerTurret::shootOnLock(float dt){
 	auto pos = m_turret->getTampionPos();
 	bullet->setPosition(m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
-	auto duration = pos.distance(lockFish->getCentrenPos()) / 800.0f;
+	auto duration = pos.distance(lockFish->convertToWorldSpace(lockFish->getCentrenPos())) / 800.0f;
 	bullet->moveToLockfish(duration, lockFish);
 	getParent()->addChild(bullet,8);
 

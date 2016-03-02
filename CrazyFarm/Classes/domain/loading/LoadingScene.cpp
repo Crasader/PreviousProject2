@@ -63,7 +63,7 @@ bool LoadingScene::init()
 
 void LoadingScene::update(float dt)
 {
-	loadingBar->setPercent(((float)temp) / 60.0f*100);
+	loadingBar->setPercent(((float)temp) / 60.0f*100+1);
 	if (temp>=59)
 	{
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
@@ -202,7 +202,12 @@ void LoadingScene::loadRes()
 		auto plistPath = String::createWithFormat("game/ui/fish/fish_frame_%d.plist", i);
 		auto pngPath = String::createWithFormat("game/ui/fish/fish_frame_%d.png", i);
 		loadFishAni(pngPath->getCString(), jsonPath->getCString(), plistPath->getCString());
-	}	
+	}
+	auto jsonPath = String::createWithFormat("game/ui/fish/fish_frame_%d.json", 60);
+	auto plistPath = String::createWithFormat("game/ui/fish/fish_frame_%d.plist", 60);
+	auto pngPath = String::createWithFormat("game/ui/fish/fish_frame_%d.png", 60);
+	loadFishAni(pngPath->getCString(), jsonPath->getCString(), plistPath->getCString());
+	
 }
 
 

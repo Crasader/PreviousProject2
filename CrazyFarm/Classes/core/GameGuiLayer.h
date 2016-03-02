@@ -36,7 +36,9 @@ public:
 	virtual bool init();
 	CREATE_FUNC(GameGuiLayer);
 	void refreshSkillNum();
-	
+	void ShowUseLockTip(Point dmDropPos);
+	void ShowUpgradeTurretTip();
+	void setLayerAlpha(int alpha);
 private :
 	void showRandonBubbleAni();
 	void exitCallback(Ref *pSender);
@@ -47,7 +49,7 @@ private :
 	void createSettingBoard();
 	void createGuizuGiftLayer();
 	
-	void ShowUseLockTip();
+	
 	/////////美人鱼相关///////////////////////////////////////////////
 	float fmaridNowTime = 0;
 	void maridTaskTime(float dt);
@@ -70,7 +72,7 @@ private:
 	MenuItemImage* setttingBoard;
 	MyMenuItemGainMoney* sEainCoin;
 	MyMenuItemUpgrade* sUpgradeTurret;
-
+	LayerColor*colorBg;
 	 
 };
 #endif

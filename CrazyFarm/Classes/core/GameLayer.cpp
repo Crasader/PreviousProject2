@@ -92,7 +92,6 @@ bool GameLayer::init(){
 
 	if (!NewbieMannger::getInstance()->getisOverTeachMode())
 	{
-		myTurret->showPlayerInfo();
 		auto txtclick = Sprite::create("TXTClickCatch.png");
 		txtclick->setPosition(480, 270);
 		addChild(txtclick, kZorderDialog, "clickcatch");
@@ -237,13 +236,16 @@ void GameLayer::shootUpdata(float dt)
 		{
 			return ;
 		}
-		CCLOG("%f,%f", touchpos.x, touchpos.y);
 		float degree = getTurretRotation(myTurret->getPosition(), touchpos);
-		rotateTurret(degree, myTurret);
-		runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([&]{
-			CCLOG("shot turret rotate%f", myTurret->getRarote());
-			myTurret->shoot(myTurret->getRarote());
-		}), nullptr));
+		degree -= 360;
+		if (degree<-90||degree>90)
+		{
+			//射击角度范围（-80，80）；
+			return;
+		}
+		CCLOG("rorate %f", degree);
+		rotateTurret(degree, myTurret); 
+		myTurret->shoot(myTurret->getRarote());
 		isShoot = false;
 		runAction(Sequence::create(DelayTime::create(shootInterval), CallFunc::create([&]{
 			isShoot = true;
@@ -354,33 +356,37 @@ void GameLayer::createNet(Bullet *bullet){
 	fishNet->setPosition(bullet->getPosition() + dotpos);
 	fishNet->setRotation(bullet->getRotation());
 	fishNet->initNetByType();
-	CCLOG("bullet pos :(%f,%f),  angle: %f,dotpos :(%f,%f)", bullet->getPositionX(), bullet->getPositionY(), angle, dotpos.x, dotpos.y);
 	this->addChild(fishNet, kZorderNet);
 }
 
 
 void GameLayer::calculateFreeChair()
 {
-	std::map<int, bool> findFreeTable;
-	for (int i = 0; i < 4; i++)
+	auto maxlv = User::getInstance()->getMaxTurrentLevel();
+	if (maxlv<5)
 	{
-		findFreeTable[i] = true;
+		m_index = 1;
 	}
-	for (auto player : players)
+	else
 	{
-		findFreeTable[player.getRoomPosition()] = false;
+		m_index = rand() % 1;
 	}
-	for (int i = 0; i < 4; i++)
+	std::vector<int> freeChairno;
+	for (int i = 0; i < 4;i++)
 	{
-		if (findFreeTable[i])
+		if (i==m_index)
 		{
-			m_index = i;
-			break;
+			continue;
 		}
-
+		else
+		{
+			freeChairno.push_back(i);
+		}
 	}
-	
-
+	for (int i = 0; i < 3;i++)
+	{
+		players[i].setRoomPosition(freeChairno[i]);
+	}
 }
 
 void GameLayer::AiUpdata(float dt)
@@ -406,7 +412,7 @@ void GameLayer::collisionUpdate(float dt)
 			if (CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), bullet->getObbs())){
 				//发生碰撞,移除子弹,在这里计算捕获鱼，渔网只有UI作用，无影响
 				bulletNeedRemove.pushBack(bullet);
-				bullet->removeFromParent();
+				bullet->setVisible(false);
 				auto turretdata = bullet->getTurretdata();
 				auto curryFish = fish;
 				if (curryFish == nullptr)
@@ -438,7 +444,7 @@ void GameLayer::collisionUpdate(float dt)
 	}
 
 	for (Bullet* bullet : bulletNeedRemove){
-		bullet->retain();
+		bullet->removeFromParentAndCleanup(1);
 		BulletManage::getInstance()->removeBullet(bullet);
 	}
 
@@ -790,7 +796,7 @@ void GameLayer::onGetRewardByfish(PlayerTurret*turrent, Fish*fish, int itemid, i
 	}
 	else
 	{
-		auto str = String::createWithFormat("sign_%d.png", itemid);
+		auto str = String::createWithFormat("item_%d.png", itemid);
 		sp = Sprite::create(str->getCString());
 	}
 	sp->setPosition(480,270);
@@ -807,6 +813,13 @@ void GameLayer::onGetRewardByfish(PlayerTurret*turrent, Fish*fish, int itemid, i
 		else if (itemid == 1002)
 		{
 			turrent->ShowAddCoinAni(2, num);
+			if (User::getInstance()->getMaxTurrentLevel()==1&&!NewbieMannger::getInstance()->getisTeachUpgradeTurrent())
+			{
+				NewbieMannger::getInstance()->setisTeachUpgradeTurrent(1);
+				GameManage::getInstance()->getGuiLayer()->ShowUpgradeTurretTip();
+			}
+
+
 		}
 		
 	}), RemoveSelf::create(1), nullptr));

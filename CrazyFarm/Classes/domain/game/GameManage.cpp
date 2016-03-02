@@ -3,6 +3,7 @@
 #include "core/UpgradeSureDialog.h"
 #include "utill/CShake.h"
 #include "config/ConfigChest.h"
+#include "domain/Newbie/NewbieMannger.h"
 GameManage* GameManage::_instance = 0;
 
 GameManage* GameManage::getInstance(){
@@ -57,13 +58,19 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			sp->runAction(RepeatForever::create(RotateBy::create(2, 360)));
 			sp->setScale(0.7);
 
+			auto aninode1 = Sprite::create("quickStart.png");
+			aninode1->setPosition(sp->getPosition());
+			aninode1->addChild(aninode1,-1);
+			aninode1->runAction(RepeatForever::create(Sequence::create(Spawn::create(FadeIn::create(0.001), ScaleTo::create(0.001, 0), nullptr), Spawn::create(FadeOut::create(3.0), ScaleTo::create(3.0, 1.5), nullptr), nullptr)));
+
+
 			auto num = fish->getFishGold()* turret->getTurrentMupltData().multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
-			auto lb = LabelAtlas::create(Value(Value(num).asInt()).asString(), "coinNum.png", 32, 48, '0');
+			auto lb = LabelAtlas::create(Value(Value(num).asInt()).asString(), "goldFishNum.png", 23, 32, '0');
 			lb->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			lb->setPosition(Vec2(80, 180));
 			lb->setScale(0.8);
 			lb->setRotation(-30);
-			lb->runAction(RepeatForever::create(Sequence::create(RotateTo::create(0.5f, 30), RotateTo::create(0.5f, -30), nullptr)));
+			lb->runAction(RepeatForever::create(Sequence::create(RotateTo::create(0.3f, 30), RotateTo::create(0.3f, -30), nullptr)));
 			aninode->addChild(lb);
 
 
@@ -74,8 +81,6 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			auto txt = Sprite::create(str->getCString());
 			txt->setPosition(txtframe->getContentSize() / 2);
 			txtframe->addChild(txt);
-			txtframe->setScale(0.7);
-
 			aninode->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(1), nullptr));
 
 
@@ -110,19 +115,35 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 		{
 			showGainMoneyTurrent();
 		}
-		auto data = GameData::getInstance();
-		if (data->getIsOnMaridTask())
+		if (!turret->isRobot)
 		{
-			auto vec = data->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
-			for (auto var : vec)
+			//美人鱼任务相关
+			auto data = GameData::getInstance();
+			if (data->getIsOnMaridTask())
 			{
-				if (fish->getFishID() == var.fishId&&!turret->isRobot)
+				auto vec = data->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
+				for (auto var : vec)
 				{
-					data->getmermaidTask()->addOneCatchFishById(fish->getFishID());
-					break;
+					if (fish->getFishID() == var.fishId&&!turret->isRobot)
+					{
+						data->getmermaidTask()->addOneCatchFishById(fish->getFishID());
+						break;
+					}
 				}
 			}
+			//锁定技能引导相关
+			if (NewbieMannger::getInstance()->getNBShootCounts() >= 40)
+			{
+				NewbieMannger::getInstance()->setNBShootCounts(-1);
+				m_pGuilayer->ShowUseLockTip(fish->getPosition());
+			}
+
+
+
+
+
 		}
+		
 		fish->onDead();
 	}
 	else

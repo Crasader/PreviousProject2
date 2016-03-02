@@ -30,6 +30,15 @@ MyMenuItemUpgrade * MyMenuItemUpgrade::create()
 }
 void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 {
+	auto node = GameManage::getInstance()->getGuiLayer()->getChildByName("tipUpGradenode");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+		GameManage::getInstance()->getGuiLayer()->setLayerAlpha(0);
+	}
+
+
+
 	if (User::getInstance()->getMaxTurrentLevel()>=1000)
 	{
 		auto pNode = getChildByName("blinkAni");
@@ -106,11 +115,11 @@ void MyMenuItemUpgrade::initItem()
 	unfinishedNode->setVisible(false);
 	auto size = getContentSize();
 	auto unLockTxt = Sprite::create("clickLockTXT.png");
-	unLockTxt->setPosition(size.width*0.41, 33);
+	unLockTxt->setPosition(size.width*0.41-10, 33);
 	commonNode->addChild(unLockTxt);
 	auto mutpleLabel = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
 	mutpleLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	mutpleLabel->setPosition(size.width*0.44+5,49.5);
+	mutpleLabel->setPosition(size.width*0.44-5,49.5);
 	commonNode->addChild(mutpleLabel, 1, kTagMutpleLabel);
 
 	//已经满足条件
@@ -119,7 +128,7 @@ void MyMenuItemUpgrade::initItem()
 	nodeZeng->addChild(zeng, 1);
 	auto coinNum = LabelAtlas::create("", "bonusNumTTF.png", 14, 21, '0');
 	coinNum->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	coinNum->setPosition(size.width*0.28+23, size.height*0.29);
+	coinNum->setPosition(size.width*0.28+20, size.height*0.29);
 	nodeZeng->addChild(coinNum, 1,kTagCoinLabel);
 	auto coin = Sprite::create("smallCoin.png");
 	coin->setPosition(size.width*0.6, size.height*0.29);
@@ -196,7 +205,7 @@ void MyMenuItemUpgrade::showBlinkAni()
 	auto node = Sprite::create("UnlockFrame_2.png");
 	node->setPosition(getContentSize() / 2);
 	addChild(node, 0, "blinkAni");
-	node->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), nullptr)));
+	node->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.25f), FadeIn::create(0.25f), nullptr)));
 }
 void MyMenuItemUpgrade::showPopup()
 {

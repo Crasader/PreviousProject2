@@ -149,7 +149,7 @@ void Pay::payCallBack(int code, const char* msg)
 		payResult = 2;
 		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
 	}
-
+	delete nowData;
 	nowData = nullptr;
 }
 

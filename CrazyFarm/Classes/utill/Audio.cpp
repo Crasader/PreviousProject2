@@ -69,9 +69,13 @@ void Audio::prepare(){
 
 void Audio::playZhenrenVoice()
 {
-	auto str = String::createWithFormat("game/audio/zhenren/voice_%d.ogg", rand() % 6 + 1);
+	int sexnum = rand() % 10 >= 3 ? 3 : 0;
+	int randnum = sexnum + rand() % 3 + 1;
+
+
+	auto str = String::createWithFormat("game/audio/zhenren/voice_%d.ogg", randnum);
 	playSound(str->getCString());
-	CCLOG("play zhenren sound");
+	CCLOG("play zhenren sound %d", randnum);
 }
 
 void Audio::playShootVoic()

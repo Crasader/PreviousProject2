@@ -79,7 +79,7 @@ void FirstPayLayer::quedingcallback(Ref*)
 {
 	//Ê×³åHTTPÇëÇó
 
-	Pay::getInstance()->Overbooking(15, m_eventPoint,this);
+	Pay::getInstance()->Overbooking(15, m_eventPoint,getParent());
 
 	removeFromParentAndCleanup(1);
 }

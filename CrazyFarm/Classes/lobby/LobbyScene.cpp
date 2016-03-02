@@ -185,7 +185,7 @@ bool LobbyScene::init()
 	//背包
 	auto bag = MenuItemImage::create("bag.png", "bag.png", CC_CALLBACK_1(LobbyScene::bagButtonCallback, this));
 	bag->setPosition(visibleSize.width*0.27, visibleSize.height*0.10);
-
+	bag->setName("bag");
 	//换奖品
 	auto changeReward = MenuItemImage::create("changeReward.png", "changeReward.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
 	changeReward->setPosition(visibleSize.width*0.17, visibleSize.height*0.10);
@@ -304,7 +304,7 @@ bool LobbyScene::init()
 
 	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, nullptr);
 	menu->setPosition(Point::ZERO);
-	addChild(menu, kZorderMenu);
+	addChild(menu, kZorderMenu,"menu");
 	createRoomLayer();
 	//添加系统返回键监听
 	auto listener = EventListenerKeyboard::create();

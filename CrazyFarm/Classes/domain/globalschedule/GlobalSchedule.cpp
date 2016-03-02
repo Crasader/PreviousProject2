@@ -17,7 +17,7 @@ GlobalSchedule* GlobalSchedule::getInstance(){
 
 bool GlobalSchedule::init()
 {
-	Director::getInstance()->getScheduler()->schedule(schedule_selector(GlobalSchedule::updataByMin), this, 60.0f, false);
+	Director::getInstance()->getScheduler()->schedule(schedule_selector(GlobalSchedule::updataByMin), this, 10.0f, false);
 	return true;
 }
 

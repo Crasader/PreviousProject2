@@ -44,6 +44,8 @@ bool NewbieFirstGetRewardLayer::init()
 		listenr1->onTouchBegan = CC_CALLBACK_2(NewbieFirstGetRewardLayer::onTouchBegan, this);
 		listenr1->setSwallowTouches(true);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
+
+
 		bRet = true;
 	} while (0);
 	return bRet;
@@ -71,7 +73,14 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 			auto cell = GiftCell::create(rewards[i].item_id, rewards[i].num);
 			cell->setPosition(box->getPosition());
 			cell->setScale(0);
-			cell->runAction(Sequence::create(Spawn::create(ScaleTo::create(1.0f, 1.0), MoveTo::create(1.0f, Vec2(281 + i * 130, 361)), nullptr), DelayTime::create(1.0f+i*0.1f), MoveTo::create(1.0f, Vec2(239, 54)), RemoveSelf::create(),nullptr));
+			cell->runAction(Sequence::create(DelayTime::create(i*0.15f),Spawn::create(ScaleTo::create(1.0f, 1.0), MoveTo::create(1.0f, Vec2(281 + i * 130, 361)), nullptr), DelayTime::create(1.0f + i*0.2f), Spawn::create(MoveTo::create(1.0f, Vec2(259.2, 48)), ScaleTo::create(1.0f, 0.1f), nullptr), CallFunc::create(
+		[=]{
+				auto parent = this->getParent();
+				auto menu = parent->getChildByName("menu");
+				auto bag = menu->getChildByName("bag");
+				bag->runAction(Sequence::createWithTwoActions(ScaleTo::create(0.1, 1.2f), ScaleTo::create(0.1, 1.0f)));
+
+			}), RemoveSelf::create(), nullptr));
 			addChild(cell);
 			if (rewards[i].item_id!=1012)
 			{
@@ -91,6 +100,6 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 			}
 		}
 	}), nullptr));
-	runAction(Sequence::create(DelayTime::create(3.5f), CallFunc::create([&]{NewbieMannger::getInstance()->setisGetFirstReward(1);auto layer = NewbieSureDialog::create(); layer->setPosition(0, 0); getParent()->addChild(layer, 20); }), RemoveSelf::create(), nullptr));
+	runAction(Sequence::create(DelayTime::create(4.7f), CallFunc::create([&]{NewbieMannger::getInstance()->setisGetFirstReward(1);auto layer = NewbieSureDialog::create(); layer->setPosition(0, 0); getParent()->addChild(layer, 20); }), RemoveSelf::create(), nullptr));
 	return true;
 }
