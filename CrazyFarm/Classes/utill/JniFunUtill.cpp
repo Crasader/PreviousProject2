@@ -106,3 +106,16 @@ void JniFunUtill::pay(int price, const char* orderid)
 }
 #endif
 }
+
+
+void JniFunUtill::showFeedBackDialog()
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	JniMethodInfo methodInfo;
+	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/cpp/AppActivity", "showFeedDialogOnUiThread", "()V");
+	if (isHave){
+		jobject jobj;
+		JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+	}
+#endif
+}

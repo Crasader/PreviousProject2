@@ -320,6 +320,7 @@ void  PlayerTurret::onLockTheTurrent()
 	//½ğ±ÒµôÂä
 	for (int i = 0; i < 15; i++)
 	{
+		Audio::getInstance()->playSound(UPDATALEVELGAINCOIN);
 		auto aniCoin = Sprite::create();
 		aniCoin->setPosition(pos.x + 40 * (rand_0_1() - 0.5), pos.y + 70);
 		aniCoin->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGold")));
@@ -427,10 +428,12 @@ void PlayerTurret::shoot(float degree){
 	{
 		return ; 
 	}
+	rorateTurret(degree);
 	if (nChairNoIndex > 1)
 	{
 		degree = 180+degree;
 	}
+	
 	auto bullet = BulletManage::getInstance()->createBullet(turretdata, 90);
 	bullet->setRotation(degree);
 	bullet->setPosition(/*this->getPosition()*/m_turret->getTampionPos());
@@ -443,9 +446,9 @@ void PlayerTurret::shoot(float degree){
 
 	//ï¿½ï¿½ï¿½ğ¶¯»ï¿½
 	auto aniNode = Sprite::create();
-	aniNode->setPosition(m_turret->getContentSize().width/2,m_turret->getContentSize().height*1.0);
+	aniNode->setPosition(m_turret->getContentSize().width / 2, m_turret->getContentSize().height*1.0);
 	m_turret->addChild(aniNode, 5);
-	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"),RemoveSelf::create(1),nullptr));
+	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
 
 	//ï¿½ï¿½ï¿½Ñ½ï¿½ï¿?
 	costMoney();
@@ -926,7 +929,7 @@ void PlayerTurret::beginLockShoot()
 	aniNode->setPosition(m_turret->getPosition());
 	addChild(aniNode, 5, "aniTurretLock");
 	aniNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniTurretLock")));
-	schedule(schedule_selector(PlayerTurret::rorateAndShootOnlock),0.15f);
+	schedule(schedule_selector(PlayerTurret::rorateAndShootOnlock), GameConfig::getInstance()->getShootData().shootInterval);
 }
 void PlayerTurret::endLockShoot()
 {
@@ -952,7 +955,7 @@ void PlayerTurret::rorateAndShootOnlock(float dt)
 	auto pos = lockFish->getPosition();
 	float degree =getTurretRotation(getPosition(), pos);
 	rorateTurret(degree);
-	scheduleOnce(schedule_selector(PlayerTurret::shootOnLock), 0.12f);
+	scheduleOnce(schedule_selector(PlayerTurret::shootOnLock), GameConfig::getInstance()->getShootData().shootInterval);
 }
 void PlayerTurret::shootOnLock(float dt){
 
@@ -972,7 +975,7 @@ void PlayerTurret::shootOnLock(float dt){
 	auto pos = m_turret->getTampionPos();
 	bullet->setPosition(m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
-	auto duration = pos.distance(lockFish->convertToWorldSpace(lockFish->getCentrenPos())) / 800.0f;
+	auto duration = pos.distance(lockFish->convertToWorldSpace(lockFish->getCentrenPos())) / GameConfig::getInstance()->getShootData().shootSpeed;
 	bullet->moveToLockfish(duration, lockFish);
 	getParent()->addChild(bullet,8);
 
@@ -997,7 +1000,7 @@ void PlayerTurret::beginAutoShoot()
 {
 	setTargetPos(Vec2(-1, -1));
 
-	schedule(CC_CALLBACK_1(PlayerTurret::rorateAndShootOnAuto,this),0.2f,"AutoShoot"); //TODO:ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È¡ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
+	schedule(CC_CALLBACK_1(PlayerTurret::rorateAndShootOnAuto, this), GameConfig::getInstance()->getShootData().shootInterval, "AutoShoot"); //TODO:ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È¡ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 }
 void PlayerTurret::endAutoShoot()
 {
@@ -1229,8 +1232,10 @@ bool PlayerTurret::isCanShoot()
 	{
 		return false; 
 	}
-	else
+	if (GameData::getInstance()->getisOnGroupComing())
 	{
-		return true;
+		return false;
 	}
+		return true;
+	
 }

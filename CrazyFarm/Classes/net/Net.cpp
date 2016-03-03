@@ -104,20 +104,20 @@ void Net::checkCatchFish(){
 
 }
 
-std::vector<OBBEX*> Net::getObbs()
+std::vector<OBBEX> Net::getObbs()
 {
-	std::vector<OBBEX*> vec;
+	std::vector<OBBEX> vec;
 	switch (m_netType)
 	{
 	case 1:
-		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(99, 0)), convertToWorldSpace(Vec2(99, 97)), convertToWorldSpace(Vec2(0, 97))));
+		vec.push_back( OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(99, 0)), convertToWorldSpace(Vec2(99, 97)), convertToWorldSpace(Vec2(0, 97))));
 		break;
 	case 2:
-		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(159, 0)), convertToWorldSpace(Vec2(159, 97)), convertToWorldSpace(Vec2(0, 97))));
+		vec.push_back(OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(159, 0)), convertToWorldSpace(Vec2(159, 97)), convertToWorldSpace(Vec2(0, 97))));
 		break;
 	case 3:
-		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(159,0)), convertToWorldSpace(Vec2(159, 73)), convertToWorldSpace(Vec2(0, 73))));
-		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(39, 72)), convertToWorldSpace(Vec2(119, 72)), convertToWorldSpace(Vec2(119, 153)), convertToWorldSpace(Vec2(39, 153))));
+		vec.push_back( OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(159,0)), convertToWorldSpace(Vec2(159, 73)), convertToWorldSpace(Vec2(0, 73))));
+		vec.push_back(OBBEX(convertToWorldSpace(Vec2(39, 72)), convertToWorldSpace(Vec2(119, 72)), convertToWorldSpace(Vec2(119, 153)), convertToWorldSpace(Vec2(39, 153))));
 		break;
 	default:
 		break;

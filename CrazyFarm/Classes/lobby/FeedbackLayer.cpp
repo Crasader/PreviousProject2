@@ -118,12 +118,11 @@ void FeedbackLayer::editBoxReturn(ui::EditBox* editBox)
 void FeedbackLayer::quedingcallback(Ref*)
 {
 	auto txt = _editName->getText();
-	auto sessionid = User::getInstance()->getSessionid();
+	
 	checkTheName(txt);
-	////////TODO:°²×¿
 	if (strlen(txt)>0)
 	{
-		HttpMannger::getInstance()->HttpToPostRequestFeedback(sessionid, txt);
+		HttpMannger::getInstance()->HttpToPostRequestFeedback(txt);
 	}
 	
 	removeFromParentAndCleanup(1);

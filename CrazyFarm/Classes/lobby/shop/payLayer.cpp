@@ -308,7 +308,7 @@ bool payLayer::init(int payType)
 void payLayer::update(float delta)
 {
 	tableviewDelegate->TouchHelpUpdata();
-	if (!User::getInstance()->getIsHaveBycoin())
+	if (!User::getInstance()->getIsHaveBycoin()&&tableviewDelegate->getShopType()==1)
 	{
 		return;
 	}

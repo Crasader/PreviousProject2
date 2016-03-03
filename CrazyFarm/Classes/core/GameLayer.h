@@ -94,6 +94,7 @@ public:
 ////”„≥±¿¥¡Ÿ
 	void onClearFish();
 	void onClearFishUpdata(float dt);
+	void onClearFishFinish();
 private:
 	
 

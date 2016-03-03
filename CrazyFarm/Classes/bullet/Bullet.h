@@ -28,7 +28,8 @@ public:
 
 	void moveToLockfish(float time,Fish*fish);
 	void moveTolockFishUpadate(float dt);
-	std::vector<OBBEX*> getObbs();
+	std::vector<OBBEX> getObbs();
+	std::vector<OBB> getOBBByCocos();
 private:
 	int bulletSpeed;
 	int bulletRotation;

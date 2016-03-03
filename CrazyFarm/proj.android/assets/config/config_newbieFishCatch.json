@@ -8,23 +8,23 @@
 			[
 				{
 					"fish_id": 40,
-					"catch_per":0.0153
+					"catch_per":0.0184
 				},
 				{
 					"fish_id":	41,
-					"catch_per":0.0102
+					"catch_per":0.0123
 				},
 				{
 					"fish_id":42,
-					"catch_per":0.0068
+					"catch_per":0.0082
 				},
 				{
 					"fish_id":43,
-					"catch_per":0.0068
+					"catch_per":0.0082
 				},
 				{
 					"fish_id":44,
-					"catch_per":0.0051
+					"catch_per":0.0062
 				}
 			]
 		}
@@ -35,23 +35,23 @@
 			[
 				{
 					"fish_id": 40,
-					"catch_per":0.0117
+					"catch_per":0.0141
 				},
 				{
 					"fish_id":	41,
-					"catch_per":0.0078
+					"catch_per":0.0094
 				},
 				{
 					"fish_id":42,
-					"catch_per":0.0052
+					"catch_per":0.0063
 				},
 				{
 					"fish_id":43,
-					"catch_per":0.0052
+					"catch_per":0.0063
 				},
 				{
 					"fish_id":44,
-					"catch_per":0.0039
+					"catch_per":0.0047
 				}
 			]
 		}
@@ -62,23 +62,23 @@
 			[
 				{
 					"fish_id": 40,
-					"catch_per":0.0099
+					"catch_per":0.0119
 				},
 				{
 					"fish_id":	41,
-					"catch_per":0.0066
+					"catch_per":0.0080
 				},
 				{
 					"fish_id":42,
-					"catch_per":0.0044
+					"catch_per":0.0053
 				},
 				{
 					"fish_id":43,
-					"catch_per":0.0044
+					"catch_per":0.0053
 				},
 				{
 					"fish_id":44,
-					"catch_per":0.0033
+					"catch_per":0.0040
 				}
 			]
 		}

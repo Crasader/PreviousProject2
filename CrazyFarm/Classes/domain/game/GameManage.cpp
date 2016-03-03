@@ -58,6 +58,9 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			sp->runAction(RepeatForever::create(RotateBy::create(2, 360)));
 			sp->setScale(0.7);
 
+
+			Audio::getInstance()->playSound(CATCHGIRLFISH);
+
 			auto aninode1 = Sprite::create("quickStart.png");
 			aninode1->setPosition(sp->getPosition());
 			aninode1->addChild(aninode1,-1);
@@ -157,7 +160,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 void GameManage::onPlayerUpgrade()
 {
 	auto rewards = ConfigExp::getInstance()->getLevelRewardItemsByLevelId(User::getInstance()->getLevelData().levelId);
-	Audio::getInstance()->playSound("UPDATALEVEL");
+	Audio::getInstance()->playSound(UPDATALEVEL);
 	auto colorlayer = LayerColor::create();
 	colorlayer->setColor(ccc3(0, 0, 0));
 	colorlayer->setOpacity(180);

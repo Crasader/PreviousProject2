@@ -18,7 +18,7 @@ void GameData::init(){
 	setShotPropCount(0);
 	setisOnGameScene(false);
 	setisDirectUseSkill(false);
-
+	setisOnGroupComing(false);
 }
 
 GameData* GameData::getInstance(){

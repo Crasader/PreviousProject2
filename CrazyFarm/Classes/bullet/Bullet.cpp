@@ -129,22 +129,75 @@ void Bullet::moveTolockFishUpadate(float dt)
 	//TODO::改写成跟踪模式，每帧获得目标位置
 	}
 }
-std::vector<OBBEX*> Bullet::getObbs()
+std::vector<OBBEX> Bullet::getObbs()
 {
-	std::vector<OBBEX*> vec;
+	std::vector<OBBEX> vec;
+	
 	switch (m_turretdata.net_type)
 	{
 	case 1:
-		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(16, 0)), convertToWorldSpace(Vec2(16, 42)), convertToWorldSpace(Vec2(0, 42))));
+		vec.push_back(OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(16, 0)), convertToWorldSpace(Vec2(16, 42)), convertToWorldSpace(Vec2(0, 42))));
 		break;
 	case 2:
-		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(16, 0)), convertToWorldSpace(Vec2(16, 42)), convertToWorldSpace(Vec2(0, 42))));
-		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(38, 0)), convertToWorldSpace(Vec2(54, 0)), convertToWorldSpace(Vec2(54, 42)), convertToWorldSpace(Vec2(38, 42))));
+		vec.push_back(OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(54, 0)), convertToWorldSpace(Vec2(54, 42)), convertToWorldSpace(Vec2(0, 42))));
 		break;
 	case 3:
-		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(16, 0)), convertToWorldSpace(Vec2(16, 42)), convertToWorldSpace(Vec2(0, 42))));
-		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(40, 0)), convertToWorldSpace(Vec2(56, 0)), convertToWorldSpace(Vec2(56, 42)), convertToWorldSpace(Vec2(40, 42))));
-		vec.push_back(new OBBEX(convertToWorldSpace(Vec2(20, 11)), convertToWorldSpace(Vec2(36, 11)), convertToWorldSpace(Vec2(36, 53)), convertToWorldSpace(Vec2(20, 53))));
+		vec.push_back(OBBEX(convertToWorldSpace(Vec2(0, 0)), convertToWorldSpace(Vec2(56, 0)), convertToWorldSpace(Vec2(56, 53)), convertToWorldSpace(Vec2(0, 53))));
+		break;
+	default:
+		break;
+	}
+	return vec;
+	
+}
+
+std::vector<OBB> Bullet::getOBBByCocos()
+{
+
+	std::vector<OBB> vec;
+	switch (m_turretdata.net_type)
+	{
+	case 1:
+	{
+		AABB aabb = AABB(Vec3(0, 0, 0), Vec3(16, 42, 0));
+		OBB obb = OBB(aabb);
+		obb.transform(getNodeToWorldTransform());
+		vec.push_back(obb);
+	}
+		break;
+	case 2:
+	{
+		AABB aabb = AABB(Vec3(0, 0, 0), Vec3(16, 42, 0));
+		OBB obb = OBB(aabb);
+		obb.transform(getNodeToWorldTransform());
+		vec.push_back(obb);
+	}
+	{
+		AABB aabb = AABB(Vec3(38, 0, 0), Vec3(54, 42, 0));
+		OBB obb = OBB(aabb);
+		obb.transform(getNodeToWorldTransform());
+		vec.push_back(obb);
+	}
+		break;
+	case 3:
+	{
+		AABB aabb = AABB(Vec3(0, 0, 0), Vec3(16, 42, 0));
+		OBB obb = OBB(aabb);
+		obb.transform(getNodeToWorldTransform());
+		vec.push_back(obb);
+	}
+	{
+		AABB aabb = AABB(Vec3(40, 0, 0), Vec3(56, 42, 0));
+		OBB obb = OBB(aabb);
+		obb.transform(getNodeToWorldTransform());
+		vec.push_back(obb);
+	}
+	{
+		AABB aabb = AABB(Vec3(20, 11, 0), Vec3(36, 53, 0));
+		OBB obb = OBB(aabb);
+		obb.transform(getNodeToWorldTransform());
+		vec.push_back(obb);
+	}
 		break;
 	default:
 		break;

@@ -11,4 +11,5 @@ public:
 	virtual void onDead();
 	virtual void pushBackFigureVec(int uiid, Point pos);
 	virtual void onHeart();
+	Vector<Node*> fishes;
 };

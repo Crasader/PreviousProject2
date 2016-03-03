@@ -286,7 +286,7 @@ void GameGuiLayer::maridTaskTime(float dt)
 void GameGuiLayer::playRandVoice(float dt)
 {
 	Audio::getInstance()->playZhenrenVoice();
-	runAction(Sequence::create(DelayTime::create(rand() % 4 + 5), CallFunc::create([=]{playRandVoice(0); }), nullptr));
+	runAction(Sequence::create(DelayTime::create(rand() % 11 + 15), CallFunc::create([=]{playRandVoice(0); }), nullptr));
 
 }
 

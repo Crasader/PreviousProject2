@@ -23,7 +23,7 @@ void FishArrangeThree::initFishAnim(int fishID)
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
 	mainfish->runAction(ac);
 	obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(103);
-
+	fishes.pushBack(mainfish);
 
 	centerPos = maggiceff->getContentSize() / 2;
 	//¸±Óã
@@ -43,7 +43,7 @@ void FishArrangeThree::initFishAnim(int fishID)
 	sp->setPosition(maggiceff1->getPosition());
 	sp->runAction(ac1);
 	addChild(sp,1);
-
+	fishes.pushBack(sp);
 
 
 	auto maggiceff2 = MagicEffect::create(3, false);
@@ -53,7 +53,7 @@ void FishArrangeThree::initFishAnim(int fishID)
 	sp->setPosition(maggiceff2->getPosition());
 	sp->runAction(ac2);
 	addChild(sp,1);
-
+	fishes.pushBack(sp);
 	
 
 	auto maggiceff3 = MagicEffect::create(3, false);
@@ -63,6 +63,6 @@ void FishArrangeThree::initFishAnim(int fishID)
 	sp->setPosition(maggiceff3->getPosition());
 	sp->runAction(ac3);
 	addChild(sp,1);
-
+	fishes.pushBack(sp);
 
 }

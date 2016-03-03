@@ -5,16 +5,16 @@ void MomentFive::init(float FFOneTime)
 {
 	datas.push_back(MomentFiveData(8, 1,Vec2(-270,342)));
 	datas.push_back(MomentFiveData(9, 5, Vec2(-270, 200)));
-	datas.push_back(MomentFiveData(7, 10, Vec2(-270, 342)));
-	datas.push_back(MomentFiveData(6, 15, Vec2(-270, 200)));
-	datas.push_back(MomentFiveData(4, 20, Vec2(-270, 342)));
+	datas.push_back(MomentFiveData(7, 9, Vec2(-270, 342)));
+	datas.push_back(MomentFiveData(6, 13, Vec2(-270, 200)));
+	datas.push_back(MomentFiveData(4, 17, Vec2(-270, 342)));
 	
 }
 
 bool MomentFive::updata(float dt)
 {
 	nNowTime += dt;
-	if (datas.size()<=0&&nNowTime>(20+25+10))
+	if (datas.size()<=0&&nNowTime>(20+25))
 	{
 		return true;
 	}
@@ -22,7 +22,7 @@ bool MomentFive::updata(float dt)
 	{
 		if (iter->startTime<nNowTime)
 		{
-			FishManage::getInstance()->createCycleFish(24, 160, iter->fishID, iter->pos, Vec2(1500, 0), 25);
+			FishManage::getInstance()->createCycleFish(20, 165, iter->fishID, iter->pos, Vec2(1500, 0), 25);
 			iter = datas.erase(iter);
 
 		}
@@ -31,6 +31,6 @@ bool MomentFive::updata(float dt)
 			return false;
 		}
 	}
-	return true;
+	return false;
 
 }

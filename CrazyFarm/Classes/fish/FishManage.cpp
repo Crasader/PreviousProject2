@@ -300,7 +300,7 @@ void FishManage::decideFishPos(Fish* fish){
 	case 2:
 	case 3:
 	{
-		auto x = fish->getBoundingBox().size.width;
+		auto x = fish->getBoundingBox().size.width/2;
 		auto y = rand() % (int)(visibleSize.height);
 		fish->setRotation(0);
 		fish->setPosition(ccp(-x, y));
@@ -308,7 +308,7 @@ void FishManage::decideFishPos(Fish* fish){
 		break; }
 	case 4:{
 		auto x = rand() % (int)(visibleSize.width);
-		auto y = fish->getBoundingBox().size.width;
+		auto y = fish->getBoundingBox().size.height/2;
 		fish->setPosition(ccp(x, visibleSize.height + y));
 		fish->setRotation(90);
 		fish->setDirection(DOWN);
@@ -318,7 +318,7 @@ void FishManage::decideFishPos(Fish* fish){
 	case 6:
 	case 7:
 	case 8:{
-		auto x = fish->getBoundingBox().size.width;
+		auto x = fish->getBoundingBox().size.width/2;
 		auto y = rand() % (int)(visibleSize.height);
 		fish->setPosition(ccp(visibleSize.width + x, y));
 		fish->setRotation(180);
@@ -326,7 +326,7 @@ void FishManage::decideFishPos(Fish* fish){
 		break; }
 	case 9:{
 		auto x = rand() % (int)(visibleSize.width);
-		auto y = fish->getBoundingBox().size.width;
+		auto y = fish->getBoundingBox().size.height/2;
 		fish->setPosition(ccp(x, -y));
 		fish->setRotation(270);
 		fish->setDirection(UP);
@@ -620,7 +620,7 @@ void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 		{
 			auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
 			shandian->setPosition(var->getContentSize() / 2);
-			var->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
+			shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
 			var->addChild(shandian);
 			shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
 			auto rorate = getTurretRotation(var->getPosition(), needDeadFishs.at(i + 1)->getPosition());
@@ -641,7 +641,8 @@ void FishManage::onBoomFishDead(Fish*fish, PlayerTurret* pTurret)
 	auto data = GameData::getInstance();
 	for (auto fish : fishPool)
 	{
-		if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBs(), new OBBEX(pos + Vec2(-200, -200), pos + Vec2(200, -200), pos + Vec2(200, 200), pos + Vec2(-200, 200))))
+		if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBs(), OBBEX(pos + Vec2(-200, -200), pos + Vec2(200, -200), pos + Vec2(200, 200), pos + Vec2(-200, 200))))
+		/*if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBByCocos(), OBB(AABB(Vec3(pos.x - 200, pos.y - 200, 0), Vec3(pos.x + 200, pos.y + 200, 0)))))*/
 		{
 			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, pTurret);
 		}
@@ -658,6 +659,7 @@ void FishManage::onClearFish()
 
 void FishManage::clearMomentEightItemFishs()
 {
+	m_layer->getCreateFishAcNode()->stopAllActions();
 	waitCreateMomentEightFishs.clear();
 }
 void FishManage::addMomentEightItemFishs(MomentEightItemFishs fishs)

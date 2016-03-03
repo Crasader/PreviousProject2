@@ -36,7 +36,13 @@ bool GetRewardNode::init(Bankrupt baknrupt)
 		label->setPosition(getContentSize().width / 2, 23);
 		label->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(label, 0, "time");
-		scheduleUpdate();
+		///时间改成0
+		label->setVisible(false);
+		isTimeOut = true;
+		label->setVisible(false);
+		runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGainRewards")));
+		////
+		/*scheduleUpdate();*/
 		auto listenr1 = EventListenerTouchOneByOne::create();
 		listenr1->onTouchBegan = CC_CALLBACK_2(GetRewardNode::onTouchBegan, this);
 		listenr1->setSwallowTouches(false);

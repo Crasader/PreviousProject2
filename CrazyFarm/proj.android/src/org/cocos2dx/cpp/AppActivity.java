@@ -94,11 +94,11 @@ public class AppActivity extends Cocos2dxActivity {
 //	        return super.dispatchTouchEvent(event);
 //	    }
 
-	public void showFeedDialogOnUiThread() {
-		runOnUiThread(new Runnable() {
+	public  static void showFeedDialogOnUiThread() {
+		AppActivity.activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				showFeedDialog();
+				((AppActivity) AppActivity.activity).showFeedDialog();
 			}
 		});
 	}
@@ -115,6 +115,7 @@ public class AppActivity extends Cocos2dxActivity {
 				public void onClick(DialogInterface dialog, int which) {
 					String text =et.getText().toString().trim(); 
 					sayWhat("" + text);
+					JniPayCallbackHelper.sendFeedback(text);	
 				}
 		     	}
 		     )
@@ -126,7 +127,7 @@ public class AppActivity extends Cocos2dxActivity {
 		runOnUiThread(new Runnable() {	// TODO : 以下部分为测试，调试完成可以关闭
 			@Override
 			public void run() {
-				Toast.makeText(AppActivity.this, what, Toast.LENGTH_LONG).show();
+				Toast.makeText(AppActivity.this, "提交成功", Toast.LENGTH_LONG).show();
 				
 			}
 		});

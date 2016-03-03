@@ -22,7 +22,7 @@ bool GameScene::init(){
 	game_layer->setPosition(0, 0);
 	game_layer->setAnchorPoint(ccp(0, 0));
 	this->addChild(game_layer, 0, 777);
-	GameManage::getInstance()->setGameyer(game_layer);
+	
 	return true;
 }
 

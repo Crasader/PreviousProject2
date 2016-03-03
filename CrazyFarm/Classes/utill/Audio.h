@@ -27,7 +27,8 @@
 #define SIGN "game/audio/sign.ogg"
 #define UPDATALEVEL "game/audio/updataLevel.ogg"
 #define UPDATATURRET "game/audio/updataTurret.ogg"
-
+#define UPDATALEVELGAINCOIN "game/audio/updataTurretGainCoin.mp3"
+#define ONGOLDFISHDEAD "game/audio/onGoldFishDead.mp3"
 
 class Audio{
 public:

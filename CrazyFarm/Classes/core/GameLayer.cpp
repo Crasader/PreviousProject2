@@ -22,6 +22,7 @@
 #include "domain/bankrupt/BankruptManager.h"
 #include "config/ConfigNewbieFishCatch.h"
 #include "utill/OBB.h"
+#include "domain/game/GameManage.h"
 #define BOOMRADIUS 300
 enum
 {
@@ -48,6 +49,7 @@ bool GameLayer::init(){
 	setIsShowYourChairno(false);
 	FishManage::getInstance()->setlayer(this);
 	skillManager::getInstance()->setlayer(this);
+	GameManage::getInstance()->setGameyer(this);
 	//add game bg to this layer
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	game_bg = Sprite::create("aniWater1.jpg");
@@ -77,7 +79,9 @@ bool GameLayer::init(){
 	players = RoomManager::getInstance()->initRoomConfig(roominfo.unlock_turrent_level);
 	calculateFreeChair();
 	createTurret();
-	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
+	//0.1f执行一次碰撞
+	schedule(schedule_selector(GameLayer::collisionUpdate), 0.1, CC_REPEAT_FOREVER, 0);
+
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	
 	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 10)); }), nullptr));
@@ -117,15 +121,6 @@ bool GameLayer::init(){
 	addChild(createFishAcNode);
 
 
-	//auto fish = FishManage::getInstance()->createFishArrange(104);
-	//fish->unscheduleUpdate();
-	//fish->setRotation(0);
-	//fish->setPosition(480, 270);
-	//addChild(fish, 20);
-	//for (auto var:fish->getOBBs())
-	//{
-	//	var->draw(this);
-	//}
 
 	return true;
 }
@@ -244,8 +239,7 @@ void GameLayer::shootUpdata(float dt)
 			return;
 		}
 		CCLOG("rorate %f", degree);
-		rotateTurret(degree, myTurret); 
-		myTurret->shoot(myTurret->getRarote());
+		myTurret->shoot(degree);
 		isShoot = false;
 		runAction(Sequence::create(DelayTime::create(shootInterval), CallFunc::create([&]{
 			isShoot = true;
@@ -396,8 +390,6 @@ void GameLayer::AiUpdata(float dt)
 
 void GameLayer::collisionUpdate(float dt)
 {
-
-
 	//TODO 碰撞逻辑
 	//step1 获取子弹列表
 	auto allBullets = BulletManage::getInstance()->getAllBullets();
@@ -405,6 +397,7 @@ void GameLayer::collisionUpdate(float dt)
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
 	//step3 碰撞检查
 	Vector<Bullet*> bulletNeedRemove;
+
 	for (auto bullet : allBullets)
 	{
 		for (auto fish : allFish)
@@ -441,14 +434,15 @@ void GameLayer::collisionUpdate(float dt)
 				break;
 			}
 		}
+		
 	}
 
 	for (Bullet* bullet : bulletNeedRemove){
 		bullet->removeFromParentAndCleanup(1);
 		BulletManage::getInstance()->removeBullet(bullet);
 	}
-
-
+	
+	
 	FishManage::getInstance()->removeFishWhichSwimOut();
 }
 
@@ -557,7 +551,8 @@ void GameLayer::onBoomCatchFish(Point pos)
 	auto data = GameData::getInstance();
 	for (auto fish : fishPool)
 	{
-		if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBs(), new OBBEX(pos + Vec2(-200, -200), pos + Vec2(200, -200), pos + Vec2(200, 200), pos + Vec2(-200, 200))))
+		if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBs(), OBBEX(pos + Vec2(-200, -200), pos + Vec2(200, -200), pos + Vec2(200, 200), pos + Vec2(-200, 200))))
+		/*if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBByCocos(), OBB(AABB(Vec3(pos.x - 200, pos.y - 200, 0), Vec3(pos.x + 200, pos.y + 200, 0)))))*/
 		{
 			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, myTurret);
 		}
@@ -703,6 +698,8 @@ void GameLayer::onFreezeEnd(PlayerTurret*turret)
 
 void GameLayer::onClearFish()
 {
+	/*createFishAcNode->pause();*/
+
 	auto txt = Sprite::create("yuchaoTXT.png");
 	txt->setPosition(480, 270);
 	addChild(txt,kZorderFish+2,"yuchaotxt");
@@ -710,8 +707,10 @@ void GameLayer::onClearFish()
 	auto lang = Sprite::create("wave.png");
 	lang->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 	lang->setPosition(1100, 270);
-	lang->runAction(Sequence::create(MoveTo::create(10, Vec2(-300, 270)), CallFunc::create([&]{ unschedule(schedule_selector(GameLayer::onClearFishUpdata)); getChildByName("yuchaotxt")->removeFromParentAndCleanup(1); }), RemoveSelf::create(), nullptr));
+	lang->runAction(Sequence::create(MoveTo::create(8, Vec2(-300, 270)), CallFunc::create([&]{ unschedule(schedule_selector(GameLayer::onClearFishUpdata)); getChildByName("yuchaotxt")->removeFromParentAndCleanup(1); }), RemoveSelf::create(), nullptr));
 	addChild(lang, kZorderFish+1, "lang");
+
+	
 	schedule(schedule_selector(GameLayer::onClearFishUpdata), 0, CC_REPEAT_FOREVER, 0);
 	Audio::getInstance()->playSound(CLEARFISH);
 }
@@ -723,11 +722,14 @@ void GameLayer::onClearFishUpdata(float dt)
 	{
 		auto rect = node->getBoundingBox();
 		rect.setRect(rect.origin.x,rect.origin.y-200, rect.size.width, rect.size.height + 400);
+
+
 		auto vec = FishManage::getInstance()->getAllFishInPool();
 		Vector<Fish*> needRemove;
 		for (auto var:vec)
 		{
-			if (CollisionUtill::isCollisionOBBsAndOBB(var->getOBBs(), new OBBEX(rect.origin, Vec2(rect.getMaxX(), rect.getMinY()), Vec2(rect.getMaxX(), rect.getMaxY()), Vec2(rect.getMinX(), rect.getMaxY()))))
+			/*if (CollisionUtill::isCollisionOBBsAndOBB(var->getOBBByCocos(), OBB(AABB(Vec3(rect.getMinX(), rect.getMinY(), 0), Vec3(rect.getMaxX() + 200, rect.getMaxY() + 200, 0)))))*/
+			if (CollisionUtill::isCollisionOBBsAndOBB(var->getOBBs(), OBBEX(rect.origin, Vec2(rect.getMaxX(), rect.getMinY()), Vec2(rect.getMaxX(), rect.getMaxY()), Vec2(rect.getMinX(), rect.getMaxY()))))
 			{
 				needRemove.pushBack(var);
 			}
@@ -738,8 +740,31 @@ void GameLayer::onClearFishUpdata(float dt)
 			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 0, nullptr);
 
 		}
+
+
+		auto vec1 = BulletManage::getInstance()->getAllBullets();
+		Vector<Bullet*> needRemove1;
+		for (auto var : vec1)
+		{
+			/*if (CollisionUtill::isCollisionOBBsAndOBB(var->getOBBByCocos(), OBB(AABB(Vec3(rect.getMinX(), rect.getMinY(), 0), Vec3(rect.getMaxX() + 200, rect.getMaxY() + 200, 0)))))*/
+			if (CollisionUtill::isCollisionOBBsAndOBB(var->getObbs(), OBBEX(rect.origin, Vec2(rect.getMaxX(), rect.getMinY()), Vec2(rect.getMaxX(), rect.getMaxY()), Vec2(rect.getMinX(), rect.getMaxY()))))
+			{
+				needRemove1.pushBack(var);
+			}
+
+		}
+		for (auto bullet : needRemove1)
+		{
+			BulletManage::getInstance()->removeBullet(bullet);
+			bullet->removeFromParentAndCleanup(1);
+
+		}
 	}
 
+}
+void GameLayer::onClearFishFinish()
+{
+	/*createFishAcNode->resume();*/
 }
 
 void GameLayer::addReward(int itemid, int num)

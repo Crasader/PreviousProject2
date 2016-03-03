@@ -1,20 +1,20 @@
 #include "domain/ai/AIHu.h"
 #include "domain/ai/AIManager.h"
-
+#include "bullet/BulletManage.h"
 PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
-    
-    
-    PlayerWork playerWork;
-    
-    playerWork.setTurrentLevel(this->getMaxTurrentLevel());
-    
-    if(! AIManager::getInstance()->allowAiFire()) {
-        playerWork.setAngle((float)angle);
-        playerWork.setFire(false);
-        return playerWork;
-    }
-    
-	if (FishManage::getInstance()->getAllFishInPoolCount() < 2) {
+
+
+	PlayerWork playerWork;
+
+	playerWork.setTurrentLevel(this->getMaxTurrentLevel());
+
+	if (!AIManager::getInstance()->allowAiFire()) {
+		playerWork.setAngle((float)angle);
+		playerWork.setFire(false);
+		return playerWork;
+	}
+
+	if (FishManage::getInstance()->getAllFishInPoolCount() < 2|| FishManage::getInstance()->getAllFishInPoolCount() > 40 || BulletManage::getInstance()->getBulletPoolSize() > 20) {
 		playerWork.setAngle((float)angle);
 		playerWork.setFire(false);
 		return playerWork;

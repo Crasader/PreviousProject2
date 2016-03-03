@@ -65,8 +65,10 @@ public:
 	void onFreezeResume();
 	void createDropOutAniByCoin(Point belongPos,int curMoney);
 	
-	virtual std::vector<OBBEX*> getOBBs();
+	virtual std::vector<OBBEX> getOBBs();
 
+
+	virtual std::vector<OBB> getOBBByCocos();
 	Vec2 getCentrenPos(){ return centerPos; };
 protected:
 	

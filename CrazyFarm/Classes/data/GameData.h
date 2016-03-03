@@ -36,6 +36,10 @@ private:
 
 	//是否直接使用技能
 	CC_SYNTHESIZE(bool, m_isDirectUseSkill, isDirectUseSkill);
+
+
+	//游戏状态
+	CC_SYNTHESIZE(bool, m_isOnGroupComing, isOnGroupComing);
 };
 
 #endif

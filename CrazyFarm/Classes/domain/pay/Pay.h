@@ -23,6 +23,7 @@ public:
 
 	void Overbooking(int paypoint, int eventPoint,Node*paynode);
 	
+	void setIsPaying(bool ispay){ isPaying = ispay; };
 	
 	void pay(payRequest*data,  const char* orderid);//ÆðÖ§¸¶²å¼þ
 	void payCallBack(int code,  const char* msg);

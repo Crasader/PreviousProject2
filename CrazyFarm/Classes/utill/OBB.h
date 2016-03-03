@@ -49,7 +49,7 @@ public:
 	void setVertex(int index, Vec2 v);
 
 public:
-	bool isCollidWithOBB(OBBEX* obb);
+	bool isCollidWithOBB(OBBEX obb);
 	bool isCollidWithPoint(Vec2 pos);
 private:
 	Vec2 vertex[4];

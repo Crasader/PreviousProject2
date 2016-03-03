@@ -57,7 +57,7 @@ void Pay::OverbookingActual(int paypoint, int eventPoint)
 	{
 		isPaying = false;
 		ToolTipMannger::ShowPayTimeoutTip();
-		return;
+		return; 
 	}
 	int payeventVersion = PayEventPointConfig::getInstance()->getPayeventVersion();
 	int payPointVersion = PayPointConfig::getInstance()->getVersion();
@@ -126,13 +126,10 @@ void Pay::payCallBack(int code, const char* msg)
 		}
 		User::getInstance()->addChargeMoney(info.price / 100);
 		
-		log("pay paypoint %d success",nowData->pay_point_id);
+		
 		payResult = 1;
 		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
-		
-		
-		
-
+	
 		///VIP升级
 		int nowlv = User::getInstance()->getVipLevel();
 		if (nowlv>lastlv)

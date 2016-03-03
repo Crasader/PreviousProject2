@@ -62,5 +62,6 @@ private:
 	Sprite*langspEmpty;
 	Vector<roomCell*> roomCells;
 	LabelTTF* userName;
+	LabelAtlas *viplevel;
 };
 #endif

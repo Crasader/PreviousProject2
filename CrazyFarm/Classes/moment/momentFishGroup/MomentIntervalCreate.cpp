@@ -1,6 +1,6 @@
 #include "moment/momentFishGroup/MomentIntervalCreate.h"
 #include "fish/FishManage.h"
-
+#include "domain/game/GameManage.h"
 bool MomentIntervalCreate::updata(float dt)
 {
 	nNowTime += dt;
@@ -9,9 +9,10 @@ bool MomentIntervalCreate::updata(float dt)
 	//	return true;
 	//}
 	auto fishcount = FishManage::getInstance()->getAllFishInPoolCount();
-	if (fishcount < fishMinSize&&nNowTime>45)//45 == 鱼巢时间
+	if (fishcount < fishMinSize&&nNowTime>45)//45 == 鱼巢时间 todo:单独配置
 	{
 		Audio::getInstance()->playBGM(GAMEBGM);
+		GameManage::getInstance()->getGameLayer()->onClearFishFinish();
 		return true;
 	}
 

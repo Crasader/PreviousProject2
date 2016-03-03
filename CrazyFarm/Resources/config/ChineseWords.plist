@@ -140,7 +140,8 @@
   <string>恭喜你，获得%d金币</string>
   <key>LockNewRoom</key>
   <string>您已解锁新的渔场，是否进入？</string>
-  
+   <key>VIPGainTheCoins</key>
+  <string>尊贵的        用户，每日补足金币已为您准备好，点击确定领取</string>
   
   </dict> 
 </array>

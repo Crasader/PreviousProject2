@@ -485,13 +485,20 @@ void Fish::removeself()
 
 void Fish::onHeart()
 {
+	auto ac = getActionByTag(50);
+	if (ac)
+	{
+		stopAllActionsByTag(50);
+	}
 	auto action = Sequence::create(
-		TintTo::create(0.1f, 255, 0, 0),
-		TintTo::create(0.1f, 255, 255, 255),
+		CallFunc::create([=]{setColor(Color3B(135,105,80)); }),
+		DelayTime::create(0.3f),
+		CallFunc::create([=]{setColor(Color3B::WHITE); }),
 		nullptr);
+	action->setTag(50);
 	runAction(action);
 
-	aniEmptyNode->runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([&]{this->setColor(Color3B(255, 0, 0)); }), DelayTime::create(0.1f), CallFunc::create([&]{this->setColor(Color3B(255, 255, 255)); }), nullptr));
+	
 }
 void Fish::onFreeze()
 {
@@ -536,7 +543,7 @@ void Fish::onDead()
 	}
 	else if (fishID >= 40 && fishID<50)
 	{
-		Audio::getInstance()->playSound(CATCHGOLD);
+		
 	}
 	else
 	{
@@ -591,7 +598,7 @@ void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
 		sp->runAction(Sequence::create(DelayTime::create(0.1f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, belongPos),RemoveSelf::create(1),nullptr));
 		node->addChild(sp);
 	}
-	auto str = String::createWithFormat(":%d", curMoney);
+	auto str = String::createWithFormat("%s%d", ":",curMoney);
 	auto labelpath = String::createWithFormat("TTF%s.png", data.aniName.c_str());
 	auto label = LabelAtlas::create(str->getCString(), labelpath->getCString(), 23, 34, '0');
 	label->setAnchorPoint(Point::ZERO);
@@ -603,13 +610,27 @@ void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
 	node->runAction(Sequence::create(DelayTime::create(data.num*0.1f + 1.5f), RemoveSelf::create(), nullptr));
 }
 
-std::vector<OBBEX*> Fish::getOBBs()
+std::vector<OBBEX> Fish::getOBBs()
 {
-	std::vector<OBBEX*> vec;
+	std::vector<OBBEX> vec;
 	for (auto var:obbdatas)
 	{
-		vec.push_back(new OBBEX(convertToWorldSpace(var.leftBottom), convertToWorldSpace(var.rightBottom), convertToWorldSpace(var.rightTop), convertToWorldSpace(var.leftTop)));
+		vec.push_back(OBBEX(convertToWorldSpace(var.leftBottom), convertToWorldSpace(var.rightBottom), convertToWorldSpace(var.rightTop), convertToWorldSpace(var.leftTop)));
 	}
 	return vec;
 }
 
+
+
+std::vector<OBB> Fish::getOBBByCocos()
+{
+	std::vector<OBB> vec;
+	for (auto var:obbdatas)
+	{
+		AABB aabb = AABB(Vec3(var.leftBottom.x, var.leftBottom.y, 0), Vec3(var.rightTop.x, var.rightTop.y, 0));
+		OBB obb = OBB(aabb);
+		obb.transform(getNodeToWorldTransform());
+		vec.push_back(obb);
+	}
+	return vec;
+}

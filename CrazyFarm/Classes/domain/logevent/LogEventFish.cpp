@@ -249,9 +249,8 @@ std::string LogEventFish::getDataForJson(FishEventData data)
 
 void LogEventFish::sendDataToServer()
 {
-	/*sendLocaLData();*/
 	sendMemoryData(); //目前不保存本地
-	/*loadLocalData();*/
+
 	
 }
 void LogEventFish::sendMemoryData()

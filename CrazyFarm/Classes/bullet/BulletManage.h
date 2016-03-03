@@ -10,6 +10,7 @@ public:
 	void removeBullet(Bullet* bullet);
 	Vector<Bullet*> &getAllBullets();
 	void ClearManage();
+	int getBulletPoolSize(){ return bulletPool.size(); };
 private:
 	BulletManage();
 	static BulletManage* _instance;

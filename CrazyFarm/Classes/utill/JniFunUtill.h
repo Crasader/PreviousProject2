@@ -16,7 +16,7 @@ public:
 	const char* getHdType();
 	const char* getChannelId();
 
-
+	void showFeedBackDialog();
 	void pay(int price, const char* orderid);
 private:
 	JniFunUtill();

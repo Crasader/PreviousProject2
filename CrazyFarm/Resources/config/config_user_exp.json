@@ -559,6 +559,24 @@
 					"num"		: 1
 				}
 			]
+		},
+		{
+			"level_id"	:	32,
+			"require_exp"	:	9999999,
+			"reward_list" : [
+				{
+					"item_id"	: 1002,
+					"num"		: 3
+				},
+				{
+					"item_id"	: 1004,
+					"num"		: 2
+				},
+				{
+					"item_id"	: 1003,
+					"num"		: 1
+				}
+			]
 		}
 	]
 }

@@ -35,7 +35,8 @@
 #include "domain/Newbie/NewbieMannger.h"
 #include "domain/Newbie/NewbieFirstGetRewardLayer.h"
 #include "domain/logevent/LogEventMannger.h"
-
+#include "utill/JniFunUtill.h"
+#include "lobby/viplayer/VipGainCoinSureDialog.h"
 enum
 {
 	kZorderMenu = 10,
@@ -122,7 +123,7 @@ bool LobbyScene::init()
 	auto viplevelFrame = Sprite::create("viplevelFrame.png");
 	viplevelFrame->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	viplevelFrame->setPosition(sssize.width * 1, sssize.height*0.5);
-	auto viplevel = LabelAtlas::create(Value(user->getVipLevel()).asString().c_str(), "vipLevelNum.png", 11, 16, '0');
+	viplevel = LabelAtlas::create(Value(user->getVipLevel()).asString().c_str(), "vipLevelNum.png", 11, 16, '0');
 	viplevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	viplevel->setPosition(Vec2(viplevelFrame->getContentSize() / 2));
 	viplevelFrame->addChild(viplevel);
@@ -398,6 +399,9 @@ bool LobbyScene::init()
 }
 void LobbyScene::showSign(float dt)
 {
+
+	
+	
 	auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
 	if (seqday == 0)
 	{
@@ -409,9 +413,20 @@ void LobbyScene::showSign(float dt)
 	}
 	else
 	{
-		auto sign = SignInLayer::createLayer(seqday);
-		sign->setPosition(Point::ZERO);
-		addChild(sign, kZorderDialog);
+		if (User::getInstance()->getVipLevel()>6)
+		{
+			VipGainCoinSureDialog*dialog = VipGainCoinSureDialog::create();
+			dialog->setPosition(Point::ZERO);
+			addChild(dialog, kZorderDialog);
+			dialog->setseqDay(seqday);
+		}
+		else
+		{
+			auto sign = SignInLayer::createLayer(seqday);
+			sign->setPosition(Point::ZERO);
+			addChild(sign, 20);
+		}
+	
 	}
 }
 
@@ -432,6 +447,7 @@ void LobbyScene::update(float delta)
 {
 	lang->setRotation(-langspEmpty->getRotation());
 	userName->setString(User::getInstance()->getUserName());
+	viplevel->setString(Value(User::getInstance()->getVipLevel()).asString().c_str());
 	refreshCoinLabel();
 }
 
@@ -642,10 +658,22 @@ void LobbyScene::onAudioOnOffCallback(Ref*psend)
 void LobbyScene::feedBackCallback(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
+
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	auto layer = FeedbackLayer::create();
 	layer->setPosition(Point::ZERO);
 	addChild(layer, kZorderDialog);
 	LogEventPageChange::getInstance()->addEventItems(1, 6, 0);
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	auto layer = FeedbackLayer::create();
+	layer->setPosition(Point::ZERO);
+	addChild(layer, kZorderDialog);
+	LogEventPageChange::getInstance()->addEventItems(1, 6, 0);
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	JniFunUtill::getInstance()->showFeedBackDialog();
+#endif
+	
 
 
 }

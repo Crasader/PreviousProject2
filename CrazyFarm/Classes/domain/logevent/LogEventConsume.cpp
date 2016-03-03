@@ -84,12 +84,12 @@ void LogEventConsume::addEventDiamond(int diamond)
 {
 	if (diamond > 0)
 	{
-		auto nowcoin = UserDefault::getInstance()->getIntegerForKey(EventGetCoin, 0);
+		auto nowcoin = UserDefault::getInstance()->getIntegerForKey(EventGetDiamond, 0);
 		UserDefault::getInstance()->setIntegerForKey(EventGetDiamond, nowcoin + diamond);
 	}
 	else
 	{
-		auto nowcoin = UserDefault::getInstance()->getIntegerForKey(EventCostCoin, 0);
+		auto nowcoin = UserDefault::getInstance()->getIntegerForKey(EventCostDiamond, 0);
 		UserDefault::getInstance()->setIntegerForKey(EventCostDiamond, nowcoin -diamond);
 	}
 }

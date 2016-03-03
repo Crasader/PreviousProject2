@@ -128,7 +128,6 @@ SystemTime*SystemTime::getToday()
 	sprintf(buffer, "%d-%02d-%02d %02d:%02d:%02d",
 		ptm->tm_year + 1900, ptm->tm_mon + 1, ptm->tm_mday,
 		ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
-	log("%s", buffer);
 	SystemTime* today = new SystemTime(buffer);
 	return today;
 }

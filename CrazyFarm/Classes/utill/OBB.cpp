@@ -112,49 +112,49 @@ Projection OBBEX::getProjection(Vec2 axie)
 	return Projection(min, max);
 }
 
-bool OBBEX::isCollidWithOBB(OBBEX* obb)
+bool OBBEX::isCollidWithOBB(OBBEX obb)
 {
+
 	Vec2 * axie1 = new Vec2[4];
 	Vec2 * axie2 = new Vec2[4];
 
 	//Get the seperat axie
 	getAxies(axie1);
-	obb->getAxies(axie2);
+	obb.getAxies(axie2);
 
 	//Check for overlap for all of the axies
 	for(int i = 0 ; i < 4 ; i ++)
 	{
 		Projection p1 = getProjection(axie1[i]);
-		Projection p2 = obb->getProjection(axie1[i]);
-
+		Projection p2 = obb.getProjection(axie1[i]);
+		
 		if(!p1.overlap(&p2))
+		
 			return false ;
 	}
-
 	for(int i = 0 ; i < 4 ; i ++)
 	{
 		Projection p1 = getProjection(axie2[i]);
-		Projection p2 = obb->getProjection(axie2[i]);
-
+		Projection p2 = obb.getProjection(axie2[i]);
+		
 		if(!p1.overlap(&p2))
 			return false ;
 	}
 
 	delete[]axie1 ;
 	delete[]axie2 ;
-
-	return true ;
+return true ;
+	
 }
 
 bool OBBEX::isCollidWithPoint(Vec2 pos)
 {
 	bool isCollision = false;
-	OBBEX *ob = new OBBEX(Vec2(pos.x - 1, pos.y - 1), Vec2(pos.x + 1, pos.y - 1), Vec2(pos.x + 1, pos.y + 1), Vec2(pos.x - 1, pos.y + 1));
+	OBBEX ob = OBBEX(Vec2(pos.x - 1, pos.y - 1), Vec2(pos.x + 1, pos.y - 1), Vec2(pos.x + 1, pos.y + 1), Vec2(pos.x - 1, pos.y + 1));
 	if (isCollidWithOBB(ob))
 	{
 		isCollision = true;
 	}
-	delete ob;
 	return isCollision;
 }
 

@@ -25,11 +25,9 @@ void LogEventMannger::sendMsg()
 		CCLOG("send logevnt msg failed with no sessionid");
 		return;
 	}
-	CCLOG("send logevnt msg");
 	LogEventFish::getInstance()->sendDataToServer();
 	LogEventMagnate::getInstance()->sendDataToServer();
 	LogEventUseSkill::getInstance()->sendDataToServer();
-	//LogEventPageChange::getInstance()->sendDataToServer();
 	LogEventSpcEvent::getInstance()->sendDataToServer();
 	LogEventConsume::getInstance()->sendDataToServer();
 	User::getInstance()->syncInfo();

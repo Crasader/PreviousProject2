@@ -128,6 +128,7 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 	if (!response||!response->isSucceed())
 	{
 		log("http back  before pay info falied");
+		Pay::getInstance()->setIsPaying(false);
 		ToolTipMannger::ShowPayTimeoutTip();
 		return;
 	}
@@ -249,21 +250,29 @@ void HttpMannger::onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResp
 {
 	if (!response)
 	{
+		log("http back feedback info: %ld", response->getResponseCode());
 		return;
 	}
 	if (!response->isSucceed())
 	{
+		log("http back feedback info: %s", response->getErrorBuffer());
 		return;
 	}
 	long statusCode = response->getResponseCode();
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back setname info: %s", temp.c_str());
+	log("http back feedback info: %s", temp.c_str());
 }
 
-void HttpMannger::HttpToPostRequestFeedback(std::string sessionid, const char* feedback)
+void HttpMannger::HttpToPostRequestFeedback(const char* feedback)
 {
+	if (strlen(feedback)<= 3)
+	{
+		return;
+
+	}
+	auto sessionid = User::getInstance()->getSessionid();
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_FEEDBACK);
 	auto requstData = String::createWithFormat("session_id=%s&info=%s", sessionid.c_str(), feedback);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForFeedback, this));

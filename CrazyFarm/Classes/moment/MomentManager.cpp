@@ -138,8 +138,7 @@ int MomentManager::getCurrentMomentEight()
 }
 //2 ºáÆÁ 4¸òó¡ 5Ô²È¦
 int MomentManager::getCurrentMomentFishGroup()
-{	
-	return 2;
+{
 	int size = momentFishGroupVec.size();
 	if (size > 1)
 	{

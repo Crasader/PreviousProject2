@@ -4,15 +4,15 @@
   "item_list": [
     {
       "coins"  :    1000,
-      "wait_time" :	30
+      "wait_time" :	0
     },
     {
       "coins"  :    2000,
-      "wait_time" : 120
+      "wait_time" : 0
     },
     {
       "coins"  :    3000,
-      "wait_time" : 300
+      "wait_time" : 0
     }
   ]
 }

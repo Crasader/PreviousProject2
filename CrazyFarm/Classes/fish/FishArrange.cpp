@@ -38,12 +38,19 @@ void FishArrange::pushBackFigureVec(int uiid, Point pos)
 
 void FishArrange::onHeart()
 {
-	for (auto child : getChildren())
+	for (auto child : fishes)
 	{
+		auto ac = child->getActionByTag(50);
+		if (ac)
+		{
+			child->stopAllActionsByTag(50);
+		}
 		auto action = Sequence::create(
-			TintTo::create(0.1f, 255, 0, 0),
-			TintTo::create(0.1f, 255, 255, 255),
+			CallFunc::create([=]{child->setColor(Color3B(135,105,80)); }),
+			DelayTime::create(0.3f),
+			CallFunc::create([=]{child->setColor(Color3B::WHITE); }),
 			nullptr);
+		action->setTag(50);
 		child->runAction(action);
 	}
 }
