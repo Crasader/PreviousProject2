@@ -54,3 +54,19 @@ void FishArrange::onHeart()
 		child->runAction(action);
 	}
 }
+
+
+void FishArrange::onFreeze()
+{
+	for (auto child : fishes)
+	{
+		child->pause();
+	}
+}
+void FishArrange::onFreezeResume()
+{
+	for (auto child : fishes)
+	{
+		child->resume();
+	}
+}

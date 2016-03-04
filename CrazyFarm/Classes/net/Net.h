@@ -24,5 +24,7 @@ private:
 	std::string getFrameNameByType(int ui_type, int net_type);
 	Bullet*m_bullet;
 	int m_netType;
+
+	bool isRobot;
 };
 #endif

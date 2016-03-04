@@ -8,77 +8,165 @@
 			[
 				{
 					"fish_id": 40,
-					"catch_per":0.0184
+					"catch_per":0.07
 				},
 				{
 					"fish_id":	41,
-					"catch_per":0.0123
+					"catch_per":0.06
 				},
 				{
 					"fish_id":42,
-					"catch_per":0.0082
+					"catch_per":0.05
 				},
 				{
 					"fish_id":43,
-					"catch_per":0.0082
+					"catch_per":0.04
 				},
 				{
 					"fish_id":44,
-					"catch_per":0.0062
+					"catch_per":0.03
+				},
+				{
+					"fish_id":101,
+					"catch_per":0.04
+				},
+				{
+					"fish_id":102,
+					"catch_per":0.04
+				},
+				{
+					"fish_id":103,
+					"catch_per":0.04
+				},
+				{
+					"fish_id":104,
+					"catch_per":0.04
 				}
 			]
-		}
-		,
+		},
 		{
 			"level_id"	:	2,
 			"catch_pers":
 			[
 				{
 					"fish_id": 40,
-					"catch_per":0.0141
+					"catch_per":0.07
 				},
 				{
 					"fish_id":	41,
-					"catch_per":0.0094
+					"catch_per":0.06
 				},
 				{
 					"fish_id":42,
-					"catch_per":0.0063
+					"catch_per":0.05
 				},
 				{
 					"fish_id":43,
-					"catch_per":0.0063
+					"catch_per":0.04
 				},
 				{
 					"fish_id":44,
-					"catch_per":0.0047
+					"catch_per":0.03
+				},
+				{
+					"fish_id":101,
+					"catch_per":0.04
+				},
+				{
+					"fish_id":102,
+					"catch_per":0.04
+				},
+				{
+					"fish_id":103,
+					"catch_per":0.04
+				},
+				{
+					"fish_id":104,
+					"catch_per":0.04
 				}
 			]
-		}
-		,
+		},
 		{
 			"level_id"	:	3,
 			"catch_pers":
 			[
 				{
 					"fish_id": 40,
-					"catch_per":0.0119
+					"catch_per":0.06
 				},
 				{
 					"fish_id":	41,
-					"catch_per":0.0080
+					"catch_per":0.05
 				},
 				{
 					"fish_id":42,
-					"catch_per":0.0053
+					"catch_per":0.04
 				},
 				{
 					"fish_id":43,
-					"catch_per":0.0053
+					"catch_per":0.03
 				},
 				{
 					"fish_id":44,
-					"catch_per":0.0040
+					"catch_per":0.02
+				},
+				{
+					"fish_id":101,
+					"catch_per":0.03
+				},
+				{
+					"fish_id":102,
+					"catch_per":0.03
+				},
+				{
+					"fish_id":103,
+					"catch_per":0.03
+				},
+				{
+					"fish_id":104,
+					"catch_per":0.03
+				}
+			]
+		},
+		{
+			"level_id"	:	4,
+			"catch_pers":
+			[
+				{
+					"fish_id": 40,
+					"catch_per":0.05
+				},
+				{
+					"fish_id":	41,
+					"catch_per":0.04
+				},
+				{
+					"fish_id":42,
+					"catch_per":0.03
+				},
+				{
+					"fish_id":43,
+					"catch_per":0.02
+				},
+				{
+					"fish_id":44,
+					"catch_per":0.01
+				},
+				{
+					"fish_id":101,
+					"catch_per":0.02
+				},
+				{
+					"fish_id":102,
+					"catch_per":0.02
+				},
+				{
+					"fish_id":103,
+					"catch_per":0.02
+				},
+				{
+					"fish_id":104,
+					"catch_per":0.02
 				}
 			]
 		}

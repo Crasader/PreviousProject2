@@ -24,7 +24,7 @@ void FishArrangeTwo::initFishAnim(int fishID)
 	fishes.pushBack(mainfish);
 	obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(102);
 	centerPos = maggiceff->getContentSize() / 2;
-
+	fishes.pushBack(maggiceff);
 	//¸±Óã
 	int randarray1[6] = { 2,4,7,8,32,33 };
 	id = randarray1[rand() % 6];
@@ -44,6 +44,7 @@ void FishArrangeTwo::initFishAnim(int fishID)
 	sp->runAction(ac1);
 	addChild(sp,1);
 	fishes.pushBack(sp);
+	fishes.pushBack(maggiceff);
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	maggiceff = MagicEffect::create(3, false);
 	maggiceff->setPosition(-15, -15 + 132);
@@ -52,6 +53,7 @@ void FishArrangeTwo::initFishAnim(int fishID)
 	sp->runAction(ac2);
 	addChild(sp,1);
 	fishes.pushBack(sp);
+	fishes.pushBack(maggiceff);
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	maggiceff = MagicEffect::create(3, false);
 	maggiceff->setPosition(-15 + 132, -15 + 132);
@@ -60,6 +62,7 @@ void FishArrangeTwo::initFishAnim(int fishID)
 	sp->runAction(ac3);
 	addChild(sp,1);
 	fishes.pushBack(sp);
+	fishes.pushBack(maggiceff);
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	maggiceff = MagicEffect::create(3, false);
 	maggiceff->setPosition(-15 + 132, -15 );
@@ -68,5 +71,6 @@ void FishArrangeTwo::initFishAnim(int fishID)
 	sp->runAction(ac3);
 	addChild(sp,1);
 	fishes.pushBack(sp);
+	fishes.pushBack(maggiceff);
 }
 

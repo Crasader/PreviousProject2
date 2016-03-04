@@ -14,7 +14,7 @@ PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion) {
     }
 	auto fishcount = FishManage::getInstance()->getAllFishInPoolCount();
 	auto bulletcount = BulletManage::getInstance()->getBulletPoolSize();
-	if (fishcount < 5 || fishcount > 40 || bulletcount>20) {
+	if (fishcount < 5 || fishcount > 45 || bulletcount>20) {
         playerWork.setAngle((float)angle);
         playerWork.setFire(false);
         lastFire = false;

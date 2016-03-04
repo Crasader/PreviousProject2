@@ -143,6 +143,27 @@
    <key>VIPGainTheCoins</key>
   <string>尊贵的        用户，每日补足金币已为您准备好，点击确定领取</string>
   
+  
+  <key>LoadingTip1</key>
+  <string>  小提示：击杀黄金鱼可获得抽话费机会！</string>
+  <key>LoadingTip2</key>
+  <string>  小提示：成为贵族有专属炮台，捕获几率提高N倍哦！</string>
+  <key>LoadingTip3</key>
+  <string> 小技巧：按住屏幕可以进行连续攻击，能更快速的捕获更多鱼哦！</string>
+  <key>LoadingTip4</key>
+  <string> 小技巧：使用瞄准技能可以大大的提高捕获鱼群的几率哦！</string>
+  <key>LoadingTip5</key>
+  <string> 小技巧：当黄金鱼经过身边时，别犹豫，立即使用冰冻技能，冻结鱼群捕获它们吧！</string>
+  <key>LoadingTip6</key>
+  <string> 小技巧：召唤出来的黄金鱼捕获几率更高哦！还有几率能出出现BOSS。</string>
+  <key>LoadingTip7</key>
+  <string>  小技巧：当出现BOSS或美人鱼时，可以使用激光攻击，来将极大提高捕获成功率。</string>
+  <key>LoadingTip8</key>
+  <string> 小技巧：当出现大量鱼群时，可以使用核弹进行大面积捕获。</string>
+    <key>LoadingTip9</key>
+  <string>小技巧：捕获黄金鱼不仅可以获得更多奖励，还能进行累计抽奖</string>
+  
+  
   </dict> 
 </array>
 </plist>

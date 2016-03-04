@@ -24,7 +24,7 @@ void FishArrangeOne::initFishAnim(int fishID)
 	fishes.pushBack(sp1);
 	centerPos = maggiceff->getContentSize() / 2;
 
-
+	fishes.pushBack(maggiceff);
 	//¸±Óã
 	int randarray1[6] = { 2,3,4,7,8,9 };
 	id = randarray1[rand() % 6];
@@ -41,7 +41,7 @@ void FishArrangeOne::initFishAnim(int fishID)
 	sp->setPosition(maggiceff->getContentSize()/2);
 	maggiceff->addChild(sp);
 	fishes.pushBack(sp);
-
+	fishes.pushBack(maggiceff);
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	maggiceff = MagicEffect::create(2, true);
 	maggiceff->setPosition(137, centerPos.y);
@@ -50,6 +50,6 @@ void FishArrangeOne::initFishAnim(int fishID)
 	sp->runAction(ac2);
 	maggiceff->addChild(sp);
 	fishes.pushBack(sp);
-
+	fishes.pushBack(maggiceff);
 }
 

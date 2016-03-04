@@ -156,16 +156,18 @@ void MyMenuItemGainMoney::showPopup()
 		isElongate = true;
 		setValue();
 		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
-
+		
+		float delaytime;
 		if (isFinish)
 		{
 			showBlinkAni();
+			delaytime = 6.0f;
 		}
 		else
 		{
-			
+			delaytime = 3.0f;
 		}
-		runAction(Sequence::create(DelayTime::create(3.0f), CallFunc::create([&]{
+		runAction(Sequence::create(DelayTime::create(delaytime), CallFunc::create([&]{
 			if (isElongate == true)
 			{
 				commonNode->setVisible(false);
@@ -174,6 +176,7 @@ void MyMenuItemGainMoney::showPopup()
 			};
 
 		}), nullptr));
+	
 	}
 
 }

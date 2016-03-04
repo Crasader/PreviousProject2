@@ -11,7 +11,7 @@ bool MomentIntervalCreate::updata(float dt)
 	auto fishcount = FishManage::getInstance()->getAllFishInPoolCount();
 	if (fishcount < fishMinSize&&nNowTime>45)//45 == Óã³²Ê±¼ä todo:µ¥¶ÀÅäÖÃ
 	{
-		Audio::getInstance()->playBGM(GAMEBGM);
+		
 		GameManage::getInstance()->getGameLayer()->onClearFishFinish();
 		return true;
 	}

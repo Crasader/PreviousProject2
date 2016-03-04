@@ -12,6 +12,7 @@ private:
 	void ItemCallBack(Ref* psend);
 	void initItem();
 	void showBlinkAni();
+	void removeBlinkAni();
 	Node* nodeZeng;
 	Node*unfinishedNode;
 	Node* commonNode;

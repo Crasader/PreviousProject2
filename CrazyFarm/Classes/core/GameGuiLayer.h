@@ -39,6 +39,8 @@ public:
 	void ShowUseLockTip(Point dmDropPos);
 	void ShowUpgradeTurretTip();
 	void setLayerAlpha(int alpha);
+
+	Vec2 getItemPos(int itemid);//展示道具飞入时候需要
 private :
 	void showRandonBubbleAni();
 	void exitCallback(Ref *pSender);

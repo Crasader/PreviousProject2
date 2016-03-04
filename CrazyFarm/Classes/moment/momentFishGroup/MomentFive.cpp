@@ -1,6 +1,6 @@
 #include "MomentFive.h"
 #include "fish/FishGroupData.h"
-
+#include "domain/game/GameManage.h"
 void MomentFive::init(float FFOneTime)
 {
 	datas.push_back(MomentFiveData(8, 1,Vec2(-270,342)));
@@ -16,6 +16,7 @@ bool MomentFive::updata(float dt)
 	nNowTime += dt;
 	if (datas.size()<=0&&nNowTime>(20+25))
 	{
+		GameManage::getInstance()->getGameLayer()->onClearFishFinish();
 		return true;
 	}
 	for (auto iter = datas.begin(); iter != datas.end();)

@@ -21,6 +21,7 @@ bool CollisionUtill::isCollisionOBBsAndOBB(std::vector<OBBEX> obbs, OBBEX obb)
 
 bool CollisionUtill::isCollisionOBBsAndOBBs(std::vector<OBBEX> obbs1, std::vector<OBBEX> obbs2)
 {
+
 	bool isconllision = false;
 	for (auto var1 : obbs1)
 	{

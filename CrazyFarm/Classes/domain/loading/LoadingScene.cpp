@@ -10,8 +10,8 @@
 #include "domain/user/DeviceInfo.h"
 #include "core/GameScene.h"
 #include "domain/login/LoginMannger.h"
-
-
+#include "utill/Chinese.h"
+#include "utill/CircleMoveTo.h"
 
 Scene* LoadingScene::createScene()
 {
@@ -55,9 +55,12 @@ bool LoadingScene::init()
 	loadingBar->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	loadingBar->setPosition(loadingbarFrame->getContentSize() / 2+Size(10,0));
 	loadingbarFrame->addChild(loadingBar);
-
+	showTip();
 
 	scheduleUpdate();
+
+
+
 	return true;
 }
 
@@ -217,4 +220,15 @@ void LoadingScene::loadRes()
 void LoadingScene::login()
 {
 	LoginMannger::getInstance()->login();
+}
+
+void LoadingScene::showTip()
+{
+	int randNum = rand() % 9 + 1;
+	auto str = String::createWithFormat("LoadingTip%d", randNum);
+	auto label = LabelTTF::create(ChineseWord(str->getCString()).c_str(), "arial", 21);
+	label->setColor(Color3B::WHITE);
+	label->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	label->setPosition(480, 30);
+	addChild(label);
 }

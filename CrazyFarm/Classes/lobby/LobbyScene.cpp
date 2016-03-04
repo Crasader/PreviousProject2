@@ -37,6 +37,7 @@
 #include "domain/logevent/LogEventMannger.h"
 #include "utill/JniFunUtill.h"
 #include "lobby/viplayer/VipGainCoinSureDialog.h"
+#include "utill/CircleMoveTo.h"
 enum
 {
 	kZorderMenu = 10,
@@ -394,6 +395,7 @@ bool LobbyScene::init()
 		this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);  
 	}
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg(); }), nullptr));
+
 
 	return true;
 }

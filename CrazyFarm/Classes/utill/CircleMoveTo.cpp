@@ -25,7 +25,9 @@ bool CircleMoveTo::initWithDuration(float duration, const CCPoint& center, float
 		/* 计算每次update调用时需要转动的弧度                                   */
 		/************************************************************************/
 		auto fps = Director::sharedDirector()->getAnimationInterval();
-		this->m_anglePreFrame = angle / duration * fps / (180 / M_PI);
+		//this->m_anglePreFrame = angle / duration/* * fps*/ / (180 / M_PI);
+
+		this->m_anglePreFrame = CC_DEGREES_TO_RADIANS(angle/* / duration*/);
 		this->m_frameCnts = 0;
 		return true;
 	}
@@ -39,31 +41,16 @@ void CircleMoveTo::startWithTarget(CCNode *pTarget)
 }
 void CircleMoveTo::update(float time)
 {
-	
-	if (m_isClockwise)
-	{
-		m_frameCnts--;
-	}
-	else
-	{
-		m_frameCnts++;
-	}
+	int nIsClockWise = m_isClockwise ? -1 : 1;
 	m_currScale += m_scaleDiff;
 
-	CCPoint newPos = ccpRotateByAngle(m_initPos, m_center, m_frameCnts * m_anglePreFrame);
+	CCPoint newPos = ccpRotateByAngle(m_initPos, m_center,  time* m_anglePreFrame*nIsClockWise);
 	CCPoint diff = ccpSub(newPos, m_center);
 	newPos = diff * m_currScale + m_center;
 
 	getTarget()->setPosition(newPos);
-	getTarget()->setRotation(m_frameCnts * m_anglePreFrame);
+	getTarget()->setRotation(time* m_anglePreFrame);
 	
 
-	//debug
-#if 0
-	CCLOG("circle pos x:%f y:%f", newPos.x, newPos.y);
-	CCDrawNode *node = CCDrawNode::create();
-	node->drawDot(newPos, 3, ccc4f(128, 128, 128, 128));
-	getTarget()->getParent()->addChild(node);
-#endif
 
 }

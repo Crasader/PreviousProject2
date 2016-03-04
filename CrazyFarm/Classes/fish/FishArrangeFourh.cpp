@@ -15,6 +15,7 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	mainfish->setPosition(maggiceff->getContentSize() / 2);
 	addChild(mainfish);
 	fishes.pushBack(mainfish);
+	fishes.pushBack(maggiceff);
 	auto acName = String::createWithFormat("swim_%d", id);
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
 	auto ac1 = ac->clone();
@@ -33,7 +34,7 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	sp->setPosition(maggiceff1->getPosition());
 	sp->runAction(ac1);
 	addChild(sp);
-
+	fishes.pushBack(maggiceff1);
 	fishes.pushBack(sp);
 
 	auto maggiceff2 = MagicEffect::create(5, true);
@@ -43,7 +44,7 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	sp->setPosition(maggiceff2->getPosition());
 	sp->runAction(ac2);
 	addChild(sp);
-	
+	fishes.pushBack(maggiceff2);
 	fishes.pushBack(sp);
 
 	auto maggiceff3 = MagicEffect::create(5, true);
@@ -54,5 +55,6 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	sp->runAction(ac3);
 	addChild(sp);
 	fishes.pushBack(sp);
+	fishes.pushBack(maggiceff3);
 }
 

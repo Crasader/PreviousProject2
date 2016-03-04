@@ -121,7 +121,8 @@ bool GameLayer::init(){
 	addChild(createFishAcNode);
 
 
-
+		showYourChairno();
+	
 	return true;
 }
 
@@ -249,11 +250,7 @@ void GameLayer::shootUpdata(float dt)
 
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
-	if (getIsShowYourChairno()==false)
-	{
-		showYourChairno();
-		setIsShowYourChairno(true);
-	}
+
 	
 	auto node = getChildByName("clickcatch");
 	if (node)
@@ -765,6 +762,7 @@ void GameLayer::onClearFishUpdata(float dt)
 void GameLayer::onClearFishFinish()
 {
 	/*createFishAcNode->resume();*/
+	Audio::getInstance()->playBGM(GAMEBGM);
 }
 
 void GameLayer::addReward(int itemid, int num)
@@ -826,9 +824,14 @@ void GameLayer::onGetRewardByfish(PlayerTurret*turrent, Fish*fish, int itemid, i
 	}
 	sp->setPosition(480,270);
 	sp->setScale(0);
-	addChild(sp,10);
+	GameManage::getInstance()->getGuiLayer()->addChild(sp,20);
 	auto distans = turrent->getCoinLabelPos().distance(sp->getPosition());
-	sp->runAction(Sequence::create(Spawn::create(MoveBy::create(0.5f, Vec2(0,0)), ScaleTo::create(0.5f, 1.0f), nullptr), EaseExponentialIn::create(MoveTo::create(2.0f, turrent->getCoinLabelPos())), CallFunc::create([=]
+
+	Point curPos = GameManage::getInstance()->getGuiLayer()->getItemPos(itemid);
+
+
+
+	sp->runAction(Sequence::create(Spawn::create(MoveBy::create(0.5f, Vec2(0, 0)), ScaleTo::create(0.5f, 1.0f), nullptr), EaseExponentialIn::create(MoveTo::create(1.0f, curPos)), CallFunc::create([=]
 	{
 		BagManager::getInstance()->addreward(itemid, num);
 		if (itemid==1001)

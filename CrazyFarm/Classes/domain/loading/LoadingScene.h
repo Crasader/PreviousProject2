@@ -43,6 +43,8 @@ public:
 	void imageFishAniAsyncCallback(Texture2D* texture, void*aniData);
 
 	void update(float dt);
+
+	void showTip();
 private:
 	ui::LoadingBar* loadingBar;
 	int temp = 0;

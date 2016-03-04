@@ -22,9 +22,9 @@ void Net::initNetByType(){
 	//ÍøµÄÅö×²Ãæ»ı
 	m_netType = turretdata.net_type;
 
-
+	isRobot = m_bullet->getPlayerTurret()->isRobot;
 	m_bullet->removeFromParentAndCleanup(1);
-	runAction(Sequence::create(ScaleTo::create(0.1, 1.2), ScaleTo::create(0.05, 0.9), ScaleTo::create(0.05, 1.0),CallFunc::create([&]{checkCatchFish(); }),FadeOut::create(0.5), RemoveSelf::create(1), nullptr));
+	runAction(Sequence::create(ScaleTo::create(0.1, 1.2), ScaleTo::create(0.05, 0.9), ScaleTo::create(0.05, 1.0), CallFunc::create([&]{checkCatchFish(); }), FadeOut::create(0.5), RemoveSelf::create(1), nullptr));
 }
 
 //
@@ -93,10 +93,15 @@ void Net::setBullet(Bullet* bullet)
 
 
 void Net::checkCatchFish(){
+	if (isRobot)
+	{
+		return;
+	}
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
 
 	for (Fish* fish : allFish){
 		if (CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), getObbs())){
+
 			fish->onHeart();
 
 		}

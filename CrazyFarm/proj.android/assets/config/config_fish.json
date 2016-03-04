@@ -336,7 +336,7 @@
 			"ui_id"				:	50,
 			"catch_ui_type"     :	2,
 			"exp"               :   300,
-			"bonus_pool_reward" :   0,
+			"bonus_pool_reward" :   300,
 			"be_hit_logic"	    :   0,
 			"reward_list" :[
         {
@@ -356,7 +356,7 @@
 			"ui_id"				:	51,
 			"catch_ui_type"     :	2,
 			"exp"               :   500,
-			"bonus_pool_reward" :   0,
+			"bonus_pool_reward" :   500,
 			"be_hit_logic"	    :   0,
 			"reward_list" :[
         {
@@ -390,7 +390,7 @@
 			"ui_id"			    :	101,
 			"catch_ui_type"     :	3,
 			"exp"               :   50,
-			"bonus_pool_reward" :   0,
+			"bonus_pool_reward" :   50,
 			"be_hit_logic"	    :   0
 		},
 		{
@@ -404,7 +404,7 @@
 			"ui_id"			    :	102,
 			"catch_ui_type"     :	3,
 			"exp"               :   80,
-			"bonus_pool_reward" :   0,
+			"bonus_pool_reward" :   80,
 			"be_hit_logic"	    :   0
 		},
 		{
@@ -418,7 +418,7 @@
 			"ui_id"			    :	103,
 			"catch_ui_type"     :	3,
 			"exp"               :   120,
-			"bonus_pool_reward" :   0,
+			"bonus_pool_reward" :   120,
 			"be_hit_logic"	    :   0
 		},
 		{
@@ -432,7 +432,7 @@
 			"ui_id"			    :	104,
 			"catch_ui_type"     :	3,
 			"exp"               :   160,
-			"bonus_pool_reward" :   0,
+			"bonus_pool_reward" :   160,
 			"be_hit_logic"	    :   0
 		},
 		{

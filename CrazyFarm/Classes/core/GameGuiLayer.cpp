@@ -393,7 +393,21 @@ void GameGuiLayer::setLayerAlpha(int alpha)
 	colorBg->setOpacity(alpha);
 }
 
-
+Vec2 GameGuiLayer::getItemPos(int itemid)
+{
+	auto skillmanager = skillManager::getInstance();
+	switch (itemid)
+	{
+	case 1003:	
+	case 1004:
+	case 1005:
+	case 1006:
+	case 1007:	
+		return  skillmanager->getButtonByID(skillmanager->getSkillInfoByitemId(itemid).skill_id)->getPosition();
+	default:
+		return GameManage::getInstance()->getGameLayer()->GetMyTurret()->getCoinLabelPos();
+	}
+}
 
 void GameGuiLayer::update(float delta)
 {/*

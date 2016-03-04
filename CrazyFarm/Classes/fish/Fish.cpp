@@ -442,7 +442,7 @@ void Fish::addShader()
 {
 	m_shadesprite = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(nUiID));
 	m_shadesprite->setPosition(getContentSize().width*0.65,getContentSize().height*0.35);
-	addChild(m_shadesprite, -1);
+	addChild(m_shadesprite, -1,"shader");
 
 
 	auto acName = String::createWithFormat("swim_%d", nUiID);
@@ -485,10 +485,10 @@ void Fish::removeself()
 
 void Fish::onHeart()
 {
-	auto ac = getActionByTag(50);
+	auto ac = aniEmptyNode->getActionByTag(50);
 	if (ac)
 	{
-		stopAllActionsByTag(50);
+		aniEmptyNode->stopAllActionsByTag(50);
 	}
 	auto action = Sequence::create(
 		CallFunc::create([=]{setColor(Color3B(135,105,80)); }),
@@ -496,12 +496,18 @@ void Fish::onHeart()
 		CallFunc::create([=]{setColor(Color3B::WHITE); }),
 		nullptr);
 	action->setTag(50);
-	runAction(action);
+	aniEmptyNode->runAction(action);
 
 	
 }
 void Fish::onFreeze()
 {
+	pause();
+	auto node = getChildByName("shader");
+	if (node)
+	{
+		node->pause();
+	}
 	//冻结时候无受击动画处理
 	//_scheduler->pauseTarget(this);
 	//stopAllActionsByTag(kTagAcNormal);
@@ -509,7 +515,12 @@ void Fish::onFreeze()
 }
 void Fish::onFreezeResume()
 {
-
+	resume();
+	auto node = getChildByName("shader");
+	if (node)
+	{
+		node->resume();
+	}
 	//_scheduler->pauseTarget(this);
 	//pauseAllActionsByTag(kTagAcNormal);
 	//_eventDispatcher->pauseEventListenersForTarget(this);

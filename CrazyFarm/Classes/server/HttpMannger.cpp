@@ -5,7 +5,7 @@
 #include "domain/logevent/LogEventMannger.h"
 #include "domain/pay/Pay.h"
 #include "domain/ToolTip/ToolTipMannger.h"
-#define URL_HEAD "http://114.119.39.150:1701"
+#define URL_HEAD "http://106.75.135.78:1701"
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
 #define URL_LOGIN  "/user/login"

@@ -73,7 +73,7 @@ bool ConfigNewbieFishCatch::LoadConfig() {
 
 float ConfigNewbieFishCatch::getperByLevelAndFishID(int level, int fishid)
 {
-	if (level > 3||level<=0)
+	if (level > 4||level<=0)
 	{
 		return -1;
 	}

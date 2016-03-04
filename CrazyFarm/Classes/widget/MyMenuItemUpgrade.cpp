@@ -41,11 +41,7 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 
 	if (User::getInstance()->getMaxTurrentLevel()>=1000)
 	{
-		auto pNode = getChildByName("blinkAni");
-		if (pNode)
-		{
-			pNode->removeFromParentAndCleanup(1);
-		}
+		removeBlinkAni();
 		return;
 	}
 	if (isElongate)
@@ -55,14 +51,10 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		nodeZeng->setVisible(false);
 		runAction(MoveBy::create(0.5f, Vec2(166, 0)));
 		isElongate = false;
-	
+		removeBlinkAni();
 		if (isFinish)
 		{
-			auto pNode = getChildByName("blinkAni");
-			if (pNode)
-			{
-				pNode->removeFromParentAndCleanup(1);
-			}
+			
 			GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent();
 		}
 		else
@@ -83,11 +75,6 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 			if (isElongate==false)
 			{
 				return;
-			}
-			auto pNode = getChildByName("blinkAni");
-			if (pNode)
-			{
-				pNode->removeFromParentAndCleanup(1);
 			}
 			runAction(MoveBy::create(0.5f, Vec2(166, 0)));
 			commonNode->setVisible(false);
@@ -211,11 +198,7 @@ void MyMenuItemUpgrade::showPopup()
 {
 	if (User::getInstance()->getMaxTurrentLevel() >= 1000)
 	{
-		auto pNode = getChildByName("blinkAni");
-		if (pNode)
-		{
-			pNode->removeFromParentAndCleanup(1);
-		}
+		removeBlinkAni();
 		return;
 	}
 	if (isElongate == true)
@@ -250,6 +233,24 @@ void MyMenuItemUpgrade::showPopup()
 				};
 
 			}), nullptr));
+		}
+	}
+	
+}
+
+
+void MyMenuItemUpgrade::removeBlinkAni()
+{
+	while (1)
+	{
+		auto pNode = getChildByName("blinkAni");
+		if (pNode)
+		{
+			pNode->removeFromParentAndCleanup(1);
+		}
+		else
+		{
+			return;
 		}
 	}
 	

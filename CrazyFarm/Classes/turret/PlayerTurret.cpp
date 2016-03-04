@@ -316,7 +316,7 @@ void  PlayerTurret::onLockTheTurrent()
 	ttf1->setPosition(txt1->getContentSize().width, txt1->getContentSize().height / 2);
 	ttf1->setAnchorPoint(Point(0, 0.5));
 	txt1->addChild(ttf1);
-	txt1->runAction(Sequence::create(DelayTime::create(2.0f), RemoveSelf::create(1), nullptr));
+	txt1->runAction(Sequence::create(DelayTime::create(3.5f), RemoveSelf::create(1), nullptr));
 	//½ð±ÒµôÂä
 	for (int i = 0; i < 15; i++)
 	{
@@ -955,7 +955,7 @@ void PlayerTurret::rorateAndShootOnlock(float dt)
 	auto pos = lockFish->getPosition();
 	float degree =getTurretRotation(getPosition(), pos);
 	rorateTurret(degree);
-	scheduleOnce(schedule_selector(PlayerTurret::shootOnLock), GameConfig::getInstance()->getShootData().shootInterval);
+	scheduleOnce(schedule_selector(PlayerTurret::shootOnLock), 0.8*GameConfig::getInstance()->getShootData().shootInterval);
 }
 void PlayerTurret::shootOnLock(float dt){
 

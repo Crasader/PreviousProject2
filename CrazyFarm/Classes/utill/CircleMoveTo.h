@@ -20,6 +20,7 @@ class CircleMoveTo :
 		float m_angle;
 		float m_anglePreFrame;
 		int m_frameCnts;
+		float m_nTime = 0;
 		Point m_initPos;
 		bool m_isClockwise;
 };

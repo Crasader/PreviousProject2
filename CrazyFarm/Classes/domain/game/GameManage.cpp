@@ -42,11 +42,11 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 	if (isDead)
 	{
 
-		if (fish->getFishType() == GoldFish)
+		if (fish->getFishType() == GoldFish||fish->getFishType() == ArrangeFish||fish->getFishType() == BossFish)
 		{
-			
+
 			//»Æ½ðÓã²¶»ñ¶¯»­
-			m_pGuilayer->runAction(CCShake::create(0.2, 10));
+			Director::getInstance()->getRunningScene()->runAction(CCShake::create(0.2, 30));
 			auto aninode = Node::create();
 			aninode->setPosition(0, 0);
 			turret->addChild(aninode, 1, "goldfichCatch");
@@ -55,7 +55,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			auto sp = Sprite::create("goldFishCatchTable.png");
 			sp->setPosition(Vec2(80, 180));
 			aninode->addChild(sp);
-			sp->runAction(RepeatForever::create(RotateBy::create(2, 360)));
+			sp->runAction(RepeatForever::create(RotateBy::create(0.5, 360)));
 			sp->setScale(0.7);
 
 
@@ -63,28 +63,37 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 
 			auto aninode1 = Sprite::create("quickStart.png");
 			aninode1->setPosition(sp->getPosition());
-			aninode1->addChild(aninode1,-1);
-			aninode1->runAction(RepeatForever::create(Sequence::create(Spawn::create(FadeIn::create(0.001), ScaleTo::create(0.001, 0), nullptr), Spawn::create(FadeOut::create(3.0), ScaleTo::create(3.0, 1.5), nullptr), nullptr)));
+			aninode->addChild(aninode1,-1);
+			aninode1->runAction(RepeatForever::create(Sequence::create(Spawn::create(FadeIn::create(0.001), ScaleTo::create(0.001, 0), nullptr), Spawn::create(FadeOut::create(2.0), ScaleTo::create(2.0, 2.0f), nullptr), nullptr)));
 
 
 			auto num = fish->getFishGold()* turret->getTurrentMupltData().multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
-			auto lb = LabelAtlas::create(Value(Value(num).asInt()).asString(), "goldFishNum.png", 23, 32, '0');
+			auto lb = LabelAtlas::create(Value(Value(num).asInt()).asString(), "goldFishNum.png", 28, 41, '0');
 			lb->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			lb->setPosition(Vec2(80, 180));
-			lb->setScale(0.8);
 			lb->setRotation(-30);
-			lb->runAction(RepeatForever::create(Sequence::create(RotateTo::create(0.3f, 30), RotateTo::create(0.3f, -30), nullptr)));
+			lb->runAction(RepeatForever::create(Sequence::create(RotateTo::create(0.45f, 30), RotateTo::create(0.45f, -30), nullptr)));
 			aninode->addChild(lb);
 
 
 			auto txtframe = Sprite::create("goldFishCatch.png");
 			txtframe->setPosition(Vec2(80, 130));
 			aninode->addChild(txtframe);
-			auto str = String::createWithFormat("TXTGoldFish_%d.png", fish->getuiId());
+			String* str;
+			auto id = fish->getFishID();
+			if (id>=40&&id<=44)
+			{
+				str= String::createWithFormat("TXTGoldFish_%d.png", id);
+			}
+			else
+			{
+				str = String::create("TXTGoldFish_XX.png");
+			}
+			
 			auto txt = Sprite::create(str->getCString());
 			txt->setPosition(txtframe->getContentSize() / 2);
 			txtframe->addChild(txt);
-			aninode->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(1), nullptr));
+			aninode->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(1), nullptr));
 
 
 		

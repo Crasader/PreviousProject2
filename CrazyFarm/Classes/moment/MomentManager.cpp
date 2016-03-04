@@ -119,6 +119,7 @@ Moment* MomentManager::getNewMomentByType(int momentType, float FFOneTime) {
 
 int MomentManager::getCurrentMomentEight()
 {
+
 	int size = momentEightVec.size();
 	if (size>1)
 	{
@@ -139,6 +140,7 @@ int MomentManager::getCurrentMomentEight()
 //2 ºáÆÁ 4¸òó¡ 5Ô²È¦
 int MomentManager::getCurrentMomentFishGroup()
 {
+	/*return 4;*/
 	int size = momentFishGroupVec.size();
 	if (size > 1)
 	{

@@ -46,10 +46,10 @@ const char*  DeviceInfo::getHd_factory()
 int DeviceInfo::getVesion()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	return 3;
+	return 4;
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	return 2;
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	return 4;
+	return 3;
 #endif
 }
