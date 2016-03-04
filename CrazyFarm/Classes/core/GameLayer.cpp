@@ -123,6 +123,9 @@ bool GameLayer::init(){
 
 		showYourChairno();
 	
+		
+
+
 	return true;
 }
 
@@ -399,7 +402,7 @@ void GameLayer::collisionUpdate(float dt)
 	{
 		for (auto fish : allFish)
 		{
-			if (CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), bullet->getObbs())){
+			if (CollisionUtill::isCollisionFishAAndBullet(fish, bullet)){
 				//发生碰撞,移除子弹,在这里计算捕获鱼，渔网只有UI作用，无影响
 				bulletNeedRemove.pushBack(bullet);
 				bullet->setVisible(false);
@@ -548,8 +551,7 @@ void GameLayer::onBoomCatchFish(Point pos)
 	auto data = GameData::getInstance();
 	for (auto fish : fishPool)
 	{
-		if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBs(), OBBEX(pos + Vec2(-200, -200), pos + Vec2(200, -200), pos + Vec2(200, 200), pos + Vec2(-200, 200))))
-		/*if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBByCocos(), OBB(AABB(Vec3(pos.x - 200, pos.y - 200, 0), Vec3(pos.x + 200, pos.y + 200, 0)))))*/
+		if (CollisionUtill::isCollisionFishAAndRect(fish, Rect(pos.x - 200, pos.y - 200, 400, 400)))
 		{
 			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, myTurret);
 		}
@@ -725,8 +727,7 @@ void GameLayer::onClearFishUpdata(float dt)
 		Vector<Fish*> needRemove;
 		for (auto var:vec)
 		{
-			/*if (CollisionUtill::isCollisionOBBsAndOBB(var->getOBBByCocos(), OBB(AABB(Vec3(rect.getMinX(), rect.getMinY(), 0), Vec3(rect.getMaxX() + 200, rect.getMaxY() + 200, 0)))))*/
-			if (CollisionUtill::isCollisionOBBsAndOBB(var->getOBBs(), OBBEX(rect.origin, Vec2(rect.getMaxX(), rect.getMinY()), Vec2(rect.getMaxX(), rect.getMaxY()), Vec2(rect.getMinX(), rect.getMaxY()))))
+			if (CollisionUtill::isCollisionFishAAndRect(var, rect))
 			{
 				needRemove.pushBack(var);
 			}
@@ -743,8 +744,7 @@ void GameLayer::onClearFishUpdata(float dt)
 		Vector<Bullet*> needRemove1;
 		for (auto var : vec1)
 		{
-			/*if (CollisionUtill::isCollisionOBBsAndOBB(var->getOBBByCocos(), OBB(AABB(Vec3(rect.getMinX(), rect.getMinY(), 0), Vec3(rect.getMaxX() + 200, rect.getMaxY() + 200, 0)))))*/
-			if (CollisionUtill::isCollisionOBBsAndOBB(var->getObbs(), OBBEX(rect.origin, Vec2(rect.getMaxX(), rect.getMinY()), Vec2(rect.getMaxX(), rect.getMaxY()), Vec2(rect.getMinX(), rect.getMaxY()))))
+			if (CollisionUtill::isCollisionNodeAAndRect(var,rect))
 			{
 				needRemove1.pushBack(var);
 			}

@@ -70,3 +70,15 @@ void FishArrange::onFreezeResume()
 		child->resume();
 	}
 }
+std::vector<Rect>  FishArrange::getAABBBoxs()
+{
+	std::vector<Rect> vec;
+	for (auto child:fishes)
+	{
+		auto box = child->getBoundingBox();
+		auto orgin = convertToWorldSpace(box.origin);
+		box.setRect(orgin.x, orgin.y, box.size.width, box.size.height);
+			vec.push_back(box);
+	}
+	return vec;
+}

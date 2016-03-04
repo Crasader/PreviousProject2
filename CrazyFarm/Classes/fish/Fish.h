@@ -70,6 +70,9 @@ public:
 
 	virtual std::vector<OBB> getOBBByCocos();
 	Vec2 getCentrenPos(){ return centerPos; };
+
+
+	virtual std::vector<Rect>  getAABBBoxs();
 protected:
 	
 	void update(float);

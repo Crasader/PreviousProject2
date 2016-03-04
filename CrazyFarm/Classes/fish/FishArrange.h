@@ -16,4 +16,6 @@ public:
 	virtual void onFreeze();
 	virtual void onFreezeResume();
 	Vector<Node*> fishes;
+
+	virtual std::vector<Rect>  getAABBBoxs();
 };

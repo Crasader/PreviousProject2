@@ -16,11 +16,10 @@ void FishArrangeTwo::initFishAnim(int fishID)
 	mainfish->runAction(ac);
 	auto maggiceff = MagicEffect::create(1, false);
 	maggiceff->stopAllActions();
-	maggiceff->setAnchorPoint(Point::ZERO);
-	maggiceff->setPosition(0, 0);
+	maggiceff->setPosition(maggiceff->getContentSize()/2);
 	addChild(maggiceff, 1);
-	mainfish->setPosition(maggiceff->getContentSize() / 2);
-	maggiceff->addChild(mainfish);
+	mainfish->setPosition(maggiceff->getPosition());
+	addChild(mainfish,1);
 	fishes.pushBack(mainfish);
 	obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(102);
 	centerPos = maggiceff->getContentSize() / 2;

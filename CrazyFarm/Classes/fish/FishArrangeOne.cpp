@@ -15,11 +15,10 @@ void FishArrangeOne::initFishAnim(int fishID)
 	auto sp1 = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	sp1->runAction(ac);
 	auto maggiceff = MagicEffect::create(1, true);
-	maggiceff->setAnchorPoint(Point::ZERO);
-	maggiceff->setPosition(0,0);
+	maggiceff->setPosition(maggiceff->getContentSize()/2);
 	addChild(maggiceff,2);
-	sp1->setPosition(maggiceff->getContentSize() / 2);
-	maggiceff->addChild(sp1);
+	sp1->setPosition(maggiceff->getPosition());
+	addChild(sp1,2);
 	obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(101);
 	fishes.pushBack(sp1);
 	centerPos = maggiceff->getContentSize() / 2;
@@ -38,18 +37,17 @@ void FishArrangeOne::initFishAnim(int fishID)
 	maggiceff = MagicEffect::create(2, true);
 	maggiceff->setPosition(-35, centerPos.y);
 	addChild(maggiceff,1);
-	sp->setPosition(maggiceff->getContentSize()/2);
-	maggiceff->addChild(sp);
+	sp->setPosition(maggiceff->getPosition());
+	addChild(sp,1);
 	fishes.pushBack(sp);
 	fishes.pushBack(maggiceff);
 	sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 	maggiceff = MagicEffect::create(2, true);
 	maggiceff->setPosition(137, centerPos.y);
 	addChild(maggiceff, 1);
-	sp->setPosition(maggiceff->getContentSize()/2);
+	sp->setPosition(maggiceff->getPosition());
 	sp->runAction(ac2);
-	maggiceff->addChild(sp);
+	addChild(sp,1);
 	fishes.pushBack(sp);
 	fishes.pushBack(maggiceff);
 }
-

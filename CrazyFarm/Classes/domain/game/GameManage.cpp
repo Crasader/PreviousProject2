@@ -59,7 +59,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			sp->setScale(0.7);
 
 
-			Audio::getInstance()->playSound(CATCHGIRLFISH);
+			Audio::getInstance()->playSound(ONGOLDFISHDEAD);
 
 			auto aninode1 = Sprite::create("quickStart.png");
 			aninode1->setPosition(sp->getPosition());

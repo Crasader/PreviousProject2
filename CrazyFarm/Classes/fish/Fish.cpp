@@ -244,7 +244,7 @@ void Fish::onLockShoot(PlayerTurret*turret)
 {
 	auto aniFishLockNode = Sprite::create();
 	aniFishLockNode->setPosition(centerPos);
-	addChild(aniFishLockNode,1,"lockani");
+	addChild(aniFishLockNode,10,"lockani");
 	aniFishLockNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniFishLock")));
 	setTargeLockTurret(turret);
 }
@@ -262,7 +262,7 @@ void Fish::onLightShoot(PlayerTurret*turret)
 {
 	auto aniFishLightNode = Sprite::create();
 	aniFishLightNode->setPosition(centerPos);
-	addChild(aniFishLightNode,0,"lightani");
+	addChild(aniFishLightNode,10,"lightani");
 	aniFishLightNode->setGlobalZOrder(10);
 	aniFishLightNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniDianQiu")));
 	setTargeLightTurret(turret);
@@ -643,5 +643,12 @@ std::vector<OBB> Fish::getOBBByCocos()
 		obb.transform(getNodeToWorldTransform());
 		vec.push_back(obb);
 	}
+	return vec;
+}
+
+std::vector<Rect> Fish::getAABBBoxs()
+{
+	std::vector<Rect> vec;
+	vec.push_back(getBoundingBox());
 	return vec;
 }

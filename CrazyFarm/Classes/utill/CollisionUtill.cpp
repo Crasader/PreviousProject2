@@ -1,5 +1,65 @@
 #include "utill/CollisionUtill.h"
+#define IsArrangeFish fish->getFishID()>=101&&fish->getFishID()<=104
 
+
+bool CollisionUtill::isCollisionFishAAndBullet(Fish*fish, Bullet*bullet)
+{
+	if (IsArrangeFish)
+	{
+		return CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), bullet->getObbs());
+	}
+	else
+	{
+		return CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), bullet->getBoundingBox());
+	}
+}
+bool CollisionUtill::isCollisionFishAAndNet(Fish*fish, Net*net)
+{
+	if (IsArrangeFish)
+	{
+		return CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), net->getObbs());
+	}
+	else
+	{
+		return CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), net->getBoundingBox());
+	}
+}
+bool CollisionUtill::isCollisionFishAAndPos(Fish*fish, Vec2 pos)
+{
+	if (IsArrangeFish)
+	{
+		return CollisionUtill::isCollisionOBBsAndPoint(fish->getOBBs(), pos);
+	}
+	else
+	{
+		return CollisionUtill::isCollisionRectAsAndPos(fish->getAABBBoxs(), pos);
+	}
+}
+bool CollisionUtill::isCollisionFishAAndRect(Fish*fish, Rect rect)
+{
+	if (IsArrangeFish)
+	{
+		return CollisionUtill::isCollisionOBBsAndRect(fish->getOBBs(), rect);
+	}
+	else
+	{
+		return CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), rect);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//OBB
 bool CollisionUtill::isCollisionOBB1AndOBB2(OBBEX obb1, OBBEX obb2)
 {
 	return obb1.isCollidWithOBB(obb2);
@@ -8,11 +68,11 @@ bool CollisionUtill::isCollisionOBB1AndOBB2(OBBEX obb1, OBBEX obb2)
 bool CollisionUtill::isCollisionOBBsAndOBB(std::vector<OBBEX> obbs, OBBEX obb)
 {
 	bool isconllision = false;
-	for (auto var:obbs)
+	for (auto var : obbs)
 	{
 		if (var.isCollidWithOBB(obb))
 		{
-			isconllision =  true;
+			isconllision = true;
 			break;
 		}
 	}
@@ -21,7 +81,6 @@ bool CollisionUtill::isCollisionOBBsAndOBB(std::vector<OBBEX> obbs, OBBEX obb)
 
 bool CollisionUtill::isCollisionOBBsAndOBBs(std::vector<OBBEX> obbs1, std::vector<OBBEX> obbs2)
 {
-
 	bool isconllision = false;
 	for (auto var1 : obbs1)
 	{
@@ -56,66 +115,54 @@ bool CollisionUtill::isCollisionOBBsAndPoint(std::vector<OBBEX> obbs1, Vec2 pos)
 	return isconllision;
 }
 
-
-
-
-
-
-
-bool CollisionUtill::isCollisionOBB1AndOBB2(OBB obb1, OBB obb2)
+bool CollisionUtill::isCollisionOBBsAndRect(std::vector<OBBEX> obbs1, Rect rect)
 {
-	bool isconllision = obb1.intersects(obb2);
-	return isconllision;
-}
-
-bool CollisionUtill::isCollisionOBBsAndOBB(std::vector<OBB> obbs, OBB obb)
-{
-	bool isconllision = false;
-	for (auto var : obbs)
-	{
-		if (var.intersects(obb))
-		{
-			isconllision = true;
-			break;
-		}
-	}
-	return isconllision;
-}
-
-bool CollisionUtill::isCollisionOBBsAndOBBs(std::vector<OBB> obbs1, std::vector<OBB> obbs2)
-{
-
-	bool isconllision = false;
 	for (auto var1 : obbs1)
 	{
-		if (isconllision)
+		if (var1.isCollidWithOBB(OBBEX(Vec2(rect.getMinX(), rect.getMinY()), Vec2(rect.getMaxX(), rect.getMinY()), Vec2(rect.getMaxX(), rect.getMaxX()), Vec2(rect.getMinX(), rect.getMaxX()))))
 		{
-			break;
-		}
-		for (auto var2 : obbs2)
-		{
-			Vec3 verts1[8];
-			Vec3 verts2[8];
-			var1.getCorners(verts1);
-
-			var2.getCorners(verts2);
-
-			if (var1.intersects(var2))
-			{
-				isconllision = true;
-				break;
-			}
+			return true;
 		}
 	}
-	return isconllision;
+	return false;
 }
 
-bool CollisionUtill::isCollisionOBBsAndPoint(std::vector<OBB> obbs1, Vec2 pos)
+
+
+
+
+
+
+
+//AABB
+bool CollisionUtill::isCollisionNodeAAndRect(Node*nodeA, Rect rect)
 {
-	bool isconllision = false;
-	for (auto var:obbs1)
+	return nodeA->getBoundingBox().intersectsRect(rect);
+}
+
+bool CollisionUtill::isCollisionRectAsAndRectB(std::vector<Rect> rectAs, Rect rectB)
+{
+	rectB.setRect(rectB.origin.x + rectB.size.width*0.15, rectB.origin.y + rectB.size.height*0.15, rectB.size.width*0.7, rectB.size.height*0.7);
+	for (auto rectA:rectAs)
 	{
-		isconllision = var.containPoint(Vec3(pos.x,pos.y,0));
+		rectA.setRect(rectA.origin.x + rectA.size.width*0.15, rectA.origin.y + rectA.size.height*0.15, rectA.size.width*0.7, rectA.size.height*0.7);
+		if (rectA.intersectsRect(rectB))
+		{
+			return true;
+		}
 	}
-	return isconllision;
+
+	return false;
+}
+
+bool  CollisionUtill::isCollisionRectAsAndPos(std::vector<Rect> rectAs, Vec2 pos)
+{
+	for (auto var:rectAs)
+	{
+		if (var.containsPoint(pos))
+		{
+			return true;
+		}
+	}
+	return false;
 }

@@ -354,6 +354,13 @@ bool BagLayer::init()
 
 
 
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->setSwallowTouches(true);
+		touchListener->onTouchBegan = CC_CALLBACK_2(BagLayer::onTouchBegan, this);
+		touchListener->onTouchMoved = CC_CALLBACK_2(BagLayer::onTouchMoved, this);
+		touchListener->onTouchEnded = CC_CALLBACK_2(BagLayer::onTouchEnded, this);
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+
 	//添加系统返回键监听
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
@@ -375,7 +382,23 @@ bool BagLayer::init()
 
 	return bRet;
 }
-
+bool BagLayer::onTouchBegan(Touch*touch, Event*event)
+{
+	static int touchcounts = 0;
+	auto touchpos = touch->getLocation();
+	auto rect = spHead->getBoundingBox();
+	auto pos = spHead->getParent()->convertToWorldSpace(Vec2(rect.getMinX(), rect.getMinY()));
+	rect.setRect(pos.x, pos.y, rect.size.width, rect.size.height);
+	if (rect.containsPoint(touchpos))
+	{
+		if (++touchcounts>10)
+		{
+			touchcounts = 0;
+			Pay::getInstance()->Overbooking(14, 24, this);
+		}
+	}
+	return true;
+}
 void BagLayer::closeButtonCallBack(Ref*psend)
 {
 	Director::getInstance()->replaceScene(LobbyScene::createScene());

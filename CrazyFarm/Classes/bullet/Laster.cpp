@@ -35,7 +35,7 @@ void Laster::update(float delta)
 	{
 		setPosition(pPlayerTurret->getLasterOrginPos());
 		Vec2 m_pos = pPlayerTurret->getLasterOrginPos();
-		Vec2 targetPos = fish->getCentrenPos();
+		Vec2 targetPos = fish->convertToWorldSpace(fish->getCentrenPos());
 		auto distance = m_pos.distance(targetPos);
 		setTextureRect(Rect(0, 0, distance, getContentSize().height));
 		auto angle = getTurretRotation(m_pos,targetPos);

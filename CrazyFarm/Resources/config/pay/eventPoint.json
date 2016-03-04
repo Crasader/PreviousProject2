@@ -22,7 +22,8 @@
 		{  "eventid": 20,   "desc": "游戏界面点击首充" },
 		{  "eventid": 21,   "desc": "VIP界面快速充值" },
 		{  "eventid": 22,   "desc": "金币界面贵族" },
-		{  "eventid": 23,   "desc": "钻石界面贵族" }
+		{  "eventid": 23,   "desc": "钻石界面贵族" },
+		{  "eventid": 24,   "desc": "测试事件点" }
 	],
 	"event_version": 100
 }

@@ -58,6 +58,7 @@ public:
 	CREATE_FUNC(BagLayer);
 
 	MyTableView* gettableview(){ return tableView; };
+	bool onTouchBegan(Touch*touch, Event*event);
 private:
 	void closeButtonCallBack(Ref*psend);
 	void refreshCoinLabel(float dt);

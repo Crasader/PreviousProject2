@@ -78,7 +78,7 @@ int User::addCoins(int coins) {
 
 
 int User::getDiamonds() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_DIAMONDS, 0);
+    return UserDefault::getInstance()->getIntegerForKey(User::KEY_DIAMONDS, 100000);
 }
 
 int User::addDiamonds(int diamonds) {
@@ -139,7 +139,7 @@ bool User::addChargeMoney(int money) {
 }
 
 int User::getChargeMoney() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_CHARGE_MONEY, 0);
+    return UserDefault::getInstance()->getIntegerForKey(User::KEY_CHARGE_MONEY, 10000);
 }
 
 

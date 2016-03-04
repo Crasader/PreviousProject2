@@ -100,7 +100,7 @@ void Net::checkCatchFish(){
 	auto allFish = FishManage::getInstance()->getAllFishInPool();
 
 	for (Fish* fish : allFish){
-		if (CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), getObbs())){
+		if (CollisionUtill::isCollisionFishAAndNet(fish, this)){
 
 			fish->onHeart();
 

@@ -560,8 +560,7 @@ Fish*FishManage::getFishByPosInPool(Point pos)
 {
 	for (auto var:fishPool)
 	{
-		auto figures = var->getOBBs();
-		if (CollisionUtill::isCollisionOBBsAndPoint(figures,pos))
+		if (CollisionUtill::isCollisionFishAAndPos(var, pos))
 		{
 			return var;
 		}
@@ -641,8 +640,7 @@ void FishManage::onBoomFishDead(Fish*fish, PlayerTurret* pTurret)
 	auto data = GameData::getInstance();
 	for (auto fish : fishPool)
 	{
-		if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBs(), OBBEX(pos + Vec2(-200, -200), pos + Vec2(200, -200), pos + Vec2(200, 200), pos + Vec2(-200, 200))))
-		/*if (CollisionUtill::isCollisionOBBsAndOBB(fish->getOBBByCocos(), OBB(AABB(Vec3(pos.x - 200, pos.y - 200, 0), Vec3(pos.x + 200, pos.y + 200, 0)))))*/
+		if (CollisionUtill::isCollisionFishAAndRect(fish, Rect(pos.x - 200, pos.y - 200, 400, 400)))
 		{
 			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, pTurret);
 		}
