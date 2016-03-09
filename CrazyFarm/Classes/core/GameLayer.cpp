@@ -23,6 +23,9 @@
 #include "config/ConfigNewbieFishCatch.h"
 #include "utill/OBB.h"
 #include "domain/game/GameManage.h"
+
+#include "server/Server.h"
+
 #define BOOMRADIUS 300
 enum
 {
@@ -42,6 +45,7 @@ enum
 
 
 bool GameLayer::init(){
+    Server::getInstance()->conConnect("172.23.1.57", 3050);   // TODO  : test init server
 	if (!Layer::init())
 	{
 		return false;
@@ -511,6 +515,8 @@ void GameLayer::collisionUpdate(float dt)
 
 void GameLayer::onExit()
 {
+    Server::getInstance()->quit();  // TODO : disconnect con
+    
 	Layer::onExit();
 	FishManage::getInstance()->cleanVector();
 	BulletManage::getInstance()->ClearManage();
