@@ -42,13 +42,16 @@ void Server::quit() {
 void Server::doConnect() {
     if(!onConnecting) {
         onConnecting = true;
-        pc_request_with_timeout(workingClient, REQ_ROUTE, REQ_MSG, REQ_EX, REQ_TIMEOUT, connect_cb);
+        // TODO : 组装username
+        std::string reqParams = "{\"username\": \"" + std::string(username) + "\"}" ;
+        pc_request_with_timeout(workingClient, REQ_ROUTE, reqParams.c_str(), REQ_EX, REQ_TIMEOUT, connect_cb);
     }
     
 }
 
 
-void Server::conConnect(char* host, int port) {
+void Server::conConnect(char* host, int port, char* session_id) {
+    username = session_id;
     pc_lib_init(NULL, NULL, NULL, NULL);
     workingClient = (pc_client_t*)malloc(pc_client_size());
     pc_client_init(workingClient, (void*)0x11, NULL);

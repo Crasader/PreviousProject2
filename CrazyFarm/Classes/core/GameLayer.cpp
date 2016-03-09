@@ -46,7 +46,8 @@ enum
 
 
 bool GameLayer::init(){
-    Server::getInstance()->conConnect("172.23.1.57", 3050);   // TODO  : test init server
+    char *session_id_test = "TBU_123121238";    // TODO : change to real value
+    Server::getInstance()->conConnect("172.23.1.57", 3050, session_id_test);   // TODO  : test init server
     MsgObserver *muo = new MsgUserOne();
     Server::getInstance()->add_observer(muo);
 	if (!Layer::init())
