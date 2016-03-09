@@ -8,6 +8,7 @@
 
 #ifndef MsgObserver_h
 #define MsgObserver_h
+#include "cocos2d.h"
 
 class MsgObserver
 {
@@ -18,8 +19,8 @@ public:
 class MsgUserOne : public MsgObserver {
 public:
     void handle_event(const int msgId, const char* msgBody) {
-        printf("[MsgUserOne]handle_event: msgId %d\n", msgId);
-        printf("[MsgUserOne]handle_event: msgBody %s\n", msgBody);
+        CCLOG("[MsgUserOne]handle_event: msgId %d\n", msgId);
+        CCLOG("[MsgUserOne]handle_event: msgBody %s\n", msgBody);
         // TODO : 演示简单的消息监听
     }
 };

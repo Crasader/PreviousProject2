@@ -14,8 +14,8 @@ Server* Server::getInstance(){
 }
 
 void Server::event_cb(pc_client_t* client, int ev_type, void* ex_data, const char* arg1, const char* arg2) {
-    printf("[server]event_cb: get eventtype %d\n", ev_type);
-    printf("[server]event_cb: get event %s, arg1: %s, arg2: %s\n", pc_client_ev_str(ev_type),
+    CCLOG("[server]event_cb: get eventtype %d\n", ev_type);
+    CCLOG("[server]event_cb: get event %s, arg1: %s, arg2: %s\n", pc_client_ev_str(ev_type),
            arg1 ? arg1 : "", arg2 ? arg2 : "");
     if(ev_type == 1) {
         Server::getInstance()->doConnect(); 
@@ -57,8 +57,8 @@ void Server::conConnect(char* host, int port) {
 }
 
 void Server::connect_cb(const pc_request_t* req, int rc, const char* resp) {
-    printf("connect_cb: get rc %d\n", rc);
-    printf("connect_cb: get resp %s\n", resp);
+    CCLOG("connect_cb: get rc %d\n", rc);
+    CCLOG("connect_cb: get resp %s\n", resp);
     // TODO : 回调用户信息
 }
 
