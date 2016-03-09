@@ -29,7 +29,7 @@ void WaitCircle::sendRequestWaitCirCle()
 
 bool WaitCircle::init()
 {
-	initWithFile("lightRorate_5.png");
+	initWithFile("waitcircle.png");
 	runAction(RepeatForever::create(RotateBy::create(2.0f, 360)));
 
 	auto listenr1 = EventListenerTouchOneByOne::create();
