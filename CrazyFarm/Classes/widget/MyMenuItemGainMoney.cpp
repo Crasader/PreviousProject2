@@ -34,7 +34,7 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 			dioag->setPosition(Point::ZERO);
 			LogEventPageChange::getInstance()->addEventItems(2, 10, 0);
 			getParent()->getParent()->addChild(dioag,20);
-		
+			removeBlinkAni();
 	}
 	else
 	{
@@ -177,6 +177,22 @@ void MyMenuItemGainMoney::showPopup()
 
 		}), nullptr));
 	
+	}
+
+}
+void MyMenuItemGainMoney::removeBlinkAni()
+{
+	while (1)
+	{
+		auto pNode = getChildByName("blinkAni");
+		if (pNode)
+		{
+			pNode->removeFromParentAndCleanup(1);
+		}
+		else
+		{
+			return;
+		}
 	}
 
 }

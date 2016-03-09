@@ -12,6 +12,12 @@ struct payRequest
 	int pay_point_id;
 	std::string channel_id;
 	std::string orderID;
+	int third_payType =1; //0:斯凯支付1:支付宝 2:微信
+	//微信参数
+	std::string wx_nonceStr;//随机字符串
+	std::string wx_prepayid;//微信订单号
+	std::string wx_sign;//微信签名
+	std::string wx_timestamp;//微信时间戳
 };
 
 
@@ -25,9 +31,13 @@ public:
 	
 	void setIsPaying(bool ispay){ isPaying = ispay; };
 	
-	void pay(payRequest*data,  const char* orderid);//起支付插件
+	void jniCallBack(int code,const char*msg);
+	
+
+	void pay(payRequest*data);//起支付插件
 	void payCallBack(int code,  const char* msg);
 	void update(float dt);
+	void DemandEntry(int reqNum);//最多请求两次
 private:
 	
 	void OverbookingActual(int paypoint, int eventPoint);//下单

@@ -73,7 +73,7 @@ bool GameLayer::init(){
 	addChild(anibowennode, -1);
 
 
-	scheduleUpdate(); //TEST
+	scheduleUpdate(); 
 	addTouchEvent();	
     auto roominfo = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
 	players = RoomManager::getInstance()->initRoomConfig(roominfo.unlock_turrent_level);
@@ -121,9 +121,72 @@ bool GameLayer::init(){
 	addChild(createFishAcNode);
 
 
-		showYourChairno();
+	showYourChairno();
 	
 		
+
+
+/////////////////TEST BEGIN///////////////////////////
+//	Vector<Fish*> needDeadFishs;
+//	for (int i = 0; i < 10;i++)
+//{
+//	auto fish = FishManage::getInstance()->createFishSingle(i+1);
+//	fish->setPosition(rand() % 500 + 200, 100 + rand() % 200);
+//	addChild(fish, 10);
+//	needDeadFishs.pushBack(fish);
+//}
+//	if (needDeadFishs.size() > 0)
+//	{
+//		auto fish = FishManage::getInstance()->createFishSingle(5);
+//		fish->setPosition(rand() % 500 + 200, 100 + rand() % 200);
+//		addChild(fish, 10);
+//		auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
+//		shandian->setPosition(fish->getPosition());
+//		shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+//		addChild(shandian, 2);
+//		shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
+//		auto rorate = getTurretRotation(fish->getPosition(), needDeadFishs.at(0)->getPosition());
+//		auto distans = fish->getPosition().distance(needDeadFishs.at(0)->getPosition());
+//		shandian->setRotation(-90 + rorate);
+//		shandian->setScaleX(distans / 933.0f);
+//	}
+//	for (int i = 0; i < needDeadFishs.size(); i++)
+//	{
+//		auto var = needDeadFishs.at(i);
+//		//闪电光圈
+//		auto sp = Sprite::create();
+//		sp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGuangqiu")));
+//		sp->setPosition(var->getPosition());
+//		addChild(sp, 3);
+//		//闪电
+//		if ((i + 1) < needDeadFishs.size())
+//		{
+//
+//			auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
+//			shandian->setPosition(var->getPosition());
+//			shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+//			addChild(shandian, 2);
+//			shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
+//			auto rorate = getTurretRotation(var->getPosition(), needDeadFishs.at(i + 1)->getPosition());
+//			auto distans = var->getPosition().distance(needDeadFishs.at(i + 1)->getPosition());
+//			shandian->setRotation( - 90 + rorate);
+//			shandian->setScaleX(distans / 933.0f);
+//
+//
+//		}
+//		
+//	}
+//
+//
+//
+
+/////////////////TEST END///////////////////////////
+	
+
+
+
+
+
 
 
 	return true;
@@ -706,7 +769,10 @@ void GameLayer::onClearFish()
 	auto lang = Sprite::create("wave.png");
 	lang->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 	lang->setPosition(1100, 270);
-	lang->runAction(Sequence::create(MoveTo::create(8, Vec2(-300, 270)), CallFunc::create([&]{ unschedule(schedule_selector(GameLayer::onClearFishUpdata)); getChildByName("yuchaotxt")->removeFromParentAndCleanup(1); }), RemoveSelf::create(), nullptr));
+	lang->runAction(Sequence::create(MoveTo::create(8, Vec2(-300, 270)), CallFunc::create([&]{
+		unschedule(schedule_selector(GameLayer::onClearFishUpdata)); 
+		getChildByName("yuchaotxt")->removeFromParentAndCleanup(1);
+	}), RemoveSelf::create(), nullptr));
 	addChild(lang, kZorderFish+1, "lang");
 
 	
@@ -753,7 +819,10 @@ void GameLayer::onClearFishUpdata(float dt)
 		for (auto bullet : needRemove1)
 		{
 			BulletManage::getInstance()->removeBullet(bullet);
-			bullet->removeFromParentAndCleanup(1);
+			if (bullet->getParent())
+			{
+				bullet->removeFromParentAndCleanup(1);
+			}
 
 		}
 	}
@@ -761,7 +830,6 @@ void GameLayer::onClearFishUpdata(float dt)
 }
 void GameLayer::onClearFishFinish()
 {
-	/*createFishAcNode->resume();*/
 	Audio::getInstance()->playBGM(GAMEBGM);
 }
 

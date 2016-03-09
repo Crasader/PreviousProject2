@@ -5,16 +5,16 @@
 #include "domain/logevent/LogEventMannger.h"
 #include "domain/pay/Pay.h"
 #include "domain/ToolTip/ToolTipMannger.h"
+#include "domain/pay/WaitCircle.h"
 #define URL_HEAD "http://106.75.135.78:1701"
 #define URL_REGISTER  "/user/hello"
-#define URL_LOGIN  "/user/login"
 #define URL_LOGIN  "/user/login"
 #define URL_PAY  "/mo/order/booking"
 #define URL_SYNCINFO  "/player/info/sync/fortuneInfo"
 #define URL_SETNAME  "/user/nickname"
 #define URL_FEEDBACK "/help/feedback"
 #define URL_LOGEVENTFISH "/statistics/data"
-
+#define URL_DEMANDENTRY "/mr/order/result"
 HttpMannger* HttpMannger::_instance = NULL;
 
 HttpMannger::HttpMannger(){
@@ -107,17 +107,18 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 }
 
 
-void HttpMannger::HttpToPostRequestBeforePay(std::string sessionid,int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id,int price,int result ,const char* orderid,int paytype)
+void HttpMannger::HttpToPostRequestBeforePay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, std::string  pay_point_desc, int price, int result, const char* orderid, int paytype)
 {
-	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_PAY);
-	auto requstData = String::createWithFormat("session_id=%s&pay_and_event_version=%d&pay_event_id=%d&pay_point_id=%d&channel_id=%s&price=%d&pay_type=%d&result=%d&order_id=%s",
-		sessionid.c_str(), pay_and_Event_version, pay_event_id, pay_point_id, channel_id.c_str(),price, paytype,result,orderid);
 	payRequest* quest = new payRequest();
 	quest->pay_and_Event_version = pay_and_Event_version;
 	quest->channel_id = channel_id;
 	quest->sessionid = sessionid;
 	quest->pay_point_id = pay_point_id;
 	quest->pay_event_id = pay_event_id;
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_PAY);
+	auto requstData = String::createWithFormat("session_id=%s&pay_and_event_version=%d&pay_event_id=%d&pay_point_id=%d&channel_id=%s&price=%d&pay_type=%d&result=%d&order_id=%s&third_type=%d&pay_point_desc=%s",
+		quest->sessionid.c_str(), quest->pay_and_Event_version, quest->pay_event_id, quest->pay_point_id, quest->channel_id.c_str(),price, paytype,result,orderid,quest->third_payType,pay_point_desc.c_str());
+
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForBeforePay, this), quest);
 
 
@@ -150,7 +151,22 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 		const char* orderId = doc["order_id"].GetString();
 
 		auto userdata = (payRequest*)response->getHttpRequest()->getUserData();
-		Pay::getInstance()->pay(userdata, orderId);
+		userdata->orderID = orderId;
+		if (userdata->third_payType==1)
+		{
+			userdata->wx_prepayid = doc["wx_prepayid"].GetString();
+			userdata->wx_sign = doc["wx_sign"].GetString();
+			userdata->wx_timestamp = doc["wx_timestamp"].GetString();
+			userdata->wx_nonceStr = doc["wx_nonce_str"].GetString();
+		}
+	
+		Pay::getInstance()->pay(userdata);
+	}
+	else
+	{
+		Pay::getInstance()->setIsPaying(false);
+		ToolTipMannger::ShowPayTimeoutTip();
+
 	}
 }
 void HttpMannger::HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price,int result, const char* orderid, int paytype )
@@ -279,6 +295,61 @@ void HttpMannger::HttpToPostRequestFeedback(const char* feedback)
 }
 
 
+void HttpMannger::HttpToPostRequestDemandEntry(std::string order_id,int reqNum)
+{
+
+	auto sessionid = User::getInstance()->getSessionid();
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_DEMANDENTRY);
+	auto requstData = String::createWithFormat("session_id=%s&order_id=%s", sessionid.c_str(), order_id.c_str());
+
+	int* reqData = new int();
+	*reqData = reqNum;
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForDemandEntry, this), reqData);
+}
+
+void HttpMannger::onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpResponse *response)
+{
+	if (!response)
+	{
+		Pay::getInstance()->payCallBack(1, "failed");
+		return;
+	}
+	if (!response->isSucceed())
+	{
+		Pay::getInstance()->payCallBack(1, "failed");
+		return;
+	}
+	long statusCode = response->getResponseCode();
+	// dump data
+	std::vector<char> *buffer = response->getResponseData();
+	auto temp = std::string(buffer->begin(), buffer->end());
+	log("http back logevent info: %s", temp.c_str());
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	if (doc.HasParseError())
+	{
+		log("get json data err!");
+	}
+	int result = doc["errorcode"].GetInt();
+	if (result == 0)
+	{	
+		Pay::getInstance()->payCallBack(result, doc["success"].GetString());
+		return;
+	}
+	
+
+	auto data = response->getHttpRequest()->getUserData();
+	int reqnum = *((int*)data);
+	if (reqnum == 2)
+	{
+		Pay::getInstance()->payCallBack(1, "failed");
+	}
+	else
+	{
+		WaitCircle::sendRequestWaitCirCle();
+	}
+}
+
 void HttpMannger::HttpToPostRequestLogEvent(std::string jsonString,int type)
 {
 	int *userdata = new int();
@@ -303,7 +374,6 @@ void HttpMannger::onHttpRequestCompletedForLogEventCommon(HttpClient *sender, Ht
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back logevent info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 	if (doc.HasParseError())

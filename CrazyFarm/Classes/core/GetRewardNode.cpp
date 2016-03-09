@@ -85,7 +85,7 @@ bool GetRewardNode::onTouchBegan(Touch *touch, Event *unused_event)
 	{
 		User::getInstance()->addCoins(m_baknrupt.coins);
 		removeFromParentAndCleanup(1);
-		LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),1, 1);
+		LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),1,1+BankruptManager::getInstance()->getTodayRequestTimes());
 		BankruptManager::getInstance()->setgetRewardNode(nullptr);
 		BankruptManager::getInstance()->addTodayRequestTime();
 	}

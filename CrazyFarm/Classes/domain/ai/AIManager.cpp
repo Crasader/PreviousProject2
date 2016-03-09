@@ -32,21 +32,21 @@ AI* AIManager::getAI( int maxTurrentLevel) {
             molo->setMaxTurrentLevel(1);
         }
         
-        molo->setReqSteps(0.3f);
+        molo->setReqSteps(0.15f);
         return molo;
     }
 	else if (who<60)
 	{
 		AI*hu = new AIHu();
 		hu->setMaxTurrentLevel(maxTurrentLevel);
-		hu->setReqSteps(0.3f);
+		hu->setReqSteps(0.15f);
 		return hu;
 	}
 	else
     {
 		AI*jun = new AIJun();
 		jun->setMaxTurrentLevel(maxTurrentLevel);
-		jun->setReqSteps(0.3f);
+		jun->setReqSteps(0.15f);
 		return jun;
     }
 }

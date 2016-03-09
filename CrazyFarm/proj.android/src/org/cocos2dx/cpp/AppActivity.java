@@ -2,6 +2,8 @@ package org.cocos2dx.cpp;
 
 import java.io.File;
 
+
+
 import org.cocos2dx.lib.Cocos2dxActivity;
 
 import android.app.Activity;
@@ -15,54 +17,83 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
-
 import android.widget.Toast;
 
-//import com.bugtags.library.Bugtags;
 import com.avos.avoscloud.AVAnalytics;
 import com.poixao.crazyfarm.R;
-import com.tbu.android.pay.sky.third.PayCallback;
-import com.tbu.android.pay.sky.third.SkyOrderInfo;
-import com.tbu.android.pay.sky.third.SkyThirdPay;
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-public class AppActivity extends Cocos2dxActivity {
+
+
+public class AppActivity extends Cocos2dxActivity  {
 	
 	private static Activity activity;
+
+	private  static IWXAPI msgApi;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AppActivity.activity = this;
+		
+		// 将该app注册到微信
+		msgApi = WXAPIFactory.createWXAPI(this,"wx884476f603eeb8be", false);
+		msgApi.registerApp("wx884476f603eeb8be");//写死
 	}
 	
-	public static void pay(final int price, final String orderId) {
-		Log.i("TBU_DEBUG", "AppActivity->pay: price = " + price + ";orderId = " + orderId);
-		final SkyOrderInfo skyOrderInfo = new SkyOrderInfo(
-				orderId, 
-				price, 
-				"万炮捕鱼", 
-				SkyOrderInfo.PAY_TYPE_ITEM, 
-				"道具购买");
+	public static void SKYpay(final int price, final String orderId) {
+//		Log.i("TBU_DEBUG", "AppActivity->pay: price = " + price + ";orderId = " + orderId);
+//		final SkyOrderInfo skyOrderInfo = new SkyOrderInfo(
+//				orderId, 
+//				price, 
+//				"万炮捕鱼", 
+//				SkyOrderInfo.PAY_TYPE_ITEM, 
+//				"道具购买");
+//		
+//		AppActivity.activity.runOnUiThread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				Log.i("TBU_DEBUG", "[ON UI THREAD]AppActivity->pay: price = " + price + ";orderId = " + orderId);
+//				SkyThirdPay.getInstance().pay(activity, skyOrderInfo, new PayCallback(){
+//					@Override
+//					public void result(final int code, final String msg) {
+//						Log.i("TBU_DEBUG", "code = " + code + ";msg = " + msg);
+//						JniPayCallbackHelper.payResultCallBack(code,msg);		
+//					}
+//				});
+//				
+//			}
+//			
+//		});
 		
+	}
+	public static void WXpay(final String prepayId, final String nonceStr, final String timeStamp, final String sign) {
+		Log.e("TBU_DEBUG", "pay wx coming ...");
 		AppActivity.activity.runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {
-				Log.i("TBU_DEBUG", "[ON UI THREAD]AppActivity->pay: price = " + price + ";orderId = " + orderId);
-				SkyThirdPay.getInstance().pay(activity, skyOrderInfo, new PayCallback(){
-					@Override
-					public void result(final int code, final String msg) {
-						Log.i("TBU_DEBUG", "code = " + code + ";msg = " + msg);
-						JniPayCallbackHelper.payResultCallBack(code,msg);		
-					}
-				});
+				Log.e("TBU_DEBUG", "pay wx start ...");
+				PayReq request = new PayReq();
+				request.appId = "wx884476f603eeb8be";//商户号和APPID写死
+				request.partnerId = "1318535301";
+				request.packageValue = "Sign=WXPay";
+				request.prepayId= prepayId;
+				request.nonceStr= nonceStr;
+				request.timeStamp= timeStamp;
+				request.sign= sign;
+				msgApi.sendReq(request);
+				Log.e("TBU_DEBUG", "pay wx end "+request.toString());
 				
 			}
-			
 		});
 		
 	}
+	
+	
 
 	public  static String getSDPath(){
 		File sdDir = null;
@@ -80,19 +111,14 @@ public class AppActivity extends Cocos2dxActivity {
 	protected void onPause() {
 	    super.onPause();
 	    AVAnalytics.onPause(this);
-	   // Bugtags.onPause(this);
+
 	}
 
 	protected void onResume() {
 	    super.onResume();
 	    AVAnalytics.onResume(this);
-	   // Bugtags.onResume(this);
 	}
-//	 public boolean dispatchTouchEvent(MotionEvent event) {
-//	        //注：回调 3
-//	        Bugtags.onDispatchTouchEvent(this, event);
-//	        return super.dispatchTouchEvent(event);
-//	    }
+
 
 	public  static void showFeedDialogOnUiThread() {
 		AppActivity.activity.runOnUiThread(new Runnable() {
@@ -132,4 +158,6 @@ public class AppActivity extends Cocos2dxActivity {
 			}
 		});
 	}
+
+	
 }

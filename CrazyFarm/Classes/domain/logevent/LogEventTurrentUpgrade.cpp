@@ -24,13 +24,13 @@ LogEventTurrentUpgrade* LogEventTurrentUpgrade::getInstance(){
 
 std::string LogEventTurrentUpgrade::getDataForJson(int turrent_level, float updata_times)
 {
-
+	int intTime = (int)updata_times;
 	rapidjson::Document document;
 	document.SetObject();
 	rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
 	
 	document.AddMember("turrent_level", turrent_level, allocator);
-	document.AddMember("update_times", updata_times, allocator);
+	document.AddMember("update_times", intTime, allocator);
 	document.AddMember("data_type", 8, allocator);
 	rapidjson::StringBuffer  buffer;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);

@@ -16,6 +16,7 @@ struct PayPointInfo {
 	int paypoint_id;
 	int price;
 	std::vector<PayItem> items;
+	std::string pay_point_desc;
 };
 
 

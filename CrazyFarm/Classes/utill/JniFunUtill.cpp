@@ -93,7 +93,19 @@ const char*JniFunUtill::getHdType()
 	return " ";
 }
 
-void JniFunUtill::pay(int price, const char* orderid)
+void JniFunUtill::showFeedBackDialog()
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	JniMethodInfo methodInfo;
+	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/cpp/AppActivity", "showFeedDialogOnUiThread", "()V");
+	if (isHave){
+		jobject jobj;
+		JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+	}
+#endif
+}
+
+void JniFunUtill::SKYPay(int price, const char* orderid)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	JniMethodInfo methodInfo;
@@ -108,14 +120,18 @@ void JniFunUtill::pay(int price, const char* orderid)
 }
 
 
-void JniFunUtill::showFeedBackDialog()
+void JniFunUtill::WXPay(const char* prepayId, const char* nonceStr, const char* timeStamp, const char* sign)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	JniMethodInfo methodInfo;
-	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/cpp/AppActivity", "showFeedDialogOnUiThread", "()V");
+	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/cpp/AppActivity", "WXpay",  "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");;
+	jstring jprepayId = methodInfo.env->NewStringUTF(prepayId);
+	jstring jnonceStr = methodInfo.env->NewStringUTF(nonceStr);
+	jstring jtimeStamp = methodInfo.env->NewStringUTF(timeStamp);
+	jstring jsign = methodInfo.env->NewStringUTF(sign);
 	if (isHave){
 		jobject jobj;
-		JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+		JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, jprepayId, jnonceStr, jtimeStamp, jsign);
 	}
 #endif
 }

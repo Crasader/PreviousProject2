@@ -14,7 +14,7 @@ PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
 		return playerWork;
 	}
 
-	if (FishManage::getInstance()->getAllFishInPoolCount() < 2|| FishManage::getInstance()->getAllFishInPoolCount() > 11111 || BulletManage::getInstance()->getBulletPoolSize() > 20) {
+	if (FishManage::getInstance()->getAllFishInPoolCount() < 2|| FishManage::getInstance()->getAllFishInPoolCount() > 11111 || BulletManage::getInstance()->getBulletPoolSize() > 200) {
 		playerWork.setAngle((float)angle);
 		playerWork.setFire(false);
 		return playerWork;

@@ -475,10 +475,7 @@ int Fish::getFishID() {
 void Fish::removeself()
 {
 	stopLightShoot();
-	stopLockShoot();
-	stopAllActions();
-	
-	
+	stopLockShoot();	
 	removeFromParentAndCleanup(1);
 
 }
@@ -528,8 +525,7 @@ void Fish::onFreezeResume()
 
 void Fish::onDead()
 {
-	unscheduleAllCallbacks();
-	stopAllActions();
+
 	auto acName = String::createWithFormat("dead_%d", nUiID);
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
 	auto ac1 = ac->clone();

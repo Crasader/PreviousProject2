@@ -10,6 +10,7 @@ public:
 private:
 	void ItemCallBack(Ref* psend);
 	void initItem();
+	void removeBlinkAni();
 	void showBlinkAni();
 	Node* commonNode;
 	Sprite*txt;

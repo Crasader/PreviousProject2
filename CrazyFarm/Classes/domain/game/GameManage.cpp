@@ -44,9 +44,15 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 
 		if (fish->getFishType() == GoldFish||fish->getFishType() == ArrangeFish||fish->getFishType() == BossFish)
 		{
-
 			//»Æ½ðÓã²¶»ñ¶¯»­
-			Director::getInstance()->getRunningScene()->runAction(CCShake::create(0.2, 30));
+			auto ac = Director::getInstance()->getRunningScene()->getActionByTag(666);
+			if (!ac&&!turret->isRobot)
+			{
+				auto acShake = CCShake::create(0.2, 30);
+				acShake->setTag(666);
+				Director::getInstance()->getRunningScene()->runAction(acShake);
+			}
+			
 			auto aninode = Node::create();
 			aninode->setPosition(0, 0);
 			turret->addChild(aninode, 1, "goldfichCatch");

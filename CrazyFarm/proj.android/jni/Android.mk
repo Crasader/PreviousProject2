@@ -1,24 +1,5 @@
 LOCAL_PATH := $(call my-dir)
 
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libmegjb
-
-LOCAL_SRC_FILES := prebuilt/libmegjb.so
-
-include $(PREBUILT_SHARED_LIBRARY)
-
-LOCAL_SHARED_LIBRARIES := libmegjb
-
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := libzimon
-
-LOCAL_SRC_FILES := prebuilt/libzimon.so
-
-include $(PREBUILT_SHARED_LIBRARY)
-
-LOCAL_SHARED_LIBRARIES := libzimon
 
 
 

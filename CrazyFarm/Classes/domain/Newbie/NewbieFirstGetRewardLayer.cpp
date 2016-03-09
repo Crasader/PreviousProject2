@@ -60,6 +60,7 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 	sPoint->removeFromParentAndCleanup(1);
 	tipTxt->removeFromParentAndCleanup(1);
 	box->stopAllActions();
+	box->setRotation(0);
 	sLight->removeFromParentAndCleanup(1);
 	sLight = Sprite::create("light_2.png");
 	sLight->setPosition(box->getContentSize() / 2);

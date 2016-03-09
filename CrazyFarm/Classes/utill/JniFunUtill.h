@@ -17,7 +17,10 @@ public:
 	const char* getChannelId();
 
 	void showFeedBackDialog();
-	void pay(int price, const char* orderid);
+
+
+	void SKYPay(int price, const char* orderid);
+	void WXPay(const char* prepayId, const char* nonceStr, const char* timeStamp, const char* sign);
 private:
 	JniFunUtill();
 	static JniFunUtill* _instance;

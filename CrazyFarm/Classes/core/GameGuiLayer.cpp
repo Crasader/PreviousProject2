@@ -410,10 +410,5 @@ Vec2 GameGuiLayer::getItemPos(int itemid)
 }
 
 void GameGuiLayer::update(float delta)
-{/*
-	if (NewbieMannger::getInstance()->getNBShootCounts()>=40)
-	{
-		NewbieMannger::getInstance()->setNBShootCounts(-1);
-		ShowUseLockTip();
-	}*/
+{
 }

@@ -586,7 +586,10 @@ void FishManage::createCycleFish(int count, int Radius, int fishID, Point center
 }
 void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 {
-	//TODO::一网打尽死亡动画
+	Node* allKillAninode = Node::create();
+	allKillAninode->setPosition(0, 0);
+	m_layer->addChild(allKillAninode, 6);
+
 	Vector<Fish*> needDeadFishs;
 	for (auto var:fishPool)
 	{
@@ -597,39 +600,48 @@ void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 	}
 	if (needDeadFishs.size()>0)
 	{
+		//闪电光圈
+		auto sp = Sprite::create();
+		sp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGuangqiu")));
+		sp->setPosition(fish->getPosition());
+		allKillAninode->addChild(sp, 2);
+
 		auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
-		shandian->setPosition(fish->getContentSize() / 2);
-		fish->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
-		fish->addChild(shandian);
+		shandian->setPosition(fish->getPosition());
+		shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		allKillAninode->addChild(shandian,1);
 		shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
 		auto rorate = getTurretRotation(fish->getPosition(), needDeadFishs.at(0)->getPosition());
 		auto distans = fish->getPosition().distance(needDeadFishs.at(0)->getPosition());
-		shandian->setRotation(rorate);
-		shandian->setScaleX(distans / 392.0f);
+		shandian->setRotation(-90 + rorate);
+		shandian->setScaleX(distans / 933.0f);
 	}
 	for (int i = 0; i < needDeadFishs.size();i++)
 	{	
 		auto var = needDeadFishs.at(i);
 		//闪电光圈
-		auto sp = Sprite::create("ShandianCycle.png");
-		sp->setPosition(var->getContentSize() / 2);
-		var->addChild(sp);
+		auto sp = Sprite::create();
+		sp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGuangqiu")));
+		sp->setPosition(var->getPosition());
+		allKillAninode->addChild(sp, 2);
 		//闪电
 		if ((i+1)<needDeadFishs.size())
 		{
+
 			auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
-			shandian->setPosition(var->getContentSize() / 2);
-			shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
-			var->addChild(shandian);
+			shandian->setPosition(var->getPosition());
+			shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 			shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
 			auto rorate = getTurretRotation(var->getPosition(), needDeadFishs.at(i + 1)->getPosition());
 			auto distans = var->getPosition().distance(needDeadFishs.at(i + 1)->getPosition());
-			shandian->setRotation(rorate);
-			shandian->setScaleX(distans / 392.0f);
+			shandian->setRotation(-var->getRotation()-90 + rorate);
+			shandian->setScaleX(distans / 933.0f);
+			allKillAninode->addChild(shandian, 1);
+			GameManage::getInstance()->CatchTheFishOntheTurrent(var, 1, pTurret);
 		}
-		GameManage::getInstance()->CatchTheFishOntheTurrent(var, 1, pTurret);
+		
 	}
-	
+	allKillAninode->runAction(Sequence::create(DelayTime::create(1.0f), RemoveSelf::create(), nullptr));
 
 }
 void FishManage::onBoomFishDead(Fish*fish, PlayerTurret* pTurret)

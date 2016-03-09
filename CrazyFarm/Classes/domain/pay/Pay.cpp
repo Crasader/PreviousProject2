@@ -12,6 +12,7 @@
 #include "domain/game/GameManage.h"
 #include "config/ConfigVipLevel.h"
 #include "domain/ToolTip/ToolTipMannger.h"
+#include "WaitCircle.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
 
 Pay* Pay::_instance = NULL;
@@ -33,10 +34,10 @@ Pay* Pay::getInstance(){
 }
 void Pay::Overbooking(int paypoint, int eventPoint, Node*paynode)
 {
-	if (isPaying)
+	/*if (isPaying)
 	{
-		return;
-	}
+	return;
+	}*/
 	isPaying = true;
 	auto sessioned = User::getInstance()->getSessionid();
 	if (sessioned=="")
@@ -65,14 +66,13 @@ void Pay::OverbookingActual(int paypoint, int eventPoint)
 	auto channel_id = DeviceInfo::getChannel_id();
 	auto sessionid = User::getInstance()->getSessionid();
 	int price = payPointInfo.price;
-	HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, payPointVersion * 1000 + payeventVersion, eventPoint, paypoint, channel_id, price);
+	HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, payPointVersion * 1000 + payeventVersion, eventPoint, paypoint, channel_id,payPointInfo.pay_point_desc,price);
 }
 
-void Pay::pay(payRequest*data, const char* orderid)
+void Pay::pay(payRequest*data)
 {
+	delete nowData;
 	nowData = data;
-	nowData->orderID = orderid;
-
 
 	payResult = -1;
 
@@ -81,21 +81,47 @@ void Pay::pay(payRequest*data, const char* orderid)
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	payCallBack(0, "success");
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	JniFunUtill::getInstance()->pay(PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id).price, orderid);
+	switch (nowData->third_payType)
+	{	
+	//微信支付
+	case 1:
+		JniFunUtill::getInstance()->WXPay(data->wx_prepayid.c_str(),data->wx_nonceStr.c_str(),data->wx_timestamp.c_str(),data->wx_sign.c_str());
+		break;
+	case 0:
+		JniFunUtill::getInstance()->SKYPay(PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id).price, nowData->orderID.c_str());
+		break;
+	default:
+		JniFunUtill::getInstance()->SKYPay(PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id).price, nowData->orderID.c_str());
+		break;
+}
 #endif
 }
-
-
+void Pay::jniCallBack(int code, const char*msg)
+{
+	log("jni callBack code = %d",code);
+	if (code == 0)
+	{
+		WaitCircle::ShowPayWaitCircle();
+	}
+	else
+	{
+		payCallBack(code, msg);
+	}
+}
+void Pay::DemandEntry(int reqNum)
+{
+	HttpMannger::getInstance()->HttpToPostRequestDemandEntry(nowData->orderID,reqNum);
+}
 void Pay::payCallBack(int code, const char* msg)
 {
+	WaitCircle::RemovePayWaitCircle();
 	isPaying = false;
 	log("pay callback success");
 	auto info = PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id);
-	if (code == 0||code==201)
+	if (code == 0)
 	{
 		int lastlv = User::getInstance()->getVipLevel();
 		auto lvdata = ConfigVipLevel::getInstance()->getVipLevel(lastlv);
-		//���ߴ���
 		for (auto var:info.items)
 		{
 			switch (var.ItemID)
