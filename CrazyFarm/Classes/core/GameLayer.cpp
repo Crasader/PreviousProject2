@@ -25,6 +25,7 @@
 #include "domain/game/GameManage.h"
 
 #include "server/Server.h"
+#include "server/MsgObserver.h"
 
 #define BOOMRADIUS 300
 enum
@@ -46,6 +47,8 @@ enum
 
 bool GameLayer::init(){
     Server::getInstance()->conConnect("172.23.1.57", 3050);   // TODO  : test init server
+    MsgObserver *muo = new MsgUserOne();
+    Server::getInstance()->add_observer(muo);
 	if (!Layer::init())
 	{
 		return false;
