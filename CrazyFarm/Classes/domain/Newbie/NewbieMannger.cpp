@@ -14,3 +14,10 @@ NewbieMannger* NewbieMannger::getInstance(){
 	}
 	return _instance;
 }
+void NewbieMannger::resetInfo()
+{
+	setisGetFirstReward(0);
+	setisOverTeachMode(0);
+	setNBShootCounts(0);
+	setisTeachUpgradeTurrent(0);
+}

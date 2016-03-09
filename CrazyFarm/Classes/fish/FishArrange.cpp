@@ -19,7 +19,9 @@ void FishArrange::addShader()
 }
 void FishArrange::onDead()
 {
-	removeFromParentAndCleanup(1);
+	onFreezeResume();
+	stopAllActions();
+	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create(CC_CALLBACK_0(Fish::removeself, this)), nullptr));
 }
 
 void FishArrange::pushBackFigureVec(int uiid, Point pos)

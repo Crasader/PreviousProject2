@@ -21,7 +21,7 @@ public:
 	void HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp,int maxTurretLevel,int PayRMB,int nobillityCount);//上传同步信息
 	void HttpToPostRequestSetName(std::string sessionid,const  char* nickname, int gender);//设置昵称
 	void HttpToPostRequestFeedback(const  char* feedback);//用户反馈	
-	void HttpToPostRequestDemandEntry(std::string order_id,int reqNum);//用户支付完后查询订单	
+	void HttpToPostRequestDemandEntry(std::string prepayid, int reqNum);//用户支付完后查询订单	
 	void onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForRegisterInfo(HttpClient *sender, HttpResponse *response);

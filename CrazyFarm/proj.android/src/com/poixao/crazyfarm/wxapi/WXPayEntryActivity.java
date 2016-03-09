@@ -15,6 +15,7 @@ import android.util.Log;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.modelpay.PayResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -50,8 +51,16 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
 		 Log.e("TBU_DEBUG", "onPayFinish, errCode = " + resp.errCode);
 
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-			JniPayCallbackHelper.payResultCallBack(resp.errCode,"scuess");	
-
+			PayResp payResp = (PayResp)resp;
+			 Log.e("TBU_DEBUG", "payresp prepayId =  " + payResp.prepayId);
+			if(resp.errCode == BaseResp.ErrCode.ERR_OK)
+			{
+				JniPayCallbackHelper.payResultCallBack(0,"scuess",payResp.prepayId);					
+			}
+			else
+			{
+				JniPayCallbackHelper.payResultCallBack(resp.errCode,"failed",payResp.prepayId);	
+			}
 		}
 		
 		WXPayEntryActivity.this.finish();

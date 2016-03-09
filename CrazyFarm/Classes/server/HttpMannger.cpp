@@ -145,7 +145,7 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 		log("get json data err!");;
 	}
 	int result = doc["errorcode"].GetInt();
-	log("pay http errormsg = %s", doc["errormsg"].GetString());
+	
 	if (result == 0)
 	{
 		const char* orderId = doc["order_id"].GetString();
@@ -158,6 +158,7 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 			userdata->wx_sign = doc["wx_sign"].GetString();
 			userdata->wx_timestamp = doc["wx_timestamp"].GetString();
 			userdata->wx_nonceStr = doc["wx_nonce_str"].GetString();
+			log("pay http errormsg = %s", doc["errormsg"].GetString());
 		}
 	
 		Pay::getInstance()->pay(userdata);
@@ -295,15 +296,16 @@ void HttpMannger::HttpToPostRequestFeedback(const char* feedback)
 }
 
 
-void HttpMannger::HttpToPostRequestDemandEntry(std::string order_id,int reqNum)
+void HttpMannger::HttpToPostRequestDemandEntry(std::string prepayid, int reqNum)
 {
-
+	auto orderid = Pay::getInstance()->getOrderIdByprepayid(prepayid);
 	auto sessionid = User::getInstance()->getSessionid();
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_DEMANDENTRY);
-	auto requstData = String::createWithFormat("session_id=%s&order_id=%s", sessionid.c_str(), order_id.c_str());
+	auto requstData = String::createWithFormat("session_id=%s&order_id=%s", sessionid.c_str(), orderid.c_str());
 
-	int* reqData = new int();
-	*reqData = reqNum;
+	prepayidAndReqNum* reqData = new prepayidAndReqNum();
+	reqData->reqnum = reqNum;
+	reqData->prepayid = prepayid;
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForDemandEntry, this), reqData);
 }
 
@@ -311,12 +313,14 @@ void HttpMannger::onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpR
 {
 	if (!response)
 	{
-		Pay::getInstance()->payCallBack(1, "failed");
+		Pay::getInstance()->payCallBack(1, "failed","");
 		return;
 	}
+	auto data = response->getHttpRequest()->getUserData();
+	prepayidAndReqNum *reqdata = (prepayidAndReqNum*)data;
 	if (!response->isSucceed())
 	{
-		Pay::getInstance()->payCallBack(1, "failed");
+		Pay::getInstance()->payCallBack(1, "failed", reqdata->prepayid);
 		return;
 	}
 	long statusCode = response->getResponseCode();
@@ -333,21 +337,19 @@ void HttpMannger::onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpR
 	int result = doc["errorcode"].GetInt();
 	if (result == 0)
 	{	
-		Pay::getInstance()->payCallBack(result, doc["success"].GetString());
+		Pay::getInstance()->payCallBack(result, doc["success"].GetString(), reqdata->prepayid);
 		return;
 	}
 	
-
-	auto data = response->getHttpRequest()->getUserData();
-	int reqnum = *((int*)data);
-	if (reqnum == 2)
+	if (reqdata->reqnum >= 2)
 	{
-		Pay::getInstance()->payCallBack(1, "failed");
+		Pay::getInstance()->payCallBack(1, "failed", reqdata->prepayid);
 	}
 	else
 	{
-		WaitCircle::sendRequestWaitCirCle();
+		WaitCircle::sendRequestWaitCirCle(reqdata->prepayid);
 	}
+	delete reqdata;
 }
 
 void HttpMannger::HttpToPostRequestLogEvent(std::string jsonString,int type)

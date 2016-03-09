@@ -35,6 +35,7 @@ public:
 	void refreshCoinLabel();
 	void showVipCallBack(Ref*psend);
 	void quickBeginCallback(Ref*psend);
+
 private:
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
 	void showSign(float dt);

@@ -29,6 +29,7 @@ void SkillBombButton::skillClickCallBack(Ref* obj)
 void SkillBombButton::skillCoolDownCallBack()
 {
 	SkillButton::skillCoolDownCallBack();
+	setEnable(false);
 
 }
 

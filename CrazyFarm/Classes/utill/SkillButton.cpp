@@ -211,6 +211,7 @@ void SkillButton::useSkill()
 			{
 				auto dialog = TwiceSureDialog::createDialog(ChineseWord("havanoDmToUseskill").c_str(), CC_CALLBACK_1(SkillButton::ToPayShopCallBack, this));
 				dialog->setPosition(Point::ZERO);
+				dialog->setName("havanoDmToUseskill");
 				GameManage::getInstance()->getGuiLayer()->addChild(dialog, 20);
 			}
 		}
@@ -291,6 +292,6 @@ void SkillButton::ToPayShopCallBack(Ref*psend)
 	layer->setPosition(0, 0);
 	layer->setEventPont(m_skillID + 12);
 	GameManage::getInstance()->getGuiLayer()->addChild(layer, 20);
-	auto node = (Node*)psend;
-	node->getParent()->getParent()->removeFromParentAndCleanup(1);
+	auto node = GameManage::getInstance()->getGuiLayer()->getChildByName("havanoDmToUseskill");
+	node->removeFromParentAndCleanup(1);
 }

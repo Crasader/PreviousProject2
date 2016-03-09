@@ -20,6 +20,12 @@ struct payRequest
 	std::string wx_timestamp;//微信时间戳
 };
 
+struct prepayidAndReqNum
+{
+	std::string prepayid;
+	int reqnum;
+};
+
 
 class Pay:public Node {
 
@@ -31,13 +37,15 @@ public:
 	
 	void setIsPaying(bool ispay){ isPaying = ispay; };
 	
-	void jniCallBack(int code,const char*msg);
+	void jniCallBack(int code, const char*msg, const char* prepayid);
 	
 
 	void pay(payRequest*data);//起支付插件
-	void payCallBack(int code,  const char* msg);
+	void payCallBack(int code, const char* msg, std::string prepayid);
 	void update(float dt);
-	void DemandEntry(int reqNum);//最多请求两次
+	void DemandEntry(int reqNum,std::string prePayid);//最多请求两次
+
+	std::string getOrderIdByprepayid(std::string prepayid);
 private:
 	
 	void OverbookingActual(int paypoint, int eventPoint);//下单
@@ -45,8 +53,8 @@ private:
     Pay();
     bool init();
     static Pay* _instance;
-	payRequest* nowData;
-	
+	std::map<std::string, payRequest*>  prepayidToPayRequest;
+
 
 	bool isPaying = false;
 	int payResult = -1;   //初始值-1,成功1，失败2'

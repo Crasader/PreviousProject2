@@ -6,6 +6,7 @@ using namespace cocos2d;
 class NewbieMannger{
 public:
 	static NewbieMannger* getInstance();
+	void resetInfo();
 private:
 	NewbieMannger();
 	static NewbieMannger* _instance;
