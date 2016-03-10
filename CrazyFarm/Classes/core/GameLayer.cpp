@@ -23,7 +23,7 @@
 #include "config/ConfigNewbieFishCatch.h"
 #include "utill/OBB.h"
 #include "domain/game/GameManage.h"
-
+#include "domain/user/User.h"
 #include "server/Server.h"
 #include "server/MsgObserver.h"
 
@@ -46,8 +46,7 @@ enum
 
 
 bool GameLayer::init(){
-    char *session_id_test = "TBU_123121238";    // TODO : change to real value
-    Server::getInstance()->conConnect("172.23.1.20", 3050, session_id_test);   // TODO  : test init server
+    Server::getInstance()->conConnect("172.23.1.20", 3050, User::getInstance()->getSessionid().c_str());   // TODO  : test init server
     MsgObserver *muo = new MsgUserOne();
     Server::getInstance()->add_observer(muo);
 	Server::getInstance()->add_observer(this);
