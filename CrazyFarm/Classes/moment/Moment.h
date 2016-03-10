@@ -1,6 +1,5 @@
 #pragma once
 #include "cocos2d.h"
-#include "config/ConfigOnemoment.h"
 using namespace cocos2d;
 
 

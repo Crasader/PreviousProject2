@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 #include "fish/Fish.h"
 #include "core/GameLayer.h"
-#include "config/ConfigOnemoment.h"
 #include "moment/Moment.h"
 #include "moment/MomentManager.h"
 #include "config/ConfigMomentEight.h"
@@ -54,7 +53,6 @@ public:
 	void UpdateWhenController(float dt);
 	void UpdataCreateFish(float dt);
 	void LoadOnement(Moment*monent);
-	void createFishByOneMonet(OneMoment onemonent);
 	void onBoomFishDead(Fish*fish, PlayerTurret* pTurret);
 	void onAllKilledFishDead(Fish*fish, PlayerTurret*pTurret);
 

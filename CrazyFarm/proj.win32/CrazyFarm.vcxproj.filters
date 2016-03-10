@@ -234,20 +234,11 @@
     <ClCompile Include="..\Classes\fish\FishGroupData.cpp">
       <Filter>src\fish</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\config\ConfigOnemoment.cpp">
-      <Filter>src\Interface</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\moment\Moment.cpp">
       <Filter>src\moment</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\moment\MomentManager.cpp">
       <Filter>src\moment</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\moment\MomentOne.cpp">
-      <Filter>src\moment</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\config\ConfigMomentOrder.cpp">
-      <Filter>src\Interface</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\core\showFishLayer.cpp">
       <Filter>src\core</Filter>
@@ -776,20 +767,11 @@
     <ClInclude Include="..\Classes\fish\FishGroupData.h">
       <Filter>src\fish</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\config\ConfigOnemoment.h">
-      <Filter>src\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\moment\Moment.h">
       <Filter>src\moment</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\moment\MomentManager.h">
       <Filter>src\moment</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\moment\MomentOne.h">
-      <Filter>src\moment</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\config\ConfigMomentOrder.h">
-      <Filter>src\Interface</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\core\showFishLayer.h">
       <Filter>src\core</Filter>

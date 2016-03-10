@@ -153,10 +153,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\config\ConfigMagnate.cpp" />
     <ClCompile Include="..\Classes\config\ConfigManager.cpp" />
     <ClCompile Include="..\Classes\config\ConfigMomentEight.cpp" />
-    <ClCompile Include="..\Classes\config\ConfigMomentOrder.cpp" />
     <ClCompile Include="..\Classes\config\ConfigNewbieFishCatch.cpp" />
     <ClCompile Include="..\Classes\config\ConfigNormalTurrent.cpp" />
-    <ClCompile Include="..\Classes\config\ConfigOnemoment.cpp" />
     <ClCompile Include="..\Classes\config\ConfigRoom.cpp" />
     <ClCompile Include="..\Classes\config\ConfigSign.cpp" />
     <ClCompile Include="..\Classes\config\ConfigSkill.cpp" />
@@ -284,7 +282,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\moment\momentFishGroup\MomentTwo.cpp" />
     <ClCompile Include="..\Classes\moment\MomentManager.cpp" />
     <ClCompile Include="..\Classes\moment\MomentNine.cpp" />
-    <ClCompile Include="..\Classes\moment\MomentOne.cpp" />
     <ClCompile Include="..\Classes\moment\MonmetEightRoute.cpp" />
     <ClCompile Include="..\Classes\net\Net.cpp" />
     <ClCompile Include="..\Classes\pause\GamePauseLayer.cpp" />
@@ -335,10 +332,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\config\ConfigMagnate.h" />
     <ClInclude Include="..\Classes\config\ConfigManager.h" />
     <ClInclude Include="..\Classes\config\ConfigMomentEight.h" />
-    <ClInclude Include="..\Classes\config\ConfigMomentOrder.h" />
     <ClInclude Include="..\Classes\config\ConfigNewbieFishCatch.h" />
     <ClInclude Include="..\Classes\config\ConfigNormalTurrent.h" />
-    <ClInclude Include="..\Classes\config\ConfigOnemoment.h" />
     <ClInclude Include="..\Classes\config\ConfigRoom.h" />
     <ClInclude Include="..\Classes\config\ConfigSign.h" />
     <ClInclude Include="..\Classes\config\ConfigSkill.h" />
@@ -466,7 +461,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\moment\momentFishGroup\MomentTwo.h" />
     <ClInclude Include="..\Classes\moment\MomentManager.h" />
     <ClInclude Include="..\Classes\moment\MomentNine.h" />
-    <ClInclude Include="..\Classes\moment\MomentOne.h" />
     <ClInclude Include="..\Classes\moment\MonmetEightRoute.h" />
     <ClInclude Include="..\Classes\net\Net.h" />
     <ClInclude Include="..\Classes\pause\GamePauseLayer.h" />
