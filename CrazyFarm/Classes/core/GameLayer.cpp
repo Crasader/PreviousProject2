@@ -46,6 +46,7 @@ bool GameLayer::init(){
 	{
 		return false;
 	}
+	initFishAndBulletData();
 	setIsShowYourChairno(false);
 	FishManage::getInstance()->setlayer(this);
 	skillManager::getInstance()->setlayer(this);
@@ -187,7 +188,7 @@ bool GameLayer::init(){
 
 
 
-
+	
 
 	return true;
 }
@@ -508,14 +509,16 @@ void GameLayer::collisionUpdate(float dt)
 	
 	FishManage::getInstance()->removeFishWhichSwimOut();
 }
-
-void GameLayer::onExit()
+void GameLayer::initFishAndBulletData()
 {
-	Layer::onExit();
 	FishManage::getInstance()->cleanVector();
 	BulletManage::getInstance()->ClearManage();
 	myTurret = nullptr;
 	otherTurrets.clear();
+}
+void GameLayer::onExit()
+{
+	Layer::onExit();
 }
 
 void GameLayer::loadNewMonent(float ffTime)

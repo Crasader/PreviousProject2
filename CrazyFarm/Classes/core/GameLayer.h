@@ -96,7 +96,7 @@ public:
 	void onClearFishUpdata(float dt);
 	void onClearFishFinish();
 private:
-	
+	void initFishAndBulletData();
 
 	//╣Ц╩Вез
 	bool onTouTurret(Point pos);
