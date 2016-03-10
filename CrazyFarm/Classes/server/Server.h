@@ -23,7 +23,7 @@ public:
     
     void add_observer(MsgObserver *o);
     void remove_observer(MsgObserver *o);
-    void notify_observer(const int msgId, const char* msgBody);
+	void notify_observer(const char* msgId, const char* msgBody);
 
 private:
 	Server();

@@ -13,12 +13,12 @@
 class MsgObserver
 {
 public:
-    virtual void handle_event(const int msgId, const char* msgBody)=0;
+    virtual void handle_event(const char* msgId, const char* msgBody)=0;
 };
 
 class MsgUserOne : public MsgObserver {
 public:
-    void handle_event(const int msgId, const char* msgBody) {
+	void handle_event(const char* msgId, const char* msgBody) {
         CCLOG("[MsgUserOne]handle_event: msgId %d\n", msgId);
         CCLOG("[MsgUserOne]handle_event: msgBody %s\n", msgBody);
         // TODO : 演示简单的消息监听

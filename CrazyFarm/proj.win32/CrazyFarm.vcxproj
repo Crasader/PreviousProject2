@@ -73,7 +73,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;$(EngineRoot);D:\vld\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;E:\tbu\TBUCOCOSC\CrazyFarm\extend\server_sdk\include\uv;E:\tbu\TBUCOCOSC\CrazyFarm\extend\server_sdk\include;$(EngineRoot)extensions;..\Classes;$(EngineRoot);D:\vld\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -86,9 +86,9 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>vld.lib;libpomelo2.lib;libuv.lib;ws2_32.lib;Iphlpapi.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>D:\vld\Visual Leak Detector\lib\Win32;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:\tbu\TBUCOCOSC\CrazyFarm\extend\server_sdk\lib\win;D:\vld\Visual Leak Detector\lib\Win32;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -291,6 +291,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\result\GameResultScene.cpp" />
     <ClCompile Include="..\Classes\server\HttpClientUtill.cpp" />
     <ClCompile Include="..\Classes\server\HttpMannger.cpp" />
+    <ClCompile Include="..\Classes\server\Server.cpp" />
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp" />
     <ClCompile Include="..\Classes\turret\Turret.cpp" />
     <ClCompile Include="..\Classes\utill\AnimationUtil.cpp" />
@@ -472,6 +473,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\result\GameResultScene.h" />
     <ClInclude Include="..\Classes\server\HttpClientUtill.h" />
     <ClInclude Include="..\Classes\server\HttpMannger.h" />
+    <ClInclude Include="..\Classes\server\MsgObserver.h" />
+    <ClInclude Include="..\Classes\server\Server.h" />
     <ClInclude Include="..\Classes\turret\PlayerTurret.h" />
     <ClInclude Include="..\Classes\turret\Turret.h" />
     <ClInclude Include="..\Classes\utill\AnimationUtil.h" />

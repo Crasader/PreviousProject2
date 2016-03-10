@@ -20,8 +20,11 @@ void Server::event_cb(pc_client_t* client, int ev_type, void* ex_data, const cha
     if(ev_type == 1) {
         Server::getInstance()->doConnect(); 
     }else if(ev_type == 0) {
-        Server::getInstance()->notify_observer(1, arg2);
+		Server::getInstance()->notify_observer(arg1, arg2);
     }
+
+
+	Server::getInstance()->notify_observer("fire", "400");
     // TODO : 处理连接失败和重连的问题，并且要仔细测试下。
 }
 
@@ -63,6 +66,7 @@ void Server::connect_cb(const pc_request_t* req, int rc, const char* resp) {
     CCLOG("connect_cb: get rc %d\n", rc);
     CCLOG("connect_cb: get resp %s\n", resp);
     // TODO : 回调用户信息
+	
 }
 
 void Server::add_observer(MsgObserver *o){
@@ -78,7 +82,7 @@ void Server::remove_observer(MsgObserver *o) {
     }
 }
 
-void Server::notify_observer(const int msgId, const char* msgBody) {
+void Server::notify_observer(const char* msgId, const char* msgBody) {
     for(std::vector<MsgObserver*>::const_iterator it=msgObserver.begin(); it!=msgObserver.end(); it++) {
         (*it)->handle_event(msgId, msgBody);
     }

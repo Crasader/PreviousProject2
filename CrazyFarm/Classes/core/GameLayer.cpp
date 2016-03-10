@@ -47,9 +47,10 @@ enum
 
 bool GameLayer::init(){
     char *session_id_test = "TBU_123121238";    // TODO : change to real value
-    Server::getInstance()->conConnect("172.23.1.57", 3050, session_id_test);   // TODO  : test init server
+    Server::getInstance()->conConnect("172.23.1.20", 3050, session_id_test);   // TODO  : test init server
     MsgObserver *muo = new MsgUserOne();
     Server::getInstance()->add_observer(muo);
+	Server::getInstance()->add_observer(this);
 	if (!Layer::init())
 	{
 		return false;
@@ -313,7 +314,7 @@ void GameLayer::shootUpdata(float dt)
 			//射击角度范围（-80，80）；
 			return;
 		}
-		CCLOG("rorate %f", degree);
+
 		myTurret->shoot(degree);
 		isShoot = false;
 		runAction(Sequence::create(DelayTime::create(shootInterval), CallFunc::create([&]{
@@ -390,7 +391,6 @@ bool GameLayer::lockTouchEvent(Touch *touch, Event  *event)
 void GameLayer::onTouchMoved(Touch *touch, Event  *event)
 {
 	touchpos = touch->getLocation();
-	CCLOG("%f,%f", touchpos.x, touchpos.y);
 }
 
 void  GameLayer::onTouchEnded(Touch *touch, Event  *event)
@@ -931,3 +931,16 @@ void GameLayer::onGetRewardByfish(PlayerTurret*turrent, Fish*fish, int itemid, i
 	}), RemoveSelf::create(1), nullptr));
 
 }
+
+void GameLayer::handle_event(const char* msgId, const char* msgBody)
+{
+	if (strcmp (msgId,"fire")==0)
+	{
+		if (myTurret)
+		{
+			myTurret->shoot(Value(msgBody).asFloat());
+		}
+		
+	}
+}
+

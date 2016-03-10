@@ -130,6 +130,9 @@
     <Filter Include="src\AI">
       <UniqueIdentifier>{bc11c115-20d7-4246-b5f2-fed33e1d0c85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\server">
+      <UniqueIdentifier>{59d40c16-56a4-4a83-bd42-3d9971568266}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -423,9 +426,6 @@
     <ClCompile Include="..\Classes\domain\user\User.cpp">
       <Filter>src\Interface\playinfo</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\server\HttpClientUtill.cpp">
-      <Filter>src\utill</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\domain\skill\SkillLockButton.cpp">
       <Filter>src\skill</Filter>
     </ClCompile>
@@ -485,9 +485,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\domain\pay\Pay.cpp">
       <Filter>src\pay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\server\HttpMannger.cpp">
-      <Filter>src\mannager</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\loading\LoadingScene.cpp">
       <Filter>src</Filter>
@@ -665,6 +662,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\domain\pay\WaitCircle.cpp">
       <Filter>src\pay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Server.cpp">
+      <Filter>src\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\HttpMannger.cpp">
+      <Filter>src\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\HttpClientUtill.cpp">
+      <Filter>src\server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -962,9 +968,6 @@
     <ClInclude Include="..\Classes\domain\user\User.h">
       <Filter>src\Interface\playinfo</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\server\HttpClientUtill.h">
-      <Filter>src\utill</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\domain\skill\SkillLockButton.h">
       <Filter>src\skill</Filter>
     </ClInclude>
@@ -1024,9 +1027,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\pay\Pay.h">
       <Filter>src\pay</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\server\HttpMannger.h">
-      <Filter>src\mannager</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\loading\LoadingScene.h">
       <Filter>src</Filter>
@@ -1207,6 +1207,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\pay\WaitCircle.h">
       <Filter>src\pay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\MsgObserver.h">
+      <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Server.h">
+      <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\HttpMannger.h">
+      <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\HttpClientUtill.h">
+      <Filter>src\server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

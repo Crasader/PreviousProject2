@@ -7,6 +7,7 @@
 #include "net/Net.h"
 #include "domain/room/RoomManager.h"
 #include "domain/magnate/MagnateManager.h"
+#include "server/MsgObserver.h"
 USING_NS_CC;
 enum TouchType
 {
@@ -17,7 +18,7 @@ enum TouchType
 	TouchInLight
 };
 
-class GameLayer: public cocos2d::Layer{
+class GameLayer: public cocos2d::Layer ,public MsgObserver{
 public:
 	virtual bool init();
 	CREATE_FUNC(GameLayer);
@@ -102,7 +103,7 @@ private:
 	bool onTouTurret(Point pos);
 	void removePlayerInfo();
 	void calculateFreeChair();
-	PlayerTurret* myTurret;
+	PlayerTurret* myTurret =nullptr;
 	Vector<PlayerTurret*> otherTurrets;
 	std::vector<RoomPlayer> players;
 	int m_index = -1;
@@ -119,5 +120,12 @@ private:
 	Point touchpos;
 	bool istouched = false;
 	float shootTemp = 0;
+	///////强联网相关
+	public:
+		virtual void handle_event(const char* msgId, const char* msgBody);
+
+
+
+
 };
 #endif
