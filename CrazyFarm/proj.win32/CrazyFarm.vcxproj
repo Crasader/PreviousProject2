@@ -213,6 +213,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\nobility\NobilityManager.cpp" />
     <ClCompile Include="..\Classes\domain\pay\Pay.cpp" />
     <ClCompile Include="..\Classes\domain\pay\PayEventPointConfig.cpp" />
+    <ClCompile Include="..\Classes\domain\pay\PayingDialog.cpp" />
     <ClCompile Include="..\Classes\domain\pay\PayPointConfig.cpp" />
     <ClCompile Include="..\Classes\domain\pay\WaitCircle.cpp" />
     <ClCompile Include="..\Classes\domain\ranklist\RanklistCell.cpp" />
@@ -394,6 +395,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\nobility\NobilityManager.h" />
     <ClInclude Include="..\Classes\domain\pay\Pay.h" />
     <ClInclude Include="..\Classes\domain\pay\PayEventPointConfig.h" />
+    <ClInclude Include="..\Classes\domain\pay\PayingDialog.h" />
     <ClInclude Include="..\Classes\domain\pay\PayPointConfig.h" />
     <ClInclude Include="..\Classes\domain\pay\WaitCircle.h" />
     <ClInclude Include="..\Classes\domain\ranklist\RanklistCell.h" />

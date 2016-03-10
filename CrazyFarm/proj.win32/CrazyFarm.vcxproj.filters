@@ -666,6 +666,9 @@
     <ClCompile Include="..\Classes\domain\pay\WaitCircle.cpp">
       <Filter>src\pay</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\pay\PayingDialog.cpp">
+      <Filter>src\pay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1206,6 +1209,9 @@
       <Filter>src\lobby\viplayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\domain\pay\WaitCircle.h">
+      <Filter>src\pay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\pay\PayingDialog.h">
       <Filter>src\pay</Filter>
     </ClInclude>
   </ItemGroup>

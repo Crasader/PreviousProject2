@@ -97,7 +97,7 @@ bool GameGuiLayer::init(){
 	createGuizuGiftLayer();
 	if (GameData::getInstance()->getRoomID() > 1)
 	{
-		beginMaridTaskTime();
+		beginMaridTaskTime(rand()%300);//第一次游戏开始300秒
 	}
 
 
@@ -242,9 +242,9 @@ void GameGuiLayer::showSettingCallback(Ref*pSender)//BUG
 	}),nullptr));
 }
 
-void GameGuiLayer::beginMaridTaskTime()
+void GameGuiLayer::beginMaridTaskTime(float diffTime)
 {
-	fmaridNowTime = 0;
+	fmaridNowTime = diffTime;
 	GameData::getInstance()->setmermaidTask(MermaidTask::getNewMermaidTask());
 	GameData::getInstance()->setIsOnMaridTask(false);
 	schedule(schedule_selector(GameGuiLayer::maridTaskTime), 1.0f);

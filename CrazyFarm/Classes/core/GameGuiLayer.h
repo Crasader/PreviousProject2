@@ -58,7 +58,7 @@ private :
 	void createMermaidTaskPlane();
 
 public:
-	void beginMaridTaskTime();
+	void beginMaridTaskTime(float diffTime);
 
 	void showLockUpgradeTurret();
 

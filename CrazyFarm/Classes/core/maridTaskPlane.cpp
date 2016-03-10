@@ -74,7 +74,7 @@ void maridTaskPlane::update(float delta)
 		LogEventMermaid::getInstance()->addDataToSend(GameData::getInstance()->getRoomID(), nNowtime, GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
 		CoinBox::getInstance()->addCoinBox(GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
 		GameManage::getInstance()->getGameLayer()->onGetReward(1008, 1);
-		((GameGuiLayer*)getParent())->beginMaridTaskTime();
+		((GameGuiLayer*)getParent())->beginMaridTaskTime(0);
 		auto sp = Sprite::create("TXTFinished.png");
 		sp->setPosition(480, 270);
 		auto nameLabel = LabelTTF::create(User::getInstance()->getUserName(), "arial", 20);
@@ -89,7 +89,7 @@ void maridTaskPlane::update(float delta)
 	if (nNowtime>GameData::getInstance()->getmermaidTask()->getMermaidTaskConfigInfo().continue_time)//Î´Íê³É
 	{	
 		LogEventMermaid::getInstance()->addDataToSend(GameData::getInstance()->getRoomID(), 0, GameData::getInstance()->getmermaidTask()->getMermaidTaskOnlineInfo().coins);
-		((GameGuiLayer*)getParent())->beginMaridTaskTime();
+		((GameGuiLayer*)getParent())->beginMaridTaskTime(0);
 		auto sp = Sprite::create("TXTNoFinished.png");
 		sp->setPosition(480, 270);
 		getParent()->addChild(sp, 20);

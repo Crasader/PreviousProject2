@@ -398,13 +398,16 @@ bool LobbyScene::init()
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg(); }), nullptr));
 
 
-	
+	//auto s2p = Sprite::create("waitcircle.png");
+	//s2p->setPosition(480, 270);
+	//addChild(s2p, 111);
+	//s2p->runAction(RepeatForever::create(RotateBy::create(2, 360)));
+
 	return true;
 }
 void LobbyScene::showSign(float dt)
 {
 
-	
 	
 	auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
 	if (seqday == 0)

@@ -7,6 +7,7 @@
 #include "domain/globalschedule/GlobalSchedule.h"
 #include "domain/logevent/LogEventMannger.h"
 #include "utill/Audio.h"
+#include "domain/pay/Pay.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -84,6 +85,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("game/ui/txt");
 	paths.push_back("game/ui/gamelayer/playerturret");
 	paths.push_back("game/ui/loading");
+	paths.push_back("game/ui/payShop");
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand(time(NULL));
 	auto timenode = GlobalSchedule::getInstance();
@@ -113,6 +115,11 @@ void AppDelegate::applicationWillEnterForeground() {
 	Director::getInstance()->startAnimation();
 	Audio::getInstance()->resumeBGM();
 	
+	if (Pay::getInstance()->getIsPaying())
+	{
+		Pay::getInstance()->CancelTheOrder();
+	}
+
 	log("come to game");
 	// if you use SimpleAudioEngine, it must resume here
 	// SimpleAudioEngine::getInstance()->resumeBackgroundMusic();

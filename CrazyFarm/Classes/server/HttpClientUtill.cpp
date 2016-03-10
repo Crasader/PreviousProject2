@@ -33,7 +33,7 @@ void HttpClientUtill::onGetHttp(char* Url,const ccHttpRequestCallback& callback)
 void HttpClientUtill::onPostHttp(std::string postData, const char* Url, const ccHttpRequestCallback& callback, void* userData)
 {
 
-	log("http post request = %s", postData.c_str());
+	log("http post request = %s on %s", postData.c_str(), Url);
 	HttpRequest* request = new (std::nothrow) HttpRequest();
 	request->setUrl(Url);
 	request->setUserData(userData);

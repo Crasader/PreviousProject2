@@ -10,11 +10,13 @@
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
 #define URL_PAY  "/mo/order/booking"
+#define URL_CANCELORDER "/mo/order/cancel"
 #define URL_SYNCINFO  "/player/info/sync/fortuneInfo"
 #define URL_SETNAME  "/user/nickname"
 #define URL_FEEDBACK "/help/feedback"
 #define URL_LOGEVENTFISH "/statistics/data"
 #define URL_DEMANDENTRY "/mr/order/result"
+
 HttpMannger* HttpMannger::_instance = NULL;
 
 HttpMannger::HttpMannger(){
@@ -129,7 +131,7 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 	if (!response||!response->isSucceed())
 	{
 		log("http back  before pay info falied");
-		Pay::getInstance()->setIsPaying(false);
+		Pay::getInstance()->setPayState(UnDoing);
 		ToolTipMannger::ShowPayTimeoutTip();
 		return;
 	}
@@ -165,13 +167,17 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 	}
 	else
 	{
-		Pay::getInstance()->setIsPaying(false);
+		Pay::getInstance()->setPayState(UnDoing);
 		ToolTipMannger::ShowPayTimeoutTip();
 
 	}
 }
 void HttpMannger::HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price,int result, const char* orderid, int paytype )
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	return;
+#endif
+
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_PAY);
 	auto requstData = String::createWithFormat("session_id=%s&pay_and_event_version=%d&pay_event_id=%d&pay_point_id=%d&channel_id=%s&price=%d&pay_type=%d&result=%d&order_id=%s",
 		sessionid.c_str(), pay_and_Event_version, pay_event_id, pay_point_id, channel_id.c_str(),price, paytype, result, orderid);
@@ -309,11 +315,56 @@ void HttpMannger::HttpToPostRequestDemandEntry(std::string prepayid, int reqNum)
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForDemandEntry, this), reqData);
 }
 
+void HttpMannger::onHttpRequestCompletedForCancelOrder(HttpClient *sender, HttpResponse *response)
+{
+	if (!response)
+	{
+		return;
+	}
+	auto data = response->getHttpRequest()->getUserData();
+	std::string *reqdata = (std::string*)data;
+	if (!response->isSucceed())
+	{
+		return;
+	}
+	long statusCode = response->getResponseCode();
+	// dump data
+	std::vector<char> *buffer = response->getResponseData();
+	auto temp = std::string(buffer->begin(), buffer->end());
+	log("http back cancelorder info: %s", temp.c_str());
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	if (doc.HasParseError())
+	{
+		log("get json data err!");
+	}
+	int result = doc["errorcode"].GetInt();
+	if (result == 0)
+	{	
+		Pay::getInstance()->payCallBack(1, "", Pay::getInstance()->getPrepayIdByOrderid(*reqdata));
+		
+	}
+	
+	delete reqdata;
+	return;
+}
+
+
+void HttpMannger::HttpToPostRequestCancelOrder(std::string orderid)
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_CANCELORDER);
+	auto requstData = String::createWithFormat("session_id=%s&order_id=%s", sessionid.c_str(), orderid.c_str());
+
+	std::string* reqData = new std::string(orderid);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForCancelOrder, this), reqData);
+}
+
 void HttpMannger::onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpResponse *response)
 {
 	if (!response)
 	{
-		Pay::getInstance()->payCallBack(1, "failed","");
+		Pay::getInstance()->payCallBack(1, "failed", "");
 		return;
 	}
 	auto data = response->getHttpRequest()->getUserData();
@@ -336,21 +387,24 @@ void HttpMannger::onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpR
 	}
 	int result = doc["errorcode"].GetInt();
 	if (result == 0)
-	{	
-		Pay::getInstance()->payCallBack(result, doc["success"].GetString(), reqdata->prepayid);
-		return;
-	}
-	
-	if (reqdata->reqnum >= 2)
 	{
-		Pay::getInstance()->payCallBack(1, "failed", reqdata->prepayid);
+		Pay::getInstance()->payCallBack(result, doc["success"].GetString(), reqdata->prepayid);
 	}
 	else
 	{
-		WaitCircle::sendRequestWaitCirCle(reqdata->prepayid);
+		if (reqdata->reqnum >= 2)
+		{
+			Pay::getInstance()->payCallBack(1, "failed", reqdata->prepayid);
+		}
+		else
+		{
+			WaitCircle::sendRequestWaitCirCle(reqdata->prepayid);
+		}
 	}
+
 	delete reqdata;
 }
+
 
 void HttpMannger::HttpToPostRequestLogEvent(std::string jsonString,int type)
 {

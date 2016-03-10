@@ -5,13 +5,13 @@ WaitCircle*  WaitCircle::ShowPayWaitCircle()
 {
 	auto circle = WaitCircle::create();
 	circle->setPosition(480, 270);
-	Director::getInstance()->getRunningScene()->addChild(circle, 30);
+	Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(circle, 100);
 	return circle;
 }
 void WaitCircle::RemovePayWaitCircle(std::string prepayid)
 {
 
-		auto circle = Director::getInstance()->getRunningScene()->getChildByName(prepayid);
+	auto circle = Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByName(prepayid);
 		if (circle)
 		{
 			circle->removeFromParentAndCleanup(1);
@@ -26,7 +26,7 @@ void WaitCircle::RemovePayWaitCircle(std::string prepayid)
 
 void WaitCircle::sendRequestWaitCirCle(std::string prepayid)
 {
-	auto circle = Director::getInstance()->getRunningScene()->getChildByName(prepayid);
+	auto circle = Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByName(prepayid);
 	if (circle)
 	{
 		auto node = (WaitCircle*)(circle); 
@@ -36,7 +36,7 @@ void WaitCircle::sendRequestWaitCirCle(std::string prepayid)
 
 bool WaitCircle::init()
 {
-	initWithFile("game/ui/payShop/waitcircle.png");
+	bool k = initWithFile("waitcircle.png");
 	runAction(RepeatForever::create(RotateBy::create(2.0f, 360)));
 
 	auto listenr1 = EventListenerTouchOneByOne::create();

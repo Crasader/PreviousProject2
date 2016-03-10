@@ -13,6 +13,7 @@
 #include "config/ConfigVipLevel.h"
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "WaitCircle.h"
+#include "PayingDialog.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
 
 Pay* Pay::_instance = NULL;
@@ -34,11 +35,12 @@ Pay* Pay::getInstance(){
 }
 void Pay::Overbooking(int paypoint, int eventPoint, Node*paynode)
 {
-	/*if (isPaying)
+	if (m_state!=UnDoing)
 	{
-	return;
-	}*/
-	isPaying = true;
+		return;
+	}
+	PayingDialog::ShowPayDialog();
+	m_state = OrderBooking;
 	auto sessioned = User::getInstance()->getSessionid();
 	if (sessioned=="")
 	{
@@ -56,7 +58,7 @@ void Pay::OverbookingActual(int paypoint, int eventPoint)
 	auto sessioned = User::getInstance()->getSessionid();
 	if (sessioned == "")
 	{
-		isPaying = false;
+		m_state = UnDoing;
 		ToolTipMannger::ShowPayTimeoutTip();
 		return; 
 	}
@@ -73,9 +75,9 @@ void Pay::pay(payRequest*data)
 {
 	prepayidToPayRequest[data->wx_prepayid] = data;
 	log("pushback data wx_prepayid = %s", data->wx_prepayid.c_str());
-
+	nowPayOrderId = data->orderID;
 	payResult = -1;
-
+	m_state = WxPaying;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	payCallBack(0, "success", data->wx_prepayid);
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
@@ -108,6 +110,20 @@ std::string Pay::getOrderIdByprepayid(std::string prepayid)
 		return prepayidToPayRequest[prepayid]->orderID;
 	}
 }
+
+std::string Pay::getPrepayIdByOrderid(std::string orderid)
+{
+	log("cin orderid = %s",orderid.c_str());
+	for (auto it = prepayidToPayRequest.begin(); it != prepayidToPayRequest.end(); ++it)
+	{
+		if (orderid == it->second->orderID)
+		{
+			log("cout prepayid = %s", it->first.c_str());
+			return it->first;
+		}
+	}
+	return "";
+}
 void Pay::jniCallBack(int code, const char*msg, const char*wx_prepayid)
 {
 	log("jni callBack code = %d",code);
@@ -121,6 +137,7 @@ void Pay::jniCallBack(int code, const char*msg, const char*wx_prepayid)
 		auto circle = WaitCircle::ShowPayWaitCircle();
 		circle->setMyPrepayid(wx_prepayid);
 		circle->setName(wx_prepayid);
+		m_state = DemandEntrying;
 	}
 	else
 	{
@@ -134,8 +151,9 @@ void Pay::DemandEntry(int reqNum, std::string orederid)
 void Pay::payCallBack(int code, const char* msg, std::string prepayid)
 {
 	WaitCircle::RemovePayWaitCircle(prepayid);
-	isPaying = false;
-	log("pay callback success");
+	PayingDialog::RemovePayDialog();
+	m_state = UnDoing;
+	log("pay callback success  prepayid =%s",prepayid.c_str());
 	if (!(prepayidToPayRequest.find(prepayid) != prepayidToPayRequest.end()))
 	{
 		log("have no data on callback %s", prepayid.c_str());
@@ -202,7 +220,14 @@ void Pay::payCallBack(int code, const char* msg, std::string prepayid)
 	
 	nowData = nullptr;
 }
-
+void Pay::CancelTheOrder()
+{
+	if (nowPayOrderId!=""&&m_state!=DemandEntrying)
+	{
+		HttpMannger::getInstance()->HttpToPostRequestCancelOrder(nowPayOrderId);
+	}
+	
+}
 PayPointInfo Pay::getInfoByPaypoint(int paypoint)
 {
 	return PayPointConfig::getInstance()->getPayPointInfoById(paypoint);

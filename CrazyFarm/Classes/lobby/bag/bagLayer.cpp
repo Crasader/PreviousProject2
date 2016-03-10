@@ -137,7 +137,7 @@ Scene* BagLayer::createScene()
 
 	auto layer = BagLayer::create();
 
-	scene->addChild(layer,0,50);
+	scene->addChild(layer,0,888);
 
 	return scene;
 }
