@@ -16,6 +16,8 @@ void Audio::playBGM(const char* soundName){
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(soundName,true);
 
 }
+
+
 void Audio::pauseBGM()
 {
 	CCLOG("pause BGM ");

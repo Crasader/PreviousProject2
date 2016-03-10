@@ -205,11 +205,7 @@ void GameGuiLayer::createSettingBoard()
 
 void GameGuiLayer::onExit()
 {
-	
-	Layer::onExit();
-	Audio::getInstance()->pauseBGM();
-
-
+	Layer::onExit()
 }
 
 void GameGuiLayer::settingCallback(Ref *pSender)

@@ -397,11 +397,8 @@ bool LobbyScene::init()
 	}
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg(); }), nullptr));
 
-
-	//auto s2p = Sprite::create("waitcircle.png");
-	//s2p->setPosition(480, 270);
-	//addChild(s2p, 111);
-	//s2p->runAction(RepeatForever::create(RotateBy::create(2, 360)));
+	
+	
 
 	return true;
 }
@@ -659,7 +656,7 @@ void LobbyScene::onAudioOnOffCallback(Ref*psend)
 	else{
 		GameData::getInstance()->setMusicState(true);
 		GameData::getInstance()->setSoundState(true);
-		Audio::getInstance()->playBGM(LOBBYBGM);
+		Audio::getInstance()->resumeBGM();
 	}
 }
 void LobbyScene::feedBackCallback(Ref*psend)
