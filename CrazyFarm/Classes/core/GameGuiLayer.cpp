@@ -60,19 +60,19 @@ bool GameGuiLayer::init(){
 	skillManager::getInstance()->addskillButton(1, skillbutton);
 	//ºËµ¯
 	auto skillbutton1 = SkillBombButton::createSkillBombButton();
-	skillbutton1->setPosition(visibleSize.width*0.03, visibleSize.height*0.48 + 10);
+	skillbutton1->setPosition(visibleSize.width*0.03+2, visibleSize.height*0.48 + 15);
 	skillbutton1->setScale(0.7);
 	addChild(skillbutton1);
 	skillManager::getInstance()->addskillButton(4, skillbutton1);
 	//ÕÙ»½
 	auto skillbutton2 = SkillSummonButton::createSkillSummonButton();
-	skillbutton2->setPosition(visibleSize.width*0.03, visibleSize.height*0.20+10);
+	skillbutton2->setPosition(visibleSize.width*0.03+2, visibleSize.height*0.20+15);
 	skillbutton2->setScale(0.7);
 	addChild(skillbutton2);
 	skillManager::getInstance()->addskillButton(3, skillbutton2);
 	//À×µç	
 	auto skillbutton3 = SkillLightButton::createSkillLightButton();
-	skillbutton3->setPosition(visibleSize.width*0.03, visibleSize.height*0.34+10);
+	skillbutton3->setPosition(visibleSize.width*0.03+2, visibleSize.height*0.34+15);
 	skillbutton3->setScale(0.7);
 	addChild(skillbutton3);
 	skillManager::getInstance()->addskillButton(5, skillbutton3);
@@ -205,7 +205,7 @@ void GameGuiLayer::createSettingBoard()
 
 void GameGuiLayer::onExit()
 {
-	Layer::onExit()
+	Layer::onExit();
 }
 
 void GameGuiLayer::settingCallback(Ref *pSender)
@@ -330,7 +330,7 @@ void GameGuiLayer::ShowUseLockTip(Point dmDropPos)
 	auto itemcell = Sprite::create(str->getCString());
 	itemcell->setPosition(dmDropPos);
 	itemcell->setScale(0);
-	addChild(itemcell, 10);
+	addChild(itemcell, 20);
 	auto duration = dmDropPos.distance(bt->getPosition()) / 800.0f;
 	itemcell->runAction(Sequence::create(Spawn::create(ScaleTo::create(0.5f, 1.0f), MoveTo::create(0.5f, Vec2(403, 373)), nullptr), EaseSineIn::create(MoveTo::create(1.5f, bt->getPosition())), CallFunc::create([=]{
 		bt->runAction(Sequence::createWithTwoActions(ScaleTo::create(0.1, 1.1f), ScaleTo::create(0.1, 0.9f)));
