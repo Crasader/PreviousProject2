@@ -6,6 +6,7 @@
 #include "core/GameScene.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/bankrupt/BankruptManager.h"
+#include "domain/loading/LoadingSceneLbToGm.h"
 RoomCell*RoomCell::createCell(Room room)
 {
 	RoomCell*cell = new RoomCell();
@@ -65,7 +66,14 @@ void RoomCell::isBeClicked()
 
 		}
 		GameData::getInstance()->setRoomID(m_room.room_id);
-		Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
+		if (GameData::getInstance()->getisLoadMsgOnGame())
+		{
+			Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
+		}
+		else
+		{
+			Director::getInstance()->replaceScene(TransitionFade::create(1, LoadingSceneLbToGm::createScene()));
+		}
 	}
 	
 }

@@ -190,6 +190,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\game\GameManage.cpp" />
     <ClCompile Include="..\Classes\domain\globalschedule\GlobalSchedule.cpp" />
     <ClCompile Include="..\Classes\domain\loading\LoadingScene.cpp" />
+    <ClCompile Include="..\Classes\domain\loading\LoadingSceneLbToGm.cpp" />
     <ClCompile Include="..\Classes\domain\logevent\LogEventBankrupt.cpp" />
     <ClCompile Include="..\Classes\domain\logevent\LogEventConsume.cpp" />
     <ClCompile Include="..\Classes\domain\logevent\LogEventFish.cpp" />
@@ -369,6 +370,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\game\GameManage.h" />
     <ClInclude Include="..\Classes\domain\globalschedule\GlobalSchedule.h" />
     <ClInclude Include="..\Classes\domain\loading\LoadingScene.h" />
+    <ClInclude Include="..\Classes\domain\loading\LoadingSceneLbToGm.h" />
     <ClInclude Include="..\Classes\domain\logevent\LogEventBankrupt.h" />
     <ClInclude Include="..\Classes\domain\logevent\LogEventConsume.h" />
     <ClInclude Include="..\Classes\domain\logevent\LogEventFish.h" />

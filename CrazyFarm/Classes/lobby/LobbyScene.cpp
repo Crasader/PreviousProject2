@@ -39,6 +39,7 @@
 #include "lobby/viplayer/VipGainCoinSureDialog.h"
 #include "utill/CircleMoveTo.h"
 #include "domain/pay/WaitCircle.h"
+#include "domain/loading/LoadingSceneLbToGm.h"
 enum
 {
 	kZorderMenu = 10,
@@ -603,7 +604,15 @@ void LobbyScene::quickBeginCallback(Ref*psend)
 
 	}
 	GameData::getInstance()->setRoomID(roomDatas.at(i).room_id);
-	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
+	if (GameData::getInstance()->getisLoadMsgOnGame())
+	{
+		Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
+	}
+	else
+	{
+		Director::getInstance()->replaceScene(TransitionFade::create(1, LoadingSceneLbToGm::createScene()));
+	}
+	
 	LogEventPageChange::getInstance()->addEventItems(1, 2, 0);
 }
 

@@ -19,6 +19,7 @@ void GameData::init(){
 	setisOnGameScene(false);
 	setisDirectUseSkill(false);
 	setisOnGroupComing(false);
+	setisLoadMsgOnGame(false);
 }
 
 GameData* GameData::getInstance(){
