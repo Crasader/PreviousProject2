@@ -41,7 +41,7 @@ private:
     static void event_cb(pc_client_t* client, int ev_type, void* ex_data, const char* arg1, const char* arg2);
     static void connect_cb(const pc_request_t* req, int rc, const char* resp);
     
-    char* username;
+    const char* username;
     
     std::vector<MsgObserver*> msgObserver;
 };
