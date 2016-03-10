@@ -219,6 +219,9 @@ void HttpMannger::onHttpRequestCompletedForSyncInfo(HttpClient *sender, HttpResp
 
 void HttpMannger::HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp, int maxTurretLevel, int PayRMB, int nobillityCount)
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	return;
+#endif
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_SYNCINFO);
 	auto requstData = String::createWithFormat("session_id=%s&coins=%d&diamonds=%d&exp=%d&turrent_level=%d&mo=%d&nobility_time=%d", sessionid.c_str(), coin, diamond, exp, maxTurretLevel, PayRMB, nobillityCount);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForSyncInfo, this));

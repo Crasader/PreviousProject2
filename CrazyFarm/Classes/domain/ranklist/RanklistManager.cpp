@@ -1,6 +1,7 @@
 #include "domain/ranklist//RanklistManager.h"
 #include "server/HttpClientUtill.h"
 #include "utill/FunUtil.h"
+#include "domain/user/User.h"
 #define RANKLISTINCOIN "http://114.119.39.150:1701/player/rank/coin"
 #define RANKLISTINEXP "http://114.119.39.150:1701/player/rank/exp"
 RanklistManager* RanklistManager::_instance = NULL;
@@ -111,10 +112,24 @@ void RanklistManager::onHttpRequestCompletedForCoin(HttpClient *sender, HttpResp
 	}
 	bIsGetDataSuccess = true;
 }
-
+int RanklistManager::getRankByCoinForMyself(int coin)
+{
+	
+	return getRankByCoin(coin);
+}
 
 int RanklistManager::getRankByCoin(int coin)
 {
+	///如果下达排行榜中有自己
+	auto name = User::getInstance()->getUserName();
+	for (int i = 0; i < rankItemsByCoin.size(); i++)
+	{
+		if (!rankItemsByCoin[i].name.compare(name))
+		{
+			return i+1;
+		}
+	}
+	//没自己
 	rankRange range;
     for (auto var:rankCoinRange)
     {
@@ -129,6 +144,16 @@ int RanklistManager::getRankByCoin(int coin)
 }
 int RanklistManager::getRankByExp(int exp)
 {
+	///如果下达排行榜中有自己
+	auto name = User::getInstance()->getUserName();
+	for (int i = 0; i < rankItemsByExp.size(); i++)
+	{
+		if (!rankItemsByExp[i].name.compare(name))
+		{
+			return i+1;
+		}
+	}
+	///没自己
 	rankRange range;
 	for (auto var : rankExpRange)
 	{

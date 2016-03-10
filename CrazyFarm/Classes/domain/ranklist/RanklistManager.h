@@ -33,6 +33,7 @@ public:
 	bool IsSuccess(){ return bIsGetDataSuccess; };
 	int getRankByCoin(int coin);
 	int getRankByExp(int exp);
+	int getRankByCoinForMyself(int coin);
 private:
 	RanklistManager();
 	std::vector<rankListItem > rankItemsByCoin;
