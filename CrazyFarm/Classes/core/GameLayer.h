@@ -54,6 +54,7 @@ private:
 
 	void AiUpdata(float dt);
 	void onExit();
+	virtual void onEnterTransitionDidFinish();
 	//Updata
 	void collisionUpdate(float dt);
 	void update(float dt);
@@ -119,5 +120,8 @@ private:
 	Point touchpos;
 	bool istouched = false;
 	float shootTemp = 0;
+
+
+	bool isInitData = false;
 };
 #endif

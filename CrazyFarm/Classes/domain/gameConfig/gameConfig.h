@@ -17,11 +17,10 @@ class GameConfig {
 public:
 	static GameConfig* getInstance();
 	bool loadConfig();
-	ShootData getShootData(){ return shootData; };
 private:
 	GameConfig();
 	static GameConfig* _instance;
-	ShootData shootData;
+	CC_SYNTHESIZE(ShootData, shootData, ShootData);
 };
 
 

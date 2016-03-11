@@ -511,16 +511,22 @@ void GameLayer::collisionUpdate(float dt)
 }
 void GameLayer::initFishAndBulletData()
 {
-	FishManage::getInstance()->cleanVector();
-	BulletManage::getInstance()->ClearManage();
-	myTurret = nullptr;
-	otherTurrets.clear();
+	if (isInitData == false)
+	{
+		FishManage::getInstance()->cleanVector();
+		BulletManage::getInstance()->ClearManage();
+		isInitData = true;
+	}
 }
 void GameLayer::onExit()
 {
 	Layer::onExit();
 }
-
+void GameLayer::onEnterTransitionDidFinish()
+{
+	Layer::onEnterTransitionDidFinish();
+	initFishAndBulletData();
+}
 void GameLayer::loadNewMonent(float ffTime)
 {
 	FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMoment(ffTime));

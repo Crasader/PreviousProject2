@@ -26,6 +26,7 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/logevent/LogEventTurrentUpgrade.h"
 #include "core/GameScene.h"
+#include "domain/loading/LoadingSceneLbToGm.h"
 enum 
 {
 	kTagBankrupt = 20
