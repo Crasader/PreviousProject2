@@ -12,6 +12,7 @@
 #include "domain/login/LoginMannger.h"
 #include "utill/Chinese.h"
 #include "utill/CircleMoveTo.h"
+#include "utill/Audio.h"
 
 Scene* LoadingScene::createScene()
 {
@@ -57,6 +58,8 @@ bool LoadingScene::init()
 	loadingbarFrame->addChild(loadingBar);
 	showTip();
 
+
+	Audio::getInstance()->prepare();
 	scheduleUpdate();
 
 	

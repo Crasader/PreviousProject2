@@ -58,7 +58,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			aninode->setPosition(0, 0);
 			turret->addChild(aninode, 1, "goldfichCatch");
 
-
+			Audio::getInstance()->playSound(CATCHGOLDTURNTABLE);
 			auto sp = Sprite::create("goldFishCatchTable.png");
 			sp->setPosition(Vec2(80, 180));
 			aninode->addChild(sp);
@@ -212,7 +212,7 @@ void GameManage::onPlayerUpgrade()
 	auto aninode = Sprite::create();
 	aninode->setPosition(480, 270);
 	m_pGuilayer->addChild(aninode, 20);
-	aninode->setScale(2);
+	aninode->setScale(4);
 	auto txt = Sprite::create("TXTUpGrade.png");
 	txt->setPosition(480, 350);
 	m_pGuilayer->addChild(txt, 20);

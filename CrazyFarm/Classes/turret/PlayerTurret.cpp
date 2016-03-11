@@ -483,10 +483,10 @@ void PlayerTurret::stopAI()
 
 Point coinPos[4] =
 {
-	Vec2(-130, 45),
-	Vec2(130+150, 45),
-	Vec2(-130, 45),
-	Vec2(130+150, 45)
+	Vec2(-122, 42),
+	Vec2(122+155, 42),
+	Vec2(-122, 42),
+	Vec2(122+155, 42)
 };
 void PlayerTurret::createPlayerCoin(User* user, int index)
 {

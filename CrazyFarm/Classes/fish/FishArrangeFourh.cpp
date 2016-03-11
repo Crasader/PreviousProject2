@@ -24,7 +24,7 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	mainfish->runAction(ac);
 	obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(104);
 	
-	centerPos = maggiceff->getContentSize() / 2;
+
 
 
 	auto maggiceff1 = MagicEffect::create(5, true);
@@ -36,6 +36,7 @@ void FishArrangeFourh::initFishAnim(int fishID)
 	addChild(sp);
 	fishes.pushBack(maggiceff1);
 	fishes.pushBack(sp);
+	centerPos = maggiceff1->getPosition();
 
 	auto maggiceff2 = MagicEffect::create(5, true);
 	maggiceff2->setPosition(130, -20);

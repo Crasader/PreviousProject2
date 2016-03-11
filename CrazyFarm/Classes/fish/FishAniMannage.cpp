@@ -66,8 +66,13 @@ bool FishAniMannage::loadAniByJsonAndPlist(const char* jsonName, const char* pli
 
 Animate* FishAniMannage::getAnimate(const char *animatname){
 	Animation* animation = AnimationCache::getInstance()->getAnimation(animatname);
-	Animate* animate = Animate::create(animation);
-	return animate;
+	if (animation)
+	{
+		Animate* animate = Animate::create(animation);
+		return animate;
+	}
+	return nullptr;
+	
 }
 
 SpriteFrame* FishAniMannage::getSpriteById(int fishid)

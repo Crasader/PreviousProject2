@@ -115,7 +115,7 @@ void FishManage::createFishGroup(int grouptag)
 				fish->setisAutoRemove(false);
 				fish->setRoute(singlegp.fishRoute);
 				fish->setPosition(singlegp.startPos);
-				m_layer->addChild(fish,5);
+				m_layer->addChild(fish,fish->getFishZorder());
 				fish->addShader();
 		
 			}), nullptr));
@@ -145,7 +145,7 @@ void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 				fish->setVisible(false);
 				fish->setisAutoRemove(false);
 				fish->setMonentEightRoute(momentEightroutetag);
-				m_layer->addChild(fish, 5);
+				m_layer->addChild(fish, fish->getFishZorder());
 				fish->addShader();
 
 			}), nullptr));
@@ -166,7 +166,7 @@ void FishManage::createFishAssign(int fishId, int momentEightroutetag)
 	fish->setVisible(false);
 	fish->setisAutoRemove(false);
 	fish->setMonentEightRoute(momentEightroutetag);
-	m_layer->addChild(fish,5);
+	m_layer->addChild(fish, fish->getFishZorder());
 
 	fish->addShader();
 }
@@ -182,7 +182,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(size.width / 2 + 10, 0));
 		fish->addShader();
 		//鱼2
@@ -190,7 +190,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(-size.width / 2 - 10, 20 + size.height / 2));
 		fish->addShader();
 		//鱼3
@@ -198,7 +198,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(-size.width / 2 - 10, -20 - size.height / 2));
 		fish->addShader();
 	}
@@ -211,7 +211,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(-(size.width / 2 + 10), -(20 + size.height / 2)));
 		fish->addShader();
 		//鱼2
@@ -219,7 +219,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(-(size.width / 2 + 10), 20 + size.height / 2));
 		fish->addShader();
 		//鱼3
@@ -227,7 +227,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(size.width / 2 + 10, -(20 + size.height / 2)));
 		fish->addShader();
 		//鱼4
@@ -235,7 +235,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(size.width / 2 + 10, 20 + size.height / 2));
 		fish->addShader();
 	}
@@ -248,7 +248,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(-(size.width / 2 + 10), -(20 + size.height / 2)));
 		fish->addShader();
 		//鱼2
@@ -256,7 +256,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(-(size.width / 2 + 10), 20 + size.height / 2));
 		fish->addShader();
 		//鱼3
@@ -264,7 +264,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(size.width / 2 + 10, -(20 + size.height / 2)));
 		fish->addShader();
 		//鱼4
@@ -272,7 +272,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(size.width / 2 + 10, 20 + size.height / 2));
 		fish->addShader();
 		//鱼5
@@ -280,7 +280,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
-		m_layer->addChild(fish, 5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(momentEightroutetag).startPos + Vec2(0, 0));
 		fish->addShader();
 	}
@@ -342,7 +342,7 @@ void FishManage::removeFishWhichSwimOut()
 	for (auto fish : fishPool)
 	{
 		auto box = ((Fish*)fish)->getBoundingBox();
-		Rect rect = Rect(-10-box.size.width, -10-box.size.height, visibisize.width + box.size.width*2+20, visibisize.height + box.size.height*2+20);
+		Rect rect = Rect(-5-box.size.width, -5-box.size.height, visibisize.width + box.size.width*2+10, visibisize.height + box.size.height*2+10);
 		auto pos = fish->getPosition();
 		if (!rect.containsPoint(pos)&&fish->getisAutoRemove())
 		{
@@ -380,7 +380,7 @@ void FishManage::createFishRand(int fishID)
 		fish->move(4);
 	}
 	
-	m_layer->addChild(fish,5);
+	m_layer->addChild(fish, fish->getFishZorder());
 	fish->addShader();
 
 }
@@ -392,7 +392,7 @@ void FishManage::createFishArrangeRand(int fishID)
 	k += rand_0_1() * 20 - 10	;
 	fish->setMoveAngle(k);
 	fish->move(4);
-	m_layer->addChild(fish,5);
+	m_layer->addChild(fish, fish->getFishZorder());
 	fish->addShader();
 
 }
@@ -505,7 +505,7 @@ void FishManage::createCycleFish(int count, int Radius, int fishID, Point center
 		fish->setPosition(center.x + Radius*cos(CC_DEGREES_TO_RADIANS(i*diffAngle)), center.y + Radius*sin(CC_DEGREES_TO_RADIANS(diffAngle*i)));
 		auto moveto = MoveBy::create(moveTime,curPos);
 		fish->runAction(Sequence::create(moveto, CallFunc::create([=]{GameManage::getInstance()->CatchTheFishOntheTurrent(fish, false, nullptr); }), nullptr));
-		m_layer->addChild(fish,5);
+		m_layer->addChild(fish, fish->getFishZorder());
 		fish->addShader();
 	}
 	
@@ -515,12 +515,12 @@ void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 {
 	Node* allKillAninode = Node::create();
 	allKillAninode->setPosition(0, 0);
-	m_layer->addChild(allKillAninode, 6);
+	m_layer->addChild(allKillAninode,kZorderFishXL+1);
 
 	Vector<Fish*> needDeadFishs;
 	for (auto var:fishPool)
 	{
-		if (var->getuiId() == fish->getuiId())
+		if (var->getFishType() == AllKilledFish)
 		{
 			needDeadFishs.pushBack(var);
 		}

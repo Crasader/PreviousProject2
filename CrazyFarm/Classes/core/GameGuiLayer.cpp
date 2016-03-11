@@ -6,11 +6,6 @@
 #include "domain/Newbie/NewbieMannger.h"
 #include "domain/game/GameManage.h"
 #include "domain/bag/BagManager.h"
-enum
-{
-	kZorderMenu = 10,
-	kZorderDialog = 20
-};
 
 
 bool GameGuiLayer::init(){
@@ -34,7 +29,7 @@ bool GameGuiLayer::init(){
 	auto sprbg = Sprite::create("EarnCoins.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	sprbg->setPosition(visibleSize.width-5, visibleSize.height*0.305);
-	addChild(sprbg, 11);
+	addChild(sprbg, kZorderMenu + 1);
 
 	sEainCoin = MyMenuItemGainMoney::create();
 	sEainCoin->setPosition(visibleSize.width + 50, visibleSize.height*0.3);
@@ -50,7 +45,7 @@ bool GameGuiLayer::init(){
 	sprbg = Sprite::create("UpgradeButton.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	sprbg->setPosition(visibleSize.width-5,visibleSize.height*0.505);
-	addChild(sprbg,11);
+	addChild(sprbg, kZorderMenu+1);
 
 	///¶³½á
 	auto skillbutton = SkillFreezeButton::createSkillFreezeButton();
@@ -60,19 +55,19 @@ bool GameGuiLayer::init(){
 	skillManager::getInstance()->addskillButton(1, skillbutton);
 	//ºËµ¯
 	auto skillbutton1 = SkillBombButton::createSkillBombButton();
-	skillbutton1->setPosition(visibleSize.width*0.03+2, visibleSize.height*0.48 + 15);
+	skillbutton1->setPosition(visibleSize.width*0.03 + 9, visibleSize.height*0.46 + 21);
 	skillbutton1->setScale(0.7);
 	addChild(skillbutton1);
 	skillManager::getInstance()->addskillButton(4, skillbutton1);
 	//ÕÙ»½
 	auto skillbutton2 = SkillSummonButton::createSkillSummonButton();
-	skillbutton2->setPosition(visibleSize.width*0.03+2, visibleSize.height*0.20+15);
+	skillbutton2->setPosition(visibleSize.width*0.03 + 9, visibleSize.height*0.20 + 21);
 	skillbutton2->setScale(0.7);
 	addChild(skillbutton2);
 	skillManager::getInstance()->addskillButton(3, skillbutton2);
 	//À×µç	
 	auto skillbutton3 = SkillLightButton::createSkillLightButton();
-	skillbutton3->setPosition(visibleSize.width*0.03+2, visibleSize.height*0.34+15);
+	skillbutton3->setPosition(visibleSize.width*0.03 + 9, visibleSize.height*0.33 + 21);
 	skillbutton3->setScale(0.7);
 	addChild(skillbutton3);
 	skillManager::getInstance()->addskillButton(5, skillbutton3);
@@ -297,6 +292,9 @@ void GameGuiLayer::showGainMoneyTurrent()
 
 void GameGuiLayer::onBossWarning(int fishID)
 {
+	Audio::getInstance()->playSound(BOSSWARN);
+
+
 	auto Warning = Sprite::create("BossComingRedWarning.png");
 	Warning->setPosition(480, 270);
 	addChild(Warning, 20);

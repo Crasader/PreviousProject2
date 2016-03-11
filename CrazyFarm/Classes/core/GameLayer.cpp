@@ -23,16 +23,9 @@
 #include "config/ConfigNewbieFishCatch.h"
 #include "utill/OBB.h"
 #include "domain/game/GameManage.h"
+#include "utill/define.h"
 #define BOOMRADIUS 300
-enum
-{
-	kZorderMenu = 10,
-	kZorderDialog = 20,
-	kZorderFish = 5,
-	kZorderNet  = 6,
-	kZorderBullet = 7,
-	kZorderTurrent = 8
-};
+
 enum
 {
 	kTagBaseturret= 10,
@@ -74,7 +67,13 @@ bool GameLayer::init(){
 	addChild(anibowennode, -1);
 
 
+	
+
 	scheduleUpdate(); 
+
+
+
+
 	addTouchEvent();	
     auto roominfo = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
 	players = RoomManager::getInstance()->initRoomConfig(roominfo.unlock_turrent_level);
@@ -184,10 +183,21 @@ bool GameLayer::init(){
 /////////////////TEST END///////////////////////////
 	
 
+	//auto fish = FishManage::getInstance()->createFishSingle(50);
+	//fish->setVisible(false);
+	//fish->setisAutoRemove(false);
+	//fish->setMonentEightRoute(21);
+	//addChild(fish, fish->getFishZorder());
 
+	//fish->addShader();
 
+	//fish = FishManage::getInstance()->createFishSingle(50);
+	//fish->setVisible(false);
+	//fish->setisAutoRemove(false);
+	//fish->setMonentEightRoute(24);
+	//addChild(fish, fish->getFishZorder());
 
-
+	//fish->addShader();
 	
 
 	return true;
@@ -211,39 +221,6 @@ void GameLayer::showYourChairno()
 	sPoint->runAction(Sequence::create(DelayTime::create(8.0f), RemoveSelf::create(), nullptr));
 }
 
-
-void GameLayer::createFish(float dt){
-	if (FishManage::getInstance()->getAllFishInPoolCount() < 30) {
-		int create = rand() % 100;
-		if (create < 80) {
-			Fish* fish = FishManage::getInstance()->createFishSingle();
-			FishManage::getInstance()->decideFishPos(fish);
-			fish->move(3);
-			this->addChild(fish,kZorderFish);
-		}
-	}
-}
-
-
-void GameLayer::createFishGroup(float dt)
-{
-	auto gp = FishGroupData::getInstance()->getGroupBytag(rand()%3+1);
-	for (int i = 0; i < gp.singleTypefishGroups.size();i++)
-	{
-		auto singlegp = gp.singleTypefishGroups[i];
-		for (int j = 0; j < singlegp.fishCount;j++)
-		{
-			runAction(Sequence::create(DelayTime::create(j*singlegp.IntervalCreateTime), CallFunc::create([=]{
-				Fish* fish = FishManage::getInstance()->createFishSingle(singlegp.fishID);
-				fish->setRoute(singlegp.fishRoute);
-				fish->setPosition(singlegp.startPos);
-				addChild(fish, kZorderFish);
-			}), nullptr));
-		}
-		
-	}
-	
-}
 
 void GameLayer::createTurret(){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -776,7 +753,7 @@ void GameLayer::onClearFish()
 
 	auto txt = Sprite::create("yuchaoTXT.png");
 	txt->setPosition(480, 270);
-	addChild(txt,kZorderFish+2,"yuchaotxt");
+	addChild(txt,kZorderFishXL+2,"yuchaotxt");
 
 	auto lang = Sprite::create("wave.png");
 	lang->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
@@ -785,7 +762,7 @@ void GameLayer::onClearFish()
 		unschedule(schedule_selector(GameLayer::onClearFishUpdata)); 
 		getChildByName("yuchaotxt")->removeFromParentAndCleanup(1);
 	}), RemoveSelf::create(), nullptr));
-	addChild(lang, kZorderFish+1, "lang");
+	addChild(lang, kZorderFishXL+1, "lang");
 
 	
 	schedule(schedule_selector(GameLayer::onClearFishUpdata), 0, CC_REPEAT_FOREVER, 0);
@@ -879,7 +856,7 @@ void GameLayer::onGetReward(int itemid, int num)
 	auto aninode = Sprite::create();
 	aninode->setPosition(480, 270);
 	addChild(aninode,20);
-	aninode->setScale(2);
+	aninode->setScale(4);
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), RemoveSelf::create(), nullptr));
 	sp->runAction(Sequence::create(DelayTime::create(2.0f), ScaleTo::create(0.2, 1.0f),CallFunc::create([=]{lightsp->removeFromParentAndCleanup(1), colorlayer->removeFromParentAndCleanup(1); }), MoveTo::create(1.0f, myTurret->getPosition()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
 

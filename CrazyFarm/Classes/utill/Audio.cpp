@@ -66,7 +66,11 @@ void Audio::prepare(){
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(UPDATATURRET);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(UPDATALEVELGAINCOIN);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(ONGOLDFISHDEAD);
-
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(FISH50JUMP);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(OPENNEWBBOX);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(CHANGETURRENT);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(CATCHGOLDTURNTABLE);
+	
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.4f);
 }
 

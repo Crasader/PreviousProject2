@@ -6,6 +6,7 @@
 #include "NewbieMannger.h"
 #include "domain/bag/BagManager.h"
 #include "domain/user/User.h"
+#include "utill/Audio.h"
 bool NewbieFirstGetRewardLayer::init()
 {
 	bool bRet = false;
@@ -68,6 +69,7 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 	sLight->runAction(Sequence::create(Spawn::create(ScaleBy::create(1.0f, 4), FadeOut::create(1.0f), nullptr), CallFunc::create([=]{box->setVisible(false); }), RemoveSelf::create(), nullptr));
 	box->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("anifirstBox"), CallFunc::create([&]
 	{
+		Audio::getInstance()->playSound(OPENNEWBBOX);
 		auto rewards = ConfigExp::getInstance()->getLevelRewardItemsByLevelId(1);
 		for (int i = 0; i < rewards.size();i++)
 		{

@@ -7,13 +7,14 @@
 #define FISHFLOCKBGM "game/audio/bgm/fishflockBGM.ogg"
 #define BOSSBGM "game/audio/bgm/bossBGM.ogg"
 //EFFECT
-#define SKILLBOOM "game/audio/propEffect/boom.ogg"
+#define SKILLBOOM "game/audio/propEffect/skillBoom.ogg"
 #define SKILLFREEZE "game/audio/propEffect/freeze.ogg"
 #define SKILLLASER "game/audio/propEffect/laser.ogg"
-#define SKILLSUMMON "game/audio/propEffect/summon.ogg"
+#define SKILLSUMMON "game/audio/propEffect/skilSummon.ogg"
 #define BOSSWARN "game/audio/BossWarn.ogg"
 #define CATCHGIRLFISH "game/audio/CatchGirlFish.ogg"
-#define CATCHGOLD "game/audio/sfx_coin.mp3"
+#define CATCHGOLD "game/audio/catchgold.ogg"
+#define CATCHGOLDTURNTABLE "game/audio/sfx_coin.mp3"
 #define CLEARFISH "game/audio/clearFish.ogg"
 #define CLICKCANCER "game/audio/clickcancer.ogg"
 #define CLICKSURE "game/audio/clicksure.ogg"
@@ -29,7 +30,9 @@
 #define UPDATATURRET "game/audio/updataTurret.ogg"
 #define UPDATALEVELGAINCOIN "game/audio/updataTurretGainCoin.mp3"
 #define ONGOLDFISHDEAD "game/audio/onGoldFishDead.mp3"
-
+#define FISH50JUMP "game/audio/fish_50jump.ogg"
+#define OPENNEWBBOX "game/audio/opennewbbox.ogg"
+#define CHANGETURRENT "game/audio/changeTurret.mp3"
 class Audio{
 public:
 	static Audio* getInstance();

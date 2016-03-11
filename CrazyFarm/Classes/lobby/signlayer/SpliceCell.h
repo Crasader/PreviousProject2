@@ -7,30 +7,19 @@ USING_NS_CC;
 class SpliceCell :public Node
 {
 public:
-	virtual bool init(std::vector<SignRewardItem> rewards);
+	virtual bool init(int curIndex);
 
-	static SpliceCell* create(std::vector<SignRewardItem> rewards);
+	static SpliceCell* create(int curIndex);
 
-
+	void setBegin(){ scheduleUpdate(); }
 private:
-	Vector<SpliceCell*> cells;
 	void update(float delta);
-
-	CC_SYNTHESIZE(int, nTumbleTime, TumbleTime);
-	
+	float nTumbleTime = 0;;
+	float speed = 0;
+	int curValue = 0;
+	Sprite*content1;
+	Sprite*content2;
 };
 
 
-class SpliceCellView :public Node
-{
-public:
-	virtual bool init(std::vector<SignRewardItem> rewards);
-
-	static SpliceCell* create(std::vector<SignRewardItem> rewards);
-
-	void update(float delta);
-
-	CC_SYNTHESIZE(int, nTumbleTime, TumbleTime);
-
-};
 

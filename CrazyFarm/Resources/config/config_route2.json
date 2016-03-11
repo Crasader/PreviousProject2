@@ -705,9 +705,21 @@
             "routePoint":[
  								{
                      "moveState": 1,
-                   "MoveByPos":{"x":960,"y":540}, 
+                   "MoveByPos":{"x":480,"y":270}, 
                     "delay": 0,
-                    "time":  40
+                    "time":  20
+                }
+                ,
+                {
+                     "moveState": 3,
+                  	"aniName":   "jump",
+                  	"delay" :   0
+                },
+                {
+                     "moveState": 1,
+                   "MoveByPos":{"x":480,"y":270}, 
+                    "delay": 0,
+                    "time":  20
                 }
             ]
         }
@@ -719,9 +731,21 @@
             "routePoint":[
  								{
                      "moveState": 1,
-                   "MoveByPos":{"x":-960,"y":-540}, 
+                   "MoveByPos":{"x":-480,"y":-270}, 
                     "delay": 0,
-                    "time":  40
+                    "time":  20
+                }
+                ,
+                {
+                     "moveState": 3,
+                  	"aniName":  "jump",
+                  	"delay" :   0
+                },
+                {
+                     "moveState": 1,
+                   "MoveByPos":{"x":-480,"y":-270}, 
+                    "delay": 0,
+                    "time":  20
                 }
             ]
         
@@ -734,9 +758,21 @@
             "routePoint":[
  								{
                      "moveState": 1,
-                   "MoveByPos":{"x":960,"y":-540}, 
+                   "MoveByPos":{"x":480,"y":-270}, 
                     "delay": 0,
-                    "time":  40
+                    "time":  20
+                }
+                ,
+                {
+                     "moveState": 3,
+                  	"aniName":   "jump",
+                  	"delay" :   0
+                },
+                {
+                     "moveState": 1,
+                   "MoveByPos":{"x":480,"y":-270}, 
+                    "delay": 0,
+                    "time":  20
                 }
             ]
         
@@ -749,12 +785,25 @@
             "routePoint":[
  								{
                      "moveState": 1,
-                   "MoveByPos":{"x":-960,"y":540}, 
+                   "MoveByPos":{"x":-480,"y":270}, 
                     "delay": 0,
-                    "time":  40
+                    "time":  20
+                }
+                ,
+                {
+                     "moveState": 3,
+                  	"aniName":   "jump",
+                  	"delay" :   0
+                },
+                {
+                     "moveState": 1,
+                   "MoveByPos":{"x":-480,"y":270}, 
+                    "delay": 0,
+                    "time":  20
                 }
             ]
         
         }
+        
     ]
 }

@@ -42,11 +42,7 @@ private:
 	bool onTouchBegan(Touch *touch, Event  *event);
 	void onTouchMoved(Touch *touch, Event  *event);
 	void onTouchEnded(Touch *touch, Event  *event);
-	//发射子弹
-
-	void createFish(float dt);//产生鱼
-	void createFishGroup(float dt);//产生鱼群
-	
+	//发射子弹	
 
 	void rotateTurret(float degree, PlayerTurret* turret);//旋转炮塔
 

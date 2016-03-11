@@ -8,6 +8,8 @@
 #include "domain/logevent/LogEventFish.h"
 #include "utill/FunUtil.h"
 #include "config/ConfigFishCollisionOBB.h"
+#include "utill/define.h"
+
 using namespace cocos2d;
 
 enum swimDirection
@@ -23,7 +25,12 @@ struct ShadeData
 	Point pos;
 	ShadeData(int id, Point p){ uiid = id; pos = p; };
 };
-
+enum
+{
+	kTagAcNormal = 10,
+	kTagAcDead = 11,
+	kTagAcJump = 12
+};
 enum FISHTYPE
 {
 	NormalFish,
@@ -70,9 +77,10 @@ public:
 
 	virtual std::vector<OBB> getOBBByCocos();
 	Vec2 getCentrenPos(){ return centerPos; };
-
-
 	virtual std::vector<Rect>  getAABBBoxs();
+
+
+	FishZorder getFishZorder();
 protected:
 	
 	void update(float);
