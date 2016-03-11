@@ -46,7 +46,7 @@ bool GameLayer::init(){
 	{
 		return false;
 	}
-	initFishAndBulletData();
+	//initFishAndBulletData();
 	setIsShowYourChairno(false);
 	FishManage::getInstance()->setlayer(this);
 	skillManager::getInstance()->setlayer(this);
@@ -383,7 +383,6 @@ bool GameLayer::lockTouchEvent(Touch *touch, Event  *event)
 void GameLayer::onTouchMoved(Touch *touch, Event  *event)
 {
 	touchpos = touch->getLocation();
-	CCLOG("%f,%f", touchpos.x, touchpos.y);
 }
 
 void  GameLayer::onTouchEnded(Touch *touch, Event  *event)
@@ -518,14 +517,20 @@ void GameLayer::initFishAndBulletData()
 		isInitData = true;
 	}
 }
+void GameLayer::onEnter()
+{
+	Layer::onEnter();
+	
+}
 void GameLayer::onExit()
 {
 	Layer::onExit();
+	initFishAndBulletData();
 }
 void GameLayer::onEnterTransitionDidFinish()
 {
 	Layer::onEnterTransitionDidFinish();
-	initFishAndBulletData();
+	
 }
 void GameLayer::loadNewMonent(float ffTime)
 {
@@ -601,7 +606,6 @@ void GameLayer::endLock()
 void GameLayer::beginSkillBoom()
 {
 	m_lasttouchType = m_touchType;
-	skillManager::getInstance()->getButtonByID(4)->setEnable(false);
 	changeTouchFunByTouchType(TouchInBoom);
 
 	auto txt = Sprite::create("TXTUseBomb.png");
@@ -610,7 +614,6 @@ void GameLayer::beginSkillBoom()
 }
 void GameLayer::endSkillBoom()
 {
-	skillManager::getInstance()->getButtonByID(4)->setEnable(true);
 	changeTouchFunByTouchType(m_lasttouchType);
 
 	getChildByName("TXTTip")->removeFromParentAndCleanup(1);

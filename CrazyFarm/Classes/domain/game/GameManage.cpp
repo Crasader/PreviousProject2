@@ -4,6 +4,7 @@
 #include "utill/CShake.h"
 #include "config/ConfigChest.h"
 #include "domain/Newbie/NewbieMannger.h"
+#include "core/GetRewardNode.h"
 GameManage* GameManage::_instance = 0;
 
 GameManage* GameManage::getInstance(){
@@ -150,7 +151,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 				}
 			}
 			//锁定技能引导相关
-			if (NewbieMannger::getInstance()->getNBShootCounts() >= 40)
+			if (NewbieMannger::getInstance()->getNBShootCounts() >= 10)
 			{
 				NewbieMannger::getInstance()->setNBShootCounts(-1);
 				m_pGuilayer->ShowUseLockTip(fish->getPosition());
@@ -172,6 +173,34 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 
 }
 
+void GameManage::onBrokeBySomeTurret(PlayerTurret*turret, int lefttime, float waittime)
+{
+	if (lefttime > 0)
+	{
+		Bankrupt baknrupt;
+		baknrupt.time = lefttime;
+		baknrupt.wait_time = waittime;
+		auto layer = m_pGuilayer;
+		auto node = GetRewardNode::create(baknrupt);
+		node->setPosition(turret->getPosition() + Vec2(0, 150));
+		layer->addChild(node, 10);
+		BankruptManager::getInstance()->setgetRewardNode(node);
+	}
+	else if (lefttime == 0)
+	{
+		auto pay = payLayer::createLayer(1);
+		pay->setPosition(0, 0);
+		pay->setEventPont(19);
+		GameManage::getInstance()->getGuiLayer()->addChild(pay, 20);
+	}
+}
+void GameManage::onRebirthBySomeTurret(int reward_coins)
+{
+	User::getInstance()->addCoins(reward_coins);
+	BankruptManager::getInstance()->getgetRewardNode()->removeFromParentAndCleanup(1);
+	BankruptManager::getInstance()->setgetRewardNode(nullptr);
+	BankruptManager::getInstance()->addTodayRequestTime();
+}
 void GameManage::onPlayerUpgrade()
 {
 	auto rewards = ConfigExp::getInstance()->getLevelRewardItemsByLevelId(User::getInstance()->getLevelData().levelId);

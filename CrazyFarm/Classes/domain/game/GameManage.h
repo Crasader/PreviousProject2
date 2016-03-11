@@ -28,6 +28,11 @@ public:
 	void showGainMoneyTurrent();
 	//某塔捕获某鱼
 	void CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret* turret); 
+	//某塔破产生成破产宝箱
+	void onBrokeBySomeTurret(PlayerTurret*turret,int lefttime,float waittime);
+	//领取破产宝箱
+	void onRebirthBySomeTurret(int reward_coins);
+
 private :
 	GameManage();
 	static GameManage* _instance;

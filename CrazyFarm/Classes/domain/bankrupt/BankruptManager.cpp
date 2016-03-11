@@ -1,6 +1,6 @@
 #include "domain/bankrupt/BankruptManager.h"
-
-
+#include "domain/user/User.h"
+#include "domain/game/GameManage.h"
 BankruptManager* BankruptManager::_instance = NULL;
 
 BankruptManager::BankruptManager(){
@@ -32,7 +32,7 @@ Bankrupt BankruptManager::getBankrupt() {
 Bankrupt BankruptManager::getRobotBankrupt() {
 
 		Bankrupt bankrupt;
-		bankrupt.coins = rand()%2000;
+		bankrupt.coins = rand()%20000;
 		bankrupt.wait_time = rand()%60;
 		return bankrupt;
 }
@@ -90,4 +90,82 @@ void BankruptManager::addDayCnt(const char* key)
 	int val = getDayCnt(key);
 	CCUserDefault::sharedUserDefault()->setIntegerForKey(key, XygGetToday() * 100 + val + 1);
 	CCUserDefault::sharedUserDefault()->flush();
+}
+
+
+
+
+///·þÎñÆ÷
+void BankruptManager::RequestServerToBroke(PlayerTurret* turret)
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_BROKE);
+	auto requstData = String::createWithFormat("session_id=%s&room_id=%d", sessionid.c_str(),GameData::getInstance()->getRoomID());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(BankruptManager::onHttpRequestCompletedForBroke, this),turret);
+}
+void BankruptManager::onHttpRequestCompletedForBroke(HttpClient *sender, HttpResponse *response)
+{
+	if (!response)
+	{
+		return;
+	}
+	if (!response->isSucceed())
+	{
+		return;
+	}
+	long statusCode = response->getResponseCode();
+	std::vector<char> *buffer = response->getResponseData();
+	auto temp = std::string(buffer->begin(), buffer->end());
+	log("http back broke info  info: %s", temp.c_str());
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	if (doc.HasParseError())
+	{
+		log("get json data err!");;
+	}
+	int code = doc["errorcode"].GetInt();
+	if (code == 0)
+	{
+		PlayerTurret* turret = (PlayerTurret*)(response->getHttpRequest()->getUserData());
+		GameManage::getInstance()->onBrokeBySomeTurret(turret, doc["left_times"].GetInt(), 0/*doc["wait_time"].GetInt()*/);
+	}
+}
+
+void BankruptManager::RequestServerToRebirth()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_REBRITH);
+	auto requstData = String::createWithFormat("session_id=%s&room_id=%d", sessionid.c_str(),GameData::getInstance()->getRoomID());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(BankruptManager::onHttpRequestCompletedForRebirth, this));
+
+}
+void BankruptManager::onHttpRequestCompletedForRebirth(HttpClient *sender, HttpResponse *response)
+{
+	if (!response)
+	{
+		return;
+	}
+	if (!response->isSucceed())
+	{
+		return;
+	}
+	long statusCode = response->getResponseCode();
+	std::vector<char> *buffer = response->getResponseData();
+	auto temp = std::string(buffer->begin(), buffer->end());
+	log("http back broke info  info: %s", temp.c_str());
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	if (doc.HasParseError())
+	{
+		log("get json data err!");;
+	}
+	int code = doc["errorcode"].GetInt();
+	if (code == 0)
+	{
+		GameManage::getInstance()->onRebirthBySomeTurret(doc["reward_coins"].GetInt());
+	}
+	else
+	{
+		GameManage::getInstance()->onRebirthBySomeTurret(1000);
+	}
 }

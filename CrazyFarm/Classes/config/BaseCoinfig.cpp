@@ -13,5 +13,6 @@ BaseCoinfig* BaseCoinfig::getInstance(){
 
 bool BaseCoinfig::loadConfigFromServe()
 {
+	
 	return true;
 }

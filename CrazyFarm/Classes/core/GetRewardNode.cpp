@@ -52,7 +52,7 @@ bool GetRewardNode::init(Bankrupt baknrupt)
 		auto txt = Sprite::create("TXTBankruptCount.png");
 		txt->setPosition(getContentSize().width / 2, -15);
 		addChild(txt);
-		auto countlabel = LabelAtlas::create(Value(3 - BankruptManager::getInstance()->getTodayRequestTimes()).asString(), "multipleNum.png", 15, 21, '0');
+		auto countlabel = LabelAtlas::create(Value(baknrupt.time).asString(), "multipleNum.png", 15, 21, '0');
 		countlabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		countlabel->setPosition(1.25 + 152.75, txt->getContentSize().height / 2);
 		txt->addChild(countlabel);
@@ -83,11 +83,8 @@ bool GetRewardNode::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	if (isTimeOut)
 	{
-		User::getInstance()->addCoins(m_baknrupt.coins);
-		removeFromParentAndCleanup(1);
-		LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),1,1+BankruptManager::getInstance()->getTodayRequestTimes());
-		BankruptManager::getInstance()->setgetRewardNode(nullptr);
-		BankruptManager::getInstance()->addTodayRequestTime();
+		BankruptManager::getInstance()->RequestServerToRebirth();
+		
 	}
 	return true;
 }

@@ -6,16 +6,7 @@
 #include "domain/pay/Pay.h"
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "domain/pay/WaitCircle.h"
-#define URL_HEAD "http://106.75.135.78:1701"
-#define URL_REGISTER  "/user/hello"
-#define URL_LOGIN  "/user/login"
-#define URL_PAY  "/mo/order/booking"
-#define URL_CANCELORDER "/mo/order/cancel"
-#define URL_SYNCINFO  "/player/info/sync/fortuneInfo"
-#define URL_SETNAME  "/user/nickname"
-#define URL_FEEDBACK "/help/feedback"
-#define URL_LOGEVENTFISH "/statistics/data"
-#define URL_DEMANDENTRY "/mr/order/result"
+
 
 HttpMannger* HttpMannger::_instance = NULL;
 

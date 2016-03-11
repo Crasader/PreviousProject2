@@ -5,5 +5,6 @@
   {
   	"shootInterval":0.15,
 		"bulletSpeed":700
-  }
+  },
+  "catch_fish_per_coef":1.0
 }

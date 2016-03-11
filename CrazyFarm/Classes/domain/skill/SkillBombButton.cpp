@@ -22,6 +22,10 @@ SkillBombButton* SkillBombButton::createSkillBombButton()
 /** 技能按钮点击回调 */
 void SkillBombButton::skillClickCallBack(Ref* obj)
 {
+	if (skillManager::getInstance()->isUseSkillNow(4))
+	{
+		return;
+	}
 	useSkill();
 }
 
@@ -29,7 +33,7 @@ void SkillBombButton::skillClickCallBack(Ref* obj)
 void SkillBombButton::skillCoolDownCallBack()
 {
 	SkillButton::skillCoolDownCallBack();
-	setEnable(false);
+	setEnable(true);
 
 }
 

@@ -54,6 +54,7 @@ private:
 
 	void AiUpdata(float dt);
 	void onExit();
+	void onEnter();
 	virtual void onEnterTransitionDidFinish();
 	//Updata
 	void collisionUpdate(float dt);
