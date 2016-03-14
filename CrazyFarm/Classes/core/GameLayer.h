@@ -8,7 +8,7 @@
 #include "domain/room/RoomManager.h"
 #include "domain/magnate/MagnateManager.h"
 #include "server/MsgObserver.h"
-#include "server/Msg/MsgOnAdd.h"
+#include "server/Msg/MSGstdafx.h"
 USING_NS_CC;
 enum TouchType
 {
@@ -127,9 +127,9 @@ public:
 	virtual void handle_event(const char* msgId, const char* msgBody);
 private:
 //Ä³¸öÍæ¼ÒÈ¥Áô
-	void onSomeoneLeave(Msg_Base* msg);
+	void onSomeoneLeave(Msg_onLeave* msg);
 	void onSomeoneComing(Msg_onAdd* msg);
-
+	void onClientInit(Msg_onInit* msg);
 
 
 };

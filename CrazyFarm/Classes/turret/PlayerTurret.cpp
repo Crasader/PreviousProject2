@@ -717,10 +717,9 @@ void PlayerTurret::onBankrupt()
 		auto bankrupt = BankruptManager::getInstance()->getBankrupt();
 		if (!BankruptManager::getInstance()->getgetRewardNode() && bankrupt.coins>0)
 		{
-			auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
 			auto node = GetRewardNode::create(bankrupt);
 			node->setPosition(getPosition()+Vec2(0,150));
-			layer->addChild(node, 10);
+			GameManage::getInstance()->getGuiLayer()->addChild(node, 10);
 			BankruptManager::getInstance()->setgetRewardNode(node);
 			int num = BankruptManager::getInstance()->getTodayRequestTimes();
 			LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),2, num+1);

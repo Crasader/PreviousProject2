@@ -291,6 +291,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\result\GameResultScene.cpp" />
     <ClCompile Include="..\Classes\server\HttpClientUtill.cpp" />
     <ClCompile Include="..\Classes\server\HttpMannger.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgBase.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgHelp.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgOnAdd.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgOnInit.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgOnLeave.cpp" />
     <ClCompile Include="..\Classes\server\Server.cpp" />
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp" />
     <ClCompile Include="..\Classes\turret\Turret.cpp" />
@@ -474,6 +479,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\server\HttpClientUtill.h" />
     <ClInclude Include="..\Classes\server\HttpMannger.h" />
     <ClInclude Include="..\Classes\server\MsgObserver.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgBase.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgHelp.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgOnAdd.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgOnInit.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgOnLeave.h" />
+    <ClInclude Include="..\Classes\server\Msg\MSGstdafx.h" />
     <ClInclude Include="..\Classes\server\Server.h" />
     <ClInclude Include="..\Classes\turret\PlayerTurret.h" />
     <ClInclude Include="..\Classes\turret\Turret.h" />

@@ -133,6 +133,9 @@
     <Filter Include="src\server">
       <UniqueIdentifier>{59d40c16-56a4-4a83-bd42-3d9971568266}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\server\msg">
+      <UniqueIdentifier>{5f235298-7730-4b27-8f34-a2b374e16f3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -671,6 +674,21 @@
     </ClCompile>
     <ClCompile Include="..\Classes\server\HttpClientUtill.cpp">
       <Filter>src\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgHelp.cpp">
+      <Filter>src\server\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnAdd.cpp">
+      <Filter>src\server\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgBase.cpp">
+      <Filter>src\server\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnInit.cpp">
+      <Filter>src\server\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnLeave.cpp">
+      <Filter>src\server\msg</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1219,6 +1237,24 @@
     </ClInclude>
     <ClInclude Include="..\Classes\server\HttpClientUtill.h">
       <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgHelp.h">
+      <Filter>src\server\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgBase.h">
+      <Filter>src\server\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnAdd.h">
+      <Filter>src\server\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnInit.h">
+      <Filter>src\server\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnLeave.h">
+      <Filter>src\server\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MSGstdafx.h">
+      <Filter>src\server\msg</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

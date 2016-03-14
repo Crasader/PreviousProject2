@@ -26,7 +26,7 @@ void Server::event_cb(pc_client_t* client, int ev_type, void* ex_data, const cha
     }
 
 
-	Server::getInstance()->notify_observer("fire", "400");
+
     // TODO : 处理连接失败和重连的问题，并且要仔细测试下。
 }
 
@@ -39,6 +39,7 @@ void Server::quit() {
     }
     pc_lib_cleanup();
     onConnecting = false;
+	msgObserver.clear();
 }
 
 /**

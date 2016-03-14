@@ -970,8 +970,11 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 {
 
 }
-void GameLayer::onSomeoneLeave(Msg_Base* msg)
+void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 {
 
 }
+void GameLayer::onClientInit(Msg_onInit* msg)
+{
 
+}
