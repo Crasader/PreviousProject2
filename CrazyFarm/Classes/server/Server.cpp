@@ -55,6 +55,12 @@ void Server::doConnect() {
     
 }
 
+void Server::sendNewEvents(const char* params) {
+    CCLOG("sendNewEvents ... ...");
+    std::string testParams = "{\"type\": \"catch_mermaid\"}" ;
+    pc_notify_with_timeout(workingClient, REQ_NEWEVENTS, testParams.c_str(), REQ_NEWEVENTS_EX, REQ_TIMEOUT, notify_cb);
+}
+
 
 void Server::conConnect(char* host, int port, const char* session_id) {
     username = session_id;
@@ -69,7 +75,12 @@ void Server::connect_cb(const pc_request_t* req, int rc, const char* resp) {
     CCLOG("connect_cb: get rc %d\n", rc);
     CCLOG("connect_cb: get resp %s\n", resp);
     Server::getInstance()->notify_observer("init", resp);
+    Server::getInstance()->sendNewEvents(resp);
 	
+}
+
+void Server::notify_cb(const pc_notify_t* noti, int rc) {
+    CCLOG("notify_cb: get rc %d\n", rc);
 }
 
 void Server::add_observer(MsgObserver *o){

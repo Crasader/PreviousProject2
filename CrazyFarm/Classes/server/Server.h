@@ -15,6 +15,9 @@
 #define REQ_EX ((void*)0x22)
 #define REQ_TIMEOUT 10
 
+#define REQ_NEWEVENTS "game.gameHandler.newevents"
+#define REQ_NEWEVENTS_EX ((void*)0x33)
+
 class Server{
 public:
 	static Server* getInstance();
@@ -24,6 +27,8 @@ public:
     void add_observer(MsgObserver *o);
     void remove_observer(MsgObserver *o);
 	void notify_observer(const char* msgId, const char* msgBody);
+    
+    void sendNewEvents(const char* params);
 
 private:
 	Server();
@@ -40,6 +45,7 @@ private:
     
     static void event_cb(pc_client_t* client, int ev_type, void* ex_data, const char* arg1, const char* arg2);
     static void connect_cb(const pc_request_t* req, int rc, const char* resp);
+    static void notify_cb(const pc_notify_t* noti, int rc);
     
     const char* username;
     
