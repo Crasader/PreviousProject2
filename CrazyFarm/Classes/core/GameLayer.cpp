@@ -26,7 +26,7 @@
 #include "domain/user/User.h"
 #include "server/Server.h"
 #include "server/MsgObserver.h"
-
+#include "server/Msg/MsgHelp.h"
 #define BOOMRADIUS 300
 enum
 {
@@ -939,7 +939,39 @@ void GameLayer::handle_event(const char* msgId, const char* msgBody)
 		{
 			myTurret->shoot(Value(msgBody).asFloat());
 		}
-		
 	}
+	if (strcmp(msgId, "conError") == 0)
+	{
+		//断开连接
+	}
+	if (strcmp(msgId, "init") == 0)
+	{
+		//客户端初始化
+	}
+	if (strcmp(msgId, "onAdd") == 0)
+	{
+		Msg_Base*msg = MsgHelp::getInfoByMsg(msgId,msgBody);
+		//某人加入
+		onSomeoneComing((Msg_onAdd*)(msg));
+	}
+	if (strcmp(msgId, "onLeave") == 0)
+	{
+		//某人离开
+	
+	}
+	if (strcmp(msgId, "onFishes") == 0)
+	{
+		//鱼群下发
+
+	}
+}
+
+void GameLayer::onSomeoneComing(Msg_onAdd* msg)
+{
+
+}
+void GameLayer::onSomeoneLeave(Msg_Base* msg)
+{
+
 }
 

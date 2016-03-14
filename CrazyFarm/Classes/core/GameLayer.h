@@ -8,6 +8,7 @@
 #include "domain/room/RoomManager.h"
 #include "domain/magnate/MagnateManager.h"
 #include "server/MsgObserver.h"
+#include "server/Msg/MsgOnAdd.h"
 USING_NS_CC;
 enum TouchType
 {
@@ -120,10 +121,14 @@ private:
 	Point touchpos;
 	bool istouched = false;
 	float shootTemp = 0;
-	///////强联网相关
-	public:
-		virtual void handle_event(const char* msgId, const char* msgBody);
 
+///////强联网相关
+public:
+	virtual void handle_event(const char* msgId, const char* msgBody);
+private:
+//某个玩家去留
+	void onSomeoneLeave(Msg_Base* msg);
+	void onSomeoneComing(Msg_onAdd* msg);
 
 
 
