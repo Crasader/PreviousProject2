@@ -288,9 +288,6 @@
     <ClCompile Include="..\Classes\lobby\signlayer\SignCell.cpp">
       <Filter>src\lobby\sign</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\lobby\signlayer\SignInLayer.cpp">
-      <Filter>src\lobby\sign</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\lobby\signlayer\SpliceCell.cpp">
       <Filter>src\lobby\sign</Filter>
     </ClCompile>
@@ -666,6 +663,9 @@
     <ClCompile Include="..\Classes\domain\coinBox\CoinBox.cpp">
       <Filter>src\Interface</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\lobby\signlayer\SignInLayer.cpp">
+      <Filter>src\lobby\sign</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -825,9 +825,6 @@
       <Filter>src\lobby\bag</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\signlayer\SignCell.h">
-      <Filter>src\lobby\sign</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\lobby\signlayer\SignInLayer.h">
       <Filter>src\lobby\sign</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\signlayer\SpliceCell.h">
@@ -1207,6 +1204,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\config\BaseCoinfig.h">
       <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\signlayer\SignInLayer.h">
+      <Filter>src\lobby\sign</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -69,6 +69,7 @@ void SpliceCell::update(float delta)
 	}
 	else
 	{
+		return;
 		speed -= delta * 10;
 	}
 	if (speed<=5)
