@@ -1,8 +1,8 @@
 #include "SpliceCell.h"
-SpliceCell* SpliceCell::create(int curIndex)
+SpliceCell* SpliceCell::create(int curIndex,float time)
 {
 	SpliceCell* bRet = new SpliceCell();
-	if (bRet&&bRet->init(curIndex))
+	if (bRet&&bRet->init(curIndex,time))
 	{
 		bRet->autorelease();
 		return bRet;
@@ -15,7 +15,7 @@ SpliceCell* SpliceCell::create(int curIndex)
 	}
 }
 
-bool SpliceCell::init(int curIndex)
+bool SpliceCell::init(int curIndex,float time)
 {
 	bool bRet = false;
 	while (!bRet)
@@ -50,16 +50,8 @@ bool SpliceCell::init(int curIndex)
 		stencil->drawPolygon(rectangle, 4, white, 1, white);
 		clipper->setStencil(stencil);
 
-
-		clipper->setStencil(stencil);
-
-
-
-
-
-		content1->setPositionY(26);
-		content2->setPositionY(-471);
-		
+		m_anitime = time; 
+		m_curindex = curIndex;
 		bRet = true;
 	}
 	return bRet;
@@ -67,28 +59,28 @@ bool SpliceCell::init(int curIndex)
 
 void SpliceCell::update(float delta)
 {
-	
-	nTumbleTime += delta;
-	if (nTumbleTime<4)
-	{
-		speed += delta * 10;
-	}
-	else
-	{
-		if (temp==false)
-		{
-			temp = true;
-			content1->setPositionY(14+(m_curindex-1)*83);
-			content2->setPositionY(content1->getPositionY()+498);
-		}
-		speed -= delta * 10;
-	}
-	if (speed<=0)
-	{
-		speed = 0;
-	}
-	content1->setPositionY(content1->getPositionY() - speed);
-	content2->setPositionY(content2->getPositionY() - speed);
+	//
+	//nTumbleTime += delta;
+	//if (nTumbleTime<2.5)
+	//{
+	//	speed += delta * 10;
+	//}
+	//else
+	//{
+	//	/*if (temp==false)
+	//	{
+	//	temp = true;
+	//	content1->setPositionY(14+(m_curindex-1)*83);
+	//	content2->setPositionY(content1->getPositionY()+498);
+	//	}*/
+	//	speed -= delta * 10;
+	//}
+	//if (speed <= 0)
+	//{
+	//	speed = 0;
+	//}
+	//content1->setPositionY(content1->getPositionY() - speed);
+	//content2->setPositionY(content2->getPositionY() - speed);
 	if (content1->getPositionY() + 498 <= 0)
 	{
 		content1->setPositionY(content2->getPositionY() + 498);
@@ -99,4 +91,26 @@ void SpliceCell::update(float delta)
 		content2->setPositionY(content1->getPositionY() + 498);
 	}
 	
+}
+
+void SpliceCell::setBegin(){
+	float half = m_anitime / 2.0;
+	
+	content1->runAction(Sequence::create(EaseSineIn::create(MoveBy::create(half, Vec2(0, -half * 600))), CallFunc::create([=]{
+		float posY = 14 - m_curindex * 83 + half * 600;
+		posY = ((int)posY) % 498;
+		content1->setPositionY(posY- 498);
+		content2->setPositionY(posY );
+		content2->stopAllActions();
+		content1->runAction(EaseSineOut::create(MoveBy::create(half, Vec2(0, -half * 600))));
+		content2->runAction(EaseSineOut::create(MoveBy::create(half, Vec2(0, -half * 600))));
+	}), nullptr));
+	content2->runAction(EaseSineIn::create(MoveBy::create(half, Vec2(0, -half * 600))));
+	//runAction(Sequence::create(DelayTime::create(m_anitime - 0.5f), CallFunc::create([=]{
+	//	content1->setPositionY(posY);
+	//	content2->setPositionY(content2->getPositionY() + 498);
+	//	content1->runAction(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, -89 * 2.5))));
+	//	content2->runAction(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, -89 * 2.5))));
+	//}), nullptr));
+	scheduleUpdate();
 }

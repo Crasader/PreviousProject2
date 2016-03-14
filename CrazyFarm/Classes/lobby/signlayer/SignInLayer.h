@@ -20,7 +20,7 @@ private:
 	Vector<SpliceCell*> SpliceCells;
 	std::vector<SignRewardItem> rewards;
 
-
+	std::vector<int> curindexs;
 };
 
 

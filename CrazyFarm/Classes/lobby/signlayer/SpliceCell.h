@@ -7,16 +7,14 @@ USING_NS_CC;
 class SpliceCell :public Node
 {
 public:
-	virtual bool init(int curIndex);
+	virtual bool init(int curIndex,float time);
 
-	static SpliceCell* create(int curIndex);
+	static SpliceCell* create(int curIndex,float time);
 
-	void setBegin(){ scheduleUpdate(); }
+	void setBegin();
 private:
 	void update(float delta);
-	float nTumbleTime = 0;
-	float speed = 0;
-	int curValue = 0;
+	float m_anitime = 0;
 	Sprite*content1;
 	Sprite*content2;
 	int m_curindex;//½±ÀøËùÔÚÎ»ÖÃ

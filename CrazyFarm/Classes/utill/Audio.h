@@ -33,6 +33,8 @@
 #define FISH50JUMP "game/audio/fish_50jump.ogg"
 #define OPENNEWBBOX "game/audio/opennewbbox.ogg"
 #define CHANGETURRENT "game/audio/changeTurret.mp3"
+#define FRUITSIGN "game/audio/fruitsign.ogg"
+
 class Audio{
 public:
 	static Audio* getInstance();
