@@ -21,6 +21,8 @@ void Server::event_cb(pc_client_t* client, int ev_type, void* ex_data, const cha
         Server::getInstance()->doConnect(); 
     }else if(ev_type == 0) {
 		Server::getInstance()->notify_observer(arg1, arg2);
+    }else if(ev_type == 2) {
+        Server::getInstance()->notify_observer("conError", "");
     }
 
 
@@ -84,6 +86,7 @@ void Server::remove_observer(MsgObserver *o) {
 
 void Server::notify_observer(const char* msgId, const char* msgBody) {
     // TODO : MsgId
+    // 0 : 'conError' - connect error
     // 1 : 'init' - client defined info ...
     // 2 : 'onAdd' - new user coming ...
     // 3 : 'onLeave' - user leave room ...
