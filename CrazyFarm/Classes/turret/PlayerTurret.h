@@ -106,6 +106,8 @@ public:
 	  bool isCanShoot();
 	  //进入下一个房间
 	  void ChangeNextRoom(Ref*psend);
+
+	  int getRoomPos(){ return nChairNoIndex; };
 private:
 	Vec2 m_coinLabelPos;
 	Turrent  m_turretdata;

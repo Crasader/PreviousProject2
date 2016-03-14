@@ -7,7 +7,6 @@ class  Msg_onAdd :public Msg_Base
 {
 public:
 	virtual void setBody(const char* msgBody);
-private:
 	std::string username;
 	unsigned long coins;
 	unsigned long diamonds;

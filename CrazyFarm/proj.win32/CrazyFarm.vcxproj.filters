@@ -690,6 +690,12 @@
     <ClCompile Include="..\Classes\server\Msg\MsgOnLeave.cpp">
       <Filter>src\server\msg</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnFishes.cpp">
+      <Filter>src\server\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\core\ScrollTextEx.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1255,6 +1261,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\server\Msg\MSGstdafx.h">
       <Filter>src\server\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnFishes.h">
+      <Filter>src\server\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\ScrollTextEx.h">
+      <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

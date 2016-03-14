@@ -33,11 +33,11 @@ enum
 
 
 bool PlayerTurret::init(){
-	if (!Sprite::initWithFile("turretBg.png")){
+	if (!Sprite::init()){
 		return false;
 	}
 	setIsShowInfo(false);
-	
+	setContentSize(Size(155, 71));
 	m_turret = Turret::create();
 
 	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
@@ -578,7 +578,7 @@ void PlayerTurret::initWithDate(User* user,int index)
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
 {
-	int boxlv = rand()%4;
+	int boxlv = user->getChestLv();
 	
 	if (boxlv > 0)
 	{

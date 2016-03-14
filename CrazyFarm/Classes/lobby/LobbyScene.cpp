@@ -401,9 +401,6 @@ bool LobbyScene::init()
 }
 void LobbyScene::showSign(float dt)
 {
-
-	
-	
 	auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
 	if (seqday == 0)
 	{
@@ -436,6 +433,8 @@ void LobbyScene::showMarquee(float dt)
 {
 	auto DisplayBoard = ScrollText::create();
 	DisplayBoard->setPosition(498, 463);
+	DisplayBoard->setScrollStrs(MarqueeManager::getInstance()->getContents());
+	DisplayBoard->setAutoScroll(true,true);
 	addChild(DisplayBoard, kZorderMenu);
 	auto sp = Sprite::create("hot_marquee_bg2.png");
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);

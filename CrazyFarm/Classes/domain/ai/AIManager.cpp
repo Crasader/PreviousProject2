@@ -67,6 +67,10 @@ void  AIManager::MainUpdata(float dt)
 void AIManager::addCreateGoldFish()
 {
 	auto turrets = GameManage::getInstance()->getGameLayer()->GetOtherTurret();
+	if (turrets.size()<=0)
+	{
+		return;
+	}
 	auto turret = getRandValueInVector(turrets);
 	nNowCreateGoldFish++;
 	auto roomid = GameData::getInstance()->getRoomID();

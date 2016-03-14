@@ -98,7 +98,11 @@ public:
 	void onClearFishUpdata(float dt);
 	void onClearFishFinish();
 private:
-	
+
+	int m_index = -1; //客户端显示位置
+	int m_curIndex;//实际位置
+
+
 
 	//点击炮
 	bool onTouTurret(Point pos);
@@ -107,7 +111,7 @@ private:
 	PlayerTurret* myTurret =nullptr;
 	Vector<PlayerTurret*> otherTurrets;
 	std::vector<RoomPlayer> players;
-	int m_index = -1;
+	
 	EventListenerTouchOneByOne* touchListener;
 	bool isShoot = true;
 //点击事件
@@ -122,6 +126,9 @@ private:
 	bool istouched = false;
 	float shootTemp = 0;
 
+	std::map<int, Sprite*> TxtWaitingTurrent;
+
+
 ///////强联网相关
 public:
 	virtual void handle_event(const char* msgId, const char* msgBody);
@@ -130,7 +137,9 @@ private:
 	void onSomeoneLeave(Msg_onLeave* msg);
 	void onSomeoneComing(Msg_onAdd* msg);
 	void onClientInit(Msg_onInit* msg);
-
+	void onFishesMsg(Msg_OnFishes*msg);
+	void MsgUpdata(float dt);
+	std::vector<Msg_Base*> Msgs;
 
 };
 #endif

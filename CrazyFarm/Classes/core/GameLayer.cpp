@@ -27,6 +27,7 @@
 #include "server/Server.h"
 #include "server/MsgObserver.h"
 #include "server/Msg/MsgHelp.h"
+#include "core/ScrollTextEx.h"
 #define BOOMRADIUS 300
 enum
 {
@@ -43,13 +44,15 @@ enum
 	kTagFrezzebg  = 11,
 	kTagBoomAniNode = 12
 };
-
+const Point turretPos[4] =
+{
+	Vec2(288, 35.5),
+	Vec2(672, 35.5),
+	Vec2(672, 504.5),
+	Vec2(288,504.5)
+};
 
 bool GameLayer::init(){
-    Server::getInstance()->conConnect("172.23.1.20", 3050, User::getInstance()->getSessionid().c_str());   // TODO  : test init server
-    MsgObserver *muo = new MsgUserOne();
-    Server::getInstance()->add_observer(muo);
-	Server::getInstance()->add_observer(this);
 	if (!Layer::init())
 	{
 		return false;
@@ -86,8 +89,7 @@ bool GameLayer::init(){
     auto roominfo = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
 	players = RoomManager::getInstance()->initRoomConfig(roominfo.unlock_turrent_level);
 	calculateFreeChair();
-	createTurret();
-	//0.1f执行一次碰撞
+	
 	schedule(schedule_selector(GameLayer::collisionUpdate), 0.1, CC_REPEAT_FOREVER, 0);
 
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
@@ -129,9 +131,14 @@ bool GameLayer::init(){
 	addChild(createFishAcNode);
 
 
-	showYourChairno();
 	
-		
+	
+	//初始化完毕，建立连接
+	Server::getInstance()->conConnect("172.23.1.20", 3050, User::getInstance()->getSessionid().c_str());   // TODO  : test init server
+	Server::getInstance()->add_observer(this);
+	
+
+	schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
 
 /////////////////TEST BEGIN///////////////////////////
@@ -192,7 +199,7 @@ bool GameLayer::init(){
 	
 
 
-
+	//
 
 
 
@@ -253,35 +260,30 @@ void GameLayer::createFishGroup(float dt)
 }
 
 void GameLayer::createTurret(){
+	CCLOG("init turret!");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto vec = players;
 	auto user = User::getInstance();
 
 	myTurret = PlayerTurret::create();
-	const Point turretPos[4] =
-	{
-		Vec2(visibleSize.width *0.3, myTurret->getBoundingBox().size.height / 2),
-		Vec2(visibleSize.width *0.7, myTurret->getBoundingBox().size.height / 2),
-		Vec2(visibleSize.width *0.7, visibleSize.height - myTurret->getBoundingBox().size.height / 2),
-		Vec2(visibleSize.width *0.3, visibleSize.height - myTurret->getBoundingBox().size.height / 2)
-	};
+	
 	
 	myTurret->initWithDate(user, m_index);
 	myTurret->setAnchorPoint(ccp(0.5, 0.5));
 	myTurret->setPosition(turretPos[m_index]);
-	this->addChild(myTurret, kZorderTurrent);
-
-	for (auto player:vec)
-	{
-		auto otherTurret = PlayerTurret::create();
-		otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-		otherTurret->setPosition(turretPos[player.getRoomPosition()]);
-		otherTurret->initWithDate(&player);
-		otherTurrets.pushBack(otherTurret);
-		addChild(otherTurret, kZorderMenu, kTagBaseturret + player.getRoomPosition());
-		
-	}
+	addChild(myTurret, kZorderTurrent);
 	
+
+	for (int i = 0; i < 4; i++)
+	{
+		auto sp = Sprite::create("WaitJoin.png");
+		sp->setPosition(turretPos[i]);
+		addChild(sp, kZorderTurrent);
+		TxtWaitingTurrent[i] = sp;
+		sp->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
+	}
+	TxtWaitingTurrent[m_index]->setVisible(false);
+	showYourChairno();
 }
 
 
@@ -933,48 +935,140 @@ void GameLayer::onGetRewardByfish(PlayerTurret*turrent, Fish*fish, int itemid, i
 
 void GameLayer::handle_event(const char* msgId, const char* msgBody)
 {
-	if (strcmp (msgId,"fire")==0)
+	Msg_Base*msg = MsgHelp::getInfoByMsg(msgId, msgBody);
+	if (msg)
 	{
-		if (myTurret)
-		{
-			myTurret->shoot(Value(msgBody).asFloat());
-		}
+		Msgs.push_back(msg);
 	}
-	if (strcmp(msgId, "conError") == 0)
-	{
-		//断开连接
-	}
-	if (strcmp(msgId, "init") == 0)
-	{
-		//客户端初始化
-	}
-	if (strcmp(msgId, "onAdd") == 0)
-	{
-		Msg_Base*msg = MsgHelp::getInfoByMsg(msgId,msgBody);
-		//某人加入
-		onSomeoneComing((Msg_onAdd*)(msg));
-	}
-	if (strcmp(msgId, "onLeave") == 0)
-	{
-		//某人离开
 	
-	}
-	if (strcmp(msgId, "onFishes") == 0)
-	{
-		//鱼群下发
-
-	}
 }
 
 void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 {
+	if (msg->roomPos == m_curIndex)
+	{
+		return;
+	}
 
+
+	RoomPlayer* user = new RoomPlayer();
+	user->setCoins(msg->coins);
+	user->setDiamonds(msg->diamonds);
+	user->setLevel(msg->turrent_level);
+	user->setMaxTurretLevel(msg->turrent_level);
+	user->setUserName(msg->username.c_str());
+	user->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
+	user->setChestLv(msg->box_level);
+	AI* ai = AIManager::getInstance()->getAI(user->getMaxTurretLevel());
+	user->setAi(ai);
+	int uiPos = msg->roomPos - m_curIndex + m_index;
+	if (uiPos>3)
+	{
+		uiPos -= 4;
+	}
+	if (uiPos<0)
+	{
+		uiPos += 4;
+	}
+	user->setRoomPosition(uiPos);
+
+	auto otherTurret = PlayerTurret::create();
+	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+	otherTurret->setPosition(turretPos[user->getRoomPosition()]);
+	otherTurret->initWithDate(user);
+	otherTurrets.pushBack(otherTurret);
+	addChild(otherTurret, kZorderMenu, kTagBaseturret + user->getRoomPosition());
+
+	TxtWaitingTurrent[user->getRoomPosition()]->setVisible(false);
 }
 void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 {
-
+	for (auto var:otherTurrets)
+	{
+		if (var->getRoomPos() == msg->roomPos)
+		{
+			var->removeFromParentAndCleanup(1);
+			otherTurrets.eraseObject(var);
+			TxtWaitingTurrent[msg->roomPos]->setVisible(true);
+			return;
+		}
+	}
 }
 void GameLayer::onClientInit(Msg_onInit* msg)
 {
+	createTurret();
+	m_curIndex = msg->roomPos;
+	auto vec = msg->roomplayers;
+	for (auto var:vec)
+	{
+		if (var->getRoomPosition() == m_curIndex)
+		{
+			return;
+		}
+		int uiPos = var->getRoomPosition() - m_curIndex + m_index;
+		if (uiPos > 3)
+		{
+			uiPos -= 4;
+		}
+		if (uiPos < 0)
+		{
+			uiPos += 4;
+		}
+		var->setRoomPosition(uiPos);
+		AI* ai = AIManager::getInstance()->getAI(var->getMaxTurretLevel());
+		var->setAi(ai);
+		auto otherTurret = PlayerTurret::create();
+		otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+		otherTurret->setPosition(turretPos[var->getRoomPosition()]);
+		otherTurret->initWithDate(var);
+		otherTurrets.pushBack(otherTurret);
+		addChild(otherTurret, kZorderMenu, kTagBaseturret + var->getRoomPosition());
 
+		TxtWaitingTurrent[var->getRoomPosition()]->setVisible(false);
+	}
 }
+void GameLayer::onFishesMsg(Msg_OnFishes*msg)
+{
+	auto node = GameManage::getInstance()->getGuiLayer()->getChildByName("displayboard");
+	if (node)
+	{
+		((ScrollTextEx*)node)->setScrollStrs(msg->eventstrs);
+		return;
+	}
+	auto DisplayBoard = ScrollTextEx::create();
+	DisplayBoard->setPosition(498, 463);
+	DisplayBoard->setAutoScroll(true);
+	DisplayBoard->setScrollStrs(msg->eventstrs);
+	DisplayBoard->setName("displayboard");
+	GameManage::getInstance()->getGuiLayer()->addChild(DisplayBoard, kZorderMenu);
+	
+}
+void GameLayer::MsgUpdata(float dt)
+{
+	for (auto var :Msgs)
+	{
+		switch (var->getMsgId())
+		{
+		case MsgInit:
+			onClientInit((Msg_onInit*)(var));
+			break;
+		case MsgConError:
+			break;
+		case MsgOnLeave:
+			onSomeoneLeave((Msg_onLeave*)(var));
+			break;
+		case MsgOnAdd:
+			onSomeoneComing((Msg_onAdd*)(var));
+			break;
+		case MsgOnFishes:
+			onFishesMsg((Msg_OnFishes*)var);
+			break;
+		default:
+			break;
+		}
+		delete var;
+	}
+	Msgs.clear();
+	
+}
+

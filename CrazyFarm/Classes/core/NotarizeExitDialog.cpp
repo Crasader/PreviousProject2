@@ -18,7 +18,7 @@ bool NotarizeExitDialog::init()
 		sp->setPosition(457, 313);
 		addChild(sp);
 		
-		auto queren = MenuItemImage::create("btn_queding_1.png", "btn_queding_2.png", CC_CALLBACK_1(NotarizeExitDialog::querenCallback, this));
+		auto queren = MenuItemImage::create("btn_queding_11.png", "btn_queding_22.png", CC_CALLBACK_1(NotarizeExitDialog::querenCallback, this));
 		queren->setPosition(329, 200);
 		auto close = MenuItemImage::create("btn_quxiao_1.png", "btn_quxiao_2.png", CC_CALLBACK_1(NotarizeExitDialog::closeButtonCallBack, this));
 		close->setPosition(629, 200);

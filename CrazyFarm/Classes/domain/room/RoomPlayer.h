@@ -34,10 +34,10 @@ public:
     CC_SYNTHESIZE(int, coins, Coins);
     CC_SYNTHESIZE(int, diamonds, Diamonds);
     
-    CC_SYNTHESIZE(char*, userName, UserName);
+    CC_SYNTHESIZE(const char*, userName, UserName);
     CC_SYNTHESIZE(int, level, Level);
     CC_SYNTHESIZE(int, maxturretLevel, MaxTurretLevel);
-    
+	CC_SYNTHESIZE(int, chestLv, ChestLv);
     CC_SYNTHESIZE(AI*, ai, Ai);
 
 

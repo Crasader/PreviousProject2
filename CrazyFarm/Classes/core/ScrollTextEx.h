@@ -1,15 +1,14 @@
-#ifndef _SCROLLTEXT_H_
-#define _SCROLLTEXT_H_
+#pragma once
 #include "cocos2d.h"
 
 USING_NS_CC;
-class ScrollText: public cocos2d::Node {
+class ScrollTextEx : public cocos2d::Node {
 public:
 	
-	CREATE_FUNC(ScrollText);
+	CREATE_FUNC(ScrollTextEx);
 	CC_CONSTRUCTOR_ACCESS:
-	ScrollText();
-	virtual ~ScrollText();
+	ScrollTextEx();
+	virtual ~ScrollTextEx();
 	virtual bool init();
 	virtual bool initWithDatas(cocos2d::Sprite* pMask,
 		cocos2d::Label* pMoveChild);
@@ -27,5 +26,7 @@ private:
 	bool _autoScroll;
 	std::string marInfo;
 	bool ishowDialog;
+
+
+	std::list<std::string> m_strs;
 };
-#endif

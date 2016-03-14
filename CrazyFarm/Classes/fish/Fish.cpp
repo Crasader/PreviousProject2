@@ -525,7 +525,7 @@ void Fish::onFreezeResume()
 
 void Fish::onDead()
 {
-
+	stopAllActions();
 	auto acName = String::createWithFormat("dead_%d", nUiID);
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
 	auto ac1 = ac->clone();

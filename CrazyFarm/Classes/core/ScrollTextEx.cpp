@@ -1,11 +1,11 @@
-#include "ScrollText.h"
-#include "domain/marquee/MarqueeManager.h"
+#include "ScrollTextEx.h"
+
 
 
 USING_NS_CC;
 #define IF_RETURN(cont,p) if ((cont)){return (p);}
 #define IF_RETURN_FALSE(cont) IF_RETURN(cont,false)
-bool ScrollText::init() {
+bool ScrollTextEx::init() {
 	bool ret = true;
 	if (Node::init()) {
 		pMask = Sprite::create("hot_marquee_bg1.png");
@@ -17,11 +17,18 @@ bool ScrollText::init() {
 		_mLable->setColor(Color3B::YELLOW);
 		IF_RETURN_FALSE(!initClipper(pMask, _mLable));
 		scheduleUpdate();
+		
+
+		auto sp = Sprite::create("hot_marquee_bg2.png");
+		sp->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+		sp->setPosition(-this->getContentSize().width / 2, 0);
+		addChild(sp, -1);
+
 		return ret;
 	}
 	return ret;
 }
-void ScrollText::setScrollStrs(std::vector<std::string> strs)
+void ScrollTextEx::setScrollStrs(std::vector<std::string> strs)
 {
 	auto vec = strs;
 	std::string str1;
@@ -29,14 +36,14 @@ void ScrollText::setScrollStrs(std::vector<std::string> strs)
 	{
 		str1 += "            " + var;
 	}
-	_mLable->setString(str1);
+	m_strs.push_back(str1);
 }
 
-void ScrollText::setpMaskString(std::string string) {
+void ScrollTextEx::setpMaskString(std::string string) {
 	_mLable = Label::create(string, "Arial-BoldMT", 16);
 }
 
-bool ScrollText::initClipper(cocos2d::Sprite* pMask,
+bool ScrollTextEx::initClipper(cocos2d::Sprite* pMask,
 		cocos2d::Label* pMoveChild) {
 	auto clipper = ClippingNode::create();
 	IF_RETURN_FALSE(!clipper);
@@ -60,20 +67,20 @@ bool ScrollText::initClipper(cocos2d::Sprite* pMask,
 	return true;
 }
 
-ScrollText::ScrollText() :
+ScrollTextEx::ScrollTextEx() :
 _autoScroll(false) {
 }
 
-ScrollText::~ScrollText() {
+ScrollTextEx::~ScrollTextEx() {
 	//	CC_SAFE_RELEASE(_mLable);
 }
 
 
-void ScrollText::update(float delta) {
+void ScrollTextEx::update(float delta) {
 	if (!_mLable) {
 		return;
 	}
-	float speed = 0.5f;
+	float speed = 0.7f;
 	float currentX = _mLable->getPositionX();
 	float contentX = getContentSize().width * (-1.0f);
 	float lableX = _mLable->getContentSize().width * (-1.0f);
@@ -81,7 +88,18 @@ void ScrollText::update(float delta) {
 		if (_mLable->getPositionX() >= (lableX + contentX / 2+ 60))
 			_mLable->setPositionX(_mLable->getPositionX() -speed);
 		else {
-			_mLable->setPositionX(-contentX / 2 );
+			if (m_strs.size()>0)
+			{
+				auto str = m_strs.front();
+				m_strs.pop_front();
+				_mLable->setString(str);
+				_mLable->setPositionX(-contentX / 2 );
+			}
+			else
+			{
+				removeFromParentAndCleanup(1);
+			}
+			
 		}
 
 	} else {
@@ -89,7 +107,7 @@ void ScrollText::update(float delta) {
 	}
 }
 
-void ScrollText::setAutoScroll(bool isScroll, bool byWidth/*=false*/) {
+void ScrollTextEx::setAutoScroll(bool isScroll, bool byWidth/*=false*/) {
 	if (!byWidth) {
 		_autoScroll = isScroll;
 	} else {
@@ -98,7 +116,7 @@ void ScrollText::setAutoScroll(bool isScroll, bool byWidth/*=false*/) {
 						true : false;
 	}
 }
-bool ScrollText::initWithDatas(cocos2d::Sprite* pMask,
+bool ScrollTextEx::initWithDatas(cocos2d::Sprite* pMask,
 		cocos2d::Label* pMoveChild) {
 	bool ret = false;
 	if (Node::init()) {
@@ -111,11 +129,3 @@ bool ScrollText::initWithDatas(cocos2d::Sprite* pMask,
 	}
 	return ret;
 }
-
-
-long ScrollText::getCurrentTime() {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
-}
-
