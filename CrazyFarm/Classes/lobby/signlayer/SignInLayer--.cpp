@@ -39,24 +39,16 @@ bool SignInLayer::init(int seqday)
 		}
 		else
 		{
-			auto sp = SpliceCell::create(2);
-			sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
-			sp->setPosition(90.28 / 2 + (i - 1)*90.28-83/2, 71-142/2+14);
-			frame->addChild(sp);
-			SpliceCells.pushBack(sp);
-			/*auto locksp = Sprite::create("sign_lock.png");
-			locksp->setPosition(sp->getPosition());
-			frame->addChild(locksp, 1, "lock");*/
-			/*auto reward = getRewardInVectorByProbability(ConfigSign::getInstance()->getRewards());
+			auto reward = getRewardInVectorByProbability(ConfigSign::getInstance()->getRewards());
 			auto sp = SignCell::create(reward.propID, reward.propNum);
 			if (User::getInstance()->getVipLevel()>0)
 			{
-			reward.propNum *= 2;
-			sp->setVipX2();
+				reward.propNum *= 2;
+				sp->setVipX2();
 			}
 			sp->setPosition(90.28 / 2 + (i - 1)*90.28, 71);
 			frame->addChild(sp);
-			rewards.push_back(reward);*/
+			rewards.push_back(reward);
 		}
 	}
 
@@ -101,12 +93,6 @@ SignInLayer * SignInLayer::createLayer(int seqday)
 
 void SignInLayer::gainRewardsCallback(Ref* psend)
 {
-	CCLOG("begin");
-	for (auto var : SpliceCells)
-	{
-		var->setBegin();
-	}
-	return;
 	if (nSeqSignDay<1||nSeqSignDay>7)
 	{
 		return;
@@ -129,11 +115,8 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 			BagManager::getInstance()->changeItemCount(var.propID, var.propNum);
 		}
 	}
-	for (int i = 0; i < SpliceCells.size();i++)
-	{
-		//TODO:
-	}
-	//this->removeFromParentAndCleanup(1);
+
+	this->removeFromParentAndCleanup(1);
 }
 
 void SignInLayer::updata(float dt)

@@ -21,7 +21,7 @@ bool SpliceCell::init(int curIndex)
 	while (!bRet)
 	{
 		auto clipper = ClippingNode::create();
-		clipper->setContentSize(Size(89, 130));
+		clipper->setContentSize(Size(89, 125));
 		clipper->setAnchorPoint(Point::ZERO);
 		clipper->setPosition(0,0);
 		addChild(clipper);
@@ -53,6 +53,12 @@ bool SpliceCell::init(int curIndex)
 
 		clipper->setStencil(stencil);
 
+
+
+
+
+		content1->setPositionY(26);
+		content2->setPositionY(-471);
 		
 		bRet = true;
 	}
@@ -69,12 +75,17 @@ void SpliceCell::update(float delta)
 	}
 	else
 	{
-		return;
+		if (temp==false)
+		{
+			temp = true;
+			content1->setPositionY(14+(m_curindex-1)*83);
+			content2->setPositionY(content1->getPositionY()+498);
+		}
 		speed -= delta * 10;
 	}
-	if (speed<=5)
+	if (speed<=0)
 	{
-		speed = 5;
+		speed = 0;
 	}
 	content1->setPositionY(content1->getPositionY() - speed);
 	content2->setPositionY(content2->getPositionY() - speed);

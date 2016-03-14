@@ -14,11 +14,14 @@ public:
 	void setBegin(){ scheduleUpdate(); }
 private:
 	void update(float delta);
-	float nTumbleTime = 0;;
-	float speed = 0;
+	float nTumbleTime = 4;
+	float speed = 44.67;
 	int curValue = 0;
 	Sprite*content1;
 	Sprite*content2;
+	int m_curindex;//½±ÀøËùÔÚÎ»ÖÃ
+
+	bool temp = false;
 };
 
 
