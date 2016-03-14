@@ -67,7 +67,7 @@ void Server::conConnect(char* host, int port, const char* session_id) {
 void Server::connect_cb(const pc_request_t* req, int rc, const char* resp) {
     CCLOG("connect_cb: get rc %d\n", rc);
     CCLOG("connect_cb: get resp %s\n", resp);
-    // TODO : 回调用户信息
+    Server::getInstance()->notify_observer("init", resp);
 	
 }
 
