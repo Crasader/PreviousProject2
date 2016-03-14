@@ -49,7 +49,7 @@ void Server::doConnect() {
     if(!onConnecting) {
         onConnecting = true;
         // TODO : 组装username
-        std::string reqParams = "{\"username\": \"" + std::string(username) + "\"}" ;
+        std::string reqParams = "{\"username\": \"" + username + "\"}" ;
         pc_request_with_timeout(workingClient, REQ_ROUTE, reqParams.c_str(), REQ_EX, REQ_TIMEOUT, connect_cb);
     }
     

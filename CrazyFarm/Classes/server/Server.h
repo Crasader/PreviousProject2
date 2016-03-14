@@ -47,7 +47,7 @@ private:
     static void connect_cb(const pc_request_t* req, int rc, const char* resp);
     static void notify_cb(const pc_notify_t* noti, int rc);
     
-    const char* username;
+    std::string username;
     
     std::vector<MsgObserver*> msgObserver;
 };

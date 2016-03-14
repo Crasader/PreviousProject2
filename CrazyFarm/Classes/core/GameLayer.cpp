@@ -326,8 +326,6 @@ void GameLayer::shootUpdata(float dt)
 
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
-
-	
 	auto node = getChildByName("clickcatch");
 	if (node)
 	{
