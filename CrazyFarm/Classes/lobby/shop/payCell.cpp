@@ -110,7 +110,7 @@ void PayCell::IsBeToued()
 		if (node)
 		{
 			
-			node->addChild(layer,21);
+			node->addChild(layer,40);
 			if ((GameGuiLayer*)node == GameManage::getInstance()->getGuiLayer())
 			{
 				layer->setEventPoint(4);
