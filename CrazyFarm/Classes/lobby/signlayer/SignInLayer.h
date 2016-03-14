@@ -15,7 +15,7 @@ public:
 	void updata(float dt);
 private:
 	void gainRewardsCallback(Ref* psend);
-	SignRewardItem getRewardInVectorByProbability(std::vector<SignRewardItem>);
+	SignRewardItem getRewardInVectorByProbability(std::vector<SignRewardItem>,int &curindex);
 	int nSeqSignDay = 0;
 	Vector<SpliceCell*> SpliceCells;
 	std::vector<SignRewardItem> rewards;

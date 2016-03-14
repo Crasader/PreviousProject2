@@ -14,8 +14,8 @@ public:
 	void setBegin(){ scheduleUpdate(); }
 private:
 	void update(float delta);
-	float nTumbleTime = 4;
-	float speed = 44.67;
+	float nTumbleTime = 0;
+	float speed = 0;
 	int curValue = 0;
 	Sprite*content1;
 	Sprite*content2;

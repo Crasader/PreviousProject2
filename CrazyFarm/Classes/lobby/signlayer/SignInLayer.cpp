@@ -38,7 +38,15 @@ bool SignInLayer::init(int seqday)
 			frame->addChild(sp);
 		}
 		else
-		{
+		{	
+			int curindex = -1;
+			auto reward = getRewardInVectorByProbability(ConfigSign::getInstance()->getRewards(), curindex);
+			if (User::getInstance()->getVipLevel() > 0)
+			{
+				reward.propNum *= 2;
+			}
+			rewards.push_back(reward);
+
 			auto sp = SpliceCell::create(2);
 			sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			sp->setPosition(90.28 / 2 + (i - 1)*90.28-83/2, 71-142/2+14);
@@ -47,16 +55,8 @@ bool SignInLayer::init(int seqday)
 			/*auto locksp = Sprite::create("sign_lock.png");
 			locksp->setPosition(sp->getPosition());
 			frame->addChild(locksp, 1, "lock");*/
-			/*auto reward = getRewardInVectorByProbability(ConfigSign::getInstance()->getRewards());
-			auto sp = SignCell::create(reward.propID, reward.propNum);
-			if (User::getInstance()->getVipLevel()>0)
-			{
-			reward.propNum *= 2;
-			sp->setVipX2();
-			}
-			sp->setPosition(90.28 / 2 + (i - 1)*90.28, 71);
-			frame->addChild(sp);
-			rewards.push_back(reward);*/
+			
+			
 		}
 	}
 
@@ -141,23 +141,17 @@ void SignInLayer::updata(float dt)
 
 }
 
-SignRewardItem SignInLayer::getRewardInVectorByProbability(std::vector<SignRewardItem> vec)
+SignRewardItem SignInLayer::getRewardInVectorByProbability(std::vector<SignRewardItem> vec,int &curindex)
 {
-	std::vector<SignRewardItem> vec2;
-	vec2.resize(vec.size());
-	for (int i = 0; i < vec.size(); i++)
-	{
-		vec2.at(i).propID = vec[i].propID;
-		vec2.at(i).propNum = vec[i].propNum;
-		int lastPer = (i == 0 ? 0 : vec2[i - 1].probability);
-		vec2.at(i).probability = lastPer + vec[i].probability;
-	}
 	int randNum = rand() % 100 + 1;
-	for (auto ite = vec2.begin(); ite != vec2.end(); ite++)
+	int per = 0;
+	for (int i = 0; i < vec.size();i++)
 	{
-		if (randNum <= ite->probability)
+		per += vec.at(i).probability;
+		if (randNum<per)
 		{
-			return *ite;
+			curindex = i;
+			return vec.at(i);
 		}
 	}
 	return vec.at(0);
