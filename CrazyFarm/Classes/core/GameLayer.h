@@ -139,11 +139,13 @@ private:
 	void onSomeoneComing(Msg_onAdd* msg);
 	void onClientInit(Msg_onInit* msg);
 	void onFishesMsg(Msg_OnFishes*msg);
+	void onConError(Msg_ConError*msg);
+	void exitCallback(Ref*psend);
 	void MsgUpdata(float dt);
 	std::vector<Msg_Base*> Msgs;
 
 
-
+	
 	bool isInitData = false;
 
 };

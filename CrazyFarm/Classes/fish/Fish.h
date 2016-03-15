@@ -81,6 +81,7 @@ public:
 
 
 	FishZorder getFishZorder();
+	void moveUpdata(float dt);
 protected:
 	
 	void update(float);
@@ -109,6 +110,9 @@ protected:
 	Point getRandomPostion(float speed, float dt,float &angle);
 	Point getRandomPostionForBigFish(float speed, float dt, float &angle);
 	
+	
+	int m_movetype = -1;
+	float bigFishMoveDt = 5;
 	Sprite* image;
 
 

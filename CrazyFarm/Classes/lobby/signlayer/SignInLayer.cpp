@@ -9,7 +9,7 @@
 #include "domain/bag/BagManager.h"
 #include "utill/Audio.h"
 #include "utill/FunUtil.h"
-bool SignInLayer::init(int seqday)
+bool SignInLayer::init(std::vector<SignItem> items)
 {
 	if (!Layer::init()){
 		return false;
@@ -22,7 +22,7 @@ bool SignInLayer::init(int seqday)
 	addChild(colorlayer, -1,"color");
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
-	nSeqSignDay = seqday;
+	_items = items;
 	auto bg = Sprite::create("signBg.png");
 	bg->setPosition(visibleSize / 2);
 	addChild(bg,0,"bg");
@@ -31,6 +31,8 @@ bool SignInLayer::init(int seqday)
 	auto frame = Sprite::create("signFrame.png");
 	frame->setPosition(visibleSize.width / 2-8, visibleSize.height*0.58+9);
 	addChild(frame,0,"signframe");
+
+	int nSeqSignDay = _items.size();
 	for (int i = 1; i <= 7;i++)
 	{
 		if (i>nSeqSignDay)
@@ -41,13 +43,7 @@ bool SignInLayer::init(int seqday)
 		}
 		else
 		{	
-			int curindex = -1;
-			auto reward = getRewardInVectorByProbability(ConfigSign::getInstance()->getRewards(), curindex);
-			if (User::getInstance()->getVipLevel() > 0)
-			{
-				reward.propNum *= 2;
-			}
-			rewards.push_back(reward);
+			int curindex = getCurindexByRewards(items.at(i - 1));
 
 			auto sp = SpliceCell::create(curindex,4.0f+(i-1)*0.5f);
 			sp->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -86,26 +82,14 @@ bool SignInLayer::init(int seqday)
 
 
 
-	//auto anisp = Sprite::create("signAni_1.png");
-	//anisp->setAnchorPoint(Point::ZERO);
-	//anisp->setPosition(-23,-19);
-	//bg->addChild(anisp);
-	//anisp->runAction(RepeatForever::create(Blink::create(0.8f, 1)));
-
-	//anisp = Sprite::create("signAni_2.png");
-	//anisp->setAnchorPoint(Point::ZERO);
-	//anisp->setPosition(-23,-19);
-	//bg->addChild(anisp);
-	//anisp->runAction(Sequence::create(DelayTime::create(0.4f), CallFunc::create([=]{anisp->runAction(RepeatForever::create(Blink::create(0.8f, 1))); }),nullptr));
-
 
 	return true;
 
 }
-SignInLayer * SignInLayer::createLayer(int seqday)
+SignInLayer * SignInLayer::createLayer(std::vector<SignItem> items)
 {
 	SignInLayer *ret = new  SignInLayer();
-	if (ret && ret->init(seqday))
+	if (ret && ret->init(items))
 	{
 		ret->autorelease();
 		return ret;
@@ -119,19 +103,13 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 {
 
 	((MenuItemImage*)psend)->setEnabled(false);
-	if (nSeqSignDay<1||nSeqSignDay>7)
-	{
-		return;
-	}
 	Audio::getInstance()->playSound(FRUITSIGN);
 	CCLOG("begin");
 	for (auto var : SpliceCells)
 	{
 		var->setBegin();
 	}
-	runAction(Sequence::create(DelayTime::create(nSeqSignDay*0.5 + 4.0f + 1.0f), CallFunc::create([=]{
-		UserDefault::getInstance()->setIntegerForKey(KEY_SEQSIGNDAY, nSeqSignDay);
-	UserDefault::getInstance()->setStringForKey(KEY_LASTSIGNDAY, ConfigSign::getInstance()->getToday());
+	runAction(Sequence::create(DelayTime::create(_items.size()*0.5 + 4.0f + 1.0f), CallFunc::create([=]{
 	getChildByName("signframe")->setVisible(false);
 	getChildByName("bg")->setVisible(false);
 	getChildByName("color")->setVisible(false);
@@ -140,41 +118,23 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 		auto sp = Sprite::create("signRewards.png", Rect(0, 406-83 * curindexs.at(i), 83, 83));
 		sp->setPosition(213 + i*90.28, 330);
 		sp->runAction(Sequence::create(Spawn::create(MoveTo::create(1.0f, Vec2(259.2, 48)), ScaleTo::create(1.0f, 0.1f), nullptr), RemoveSelf::create(), nullptr));
+		if (User::getInstance()->getVipLevel()>0)
+		{
+			auto vipx2 = Sprite::create("VIPX2.png");
+			vipx2->setPosition(41.5, 41.5);
+			sp->addChild(vipx2);
+		}
 		getParent()->addChild(sp, 30);
 	}
 	runAction(Sequence::create(DelayTime::create(1.2f), CallFunc::create([=]{
-		for (auto var : rewards)
+	for (auto var : _items)
 	{
-		if (var.propID == 1001)
-		{
-			User::getInstance()->addCoins(var.propNum);
-		}
-		else if (var.propID == 1002)
-		{
-			User::getInstance()->addDiamonds(var.propNum);
-		}
-		else
-		{
-			BagManager::getInstance()->changeItemCount(var.propID, var.propNum);
-		}
+		BagManager::getInstance()->addreward(var.itemId, var.num);
 	}
+	SignMannger::getInstance()->clearSignItem();
 
 	((LobbyScene*)(this->getParent()))->guizuCallback(nullptr);
-	for (auto var : rewards)
-	{
-		if (var.propID == 1001)
-		{
-			User::getInstance()->addCoins(var.propNum);
-		}
-		else if (var.propID == 1002)
-		{
-			User::getInstance()->addDiamonds(var.propNum);
-		}
-		else
-		{
-			BagManager::getInstance()->changeItemCount(var.propID, var.propNum);
-		}
-	}	this->removeFromParentAndCleanup(1);}), nullptr));
+	this->removeFromParentAndCleanup(1);}), nullptr));
 	
 
  }), nullptr));
@@ -186,19 +146,22 @@ void SignInLayer::updata(float dt)
 
 }
 
-SignRewardItem SignInLayer::getRewardInVectorByProbability(std::vector<SignRewardItem> vec,int &curindex)
+int SignInLayer::getCurindexByRewards(SignItem item)
 {
-	int randNum = getRand() % 100 + 1;
-	int per = 0;
-	for (int i = 0; i < vec.size();i++)
+	std::vector<SignItem> items;
+	items.push_back(SignItem(1003, 1));
+	items.push_back(SignItem(1004, 1));
+	items.push_back(SignItem(1002, 5));
+	items.push_back(SignItem(1001, 800));
+	items.push_back(SignItem(1002, 3));
+	items.push_back(SignItem(1001, 500));
+	
+	for (int i = 0; i < items.size();i++)
 	{
-		per += vec.at(i).probability;
-		if (randNum<per)
+		if (item.itemId == items[i].itemId&&item.num == items[i].num)
 		{
-			curindex = i;
-			return vec.at(i);
+			return i;
 		}
 	}
-	curindex = 0;
-	return vec.at(0);
+	return 0;
 }

@@ -6,7 +6,7 @@
 #include "domain/pay/Pay.h"
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "domain/pay/WaitCircle.h"
-
+#include "lobby/signlayer/SignMannger.h"
 
 HttpMannger* HttpMannger::_instance = NULL;
 
@@ -54,6 +54,7 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 	}
 	User::getInstance()->setUserID(doc["user_name"].GetString());
 	User::getInstance()->setSessionid(doc["session_id"].GetString());
+	
 	CCLOG("register success");
 }
 

@@ -35,10 +35,10 @@ public:
 	void refreshCoinLabel();
 	void showVipCallBack(Ref*psend);
 	void quickBeginCallback(Ref*psend);
-
+	void showSign(float dt);
 private:
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
-	void showSign(float dt);
+	
 	void showMarquee(float dt);
 	void createRoomLayer();
 	///°´Å¥»Øµ÷

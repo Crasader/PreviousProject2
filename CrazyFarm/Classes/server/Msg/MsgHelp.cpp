@@ -5,6 +5,10 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	if (strcmp(msgId, "conError") == 0)
 	{
 		//断开连接
+		base = new Msg_ConError();
+		base->setBody(msgBody);
+		base->setMsgId(MsgConError);
+		
 	}
 	if (strcmp(msgId, "init") == 0)
 	{
@@ -31,11 +35,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "onFishes") == 0)
 	{
-		static int test = 0;
-		if (test++>3)
-		{
-			return nullptr;
-		}
+		
 		//鱼群下发
 		base = new Msg_OnFishes();
 		base->setBody(msgBody);

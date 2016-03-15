@@ -40,6 +40,7 @@
 #include "utill/CircleMoveTo.h"
 #include "domain/pay/WaitCircle.h"
 #include "domain/loading/LoadingSceneLbToGm.h"
+#include "lobby/signlayer/SignMannger.h"
 
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
@@ -73,7 +74,7 @@ bool LobbyScene::init()
 	{
 		return false;
 	}
-
+	/*SignMannger::getInstance()->sendRequest();*/
 	auto user = User::getInstance();
 	auto leveldata = user->getLevelData();
 
@@ -390,12 +391,14 @@ bool LobbyScene::init()
 	}
 	else
 	{
-		this->scheduleOnce(schedule_selector(LobbyScene::showSign), 1.0f);  
+		SignMannger::getInstance()->setLobbyLayer(this);
+		SignMannger::getInstance()->sendRequest();
+		  
 	}
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg(); }), nullptr));
 
 	
-	auto randPos = Vec2(100, 150 + getRand() % 200);
+	
 
 
 	//auto SummonBottle = Sprite::create("SummonBottle.png");
@@ -407,33 +410,41 @@ bool LobbyScene::init()
 }
 void LobbyScene::showSign(float dt)
 {
-
-	auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
-	if (seqday == 0)
+	///TODO:VIP²¹×ã½ð±Ò
+	auto rewards = SignMannger::getInstance()->getSignItems();
+	if (rewards.size() > 0)
 	{
+		auto sign = SignInLayer::createLayer(rewards);
+		sign->setPosition(Point::ZERO);
+		addChild(sign, 20);
+	}
 
-	}
-	else if (seqday == -1)
-	{
+	//auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
+	//if (seqday == 0)
+	//{
 
-	}
-	else
-	{
-		if (User::getInstance()->getVipLevel()>6)
-		{
-			VipGainCoinSureDialog*dialog = VipGainCoinSureDialog::create();
-			dialog->setPosition(Point::ZERO);
-			addChild(dialog, kZorderDialog);
-			dialog->setseqDay(seqday);
-		}
-		else
-		{
-			auto sign = SignInLayer::createLayer(seqday);
-			sign->setPosition(Point::ZERO);
-			addChild(sign, 20);
-		}
-	
-	}
+	//}
+	//else if (seqday == -1)
+	//{
+
+	//}
+	//else
+	//{
+	//	if (User::getInstance()->getVipLevel()>6)
+	//	{
+	//		VipGainCoinSureDialog*dialog = VipGainCoinSureDialog::create();
+	//		dialog->setPosition(Point::ZERO);
+	//		addChild(dialog, kZorderDialog);
+	//		dialog->setseqDay(seqday);
+	//	}
+	//	else
+	//	{
+	//		auto sign = SignInLayer::createLayer(seqday);
+	//		sign->setPosition(Point::ZERO);
+	//		addChild(sign, 20);
+	//	}
+	//
+	//}
 }
 
 void LobbyScene::showMarquee(float dt)

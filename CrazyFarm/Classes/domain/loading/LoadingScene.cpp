@@ -13,6 +13,7 @@
 #include "utill/Chinese.h"
 #include "utill/CircleMoveTo.h"
 #include "utill/Audio.h"
+#include "lobby/signlayer/SignMannger.h"
 
 Scene* LoadingScene::createScene()
 {
@@ -72,6 +73,7 @@ void LoadingScene::update(float dt)
 	loadingBar->setPercent(((float)temp) / 15.0f*100+1);
 	if (temp>=15)
 	{
+		
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
 		unscheduleUpdate();
 	}
@@ -138,9 +140,10 @@ void LoadingScene::loadRes()
 {
 	login();
 
+	
 	ConfigManager::getInstance()->LoadConfig();
 
-	ConfigSign::getInstance()->LoadConfig();
+	/*ConfigSign::getInstance()->LoadConfig();*/
 	//´óÌü¶¯»­
 	loadAniWithPng("game/ui/ani/bowen/bowen_%d.png", "aniBowen", 3.0f, 30);
 	loadAniWithPng("game/ui/ani/gainRewards/aniGetRewards%d.png", "aniGainRewards", 1.3f, 10);

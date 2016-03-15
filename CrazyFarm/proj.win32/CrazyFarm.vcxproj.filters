@@ -696,6 +696,12 @@
     <ClCompile Include="..\Classes\core\ScrollTextEx.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\lobby\signlayer\SignMannger.cpp">
+      <Filter>src\lobby\sign</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgConError.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1267,6 +1273,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\core\ScrollTextEx.h">
       <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\signlayer\SignMannger.h">
+      <Filter>src\lobby\sign</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgConError.h">
+      <Filter>src\server\MSG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -163,7 +163,8 @@
     <key>LoadingTip9</key>
   <string>小技巧：捕获黄金鱼不仅可以获得更多奖励，还能进行累计抽奖</string>
   
-  
+  <key>ConError</key>
+  <string>网络中断</string>
   </dict> 
 </array>
 </plist>

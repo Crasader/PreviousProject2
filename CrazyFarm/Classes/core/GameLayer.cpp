@@ -29,6 +29,7 @@
 #include "server/Msg/MsgHelp.h"
 #include "core/ScrollTextEx.h"
 #include "utill/define.h"
+#include "domain/ToolTip/TwiceSureDialog.h"
 #define BOOMRADIUS 300
 #define TCPIDURL "172.23.1.37"
 enum
@@ -78,7 +79,7 @@ bool GameLayer::init(){
 	addChild(anibowennode, -1);
 
 
-	
+
 
 	scheduleUpdate(); 
 
@@ -94,9 +95,22 @@ bool GameLayer::init(){
 
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	
-	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(getRand() % 3 + 81,getRand() % (300 - 35) + 10)); }), nullptr));
 
-
+	runAction(Sequence::create(DelayTime::create(0.01f),
+		CallFunc::create([&]{
+		FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(getRand() % 3 + 81,getRand() % (300 - 35) + 10));
+	for (int i = 0; i < 10;i++)
+	{
+		update(1);
+	}
+		for (auto var : FishManage::getInstance()->getAllFishInPool())
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				var->moveUpdata(1);
+			}
+		}
+ }), nullptr));
 
 	setbisOnSkillLock(false);
 
@@ -513,7 +527,7 @@ void GameLayer::onEnter()
 void GameLayer::onExit()
 {
     Server::getInstance()->quit();  // TODO : disconnect con
-    
+	Msgs.clear();
 	Layer::onExit();
 	initFishAndBulletData();
 }
@@ -1034,6 +1048,30 @@ void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 	GameManage::getInstance()->getGuiLayer()->addChild(DisplayBoard, kZorderMenu);
 	
 }
+void GameLayer::onConError(Msg_ConError*msg)
+{
+	pause();
+	auto dioag = TwiceSureDialog::createDialog(ChineseWord("ConError").c_str(), CC_CALLBACK_1(GameLayer::exitCallback, this));
+	dioag->setPosition(0, 0);
+	dioag->setCloseButtonCallback(CC_CALLBACK_1(GameLayer::exitCallback, this));
+	GameManage::getInstance()->getGuiLayer()->addChild(dioag, 30);
+}
+
+
+void GameLayer::exitCallback(Ref*psend)
+{
+	auto node = BankruptManager::getInstance()->getgetRewardNode();
+	if (node)
+	{
+		node->retain();
+		node->removeFromParentAndCleanup(false);
+
+	}
+	LogEventPageChange::getInstance()->addEventItems(2, 1, 0);
+	Director::getInstance()->replaceScene(LobbyScene::createScene());
+	GameData::getInstance()->setisOnGameScene(false);
+}
+
 void GameLayer::MsgUpdata(float dt)
 {
 	for (auto var :Msgs)
@@ -1044,6 +1082,7 @@ void GameLayer::MsgUpdata(float dt)
 			onClientInit((Msg_onInit*)(var));
 			break;
 		case MsgConError:
+			onConError((Msg_ConError*)(var));
 			break;
 		case MsgOnLeave:
 			onSomeoneLeave((Msg_onLeave*)(var));
