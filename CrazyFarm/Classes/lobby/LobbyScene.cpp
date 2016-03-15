@@ -395,7 +395,7 @@ bool LobbyScene::init()
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg(); }), nullptr));
 
 	
-	auto randPos = Vec2(100, 150 + rand() % 200);
+	auto randPos = Vec2(100, 150 + getRand() % 200);
 
 
 	//auto SummonBottle = Sprite::create("SummonBottle.png");

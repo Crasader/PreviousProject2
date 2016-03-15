@@ -8,6 +8,7 @@
 #include "lobby/LobbyScene.h"
 #include "domain/bag/BagManager.h"
 #include "utill/Audio.h"
+#include "utill/FunUtil.h"
 bool SignInLayer::init(int seqday)
 {
 	if (!Layer::init()){
@@ -187,7 +188,7 @@ void SignInLayer::updata(float dt)
 
 SignRewardItem SignInLayer::getRewardInVectorByProbability(std::vector<SignRewardItem> vec,int &curindex)
 {
-	int randNum = rand() % 100 + 1;
+	int randNum = getRand() % 100 + 1;
 	int per = 0;
 	for (int i = 0; i < vec.size();i++)
 	{

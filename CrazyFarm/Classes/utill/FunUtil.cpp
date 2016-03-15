@@ -15,6 +15,7 @@ bool collision(Rect rectA, Rect rectB)
 
 bool collision(Sprite*spA, Sprite*spB)
 {
+	
 
 	const float scaleMultiple = 0.7;
 	auto rect1 = spA->getBoundingBox();
@@ -69,13 +70,13 @@ Vec2 CalculateDiffMarginPos(Vec2 pos,float diff)
 
 float getRandonNumByAtoB(float A, float B)
 {	
-	return  A + (B - A)*rand() / (float)RAND_MAX;
+	return  A + (B - A)*getRand() / (float)RAND_MAX;
 }
 
 int getintRandonNumByAtoB(int A, int B, int interval)
 {
 	auto temp = (B - A) / interval+1;
-	return A+interval*(rand()%temp);
+	return A+interval*(getRand()%temp);
 }
 
 
@@ -163,7 +164,7 @@ std::string myWrap(std::string str, int length)
 int getRandValueInVec(std::vector<int> vec)
 {
 	int size = vec.size();
-	return vec.at(rand() % size);
+	return vec.at(getRand() % size);
 }
 
 Action* getForeverAcByNameAndInterval(const char* name, float interval)
@@ -207,4 +208,10 @@ unsigned long getCurrentTime()
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
 	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+}
+
+int getRand(unsigned int _Seed)
+{
+	srand(_Seed);
+	return rand();
 }

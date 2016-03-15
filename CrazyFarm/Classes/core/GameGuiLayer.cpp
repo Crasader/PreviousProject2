@@ -92,12 +92,12 @@ bool GameGuiLayer::init(){
 	createGuizuGiftLayer();
 	if (GameData::getInstance()->getRoomID() > 1)
 	{
-		beginMaridTaskTime(rand()%300);//第一次游戏开始300秒
+		beginMaridTaskTime(getRand()%300);//第一次游戏开始300秒
 	}
 
 
 	GameData::getInstance()->setisOnGameScene(true);
-	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), rand() % 4 + 5);
+	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), getRand() % 4 + 5);
 	scheduleUpdate();
 
 	GameData::getInstance()->setisPlayerOneGame(true);
@@ -158,10 +158,10 @@ void GameGuiLayer::showRandonBubbleAni()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto aniNode = Sprite::create();
-	aniNode->setPosition(rand() % ((int)(visibleSize.width)), rand() % ((int)(visibleSize.height/2)));
+	aniNode->setPosition(getRand() % ((int)(visibleSize.width)), getRand() % ((int)(visibleSize.height/2)));
 	addChild(aniNode, 5);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniBubble"), RemoveSelf::create(1), nullptr));
-	int k = rand() % 30 + 50;
+	int k = getRand() % 30 + 50;
 	float nexttime = ((float)k) / 10;
 	runAction(Sequence::create(DelayTime::create(nexttime), CallFunc::create(CC_CALLBACK_0(GameGuiLayer::showRandonBubbleAni, this)), nullptr));
 }
@@ -277,7 +277,7 @@ void GameGuiLayer::maridTaskTime(float dt)
 void GameGuiLayer::playRandVoice(float dt)
 {
 	Audio::getInstance()->playZhenrenVoice();
-	runAction(Sequence::create(DelayTime::create(rand() % 11 + 15), CallFunc::create([=]{playRandVoice(0); }), nullptr));
+	runAction(Sequence::create(DelayTime::create(getRand() % 11 + 15), CallFunc::create([=]{playRandVoice(0); }), nullptr));
 
 }
 

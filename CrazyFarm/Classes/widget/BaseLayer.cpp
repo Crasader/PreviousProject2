@@ -1,5 +1,6 @@
 #include "BaseLayer.h"
 #include "utill/AnimationUtil.h"
+#include "utill/FunUtil.h"
 bool BaseLayer::init()
 {
 	Layer::init();
@@ -23,10 +24,10 @@ void BaseLayer::showRandonBubbleAni()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto aniNode = Sprite::create();
-	aniNode->setPosition(rand() % ((int)(visibleSize.width-150))+75, rand() % ((int)(visibleSize.height / 2))+30);
+	aniNode->setPosition(getRand() % ((int)(visibleSize.width-150))+75, getRand() % ((int)(visibleSize.height / 2))+30);
 	addChild(aniNode, 5);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniBubble"), RemoveSelf::create(1), nullptr));
-	int k = rand() % 30 + 50;
+	int k = getRand() % 30 + 50;
 	float nexttime = ((float)k) / 10;
 	runAction(Sequence::create(DelayTime::create(nexttime), CallFunc::create(CC_CALLBACK_0(BaseLayer::showRandonBubbleAni, this)), nullptr));
 }

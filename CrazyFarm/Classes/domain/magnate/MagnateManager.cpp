@@ -1,5 +1,5 @@
 #include "domain/magnate/MagnateManager.h"
-
+#include "utill/FunUtil.h"
 MagnateManager* MagnateManager::_instance = NULL;
 
 MagnateManager::MagnateManager(){
@@ -23,7 +23,7 @@ MagnateManager* MagnateManager::getInstance(){
 MagnateEvent MagnateManager::getDiamandMagnateEvent(){
     MagnateEvent magnateEvent;
 	magnateEvent.fireTimes =  diamandConfig.fire_time_from +
-		rand() % (diamandConfig.fire_time_to - diamandConfig.fire_time_from);
+		getRand() % (diamandConfig.fire_time_to - diamandConfig.fire_time_from);
     magnateEvent.itemId = 1002;
     magnateEvent.num = 1;
     return magnateEvent;
@@ -32,8 +32,8 @@ MagnateEvent MagnateManager::getDiamandMagnateEvent(){
 MagnateEvent MagnateManager::getItemMagnateEvent(){
     MagnateEvent magnateEvent;
     magnateEvent.fireTimes = itemConfig.fire_time_from +
-    rand()%(itemConfig.fire_time_to - itemConfig.fire_time_from);
-    int random = rand()%100;
+    getRand()%(itemConfig.fire_time_to - itemConfig.fire_time_from);
+    int random = getRand()%100;
     if(random < 33) {
         magnateEvent.itemId = 1003;
     }else if(random < 66) {

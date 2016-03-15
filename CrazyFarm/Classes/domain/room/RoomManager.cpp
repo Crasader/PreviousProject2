@@ -20,7 +20,7 @@ RoomManager* RoomManager::getInstance(){
 
 std::vector<RoomPlayer> RoomManager::initRoomConfig(int roomMinTurrentLevel) {
     minTurrentLevel = roomMinTurrentLevel;
-    int userPosition = rand()%2;
+    int userPosition = getRand()%2;
     roomPlayers.clear();
     
     for(int i=0;i<4;i++) {
@@ -47,32 +47,32 @@ std::vector<RoomPlayer> RoomManager::initRoomConfig(int roomMinTurrentLevel) {
 }
 
 int RoomManager::getInitMaxTurrentLevelByMinTurrentLevel(int roomMinLevel) {
-    int random = rand()%100;
+    int random = getRand()%100;
     if(roomMinLevel <= 1) {
         if(random < 60) {
-            return 1 + rand()%10;
+            return 1 + getRand()%10;
         }else if(random < 90){
-            return 15 + (rand()%4)*5;
+            return 15 + (getRand()%4)*5;
         }else {
-            return 15 + (rand()%7)*5;
+            return 15 + (getRand()%7)*5;
         }
     }else if(roomMinLevel <= 30) {
         if(random < 40){
-            return 30 + (rand()%4)*5;
+            return 30 + (getRand()%4)*5;
         }else if(random < 95){
-            return 50 + (rand()%5)*10;
+            return 50 + (getRand()%5)*10;
         }else {
-            return 100 +(rand()%3)*50;
+            return 100 +(getRand()%3)*50;
         }
     }else  if(roomMinLevel <= 100) {
         if(random < 95){
-            return 100 +(rand()%10)*50;
+            return 100 +(getRand()%10)*50;
         }else {
-            return 500 +(rand()%3)*100;
+            return 500 +(getRand()%3)*100;
         }
     }else {
         if(random < 98) {
-            return 500 + (rand()%5)*100;
+            return 500 + (getRand()%5)*100;
         }else {
             return 1000;
         }
@@ -82,21 +82,21 @@ int RoomManager::getInitMaxTurrentLevelByMinTurrentLevel(int roomMinLevel) {
 
 int RoomManager::getInitCoinsByMinTurrentLevel(int maxLevel) {
     if(maxLevel <= 30) {
-        return 10000 + rand()%490000;   // [1W, 50W]
+        return 10000 + getRand()%490000;   // [1W, 50W]
     }else if(maxLevel <= 300) {
-        return 80000 + rand()%1420000;   //[8W, 150W]
+        return 80000 + getRand()%1420000;   //[8W, 150W]
     }else {
-        return 500000 + rand()%9500000;   //[50w, 1000W]
+        return 500000 + getRand()%9500000;   //[50w, 1000W]
     }
 }
 
 int RoomManager::getInitDiamondsByMinTurrentLevel(int maxLevel) {
     if(maxLevel <= 30) {
-        return 2 + rand()%98;   //
+        return 2 + getRand()%98;   //
     }else if(maxLevel <= 300) {
-        return 50 + rand()%450;   //
+        return 50 + getRand()%450;   //
     }else {
-        return 50 + rand()%2500;   //
+        return 50 + getRand()%2500;   //
     }
 }
 
@@ -104,11 +104,11 @@ int RoomManager::getInitDiamondsByMinTurrentLevel(int maxLevel) {
 
 int RoomManager::getInitPlayerLevelByMinTurrentLevel(int maxLevel) {
     if(maxLevel <= 30) {
-        return 0 + rand()%20;
+        return 0 + getRand()%20;
     }else if(maxLevel <= 300) {
-        return 1 + rand()%40;
+        return 1 + getRand()%40;
     }else {
-        return 5 + rand()%100;
+        return 5 + getRand()%100;
     }
 }
 
@@ -117,7 +117,7 @@ std::vector<RoomPlayer> RoomManager::updateRoomConfig() {
 //    int j = 0;
 //    for(int i=0;i<4;i++) {
 //        if(i != userPosition) {
-//            int needUpdate = rand()%100;
+//            int needUpdate = getRand()%100;
 //            if(roomPlayers.at(j).getPlayerState() == RoomPlayer::PLAYERSTATE_STANDUP) {
 //                if(needUpdate < 40) {
 //                    roomPlayers.at(j).setCoins(200);

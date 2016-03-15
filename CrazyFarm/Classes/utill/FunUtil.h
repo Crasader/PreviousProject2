@@ -4,6 +4,8 @@
 #include "AnimationUtil.h"
 USING_NS_CC;
 
+//获得随机数By随机因子，默认随机时间因子
+int getRand(unsigned int _Seed = time(nullptr));
 //碰撞检测
 bool collision(Sprite*spA, Sprite*spB);
 bool collision(Rect rectA, Rect rectB);
@@ -38,8 +40,8 @@ void upsetVector(std::vector<Fwd> &vec)
 	int temp,i,j;
 	while (T--)
 	{
-		i = rand() % n;
-		j = rand() % n;
+		i = getRand() % n;
+		j = getRand() % n;
 		temp = vec[i];
 		vec[i] = vec[j];
 		vec[j] = temp;
@@ -50,5 +52,5 @@ void upsetVector(std::vector<Fwd> &vec)
 template<typename Fkd>
 Fkd getRandValueInVector(Vector<Fkd> &vec)
 {
-	return vec.at(rand() % vec.size());
+	return vec.at(getRand() % vec.size());
 }

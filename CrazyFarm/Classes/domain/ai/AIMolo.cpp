@@ -3,7 +3,7 @@
 
 PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion) {
     PlayerWork playerWork;
-//    int turrentLevel = rand()%this->getMaxTurrentLevel();
+//    int turrentLevel = getRand()%this->getMaxTurrentLevel();
 //    playerWork.setTurrentLevel(turrentLevel);
     
     if(! AIManager::getInstance()->allowAiFire()) {
@@ -21,8 +21,8 @@ PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion) {
     }
     
     if(count == 0) {
-        nextCountReset = 60 + rand()%100;
-        fireLevel = baseFireLevel + rand()%10;
+        nextCountReset = 60 + getRand()%100;
+        fireLevel = baseFireLevel + getRand()%10;
     }
     
     if( count > nextCountReset && count < nextCountReset + 10 ) {
@@ -38,7 +38,7 @@ PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion) {
     
     playerWork.setTurrentLevel(this->getMaxTurrentLevel());
     
-    int fire = rand()%100;
+    int fire = getRand()%100;
     
     int currentFireLevel = fireLevel;
     if(lastFire) {
@@ -55,9 +55,9 @@ PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion) {
         playerWork.setFire(false);
         lastFire = false;
         
-        int turn = rand()%100;
+        int turn = getRand()%100;
         if(turn < 20) {
-            angle = 60 - rand()%120;
+            angle = 60 - getRand()%120;
             playerWork.setAngle((float)angle);
         }else {
             playerWork.setAngle(angle);

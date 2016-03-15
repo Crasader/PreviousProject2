@@ -32,8 +32,8 @@ Bankrupt BankruptManager::getBankrupt() {
 Bankrupt BankruptManager::getRobotBankrupt() {
 
 		Bankrupt bankrupt;
-		bankrupt.coins = rand()%20000;
-		bankrupt.wait_time = rand()%60;
+		bankrupt.coins = getRand()%20000;
+		bankrupt.wait_time = getRand()%60;
 		return bankrupt;
 }
 

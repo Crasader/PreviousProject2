@@ -94,7 +94,7 @@ bool GameLayer::init(){
 
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	
-	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 10)); }), nullptr));
+	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(getRand() % 3 + 81,getRand() % (300 - 35) + 10)); }), nullptr));
 
 
 
@@ -146,14 +146,14 @@ bool GameLayer::init(){
 //	for (int i = 0; i < 10;i++)
 //{
 //	auto fish = FishManage::getInstance()->createFishSingle(i+1);
-//	fish->setPosition(rand() % 500 + 200, 100 + rand() % 200);
+//	fish->setPosition(getRand() % 500 + 200, 100 + getRand() % 200);
 //	addChild(fish, 10);
 //	needDeadFishs.pushBack(fish);
 //}
 //	if (needDeadFishs.size() > 0)
 //	{
 //		auto fish = FishManage::getInstance()->createFishSingle(5);
-//		fish->setPosition(rand() % 500 + 200, 100 + rand() % 200);
+//		fish->setPosition(getRand() % 500 + 200, 100 + getRand() % 200);
 //		addChild(fish, 10);
 //		auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
 //		shandian->setPosition(fish->getPosition());
@@ -414,7 +414,7 @@ void GameLayer::calculateFreeChair()
 	}
 	else
 	{
-		m_index = rand() % 1;
+		m_index = getRand() % 1;
 	}
 	std::vector<int> freeChairno;
 	for (int i = 0; i < 4;i++)

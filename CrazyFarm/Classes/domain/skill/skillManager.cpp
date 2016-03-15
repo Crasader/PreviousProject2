@@ -47,7 +47,7 @@ int skillManager::getSKillNumById(int skillid)
 void skillManager::useSkillSummon(PlayerTurret*turret)
 {
 	
-	auto randPos = Vec2(100, 150 + rand() % 200);
+	auto randPos = Vec2(100, 150 + getRand() % 200);
 
 
 	auto SummonBottle = Sprite::create("SummonBottle.png");
@@ -61,7 +61,7 @@ void skillManager::useSkillSummon(PlayerTurret*turret)
 	GameManage::getInstance()->getGuiLayer()->addChild(aniNode, 10);
 	Audio::getInstance()->playSound(SKILLSUMMON);
 	aniNode->runAction(Sequence::create(DelayTime::create(1.0f),Repeat::create(AnimationUtil::getInstance()->getAnimate("aniZhaoHuan"), 2), CallFunc::create([=]{
-	auto fish = FishManage::getInstance()->createFishSingle(40 + rand() % 5);
+	auto fish = FishManage::getInstance()->createFishSingle(40 + getRand() % 5);
 	fish->setPosition(randPos);
 	fish->setMoveAngle(0);
 	fish->setScale(0);

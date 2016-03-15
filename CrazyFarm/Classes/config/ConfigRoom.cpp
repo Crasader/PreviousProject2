@@ -1,6 +1,7 @@
 #include "config/ConfigRoom.h"
 #include "utill/JniFunUtill.h"
 #include "ConfigDefine.h"
+#include "utill/FunUtil.h"
 ConfigRoom* ConfigRoom::_instance = NULL;
 
 ConfigRoom::ConfigRoom(){
@@ -114,46 +115,46 @@ int ConfigRoom::getPlayerCounts(int currentHour, int roomId) {
     if(roomId == 1) {
         if(room1Players == 0) {
             
-            room1Players = int((1+base)*12000) + rand()%4000;
+            room1Players = int((1+base)*12000) + getRand()%4000;
         }else {
-            room1Players = room1Players - (room1Players/20) + rand()%(room1Players/10+1);
+            room1Players = room1Players - (room1Players/20) + getRand()%(room1Players/10+1);
         }
         if(room1Players <= 0) {
-            room1Players =  rand()%4000;
+            room1Players =  getRand()%4000;
         }
         return  room1Players;
     }else if(roomId == 2) {
         if(room2Players == 0) {
-            room2Players = int((1+base)*6000) + rand()%4000; //6000-10000
+            room2Players = int((1+base)*6000) + getRand()%4000; //6000-10000
         }else {
-            room2Players = room2Players -(room2Players/20) + rand()%(room2Players/10+1);
+            room2Players = room2Players -(room2Players/20) + getRand()%(room2Players/10+1);
         }
         if(room2Players <= 0) {
-            room2Players = rand()%3000;
+            room2Players = getRand()%3000;
         }
         return  room2Players;
     }else if(roomId == 3) {
         if(room3Players == 0) {
-            room3Players = int((1+base)*4000) + rand()%4000; //4000-8000
+            room3Players = int((1+base)*4000) + getRand()%4000; //4000-8000
         }else {
-			room3Players = room3Players-(room3Players / 20) + rand() % (room3Players / 10 +1);
+			room3Players = room3Players-(room3Players / 20) + getRand() % (room3Players / 10 +1);
         }
         if(room3Players <= 0) {
-            room3Players = rand()%1000;
+            room3Players = getRand()%1000;
         }
         return room3Players;
     }else if(roomId == 4) {
         if(room4Players == 0) {
-            room4Players = int((1+base)*500) + rand()%1000; //500-1500
+            room4Players = int((1+base)*500) + getRand()%1000; //500-1500
         }else {
-			room4Players = room4Players-(room4Players / 20) + rand() % (room4Players / 10 + 1);
+			room4Players = room4Players-(room4Players / 20) + getRand() % (room4Players / 10 + 1);
         }
         if(room4Players <= 0) {
-            room4Players =  rand()%100;
+            room4Players =  getRand()%100;
         }
         return room4Players;
     }
     
-    return 3757 + rand()%300;
+    return 3757 + getRand()%300;
 
 }

@@ -1,6 +1,6 @@
 #include "FishOfAllKilled.h"
 void FishOfAllKilled::initFish(int fishID){
-	int fishid = rand() % 2 ? rand() % 7 + 4 : rand() % 6 + 30;
+	int fishid = getRand() % 2 ? getRand() % 7 + 4 : getRand() % 6 + 30;
 	auto fishdata = ConfigFish::getInstance()->getFish(fishid);
 	if (fishid == 44)
 	{

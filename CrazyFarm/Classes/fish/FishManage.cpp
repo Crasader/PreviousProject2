@@ -49,7 +49,7 @@ Point FishManage::getBestRewardPostion() {
 
 Fish* FishManage::createFishSingle(){
 	auto fish = Fish::create();
-	int randType = rand() % 27+1;   // TODO : change 27 to config by fish list numbers
+	int randType = getRand() % 27+1;   // TODO : change 27 to config by fish list numbers
 	fish->initFish(randType);
 	fishPool.pushBack(fish);
 	return fish;
@@ -293,7 +293,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 
 void FishManage::decideFishPos(Fish* fish){
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-	int border = rand() % 10;
+	int border = getRand() % 10;
 	switch (border){
 	case 0:
 	case 1:
@@ -301,13 +301,13 @@ void FishManage::decideFishPos(Fish* fish){
 	case 3:
 	{
 		auto x = fish->getBoundingBox().size.width/2;
-		auto y = rand() % (int)(visibleSize.height);
+		auto y = getRand() % (int)(visibleSize.height);
 		fish->setRotation(0);
 		fish->setPosition(ccp(-x, y));
 		fish->setDirection(RIGHT);
 		break; }
 	case 4:{
-		auto x = rand() % (int)(visibleSize.width);
+		auto x = getRand() % (int)(visibleSize.width);
 		auto y = fish->getBoundingBox().size.height/2;
 		fish->setPosition(ccp(x, visibleSize.height + y));
 		fish->setRotation(90);
@@ -319,13 +319,13 @@ void FishManage::decideFishPos(Fish* fish){
 	case 7:
 	case 8:{
 		auto x = fish->getBoundingBox().size.width/2;
-		auto y = rand() % (int)(visibleSize.height);
+		auto y = getRand() % (int)(visibleSize.height);
 		fish->setPosition(ccp(visibleSize.width + x, y));
 		fish->setRotation(180);
 		fish->setDirection(LEFT);
 		break; }
 	case 9:{
-		auto x = rand() % (int)(visibleSize.width);
+		auto x = getRand() % (int)(visibleSize.width);
 		auto y = fish->getBoundingBox().size.height/2;
 		fish->setPosition(ccp(x, -y));
 		fish->setRotation(270);
@@ -438,10 +438,10 @@ void FishManage::UpdataCreateFish(float dt)
 						}
 						break;
 					case -2:
-						createFishAssign(fishid, rand() % 16 + 1);
+						createFishAssign(fishid, getRand() % 16 + 1);
 						break;
 					case -3:
-						createFishAssign(fishid, rand() % 4 + 17);
+						createFishAssign(fishid, getRand() % 4 + 17);
 						break;
 					default:
 						createFishAssign(fishid, route);

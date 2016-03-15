@@ -1,7 +1,7 @@
 #include "utill/Audio.h"
 #include "SimpleAudioEngine.h"
 #include "data/GameData.h"
-
+#include "utill/FunUtil.h"
 
 Audio* Audio::m_instance = nullptr;
 Audio* Audio::getInstance(){
@@ -76,8 +76,8 @@ void Audio::prepare(){
 
 void Audio::playZhenrenVoice()
 {
-	int sexnum = rand() % 10 >= 3 ? 3 : 0;
-	int randnum = sexnum + rand() % 3 + 1;
+	int sexnum = getRand() % 10 >= 3 ? 3 : 0;
+	int randnum = sexnum + getRand() % 3 + 1;
 
 
 	auto str = String::createWithFormat("game/audio/zhenren/voice_%d.ogg", randnum);

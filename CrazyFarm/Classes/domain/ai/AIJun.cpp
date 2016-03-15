@@ -3,7 +3,7 @@
 
 PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion) {
     PlayerWork playerWork;
-//    int turrentLevel = rand()%this->getMaxTurrentLevel();
+//    int turrentLevel = getRand()%this->getMaxTurrentLevel();
 //    playerWork.setTurrentLevel(turrentLevel);
     
     if(! AIManager::getInstance()->allowAiFire()) {
