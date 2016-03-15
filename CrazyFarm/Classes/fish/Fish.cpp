@@ -21,6 +21,7 @@ bool Fish::init(){
 	addChild(aniEmptyNode);
 	setTargeLightTurret(nullptr);
 	setTargeLockTurret(nullptr);
+	schedule(schedule_selector(Fish::moveUpdata), 0, CC_REPEAT_FOREVER, 0);
 	return true;
 }
 
@@ -143,32 +144,37 @@ float Fish::getFishSpeedByID(int fishID){
 	return 80;
 }
 
+void Fish::moveUpdata(float dt)
+{
+	switch (m_movetype)
+	{
+	case 1:
+		moveFishStraight(dt);
+		break;
+	case 2:
+		moveFishCircle(dt);
+		break;
+	case 3:
+		moveFishRandomStraight(dt);
+		break;
+	case 4:
+		moveFishRandomStraightForBigFish(dt);
+		break;
+	}
+}
+
 void Fish::move(int moveType){
 	//选择鱼的移动模式
 	unscheduleUpdate();
-	switch (moveType)
-	{
-	case 1:
-		schedule(schedule_selector(Fish::moveFishStraight), 0, CC_REPEAT_FOREVER, 0);
-		break;
-	case 2:
-		schedule(schedule_selector(Fish::moveFishCircle), 0, 0, 0);
-		break;
-	case 3:
-		schedule(schedule_selector(Fish::moveFishRandomStraight), Director::getInstance()->getAnimationInterval(), CC_REPEAT_FOREVER, 0);	
-		break;
-	case 4:
-		moveFishRandomStraightForBigFish(5.0f);
-		schedule(schedule_selector(Fish::moveFishRandomStraightForBigFish), 5, CC_REPEAT_FOREVER, 0);
-		break;
-	}
+	m_movetype = moveType;
+	
 }
 
 void Fish::moveFishStraight(float dt){
 	//TODO 鱼的直线移动
 	Point nextPos = getNextPostion(getPosition(), dt*speed, this->getRotation());
-	auto move = MoveBy::create(dt, nextPos);
-	this->runAction(move);
+	setPosition(getPosition() + nextPos);
+
 }
 
 void Fish::moveFishCircle(float dt){
@@ -180,16 +186,15 @@ void Fish::moveFishCircle(float dt){
 
 void Fish::moveFishRandomStraight(float dt){
 	Point nextPos = getRandomPostion(speed,dt, fMoveAngle);
-	auto move = MoveBy::create(dt, nextPos);	
-	runAction(move);
+	setPosition(getPosition() + nextPos);
 	setRotation(360 - fMoveAngle);
 }
 
 void Fish::moveFishRandomStraightForBigFish(float dt){
 
 	Point nextPos = getRandomPostionForBigFish(speed, dt, fMoveAngle);
-	auto move = MoveBy::create(dt, nextPos);
-	runAction(Spawn::create(move,RotateTo::create(dt,360-fMoveAngle),nullptr));
+	setPosition(getPosition()+nextPos);
+	setRotation(360 - fMoveAngle);
 }
 
 
@@ -198,8 +203,7 @@ void Fish::moveFishRandomCurve(float dt)
 {
 	float angle = 0;
 	Point nextPos = getRandomPostion(dt*speed, this->getDirection(), angle);
-	auto move = MoveBy::create(dt, nextPos);
-	this->runAction(EaseSineOut::create(move));
+	setPosition(nextPos);
 
 	runAction(RotateTo::create(0.1, 360 - angle));
 }
@@ -288,7 +292,7 @@ Point Fish::getRandomPostion(float speed, float dt, float &angle)
 Point Fish::getRandomPostionForBigFish(float speed, float dt, float &angle)
 {
 	speed *= dt;
-	float diffAngle = (rand_0_1() *6.0f - 3.0f)*3.0;
+	float diffAngle = (rand_0_1() *6.0f - 3.0f)*3.0/5/50;
 	angle += diffAngle;
 	return Vec2(speed*cos(CC_DEGREES_TO_RADIANS(angle)), speed*sin(CC_DEGREES_TO_RADIANS(angle)));
 
@@ -541,6 +545,9 @@ void Fish::onFreezeResume()
 
 void Fish::onDead()
 {
+
+	stopAllActions();
+
 	onFreezeResume();
 	stopAllActions();
 

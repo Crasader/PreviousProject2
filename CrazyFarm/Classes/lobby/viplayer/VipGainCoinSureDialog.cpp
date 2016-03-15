@@ -81,11 +81,12 @@ void VipGainCoinSureDialog::sureButtonCallBack(Ref*psend)
 	}
 	runAction(Sequence::create(DelayTime::create(2.5f), CallFunc::create([=]
 	{
-		auto sign = SignInLayer::createLayer(m_seqDay);
+		//TODO:
+		/*auto sign = SignInLayer::createLayer(m_seqDay);
 		sign->setPosition(Point::ZERO);
 		getParent()->addChild(sign, 20);
 		User::getInstance()->addCoins(ConfigVipLevel::getInstance()->getVipLevel(User::getInstance()->getVipLevel()).send_coins_over);
-		removeFromParentAndCleanup(1);
+		removeFromParentAndCleanup(1);*/
 	}), nullptr));
 	
 	

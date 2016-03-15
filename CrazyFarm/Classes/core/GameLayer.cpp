@@ -84,9 +84,22 @@ bool GameLayer::init(){
 
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	
-	runAction(Sequence::create(DelayTime::create(0.01f), CallFunc::create([&]{FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 10)); }), nullptr));
 
-
+	runAction(Sequence::create(DelayTime::create(0.01f),
+		CallFunc::create([&]{
+		FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 10));
+	for (int i = 0; i < 10;i++)
+	{
+		update(1);
+	}
+		for (auto var : FishManage::getInstance()->getAllFishInPool())
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				var->moveUpdata(1);
+			}
+		}
+ }), nullptr));
 
 	setbisOnSkillLock(false);
 

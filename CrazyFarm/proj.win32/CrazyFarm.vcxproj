@@ -270,6 +270,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\lobby\shop\payLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\signlayer\SignCell.cpp" />
     <ClCompile Include="..\Classes\lobby\signlayer\SignInLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\signlayer\SignMannger.cpp" />
     <ClCompile Include="..\Classes\lobby\signlayer\SpliceCell.cpp" />
     <ClCompile Include="..\Classes\lobby\viplayer\VipCell.cpp" />
     <ClCompile Include="..\Classes\lobby\viplayer\VipGainCoinSureDialog.cpp" />
@@ -451,6 +452,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\lobby\shop\payLayer.h" />
     <ClInclude Include="..\Classes\lobby\signlayer\SignCell.h" />
     <ClInclude Include="..\Classes\lobby\signlayer\SignInLayer.h" />
+    <ClInclude Include="..\Classes\lobby\signlayer\SignMannger.h" />
     <ClInclude Include="..\Classes\lobby\signlayer\SpliceCell.h" />
     <ClInclude Include="..\Classes\lobby\viplayer\VipCell.h" />
     <ClInclude Include="..\Classes\lobby\viplayer\VipGainCoinSureDialog.h" />
