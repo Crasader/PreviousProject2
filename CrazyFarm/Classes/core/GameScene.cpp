@@ -29,3 +29,10 @@ bool GameScene::init(){
 void GameScene::gotoLevelScene(){
 	Director::getInstance()->replaceScene(TransitionFade::create(1, LevelScene::create()));
 }
+
+void GameScene::onExit()
+{
+	Scene::onExit();
+	GameManage::getInstance()->setGameyer(nullptr);
+	GameManage::getInstance()->setGuilayer(nullptr);
+}

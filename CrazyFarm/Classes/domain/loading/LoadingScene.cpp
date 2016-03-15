@@ -12,6 +12,7 @@
 #include "domain/login/LoginMannger.h"
 #include "utill/Chinese.h"
 #include "utill/CircleMoveTo.h"
+#include "utill/Audio.h"
 
 Scene* LoadingScene::createScene()
 {
@@ -30,7 +31,7 @@ bool LoadingScene::init()
 	{
 		return false;
 	}
-	auto bg = Sprite::create("loading2.jpg");
+	auto bg = Sprite::create("loading_new.jpg");
 	bg->setPosition(480, 270);
 	addChild(bg);
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bubble/aniBubble%d.png", "aniBubble", 3.5f, 46);
@@ -57,6 +58,8 @@ bool LoadingScene::init()
 	loadingbarFrame->addChild(loadingBar);
 	showTip();
 
+
+	Audio::getInstance()->prepare();
 	scheduleUpdate();
 
 	
@@ -66,8 +69,8 @@ bool LoadingScene::init()
 
 void LoadingScene::update(float dt)
 {
-	loadingBar->setPercent(((float)temp) / 60.0f*100+1);
-	if (temp>=59)
+	loadingBar->setPercent(((float)temp) / 15.0f*100+1);
+	if (temp>=15)
 	{
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
 		unscheduleUpdate();
@@ -140,18 +143,6 @@ void LoadingScene::loadRes()
 	ConfigSign::getInstance()->LoadConfig();
 	//大厅动画
 	loadAniWithPng("game/ui/ani/bowen/bowen_%d.png", "aniBowen", 3.0f, 30);
-	loadAniWithPng("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.5f, 5);
-	
-	loadAniWithPng("game/ui/ani/net_ice/netIce%d.png", "iceNet", 0.7f, 18);
-	loadAniWithPng("game/ui/ani/net_fire/netFire%d.png", "fireNet", 0.7f, 18);
-	loadAniWithPng("game/ui/ani/gold/goldAni_%d.png", "aniGold", 0.3f, 5);
-	loadAniWithPng("game/ui/ani/silver/yinbi_%d.png", "aniSilver", 0.3f, 5);
-	loadAniWithPng("game/ui/ani/zhaohuan/TX_ZhaoHuan_%d.png", "aniZhaoHuan", 1.1f, 37);
-	loadAniWithPng("game/ui/ani/TX_DongJie/TX_qpdj_%d.png", "aniTXTdj", 1.1f, 14);
-	loadAniWithPng("game/ui/ani/TX_BaoZha/TX_BaoZha_%d.png", "aniTXTBoom", 2.2f, 28);
-	loadAniWithPng("game/ui/ani/TX_ShiYongJiNeng/TX_SYJN_%d.png", "aniTurretLock", 0.5f, 6);
-	loadAniWithPng("game/ui/ani/TX_MiaoZhun/TX_MiaoZhun_%d.png", "aniFishLock", 0.8f, 10);
-	loadAniWithPng("game/ui/ani/TX_ShengJi/TX_ShengJi_%d.png", "aniShengji", 1.5f, 21);
 	loadAniWithPng("game/ui/ani/gainRewards/aniGetRewards%d.png", "aniGainRewards", 1.3f, 10);
 	loadAniWithPng("game/ui/ani/VipButton/TX_VIP_%d.png", "aniVipButton", 1.3, 20);
 	loadAniWithPng("game/ui/ani/firstPay/TX_ShouChong_%d.png", "aniFirstPay", 1.3f, 10);
@@ -168,48 +159,7 @@ void LoadingScene::loadRes()
 	loadAniWithPng("game/ui/ani/lobbyfish1/TX_YU_%d.png", "aniLobbyFish1", 1.6f, 16);
 	loadAniWithPng("game/ui/ani/lobbyfish2/TX_YU2_%d.png", "aniLobbyFish2", 1.4f, 14);
 	loadAniWithPng("game/ui/ani/lobbyfish3/TX_YU3_%d.png", "aniLobbyFish3", 0.9f, 9);
-	//游戏内动画
-	loadAniWithPng("game/ui/ani/TX_DianGuang/TX_DianGuang_%d.png", "aniJiGuangBottom", 0.4f, 6);
-	loadAniWithPng("game/ui/ani/TX_JiGuang/TX_JiGuang_%d.png", "aniJiGuangBar", 0.2f, 3);
-	loadAniWithPng("game/ui/ani/TX_BossLight/TX_BOSS_%d.png", "aniBossLight", 1.0f, 16);
-	loadAniWithPng("game/ui/ani/TX_GoldFish/aniGoldfish_%d.png", "aniGoldfish", 2.0f, 18);
-	loadAniWithPng("game/ui/ani/TX_DianQiu/TX_DianQiu_%d.png", "aniDianQiu", 1.0f, 13);
-	loadAniWithPng("game/ui/ani/TX_shandian/shandian_%d.png", "aniShandian", 0.5f, 4);
-	loadAniWithPng("game/ui/ani/TX_huanpao/aniHuanpao_%d.png", "aniHuanpao", 0.3f, 7);
-	loadAniWithPng("game/ui/ani/TX_guangquan/guangqiu_%d.png", "aniGuangqiu", 0.3f, 5);
-	//load fish ani
-	for (int i = 1; i <= 10; i++)
-	{
-		auto jsonPath = String::createWithFormat("game/ui/fish/fish_frame_%d.json", i);
-		auto plistPath = String::createWithFormat("game/ui/fish/fish_frame_%d.plist", i);
-		auto pngPath = String::createWithFormat("game/ui/fish/fish_frame_%d.png", i);
-		loadFishAni(pngPath->getCString(), jsonPath->getCString(), plistPath->getCString());
-	}
-	for (int i = 30; i <= 37; i++)
-	{
-		auto jsonPath = String::createWithFormat("game/ui/fish/fish_frame_%d.json", i);
-		auto plistPath = String::createWithFormat("game/ui/fish/fish_frame_%d.plist", i);
-		auto pngPath = String::createWithFormat("game/ui/fish/fish_frame_%d.png", i);
-		loadFishAni(pngPath->getCString(), jsonPath->getCString(), plistPath->getCString());
-	}
-	for (int i = 40; i <= 44; i++)
-	{
-		auto jsonPath = String::createWithFormat("game/ui/fish/fish_frame_%d.json", i);
-		auto plistPath = String::createWithFormat("game/ui/fish/fish_frame_%d.plist", i);
-		auto pngPath = String::createWithFormat("game/ui/fish/fish_frame_%d.png", i);
-		loadFishAni(pngPath->getCString(), jsonPath->getCString(), plistPath->getCString());
-	}
-	for (int i = 50; i <= 52; i++)
-	{
-		auto jsonPath = String::createWithFormat("game/ui/fish/fish_frame_%d.json", i);
-		auto plistPath = String::createWithFormat("game/ui/fish/fish_frame_%d.plist", i);
-		auto pngPath = String::createWithFormat("game/ui/fish/fish_frame_%d.png", i);
-		loadFishAni(pngPath->getCString(), jsonPath->getCString(), plistPath->getCString());
-	}
-	auto jsonPath = String::createWithFormat("game/ui/fish/fish_frame_%d.json", 60);
-	auto plistPath = String::createWithFormat("game/ui/fish/fish_frame_%d.plist", 60);
-	auto pngPath = String::createWithFormat("game/ui/fish/fish_frame_%d.png", 60);
-	loadFishAni(pngPath->getCString(), jsonPath->getCString(), plistPath->getCString());
+	
 	
 }
 

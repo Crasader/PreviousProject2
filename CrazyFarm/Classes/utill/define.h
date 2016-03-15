@@ -20,6 +20,23 @@ enum
 	kTagCoinFrame3 = 3,
 };
 
+enum
+{
+	kZorderMenu = 20,
+	kZorderDialog = 30,
+	kZorderNet = 11,
+	kZorderBullet = 12,
+	kZorderTurrent = 13
+};
+enum FishZorder
+{
+	kZorderFishS = 5,
+	kZorderFishM = 6,
+	kZorderFishL = 7,
+	kZorderFishXL = 8
+};
+
+
 
 #define CC_SYNTHESIZELOCALINT(KeyName, funName,initValue)\
 public: int get##funName(void) const { return UserDefault::getInstance()->getIntegerForKey(KeyName,initValue); }\

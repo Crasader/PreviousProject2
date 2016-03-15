@@ -20,6 +20,20 @@ struct payRequest
 	std::string wx_timestamp;//微信时间戳
 };
 
+struct prepayidAndReqNum
+{
+	std::string prepayid;
+	int reqnum;
+};
+
+enum PayState
+{
+	UnDoing,//未在进行
+	OrderBooking,//下单中
+	WxPaying,//在微信APP支付中
+	DemandEntrying//查询订单中
+};
+
 
 class Pay:public Node {
 
@@ -29,15 +43,25 @@ public:
 
 	void Overbooking(int paypoint, int eventPoint,Node*paynode);
 	
-	void setIsPaying(bool ispay){ isPaying = ispay; };
+	void setPayState(PayState state){ m_state = state; };
 	
-	void jniCallBack(int code,const char*msg);
+	void jniCallBack(int code, const char*msg, const char* prepayid);
 	
 
 	void pay(payRequest*data);//起支付插件
-	void payCallBack(int code,  const char* msg);
+	void payCallBack(int code, const char* msg, std::string prepayid);
 	void update(float dt);
-	void DemandEntry(int reqNum);//最多请求两次
+	void DemandEntry(int reqNum,std::string prePayid);//最多请求两次
+
+
+
+	void CancelTheOrder();
+
+	std::string getOrderIdByprepayid(std::string prepayid);
+	std::string getPrepayIdByOrderid(std::string orderid);
+
+
+	bool getIsPaying(){ return m_state!=UnDoing; };
 private:
 	
 	void OverbookingActual(int paypoint, int eventPoint);//下单
@@ -45,10 +69,12 @@ private:
     Pay();
     bool init();
     static Pay* _instance;
-	payRequest* nowData;
-	
+	std::map<std::string, payRequest*>  prepayidToPayRequest;
 
-	bool isPaying = false;
+	std::string nowPayOrderId;
+
+
+	PayState m_state = UnDoing;
 	int payResult = -1;   //初始值-1,成功1，失败2'
 	
 };

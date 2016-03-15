@@ -137,7 +137,7 @@ Scene* BagLayer::createScene()
 
 	auto layer = BagLayer::create();
 
-	scene->addChild(layer,0,50);
+	scene->addChild(layer,0,888);
 
 	return scene;
 }
@@ -290,7 +290,7 @@ bool BagLayer::init()
 		diamondFrame->setPosition(visibleSize.width*0.41, visibleSize.height*0.95);
 		addChild(diamondFrame);
 		sssize1 = diamondFrame->getContentSize();
-		auto diamond = Sprite::create("diamond.png");
+		auto diamond = Sprite::create("bigDiamond.png");
 		diamond->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		diamond->setPosition(1, sssize1.height *0.495);
 		diamond->setScale(0.8);

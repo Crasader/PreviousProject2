@@ -16,7 +16,7 @@ void MomentManager::init(){
 MomentManager* MomentManager::getInstance(){
     if(_instance == NULL){
         _instance = new MomentManager();
-        _instance->momentOrderItems = ConfigMomentOrder::getInstance()->LoadConfig();
+     
     }
     return _instance;
 }
@@ -65,7 +65,7 @@ Moment* MomentManager::getNewMomentByType(int momentType, float FFOneTime) {
 	{
 	case 1:
 	{
-		moment = new MomentOne();
+		moment = new MomentTwo();
 		moment->init(FFOneTime);
 		break;
 	
@@ -158,28 +158,6 @@ int MomentManager::getCurrentMomentFishGroup()
 	return curValue;
 }
 
-
-
-int MomentManager::getCurrentType() {
-    if(momentOrderItems.size() > 0) {
-        if(currentPos < momentOrderItems.size()) {
-        }else {
-            currentPos = 0;
-        }
-        MomentOrderItem momentOrderItem = momentOrderItems.at(currentPos);
-        int random = rand()%100;
-        int currentCount = 0;
-        for(int i=0; i<momentOrderItem.momentOrderBaseItems.size(); i++) {
-            currentCount += momentOrderItem.momentOrderBaseItems.at(i).per;
-            if(random <= currentCount) {
-                int moment_id = momentOrderItem.momentOrderBaseItems.at(i).moment_id;
-                currentPos++;
-                return moment_id;
-            }
-        }
-    }
-    return 1;
-}
 
 
 

@@ -91,4 +91,6 @@ void Turret::changeToNewTurret(int uiid)
 	ac1->setTag(102);
 	runAction(ac1);
 
+	Audio::getInstance()->playSound(CHANGETURRENT);
+
 }

@@ -76,7 +76,6 @@ public class AppActivity extends Cocos2dxActivity  {
 			
 			@Override
 			public void run() {
-				Log.e("TBU_DEBUG", "pay wx start ...");
 				PayReq request = new PayReq();
 				request.appId = "wx884476f603eeb8be";//商户号和APPID写死
 				request.partnerId = "1318535301";
@@ -149,8 +148,7 @@ public class AppActivity extends Cocos2dxActivity  {
 	}
 	
 	private void sayWhat(final String what) {
-		// TODO  : 填写对话框回调
-		runOnUiThread(new Runnable() {	// TODO : 以下部分为测试，调试完成可以关闭
+		runOnUiThread(new Runnable() {	
 			@Override
 			public void run() {
 				Toast.makeText(AppActivity.this, "提交成功", Toast.LENGTH_LONG).show();

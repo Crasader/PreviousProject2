@@ -10,7 +10,6 @@
 #include "config/ConfigNormalTurrent.h"
 #include "config/ConfigSkill.h"
 #include "config/ConfigBankrupt.h"
-#include "config/ConfigOnemoment.h"
 #include "config/ConfigChest.h"
 #include "config/ConfigMagnate.h"
 #include "config/ConfigBonuspool.h"
@@ -55,7 +54,6 @@ void ConfigManager::LoadConfig() {
     ConfigSkill::getInstance()->LoadConfig();
     ConfigBankrupt::getInstance()->LoadConfig();
     
-    ConfigOnemoment::getInstance()->LoadConfig();
     ConfigChest::getInstance()->LoadConfig();
     
 	ConfigFishCollisionOBB::getInstance()->LoadConfig();

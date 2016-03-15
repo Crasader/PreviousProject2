@@ -1,25 +1,32 @@
 #include "WaitCircle.h"
 #include "domain/pay/Pay.h"
 
-void WaitCircle::ShowPayWaitCircle()
+WaitCircle*  WaitCircle::ShowPayWaitCircle()
 {
 	auto circle = WaitCircle::create();
-	circle->setName("payCircle");
 	circle->setPosition(480, 270);
-	Director::getInstance()->getRunningScene()->addChild(circle, 30);
+	Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(circle, 100);
+	return circle;
 }
-void WaitCircle::RemovePayWaitCircle()
+void WaitCircle::RemovePayWaitCircle(std::string prepayid)
 {
-	auto circle = Director::getInstance()->getRunningScene()->getChildByName("payCircle");
-	if (circle)
-	{
-		circle->removeFromParentAndCleanup(1);
-	}
+
+	auto circle = Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByName(prepayid);
+		if (circle)
+		{
+			circle->removeFromParentAndCleanup(1);
+		}
+		else
+		{
+			return;
+		}
+	
+
 }
 
-void WaitCircle::sendRequestWaitCirCle()
+void WaitCircle::sendRequestWaitCirCle(std::string prepayid)
 {
-	auto circle = Director::getInstance()->getRunningScene()->getChildByName("payCircle");
+	auto circle = Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByName(prepayid);
 	if (circle)
 	{
 		auto node = (WaitCircle*)(circle); 
@@ -29,7 +36,7 @@ void WaitCircle::sendRequestWaitCirCle()
 
 bool WaitCircle::init()
 {
-	initWithFile("waitcircle.png");
+	bool k = initWithFile("waitcircle.png");
 	runAction(RepeatForever::create(RotateBy::create(2.0f, 360)));
 
 	auto listenr1 = EventListenerTouchOneByOne::create();
@@ -43,8 +50,9 @@ bool WaitCircle::init()
 }
 void WaitCircle::DemandEntry()
 {
-	static int reqnum = 0;
-	Pay::getInstance()->DemandEntry(++reqnum);
+	Pay::getInstance()->DemandEntry(++reqnum,m_prepayid);
+	log("demandentry preid = %s,reqnum = %d", m_prepayid.c_str(), reqnum);
+
 }
 
 

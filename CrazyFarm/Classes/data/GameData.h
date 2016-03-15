@@ -40,6 +40,8 @@ private:
 
 	//游戏状态
 	CC_SYNTHESIZE(bool, m_isOnGroupComing, isOnGroupComing);
+	//是否加载过游戏里的数据
+	CC_SYNTHESIZE(bool, m_isLoadMsgOnGame, isLoadMsgOnGame);
 };
 
 #endif

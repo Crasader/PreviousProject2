@@ -2,13 +2,22 @@
 #include "cocos2d.h"
 #include "utill/define.h"
 #include "config/ConfigBankrupt.h"
+#include "server/HttpMannger.h"
 using namespace cocos2d;
+class PlayerTurret;
 class BankruptManager {
 
 public:
     static BankruptManager* getInstance();
     
-    
+    ///向服务器请求生成破产宝箱
+	void RequestServerToBroke(PlayerTurret* turret);
+	void onHttpRequestCompletedForBroke(HttpClient *sender, HttpResponse *response);
+	///向服务器请求领取破产宝箱
+	void RequestServerToRebirth();
+	void onHttpRequestCompletedForRebirth(HttpClient *sender, HttpResponse *response);
+	
+
     Bankrupt getBankrupt();
 	Bankrupt getRobotBankrupt();
     void addTodayRequestTime();

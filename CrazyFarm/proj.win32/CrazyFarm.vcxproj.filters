@@ -131,10 +131,10 @@
       <UniqueIdentifier>{bc11c115-20d7-4246-b5f2-fed33e1d0c85}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\server">
-      <UniqueIdentifier>{59d40c16-56a4-4a83-bd42-3d9971568266}</UniqueIdentifier>
+      <UniqueIdentifier>{d1bdcaac-a316-4513-a226-5d8a135c7fad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\server\msg">
-      <UniqueIdentifier>{5f235298-7730-4b27-8f34-a2b374e16f3c}</UniqueIdentifier>
+    <Filter Include="src\server\MSG">
+      <UniqueIdentifier>{d368c34e-02e7-40c4-a289-a342fc934b4c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -240,20 +240,11 @@
     <ClCompile Include="..\Classes\fish\FishGroupData.cpp">
       <Filter>src\fish</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\config\ConfigOnemoment.cpp">
-      <Filter>src\Interface</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\moment\Moment.cpp">
       <Filter>src\moment</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\moment\MomentManager.cpp">
       <Filter>src\moment</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\moment\MomentOne.cpp">
-      <Filter>src\moment</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\config\ConfigMomentOrder.cpp">
-      <Filter>src\Interface</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\core\showFishLayer.cpp">
       <Filter>src\core</Filter>
@@ -301,9 +292,6 @@
       <Filter>src\lobby\bag</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\lobby\signlayer\SignCell.cpp">
-      <Filter>src\lobby\sign</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\lobby\signlayer\SignInLayer.cpp">
       <Filter>src\lobby\sign</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\lobby\signlayer\SpliceCell.cpp">
@@ -470,9 +458,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\core\maridTaskPlane.cpp">
       <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\domain\coinBox\CoinBox.cpp">
-      <Filter>src\Interface</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\domain\ranklist\RanklistCell.cpp">
       <Filter>src\lobby\ranklist</Filter>
@@ -666,32 +651,47 @@
     <ClCompile Include="..\Classes\domain\pay\WaitCircle.cpp">
       <Filter>src\pay</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\server\Server.cpp">
+    <ClCompile Include="..\Classes\domain\pay\PayingDialog.cpp">
+      <Filter>src\pay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\loading\LoadingSceneLbToGm.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\config\BaseCoinfig.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\coinBox\CoinBox.cpp">
+      <Filter>src\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\signlayer\SignInLayer.cpp">
+      <Filter>src\lobby\sign</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\HttpClientUtill.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\server\HttpMannger.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\server\HttpClientUtill.cpp">
+    <ClCompile Include="..\Classes\server\Server.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\server\Msg\MsgHelp.cpp">
-      <Filter>src\server\msg</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\server\Msg\MsgOnAdd.cpp">
-      <Filter>src\server\msg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\server\Msg\MsgBase.cpp">
-      <Filter>src\server\msg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\server\Msg\MsgOnInit.cpp">
-      <Filter>src\server\msg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\server\Msg\MsgOnLeave.cpp">
-      <Filter>src\server\msg</Filter>
+      <Filter>src\server\MSG</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\server\Msg\MsgOnFishes.cpp">
-      <Filter>src\server\msg</Filter>
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnInit.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnLeave.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgBase.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgHelp.cpp">
+      <Filter>src\server\MSG</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\core\ScrollTextEx.cpp">
       <Filter>src\core</Filter>
@@ -803,20 +803,11 @@
     <ClInclude Include="..\Classes\fish\FishGroupData.h">
       <Filter>src\fish</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\config\ConfigOnemoment.h">
-      <Filter>src\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\moment\Moment.h">
       <Filter>src\moment</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\moment\MomentManager.h">
       <Filter>src\moment</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\moment\MomentOne.h">
-      <Filter>src\moment</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\config\ConfigMomentOrder.h">
-      <Filter>src\Interface</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\core\showFishLayer.h">
       <Filter>src\core</Filter>
@@ -864,9 +855,6 @@
       <Filter>src\lobby\bag</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\signlayer\SignCell.h">
-      <Filter>src\lobby\sign</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\lobby\signlayer\SignInLayer.h">
       <Filter>src\lobby\sign</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\signlayer\SpliceCell.h">
@@ -1232,38 +1220,50 @@
     <ClInclude Include="..\Classes\domain\pay\WaitCircle.h">
       <Filter>src\pay</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\domain\pay\PayingDialog.h">
+      <Filter>src\pay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\loading\LoadingSceneLbToGm.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\config\BaseCoinfig.h">
+      <Filter>src\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\signlayer\SignInLayer.h">
+      <Filter>src\lobby\sign</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\HttpClientUtill.h">
+      <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\HttpMannger.h">
+      <Filter>src\server</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\server\MsgObserver.h">
       <Filter>src\server</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\server\Server.h">
       <Filter>src\server</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\server\HttpMannger.h">
-      <Filter>src\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\server\HttpClientUtill.h">
-      <Filter>src\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\server\Msg\MsgHelp.h">
-      <Filter>src\server\msg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\server\Msg\MsgBase.h">
-      <Filter>src\server\msg</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\server\Msg\MsgOnAdd.h">
-      <Filter>src\server\msg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\server\Msg\MsgOnInit.h">
-      <Filter>src\server\msg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\server\Msg\MsgOnLeave.h">
-      <Filter>src\server\msg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\server\Msg\MSGstdafx.h">
-      <Filter>src\server\msg</Filter>
+      <Filter>src\server\MSG</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\server\Msg\MsgOnFishes.h">
-      <Filter>src\server\msg</Filter>
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnInit.h">
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnLeave.h">
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MSGstdafx.h">
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgBase.h">
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgHelp.h">
+      <Filter>src\server\MSG</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\core\ScrollTextEx.h">
       <Filter>src\core</Filter>

@@ -8,10 +8,7 @@
 #include "utill/Audio.h"
 #include "domain/game/GameManage.h"
 
-enum 
-{
-	kTagAcNormal = 10
-};
+
 bool Fish::init(){
 	if (!Sprite::init())
 	{
@@ -403,7 +400,26 @@ void Fish::setMonentEightRoute(int routeTag)
 		case 3:
 		{
 			auto str = String::createWithFormat("%s_%d", p->aniName.c_str(), fishID);
-			acArray->pushBack(FishAniMannage::getInstance()->getAnimate(str->getCString()));
+			auto ac = FishAniMannage::getInstance()->getAnimate(str->getCString());
+			if (ac)
+			{
+
+				auto seq = Sequence::create(
+					CallFunc::create([=]{
+					this->stopActionByTag(kTagAcNormal);
+					Audio::getInstance()->playSound(FISH50JUMP);
+				}), ac, CallFunc::create([=]{
+					auto acName = String::createWithFormat("swim_%d", this->fishID);
+					auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+					ac->setTag(kTagAcNormal);
+					this->runAction(ac);
+					auto pos = this->getPosition();
+					auto rad = CC_DEGREES_TO_RADIANS(360-this->getRotation());
+					this->setPosition(pos + Vec2(cos(rad) * 5, sin(rad) * 5));
+				}), nullptr);
+				acArray->pushBack(seq);
+			}
+			
 		}
 		break;
 		case 4:
@@ -525,7 +541,13 @@ void Fish::onFreezeResume()
 
 void Fish::onDead()
 {
+
 	stopAllActions();
+
+	onFreezeResume();
+	stopAllActions();
+
+
 	auto acName = String::createWithFormat("dead_%d", nUiID);
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
 	auto ac1 = ac->clone();
@@ -647,4 +669,34 @@ std::vector<Rect> Fish::getAABBBoxs()
 	std::vector<Rect> vec;
 	vec.push_back(getBoundingBox());
 	return vec;
+}
+
+FishZorder Fish::getFishZorder()
+{
+	if (fishID>=1&&fishID<=10)
+	{
+		return kZorderFishS;
+	}
+	else if (fishID >= 30 && fishID <= 37)
+	{
+		return kZorderFishM;
+	}
+	else if (fishID >= 40 && fishID <= 44)
+	{
+		return kZorderFishL;
+	}
+	else if (fishID >= 50 && fishID <= 100)
+	{
+		return kZorderFishXL;
+	}
+	else if (fishID >= 100 && fishID <= 300)
+	{
+		return kZorderFishM;
+	}
+	else
+	{
+		return kZorderFishM;
+	}
+
+
 }

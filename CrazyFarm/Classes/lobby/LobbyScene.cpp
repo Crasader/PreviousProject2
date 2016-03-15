@@ -38,11 +38,9 @@
 #include "utill/JniFunUtill.h"
 #include "lobby/viplayer/VipGainCoinSureDialog.h"
 #include "utill/CircleMoveTo.h"
-enum
-{
-	kZorderMenu = 10,
-	kZorderDialog = 20
-};
+#include "domain/pay/WaitCircle.h"
+#include "domain/loading/LoadingSceneLbToGm.h"
+
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
 roomCell * roomCell::createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback)
@@ -396,11 +394,20 @@ bool LobbyScene::init()
 	}
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg(); }), nullptr));
 
+	
+	auto randPos = Vec2(100, 150 + rand() % 200);
+
+
+	//auto SummonBottle = Sprite::create("SummonBottle.png");
+	//SummonBottle->setPosition(200,100);
+	//addChild(SummonBottle, 100);
+	//SummonBottle->runAction(Spawn::create(MoveTo::create(2.0f, randPos), RotateBy::create(2.0f, 360), RemoveSelf::create(), nullptr));
 
 	return true;
 }
 void LobbyScene::showSign(float dt)
 {
+
 	auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
 	if (seqday == 0)
 	{
@@ -600,7 +607,15 @@ void LobbyScene::quickBeginCallback(Ref*psend)
 
 	}
 	GameData::getInstance()->setRoomID(roomDatas.at(i).room_id);
-	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
+	if (GameData::getInstance()->getisLoadMsgOnGame())
+	{
+		Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
+	}
+	else
+	{
+		Director::getInstance()->replaceScene(TransitionFade::create(1, LoadingSceneLbToGm::createScene()));
+	}
+	
 	LogEventPageChange::getInstance()->addEventItems(1, 2, 0);
 }
 
@@ -653,7 +668,7 @@ void LobbyScene::onAudioOnOffCallback(Ref*psend)
 	else{
 		GameData::getInstance()->setMusicState(true);
 		GameData::getInstance()->setSoundState(true);
-		Audio::getInstance()->playBGM(LOBBYBGM);
+		Audio::getInstance()->resumeBGM();
 	}
 }
 void LobbyScene::feedBackCallback(Ref*psend)

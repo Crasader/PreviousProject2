@@ -46,19 +46,20 @@ int skillManager::getSKillNumById(int skillid)
 
 void skillManager::useSkillSummon(PlayerTurret*turret)
 {
-	Audio::getInstance()->playSound(SKILLSUMMON);
+	
 	auto randPos = Vec2(100, 150 + rand() % 200);
 
 
 	auto SummonBottle = Sprite::create("SummonBottle.png");
 	SummonBottle->setPosition(turret->getPosition());
-	m_gamelayer->addChild(SummonBottle, 5);
-	SummonBottle->runAction(Spawn::create(MoveTo::create(1.0f, randPos), RotateBy::create(1.0f, 360),RemoveSelf::create(), nullptr));
+	GameManage::getInstance()->getGuiLayer()->addChild(SummonBottle, 10);
+	SummonBottle->runAction(Sequence::create(Spawn::create(MoveTo::create(1.0f, randPos), RotateBy::create(1.0f, 360),ScaleTo::create(1.0f,0.5), nullptr),RemoveSelf::create(),nullptr));
 
 
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(randPos);
-	m_gamelayer->addChild(aniNode, 10);
+	GameManage::getInstance()->getGuiLayer()->addChild(aniNode, 10);
+	Audio::getInstance()->playSound(SKILLSUMMON);
 	aniNode->runAction(Sequence::create(DelayTime::create(1.0f),Repeat::create(AnimationUtil::getInstance()->getAnimate("aniZhaoHuan"), 2), CallFunc::create([=]{
 	auto fish = FishManage::getInstance()->createFishSingle(40 + rand() % 5);
 	fish->setPosition(randPos);
@@ -66,7 +67,7 @@ void skillManager::useSkillSummon(PlayerTurret*turret)
 	fish->setScale(0);
 	fish->addShader();
 	fish->runAction(Sequence::create(ScaleTo::create(0.4, 1), CallFunc::create([=]{fish->move(3); aniNode->removeFromParentAndCleanup(1); }), nullptr));
-	m_gamelayer->addChild(fish,5); 
+	m_gamelayer->addChild(fish, fish->getFishZorder());
 	}),nullptr));
 }
 void skillManager::useSkillById(int skillid, PlayerTurret*turret)

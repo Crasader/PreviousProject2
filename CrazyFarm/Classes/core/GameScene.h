@@ -8,5 +8,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(GameScene);
 	void gotoLevelScene();
+private:
+	virtual void onExit();
 };
 #endif

@@ -73,7 +73,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;E:\tbu\TBUCOCOSC\CrazyFarm\extend\server_sdk\include\uv;E:\tbu\TBUCOCOSC\CrazyFarm\extend\server_sdk\include;$(EngineRoot)extensions;..\Classes;$(EngineRoot);D:\vld\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\tbu\TBUCOCOSC\CrazyFarm\extend\server_sdk\include\uv;E:\tbu\TBUCOCOSC\CrazyFarm\extend\server_sdk\include;$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;$(EngineRoot);D:\vld\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -141,6 +141,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\bullet\Bullet.cpp" />
     <ClCompile Include="..\Classes\bullet\BulletManage.cpp" />
     <ClCompile Include="..\Classes\bullet\Laster.cpp" />
+    <ClCompile Include="..\Classes\config\BaseCoinfig.cpp" />
     <ClCompile Include="..\Classes\config\ConfigBankrupt.cpp" />
     <ClCompile Include="..\Classes\config\ConfigBonuspool.cpp" />
     <ClCompile Include="..\Classes\config\ConfigBox.cpp" />
@@ -153,10 +154,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\config\ConfigMagnate.cpp" />
     <ClCompile Include="..\Classes\config\ConfigManager.cpp" />
     <ClCompile Include="..\Classes\config\ConfigMomentEight.cpp" />
-    <ClCompile Include="..\Classes\config\ConfigMomentOrder.cpp" />
     <ClCompile Include="..\Classes\config\ConfigNewbieFishCatch.cpp" />
     <ClCompile Include="..\Classes\config\ConfigNormalTurrent.cpp" />
-    <ClCompile Include="..\Classes\config\ConfigOnemoment.cpp" />
     <ClCompile Include="..\Classes\config\ConfigRoom.cpp" />
     <ClCompile Include="..\Classes\config\ConfigSign.cpp" />
     <ClCompile Include="..\Classes\config\ConfigSkill.cpp" />
@@ -193,6 +192,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\game\GameManage.cpp" />
     <ClCompile Include="..\Classes\domain\globalschedule\GlobalSchedule.cpp" />
     <ClCompile Include="..\Classes\domain\loading\LoadingScene.cpp" />
+    <ClCompile Include="..\Classes\domain\loading\LoadingSceneLbToGm.cpp" />
     <ClCompile Include="..\Classes\domain\logevent\LogEventBankrupt.cpp" />
     <ClCompile Include="..\Classes\domain\logevent\LogEventConsume.cpp" />
     <ClCompile Include="..\Classes\domain\logevent\LogEventFish.cpp" />
@@ -214,6 +214,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\nobility\NobilityManager.cpp" />
     <ClCompile Include="..\Classes\domain\pay\Pay.cpp" />
     <ClCompile Include="..\Classes\domain\pay\PayEventPointConfig.cpp" />
+    <ClCompile Include="..\Classes\domain\pay\PayingDialog.cpp" />
     <ClCompile Include="..\Classes\domain\pay\PayPointConfig.cpp" />
     <ClCompile Include="..\Classes\domain\pay\WaitCircle.cpp" />
     <ClCompile Include="..\Classes\domain\ranklist\RanklistCell.cpp" />
@@ -284,7 +285,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\moment\momentFishGroup\MomentTwo.cpp" />
     <ClCompile Include="..\Classes\moment\MomentManager.cpp" />
     <ClCompile Include="..\Classes\moment\MomentNine.cpp" />
-    <ClCompile Include="..\Classes\moment\MomentOne.cpp" />
     <ClCompile Include="..\Classes\moment\MonmetEightRoute.cpp" />
     <ClCompile Include="..\Classes\net\Net.cpp" />
     <ClCompile Include="..\Classes\pause\GamePauseLayer.cpp" />
@@ -329,6 +329,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\bullet\Bullet.h" />
     <ClInclude Include="..\Classes\bullet\BulletManage.h" />
     <ClInclude Include="..\Classes\bullet\Laster.h" />
+    <ClInclude Include="..\Classes\config\BaseCoinfig.h" />
     <ClInclude Include="..\Classes\config\ConfigBankrupt.h" />
     <ClInclude Include="..\Classes\config\ConfigBonuspool.h" />
     <ClInclude Include="..\Classes\config\ConfigBox.h" />
@@ -342,10 +343,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\config\ConfigMagnate.h" />
     <ClInclude Include="..\Classes\config\ConfigManager.h" />
     <ClInclude Include="..\Classes\config\ConfigMomentEight.h" />
-    <ClInclude Include="..\Classes\config\ConfigMomentOrder.h" />
     <ClInclude Include="..\Classes\config\ConfigNewbieFishCatch.h" />
     <ClInclude Include="..\Classes\config\ConfigNormalTurrent.h" />
-    <ClInclude Include="..\Classes\config\ConfigOnemoment.h" />
     <ClInclude Include="..\Classes\config\ConfigRoom.h" />
     <ClInclude Include="..\Classes\config\ConfigSign.h" />
     <ClInclude Include="..\Classes\config\ConfigSkill.h" />
@@ -382,6 +381,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\game\GameManage.h" />
     <ClInclude Include="..\Classes\domain\globalschedule\GlobalSchedule.h" />
     <ClInclude Include="..\Classes\domain\loading\LoadingScene.h" />
+    <ClInclude Include="..\Classes\domain\loading\LoadingSceneLbToGm.h" />
     <ClInclude Include="..\Classes\domain\logevent\LogEventBankrupt.h" />
     <ClInclude Include="..\Classes\domain\logevent\LogEventConsume.h" />
     <ClInclude Include="..\Classes\domain\logevent\LogEventFish.h" />
@@ -403,6 +403,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\nobility\NobilityManager.h" />
     <ClInclude Include="..\Classes\domain\pay\Pay.h" />
     <ClInclude Include="..\Classes\domain\pay\PayEventPointConfig.h" />
+    <ClInclude Include="..\Classes\domain\pay\PayingDialog.h" />
     <ClInclude Include="..\Classes\domain\pay\PayPointConfig.h" />
     <ClInclude Include="..\Classes\domain\pay\WaitCircle.h" />
     <ClInclude Include="..\Classes\domain\ranklist\RanklistCell.h" />
@@ -473,7 +474,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\moment\momentFishGroup\MomentTwo.h" />
     <ClInclude Include="..\Classes\moment\MomentManager.h" />
     <ClInclude Include="..\Classes\moment\MomentNine.h" />
-    <ClInclude Include="..\Classes\moment\MomentOne.h" />
     <ClInclude Include="..\Classes\moment\MonmetEightRoute.h" />
     <ClInclude Include="..\Classes\net\Net.h" />
     <ClInclude Include="..\Classes\pause\GamePauseLayer.h" />

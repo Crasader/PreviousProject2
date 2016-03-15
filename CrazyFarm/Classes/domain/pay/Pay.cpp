@@ -13,6 +13,7 @@
 #include "config/ConfigVipLevel.h"
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "WaitCircle.h"
+#include "PayingDialog.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
 
 Pay* Pay::_instance = NULL;
@@ -34,11 +35,12 @@ Pay* Pay::getInstance(){
 }
 void Pay::Overbooking(int paypoint, int eventPoint, Node*paynode)
 {
-	/*if (isPaying)
+	if (m_state!=UnDoing)
 	{
-	return;
-	}*/
-	isPaying = true;
+		return;
+	}
+	PayingDialog::ShowPayDialog();
+	m_state = OrderBooking;
 	auto sessioned = User::getInstance()->getSessionid();
 	if (sessioned=="")
 	{
@@ -56,7 +58,7 @@ void Pay::OverbookingActual(int paypoint, int eventPoint)
 	auto sessioned = User::getInstance()->getSessionid();
 	if (sessioned == "")
 	{
-		isPaying = false;
+		m_state = UnDoing;
 		ToolTipMannger::ShowPayTimeoutTip();
 		return; 
 	}
@@ -71,52 +73,93 @@ void Pay::OverbookingActual(int paypoint, int eventPoint)
 
 void Pay::pay(payRequest*data)
 {
-	delete nowData;
-	nowData = data;
-
+	prepayidToPayRequest[data->wx_prepayid] = data;
+	log("pushback data wx_prepayid = %s", data->wx_prepayid.c_str());
+	nowPayOrderId = data->orderID;
 	payResult = -1;
-
+	m_state = WxPaying;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	payCallBack(0, "success");
+	payCallBack(0, "success", data->wx_prepayid);
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	payCallBack(0, "success");
+	payCallBack(0, "success",data->wx_prepayid);
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	switch (nowData->third_payType)
+	switch (data->third_payType)
 	{	
 	//微信支付
 	case 1:
 		JniFunUtill::getInstance()->WXPay(data->wx_prepayid.c_str(),data->wx_nonceStr.c_str(),data->wx_timestamp.c_str(),data->wx_sign.c_str());
 		break;
 	case 0:
-		JniFunUtill::getInstance()->SKYPay(PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id).price, nowData->orderID.c_str());
+		JniFunUtill::getInstance()->SKYPay(PayPointConfig::getInstance()->getPayPointInfoById(data->pay_point_id).price, data->orderID.c_str());
 		break;
 	default:
-		JniFunUtill::getInstance()->SKYPay(PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id).price, nowData->orderID.c_str());
+		JniFunUtill::getInstance()->SKYPay(PayPointConfig::getInstance()->getPayPointInfoById(data->pay_point_id).price, data->orderID.c_str());
 		break;
 }
 #endif
 }
-void Pay::jniCallBack(int code, const char*msg)
+std::string Pay::getOrderIdByprepayid(std::string prepayid)
+{
+	if (!(prepayidToPayRequest.find(prepayid) != prepayidToPayRequest.end()))
+	{
+
+		return "";
+	}
+	else
+	{
+		return prepayidToPayRequest[prepayid]->orderID;
+	}
+}
+
+std::string Pay::getPrepayIdByOrderid(std::string orderid)
+{
+	log("cin orderid = %s",orderid.c_str());
+	for (auto it = prepayidToPayRequest.begin(); it != prepayidToPayRequest.end(); ++it)
+	{
+		if (orderid == it->second->orderID)
+		{
+			log("cout prepayid = %s", it->first.c_str());
+			return it->first;
+		}
+	}
+	return "";
+}
+void Pay::jniCallBack(int code, const char*msg, const char*wx_prepayid)
 {
 	log("jni callBack code = %d",code);
 	if (code == 0)
 	{
-		WaitCircle::ShowPayWaitCircle();
+		if (!(prepayidToPayRequest.find(wx_prepayid) != prepayidToPayRequest.end()))
+		{
+			log("have no data on client %s",wx_prepayid);
+			return;
+		}
+		auto circle = WaitCircle::ShowPayWaitCircle();
+		circle->setMyPrepayid(wx_prepayid);
+		circle->setName(wx_prepayid);
+		m_state = DemandEntrying;
 	}
 	else
 	{
-		payCallBack(code, msg);
+		payCallBack(code, msg,wx_prepayid);
 	}
 }
-void Pay::DemandEntry(int reqNum)
+void Pay::DemandEntry(int reqNum, std::string orederid)
 {
-	HttpMannger::getInstance()->HttpToPostRequestDemandEntry(nowData->orderID,reqNum);
+	HttpMannger::getInstance()->HttpToPostRequestDemandEntry(orederid, reqNum);
 }
-void Pay::payCallBack(int code, const char* msg)
+void Pay::payCallBack(int code, const char* msg, std::string prepayid)
 {
-	WaitCircle::RemovePayWaitCircle();
-	isPaying = false;
-	log("pay callback success");
+	WaitCircle::RemovePayWaitCircle(prepayid);
+	PayingDialog::RemovePayDialog();
+	m_state = UnDoing;
+	log("pay callback success  prepayid =%s",prepayid.c_str());
+	if (!(prepayidToPayRequest.find(prepayid) != prepayidToPayRequest.end()))
+	{
+		log("have no data on callback %s", prepayid.c_str());
+		return;
+	}
+	auto nowData = prepayidToPayRequest[prepayid];
 	auto info = PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id);
 	if (code == 0)
 	{
@@ -172,10 +215,19 @@ void Pay::payCallBack(int code, const char* msg)
 		payResult = 2;
 		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
 	}
+	prepayidToPayRequest.erase(nowData->wx_prepayid);
 	delete nowData;
+	
 	nowData = nullptr;
 }
-
+void Pay::CancelTheOrder()
+{
+	if (nowPayOrderId!=""&&m_state!=DemandEntrying)
+	{
+		HttpMannger::getInstance()->HttpToPostRequestCancelOrder(nowPayOrderId);
+	}
+	
+}
 PayPointInfo Pay::getInfoByPaypoint(int paypoint)
 {
 	return PayPointConfig::getInstance()->getPayPointInfoById(paypoint);

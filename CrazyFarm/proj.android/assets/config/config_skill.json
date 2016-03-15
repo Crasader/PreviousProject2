@@ -24,7 +24,7 @@
       "desc"    : "召唤",
       "unlock_buy_turretLv"  : 10,
       "unlock_buy_vipLv"  :  0,
-       "cd_time" : 0
+       "cd_time" : 3
     },
     {
       "skill_id"  : 4,
@@ -32,7 +32,7 @@
       "desc"    : "核弹",
       "unlock_buy_turretLv"  : 0,
       "unlock_buy_vipLv"  : 3,
-      "cd_time" : 0
+      "cd_time" : 3
     },
     {
       "skill_id"  : 5,

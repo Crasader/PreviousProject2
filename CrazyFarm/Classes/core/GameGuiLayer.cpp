@@ -6,11 +6,6 @@
 #include "domain/Newbie/NewbieMannger.h"
 #include "domain/game/GameManage.h"
 #include "domain/bag/BagManager.h"
-enum
-{
-	kZorderMenu = 10,
-	kZorderDialog = 20
-};
 
 
 bool GameGuiLayer::init(){
@@ -34,7 +29,7 @@ bool GameGuiLayer::init(){
 	auto sprbg = Sprite::create("EarnCoins.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	sprbg->setPosition(visibleSize.width-5, visibleSize.height*0.305);
-	addChild(sprbg, 11);
+	addChild(sprbg, kZorderMenu + 1);
 
 	sEainCoin = MyMenuItemGainMoney::create();
 	sEainCoin->setPosition(visibleSize.width + 50, visibleSize.height*0.3);
@@ -50,7 +45,7 @@ bool GameGuiLayer::init(){
 	sprbg = Sprite::create("UpgradeButton.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	sprbg->setPosition(visibleSize.width-5,visibleSize.height*0.505);
-	addChild(sprbg,11);
+	addChild(sprbg, kZorderMenu+1);
 
 	///冻结
 	auto skillbutton = SkillFreezeButton::createSkillFreezeButton();
@@ -60,19 +55,19 @@ bool GameGuiLayer::init(){
 	skillManager::getInstance()->addskillButton(1, skillbutton);
 	//核弹
 	auto skillbutton1 = SkillBombButton::createSkillBombButton();
-	skillbutton1->setPosition(visibleSize.width*0.03, visibleSize.height*0.48 + 10);
+	skillbutton1->setPosition(visibleSize.width*0.03 + 9, visibleSize.height*0.46 + 21);
 	skillbutton1->setScale(0.7);
 	addChild(skillbutton1);
 	skillManager::getInstance()->addskillButton(4, skillbutton1);
 	//召唤
 	auto skillbutton2 = SkillSummonButton::createSkillSummonButton();
-	skillbutton2->setPosition(visibleSize.width*0.03, visibleSize.height*0.20+10);
+	skillbutton2->setPosition(visibleSize.width*0.03 + 9, visibleSize.height*0.20 + 21);
 	skillbutton2->setScale(0.7);
 	addChild(skillbutton2);
 	skillManager::getInstance()->addskillButton(3, skillbutton2);
 	//雷电	
 	auto skillbutton3 = SkillLightButton::createSkillLightButton();
-	skillbutton3->setPosition(visibleSize.width*0.03, visibleSize.height*0.34+10);
+	skillbutton3->setPosition(visibleSize.width*0.03 + 9, visibleSize.height*0.33 + 21);
 	skillbutton3->setScale(0.7);
 	addChild(skillbutton3);
 	skillManager::getInstance()->addskillButton(5, skillbutton3);
@@ -97,7 +92,7 @@ bool GameGuiLayer::init(){
 	createGuizuGiftLayer();
 	if (GameData::getInstance()->getRoomID() > 1)
 	{
-		beginMaridTaskTime();
+		beginMaridTaskTime(rand()%300);//第一次游戏开始300秒
 	}
 
 
@@ -205,11 +200,7 @@ void GameGuiLayer::createSettingBoard()
 
 void GameGuiLayer::onExit()
 {
-	
 	Layer::onExit();
-	Audio::getInstance()->pauseBGM();
-
-
 }
 
 void GameGuiLayer::settingCallback(Ref *pSender)
@@ -242,9 +233,9 @@ void GameGuiLayer::showSettingCallback(Ref*pSender)//BUG
 	}),nullptr));
 }
 
-void GameGuiLayer::beginMaridTaskTime()
+void GameGuiLayer::beginMaridTaskTime(float diffTime)
 {
-	fmaridNowTime = 0;
+	fmaridNowTime = diffTime;
 	GameData::getInstance()->setmermaidTask(MermaidTask::getNewMermaidTask());
 	GameData::getInstance()->setIsOnMaridTask(false);
 	schedule(schedule_selector(GameGuiLayer::maridTaskTime), 1.0f);
@@ -301,6 +292,9 @@ void GameGuiLayer::showGainMoneyTurrent()
 
 void GameGuiLayer::onBossWarning(int fishID)
 {
+	Audio::getInstance()->playSound(BOSSWARN);
+
+
 	auto Warning = Sprite::create("BossComingRedWarning.png");
 	Warning->setPosition(480, 270);
 	addChild(Warning, 20);
@@ -334,7 +328,7 @@ void GameGuiLayer::ShowUseLockTip(Point dmDropPos)
 	auto itemcell = Sprite::create(str->getCString());
 	itemcell->setPosition(dmDropPos);
 	itemcell->setScale(0);
-	addChild(itemcell, 10);
+	addChild(itemcell, 20);
 	auto duration = dmDropPos.distance(bt->getPosition()) / 800.0f;
 	itemcell->runAction(Sequence::create(Spawn::create(ScaleTo::create(0.5f, 1.0f), MoveTo::create(0.5f, Vec2(403, 373)), nullptr), EaseSineIn::create(MoveTo::create(1.5f, bt->getPosition())), CallFunc::create([=]{
 		bt->runAction(Sequence::createWithTwoActions(ScaleTo::create(0.1, 1.1f), ScaleTo::create(0.1, 0.9f)));

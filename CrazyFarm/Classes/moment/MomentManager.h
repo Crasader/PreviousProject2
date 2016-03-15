@@ -2,10 +2,9 @@
 #define _MOMENTMANAGER_H_
 #include "cocos2d.h"
 
-#include "config/ConfigMomentOrder.h"
+
 
 #include "moment/Moment.h"
-#include "moment/MomentOne.h"
 #include "moment/momentFishGroup/MomentTwo.h"
 #include "moment/momentFishGroup/MomentThree.h"
 #include "moment/momentFishGroup/MomentFour.h"
@@ -27,7 +26,6 @@ private:
 	Moment* getNewMomentEight(float FFOneTime);
     
 	Moment*getNewMomentGroupfish(float FFOneTime);
-    std::vector<MomentOrderItem> momentOrderItems;
 
 	std::vector<int> momentEightVec;
 	std::vector<int> momentFishGroupVec;
@@ -38,7 +36,7 @@ private:
     int currentPos = 0;
     
 	
-    int getCurrentType();
+
 	int nowMomentType  = -1;
     
 };

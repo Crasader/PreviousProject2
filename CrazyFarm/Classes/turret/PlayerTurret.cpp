@@ -26,6 +26,7 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/logevent/LogEventTurrentUpgrade.h"
 #include "core/GameScene.h"
+#include "domain/loading/LoadingSceneLbToGm.h"
 enum 
 {
 	kTagBankrupt = 20
@@ -482,10 +483,10 @@ void PlayerTurret::stopAI()
 
 Point coinPos[4] =
 {
-	Vec2(-130, 45),
-	Vec2(130+150, 45),
-	Vec2(-130, 45),
-	Vec2(130+150, 45)
+	Vec2(-122, 42),
+	Vec2(122+155, 42),
+	Vec2(-122, 42),
+	Vec2(122+155, 42)
 };
 void PlayerTurret::createPlayerCoin(User* user, int index)
 {
@@ -714,23 +715,37 @@ void PlayerTurret::onBankrupt()
 	}
 	else
 	{
-		auto bankrupt = BankruptManager::getInstance()->getBankrupt();
+		if (!BankruptManager::getInstance()->getgetRewardNode())
+		{
+			BankruptManager::getInstance()->RequestServerToBroke(this);
+		}
+		/*auto bankrupt = BankruptManager::getInstance()->getBankrupt();
 		if (!BankruptManager::getInstance()->getgetRewardNode() && bankrupt.coins>0)
 		{
+<<<<<<< HEAD
 			auto node = GetRewardNode::create(bankrupt);
 			node->setPosition(getPosition()+Vec2(0,150));
 			GameManage::getInstance()->getGuiLayer()->addChild(node, 10);
 			BankruptManager::getInstance()->setgetRewardNode(node);
 			int num = BankruptManager::getInstance()->getTodayRequestTimes();
 			LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),2, num+1);
+=======
+		auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
+		auto node = GetRewardNode::create(bankrupt);
+		node->setPosition(getPosition()+Vec2(0,150));
+		layer->addChild(node, 10);
+		BankruptManager::getInstance()->setgetRewardNode(node);
+		int num = BankruptManager::getInstance()->getTodayRequestTimes();
+		LogEventBankrupt::getInstance()->sendDataToServer(GameData::getInstance()->getRoomID(),2, num+1);
+>>>>>>> danji
 		}
 		else if (bankrupt.coins==0)
 		{
-			auto pay = payLayer::createLayer(1);
-			pay->setPosition(0, 0);
-			pay->setEventPont(19);
-			GameManage::getInstance()->getGuiLayer()->addChild(pay, 20);
-		}
+		auto pay = payLayer::createLayer(1);
+		pay->setPosition(0, 0);
+		pay->setEventPont(19);
+		GameManage::getInstance()->getGuiLayer()->addChild(pay, 20);
+		}*/
 		
 		GameData::getInstance()->setisOnBankrupt(true);	
 		

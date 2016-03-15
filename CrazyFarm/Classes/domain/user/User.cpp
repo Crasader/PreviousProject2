@@ -1,6 +1,6 @@
 #include "domain/user/User.h"
 #include "server/HttpMannger.h"
-
+#include "domain/Newbie/NewbieMannger.h"
 User* User::_instance = NULL;
 
 User::User(){
@@ -145,7 +145,7 @@ int User::getChargeMoney() {
 
 
 void User::resetInfo() {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+
     setUserID("guest");
 	UserDefault::getInstance()->setStringForKey(User::KEY_USER_NAME, "guest");
     UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 200);
@@ -158,8 +158,8 @@ void User::resetInfo() {
     UserDefault::getInstance()->setIntegerForKey(User::KEY_CHEST_LEVEL, 0);
 	UserDefault::getInstance()->setBoolForKey(User::KEY_ISHAVEFIRSTPAY, false);
 	UserDefault::getInstance()->setBoolForKey(User::KEY_ISHAVESETNAME,false);
-	UserDefault::getInstance()->setBoolForKey(User::KEY_ISHAVESETNAME, false);
-#endif
+	NewbieMannger::getInstance()->resetInfo();
+
 }
 void User::syncInfo()
 {

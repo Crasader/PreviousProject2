@@ -189,6 +189,7 @@ void MyMenuItemUpgrade::setValue()
 
 void MyMenuItemUpgrade::showBlinkAni()
 {
+	removeBlinkAni();
 	auto node = Sprite::create("UnlockFrame_2.png");
 	node->setPosition(getContentSize() / 2);
 	addChild(node, 0, "blinkAni");

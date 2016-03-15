@@ -44,11 +44,7 @@ private:
 	bool onTouchBegan(Touch *touch, Event  *event);
 	void onTouchMoved(Touch *touch, Event  *event);
 	void onTouchEnded(Touch *touch, Event  *event);
-	//发射子弹
-
-	void createFish(float dt);//产生鱼
-	void createFishGroup(float dt);//产生鱼群
-	
+	//发射子弹	
 
 	void rotateTurret(float degree, PlayerTurret* turret);//旋转炮塔
 
@@ -56,6 +52,8 @@ private:
 
 	void AiUpdata(float dt);
 	void onExit();
+	void onEnter();
+	virtual void onEnterTransitionDidFinish();
 	//Updata
 	void collisionUpdate(float dt);
 	void update(float dt);
@@ -103,6 +101,8 @@ private:
 	int m_curIndex;//实际位置
 
 
+	void initFishAndBulletData();
+
 
 	//点击炮
 	bool onTouTurret(Point pos);
@@ -126,6 +126,7 @@ private:
 	bool istouched = false;
 	float shootTemp = 0;
 
+
 	std::map<int, Sprite*> TxtWaitingTurrent;
 
 
@@ -140,6 +141,10 @@ private:
 	void onFishesMsg(Msg_OnFishes*msg);
 	void MsgUpdata(float dt);
 	std::vector<Msg_Base*> Msgs;
+
+
+
+	bool isInitData = false;
 
 };
 #endif
