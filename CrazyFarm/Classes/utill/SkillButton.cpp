@@ -227,7 +227,7 @@ void SkillButton::useSkill()
 	break;
 	case 0: //直接使用
 	{
-		LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, 0);
+		LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 0, 0);
 		BagManager::getInstance()->changeItemCount(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id, -1);
 		skillManager::getInstance()->getButtonByID(m_skillID)->skillButonUi();
 		skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());

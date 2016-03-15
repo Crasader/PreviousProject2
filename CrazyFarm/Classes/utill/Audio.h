@@ -7,10 +7,10 @@
 #define FISHFLOCKBGM "game/audio/bgm/fishflockBGM.ogg"
 #define BOSSBGM "game/audio/bgm/bossBGM.ogg"
 //EFFECT
-#define SKILLBOOM "game/audio/propEffect/skillBoom.ogg"
+#define SKILLBOOM "game/audio/skillBoom.ogg"
 #define SKILLFREEZE "game/audio/propEffect/freeze.ogg"
 #define SKILLLASER "game/audio/propEffect/laser.ogg"
-#define SKILLSUMMON "game/audio/propEffect/skilSummon.ogg"
+#define SKILLSUMMON "game/audio/skilSummon.ogg"
 #define BOSSWARN "game/audio/BossWarn.ogg"
 #define CATCHGIRLFISH "game/audio/CatchGirlFish.ogg"
 #define CATCHGOLD "game/audio/catchgold.ogg"
