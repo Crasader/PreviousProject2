@@ -29,7 +29,8 @@ enum
 {
 	kTagAcNormal = 10,
 	kTagAcDead = 11,
-	kTagAcJump = 12
+	kTagAcJump = 12,
+	kTagAcMove = 13
 };
 enum FISHTYPE
 {
@@ -129,7 +130,6 @@ protected:
 	CC_SYNTHESIZE(PlayerTurret*, m_targeLockTurret, TargeLockTurret);
 
 	CC_SYNTHESIZE(FISHTYPE, m_FishType, FishType);
-	Vector<FiniteTimeAction*> RepetActionArray;
 	//Â·¾¶
 	Route m_Route;
 	//ÒõÓ°

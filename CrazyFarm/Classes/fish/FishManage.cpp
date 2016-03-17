@@ -109,16 +109,17 @@ void FishManage::createFishGroup(int grouptag)
 		auto singlegp = gp.singleTypefishGroups[i];
 		for (int j = 0; j < singlegp.fishCount; j++)
 		{
-			m_layer->getCreateFishAcNode()->runAction(Sequence::create(DelayTime::create(j*singlegp.IntervalCreateTime), CallFunc::create([=]{
+			auto ac = Sequence::create(DelayTime::create(j*singlegp.IntervalCreateTime), CallFunc::create([=]{
 				Fish* fish = FishManage::getInstance()->createFishSingle(singlegp.fishID);
 				fish->setVisible(false);
 				fish->setisAutoRemove(false);
 				fish->setRoute(singlegp.fishRoute);
 				fish->setPosition(singlegp.startPos);
-				m_layer->addChild(fish,fish->getFishZorder());
+				m_layer->addChild(fish, fish->getFishZorder());
 				fish->addShader();
-		
-			}), nullptr));
+
+			}), nullptr);
+			m_layer->getCreateFishAcNode()->runAction(ac)->setTag(20 + j);
 		}
 
 	}
@@ -475,7 +476,7 @@ void FishManage::UpdateWhenController(float dt)
 	{
 		if (m_nowMonent->updata(dt))
 		{
-			m_layer->loadNewMonent(0);
+			/*m_layer->loadNewMonent(0);*/
 		}
 		
 	}
@@ -504,7 +505,8 @@ void FishManage::createCycleFish(int count, int Radius, int fishID, Point center
 		fish->setisAutoRemove(false);
 		fish->setPosition(center.x + Radius*cos(CC_DEGREES_TO_RADIANS(i*diffAngle)), center.y + Radius*sin(CC_DEGREES_TO_RADIANS(diffAngle*i)));
 		auto moveto = MoveBy::create(moveTime,curPos);
-		fish->runAction(Sequence::create(moveto, CallFunc::create([=]{GameManage::getInstance()->CatchTheFishOntheTurrent(fish, false, nullptr); }), nullptr));
+		fish->runAction(moveto)->setTag(kTagAcMove);
+		fish->runAction(Sequence::create(DelayTime::create(moveto->getDuration()), CallFunc::create([=]{GameManage::getInstance()->CatchTheFishOntheTurrent(fish, false, nullptr); }), nullptr));
 		m_layer->addChild(fish, fish->getFishZorder());
 		fish->addShader();
 	}
@@ -653,6 +655,10 @@ void FishManage::UpdataServerCreateFish(float dt)
 					< 200)
 				{
 					createFishArrangeRand(fishid);
+				}
+				else if (fishid>999)
+				{
+					break;
 				}
 				else
 				{

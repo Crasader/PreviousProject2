@@ -23,7 +23,7 @@ class GameLayer: public cocos2d::Layer ,public MsgObserver{
 public:
 	virtual bool init();
 	CREATE_FUNC(GameLayer);
-	void loadNewMonent(float ffTime);
+	void loadNewMonent(int monmentType);
 	void RefreShmyPlayerTurret();
 	
 	void addReward(int itemid, int num);
@@ -142,13 +142,18 @@ private:
 	void onConError(Msg_ConError*msg);
 	void exitCallback(Ref*psend);
 	void MsgUpdata(float dt);
-	std::vector<Msg_Base*> Msgs;
+	std::list<Msg_Base*> Msgs;
 	//初始时间
 	unsigned long init_creat_time;
 	//渔区快进
 	void FFOneTimeToFishes(float FFTime);
+
 	void UpdateCreateFishByServer(float dt);
 
+
+	int _fishGroupType;//0 鱼群 1鱼潮
+
+	int _fishGroupMonentType;
 	//
 	bool isInitData = false;
 

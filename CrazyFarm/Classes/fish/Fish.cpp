@@ -99,6 +99,7 @@ void Fish::update(float dt)
 
 	}
 
+
 }
 
 
@@ -303,20 +304,14 @@ void Fish::setRoute(int routeTag)
 
 	auto actionArray = Vector<FiniteTimeAction*>();
 
-	RepetActionArray = Vector<FiniteTimeAction*>();
+
 	
 	RoutePoint* p = m_Route.head;
 	while (p != nullptr)
 	{
 		Vector<FiniteTimeAction*> *acArray;
-		if (p->isRepeat)
-		{
-			acArray = &RepetActionArray;
-		}
-		else
-		{
-			acArray = &actionArray;
-		}
+		acArray = &actionArray;
+	
 		acArray->pushBack(DelayTime::create(p->delay));
 		acArray->pushBack(CallFunc::create([&]{setVisible(true); }));
 		switch (p->moveState)
@@ -345,28 +340,9 @@ void Fish::setRoute(int routeTag)
 
 		p = p->next;
 	}
-	DelayTime*delay;
-	if (actionArray.size()>0)
-	{
-		auto acNoRepeat = Sequence::create(actionArray);
-		acNoRepeat->setTag(kTagAcNormal);
-		this->runAction(acNoRepeat);
-		delay = DelayTime::create(acNoRepeat->getDuration());
-	}
-	else
-	{
-		delay = DelayTime::create(0);
-	}
-	auto ac = Sequence::create(delay, CallFunc::create([&]{GameManage::getInstance()->CatchTheFishOntheTurrent(this, 0,nullptr); }), nullptr);
-	ac->setTag(kTagAcNormal);
-	this->runAction(ac);
-	if (RepetActionArray.size() > 0)
-	{
-		this->runAction(Sequence::create(delay, CallFunc::create([&](){
-		runAction(RepeatForever::create(Sequence::create(RepetActionArray)));
-		}), nullptr));
-
-	}
+	auto acNoRepeat = Sequence::create(actionArray);
+	runAction(acNoRepeat)->setTag(kTagAcMove);
+	runAction(Sequence::create(DelayTime::create(acNoRepeat->getDuration()), CallFunc::create([&]{GameManage::getInstance()->CatchTheFishOntheTurrent(this, 0, nullptr); }), nullptr));
 }
 
 
@@ -378,7 +354,6 @@ void Fish::setMonentEightRoute(int routeTag)
 
 	auto actionArray = Vector<FiniteTimeAction*>();
 
-	RepetActionArray = Vector<FiniteTimeAction*>();
 
 	MonmentEightRoutePoint* p = momentEightRoute.head;
 	while (p != nullptr)
@@ -441,20 +416,10 @@ void Fish::setMonentEightRoute(int routeTag)
 
 		p = p->next;
 	}
-	DelayTime*delay;
-	if (actionArray.size() > 0)
-	{
-		auto acNoRepeat = Sequence::create(actionArray);
-		acNoRepeat->setTag(888);
-		this->runAction(acNoRepeat);
-		delay = DelayTime::create(acNoRepeat->getDuration());
-	}
-	else
-	{
-		delay = DelayTime::create(0);
-	}
-	this->runAction(Sequence::create(delay,CallFunc::create([&]{GameManage::getInstance()->CatchTheFishOntheTurrent(this, 0, nullptr); }), nullptr));
 
+	auto acNoRepeat = Sequence::create(actionArray);
+	runAction(acNoRepeat)->setTag(kTagAcMove);
+	runAction(Sequence::create(DelayTime::create(acNoRepeat->getDuration()), CallFunc::create([&]{GameManage::getInstance()->CatchTheFishOntheTurrent(this, 0, nullptr); }), nullptr));
 }
 
 
@@ -547,9 +512,8 @@ void Fish::onDead()
 {
 
 	stopAllActions();
-
+	unscheduleAllCallbacks();
 	onFreezeResume();
-	stopAllActions();
 
 
 	auto acName = String::createWithFormat("dead_%d", nUiID);

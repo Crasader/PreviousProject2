@@ -14,6 +14,6 @@ public:
 
 	std::vector<std::string> eventstrs;
 	
-	MsgFishGourpInfo info;
+	MsgFishesInfo _info;
 };
 

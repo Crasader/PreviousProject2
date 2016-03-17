@@ -7,7 +7,7 @@
 #include <pc_JSON.h>
 
 #include "server/MsgObserver.h"
-
+USING_NS_CC;
 #define EV_HANDLER_EX ((void*)0x44)
 
 #define REQ_ROUTE "connector.entryHandler.enter"
@@ -24,7 +24,7 @@
 class Server{
 public:
 	static Server* getInstance();
-    void conConnect(char* host, int port, const char* session_id);
+    void conConnect(char* host, int port, const char* session_id,int room_id);
     void quit();
     
     void add_observer(MsgObserver *o);
@@ -52,6 +52,8 @@ private:
     static void notify_cb(const pc_notify_t* noti, int rc);
     
     std::string username;
+
+	int _room_id;
     
     std::vector<MsgObserver*> msgObserver;
 };

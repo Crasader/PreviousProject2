@@ -31,7 +31,8 @@
 #include "utill/define.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
 #define BOOMRADIUS 300
-#define TCPIDURL "172.23.1.37"
+#define TCPIDURL "106.75.141.82" //外网
+//#define TCPIDURL "172.23.1.37" //内网
 enum
 {
 	kTagBaseturret= 10,
@@ -60,8 +61,8 @@ bool GameLayer::init(){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	game_bg = Sprite::create("aniWater1.jpg");
 	game_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-	this->addChild(game_bg,-2);
-	
+	this->addChild(game_bg, -2);
+
 
 	///水波纹
 	auto anibowennode = Sprite::create();
@@ -69,7 +70,7 @@ bool GameLayer::init(){
 	anibowennode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniBowen")));
 	anibowennode->setPosition(0, 0);
 	anibowennode->setAnchorPoint(Point::ZERO);
-	addChild(anibowennode,-1);
+	addChild(anibowennode, -1);
 
 	anibowennode = Sprite::create();
 	anibowennode->setScale(2);
@@ -86,11 +87,11 @@ bool GameLayer::init(){
 
 
 
-	addTouchEvent();	
-    auto roominfo = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
+	addTouchEvent();
+	auto roominfo = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
 	players = RoomManager::getInstance()->initRoomConfig(roominfo.unlock_turrent_level);
 	calculateFreeChair();
-	
+
 	schedule(schedule_selector(GameLayer::collisionUpdate), 0.1, CC_REPEAT_FOREVER, 0);
 
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
@@ -110,7 +111,7 @@ bool GameLayer::init(){
 	//			var->moveUpdata(1);
 	//		}
 	//	}
- //}), nullptr));
+	//}), nullptr));
 
 	setbisOnSkillLock(false);
 
@@ -125,7 +126,7 @@ bool GameLayer::init(){
 		addChild(txtclick, kZorderDialog, "clickcatch");
 		txtclick->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
 	}
-	
+
 	skillManager::getInstance()->init();
 
 
@@ -136,7 +137,7 @@ bool GameLayer::init(){
 		{
 			node->removeFromParentAndCleanup(false);
 		}
-		node->setPosition(myTurret->getPosition()+Vec2(0,150));
+		node->setPosition(myTurret->getPosition() + Vec2(0, 150));
 		addChild(node);
 	}
 
@@ -145,72 +146,77 @@ bool GameLayer::init(){
 	addChild(createFishAcNode);
 
 
-	
-	
+
+
 	//初始化完毕，建立连接
-	Server::getInstance()->conConnect(TCPIDURL, 3050, User::getInstance()->getSessionid().c_str());   // TODO  : test init server
-	Server::getInstance()->add_observer(this);
+	//Server::getInstance()->conConnect(TCPIDURL, 3050, User::getInstance()->getSessionid().c_str(), GameData::getInstance()->getRoomID());   // TODO  : test init server
+	//Server::getInstance()->add_observer(this);
+	//schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
+
+	loadNewMonent(2);
 	
+	float difTime = 15;
+	_fishGroupType = 1;
+	runAction(Sequence::create(DelayTime::create(0), CallFunc::create([=]{FFOneTimeToFishes(difTime); }), nullptr));
 
-	schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
 
-/////////////////TEST BEGIN///////////////////////////
-//	Vector<Fish*> needDeadFishs;
-//	for (int i = 0; i < 10;i++)
-//{
-//	auto fish = FishManage::getInstance()->createFishSingle(i+1);
-//	fish->setPosition(getRand() % 500 + 200, 100 + getRand() % 200);
-//	addChild(fish, 10);
-//	needDeadFishs.pushBack(fish);
-//}
-//	if (needDeadFishs.size() > 0)
-//	{
-//		auto fish = FishManage::getInstance()->createFishSingle(5);
-//		fish->setPosition(getRand() % 500 + 200, 100 + getRand() % 200);
-//		addChild(fish, 10);
-//		auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
-//		shandian->setPosition(fish->getPosition());
-//		shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-//		addChild(shandian, 2);
-//		shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
-//		auto rorate = getTurretRotation(fish->getPosition(), needDeadFishs.at(0)->getPosition());
-//		auto distans = fish->getPosition().distance(needDeadFishs.at(0)->getPosition());
-//		shandian->setRotation(-90 + rorate);
-//		shandian->setScaleX(distans / 933.0f);
-//	}
-//	for (int i = 0; i < needDeadFishs.size(); i++)
-//	{
-//		auto var = needDeadFishs.at(i);
-//		//闪电光圈
-//		auto sp = Sprite::create();
-//		sp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGuangqiu")));
-//		sp->setPosition(var->getPosition());
-//		addChild(sp, 3);
-//		//闪电
-//		if ((i + 1) < needDeadFishs.size())
-//		{
-//
-//			auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
-//			shandian->setPosition(var->getPosition());
-//			shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-//			addChild(shandian, 2);
-//			shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
-//			auto rorate = getTurretRotation(var->getPosition(), needDeadFishs.at(i + 1)->getPosition());
-//			auto distans = var->getPosition().distance(needDeadFishs.at(i + 1)->getPosition());
-//			shandian->setRotation( - 90 + rorate);
-//			shandian->setScaleX(distans / 933.0f);
-//
-//
-//		}
-//		
-//	}
-//
-//
-//
+	/////////////////TEST BEGIN///////////////////////////
+	//	Vector<Fish*> needDeadFishs;
+	//	for (int i = 0; i < 10;i++)
+	//{
+	//	auto fish = FishManage::getInstance()->createFishSingle(i+1);
+	//	fish->setPosition(getRand() % 500 + 200, 100 + getRand() % 200);
+	//	addChild(fish, 10);
+	//	needDeadFishs.pushBack(fish);
+	//}
+	//	if (needDeadFishs.size() > 0)
+	//	{
+	//		auto fish = FishManage::getInstance()->createFishSingle(5);
+	//		fish->setPosition(getRand() % 500 + 200, 100 + getRand() % 200);
+	//		addChild(fish, 10);
+	//		auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
+	//		shandian->setPosition(fish->getPosition());
+	//		shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	//		addChild(shandian, 2);
+	//		shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
+	//		auto rorate = getTurretRotation(fish->getPosition(), needDeadFishs.at(0)->getPosition());
+	//		auto distans = fish->getPosition().distance(needDeadFishs.at(0)->getPosition());
+	//		shandian->setRotation(-90 + rorate);
+	//		shandian->setScaleX(distans / 933.0f);
+	//	}
+	//	for (int i = 0; i < needDeadFishs.size(); i++)
+	//	{
+	//		auto var = needDeadFishs.at(i);
+	//		//闪电光圈
+	//		auto sp = Sprite::create();
+	//		sp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGuangqiu")));
+	//		sp->setPosition(var->getPosition());
+	//		addChild(sp, 3);
+	//		//闪电
+	//		if ((i + 1) < needDeadFishs.size())
+	//		{
+	//
+	//			auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
+	//			shandian->setPosition(var->getPosition());
+	//			shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	//			addChild(shandian, 2);
+	//			shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
+	//			auto rorate = getTurretRotation(var->getPosition(), needDeadFishs.at(i + 1)->getPosition());
+	//			auto distans = var->getPosition().distance(needDeadFishs.at(i + 1)->getPosition());
+	//			shandian->setRotation( - 90 + rorate);
+	//			shandian->setScaleX(distans / 933.0f);
+	//
+	//
+	//		}
+	//		
+	//	}
+	//
+	//
+	//
 
-/////////////////TEST END///////////////////////////
-	
+	/////////////////TEST END///////////////////////////
+
 
 	//auto fish = FishManage::getInstance()->createFishSingle(50);
 	//fish->setVisible(false);
@@ -230,7 +236,7 @@ bool GameLayer::init(){
 
 
 	//fish->addShader();
-	
+
 
 	return true;
 }
@@ -536,9 +542,9 @@ void GameLayer::onEnterTransitionDidFinish()
 	Layer::onEnterTransitionDidFinish();
 	
 }
-void GameLayer::loadNewMonent(float ffTime)
+void GameLayer::loadNewMonent(int monmentType)
 {
-	FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMoment(ffTime));
+	FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(monmentType,0));
 }
 
 void GameLayer::RefreShmyPlayerTurret()
@@ -788,6 +794,7 @@ void GameLayer::onClearFish()
 	lang->runAction(Sequence::create(MoveTo::create(8, Vec2(-300, 270)), CallFunc::create([&]{
 		unschedule(schedule_selector(GameLayer::onClearFishUpdata)); 
 		getChildByName("yuchaotxt")->removeFromParentAndCleanup(1);
+		loadNewMonent(_fishGroupMonentType);
 	}), RemoveSelf::create(), nullptr));
 	addChild(lang, kZorderFishXL+1, "lang");
 
@@ -847,6 +854,7 @@ void GameLayer::onClearFishUpdata(float dt)
 void GameLayer::onClearFishFinish()
 {
 	Audio::getInstance()->playBGM(GAMEBGM);
+	
 }
 
 void GameLayer::addReward(int itemid, int num)
@@ -1040,26 +1048,55 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 	auto NowFpsFishInfo = FishesInfos.at(1);
 	auto _fishGroupsItem = NowFpsFishInfo.fishGroupsItem;
 	unsigned long  difTime = (init_creat_time - NowFpsFishInfo.seq_create_time) / 1000;
-
-	if (_fishGroupsItem.group_type== 0)//鱼群
+	_fishGroupType = _fishGroupsItem.group_type;
+	if (_fishGroupsItem.group_type == 0)//鱼群
 	{
-		for (auto var:_fishGroupsItem.fishItems)
+		for (auto var : _fishGroupsItem.fishItems)
 		{
 			FishManage::getInstance()->addServerItemFishs(var);
 		}
-		FFOneTimeToFishes(difTime);
 		
 	}
 	else if (_fishGroupsItem.group_type == 1)
 	{
-
+		/*if (_fishGroupsItem.seq == 1)
+		{
+			loadNewMonent(9);
+		}*/
+		_fishGroupMonentType = _fishGroupsItem.group_type;
+		loadNewMonent(_fishGroupMonentType);
+		difTime = (init_creat_time - NowFpsFishInfo.seq_create_time) / 1000;
+		difTime +=(int)(NowFpsFishInfo.seq_interval*NowFpsFishInfo.fishGroupsItem.seq - 1)-7;
 	}
-
-
+	runAction(Sequence::create(DelayTime::create(0), CallFunc::create([=]{FFOneTimeToFishes(difTime); }), nullptr));
 
 }
 void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 {
+	//鱼群信息
+	//初始鱼群
+	auto NowFpsFishInfo = msg->_info;
+	auto _fishGroupsItem = NowFpsFishInfo.fishGroupsItem;
+	unsigned long  difTime = (init_creat_time - NowFpsFishInfo.seq_create_time) / 1000;
+	_fishGroupType = _fishGroupsItem.group_type;
+	if (_fishGroupsItem.group_type == 0)//鱼群
+	{
+		for (auto var : _fishGroupsItem.fishItems)
+		{
+			FishManage::getInstance()->addServerItemFishs(var);
+		}
+
+	}
+	else if (_fishGroupsItem.group_type == 1)
+	{
+		if (_fishGroupsItem.seq==1)
+		{
+			loadNewMonent(9);
+		}
+		_fishGroupMonentType = _fishGroupsItem.group_type;
+		
+	}
+	//广播
 	auto node = GameManage::getInstance()->getGuiLayer()->getChildByName("displayboard");
 	if (node)
 	{
@@ -1072,7 +1109,7 @@ void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 	DisplayBoard->setScrollStrs(msg->eventstrs);
 	DisplayBoard->setName("displayboard");
 	GameManage::getInstance()->getGuiLayer()->addChild(DisplayBoard, kZorderMenu);
-	
+
 }
 void GameLayer::onConError(Msg_ConError*msg)
 {
@@ -1100,7 +1137,9 @@ void GameLayer::exitCallback(Ref*psend)
 
 void GameLayer::MsgUpdata(float dt)
 {
-	for (auto var :Msgs)
+	auto msg = Msgs;
+	//防止异步线程加入时，Msgs越界处理
+	for (auto var : msg)
 	{
 		switch (var->getMsgId())
 		{
@@ -1122,9 +1161,9 @@ void GameLayer::MsgUpdata(float dt)
 		default:
 			break;
 		}
+		Msgs.pop_front();
 		delete var;
 	}
-	Msgs.clear();
 	
 }
 
@@ -1132,22 +1171,56 @@ void GameLayer::MsgUpdata(float dt)
 
 void GameLayer::FFOneTimeToFishes(float FFTime)
 {
-	int time = (int)FFTime;
-	for (int i = 0; i < time;i++)
+	
+	if (FFTime<0)
 	{
-		UpdateCreateFishByServer(1);
+		return;
 	}
-	for (auto var : FishManage::getInstance()->getAllFishInPool())
+	int time = (int)FFTime;
+	for (int i = 0; i < time*10; i++)
 	{
-		for (int i = 0; i < time; i++)
+		UpdateCreateFishByServer(0.1);
+		int tag = 21;
+		while (1)
 		{
-			var->moveUpdata(1);
+
+			auto ac = getCreateFishAcNode()->getActionByTag(tag++);
+			if (ac)
+			{
+				ac->step(0.1);
+			}
+			else
+			{
+				break;
+			}
+
+		}
+		auto vec = FishManage::getInstance()->getAllFishInPool();
+		for (auto var : vec)
+		{
+			var->moveUpdata(0.1);
+			auto move = var->getActionByTag(kTagAcMove);
+			if (move)
+			{
+				move->step(0.1);
+			}
 		}
 	}
+	
+
 }
 
 void GameLayer::UpdateCreateFishByServer(float dt)
 {
 	FishManage::getInstance()->UpdateServerWhenController(dt);
-	FishManage::getInstance()->UpdataServerCreateFish(dt);
+
+	if (_fishGroupType == 0)
+	{
+		FishManage::getInstance()->UpdataServerCreateFish(dt);
+	}
+	else if (_fishGroupType == 1)
+	{
+		FishManage::getInstance()->UpdateWhenController(dt);
+	}
+	
 }

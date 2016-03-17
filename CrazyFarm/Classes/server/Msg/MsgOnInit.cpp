@@ -46,19 +46,26 @@ void Msg_onInit::setBody(const char* msgBody)
 			groupInfo.sub_type = fishgroupinfo["sub_type"].GetInt();
 			groupInfo.seq = fishgroupinfo["seq"].GetInt();
 			groupInfo.seq_time = fishgroupinfo["seq_time"].GetInt();
-			auto &fishitems = fishgroupinfo["fishes"];
-			for (unsigned int k = 0; k < fishitems.Size(); k++)
+			if (groupInfo.group_type == 0)
 			{
-				MsgFishInfo fishitem;
-				fishitem.fish_ids = fishitems[k]["fish_ids"].GetInt();
-				fishitem.time = fishitems[k]["time"].GetDouble();
-				fishitem.fish_route = fishitems[k]["fish_route"].GetInt();
+				auto &fishitems = fishgroupinfo["fishes"];
+				for (unsigned int k = 0; k < fishitems.Size(); k++)
+				{
+					MsgFishInfo fishitem;
+					fishitem.fish_ids = fishitems[k]["fish_ids"].GetInt();
+					fishitem.time = fishitems[k]["time"].GetDouble();
+					fishitem.fish_route = fishitems[k]["fish_route"].GetInt();
 
 
-				//
-				fishitem.time -= groupInfo.seq_time*(groupInfo.seq - 1);
-				//
-				groupInfo.fishItems.push_back(fishitem);
+					//
+					fishitem.time -= groupInfo.seq_time*(groupInfo.seq - 1);
+					//
+					groupInfo.fishItems.push_back(fishitem);
+				}
+			}
+			else
+			{
+
 			}
 			fishInfo.fishGroupsItem = groupInfo;
 		}

@@ -49,7 +49,7 @@ void Server::doConnect() {
     if(!onConnecting) {
         onConnecting = true;
         // TODO : 组装username
-        std::string reqParams = "{\"username\": \"" + username + "\"}" ;
+		std::string reqParams = "{\"username\": \"" + username + "\",\"room_id\": \"" + Value(_room_id).asString() + "\" }";
         pc_request_with_timeout(workingClient, REQ_ROUTE, reqParams.c_str(), REQ_EX, REQ_TIMEOUT, connect_cb);
     }
     
@@ -68,8 +68,9 @@ void Server::sendUserInfoChange(const char* params) {
 }
 
 
-void Server::conConnect(char* host, int port, const char* session_id) {
+void Server::conConnect(char* host, int port, const char* session_id,int room_id) {
     username = session_id;
+	_room_id = room_id;
     pc_lib_init(NULL, NULL, NULL, NULL);
     workingClient = (pc_client_t*)malloc(pc_client_size());
     pc_client_init(workingClient, (void*)0x11, NULL);

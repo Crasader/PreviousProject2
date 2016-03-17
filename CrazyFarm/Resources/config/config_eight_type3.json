@@ -170,6 +170,7 @@
             "item_list": [
                 {
                     "fish_id":[6315],
+                    "fishRoute":[-2,-3],
                     "count_start": 1,
                     "count_end": 1,
                     "wait_time_start": 0,

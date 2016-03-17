@@ -11,6 +11,16 @@ bool MomentIntervalCreate::updata(float dt)
 		GameManage::getInstance()->getGameLayer()->onClearFishFinish();
 		return true;
 	}
+	for (auto var:gp.singleTypefishGroups)
+	{
+		if (nNowTime > var.IntervalCreateTime)
+		{
+
+		}
+	}
+
+
+
 
 	return false;
 }
@@ -19,6 +29,7 @@ void MomentIntervalCreate::init(float FFOneTime)
 {
 	initData();
 	Audio::getInstance()->playBGM(FISHFLOCKBGM);
+	gp = FishGroupData::getInstance()->getGroupBytag(m_groupTag);
 	FishManage::getInstance()->createFishGroup(m_groupTag);
 }
 
