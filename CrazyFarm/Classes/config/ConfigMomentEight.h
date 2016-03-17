@@ -4,7 +4,7 @@
 #include "json/document.h"
 #include "json/stringbuffer.h"
 #include "json/writer.h"
-
+#include "server/Msg/MsgBase.h"
 USING_NS_CC;
 
 
@@ -45,6 +45,8 @@ private:
 	std::map<int, float> lifeTimeForType;
 	std::map<int, std::vector<MomentEightItem>> momentEightItemTypes;
 	bool LoadConfigByType(int type);
+
+
 
 };
 

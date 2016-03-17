@@ -60,6 +60,17 @@ public:
 
 
 	Fish*getHignSoreInVec();
+
+
+	//sever fish create design;
+private:
+	std::vector<MsgFishInfo> waitCreateFishes;
+public:
+	void addServerItemFishs(MsgFishInfo fishs);
+	void clearServerItemFishs();
+	void UpdateServerWhenController(float dt);
+	void UpdataServerCreateFish(float dt);
+
 private :
 	FishManage();
 	static FishManage* _instance;

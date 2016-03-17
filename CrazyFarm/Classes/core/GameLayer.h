@@ -143,9 +143,13 @@ private:
 	void exitCallback(Ref*psend);
 	void MsgUpdata(float dt);
 	std::vector<Msg_Base*> Msgs;
+	//初始时间
+	unsigned long init_creat_time;
+	//渔区快进
+	void FFOneTimeToFishes(float FFTime);
+	void UpdateCreateFishByServer(float dt);
 
-
-	
+	//
 	bool isInitData = false;
 
 };

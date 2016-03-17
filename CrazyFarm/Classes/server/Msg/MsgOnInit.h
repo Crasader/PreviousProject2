@@ -11,5 +11,7 @@ public:
 	int roomPos;//¾ø¶ÔÎ»ÖÃ
 	std::vector<RoomPlayer*> roomplayers;
 	
+	std::vector<MsgFishesInfo> _FishesInfos;
+	unsigned long initCreateTime;
 };
 

@@ -81,7 +81,7 @@ bool GameLayer::init(){
 
 
 
-	scheduleUpdate(); 
+	/*scheduleUpdate(); */
 
 
 
@@ -94,23 +94,23 @@ bool GameLayer::init(){
 	schedule(schedule_selector(GameLayer::collisionUpdate), 0.1, CC_REPEAT_FOREVER, 0);
 
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
-	
+	schedule(schedule_selector(GameLayer::UpdateCreateFishByServer), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
-	runAction(Sequence::create(DelayTime::create(0.01f),
-		CallFunc::create([&]{
-		FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(getRand() % 3 + 81,getRand() % (300 - 35) + 10));
-	for (int i = 0; i < 10;i++)
-	{
-		update(1);
-	}
-		for (auto var : FishManage::getInstance()->getAllFishInPool())
-		{
-			for (int i = 0; i < 10; i++)
-			{
-				var->moveUpdata(1);
-			}
-		}
- }), nullptr));
+	//runAction(Sequence::create(DelayTime::create(0.01f),
+	//	CallFunc::create([&]{
+	//	FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(getRand() % 3 + 81,getRand() % (300 - 35) + 10));
+	//for (int i = 0; i < 10;i++)
+	//{
+	//	update(1);
+	//}
+	//	for (auto var : FishManage::getInstance()->getAllFishInPool())
+	//	{
+	//		for (int i = 0; i < 10; i++)
+	//		{
+	//			var->moveUpdata(1);
+	//		}
+	//	}
+ //}), nullptr));
 
 	setbisOnSkillLock(false);
 
@@ -1001,6 +1001,7 @@ void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 }
 void GameLayer::onClientInit(Msg_onInit* msg)
 {
+	//初始座位
 	createTurret();
 	m_curIndex = msg->roomPos;
 	auto vec = msg->roomplayers;
@@ -1031,6 +1032,31 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 
 		TxtWaitingTurrent[var->getRoomPosition()]->setVisible(false);
 	}
+	//初始时间
+	init_creat_time = msg->initCreateTime;
+	//初始鱼群
+	auto FishesInfos = msg->_FishesInfos;
+	//处理当前帧鱼群
+	auto NowFpsFishInfo = FishesInfos.at(1);
+	auto _fishGroupsItem = NowFpsFishInfo.fishGroupsItem;
+	unsigned long  difTime = (init_creat_time - NowFpsFishInfo.seq_create_time) / 1000;
+
+	if (_fishGroupsItem.group_type== 0)//鱼群
+	{
+		for (auto var:_fishGroupsItem.fishItems)
+		{
+			FishManage::getInstance()->addServerItemFishs(var);
+		}
+		FFOneTimeToFishes(difTime);
+		
+	}
+	else if (_fishGroupsItem.group_type == 1)
+	{
+
+	}
+
+
+
 }
 void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 {
@@ -1102,3 +1128,26 @@ void GameLayer::MsgUpdata(float dt)
 	
 }
 
+
+
+void GameLayer::FFOneTimeToFishes(float FFTime)
+{
+	int time = (int)FFTime;
+	for (int i = 0; i < time;i++)
+	{
+		UpdateCreateFishByServer(1);
+	}
+	for (auto var : FishManage::getInstance()->getAllFishInPool())
+	{
+		for (int i = 0; i < time; i++)
+		{
+			var->moveUpdata(1);
+		}
+	}
+}
+
+void GameLayer::UpdateCreateFishByServer(float dt)
+{
+	FishManage::getInstance()->UpdateServerWhenController(dt);
+	FishManage::getInstance()->UpdataServerCreateFish(dt);
+}

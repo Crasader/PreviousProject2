@@ -15,6 +15,7 @@ void Msg_onInit::setBody(const char* msgBody)
 		log("ConfigExp The data is not json");
 		return;
 	}
+	//用户信息
 	for (unsigned int i = 0; i < users.Size();i++)
 	{
 		auto &user = users[i];
@@ -28,4 +29,43 @@ void Msg_onInit::setBody(const char* msgBody)
 		player->setRoomPosition(user["pos"].GetInt());
 		roomplayers.push_back(player);
 	}
+	//鱼群
+	rapidjson::Value& fishes = doc["fishes"];
+	for (unsigned int i = 0; i < fishes.Size();i++)
+	{
+		auto &info = fishes[i];
+		MsgFishesInfo fishInfo;
+		fishInfo.seq_id = info["seq_id"].GetInt();
+		fishInfo.seq_interval = info["seq_interval"].GetInt();
+		fishInfo.seq_create_time = info["seq_create_time"].GetDouble();
+		{
+			auto &fishgroupinfo = info["fish_group_info"];
+			MsgFishGourpInfo groupInfo;
+			groupInfo.randomSTC = getRand() % 1000;
+			groupInfo.group_type = fishgroupinfo["group_type"].GetInt();
+			groupInfo.sub_type = fishgroupinfo["sub_type"].GetInt();
+			groupInfo.seq = fishgroupinfo["seq"].GetInt();
+			groupInfo.seq_time = fishgroupinfo["seq_time"].GetInt();
+			auto &fishitems = fishgroupinfo["fishes"];
+			for (unsigned int k = 0; k < fishitems.Size(); k++)
+			{
+				MsgFishInfo fishitem;
+				fishitem.fish_ids = fishitems[k]["fish_ids"].GetInt();
+				fishitem.time = fishitems[k]["time"].GetDouble();
+				fishitem.fish_route = fishitems[k]["fish_route"].GetInt();
+
+
+				//
+				fishitem.time -= groupInfo.seq_time*(groupInfo.seq - 1);
+				//
+				groupInfo.fishItems.push_back(fishitem);
+			}
+			fishInfo.fishGroupsItem = groupInfo;
+		}
+		_FishesInfos.push_back(fishInfo);
+	}
+
+	//初始时间戳
+	initCreateTime = doc["create_time"].GetDouble();
+
 }

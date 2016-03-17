@@ -621,3 +621,59 @@ Fish*FishManage::getHignSoreInVec()
 	}
 	return fish;
 }
+
+
+//server 
+void FishManage::addServerItemFishs(MsgFishInfo fishs)
+{
+	waitCreateFishes.push_back(fishs);
+}
+void FishManage::clearServerItemFishs()
+{
+	m_layer->getCreateFishAcNode()->stopAllActions();
+	waitCreateFishes.clear();
+}
+void FishManage::UpdateServerWhenController(float dt)
+{
+
+}
+void FishManage::UpdataServerCreateFish(float dt)
+{
+	for (auto it = waitCreateFishes.begin(); it != waitCreateFishes.end();)
+	{
+		it->time -= dt;
+		if (it->time < 0)
+		{
+			auto route = it->fish_route;
+			auto fishid = it->fish_ids;
+			switch (route)
+			{
+			case -1:
+				if (fishid >= 100 && fishid
+					< 200)
+				{
+					createFishArrangeRand(fishid);
+				}
+				else
+				{
+					createFishRand(fishid);
+				}
+				break;
+			case -2:
+				createFishAssign(fishid, getRand() % 16 + 1);
+				break;
+			case -3:
+				createFishAssign(fishid, getRand() % 4 + 17);
+				break;
+			default:
+				createFishAssign(fishid, route);
+				break;
+			}
+			it = waitCreateFishes.erase(it);
+		}
+		else
+		{
+			it++;
+		}
+	}
+}
