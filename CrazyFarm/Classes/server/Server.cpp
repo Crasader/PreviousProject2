@@ -61,6 +61,12 @@ void Server::sendNewEvents(const char* params) {
     pc_notify_with_timeout(workingClient, REQ_NEWEVENTS, testParams.c_str(), REQ_NEWEVENTS_EX, REQ_TIMEOUT, notify_cb);
 }
 
+void Server::sendUserInfoChange(const char* params) {
+    CCLOG("sendUserInfoChange ... ...");
+    std::string testParams = "{\"coins\": -20, \"diamonds\": 0, \"exp\": 20 }" ;
+    pc_notify_with_timeout(workingClient, REQ_USERINFOCHANGE, testParams.c_str(), REQ_USERINFOCHANGE_EX, REQ_TIMEOUT, notify_cb);
+}
+
 
 void Server::conConnect(char* host, int port, const char* session_id) {
     username = session_id;

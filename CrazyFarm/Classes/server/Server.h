@@ -18,6 +18,9 @@
 #define REQ_NEWEVENTS "game.gameHandler.newevents"
 #define REQ_NEWEVENTS_EX ((void*)0x33)
 
+#define REQ_USERINFOCHANGE "game.gameHandler.userinfochange"
+#define REQ_USERINFOCHANGE_EX ((void*)0x55)
+
 class Server{
 public:
 	static Server* getInstance();
@@ -29,6 +32,7 @@ public:
 	void notify_observer(const char* msgId, const char* msgBody);
     
     void sendNewEvents(const char* params);
+    void sendUserInfoChange(const char* params);
 
 private:
 	Server();
