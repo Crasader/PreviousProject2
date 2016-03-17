@@ -545,11 +545,11 @@ void Fish::onFreezeResume()
 
 void Fish::onDead()
 {
-
 	stopAllActions();
-
+	unscheduleAllCallbacks();
 	onFreezeResume();
-	stopAllActions();
+	stopLockShoot();
+	stopLightShoot();
 
 	auto acName = String::createWithFormat("dead_%d", nUiID);
 	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
@@ -559,7 +559,13 @@ void Fish::onDead()
 		m_shadesprite->runAction(RepeatForever::create(ac));
 	}
 	runAction(RepeatForever::create(ac));
-	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
+	runAction(Sequence::create(DelayTime::create(1.2f), CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
+
+	if (getFishType() == GoldFish)
+	{
+		setScale(1.5f);
+		runAction(RotateBy::create(1.2f, 180));
+	}
 	//…˘“Ù
 	if (fishID < 20)
 	{

@@ -18,7 +18,6 @@ GiftCell* GiftCell::create(int propID, int propNum)
 
 bool GiftCell::init(int propID, int propNum)
 {
-	
 	initWithFile("bagbox.png");
 	bool bRet = false;
 	while (!bRet)
@@ -36,7 +35,7 @@ bool GiftCell::init(int propID, int propNum)
 			auto ji = Sprite::create("txtLevel.png");
 			ji->setPosition(num->getContentSize().width + ji->getContentSize().width / 2, num->getContentSize().height / 2);
 			num->addChild(ji);
-			num->setPositionX(getContentSize().width*0.6);
+			num->setPositionX(getContentSize().width*0.6-4);
 		}
 		bRet = true;
 	}

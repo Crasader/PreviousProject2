@@ -198,7 +198,7 @@ void LoadingSceneLbToGm::loadRes()
 
 void LoadingSceneLbToGm::showTip()
 {
-	int randNum = rand() % 9 + 1;
+	int randNum = rand() % 10 + 1;
 	auto str = String::createWithFormat("LoadingTip%d", randNum);
 	auto label = LabelTTF::create(ChineseWord(str->getCString()).c_str(), "arial", 21);
 	label->setColor(Color3B::WHITE);

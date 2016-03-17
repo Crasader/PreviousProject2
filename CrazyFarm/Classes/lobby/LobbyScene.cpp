@@ -305,7 +305,7 @@ bool LobbyScene::init()
 
 	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, nullptr);
 	menu->setPosition(Point::ZERO);
-	addChild(menu, kZorderMenu,"menu");
+	addChild(menu, kZorderMenu-1,"menu");
 	createRoomLayer();
 	//添加系统返回键监听
 	auto listener = EventListenerKeyboard::create();
@@ -416,7 +416,7 @@ void LobbyScene::showSign(float dt)
 	{
 		auto sign = SignInLayer::createLayer(rewards);
 		sign->setPosition(Point::ZERO);
-		addChild(sign, 20);
+		addChild(sign, 30);
 	}
 
 	//auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
@@ -455,7 +455,7 @@ void LobbyScene::showMarquee(float dt)
 	auto sp = Sprite::create("hot_marquee_bg2.png");
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	sp->setPosition(DisplayBoard->getPositionX()-DisplayBoard->getContentSize().width/2,DisplayBoard->getPositionY());
-	addChild(sp);
+	addChild(sp, kZorderMenu);
 
 }
 

@@ -421,7 +421,7 @@ void BagLayer::chankanCallBack(Ref*pesend)
 		LogEventPageChange::getInstance()->addEventItems(3,8, 0);
 		
 	}
-	layer->setPosition(0, 0);
+	layer->setPosition(0, 10);
 	addChild(layer, 10);
 }
 

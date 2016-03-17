@@ -73,13 +73,14 @@ bool SkillButton::init(int skillID, const char* stencil_file_name, const char* b
     addChild(mProgressTimer, 100);
 
 	auto labelPropNum = LabelAtlas::create("0", "bagPropNum.png", 18, 26, '0');
-	labelPropNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-	labelPropNum->setPosition(17, 25);
+	labelPropNum->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	labelPropNum->setPosition(39, 25);
 	addChild(labelPropNum,101,50);
 
 	auto labelPriceNum = LabelAtlas::create("0", "nowPoolNum.png", 13, 21, '0');
-	labelPriceNum->setPosition(20, -35);
-	labelPriceNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	labelPriceNum->setPosition(39, -32);
+	labelPriceNum->setScale(1.2);
+	labelPriceNum->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	addChild(labelPriceNum, 101, 51);
 	
 	auto sp = Sprite::create("smallDiamond.png");

@@ -66,7 +66,7 @@ int RoomManager::getInitMaxTurrentLevelByMinTurrentLevel(int roomMinLevel) {
         }
     }else  if(roomMinLevel <= 100) {
         if(random < 95){
-            return 100 +(rand()%10)*50;
+            return 100 +(rand()%9)*50;
         }else {
             return 500 +(rand()%3)*100;
         }

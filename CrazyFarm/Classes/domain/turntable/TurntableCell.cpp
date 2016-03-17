@@ -23,11 +23,10 @@ bool TurntableCell::init(int propID, int propNum)
 	bool bRet = false;
 	while (!bRet)
 	{
-
-		auto num = LabelAtlas::create(Value(propNum).asString().c_str(),"prop_num.png", 19,23,'0');
-		num->setScale(0.9);
+		auto txt = String::createWithFormat(":%d", propNum);
+		auto num = LabelAtlas::create(txt->getCString(), "turntableCellNum.png", 15, 23, '0');
 		num->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		num->setPosition(getContentSize().width*0.5, getContentSize().height*-0.1);
+		num->setPosition(getContentSize().width*0.5, getContentSize().height*-0.05);
 		addChild(num);
 		bRet = true;
 	}

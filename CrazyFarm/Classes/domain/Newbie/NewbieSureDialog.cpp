@@ -22,7 +22,7 @@ bool NewbieSureDialog::init()
 	sure->setPosition(bg->getContentSize().width / 2, 40);
 	sure->setCallback(CC_CALLBACK_1(NewbieSureDialog::sureButtonCallBack, this));
 	
-	auto menu = Menu::create(close, sure, nullptr);
+	auto menu = Menu::create( sure, nullptr);
 	menu->setPosition(0,0);
 	bg->addChild(menu);
 
@@ -32,12 +32,10 @@ bool NewbieSureDialog::init()
 	bg->addChild(sp);
 
 	sp = Sprite::create("NewBieTxt2.png");
-	sp->setPosition(bg->getContentSize().width / 2, 203);
+	sp->setPosition(bg->getContentSize().width / 2, 173);
 	bg->addChild(sp);
 
-	sp = Sprite::create("NewBieTxt3.png");
-	sp->setPosition(bg->getContentSize().width / 2, 153);
-	bg->addChild(sp);
+
 
 	
 

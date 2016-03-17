@@ -2,7 +2,7 @@
 #include "domain/turntable/CTurntable.h"
 #include "domain/bag/BagManager.h"
 #include "domain/bonuspool/BonusPoolManager.h"
-
+#include "utill/AnimationUtil.h"
 #include "core/showFishLayer.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "utill/Chinese.h"
@@ -16,10 +16,15 @@ bool TurnTableDialog::init()
 	do
 	{ 
 
-		auto colorlayer = LayerColor::create();
-		colorlayer->setColor(ccc3(0, 0, 0));
-		colorlayer->setOpacity(180);
-		addChild(colorlayer, -1);
+
+		auto bg = Sprite::create("turntableBgFrame.png");
+		bg->setPosition(480, 270);
+		addChild(bg, -1);
+
+		auto caidainode = Sprite::create();
+		caidainode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniCaidai")));
+		caidainode->setPosition(480, 486);
+		addChild(caidainode,1);
 
 		auto size = Director::getInstance()->getVisibleSize();
 		table = CTurntable::create();
@@ -78,7 +83,7 @@ void TurnTableDialog::choujiangButtonCallBack(Ref*psend)
 	}
 	if (nextCoin!=-1)
 	{
-		auto str = String::createWithFormat(ChineseWord("choujiangSure").c_str(), nextCoin);
+		auto str = String::createWithFormat(ChineseWord("choujiangSure").c_str(), nextCoin-BonusPoolManager::getInstance()->getCoins());
 		auto toast = TwiceSureDialog::createDialog(str->getCString(), CC_CALLBACK_1(TurnTableDialog::beginChoujiangButtonCallBack, this));
 		toast->setPosition(0, 0);
 		addChild(toast, 20,"toast");
@@ -132,6 +137,7 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 	auto tiptxt = Sprite::create("TXTbounsTip.png");
 	tiptxt->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
 	tiptxt->setPosition(960 / 2, 6);
+	tiptxt->runAction(RepeatForever::create(Sequence::create(FadeIn::create(0.8f), FadeOut::create(0.8f), nullptr)));
 	addChild(tiptxt);
 	if (isFinish)
 	{
@@ -192,12 +198,16 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 			nextlabel->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 			nextlabel->setPosition(label->getPositionX() + label->getContentSize().width / 2, label->getPositionY());
 			barframe->addChild(nextlabel);
-			auto scale = (float)nowCoin / (float)nextCoin*197.0 / 26.0+26;
+			auto scale = (float)nowCoin / (float)nextCoin*197.0 / 11;
 			if (scale>197)
 			{
 				scale =197.0;
 			}
 			bar->setContentSize(Size(scale, 24));
+			if (scale == 0)
+			{
+				bar->setVisible(false);
+			}
 		}
 		//°´Å¥
 		auto bt = MenuItemImage::create("btn_choujiang_1.png", "btn_choujiang_2.png", CC_CALLBACK_1(TurnTableDialog::choujiangButtonCallBack, this));
@@ -236,7 +246,10 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 
 		float ScaleX = (float)nowfish / (float)allowdfish * 200;
 		bar->setContentSize(Size(ScaleX, bar->getContentSize().height));
-		
+		if (ScaleX==0)
+		{
+			bar->setVisible(false);
+		}
 		auto label = LabelAtlas::create(Value(nowfish).asString(), "nowPoolNum.png", 13, 21, '0');
 		label->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 		label->setPosition(barframe->getContentSize().width / 2 - 10, barframe->getContentSize().height / 2);

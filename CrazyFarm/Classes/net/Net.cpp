@@ -24,7 +24,7 @@ void Net::initNetByType(){
 
 	isRobot = m_bullet->getPlayerTurret()->isRobot;
 	m_bullet->removeFromParentAndCleanup(1);
-	runAction(Sequence::create(ScaleTo::create(0.1, 1.2), ScaleTo::create(0.05, 0.9), ScaleTo::create(0.05, 1.0), CallFunc::create([&]{checkCatchFish(); }), FadeOut::create(0.5), RemoveSelf::create(1), nullptr));
+	runAction(Sequence::create(ScaleTo::create(0.18, 1.0), ScaleTo::create(0.08, 1.3), ScaleTo::create(0.08, 0.9), ScaleTo::create(0.08, 1.1), ScaleTo::create(0.08, 1.0), CallFunc::create([&]{checkCatchFish(); }), FadeOut::create(0.5), RemoveSelf::create(1), nullptr));
 }
 
 //

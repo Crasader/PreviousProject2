@@ -145,9 +145,9 @@
   
   
   <key>LoadingTip1</key>
-  <string>  小提示：击杀黄金鱼可获得抽话费机会！</string>
+  <string>  小提示：击杀黄金鱼获得抽奖机会赢话费！</string>
   <key>LoadingTip2</key>
-  <string>  小提示：成为贵族有专属炮台，捕获几率提高N倍哦！</string>
+  <string>  小提示：成为贵族有专属炮台哦！</string>
   <key>LoadingTip3</key>
   <string> 小技巧：按住屏幕可以进行连续攻击，能更快速的捕获更多鱼哦！</string>
   <key>LoadingTip4</key>
@@ -162,6 +162,8 @@
   <string> 小技巧：当出现大量鱼群时，可以使用核弹进行大面积捕获。</string>
     <key>LoadingTip9</key>
   <string>小技巧：捕获黄金鱼不仅可以获得更多奖励，还能进行累计抽奖</string>
+  <key>LoadingTip10</key>
+  <string>小技巧：成为VIP可提升击杀概率！</string>
   
   
   </dict> 

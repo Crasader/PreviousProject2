@@ -7,6 +7,7 @@ void FishArrange::initFish(int fishID){
 	this->fishID = fishID;
 	this->speed = getRandValueInVec(fishdata.move_speeds);
 	this->experience = getFishExperienceByID(fishID);
+	this->BonusPoorGold = fishdata.bonus_pool_reward;
 	setFishType(getFishTypeByID(fishID));
 	setuiId(fishdata.uiId);
 	initFishAnim(fishdata.uiId);

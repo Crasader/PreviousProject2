@@ -208,17 +208,23 @@ void GameManage::onPlayerUpgrade()
 	auto colorlayer = LayerColor::create();
 	colorlayer->setColor(ccc3(0, 0, 0));
 	colorlayer->setOpacity(180);
-	m_pGuilayer->addChild(colorlayer, 20);
+	m_pGuilayer->addChild(colorlayer, 30);
 	auto aninode = Sprite::create();
 	aninode->setPosition(480, 270);
-	m_pGuilayer->addChild(aninode, 20);
+	m_pGuilayer->addChild(aninode, 30);
 	aninode->setScale(4);
 	auto txt = Sprite::create("TXTUpGrade.png");
 	txt->setPosition(480, 350);
-	m_pGuilayer->addChild(txt, 20);
+	m_pGuilayer->addChild(txt, 30);
+	auto addcoinani = Sprite::create("rorateLightCoin.png");
+	addcoinani->setPosition(txt->getContentSize()/2+Size(0,0));
+	addcoinani->runAction(RepeatForever::create(RotateBy::create(5, 360)));
+	addcoinani->setScale(3);
+	txt->addChild(addcoinani,-1);
+
 
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), CallFunc::create([=]{txt->removeFromParentAndCleanup(1); auto node = UpgradeSureDialog::create(rewards);
 	node->setPosition(0, 0);
-	m_pGuilayer->addChild(node, 20); colorlayer->removeFromParentAndCleanup(1); }), RemoveSelf::create(), nullptr));
+	m_pGuilayer->addChild(node, 30); colorlayer->removeFromParentAndCleanup(1); }), RemoveSelf::create(), nullptr));
 	
 }

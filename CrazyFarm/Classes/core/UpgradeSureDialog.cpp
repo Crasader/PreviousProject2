@@ -97,11 +97,13 @@ bool UpgradeSureDialog::init(std::vector<LevelRewardItem> levelRewardItems)
 void UpgradeSureDialog::sureButtonCallBack(Ref*psend)
 {
 	getChildByName("bg")->removeFromParentAndCleanup(1);
-	for (auto var:cells)
+	for (int i = 0; i < cells.size();i++)
 	{
-		var->runAction(Sequence::create(Spawn::create(ScaleTo::create(0.5f, 1.5f), MoveBy::create(0.5f, Vec2(0, 100)), nullptr), DelayTime::create(0.5f), MoveTo::create(1.0f, convertToNodeSpace(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPosition())), RemoveSelf::create(), nullptr));
+		auto var = cells.at(i);
+		var->setTextureRect(Rect(0, 0, 0, 0));
+		var->runAction(Sequence::create(ScaleTo::create(0.25f, 1.1f), ScaleTo::create(0.25f, 1.0f), DelayTime::create(0.2f + i*0.1f), EaseSineIn::create(MoveTo::create(0.5f, convertToNodeSpace(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPosition()))), RemoveSelf::create(), nullptr));
 	}
-	runAction(Sequence::create(DelayTime::create(2.1f), CallFunc::create([&]
+	runAction(Sequence::create(DelayTime::create(2.2f), CallFunc::create([&]
 	{
 		removeFromParentAndCleanup(1);
 		for (auto var : m_levelRewardItems)

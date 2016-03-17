@@ -81,7 +81,7 @@ void maridTaskPlane::update(float delta)
 		nameLabel->setPosition(192, 71);
 		nameLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		sp->addChild(nameLabel);
-		getParent()->addChild(sp, 20);
+		getParent()->addChild(sp, 30);
 		sp->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(1), nullptr));
 		removeFromParentAndCleanup(1);
 		return;
@@ -92,7 +92,7 @@ void maridTaskPlane::update(float delta)
 		((GameGuiLayer*)getParent())->beginMaridTaskTime(0);
 		auto sp = Sprite::create("TXTNoFinished.png");
 		sp->setPosition(480, 270);
-		getParent()->addChild(sp, 20);
+		getParent()->addChild(sp, 30);
 		sp->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(1), nullptr));
 
 		removeFromParentAndCleanup(1);

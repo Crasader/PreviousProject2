@@ -16,8 +16,7 @@ bool GameGuiLayer::init(){
 	colorBg = LayerColor::create();
 	colorBg->setColor(Color3B::BLACK);
 	colorBg->setOpacity(0);
-	addChild(colorBg, -1);
-
+	addChild(colorBg, kZorderMenu+1);
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto menu = Menu::create();
@@ -26,10 +25,7 @@ bool GameGuiLayer::init(){
 	
 	Audio::getInstance()->playBGM(GAMEBGM);
 	
-	auto sprbg = Sprite::create("EarnCoins.png");
-	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	sprbg->setPosition(visibleSize.width-5, visibleSize.height*0.305);
-	addChild(sprbg, kZorderMenu + 1);
+	
 
 	sEainCoin = MyMenuItemGainMoney::create();
 	sEainCoin->setPosition(visibleSize.width + 50, visibleSize.height*0.3);
@@ -39,13 +35,21 @@ bool GameGuiLayer::init(){
 	
 	sUpgradeTurret = MyMenuItemUpgrade::create();
 	sUpgradeTurret->setPosition(visibleSize.width+50, visibleSize.height*0.5);
-	menu->addChild(sUpgradeTurret);
 
 
+	auto sUpgradeTurretMenu = Menu::create(sUpgradeTurret, nullptr);
+	sUpgradeTurretMenu->setPosition(0, 0);
+	addChild(sUpgradeTurretMenu, kZorderMenu, "UpgradeTurretMenu");
+
+
+	auto sprbg = Sprite::create("EarnCoins.png");
+	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	sprbg->setPosition(visibleSize.width - 5, visibleSize.height*0.305);
+	addChild(sprbg, kZorderMenu);
 	sprbg = Sprite::create("UpgradeButton.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-	sprbg->setPosition(visibleSize.width-5,visibleSize.height*0.505);
-	addChild(sprbg, kZorderMenu+1);
+	sprbg->setPosition(Vec2(visibleSize.width - 5, visibleSize.height*0.505));
+	addChild(sprbg, kZorderMenu,"sprbg");
 
 	///¶³½á
 	auto skillbutton = SkillFreezeButton::createSkillFreezeButton();
@@ -324,6 +328,8 @@ void GameGuiLayer::ShowUseLockTip(Point dmDropPos)
 {
 	auto bt = skillManager::getInstance()->getButtonByID(2);
 
+	auto lastZorder = bt->getZOrder();
+	bt->setZOrder(30);
 	auto str = String::createWithFormat("item_%d.png", 1004);
 	auto itemcell = Sprite::create(str->getCString());
 	itemcell->setPosition(dmDropPos);
@@ -355,10 +361,10 @@ void GameGuiLayer::ShowUseLockTip(Point dmDropPos)
 		tipnode->addChild(tiptxt);
 		tiptxt->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr))); 
 
-		colorBg->setOpacity(127);
+		setLayerAlpha(150);
 
 
-		tipnode->runAction(Sequence::createWithTwoActions(DelayTime::create(10.0f), CallFunc::create([=]{colorBg->setOpacity(0	), tipnode->removeFromParentAndCleanup(1); })));
+		tipnode->runAction(Sequence::createWithTwoActions(DelayTime::create(10.0f), CallFunc::create([=]{colorBg->setOpacity(0), bt->setZOrder(lastZorder); tipnode->removeFromParentAndCleanup(1); })));
 	}),
 
 		RemoveSelf::create(), nullptr));
@@ -366,13 +372,23 @@ void GameGuiLayer::ShowUseLockTip(Point dmDropPos)
 }
 void GameGuiLayer::ShowUpgradeTurretTip()
 {
+	auto node = getChildByName("UpgradeTurretMenu");
+	auto lastZorer = node->getZOrder();
+	node->setZOrder(30);
+
+
+	auto node1 = getChildByName("sprbg");
+	auto lastZorer1 = node1->getZOrder();
+	node1->setZOrder(30);
+
+
 	sUpgradeTurret->showPopup();
 	auto tipnode = Node::create();
 	tipnode->setPosition(0, 0);
 
-	addChild(tipnode, 5, "tipUpGradenode");
+	addChild(tipnode, 30, "tipUpGradenode");
 
-	setLayerAlpha(127);
+	setLayerAlpha(150);
 	auto sPoint = Sprite::create("yellowSpoint.png");
 	sPoint->setPosition(Vec2(794, 335));
 	sPoint->setVisible(false);
@@ -380,7 +396,7 @@ void GameGuiLayer::ShowUpgradeTurretTip()
 	tipnode->addChild(sPoint, 20);
 	sPoint->runAction(RepeatForever::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, 30))), EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, -30))), nullptr)));
 
-	tipnode->runAction(Sequence::create(DelayTime::create(10.0f), CallFunc::create([=]{setLayerAlpha(0); }), RemoveSelf::create(), nullptr));
+	tipnode->runAction(Sequence::create(DelayTime::create(10.0f), CallFunc::create([=]{setLayerAlpha(0); node->setZOrder(lastZorer); node1->setZOrder(lastZorer1); }), RemoveSelf::create(), nullptr));
 }
 void GameGuiLayer::setLayerAlpha(int alpha)
 {

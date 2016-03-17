@@ -33,10 +33,10 @@ MagnateEvent MagnateManager::getItemMagnateEvent(){
     MagnateEvent magnateEvent;
     magnateEvent.fireTimes = itemConfig.fire_time_from +
     rand()%(itemConfig.fire_time_to - itemConfig.fire_time_from);
-    int random = rand()%100;
-    if(random < 33) {
+    int random = rand()%20;
+    if(random < 6) {
         magnateEvent.itemId = 1003;
-    }else if(random < 66) {
+    }else if(random < 16) {
         magnateEvent.itemId = 1004;
     }else {
         magnateEvent.itemId = 1005;

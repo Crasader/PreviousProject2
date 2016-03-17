@@ -13,14 +13,15 @@ bool BagCell::init(){
 	addChild(propSprite);
 
 	propNum = LabelAtlas::create("0", "bagPropNum.png", 18, 26, '0');
-	propNum->setAnchorPoint(Point(0,0));
-	propNum->setPosition(size.width*0.65, size.height*0.1);
+	propNum->setAnchorPoint(Point(1,0));
+	propNum->setPosition(size.width*0.65+27, size.height*0.1);
 	addChild(propNum);
 	propNum->setVisible(false);
 	
 	txtji = Sprite::create("txtLevel.png");
-	txtji->setPosition(propNum->getContentSize().width+txtji->getContentSize().width/2, propNum->getContentSize().height / 2);
-	propNum->addChild(txtji);
+	txtji->setAnchorPoint(Point(1,0));
+	txtji->setPosition(size.width*0.65 + 27, size.height*0.1);
+	addChild(txtji);
 	txtji->setVisible(false);
 
 	txt = Sprite::create("dianjigoumaitxt.png");
@@ -74,6 +75,7 @@ void BagCell::setValue(BagItem item)
 		txtji->setVisible(true);
 		txt->setVisible(false);
 		propNum->setVisible(true);
+		propNum->setPositionX(65 + 6);
 		propNum->setString(Value(User::getInstance()->getLevelData().levelId+1).asString().c_str());//ÏÔÊ¾¼¶Êý
 
 		break;
@@ -110,5 +112,5 @@ void BagCell::IsBeToued()
 	}
 	
 	layer->setPosition(0, 0);
-	Director::getInstance()->getRunningScene()->getChildByTag(50)->addChild(layer);
+	Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer);
 }

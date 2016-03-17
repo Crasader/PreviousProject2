@@ -39,7 +39,6 @@ bool GameLayer::init(){
 	{
 		return false;
 	}
-	//initFishAndBulletData();
 	setIsShowYourChairno(false);
 	FishManage::getInstance()->setlayer(this);
 	skillManager::getInstance()->setlayer(this);
@@ -87,6 +86,7 @@ bool GameLayer::init(){
 
 	runAction(Sequence::create(DelayTime::create(0.01f),
 		CallFunc::create([&]{
+		initFishAndBulletData();
 		FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 10));
 	for (int i = 0; i < 5;i++)
 	{
@@ -504,6 +504,7 @@ void GameLayer::initFishAndBulletData()
 	{
 		FishManage::getInstance()->cleanVector();
 		BulletManage::getInstance()->ClearManage();
+		GameData::getInstance()->setisOnGroupComing(false);
 		isInitData = true;
 	}
 }
@@ -514,8 +515,9 @@ void GameLayer::onEnter()
 }
 void GameLayer::onExit()
 {
+	
 	Layer::onExit();
-	initFishAndBulletData();
+	
 }
 void GameLayer::onEnterTransitionDidFinish()
 {
@@ -606,7 +608,12 @@ void GameLayer::endSkillBoom()
 {
 	changeTouchFunByTouchType(m_lasttouchType);
 
-	getChildByName("TXTTip")->removeFromParentAndCleanup(1);
+	auto txttip = getChildByName("TXTTip");
+	if (txttip)
+	{
+		txttip->removeFromParentAndCleanup(1);
+	}
+	
 }
 
 
@@ -771,7 +778,7 @@ void GameLayer::onClearFish()
 	auto lang = Sprite::create("wave.png");
 	lang->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 	lang->setPosition(1100, 270);
-	lang->runAction(Sequence::create(MoveTo::create(8, Vec2(-300, 270)), CallFunc::create([&]{
+	lang->runAction(Sequence::create(MoveTo::create(5, Vec2(-300, 270)), CallFunc::create([&]{
 		unschedule(schedule_selector(GameLayer::onClearFishUpdata)); 
 		getChildByName("yuchaotxt")->removeFromParentAndCleanup(1);
 	}), RemoveSelf::create(), nullptr));
@@ -851,27 +858,37 @@ void GameLayer::addReward(int itemid, int num)
 
 void GameLayer::onGetReward(int itemid, int num)
 {
-	auto spPath = String::createWithFormat("item_%d.png", itemid);
+	auto spPath = String::createWithFormat("sign_%d.png", itemid);
 
 	auto sp = Sprite::create(spPath->getCString());
 	sp->setPosition(480, 270);
 	sp->setScale(0);
-	addChild(sp, 21);	
+	GameManage::getInstance()->getGuiLayer()->addChild(sp, kZorderDialog+1);	
+
+
+	auto txt = String::createWithFormat(":%d", num);
+	auto spnum = LabelAtlas::create(txt->getCString(), "turntableCellNum.png", 15, 23, '0');
+	spnum->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	spnum->setPosition(sp->getContentSize().width*0.5, sp->getContentSize().height*-0.05);
+	sp->addChild(spnum);
+
+
 	auto lightsp = Sprite::create("light1.png");
 	lightsp->setPosition(sp->getContentSize()/2);
-	lightsp->runAction(RotateTo::create(3.0f, 360.0));
+	lightsp->runAction(RotateBy::create(2.0f, 360.0));
+	lightsp->setScale(2);
 	sp->addChild(lightsp,-1);
 	auto colorlayer = LayerColor::create();
 	colorlayer->setColor(ccc3(0, 0, 0));
 	colorlayer->setOpacity(180);
-	addChild(colorlayer, 20);
+	GameManage::getInstance()->getGuiLayer()->addChild(colorlayer, kZorderDialog);
 
 	auto aninode = Sprite::create();
 	aninode->setPosition(480, 270);
-	addChild(aninode,20);
+	GameManage::getInstance()->getGuiLayer()->addChild(aninode, kZorderDialog);
 	aninode->setScale(4);
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), RemoveSelf::create(), nullptr));
-	sp->runAction(Sequence::create(DelayTime::create(2.0f), ScaleTo::create(0.2, 1.0f),CallFunc::create([=]{lightsp->removeFromParentAndCleanup(1), colorlayer->removeFromParentAndCleanup(1); }), MoveTo::create(1.0f, myTurret->getPosition()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
+	sp->runAction(Sequence::create( ScaleTo::create(1.0f, 1.0f), MoveTo::create(1.0f, myTurret->getPosition()),CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
 
 }
 
