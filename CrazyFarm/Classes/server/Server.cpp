@@ -24,11 +24,10 @@ void Server::event_cb(pc_client_t* client, int ev_type, void* ex_data, const cha
     }else if(ev_type == 2) {
         Server::getInstance()->notify_observer("conError", "");
     }
-
-
-
     // TODO : 处理连接失败和重连的问题，并且要仔细测试下。
 }
+
+
 
 void Server::quit() {
     if(workingClient != NULL) {
@@ -70,6 +69,12 @@ void Server::sendUserInfoChange(int difCoins, int difDiamonds, int difExp) {
 		pc_notify_with_timeout(workingClient, REQ_USERINFOCHANGE, Params->getCString(), REQ_USERINFOCHANGE_EX, REQ_TIMEOUT, notify_cb);
 }
 
+void Server::reqTurrentLevelUpdate() {
+    char* Params = "{}";
+    pc_request_with_timeout(workingClient, REQ_ROUTE_LEVELUPDATE, Params, REQ_LEVELUPDATE_EX, REQ_TIMEOUT, levelupdate_cb);
+}
+
+
 
 void Server::conConnect(char* host, int port, const char* session_id,int room_id) {
     username = session_id;
@@ -88,6 +93,16 @@ void Server::connect_cb(const pc_request_t* req, int rc, const char* resp) {
     Server::getInstance()->sendNewEvents(resp);
 	
 }
+
+void Server::levelupdate_cb(const pc_request_t* req, int rc, const char* resp) {
+    CCLOG("levelupdate_cb: get rc %d\n", rc);
+    CCLOG("levelupdate_cb: get resp %s\n", resp);
+    Server::getInstance()->notify_observer("level_update", resp);
+    Server::getInstance()->sendNewEvents(resp);
+    
+}
+
+
 
 void Server::notify_cb(const pc_notify_t* noti, int rc) {
     CCLOG("notify_cb: get rc %d\n", rc);
@@ -113,6 +128,7 @@ void Server::notify_observer(const char* msgId, const char* msgBody) {
     // 2 : 'onAdd' - new user coming ...
     // 3 : 'onLeave' - user leave room ...
     // 4 : 'onFishes' - broadcast fish info ...
+    // 5 : 'level_update' - level update request
     for(std::vector<MsgObserver*>::const_iterator it=msgObserver.begin(); it!=msgObserver.end(); it++) {
         (*it)->handle_event(msgId, msgBody);
     }

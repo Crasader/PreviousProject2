@@ -21,6 +21,9 @@ USING_NS_CC;
 #define REQ_USERINFOCHANGE "game.gameHandler.userinfochange"
 #define REQ_USERINFOCHANGE_EX ((void*)0x55)
 
+#define REQ_ROUTE_LEVELUPDATE "game.gameHandler.userinfochange"
+#define REQ_LEVELUPDATE_EX ((void*)0x66)
+
 class Server{
 public:
 	static Server* getInstance();
@@ -33,6 +36,7 @@ public:
     
     void sendNewEvents(const char* params);
     void sendUserInfoChange(int difCoins,int difDiamonds,int difExp);
+    void reqTurrentLevelUpdate();
 
 private:
 	Server();
@@ -48,8 +52,14 @@ private:
     void disconnect();
     
     static void event_cb(pc_client_t* client, int ev_type, void* ex_data, const char* arg1, const char* arg2);
+    
     static void connect_cb(const pc_request_t* req, int rc, const char* resp);
+    static void levelupdate_cb(const pc_request_t* req, int rc, const char* resp);
+    
     static void notify_cb(const pc_notify_t* noti, int rc);
+    
+    
+    
     
     std::string username;
 
