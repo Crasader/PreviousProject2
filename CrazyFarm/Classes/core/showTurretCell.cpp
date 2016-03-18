@@ -8,6 +8,7 @@
 #include "domain/game/GameManage.h"
 #include "domain/logevent/LogEventTurrentUpgrade.h"
 #include "domain/bag/BagManager.h"
+#include "server/Server.h"
 bool showTurretCell::init(){
 
 	setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -253,25 +254,27 @@ void showTurretCell::ButtonCallback(Ref* psend)
 	}
 	else
 	{
-		auto maxlevel = User::getInstance()->getMaxTurrentLevel();
+		Server::getInstance()->reqTurrentLevelUpdate();
+		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
+		/*auto maxlevel = User::getInstance()->getMaxTurrentLevel();
 		auto turretData = ConfigTurrent::getInstance()->getNextTurrent(maxlevel);
 		auto zengList = turretData.rewardList;
 		auto diamondNum = User::getInstance()->getDiamonds();
 		bool isFinish = diamondNum >= turretData.unlockPrice ? true : false;
 		if (isFinish)
 		{
-			GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent();
-			Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
+		GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent();
+		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
 		}
 		else
 		{
-			auto layer = payLayer::createLayer(2);
-			layer->setPosition(0, 0);
-			layer->setEventPont(12);
-			Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer, 20);
-			Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
-			LogEventPageChange::getInstance()->addEventItems(2, 13, 5);
-		}
+		auto layer = payLayer::createLayer(2);
+		layer->setPosition(0, 0);
+		layer->setEventPont(12);
+		Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer, 20);
+		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
+		LogEventPageChange::getInstance()->addEventItems(2, 13, 5);
+		}*/
 	}
 
 }

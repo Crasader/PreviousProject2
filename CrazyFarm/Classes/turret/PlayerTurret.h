@@ -100,7 +100,7 @@ public:
 	  void changeDataByBtnType();
 	  void upgradeTurret(Ref* psend);
 	  void degradeTurret(Ref* psend);
-	  void onLockTheTurrent();
+	  void onLockTheTurrent(int curTurretLv,int rewardsCoin,int costDiamonds);
 
 
 	  bool isCanShoot();

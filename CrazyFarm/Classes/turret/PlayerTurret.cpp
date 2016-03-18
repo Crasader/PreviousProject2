@@ -268,7 +268,7 @@ void PlayerTurret::ShowLockTurretTip()
 	listenr1->setSwallowTouches(true);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, locknode);
 }
-void  PlayerTurret::onLockTheTurrent()
+void  PlayerTurret::onLockTheTurrent(int curTurretLv, int rewardsCoin, int costDiamonds)
 {
 	m_btType = 0;
 	auto node = getChildByName("locknode");
@@ -276,28 +276,28 @@ void  PlayerTurret::onLockTheTurrent()
 	{
 		node->removeFromParentAndCleanup(1);
 	}
-	auto a = User::getInstance()->getMaxTurrentLevel();
-	m_turretdata = ConfigTurrent::getInstance()->getNextTurrent(a);
+	m_turretdata = ConfigTurrent::getInstance()->getTurrent(curTurretLv);
 	User::getInstance()->setMaxTurrentLevel(m_turretdata.multiple);
 	LogEventTurrentUpgrade::getInstance()->sendDataToServer(m_turretdata.multiple, GlobalSchedule::getInstance()->getGameTime());
-	User::getInstance()->addDiamonds(-m_turretdata.unlockPrice);
-	auto vec = m_turretdata.rewardList;
-	for (auto var : vec)
-	{
-		if (var.itemId == 1001)
-		{
-			User::getInstance()->addCoins(var.num);
-		}
-		else if (var.itemId == 1002)
-		{
-			User::getInstance()->addDiamonds(var.num);
-		}
-		else
-		{
-			BagManager::getInstance()->changeItemCount(var.itemId, var.num);
-		}
+	User::getInstance()->addDiamonds(-costDiamonds);
+	User::getInstance()->addCoins(rewardsCoin);
+	//auto vec = m_turretdata.rewardList;
+	//for (auto var : vec)
+	//{
+	//	if (var.itemId == 1001)
+	//	{
+	//		User::getInstance()->addCoins(var.num);
+	//	}
+	//	else if (var.itemId == 1002)
+	//	{
+	//		User::getInstance()->addDiamonds(var.num);
+	//	}
+	//	else
+	//	{
+	//		BagManager::getInstance()->changeItemCount(var.itemId, var.num);
+	//	}
 
-	}
+	//}
 	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
 	//解锁成功字样提示
 	auto layer = Director::getInstance()->getRunningScene()->getChildByTag(777);

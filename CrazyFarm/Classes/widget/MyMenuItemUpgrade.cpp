@@ -7,6 +7,7 @@
 #include "domain/logevent/LogEventTurrentUpgrade.h"
 #include "domain/globalschedule/GlobalSchedule.h"
 #include "domain/game/GameManage.h"
+#include "server/Server.h"
 enum 
 {
 	kTagMutpleLabel = 10,
@@ -52,19 +53,20 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		runAction(MoveBy::create(0.5f, Vec2(166, 0)));
 		isElongate = false;
 		removeBlinkAni();
-		if (isFinish)
-		{
-			
-			GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent();
-		}
-		else
-		{
-			auto layer = showTurretLayer::create(2);
-			layer->setPosition(Point::ZERO);
-			getParent()->getParent()->addChild(layer,20,50);
-			///////弹出充值
-		}
-		
+		Server::getInstance()->reqTurrentLevelUpdate();
+		//if (isFinish)
+		//{
+		//	
+		//	GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent();
+		//}
+		//else
+		//{
+		//	auto layer = showTurretLayer::create(2);
+		//	layer->setPosition(Point::ZERO);
+		//	getParent()->getParent()->addChild(layer,20,50);
+		//	///////弹出充值
+		//}
+		//
 	}
 	else
 	{

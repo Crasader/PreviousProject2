@@ -42,5 +42,13 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 		base->setMsgId(MsgOnFishes);
 
 	}
+	if (strcmp(msgId, "onFishes") == 0)
+	{
+		//ÅÚËþÉý¼¶
+		base = new Msg_OnUpdateTurrent();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnUpdateTurrent);
+
+	}
 	return base;
 }

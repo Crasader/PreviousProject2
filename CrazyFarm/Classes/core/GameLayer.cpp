@@ -29,7 +29,9 @@
 #include "server/Msg/MsgHelp.h"
 #include "core/ScrollTextEx.h"
 #include "utill/define.h"
+#include "turret/PlayerTurret.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
+#include "core/showTurretLayer.h"
 #define BOOMRADIUS 300
 //#define TCPIDURL "106.75.141.82" //外网
 #define TCPIDURL "172.23.1.39" //内网
@@ -82,7 +84,7 @@ bool GameLayer::init(){
 
 
 
-	/*scheduleUpdate(); */
+	//scheduleUpdate(); 
 
 
 
@@ -1126,7 +1128,20 @@ void GameLayer::onConError(Msg_ConError*msg)
 	GameManage::getInstance()->getGuiLayer()->addChild(dioag, 30);
 }
 
+void GameLayer::onUpdateTurrent(Msg_OnUpdateTurrent*msg)
+{
+	if (msg->errorcode==0)
+	{
+		GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent();
+	}
+	else
+	{
+		auto layer = showTurretLayer::create(2);
+		layer->setPosition(Point::ZERO);
+		addChild(layer, 20, 50);
+	}
 
+}
 void GameLayer::exitCallback(Ref*psend)
 {
 	auto node = BankruptManager::getInstance()->getgetRewardNode();
@@ -1163,6 +1178,9 @@ void GameLayer::MsgUpdata(float dt)
 			break;
 		case MsgOnFishes:
 			onFishesMsg((Msg_OnFishes*)var);
+			break;
+		case MsgOnUpdateTurrent:
+			onUpdateTurrent((Msg_OnUpdateTurrent*)var);
 			break;
 		default:
 			break;
