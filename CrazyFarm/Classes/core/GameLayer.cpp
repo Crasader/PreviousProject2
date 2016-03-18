@@ -157,11 +157,11 @@ bool GameLayer::init(){
 	
 
 	schedule(schedule_selector(GameLayer::UpdateUserinfo), 10.0f, CC_REPEAT_FOREVER, 0);
-	/*loadNewMonent(2);
+	//loadNewMonent(2);
 
-	float difTime = 15;
-	_fishGroupType = 1;
-	runAction(Sequence::create(DelayTime::create(0), CallFunc::create([=]{FFOneTimeToFishes(difTime); }), nullptr));*/
+	//float difTime = 15;
+	//_fishGroupType = 1;
+	//runAction(Sequence::create(DelayTime::create(0), CallFunc::create([=]{FFOneTimeToFishes(difTime); }), nullptr));
 
 
 

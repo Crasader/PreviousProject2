@@ -124,15 +124,17 @@ void PlayerTurret::update(float delta)
 	else
 	{
 		auto num = User::getInstance()->getCoins();
-		m_CoinLabel->setString(Value(num).asString().c_str());
+		auto str = String::createWithFormat("%ld", num);
+		m_CoinLabel->setString(str->getCString());
 
 		num = User::getInstance()->getDiamonds();
+		str = String::createWithFormat("%ld", num);
 		auto lastnum = Value(m_DiamondLabel->getString()).asInt();
 		if (num>lastnum)
 		{
 			GameManage::getInstance()->showLockTurrent();
 		}
-		m_DiamondLabel->setString(Value(num).asString().c_str());
+		m_DiamondLabel->setString(str->getCString());
 
 		num = GameData::getInstance()->getnowLevel();
 		nCurLevel->setString(Value(num).asString().c_str());

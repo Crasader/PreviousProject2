@@ -11,21 +11,18 @@ bool MomentIntervalCreate::updata(float dt)
 		GameManage::getInstance()->getGameLayer()->onClearFishFinish();
 		return true;
 	}
-	for (auto var:gp.singleTypefishGroups)
+	for (auto it = info.begin(); it != info.end();)
 	{
-		for (int i = 0; i < var.fishCount;i++)
+		it->_time -= dt;
+		if (it->_time < 0)
 		{
-			if (nNowTime > var.IntervalCreateTime*i)
-			{
-				if (var.fishID!=-1)
-				{
-					FishManage::getInstance()->createFishMonmentInterval(var.fishID, var.fishRoute, var.startPos);
-					var.fishID = -1;
-				}
-				
-			}
+			FishManage::getInstance()->createFishMonmentInterval(it->_fishid,it->_route,it->_startPos);
+			it = info.erase(it);
 		}
-		
+		else
+		{
+			it++;
+		}
 	}
 
 
