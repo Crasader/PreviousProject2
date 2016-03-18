@@ -497,12 +497,12 @@ void PlayerTurret::createPlayerCoin(User* user, int index)
 	spCoinBG->setPosition(coinPos[index]);
 	addChild(spCoinBG, 10, index);
 	m_coinLabelPos = spCoinBG->getPosition();
-	m_CoinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "multipleNum.png", 15, 21, '0');
+	m_CoinLabel = LabelAtlas::create(String::createWithFormat("%ld",user->getCoins())->getCString(), "multipleNum.png", 15, 21, '0');
 	m_CoinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
 	m_CoinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_CoinLabel);
 
-	m_DiamondLabel = LabelAtlas::create(Value(user->getDiamonds()).asString().c_str(), "multipleNum.png", 15, 21, '0');
+	m_DiamondLabel = LabelAtlas::create(String::createWithFormat("%ld", user->getDiamonds())->getCString(), "multipleNum.png", 15, 21, '0');
 	m_DiamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.29);
 	m_DiamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_DiamondLabel);
@@ -520,12 +520,12 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 	addChild(spCoinBG, 10, user->getRoomPosition());
 	m_coinLabelPos = spCoinBG->getPosition();
 	nNowMoney = user->getCoins();
-	m_CoinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "multipleNum.png", 15, 21, '0');
+	m_CoinLabel = LabelAtlas::create(String::createWithFormat("%ld", user->getCoins())->getCString(), "multipleNum.png", 15, 21, '0');
 	m_CoinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
 	m_CoinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_CoinLabel);
 
-	m_DiamondLabel = LabelAtlas::create(Value(user->getDiamonds()).asString().c_str(), "multipleNum.png", 15, 21, '0');
+	m_DiamondLabel = LabelAtlas::create(String::createWithFormat("%ld", user->getDiamonds())->getCString(), "multipleNum.png", 15, 21, '0');
 	m_DiamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.29);
 	m_DiamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_DiamondLabel);
@@ -635,7 +635,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		
 		num = fish->getFishGold() * m_turretdata.multiple;
 		auto nowNum = Value(m_CoinLabel->getString()).asInt();
-		m_CoinLabel->setString(Value(nowNum + num).asString().c_str());
+		m_CoinLabel->setString(String::createWithFormat("%ld",nowNum+num)->getCString());
 		
 	}
 	else
@@ -649,7 +649,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 	
 		Audio::getInstance()->playSound(CATCHGOLD);
 		num = fish->getFishGold()* m_turretdata.multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
-		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
+		m_CoinLabel->setString(String::createWithFormat("%ld", User::getInstance()->addCoins(num))->getCString());
 	
 		auto exp = fish->getFishExperience();
 		User::getInstance()->addExp(exp);
