@@ -101,6 +101,19 @@ Fish* FishManage::createFishArrange(int type){
 	fishPool.pushBack(fish);
 	return fish;
 }
+
+void FishManage::createFishMonmentInterval(int fishid, int route,Vec2 startPos)
+{
+	Fish* fish = FishManage::getInstance()->createFishSingle(fishid);
+	fish->setVisible(false);
+	fish->setisAutoRemove(false);
+	fish->setRoute(route);
+	fish->setPosition(startPos);
+	m_layer->addChild(fish, fish->getFishZorder());
+	fish->addShader();
+}
+
+
 void FishManage::createFishGroup(int grouptag)
 {
 	auto gp = FishGroupData::getInstance()->getGroupBytag(grouptag);
@@ -179,7 +192,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		int id = fishId-300;
 		//鱼1
 		auto fish = createFishSingle(id);
-		auto size = createFishSingle(id)->getContentSize();
+		auto size = fish->getContentSize();
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
@@ -208,7 +221,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		int id = fishId-400;
 		//鱼1
 		auto fish = createFishSingle(id);
-		auto size = createFishSingle(id)->getContentSize();
+		auto size = fish->getContentSize();
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);
@@ -245,7 +258,7 @@ void FishManage::createFishQueue(int fishId, int momentEightroutetag)
 		int id = fishId-500;
 		//鱼1
 		auto fish = createFishSingle(id);
-		auto size = createFishSingle(id)->getContentSize();
+		auto size = fish->getContentSize();
 		fish->setVisible(false);
 		fish->setisAutoRemove(false);
 		fish->setMonentEightRoute(momentEightroutetag);

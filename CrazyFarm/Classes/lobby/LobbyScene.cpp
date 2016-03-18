@@ -74,7 +74,7 @@ bool LobbyScene::init()
 	{
 		return false;
 	}
-	/*SignMannger::getInstance()->sendRequest();*/
+	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
 	auto user = User::getInstance();
 	auto leveldata = user->getLevelData();
 

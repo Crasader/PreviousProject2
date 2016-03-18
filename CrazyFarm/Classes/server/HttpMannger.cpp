@@ -439,3 +439,42 @@ void HttpMannger::onHttpRequestCompletedForLogEventCommon(HttpClient *sender, Ht
 		delete userdata;
 	}
 }
+
+
+void HttpMannger::HttpToPostRequestToGetUserInfo()//获取用户信息
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_PLAYERINFO);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetUserInfo, this));
+}
+void HttpMannger::onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpResponse *response)
+{
+	if (!response)
+	{
+		return;
+	}
+	if (!response->isSucceed())
+	{
+		return;
+	}
+	long statusCode = response->getResponseCode();
+	// dump data
+	std::vector<char> *buffer = response->getResponseData();
+	auto temp = std::string(buffer->begin(), buffer->end());
+	log("http back get user coin info: %s", temp.c_str());
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	if (doc.HasParseError())
+	{
+		log("get json data err!");;
+	}
+	int result = doc["errorcode"].GetInt();
+	if (result == 0)
+	{
+		auto &userinfo = doc["user_info"];
+		User::getInstance()->setCoins(userinfo["coins"].GetUint64());
+		User::getInstance()->setExp(userinfo["exps"].GetInt());
+		User::getInstance()->setDiamonds(userinfo["diamonds"].GetUint64());
+	}
+}

@@ -50,21 +50,24 @@ void Server::doConnect() {
         onConnecting = true;
         // TODO : 组装username
 		std::string reqParams = "{\"username\": \"" + username + "\",\"room_id\": \"" + Value(_room_id).asString() + "\" }";
+		CCLOG("doConnect %s", reqParams.c_str());
         pc_request_with_timeout(workingClient, REQ_ROUTE, reqParams.c_str(), REQ_EX, REQ_TIMEOUT, connect_cb);
     }
     
 }
 
 void Server::sendNewEvents(const char* params) {
-    CCLOG("sendNewEvents ... ...");
     std::string testParams = "{\"type\": \"catch_mermaid\"}" ;
+	CCLOG("sendNewEvents %s", testParams.c_str());
     pc_notify_with_timeout(workingClient, REQ_NEWEVENTS, testParams.c_str(), REQ_NEWEVENTS_EX, REQ_TIMEOUT, notify_cb);
 }
 
-void Server::sendUserInfoChange(const char* params) {
-    CCLOG("sendUserInfoChange ... ...");
-    std::string testParams = "{\"coins\": -20, \"diamonds\": 0, \"exp\": 20 }" ;
-    pc_notify_with_timeout(workingClient, REQ_USERINFOCHANGE, testParams.c_str(), REQ_USERINFOCHANGE_EX, REQ_TIMEOUT, notify_cb);
+void Server::sendUserInfoChange(int difCoins, int difDiamonds, int difExp) {
+    
+	auto Params = String::createWithFormat("{\"coins\": %d, \"diamonds\": %d, \"exps\": %d }", difCoins, difDiamonds, difExp);
+	
+	CCLOG("sendUserInfoChange %s",Params->getCString());
+		pc_notify_with_timeout(workingClient, REQ_USERINFOCHANGE, Params->getCString(), REQ_USERINFOCHANGE_EX, REQ_TIMEOUT, notify_cb);
 }
 
 

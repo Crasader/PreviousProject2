@@ -58,6 +58,10 @@ private:
 	void collisionUpdate(float dt);
 	void update(float dt);
 	void shootUpdata(float dt);
+	//间隔10S同步一次信息
+	void UpdateUserinfo(float dt);
+
+
 	//激光
 public:
 	void beginLight();

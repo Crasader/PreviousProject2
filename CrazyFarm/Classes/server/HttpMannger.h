@@ -15,7 +15,7 @@ using namespace cocos2d;
 #define URL_DEMANDENTRY "/mr/order/result"
 #define URL_BROKE "/bankrupt/broke"
 #define URL_REBRITH "/bankrupt/rebirth"
-
+#define URL_PLAYERINFO "/player/info/get"
 struct setNameRequest
 {
 	const char* nickname;
@@ -35,6 +35,8 @@ public:
 	void HttpToPostRequestFeedback(const  char* feedback);//用户反馈	
 	void HttpToPostRequestDemandEntry(std::string prepayid, int reqNum);//用户支付完后查询订单	
 	void HttpToPostRequestCancelOrder(std::string orderid);//关闭订单订单	
+	void HttpToPostRequestToGetUserInfo(); //获取用户信息
+	void onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForCancelOrder(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResponse *response);

@@ -24,15 +24,25 @@ public:
 	int getUserGender();
 	void setUserGender(int gender);
 
-	int addCoins(int coins);
-	int getCoins();
+	
 
 	int getNobillityCount();
 
-	int getExp(){ return UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0); }
+	int addCoins(int coins);
+	long getCoins();
+	void setCoins(unsigned long coins){ _coins = coins; }
+	CC_SYNTHESIZE(unsigned long, _LastCoins, LastCoins);
+
+	bool addExp(int exp);
+	int getExp(){ return _exp; }
+	void setExp(int exp){ _exp = exp; }
+	CC_SYNTHESIZE(int, _LastExp, LastExp);
+
 	int addDiamonds(int diamond);
-	int getDiamonds();
-    
+	long getDiamonds();
+	void setDiamonds(unsigned long diamonds){ _diamond = diamonds; }
+	CC_SYNTHESIZE(unsigned long, _LastDiamonds, LastDiamonds);
+
     int getMaxTurrentLevel();
 
     bool setMaxTurrentLevel(int maxTurrentLevel);
@@ -51,7 +61,7 @@ public:
     /**
      * return true, level up!! else, return false.
      */
-    bool addExp(int exp);
+    
     
 	bool getIsHaveFirstPay(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVEFIRSTPAY,false); };
 	void setHaveFirstPay(){ UserDefault::getInstance()->setBoolForKey(KEY_ISHAVEFIRSTPAY, true); };
@@ -92,6 +102,10 @@ private:
 	const char* KEY_ISHAVEBYCOIN = "KEY_ISHAVEBYCOIN";
 	CC_SYNTHESIZE(std::string, session_id, Sessionid);
 
+
+	unsigned long _coins =0;
+	int _exp=0;
+	unsigned long  _diamond = 0;
 };
 
 #endif

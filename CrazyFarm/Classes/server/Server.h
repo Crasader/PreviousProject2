@@ -32,7 +32,7 @@ public:
 	void notify_observer(const char* msgId, const char* msgBody);
     
     void sendNewEvents(const char* params);
-    void sendUserInfoChange(const char* params);
+    void sendUserInfoChange(int difCoins,int difDiamonds,int difExp);
 
 private:
 	Server();

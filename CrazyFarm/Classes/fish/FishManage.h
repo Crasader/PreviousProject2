@@ -37,6 +37,8 @@ public:
 
 
 
+	void createFishMonmentInterval(int fishid, int route, Vec2 startPos);
+
 
 	void decideFishPos(Fish* fish);//决定鱼的出生位置
 	Vector<Fish*>& getAllFishInPool();

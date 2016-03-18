@@ -13,10 +13,19 @@ bool MomentIntervalCreate::updata(float dt)
 	}
 	for (auto var:gp.singleTypefishGroups)
 	{
-		if (nNowTime > var.IntervalCreateTime)
+		for (int i = 0; i < var.fishCount;i++)
 		{
-
+			if (nNowTime > var.IntervalCreateTime*i)
+			{
+				if (var.fishID!=-1)
+				{
+					FishManage::getInstance()->createFishMonmentInterval(var.fishID, var.fishRoute, var.startPos);
+					var.fishID = -1;
+				}
+				
+			}
 		}
+		
 	}
 
 
@@ -30,7 +39,7 @@ void MomentIntervalCreate::init(float FFOneTime)
 	initData();
 	Audio::getInstance()->playBGM(FISHFLOCKBGM);
 	gp = FishGroupData::getInstance()->getGroupBytag(m_groupTag);
-	FishManage::getInstance()->createFishGroup(m_groupTag);
+	//FishManage::getInstance()->createFishGroup(m_groupTag);
 }
 
 void MomentIntervalCreate::initData()

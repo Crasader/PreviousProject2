@@ -1,6 +1,7 @@
 #include "domain/user/User.h"
 #include "server/HttpMannger.h"
 #include "domain/Newbie/NewbieMannger.h"
+#include "server/Server.h"
 User* User::_instance = NULL;
 
 User::User(){
@@ -58,37 +59,55 @@ bool User::setUserName(std::string newUserName) {
 
 
 
-int User::getCoins() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_COINS, 0);
+long  User::getCoins() {
+    return	_coins;
 }
 
 int User::addCoins(int coins) {
 	LogEventConsume::getInstance()->addEventCoin(coins);
-	if (coins>0)
+	_coins += (unsigned long)coins;
+	if (_coins<0)
 	{
-		CCLOG("add coins %d", coins);
+		_coins = 0;
 	}
-    UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS,
-            this->getCoins() + coins);
-    if(this->getCoins() < 0 ) {
-        UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 0);
-    }
-    return this->getCoins();
+	return _coins;
 }
 
 
-int User::getDiamonds() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_DIAMONDS, 0);
+ long User::getDiamonds() {
+	return _diamond;
 }
 
 int User::addDiamonds(int diamonds) {
 	LogEventConsume::getInstance()->addEventDiamond(diamonds);
-    UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS,
-            this->getDiamonds() + diamonds);
-    if(this->getDiamonds() < 0 ) {
-        UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS, 0);
-    }
-    return this->getDiamonds();
+	_diamond += (unsigned long)diamonds;
+	if (_diamond < 0)
+	{
+		_diamond = 0;
+	}
+
+
+
+	//每次获得钻石同步一次信息
+	auto difCoins = User::getInstance()->getCoins() - User::getInstance()->getLastCoins();
+	auto difDiamonds = User::getInstance()->getDiamonds() - User::getInstance()->getLastDiamonds();
+	auto difExp = User::getInstance()->getExp() - User::getInstance()->getLastExp();
+	if (difExp < 0)
+	{
+		return _diamond;
+	}
+	User::getInstance()->setLastCoins(User::getInstance()->getCoins());
+	User::getInstance()->setLastExp(User::getInstance()->getExp());
+	User::getInstance()->setLastDiamonds(User::getInstance()->getDiamonds());
+
+
+	Server::getInstance()->sendUserInfoChange(difCoins, difDiamonds, difExp);
+
+
+
+
+
+	return _diamond;
 }
 
 int User::getMaxTurrentLevel() {
@@ -111,8 +130,7 @@ bool User::setMaxTurrentLevel(int maxTurrentLevel) {
 bool User::addExp(int exp) {
     if(exp > 0) {
         int currentLevel = this->getLevelData().levelId;
-        UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP,
-                UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0) + exp);
+		_exp+=exp;
         if(this->getLevelData().levelId > currentLevel) {
             return true;
         }
@@ -122,7 +140,7 @@ bool User::addExp(int exp) {
 
 LevelData User::getLevelData() {
     return ConfigExp::getInstance()->getLevelData(
-            UserDefault::getInstance()->getIntegerForKey(User::KEY_EXP, 0) );
+            getExp() );
 }
 
 int User::getVipLevel() {
@@ -163,14 +181,14 @@ void User::resetInfo() {
 }
 void User::syncInfo()
 {
-	auto sessionid =getSessionid();
-	auto coin =getCoins();
-	auto diomad =getDiamonds();
-	auto exp =getExp();
-	auto lv = getMaxTurrentLevel();
-	auto mo = getChargeMoney()*100;
-	auto count = getNobillityCount();
-	HttpMannger::getInstance()->HttpToPostRequestSyncInfo(sessionid, coin, diomad, exp, lv, mo, count);
+	//auto sessionid =getSessionid();
+	//auto coin =getCoins();
+	//auto diomad =getDiamonds();
+	//auto exp =getExp();
+	//auto lv = getMaxTurrentLevel();
+	//auto mo = getChargeMoney()*100;
+	//auto count = getNobillityCount();
+	//HttpMannger::getInstance()->HttpToPostRequestSyncInfo(sessionid, coin, diomad, exp, lv, mo, count);
 }
 
 int User::getNobillityCount()

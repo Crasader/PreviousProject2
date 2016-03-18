@@ -31,8 +31,8 @@
 #include "utill/define.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
 #define BOOMRADIUS 300
-#define TCPIDURL "106.75.141.82" //外网
-//#define TCPIDURL "172.23.1.37" //内网
+//#define TCPIDURL "106.75.141.82" //外网
+#define TCPIDURL "172.23.1.39" //内网
 enum
 {
 	kTagBaseturret= 10,
@@ -149,16 +149,18 @@ bool GameLayer::init(){
 
 
 	//初始化完毕，建立连接
-	//Server::getInstance()->conConnect(TCPIDURL, 3050, User::getInstance()->getSessionid().c_str(), GameData::getInstance()->getRoomID());   // TODO  : test init server
-	//Server::getInstance()->add_observer(this);
-	//schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
-
-	loadNewMonent(2);
+	Server::getInstance()->conConnect(TCPIDURL, 3050, User::getInstance()->getSessionid().c_str(), GameData::getInstance()->getRoomID());   // TODO  : test init server
+	Server::getInstance()->add_observer(this);
+	schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	
+
+	schedule(schedule_selector(GameLayer::UpdateUserinfo), 10.0f, CC_REPEAT_FOREVER, 0);
+	/*loadNewMonent(2);
+
 	float difTime = 15;
 	_fishGroupType = 1;
 	runAction(Sequence::create(DelayTime::create(0), CallFunc::create([=]{FFOneTimeToFishes(difTime); }), nullptr));
-
+	*/
 
 
 	/////////////////TEST BEGIN///////////////////////////
@@ -238,6 +240,10 @@ bool GameLayer::init(){
 	//fish->addShader();
 
 
+
+	User::getInstance()->setLastCoins(User::getInstance()->getCoins());
+	User::getInstance()->setLastExp(User::getInstance()->getExp());
+	User::getInstance()->setLastDiamonds(User::getInstance()->getDiamonds());
 	return true;
 }
 
@@ -1180,21 +1186,21 @@ void GameLayer::FFOneTimeToFishes(float FFTime)
 	for (int i = 0; i < time*10; i++)
 	{
 		UpdateCreateFishByServer(0.1);
-		int tag = 21;
-		while (1)
-		{
+		/*	int tag = 21;
+			while (1)
+			{
 
 			auto ac = getCreateFishAcNode()->getActionByTag(tag++);
 			if (ac)
 			{
-				ac->step(0.1);
+			ac->step(0.1);
 			}
 			else
 			{
-				break;
+			break;
 			}
 
-		}
+			}*/
 		auto vec = FishManage::getInstance()->getAllFishInPool();
 		for (auto var : vec)
 		{
@@ -1223,4 +1229,21 @@ void GameLayer::UpdateCreateFishByServer(float dt)
 		FishManage::getInstance()->UpdateWhenController(dt);
 	}
 	
+}
+
+void GameLayer::UpdateUserinfo(float dt)
+{
+	auto difCoins = User::getInstance()->getCoins()-User::getInstance()->getLastCoins();
+	auto difDiamonds =  User::getInstance()->getDiamonds()-User::getInstance()->getLastDiamonds();
+	auto difExp = User::getInstance()->getExp()-User::getInstance()->getLastExp() ;
+	if (difExp<0)
+	{
+		return;
+	}
+	User::getInstance()->setLastCoins(User::getInstance()->getCoins());
+	User::getInstance()->setLastExp(User::getInstance()->getExp());
+	User::getInstance()->setLastDiamonds(User::getInstance()->getDiamonds());
+
+
+	Server::getInstance()->sendUserInfoChange(difCoins,difDiamonds,difExp);
 }
