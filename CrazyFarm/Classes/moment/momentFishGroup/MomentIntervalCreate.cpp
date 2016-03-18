@@ -39,6 +39,19 @@ void MomentIntervalCreate::init(float FFOneTime)
 	initData();
 	Audio::getInstance()->playBGM(FISHFLOCKBGM);
 	gp = FishGroupData::getInstance()->getGroupBytag(m_groupTag);
+	for (auto var : gp.singleTypefishGroups)
+	{
+		for (int i = 0; i < var.fishCount; i++)
+		{
+			MomentIntervalCreateFishInfo temp;
+			temp._fishid = var.fishID;
+			temp._startPos = var.startPos;
+			temp._route = var.fishRoute;
+			temp._time = var.IntervalCreateTime*i;
+			info.push_back(temp);
+		}
+
+	}
 	//FishManage::getInstance()->createFishGroup(m_groupTag);
 }
 

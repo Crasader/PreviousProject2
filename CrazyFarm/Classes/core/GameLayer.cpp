@@ -159,8 +159,8 @@ bool GameLayer::init(){
 
 	float difTime = 15;
 	_fishGroupType = 1;
-	runAction(Sequence::create(DelayTime::create(0), CallFunc::create([=]{FFOneTimeToFishes(difTime); }), nullptr));
-	*/
+	runAction(Sequence::create(DelayTime::create(0), CallFunc::create([=]{FFOneTimeToFishes(difTime); }), nullptr));*/
+
 
 
 	/////////////////TEST BEGIN///////////////////////////

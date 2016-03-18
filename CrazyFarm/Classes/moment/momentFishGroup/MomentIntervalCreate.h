@@ -6,6 +6,15 @@
 using namespace cocos2d;
 
 
+struct MomentIntervalCreateFishInfo
+{
+	int  _fishid;
+	int  _route;
+	Vec2 _startPos;
+	float _time;
+};
+
+
 class MomentIntervalCreate :public Moment{
 
 public:
@@ -16,6 +25,8 @@ protected:
 	int m_groupTag;
 	float nNowTime;
 	int fishMinSize;
+
+	std::vector<MomentIntervalCreateFishInfo> info;
 	FishGroup gp;
 	
 };
