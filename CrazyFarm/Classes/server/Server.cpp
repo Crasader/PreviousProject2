@@ -129,6 +129,7 @@ void Server::notify_observer(const char* msgId, const char* msgBody) {
     // 3 : 'onLeave' - user leave room ...
     // 4 : 'onFishes' - broadcast fish info ...
     // 5 : 'level_update' - level update request
+    // 6 : 'expUpdate' - user exp update
     for(std::vector<MsgObserver*>::const_iterator it=msgObserver.begin(); it!=msgObserver.end(); it++) {
         (*it)->handle_event(msgId, msgBody);
     }
