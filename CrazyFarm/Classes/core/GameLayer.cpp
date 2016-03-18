@@ -99,21 +99,6 @@ bool GameLayer::init(){
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	schedule(schedule_selector(GameLayer::UpdateCreateFishByServer), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
-	//runAction(Sequence::create(DelayTime::create(0.01f),
-	//	CallFunc::create([&]{
-	//	FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(getRand() % 3 + 81,getRand() % (300 - 35) + 10));
-	//for (int i = 0; i < 10;i++)
-	//{
-	//	update(1);
-	//}
-	//	for (auto var : FishManage::getInstance()->getAllFishInPool())
-	//	{
-	//		for (int i = 0; i < 10; i++)
-	//		{
-	//			var->moveUpdata(1);
-	//		}
-	//	}
-	//}), nullptr));
 
 	setbisOnSkillLock(false);
 
@@ -1067,10 +1052,6 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 	}
 	else if (_fishGroupsItem.group_type == 1)
 	{
-		/*if (_fishGroupsItem.seq == 1)
-		{
-			loadNewMonent(9);
-		}*/
 		_fishGroupMonentType = _fishGroupsItem.group_type;
 		loadNewMonent(_fishGroupMonentType);
 		difTime = (init_creat_time - NowFpsFishInfo.seq_create_time) / 1000;
@@ -1223,32 +1204,17 @@ void GameLayer::FFOneTimeToFishes(float FFTime)
 		return;
 	}
 	int time = (int)FFTime;
-	for (int i = 0; i < time; i++)
+	for (int i = 0; i < time*10; i++)
 	{
-		UpdateCreateFishByServer(1);
-		/*	int tag = 21;
-			while (1)
-			{
-
-			auto ac = getCreateFishAcNode()->getActionByTag(tag++);
-			if (ac)
-			{
-			ac->step(0.1);
-			}
-			else
-			{
-			break;
-			}
-
-			}*/
+		UpdateCreateFishByServer(0.1);
 		auto vec = FishManage::getInstance()->getAllFishInPool();
 		for (auto var : vec)
 		{
-			var->moveUpdata(1);
+			var->moveUpdata(0.1);
 			auto move = var->getActionByTag(kTagAcMove);
 			if (move)
 			{
-				move->step(1);
+				move->step(0.1);
 			}
 		}
 	}
