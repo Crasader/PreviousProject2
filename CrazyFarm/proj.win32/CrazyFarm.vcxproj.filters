@@ -702,6 +702,12 @@
     <ClCompile Include="..\Classes\server\Msg\MsgConError.cpp">
       <Filter>src\server\MSG</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnUpdateTurrent.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnExpUpdate.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1278,6 +1284,12 @@
       <Filter>src\lobby\sign</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\server\Msg\MsgConError.h">
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnUpdateTurrent.h">
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnExpUpdate.h">
       <Filter>src\server\MSG</Filter>
     </ClInclude>
   </ItemGroup>

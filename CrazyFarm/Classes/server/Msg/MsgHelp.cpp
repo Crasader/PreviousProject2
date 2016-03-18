@@ -42,12 +42,20 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 		base->setMsgId(MsgOnFishes);
 
 	}
-	if (strcmp(msgId, "onFishes") == 0)
+	if (strcmp(msgId, "level_update") == 0)
 	{
 		//炮塔升级
 		base = new Msg_OnUpdateTurrent();
 		base->setBody(msgBody);
 		base->setMsgId(MsgOnUpdateTurrent);
+
+	}
+	if (strcmp(msgId, "expUpdate") == 0)
+	{
+		//人物升级
+		base = new Msg_OnExpUpdate();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnExpUpdate);
 
 	}
 	return base;

@@ -9,7 +9,11 @@ BagManager::BagManager(){
 
 void BagManager::init(){
     // TODO
-	auto k = getBagListWithSort();
+	for (int i = 1001; i <= 1013;i++)
+	{
+		item_To_num[i] = 0;
+	}
+	item_To_num[1012] = 1;
 }
 
 BagManager* BagManager::getInstance(){
@@ -29,7 +33,7 @@ bool BagManager::changeItemCount(int itemId, int num) {
     UserDefault::getInstance()->setIntegerForKey(key->getCString(), currentCount+num);
 	getBagListWithSort();
     if(getItemNum(itemId) < 0) {
-        UserDefault::getInstance()->setIntegerForKey(key->getCString(), 0);
+		item_To_num[itemId] = 0;
     }
     if( currentCount == getItemNum(itemId) ) {
         return false;
@@ -39,10 +43,12 @@ bool BagManager::changeItemCount(int itemId, int num) {
 }
 
 int BagManager::getItemNum(int itemId) {
-    auto key = String::createWithFormat("%s%d", BagManager::KEY_ITEMID_HEAD, itemId);
-	return UserDefault::getInstance()->getIntegerForKey(key->getCString(), 0);
+	return item_To_num[itemId];	
 }
-
+void BagManager::setItemNum(int itemId, int num)
+{
+	item_To_num[itemId] = num;
+}
 std::vector<BagItem> BagManager::getBagList() 
 {
 	std::vector<BagItem> items;
@@ -100,6 +106,7 @@ PropType BagManager::getItemType(int itemId)
 }
 BagItem BagManager::getBagByIndex(int index)
 { 
+	getBagListWithSort();
 	if (index<itemsWithSort.size())
 	{
 		return itemsWithSort.at(index); 

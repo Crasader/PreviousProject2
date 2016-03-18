@@ -85,7 +85,6 @@ public:
 	  void removeRobotInfo();
 	  void changeTurrentCallback(Ref*psend); //换炮
 	  void autoShootCallback(Ref*psend);//自动开炮
-	  void onPlayerUpgrade();//玩家升级
 	  Turrent getTurrentMupltData(){ return m_turretdata; };
 	  //攻击消耗金币
 	  void costMoney();

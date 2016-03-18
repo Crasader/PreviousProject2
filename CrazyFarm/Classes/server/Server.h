@@ -21,7 +21,7 @@ USING_NS_CC;
 #define REQ_USERINFOCHANGE "game.gameHandler.userinfochange"
 #define REQ_USERINFOCHANGE_EX ((void*)0x55)
 
-#define REQ_ROUTE_LEVELUPDATE "game.gameHandler.userinfochange"
+#define REQ_ROUTE_LEVELUPDATE "game.gameHandler.levelchange"
 #define REQ_LEVELUPDATE_EX ((void*)0x66)
 
 class Server{

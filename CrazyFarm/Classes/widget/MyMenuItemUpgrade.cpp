@@ -54,6 +54,7 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		isElongate = false;
 		removeBlinkAni();
 		Server::getInstance()->reqTurrentLevelUpdate();
+		GameData::getInstance()->setTouchLockTurretType(2);
 		//if (isFinish)
 		//{
 		//	

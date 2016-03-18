@@ -14,7 +14,7 @@ public :
     
     bool changeItemCount(int itemId, int num);
     int getItemNum(int itemId);
-
+	void setItemNum(int itemId, int num);
 	void addreward(int itemId, int num);
 	
 	
@@ -30,6 +30,7 @@ private :
 	std::vector<BagItem> getBagListWithSort();
 	std::vector<BagItem> itemsWithSort;
 	static BagManager* _instance;
+	std::map<int, int> item_To_num;
 
 };
 

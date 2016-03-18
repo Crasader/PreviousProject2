@@ -201,9 +201,9 @@ void GameManage::onRebirthBySomeTurret(int reward_coins)
 	BankruptManager::getInstance()->setgetRewardNode(nullptr);
 	BankruptManager::getInstance()->addTodayRequestTime();
 }
-void GameManage::onPlayerUpgrade()
+void GameManage::onPlayerUpgrade(std::vector<LevelRewardItem> lvRewardItems)
 {
-	auto rewards = ConfigExp::getInstance()->getLevelRewardItemsByLevelId(User::getInstance()->getLevelData().levelId);
+	auto rewards = lvRewardItems;
 	Audio::getInstance()->playSound(UPDATALEVEL);
 	auto colorlayer = LayerColor::create();
 	colorlayer->setColor(ccc3(0, 0, 0));

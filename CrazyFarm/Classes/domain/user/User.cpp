@@ -2,6 +2,7 @@
 #include "server/HttpMannger.h"
 #include "domain/Newbie/NewbieMannger.h"
 #include "server/Server.h"
+#include "domain/game/GameManage.h"
 User* User::_instance = NULL;
 
 User::User(){
@@ -88,7 +89,9 @@ int User::addDiamonds(int diamonds) {
 
 
 
-	//每次获得钻石同步一次信息
+	if (GameManage::getInstance()->getGuiLayer())
+	{
+		//每次获得钻石同步一次信息
 	auto difCoins = User::getInstance()->getCoins() - User::getInstance()->getLastCoins();
 	auto difDiamonds = User::getInstance()->getDiamonds() - User::getInstance()->getLastDiamonds();
 	auto difExp = User::getInstance()->getExp() - User::getInstance()->getLastExp();
@@ -102,6 +105,9 @@ int User::addDiamonds(int diamonds) {
 
 
 	Server::getInstance()->sendUserInfoChange(difCoins, difDiamonds, difExp);
+	}
+
+	
 
 
 
@@ -111,16 +117,12 @@ int User::addDiamonds(int diamonds) {
 }
 
 int User::getMaxTurrentLevel() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_M_TURRENT, 1);
+	return _maxTurrentLv;
 }
 
 bool User::setMaxTurrentLevel(int maxTurrentLevel) {
-    if(maxTurrentLevel > 0 && maxTurrentLevel > this->getMaxTurrentLevel()) {
-        UserDefault::getInstance()->setIntegerForKey(User::KEY_M_TURRENT, maxTurrentLevel);
-        return true;
-    }
-    return false;
-    
+	_maxTurrentLv = maxTurrentLevel;
+	return true;
 }
 
 
@@ -149,17 +151,17 @@ int User::getVipLevel() {
 }
 
 bool User::addChargeMoney(int money) {
-    if(money > 0) {
-        UserDefault::getInstance()->setIntegerForKey(User::KEY_CHARGE_MONEY, getChargeMoney() + money);
-        return true;
-    }
-    return false;
+	_chargeMoney += money;
+	return true;
 }
 
 int User::getChargeMoney() {
-    return UserDefault::getInstance()->getIntegerForKey(User::KEY_CHARGE_MONEY, 0);
+    return _chargeMoney;
 }
-
+void User::setChargeMoney(int money)
+{
+	_chargeMoney = money;
+}
 
 
 void User::resetInfo() {

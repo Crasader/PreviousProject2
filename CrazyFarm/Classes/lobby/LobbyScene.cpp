@@ -61,9 +61,12 @@ Scene* LobbyScene::createScene()
 {
 	auto scene = Scene::create();
 
-	auto layer = LobbyScene::create();
+	//scene->runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{
+	//	auto layer = LobbyScene::create();
+	//	scene->addChild(layer, 0, 888);
 
-	scene->addChild(layer, 0, 888);
+	//}), nullptr));
+
 
 	return scene;
 }
@@ -74,7 +77,7 @@ bool LobbyScene::init()
 	{
 		return false;
 	}
-	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
+	
 	auto user = User::getInstance();
 	auto leveldata = user->getLevelData();
 

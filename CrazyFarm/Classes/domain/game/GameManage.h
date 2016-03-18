@@ -20,7 +20,7 @@ public:
 	}
 
 	//Éý¼¶
-	void onPlayerUpgrade();
+	void onPlayerUpgrade(std::vector<LevelRewardItem> lvRewardItems);
 	
 	//µ¯³ö×êÊ¯
 	void showLockTurrent();

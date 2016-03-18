@@ -650,11 +650,8 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
 	
 		auto exp = fish->getFishExperience();
-		if (User::getInstance()->addExp(exp))
-		{
-			onPlayerUpgrade();
-		}
-		
+		User::getInstance()->addExp(exp);
+
 		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
 
 		auto event = GameData::getInstance()->getDiamondevent();
@@ -1177,10 +1174,7 @@ void PlayerTurret::autoShootCallback(Ref*psend)
 	}
 }
 
-void PlayerTurret::onPlayerUpgrade()
-{
-	GameManage::getInstance()->onPlayerUpgrade();
-}
+
 
 void PlayerTurret::costMoney()
 {

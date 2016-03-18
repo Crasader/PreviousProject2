@@ -73,8 +73,8 @@ void LoadingScene::update(float dt)
 	loadingBar->setPercent(((float)temp) / 15.0f*100+1);
 	if (temp>=15)
 	{
-		
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
+		HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
+		Director::getInstance()->replaceScene(/*TransitionFade::create(1.0f,*/ LobbyScene::createScene());
 		unscheduleUpdate();
 	}
 }

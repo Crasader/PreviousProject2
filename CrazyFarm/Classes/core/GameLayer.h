@@ -145,6 +145,7 @@ private:
 	void onFishesMsg(Msg_OnFishes*msg);
 	void onConError(Msg_ConError*msg);
 	void onUpdateTurrent(Msg_OnUpdateTurrent*msg);
+	void onUpdateLevel(Msg_OnExpUpdate*msg);
 	void exitCallback(Ref*psend);
 	void MsgUpdata(float dt);
 	std::list<Msg_Base*> Msgs;

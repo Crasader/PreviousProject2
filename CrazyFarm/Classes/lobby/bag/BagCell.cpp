@@ -110,5 +110,5 @@ void BagCell::IsBeToued()
 	}
 	
 	layer->setPosition(0, 0);
-	Director::getInstance()->getRunningScene()->getChildByTag(50)->addChild(layer);
+	Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer);
 }

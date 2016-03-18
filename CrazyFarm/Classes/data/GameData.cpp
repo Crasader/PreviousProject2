@@ -20,6 +20,7 @@ void GameData::init(){
 	setisDirectUseSkill(false);
 	setisOnGroupComing(false);
 	setisLoadMsgOnGame(false);
+	setTouchLockTurretType(0);
 }
 
 GameData* GameData::getInstance(){

@@ -255,7 +255,8 @@ void showTurretCell::ButtonCallback(Ref* psend)
 	else
 	{
 		Server::getInstance()->reqTurrentLevelUpdate();
-		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
+		GameData::getInstance()->setTouchLockTurretType(1);
+		getParent()->getParent()->getParent()->removeFromParentAndCleanup(1);
 		/*auto maxlevel = User::getInstance()->getMaxTurrentLevel();
 		auto turretData = ConfigTurrent::getInstance()->getNextTurrent(maxlevel);
 		auto zengList = turretData.rewardList;

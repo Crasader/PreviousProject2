@@ -7,7 +7,8 @@
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "domain/pay/WaitCircle.h"
 #include "lobby/signlayer/SignMannger.h"
-
+#include "lobby/LobbyScene.h"
+#include "domain/bag/BagManager.h"
 HttpMannger* HttpMannger::_instance = NULL;
 
 HttpMannger::HttpMannger(){
@@ -45,7 +46,7 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back register info  info: %s", temp.c_str());
+	log("http back base json info  info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 	if (doc.HasParseError())
@@ -54,7 +55,7 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 	}
 	User::getInstance()->setUserID(doc["user_name"].GetString());
 	User::getInstance()->setSessionid(doc["session_id"].GetString());
-	
+	HttpToPostRequestToGetItemInfo();
 	CCLOG("register success");
 }
 
@@ -95,7 +96,7 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 		return;
 	}
 	User::getInstance()->setSessionid(doc["session_id"].GetString());
-
+	HttpToPostRequestToGetItemInfo();
 	CCLOG("login success");
 
 }
@@ -444,6 +445,10 @@ void HttpMannger::onHttpRequestCompletedForLogEventCommon(HttpClient *sender, Ht
 void HttpMannger::HttpToPostRequestToGetUserInfo()//获取用户信息
 {
 	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid=="")
+	{
+		return;
+	}
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_PLAYERINFO);
 	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetUserInfo, this));
@@ -462,7 +467,7 @@ void HttpMannger::onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpR
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back get user coin info: %s", temp.c_str());
+	log("http back get user init info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 	if (doc.HasParseError())
@@ -476,5 +481,60 @@ void HttpMannger::onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpR
 		User::getInstance()->setCoins(userinfo["coins"].GetUint64());
 		User::getInstance()->setExp(userinfo["exps"].GetInt());
 		User::getInstance()->setDiamonds(userinfo["diamonds"].GetUint64());
+		User::getInstance()->setMaxTurrentLevel(userinfo["turrent_level"].GetInt());
+		User::getInstance()->setChargeMoney(userinfo["mr"].GetInt());
+		User::getInstance()->setUserBoxLevel(userinfo["chest_level"].GetInt());
+
+		
+		
+		auto layer = LobbyScene::create();
+		Director::getInstance()->getRunningScene()->addChild(layer, 0, 888);
 	}
+
+}
+
+
+void HttpMannger::HttpToPostRequestToGetItemInfo()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_ITEMINFO);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetItemInfo, this));
+}
+void HttpMannger::onHttpRequestCompletedForGetItemInfo(HttpClient *sender, HttpResponse *response)
+{
+	if (!response)
+	{
+		return;
+	}
+	if (!response->isSucceed())
+	{
+		return;
+	}
+	long statusCode = response->getResponseCode();
+	// dump data
+	std::vector<char> *buffer = response->getResponseData();
+	auto temp = std::string(buffer->begin(), buffer->end());
+	log("http back get user init info: %s", temp.c_str());
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	if (doc.HasParseError())
+	{
+		log("get json data err!");;
+	}
+	int result = doc["errorcode"].GetInt();
+	if (result == 0)
+	{
+		auto &item_lists = doc["item_lists"];
+		for (unsigned int i = 0; i < item_lists.Size();i++)
+		{
+			BagManager::getInstance()->setItemNum(item_lists[i]["item_id"].GetInt(), item_lists[i]["num"].GetInt());
+		}
+	
+	}
+
 }

@@ -47,14 +47,13 @@ public:
 
     bool setMaxTurrentLevel(int maxTurrentLevel);
 
-	const char*USERBOXLEVEL = "USERBOXLEVEL";
-	CC_SYNTHESIZELOCALINT(USERBOXLEVEL, UserBoxLevel, 0);
+	CC_SYNTHESIZE(int, _UserBoxLevel, UserBoxLevel);
 	
     int getVipLevel();
     
     bool addChargeMoney(int money);
     int getChargeMoney();
-
+	void setChargeMoney(int money);
     
 
 	int getGuizuDay();
@@ -104,8 +103,11 @@ private:
 
 
 	unsigned long _coins =0;
-	int _exp=0;
 	unsigned long  _diamond = 0;
+
+	int _exp=0;
+	int _chargeMoney = 0;
+	int _maxTurrentLv= 0;
 };
 
 #endif

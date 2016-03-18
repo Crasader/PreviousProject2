@@ -1130,15 +1130,27 @@ void GameLayer::onConError(Msg_ConError*msg)
 
 void GameLayer::onUpdateTurrent(Msg_OnUpdateTurrent*msg)
 {
+
+	int k = 0;
 	if (msg->errorcode==0)
 	{
-		GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent();
+		GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent(msg->_info.turrent_level,msg->_info.rewards,msg->_info.turrent_level);
 	}
 	else
 	{
-		auto layer = showTurretLayer::create(2);
+		Layer* layer;
+		int type = GameData::getInstance()->getTouchLockTurretType();
+		if (type ==1)
+		{
+			layer = payLayer::createLayer(2);
+		}
+		else
+		{
+			layer = showTurretLayer::create(2);
+		}
 		layer->setPosition(Point::ZERO);
-		addChild(layer, 20, 50);
+		GameManage::getInstance()->getGuiLayer()->addChild(layer, 20, 50);
+		GameData::getInstance()->setTouchLockTurretType(0);
 	}
 
 }
@@ -1155,7 +1167,14 @@ void GameLayer::exitCallback(Ref*psend)
 	Director::getInstance()->replaceScene(LobbyScene::createScene());
 	GameData::getInstance()->setisOnGameScene(false);
 }
-
+void GameLayer::onUpdateLevel(Msg_OnExpUpdate*msg)
+{
+	for (auto var:msg->_infos)
+	{
+		GameManage::getInstance()->onPlayerUpgrade(var);
+	}
+	
+}
 void GameLayer::MsgUpdata(float dt)
 {
 	auto msg = Msgs;
@@ -1182,6 +1201,9 @@ void GameLayer::MsgUpdata(float dt)
 		case MsgOnUpdateTurrent:
 			onUpdateTurrent((Msg_OnUpdateTurrent*)var);
 			break;
+		case MsgOnExpUpdate:
+			onUpdateLevel((Msg_OnExpUpdate*)var);
+			break;
 		default:
 			break;
 		}
@@ -1201,9 +1223,9 @@ void GameLayer::FFOneTimeToFishes(float FFTime)
 		return;
 	}
 	int time = (int)FFTime;
-	for (int i = 0; i < time*10; i++)
+	for (int i = 0; i < time; i++)
 	{
-		UpdateCreateFishByServer(0.1);
+		UpdateCreateFishByServer(1);
 		/*	int tag = 21;
 			while (1)
 			{
@@ -1222,11 +1244,11 @@ void GameLayer::FFOneTimeToFishes(float FFTime)
 		auto vec = FishManage::getInstance()->getAllFishInPool();
 		for (auto var : vec)
 		{
-			var->moveUpdata(0.1);
+			var->moveUpdata(1);
 			auto move = var->getActionByTag(kTagAcMove);
 			if (move)
 			{
-				move->step(0.1);
+				move->step(1);
 			}
 		}
 	}

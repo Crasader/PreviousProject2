@@ -8,6 +8,7 @@
 #include "lobby/Nobility/NobilityLayer.h"
 #include "lobby/shop/payLayer.h"
 #include "lobby/LobbyScene.h"
+#include "server/HttpMannger.h"
 
 enum 
 {
@@ -369,7 +370,7 @@ bool BagLayer::init()
 		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-			Director::getInstance()->replaceScene(LobbyScene::createScene());
+			closeButtonCallBack(nullptr);
 			break;
 		default:
 			break;
@@ -401,6 +402,7 @@ bool BagLayer::onTouchBegan(Touch*touch, Event*event)
 }
 void BagLayer::closeButtonCallBack(Ref*psend)
 {
+	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
 	Director::getInstance()->replaceScene(LobbyScene::createScene());
 }
 

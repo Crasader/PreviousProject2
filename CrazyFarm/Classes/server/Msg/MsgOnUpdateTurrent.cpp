@@ -11,7 +11,7 @@ void Msg_OnUpdateTurrent::setBody(const char* msgBody)
 	errorcode = doc["errorcode"].GetInt();
 	if (errorcode==0)
 	{
-		_info.requireDiamonds = doc["requireDiamonds"].GetInt();
+		_info.requireDiamonds = doc["diamonds"].GetInt();
 		_info.rewards = doc["coins"].GetInt();
 		_info.turrent_level = doc["turrent_level"].GetInt();
 	}

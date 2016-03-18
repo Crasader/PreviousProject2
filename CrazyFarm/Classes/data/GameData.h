@@ -42,6 +42,11 @@ private:
 	CC_SYNTHESIZE(bool, m_isOnGroupComing, isOnGroupComing);
 	//是否加载过游戏里的数据
 	CC_SYNTHESIZE(bool, m_isLoadMsgOnGame, isLoadMsgOnGame);
+
+
+
+	//从哪点击的炮塔升级//0:初始 1：showTurretCell 2: MenuItemUpgrade;
+	CC_SYNTHESIZE(int, _TouchLockTurretType, TouchLockTurretType); 
 };
 
 #endif
