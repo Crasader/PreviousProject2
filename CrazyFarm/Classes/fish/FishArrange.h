@@ -16,6 +16,6 @@ public:
 	virtual void onFreeze();
 	virtual void onFreezeResume();
 	Vector<Node*> fishes;
-
+	virtual Vec2 getCentrenPos(){ return centerPos; };
 	virtual std::vector<Rect>  getAABBBoxs();
 };

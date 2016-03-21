@@ -23,7 +23,7 @@ bool UpgradeSureDialog::init(std::vector<LevelRewardItem> levelRewardItems)
 	auto colorlayer = LayerColor::create();
 	colorlayer->setColor(ccc3(0, 0, 0));
 	colorlayer->setOpacity(180);
-	addChild(colorlayer, -1);
+	addChild(colorlayer, -1,"color");
 
 
 	m_levelRewardItems = levelRewardItems;
@@ -41,7 +41,7 @@ bool UpgradeSureDialog::init(std::vector<LevelRewardItem> levelRewardItems)
 	bg->addChild(dec);
 
 	auto sure = MenuItemImage::create("btn_lingqu_1.png", "btn_lingqu_2.png");
-	sure->setPosition(bg->getContentSize().width / 2, 55);
+	sure->setPosition(bg->getContentSize().width / 2, 60);
 	sure->setCallback(CC_CALLBACK_1(UpgradeSureDialog::sureButtonCallBack, this));
 	
 	auto menu = Menu::create(sure, nullptr);
@@ -97,6 +97,7 @@ bool UpgradeSureDialog::init(std::vector<LevelRewardItem> levelRewardItems)
 void UpgradeSureDialog::sureButtonCallBack(Ref*psend)
 {
 	getChildByName("bg")->removeFromParentAndCleanup(1);
+	getChildByName("color")->removeFromParentAndCleanup(1);
 	for (int i = 0; i < cells.size();i++)
 	{
 		auto var = cells.at(i);

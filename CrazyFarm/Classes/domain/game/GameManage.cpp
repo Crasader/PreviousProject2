@@ -39,6 +39,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 	{
 		fish->getTargeLockTurret()->setLockFish(nullptr);
 	}
+	fish->removeAllBullet();
 	FishManage::getInstance()->getAllFishInPool().eraseObject(fish);
 	if (isDead)
 	{
@@ -95,19 +96,12 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			else
 			{
 				str = String::create("TXTGoldFish_XX.png");
-			}
-			
+			}		
 			auto txt = Sprite::create(str->getCString());
 			txt->setPosition(txtframe->getContentSize() / 2);
 			txtframe->addChild(txt);
-			aninode->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(1), nullptr));
-
-
-		
+			aninode->runAction(Sequence::create(DelayTime::create(4.0f), RemoveSelf::create(1), nullptr));	
 		}
-
-
-
 		LogEventFish::getInstance()->addFishCatchTimes(fish->getFishID());
 		switch (fish->getFishType())
 		{
@@ -216,12 +210,13 @@ void GameManage::onPlayerUpgrade()
 	auto txt = Sprite::create("TXTUpGrade.png");
 	txt->setPosition(480, 350);
 	m_pGuilayer->addChild(txt, 30);
-	auto addcoinani = Sprite::create("rorateLightCoin.png");
+	txt->setScale(0);
+	auto addcoinani = Sprite::create("UpdateLight.png");
 	addcoinani->setPosition(txt->getContentSize()/2+Size(0,0));
+	addcoinani->setVisible(false);
 	addcoinani->runAction(RepeatForever::create(RotateBy::create(5, 360)));
-	addcoinani->setScale(3);
 	txt->addChild(addcoinani,-1);
-
+	txt->runAction(Sequence::create(ScaleTo::create(0.2, 1.4), ScaleTo::create(0.2, 0.7), ScaleTo::create(0.1, 1.2), ScaleTo::create(0.1, 1.0), CallFunc::create([=]{addcoinani->setVisible(true); }), nullptr));
 
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), CallFunc::create([=]{txt->removeFromParentAndCleanup(1); auto node = UpgradeSureDialog::create(rewards);
 	node->setPosition(0, 0);

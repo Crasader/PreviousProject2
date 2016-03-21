@@ -148,7 +148,7 @@ void User::resetInfo() {
 
     setUserID("guest");
 	UserDefault::getInstance()->setStringForKey(User::KEY_USER_NAME, "guest");
-    UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 200);
+    UserDefault::getInstance()->setIntegerForKey(User::KEY_COINS, 0);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_DIAMONDS, 0);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_EXP, 0);
     UserDefault::getInstance()->setIntegerForKey(User::KEY_M_TURRENT, 1);

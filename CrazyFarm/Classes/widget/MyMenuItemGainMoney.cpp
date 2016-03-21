@@ -29,7 +29,7 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 	if (isElongate)
 	{
 		commonNode->setVisible(false);
-		runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(177, 0)));
 		isElongate = false;
 			auto dioag = TurnTableDialog::create();
 			dioag->setPosition(Point::ZERO);
@@ -41,7 +41,7 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(-177, 0)));
 		runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]{
 			if (isElongate == false)
 			{
@@ -52,7 +52,7 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 			{
 				pNode->removeFromParentAndCleanup(1);
 			}
-			runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+			runAction(MoveBy::create(0.5f, Vec2(177, 0)));
 			commonNode->setVisible(false);
 			isElongate = false;
 		}), nullptr));
@@ -63,7 +63,7 @@ void MyMenuItemGainMoney::initItem()
 {
 
 	commonNode = Node::create();
-	commonNode->setPosition(Point::ZERO);
+	commonNode->setPosition(11, 0);
 	addChild(commonNode,1);
 
 
@@ -161,7 +161,7 @@ void MyMenuItemGainMoney::showPopup()
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(-177, 0)));
 		
 		float delaytime;
 		if (isFinish)
@@ -177,7 +177,7 @@ void MyMenuItemGainMoney::showPopup()
 			if (isElongate == true)
 			{
 				commonNode->setVisible(false);
-				runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+				runAction(MoveBy::create(0.5f, Vec2(177, 0)));
 				isElongate = false;
 			};
 

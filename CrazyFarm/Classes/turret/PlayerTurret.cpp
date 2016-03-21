@@ -27,6 +27,7 @@
 #include "domain/logevent/LogEventTurrentUpgrade.h"
 #include "core/GameScene.h"
 #include "domain/loading/LoadingSceneLbToGm.h"
+#include "core/showLockTurretLayer.h"
 enum
 {
 	kTagBankrupt = 20
@@ -161,15 +162,9 @@ void PlayerTurret::upgradeTurret(Ref* psend)
 	int nowlv = GameData::getInstance()->getnowLevel();
 	if (User::getInstance()->getMaxTurrentLevel() < nowlv)
 	{
-		auto node = getChildByName("locknode");
-		if (node)
-		{
-			node->removeFromParentAndCleanup(1);
-		}
-		int roomlv = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID()).unlock_turrent_level;
-		m_turretdata = ConfigTurrent::getInstance()->getTurrent(roomlv);
-		GameData::getInstance()->setnowLevel(m_turretdata.multiple);
-		changeNewTurret();
+	
+		m_btType = 1;
+		TouchTheLockNode(nullptr, nullptr);
 	}
 	else
 	{
@@ -251,7 +246,7 @@ void PlayerTurret::ShowLockTurretTip()
 {
 	auto locknode = Node::create();
 	locknode->setPosition(0, 0);
-	addChild(locknode, 10, "locknode");
+	addChild(locknode, 9, "locknode");
 	auto lock = Sprite::create("lock.png");
 	lock->setPosition(getContentSize() / 2 + Size(0, 10));
 	lock->setVisible(false);
@@ -397,9 +392,8 @@ void PlayerTurret::changeDataByBtnType()
 bool PlayerTurret::TouchTheLockNode(Touch *pTouch, Event *pEvent)
 {
 
-	auto layer = showTurretLayer::create(2);
+	auto layer = showLockTurretLayer::create();
 	layer->setPosition(Point::ZERO);
-	layer->setbtType(m_btType);
 	GameManage::getInstance()->getGuiLayer()->addChild(layer, 20, 50);
 	//µ¯¸¶·Ñ
 
@@ -445,13 +439,6 @@ void PlayerTurret::shoot(float degree){
 
 	m_turret->shoot();
 
-	//ï¿½ï¿½ï¿½ð¶¯»ï¿½
-	auto aniNode = Sprite::create();
-	aniNode->setPosition(m_turret->getContentSize().width / 2, m_turret->getContentSize().height*1.0);
-	m_turret->addChild(aniNode,0);
-	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
-
-	//ï¿½ï¿½ï¿½Ñ½ï¿½ï¿?
 	costMoney();
 
 
@@ -903,8 +890,15 @@ void PlayerTurret::setLockFish(Fish* fish)
 {
 	if (fish == nullptr)
 	{
-
-
+		auto node = getParent()->getChildByName("TXTTip");
+		if (!node)
+		{
+			auto txt = Sprite::create("TXTUseLock.png");
+			txt->setPosition(getPosition() + Vec2(0, 100));
+			txt->runAction(RepeatForever::create(Sequence::create(FadeIn::create(0.8f), FadeOut::create(0.8f), nullptr)));
+			getParent()->addChild(txt, kZorderDialog, "TXTTip");
+		}
+		
 	}
 	else
 	{
@@ -990,14 +984,7 @@ void PlayerTurret::shootOnLock(float dt){
 
 	m_turret->shoot();
 
-	//ï¿½ï¿½ï¿½ð¶¯»ï¿½
-	auto aniNode = Sprite::create();
-	aniNode->setPosition(m_turret->getContentSize().width / 2, m_turret->getContentSize().height*1.0);
-	m_turret->addChild(aniNode,0);
-	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
 
-
-	//ï¿½ï¿½ï¿½Ñ½ï¿½ï¿?
 	costMoney();
 }
 
@@ -1047,10 +1034,7 @@ void PlayerTurret::shootOnAuto(float dt){
 	m_turret->shoot();
 
 	//ï¿½ï¿½ï¿½ð¶¯»ï¿½
-	auto aniNode = Sprite::create();
-	aniNode->setPosition(m_turret->getContentSize().width / 2, m_turret->getContentSize().height*1.0);
-	m_turret->addChild(aniNode, 0);
-	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
+	
 
 
 	//ï¿½ï¿½ï¿½Ñ½ï¿½ï¿?

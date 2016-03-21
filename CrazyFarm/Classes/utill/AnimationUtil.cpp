@@ -58,7 +58,7 @@ void AnimationUtil::addAnimationBySpriteFrameName(const char *filepath, const ch
 	AnimationCache::getInstance()->addAnimation(animation, animatname);
 }
 
-void AnimationUtil::addAnimationBySpriteName(const char *filepath, const char *animatname, float time, int numOfpng){
+void AnimationUtil::addAnimationBySpriteName(const char *filepath, const char *animatname, float time, int numOfpng, bool isSetRestoreOriginalFrame){
 
 
 	if (AnimationCache::getInstance()->getAnimation(animatname) != NULL){
@@ -67,7 +67,7 @@ void AnimationUtil::addAnimationBySpriteName(const char *filepath, const char *a
 	char str[50] = { 0 };
 
 	Animation* animation = Animation::create();
-	animation->setRestoreOriginalFrame(true);
+	animation->setRestoreOriginalFrame(isSetRestoreOriginalFrame);
 	animation->setDelayPerUnit(time / numOfpng);
 	for (int i = 1; i <= numOfpng; i++){
 		sprintf(str, filepath, i);

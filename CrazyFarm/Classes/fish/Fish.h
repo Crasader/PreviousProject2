@@ -42,6 +42,7 @@ enum FISHTYPE
 };
 class PlayerTurret;
 class FishShader;
+class Bullet;
 class Fish :public Sprite{
 public:
 	virtual bool init();
@@ -76,7 +77,7 @@ public:
 
 
 	virtual std::vector<OBB> getOBBByCocos();
-	Vec2 getCentrenPos(){ return centerPos; };
+	virtual Vec2 getCentrenPos();
 	virtual std::vector<Rect>  getAABBBoxs();
 
 
@@ -143,6 +144,14 @@ protected:
 	Node*aniEmptyNode;
 
 	std::vector<FishReward> rewards;
+
+
+private:
+	std::vector <Bullet*> _lockBullets;
+public:
+	void addLockBullet(Bullet*lockbullet);
+	void removeAllBullet();
+	void removeSingleBullet(Bullet *lockbullet);
 };
 
 #endif

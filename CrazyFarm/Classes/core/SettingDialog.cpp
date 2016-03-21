@@ -37,7 +37,7 @@ bool SettingDialog::init()
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(SettingDialog::closeButtonCallBack, this));
-		close->setPosition(730, 430);
+		close->setPosition(736, 405);
 		auto menu = Menu::create(close, nullptr);
 		menu->setPosition(Point::ZERO);
 		addChild(menu);

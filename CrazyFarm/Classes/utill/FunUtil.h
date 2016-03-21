@@ -52,3 +52,4 @@ Fkd getRandValueInVector(Vector<Fkd> &vec)
 {
 	return vec.at(rand() % vec.size());
 }
+

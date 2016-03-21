@@ -397,7 +397,7 @@ void GameLayer::createNet(Bullet *bullet){
 	Net* fishNet = Net::create();
 	fishNet->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	fishNet->setBullet(bullet);
-	float dotdistance = bullet->getContentSize().height*0.5;
+	float dotdistance = bullet->getContentSize().height*0.2;
 	float angle = bullet->getRotation();
 	auto dotpos = Vec2(dotdistance*sin(CC_DEGREES_TO_RADIANS(angle)), dotdistance*cos(CC_DEGREES_TO_RADIANS(angle)));
 	fishNet->setPosition(bullet->getPosition() + dotpos);
@@ -582,6 +582,7 @@ void GameLayer::beginLock()
 
 	auto txt = Sprite::create("TXTUseLock.png");
 	txt->setPosition(myTurret->getPosition() + Vec2(0, 100));
+	txt->runAction(RepeatForever::create(Sequence::create(FadeIn::create(0.8f), FadeOut::create(0.8f), nullptr)));
 	addChild(txt, kZorderDialog, "TXTTip");
 }
 void GameLayer::endLock()
@@ -740,6 +741,20 @@ void GameLayer::useFreeze(PlayerTurret*turret)
 	bg->setPosition(480, 270);
 	bg->runAction(ProgressTo::create(2, 100));
 
+
+
+	auto bg1 = ProgressTimer::create(Sprite::create("onFreezeTop.png"));
+	bg1->setScale(2);
+	bg1->setType(ProgressTimer::Type::BAR);
+	bg1->setMidpoint(Vec2(0, 0));
+	bg1->setBarChangeRate(Vec2(1, 0));
+	addChild(bg1, kZorderFishXL+11, "kTagFrezzebg");
+	bg1->setPosition(480, 270);
+	bg1->runAction(ProgressTo::create(2, 100));
+
+
+
+
 	auto aniSp = ProgressTimer::create(Sprite::create("game/ui/ani/TX_DongJie/TX_qpdj_1.png"));
 	aniSp->setType(ProgressTimer::Type::BAR);
 	aniSp->setMidpoint(Vec2(0, 0));
@@ -764,6 +779,7 @@ void GameLayer::onFreezeEnd(PlayerTurret*turret)
 	scheduleUpdate();
 	createFishAcNode->resume();
 	getChildByTag(kTagFrezzebg)->removeFromParentAndCleanup(1);
+	getChildByName("kTagFrezzebg")->removeFromParentAndCleanup(1);
 	turret->getChildByName("freezetxt")->removeFromParentAndCleanup(1);
 }
 
@@ -888,7 +904,7 @@ void GameLayer::onGetReward(int itemid, int num)
 	GameManage::getInstance()->getGuiLayer()->addChild(aninode, kZorderDialog);
 	aninode->setScale(4);
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), RemoveSelf::create(), nullptr));
-	sp->runAction(Sequence::create( ScaleTo::create(1.0f, 1.0f), MoveTo::create(1.0f, myTurret->getPosition()),CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
+	sp->runAction(Sequence::create( CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }),ScaleTo::create(1.0f, 1.0f), MoveTo::create(1.0f, myTurret->getPosition()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
 
 }
 

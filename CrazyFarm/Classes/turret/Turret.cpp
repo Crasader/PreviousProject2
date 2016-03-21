@@ -10,6 +10,7 @@ bool Turret::init(){
 	
 	emptySp = nullptr;
 	lightSp = nullptr;
+	setAnchorPoint(Vec2(0.5, 0.5));
 	return true;
 }
 
@@ -48,8 +49,15 @@ void Turret::shoot()
 
 	auto distance = getContentSize().height*SCALETURRET*0.1;
 	auto movebypos = Vec2(distance*cos(CC_DEGREES_TO_RADIANS(90-getRotation())), distance*sin(CC_DEGREES_TO_RADIANS(90-getRotation())));
-	runAction(Sequence::createWithTwoActions(Spawn::create(ScaleTo::create(0.025f, 1 * SCALETURRET, 0.8*SCALETURRET), MoveBy::create(0.025, Vec2(-movebypos.x, -movebypos.y)),nullptr),
-		Spawn::create(ScaleTo::create(0.025f, 1 * SCALETURRET, 1.0*SCALETURRET), MoveBy::create(0.025, movebypos), nullptr)));
+	//setAnchorPoint(Vec2(0.5,0.2));
+	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([=]{this->setScale(1 * SCALETURRET, 0.8*SCALETURRET); this->setPosition(getPosition() - movebypos); }), DelayTime::create(0.1f),
+		CallFunc::create([=]{this->setScale(1 * SCALETURRET, 1.0*SCALETURRET); this->setPosition(getPosition() +movebypos); }), nullptr));
+
+
+	auto aniNode = Sprite::create();
+	aniNode->setPosition(getContentSize().width / 2, getContentSize().height*1.0);
+	addChild(aniNode, -1);
+	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
 
 	if (NewbieMannger::getInstance()->getNBShootCounts() != -1&&!isrobot)
 	{

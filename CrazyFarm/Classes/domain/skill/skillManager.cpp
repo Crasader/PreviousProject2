@@ -60,6 +60,7 @@ void skillManager::useSkillSummon(PlayerTurret*turret)
 	aniNode->setPosition(randPos);
 	GameManage::getInstance()->getGuiLayer()->addChild(aniNode, 10);
 	Audio::getInstance()->playSound(SKILLSUMMON);
+	aniNode->setScale(2);
 	aniNode->runAction(Sequence::create(DelayTime::create(1.0f),Repeat::create(AnimationUtil::getInstance()->getAnimate("aniZhaoHuan"), 2), CallFunc::create([=]{
 	auto fish = FishManage::getInstance()->createFishSingle(40 + rand() % 5);
 	fish->setPosition(randPos);

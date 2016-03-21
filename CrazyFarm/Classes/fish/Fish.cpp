@@ -47,7 +47,7 @@ void Fish::initFish(int fishID){
 	rewards = fishdata.rewards;
 	obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(fishdata.uiId);
 	LogEventFish::getInstance()->addFishCreateTimes(fishID);
-	centerPos = getContentSize() / 2;
+	centerPos =getCentrenPos();
 }
 
 void Fish::initFishAnim(int fishID){
@@ -257,6 +257,7 @@ void Fish::stopLockShoot()
 		node->removeFromParentAndCleanup(1);
 	}
 	setTargeLockTurret(nullptr);
+
 }
 
 void Fish::onLightShoot(PlayerTurret*turret)
@@ -494,6 +495,7 @@ int Fish::getFishID() {
 
 void Fish::removeself()
 {
+	
 	stopLightShoot();
 	stopLockShoot();	
 	removeFromParentAndCleanup(1);
@@ -708,4 +710,80 @@ FishZorder Fish::getFishZorder()
 	}
 
 
+}
+
+void Fish::addLockBullet(Bullet*lockbullet)
+{
+	_lockBullets.push_back(lockbullet);
+}
+void Fish::removeAllBullet()
+{
+	for (auto var:_lockBullets)
+	{
+		if (var!=nullptr)
+		{
+			var->stopLock();
+		}
+	}
+}
+
+void Fish::removeSingleBullet(Bullet *lockbullet)
+{
+	for (auto ite = _lockBullets.begin(); ite != _lockBullets.end();ite++)
+	{
+		if (*ite == lockbullet)
+		{
+			_lockBullets.erase(ite);
+			return;
+
+		}
+	}
+}
+
+Vec2 Fish::getCentrenPos()
+{
+	switch (fishID)
+	{
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+	case 9:
+	case 10:
+	case 31:
+	case 32:
+	case 33:
+	case 34:
+	case 35:
+	case 36:
+	case 44:
+	case 201:
+
+		return getContentSize() / 2;
+		break;
+	case 37:
+		return Vec2(160,getContentSize().height/2);
+	case 40:
+		return Vec2(100, getContentSize().height / 2);
+	case 41:
+		return Vec2(200, getContentSize().height / 2);
+	case 42:
+		return Vec2(107, getContentSize().height / 2);
+	case 43:
+		return Vec2(152, getContentSize().height / 2);
+	case 50:
+		return Vec2(225, getContentSize().height / 2);
+	case 51:
+		return Vec2(341, getContentSize().height / 2);
+	case 52:
+		return Vec2(247, getContentSize().height / 2);
+	default:
+		return getContentSize() / 2;
+		break;
+	}
+	return getContentSize() / 2;
 }

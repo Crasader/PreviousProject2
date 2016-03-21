@@ -106,9 +106,8 @@ bool GameGuiLayer::init(){
 
 	GameData::getInstance()->setisPlayerOneGame(true);
 
-	/*Test fun begin*/
-	/*runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([&]{GameManage::getInstance()->onPlayerUpgrade(); }), nullptr));*/
-	/*Test fun end*/
+
+
 	return true;
 
 }
@@ -152,7 +151,14 @@ void GameGuiLayer::addCoinCallBack(Ref*psend)
 void GameGuiLayer::exitCallback(Ref *pSender)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
-	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([&]{setttingBoard->setEnabled(true); }), nullptr));
+	
+	if (!setttingBoard->getActionByTag(66))
+	{
+		auto ac = Sequence::create(MoveTo::create(0.2, Vec2(480, 540 + 15 )), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr);
+		ac->setTag(66);
+		setttingBoard->runAction(ac);
+	}
+	
 	auto layer = NotarizeExitDialog::create();
 	layer->setPosition(0, 0);
 	addChild(layer, kZorderDialog);
@@ -186,16 +192,16 @@ void GameGuiLayer::createSettingBoard()
 	setttingBoard->addChild(menu);
 	
 
-	auto exitButton = MenuItemImage::create("exit_1.png", "exit_1.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
-	exitButton->setPosition(50, 80);
+	auto exitButton = MenuItemImage::create("exit_1.png", "exit_2.png", CC_CALLBACK_1(GameGuiLayer::exitCallback, this));
+	exitButton->setPosition(50, 84);
 	menu->addChild(exitButton);
 
-	auto settingButton = MenuItemImage::create("setting_button1.png", "setting_button1.png", CC_CALLBACK_1(GameGuiLayer::settingCallback, this));
-	settingButton->setPosition(114, 80);
+	auto settingButton = MenuItemImage::create("setting_button1.png", "setting_button2.png", CC_CALLBACK_1(GameGuiLayer::settingCallback, this));
+	settingButton->setPosition(114, 84);
 	menu->addChild(settingButton);
 
-	auto showFishButton = MenuItemImage::create("fish_button1.png", "fish_button1.png", CC_CALLBACK_1(GameGuiLayer::showFishCallback, this));
-	showFishButton->setPosition(178, 80);
+	auto showFishButton = MenuItemImage::create("fish_button1.png", "fish_button2.png", CC_CALLBACK_1(GameGuiLayer::showFishCallback, this));
+	showFishButton->setPosition(178, 84);
 	menu->addChild(showFishButton);
 
 
@@ -210,7 +216,13 @@ void GameGuiLayer::onExit()
 void GameGuiLayer::settingCallback(Ref *pSender)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
-	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr));
+	if (!setttingBoard->getActionByTag(66))
+	{
+		auto ac = Sequence::create(MoveTo::create(0.2, Vec2(480, 540 + 15 )), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr);
+		ac->setTag(66);
+		setttingBoard->runAction(ac);
+	}
+
 	auto layer = SettingDialog::create();
 	layer->setPosition(Point::ZERO);
 	addChild(layer,kZorderDialog);
@@ -218,21 +230,33 @@ void GameGuiLayer::settingCallback(Ref *pSender)
 void GameGuiLayer::showFishCallback(Ref *pSender)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
-	setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr));
+	if (!setttingBoard->getActionByTag(66))
+	{
+		auto ac = Sequence::create(MoveTo::create(0.2, Vec2(480, 540 + 15 )), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr);
+		ac->setTag(66);
+		setttingBoard->runAction(ac);
+	}
+
 	auto layer = showFishLayer::create();
 	layer->setPosition(Point::ZERO);
 	addChild(layer, kZorderDialog);
 }
-void GameGuiLayer::showSettingCallback(Ref*pSender)//BUG
+void GameGuiLayer::showSettingCallback(Ref*pSender)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
 	setttingBoard->setEnabled(false);
-	setttingBoard->runAction(MoveBy::create(0.2, Vec2(0, -70)));
+	setttingBoard->runAction(MoveTo::create(0.2, Vec2(480, 540 + 15 - 70)));
 	setttingBoard->runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]
 	{
 		if (setttingBoard->isEnabled() == false)
 		{
-			setttingBoard->runAction(Sequence::create(MoveBy::create(0.2, Vec2(0, 70)), CallFunc::create([=]{setttingBoard->setEnabled(true); }),nullptr));
+			if (!setttingBoard->getActionByTag(66))
+			{
+				auto ac = Sequence::create(MoveTo::create(0.2, Vec2(480, 540 + 15 )), CallFunc::create([=]{setttingBoard->setEnabled(true); }), nullptr);
+				ac->setTag(66);
+				setttingBoard->runAction(ac);
+			}
+
 		}
 	}),nullptr));
 }

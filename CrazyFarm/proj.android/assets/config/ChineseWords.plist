@@ -109,7 +109,7 @@
   
   
   <key>ChangeGiftTxt</key>
-  <string>已拥有勋章         枚,请选择你要兑换的商品</string>
+  <string>已拥有话费            元，请选择你要兑换的商品</string>
   
   <key>paySuccess</key>
   <string>恭喜你充值成功!</string>
@@ -122,7 +122,7 @@
   <string>网络连接失败</string>
   
   <key>changeGiftLackMedal</key>
-  <string>您的勋章不足300个，游戏中捕获黄金鱼，累计奖池抽奖，可获得勋章</string>
+  <string>您的话费不足30元，游戏中捕获黄金鱼，累计奖池抽奖，可以获得话费！</string>
   
   <key>changeGiftOverMedal</key>
   <string>捕获黄金鱼累计奖池可以抽奖，获得更多勋章，官方有权对作弊行为进行处罚</string>
@@ -164,6 +164,11 @@
   <string>小技巧：捕获黄金鱼不仅可以获得更多奖励，还能进行累计抽奖</string>
   <key>LoadingTip10</key>
   <string>小技巧：成为VIP可提升击杀概率！</string>
+  
+   <key>LoadingTip0</key>
+  <string>正在为您准备话费兑换券，请稍后！</string>
+  
+  
   
   
   </dict> 

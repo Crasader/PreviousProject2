@@ -10,7 +10,7 @@ bool Laster::init(){
 	
 
 
-
+		runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniJiGuangBar")));
 
 		scheduleUpdate();
 		bRet = true;

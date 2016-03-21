@@ -2,7 +2,9 @@
 #include "cocos2d.h"
 #include "domain/bonuspool/BonusPoolManager.h"
 #include "extensions/cocos-ext.h"
+#include "ui/CocosGUI.h"
 USING_NS_CC;
+using namespace ui;
 class  CTurntable;
 class TurnTableDialog : public Layer
 {
@@ -18,6 +20,7 @@ protected:
 	void showGoldFishButtonCallBack(Ref*psend);
 	virtual bool onTouchBegan(Touch *pTouch, Event *pEvent){ return true; };
 	CTurntable*table;
-	ui::Scale9Sprite* bar;
+	LoadingBar* bar;
+	LabelAtlas* labelNowCoin;
 };
 

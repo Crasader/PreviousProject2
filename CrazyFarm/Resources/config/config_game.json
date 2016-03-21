@@ -3,8 +3,8 @@
   "version" : 1,
   "shootList": 
   {
-  	"shootInterval":0.15,
-		"bulletSpeed":800
+  	"shootInterval":0.2,
+		"bulletSpeed":1000
   },
   "catch_fish_per_coef":1.0
 }

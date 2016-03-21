@@ -5,10 +5,12 @@
 #include "domain/gameConfig/gameConfig.h"
 #include "config/ConfigNewbieFishCatch.h"
 #include "domain/game/GameManage.h"
+#include "utill/CollisionUtill.h"
 bool Bullet::init(){
 	if (!Sprite::init()){
 		return false;
 	}
+	settarget(nullptr);
 	return true;
 }
 
@@ -31,7 +33,10 @@ string Bullet::getSrcByType(int ui_type, int net_type){
 
 void Bullet::moveToLockfish(float time, Fish*fish)
 {
-	runAction(Sequence::create(MoveTo::create(time, fish->convertToWorldSpace(fish->getCentrenPos())), CallFunc::create([=]{
+	target = fish;
+	target->addLockBullet(this);
+	schedule(schedule_selector(Bullet::moveTolockFishUpadate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
+	/*runAction(Sequence::create(MoveTo::create(time, fish->convertToWorldSpace(fish->getCentrenPos())), CallFunc::create([=]{
 
 		setVisible(false); 
 		((GameLayer*)getParent())->createNet(this);
@@ -63,7 +68,7 @@ void Bullet::moveToLockfish(float time, Fish*fish)
 	
 	
 	}
-	), nullptr));
+	), nullptr));*/
 }
 
 int Bullet::getSpeedByType(int type){
@@ -117,17 +122,82 @@ void Bullet::getCoinForFish(Vector<Fish*> fishs)
 {
 	for(auto var : fishs)
 	{
-		
 		pPlayerTurret->getCoinByFish(var);
 	}
 }
 
 void Bullet::moveTolockFishUpadate(float dt)
 {
-	if (target!=nullptr)
+	Rect rect = Rect(-getContentSize().width / 2, -getContentSize().height / 2, getContentSize().width + 960, getContentSize().height + 540);
+	if (!rect.containsPoint(getPosition()))
 	{
-	//TODO::改写成跟踪模式，每帧获得目标位置
+		target->removeSingleBullet(this);
+		unschedule(schedule_selector(Bullet::moveTolockFishUpadate));
+		removeFromParentAndCleanup(1);
+		return;
 	}
+
+	if (target != nullptr)
+	{
+		
+
+
+
+		auto pos = target->convertToWorldSpace(target->getCentrenPos());
+		float degree = CC_DEGREES_TO_RADIANS(getTurretRotation(getPosition(), pos));
+		Vec2 diffPos = Vec2(sin(degree)*bulletSpeed*dt, cos(degree)*bulletSpeed*dt);
+		setPosition(getPosition() + diffPos);
+
+
+
+
+		//捕获
+		if (pos.distance(getPosition()) <= 10)
+		{
+			/*unschedule(schedule_selector(Bullet::moveTolockFishUpadate));*/
+			setVisible(false);
+			target->removeSingleBullet(this);
+			auto turretdata = getTurretdata();
+			auto curryFish = target;
+			if (curryFish == nullptr)
+			{
+				return;
+			}
+			LogEventFish::getInstance()->addFishHitTimes(curryFish->getFishID());
+			float k = rand_0_1();
+			float per = curryFish->getGrabProbability();
+
+			if (!getPlayerTurret()->isRobot)
+			{
+				LogEventFish::getInstance()->addFishUserCostCoin(curryFish->getFishID(), getPlayerTurret()->getTurrentMupltData().multiple);
+				float perForLevel = ConfigNewbieFishCatch::getInstance()->getperByLevelAndFishID(User::getInstance()->getLevelData().levelId, curryFish->getFishID());
+				if (perForLevel > 0)
+				{
+					per = perForLevel;
+				}
+			}
+			if (k < (per*turretdata.catch_per))
+			{
+				GameManage::getInstance()->CatchTheFishOntheTurrent(curryFish, 1, getPlayerTurret());
+			}
+			((GameLayer*)getParent())->createNet(this);
+		}
+	
+	}
+	else
+	{
+		BulletManage::getInstance()->getAllBullets().pushBack(this);
+		scheduleUpdate();
+		unschedule(schedule_selector(Bullet::moveTolockFishUpadate));
+	}
+}
+
+void Bullet::stopLock()
+{
+	target = nullptr;
+	unschedule(schedule_selector(Bullet::moveTolockFishUpadate));
+	BulletManage::getInstance()->getAllBullets().pushBack(this);
+	scheduleUpdate();
 }
 std::vector<OBBEX> Bullet::getObbs()
 {

@@ -171,6 +171,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\core\NotarizeExitDialog.cpp" />
     <ClCompile Include="..\Classes\core\SettingDialog.cpp" />
     <ClCompile Include="..\Classes\core\showFishLayer.cpp" />
+    <ClCompile Include="..\Classes\core\showLockTurretLayer.cpp" />
     <ClCompile Include="..\Classes\core\showTurretCell.cpp" />
     <ClCompile Include="..\Classes\core\showTurretLayer.cpp" />
     <ClCompile Include="..\Classes\core\UpgradeSureDialog.cpp" />
@@ -353,6 +354,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\core\NotarizeExitDialog.h" />
     <ClInclude Include="..\Classes\core\SettingDialog.h" />
     <ClInclude Include="..\Classes\core\showFishLayer.h" />
+    <ClInclude Include="..\Classes\core\showLockTurretLayer.h" />
     <ClInclude Include="..\Classes\core\showTurretCell.h" />
     <ClInclude Include="..\Classes\core\showTurretLayer.h" />
     <ClInclude Include="..\Classes\core\UpgradeSureDialog.h" />

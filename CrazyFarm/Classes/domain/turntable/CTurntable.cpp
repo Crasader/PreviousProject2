@@ -69,11 +69,11 @@ void CTurntable::menuButtonCallbackStop()
 	CCLOG("curAngle = %f", curangle);
 	pSprite_circle->setRotation(curangle); 
     
-	CCActionInterval* actionTo_5 = CCRotateBy::create(0.2, 18);
-	CCActionInterval* actionTo_4 = CCRotateBy::create(0.15, 36);
-	CCActionInterval* actionTo_3 = CCRotateBy::create(0.13, 54);
-	CCActionInterval* actionTo_2 = CCRotateBy::create(0.1, 72);
-	CCActionInterval* actionTo_1 = CCRotateBy::create(0.5, 180);
+	CCActionInterval* actionTo_5 = CCRotateBy::create(0.2, 36);
+	CCActionInterval* actionTo_4 = CCRotateBy::create(0.15, 72);
+	CCActionInterval* actionTo_3 = CCRotateBy::create(0.13, 108);
+	CCActionInterval* actionTo_2 = CCRotateBy::create(0.1, 144);
+	CCActionInterval* actionTo_1 = CCRotateBy::create(0.5, 360);
 
 
     //CCActionInterval* actionTo_1 = CCRotateBy::create(1.5, 360 * 2);
@@ -103,11 +103,11 @@ void CTurntable::menuButtonCallback(Ref* pSend) {
     
     if (!need_rotation) {
         need_rotation = true;
-        CCActionInterval* actionTo_5 = CCRotateBy::create(0.2, 18);
-        CCActionInterval* actionTo_4 = CCRotateBy::create(0.15, 36);
-        CCActionInterval* actionTo_3 = CCRotateBy::create(0.13, 54);
-        CCActionInterval* actionTo_2 = CCRotateBy::create(0.1, 72);
-        CCActionInterval* actionTo_1 = CCRotateBy::create(0.5, 180);
+        CCActionInterval* actionTo_5 = CCRotateBy::create(0.2, 36);
+        CCActionInterval* actionTo_4 = CCRotateBy::create(0.15, 72);
+        CCActionInterval* actionTo_3 = CCRotateBy::create(0.13, 108);
+        CCActionInterval* actionTo_2 = CCRotateBy::create(0.1, 144);
+        CCActionInterval* actionTo_1 = CCRotateBy::create(0.5, 360);
 
 		pSprite_circle->runAction(Sequence::create(actionTo_5, actionTo_4, actionTo_3, actionTo_2, actionTo_1, CallFunc::create(CC_CALLBACK_0(CTurntable::menuButtonCallbackStop, this)), nullptr));
         pSprite_circle->runAction(CCRepeatForever::create(actionTo_1));
