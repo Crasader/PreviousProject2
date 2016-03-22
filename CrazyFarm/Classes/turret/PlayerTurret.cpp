@@ -136,8 +136,7 @@ void PlayerTurret::update(float delta)
 		}
 		m_DiamondLabel->setString(str->getCString());
 
-		num = GameData::getInstance()->getnowLevel();
-		nCurLevel->setString(Value(num).asString().c_str());
+		nCurLevel->setString(Value(GameData::getInstance()->getnowLevel()).asString().c_str());
 		if (GameData::getInstance()->getisOnBankrupt())
 		{
 			if (User::getInstance()->getCoins()>0)

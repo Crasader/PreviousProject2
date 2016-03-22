@@ -60,7 +60,7 @@ bool User::setUserName(std::string newUserName) {
 
 
 
-long  User::getCoins() {
+unsigned long  User::getCoins() {
     return	_coins;
 }
 
@@ -75,7 +75,7 @@ int User::addCoins(int coins) {
 }
 
 
- long User::getDiamonds() {
+ unsigned long User::getDiamonds() {
 	return _diamond;
 }
 

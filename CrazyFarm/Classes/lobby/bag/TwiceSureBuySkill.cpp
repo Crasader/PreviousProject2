@@ -3,6 +3,7 @@
 #include "utill/Chinese.h"
 #include "domain/bag/BagManager.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
+#include "server/HttpMannger.h"
 TwiceSureBuySkill*TwiceSureBuySkill::createTwiceBuySkillTip(int itemid)
 {
 	TwiceSureBuySkill*ref = new TwiceSureBuySkill();
@@ -108,14 +109,15 @@ void TwiceSureBuySkill::sureButtonCallBack(Ref*psend)
 	{
 		if (User::getInstance()->getMaxTurrentLevel()>300)
 		{
-			User::getInstance()->addDiamonds(-200);
-			BagManager::getInstance()->changeItemCount(m_itemid, 200 / skillManager::getInstance()->getSkillPriceById(skillManager::getInstance()->getSkillInfoByitemId(m_itemid).skill_id));
+			HttpMannger::getInstance()->HttpToPostRequestToBuyItem(m_itemid);
+			/*User::getInstance()->addDiamonds(-200);
+			BagManager::getInstance()->changeItemCount(m_itemid, 200 / skillManager::getInstance()->getSkillPriceById(skillManager::getInstance()->getSkillInfoByitemId(m_itemid).skill_id));*/
 		}
 		else
 		{
 			auto layer = TwiceSureDialog::createDialog(ChineseWord("bySkillNoNeedTurrentTIP").c_str(), nullptr);
 			layer->setPosition(0, 0);
-			getParent()->getParent()->addChild(layer, 10);
+			getParent()->getParent()->addChild(layer, 30);
 		}
 		
 	}

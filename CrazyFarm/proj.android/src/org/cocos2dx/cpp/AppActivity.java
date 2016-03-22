@@ -4,6 +4,7 @@ import java.io.File;
 
 
 
+
 import org.cocos2dx.lib.Cocos2dxActivity;
 
 import android.app.Activity;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
+import com.poixao.crazyfarm.Constants;
 import com.poixao.crazyfarm.R;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -39,8 +41,8 @@ public class AppActivity extends Cocos2dxActivity  {
 		AppActivity.activity = this;
 		
 		// 将该app注册到微信
-		msgApi = WXAPIFactory.createWXAPI(this,"wx884476f603eeb8be", false);
-		msgApi.registerApp("wx884476f603eeb8be");//写死
+		msgApi = WXAPIFactory.createWXAPI(this,Constants.APP_ID, false);
+		msgApi.registerApp(Constants.APP_ID);//写死
 	}
 	
 	public static void SKYpay(final int price, final String orderId) {
@@ -77,8 +79,8 @@ public class AppActivity extends Cocos2dxActivity  {
 			@Override
 			public void run() {
 				PayReq request = new PayReq();
-				request.appId = "wx884476f603eeb8be";//商户号和APPID写死
-				request.partnerId = "1318535301";
+				request.appId = Constants.APP_ID;//商户号和APPID写死
+				request.partnerId = Constants.PARTNER_ID;
 				request.packageValue = "Sign=WXPay";
 				request.prepayId= prepayId;
 				request.nonceStr= nonceStr;

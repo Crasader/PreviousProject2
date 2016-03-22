@@ -9,6 +9,7 @@
 #include "lobby/signlayer/SignMannger.h"
 #include "lobby/LobbyScene.h"
 #include "domain/bag/BagManager.h"
+#include "lobby/bag/bagLayer.h"
 HttpMannger* HttpMannger::_instance = NULL;
 
 HttpMannger::HttpMannger(){
@@ -388,7 +389,7 @@ void HttpMannger::onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpR
 	}
 	else
 	{
-		if (reqdata->reqnum >= 2)
+		if (reqdata->reqnum >= 3)
 		{
 			Pay::getInstance()->payCallBack(1, "failed", reqdata->prepayid);
 		}
@@ -519,7 +520,7 @@ void HttpMannger::onHttpRequestCompletedForGetItemInfo(HttpClient *sender, HttpR
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back get user init info: %s", temp.c_str());
+	log("http back get user item info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 	if (doc.HasParseError())
@@ -532,9 +533,54 @@ void HttpMannger::onHttpRequestCompletedForGetItemInfo(HttpClient *sender, HttpR
 		auto &item_lists = doc["item_lists"];
 		for (unsigned int i = 0; i < item_lists.Size();i++)
 		{
-			BagManager::getInstance()->setItemNum(item_lists[i]["item_id"].GetInt(), item_lists[i]["num"].GetInt());
+			BagManager::getInstance()->setItemNum(item_lists[i]["item_id"].GetInt(), item_lists[i]["nums"].GetInt());
 		}
 	
 	}
 
+}
+void HttpMannger::HttpToPostRequestToBuyItem(int itemid) //±³°ü¹ºÂòµÀ¾ß
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_BUYITEM);
+	auto requstData = String::createWithFormat("session_id=%s&item_id=%d", sessionid.c_str(),itemid);
+	int *data = new int(itemid);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForBuyItem, this), data);
+}
+void HttpMannger::onHttpRequestCompletedForBuyItem(HttpClient *sender, HttpResponse *response)
+{
+	if (!response)
+	{
+		return;
+	}
+	if (!response->isSucceed())
+	{
+		return;
+	}
+	long statusCode = response->getResponseCode();
+	// dump data
+	std::vector<char> *buffer = response->getResponseData();
+	auto temp = std::string(buffer->begin(), buffer->end());
+	log("http back get user item info: %s", temp.c_str());
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	if (doc.HasParseError())
+	{
+		log("get json data err!");;
+	}
+	int result = doc["errorcode"].GetInt();
+	if (result == 0)
+	{
+		ToolTipMannger::ShowPaySuccessTip();
+		int itemid = *((int*)response->getHttpRequest()->getUserData());
+		BagManager::getInstance()->addreward(itemid, doc["buy_nums"].GetInt());
+		User::getInstance()->addDiamonds(-doc["diamonds_price"].GetInt());
+
+		auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
+		((BagLayer*)layer)->gettableview()->reloadData();
+	}
 }

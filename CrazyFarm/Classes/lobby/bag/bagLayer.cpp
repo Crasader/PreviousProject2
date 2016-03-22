@@ -204,13 +204,15 @@ bool BagLayer::init()
 		userlevel->setPosition(spLV->getPositionX()+spLV->getContentSize().width, spLV->getPositionY());
 		playinfoFram->addChild(userlevel);
 		//½ð±Ò
-		userCoin1 = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
+		auto coinStr = String::createWithFormat("%ld", user->getCoins())->getCString();
+		userCoin1 = LabelTTF::create(coinStr, "arial", 20);
 		userCoin1->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		userCoin1->setPosition(sssize2.width*0.52, sssize2.height *0.56);
 		userCoin1->setColor(Color3B::WHITE);
 		playinfoFram->addChild(userCoin1);
 		//×êÊ¯
-		userdiamond1 = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
+		auto diamondStr = String::createWithFormat("%ld", user->getDiamonds())->getCString();
+		userdiamond1 = LabelTTF::create(diamondStr, "arial", 20);
 		userdiamond1->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		userdiamond1->setPosition(sssize2.width*0.52, sssize2.height *0.46);
 		userdiamond1->setColor(Color3B::WHITE);
@@ -275,7 +277,9 @@ bool BagLayer::init()
 		coin->setPosition(3, sssize1.height *0.49);
 		coinFrame->addChild(coin);
 
-		userCoin2 = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
+
+
+		userCoin2 = LabelTTF::create(coinStr, "arial", 20);
 		userCoin2->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 		userCoin2->setPosition(sssize1.width*0.85, sssize1.height *0.5);
 		userCoin2->setColor(Color3B(254, 248, 52));
@@ -297,7 +301,7 @@ bool BagLayer::init()
 		diamond->setScale(0.8);
 		diamondFrame->addChild(diamond);
 
-		userdiamond2 = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
+		userdiamond2 = LabelTTF::create(diamondStr, "arial", 20);
 		userdiamond2->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 		userdiamond2->setPosition(sssize1.width*0.85, sssize1.height *0.5);
 		userdiamond2->setColor(Color3B(254, 248, 52));
@@ -455,10 +459,12 @@ void BagLayer::payDiamondCallback(Ref*psend)
 void BagLayer::refreshCoinLabel(float dt)
 {
 	auto user = User::getInstance();
-	userdiamond1->setString(Value(user->getDiamonds()).asString());
-	userCoin1->setString(Value(user->getCoins()).asString());
-	userdiamond2->setString(Value(user->getDiamonds()).asString());
-	userCoin2->setString(Value(user->getCoins()).asString());
+	auto coinStr = String::createWithFormat("%ld", user->getCoins())->getCString();
+	auto diamondStr = String::createWithFormat("%ld", user->getDiamonds())->getCString();
+	userdiamond1->setString(diamondStr);
+	userCoin1->setString(coinStr);
+	userdiamond2->setString(diamondStr);
+	userCoin2->setString(coinStr);
 	int sex = user->getUserGender();
 	if (sex)
 	{

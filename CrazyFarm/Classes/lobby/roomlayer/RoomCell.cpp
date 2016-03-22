@@ -54,7 +54,7 @@ void RoomCell::isBeClicked()
 	{
 		auto layer = TwiceSureDialog::createDialog(ChineseWord("enterRoomTip").c_str(),CC_CALLBACK_1(RoomCell::TiPCallBack,this));
 		layer->setPosition(-480,-270);
-		getParent()->addChild(layer, 10, "tip");
+		getParent()->addChild(layer, 30, "tip");
 	}
 	else
 	{

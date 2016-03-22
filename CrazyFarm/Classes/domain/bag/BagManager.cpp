@@ -29,8 +29,7 @@ bool BagManager::changeItemCount(int itemId, int num) {
 		return true;
 	}
     int currentCount = getItemNum(itemId);
-    auto key = String::createWithFormat("%s%d", BagManager::KEY_ITEMID_HEAD, itemId);
-    UserDefault::getInstance()->setIntegerForKey(key->getCString(), currentCount+num);
+	item_To_num[itemId] = currentCount + num;
 	getBagListWithSort();
     if(getItemNum(itemId) < 0) {
 		item_To_num[itemId] = 0;

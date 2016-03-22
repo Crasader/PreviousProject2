@@ -29,7 +29,7 @@ public:
 	int getNobillityCount();
 
 	int addCoins(int coins);
-	long getCoins();
+	unsigned long getCoins();
 	void setCoins(unsigned long coins){ _coins = coins; }
 	CC_SYNTHESIZE(unsigned long, _LastCoins, LastCoins);
 
@@ -39,7 +39,7 @@ public:
 	CC_SYNTHESIZE(int, _LastExp, LastExp);
 
 	int addDiamonds(int diamond);
-	long getDiamonds();
+	unsigned long getDiamonds();
 	void setDiamonds(unsigned long diamonds){ _diamond = diamonds; }
 	CC_SYNTHESIZE(unsigned long, _LastDiamonds, LastDiamonds);
 

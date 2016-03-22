@@ -38,7 +38,7 @@ void SignMannger::onHttpRequestCompletedForSign(HttpClient *sender, HttpResponse
 	long statusCode = response->getResponseCode();
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back  before pay info: %s", temp.c_str());
+	log("http back  sign info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 	if (doc.HasParseError())

@@ -78,7 +78,7 @@ void GameConfig::onHttpRequestCompletedForLoadConfig(HttpClient *sender, HttpRes
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
 	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back register info  info: %s", temp.c_str());
+	log("http back get base config info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 	if (doc.HasParseError())

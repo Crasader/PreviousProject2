@@ -143,7 +143,8 @@ bool LobbyScene::init()
 	coin->setPosition(5, sssize.height *0.5);
 	coinFrame->addChild(coin);
 
-	userCoin = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
+	auto coinStr = String::createWithFormat("%ld", user->getCoins())->getCString();
+	userCoin = LabelTTF::create(coinStr, "arial", 20);
 	userCoin->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	userCoin->setPosition(sssize.width*0.83, sssize.height *0.5);
 	userCoin->setColor(Color3B(254, 248, 52));
@@ -166,7 +167,9 @@ bool LobbyScene::init()
 	diamond->setPosition(5, sssize.height *0.5 + 2);
 	diamondFrame->addChild(diamond);
 
-	userdiamond = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
+
+	auto diamondStr = String::createWithFormat("%ld", user->getDiamonds())->getCString();
+	userdiamond = LabelTTF::create(diamondStr, "arial", 20);
 	userdiamond->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	userdiamond->setPosition(sssize.width*0.83, sssize.height *0.5);
 	userdiamond->setColor(Color3B(254, 248, 52));
@@ -551,8 +554,11 @@ void LobbyScene::RankListCallback(Ref*psend)
 void LobbyScene::refreshCoinLabel()
 {
 	auto user = User::getInstance();
-	userdiamond->setString(Value(user->getDiamonds()).asString());
-	userCoin->setString(Value(user->getCoins()).asString());
+
+	auto coinStr = String::createWithFormat("%ld", user->getCoins())->getCString();
+	auto diamondStr = String::createWithFormat("%ld", user->getDiamonds())->getCString();
+	userdiamond->setString(diamondStr);
+	userCoin->setString(coinStr);
 	if (user->getIsHaveFirstPay())
 	{
 		fistPay->setVisible(false);

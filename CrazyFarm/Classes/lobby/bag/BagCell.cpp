@@ -13,14 +13,15 @@ bool BagCell::init(){
 	addChild(propSprite);
 
 	propNum = LabelAtlas::create("0", "bagPropNum.png", 18, 26, '0');
-	propNum->setAnchorPoint(Point(0,0));
-	propNum->setPosition(size.width*0.65, size.height*0.1);
-	addChild(propNum);
+	propNum->setAnchorPoint(Point(1,0));
+	propNum->setPosition(size.width*0.95, size.height*0.1);
+	addChild(propNum,10);
 	propNum->setVisible(false);
-	
+
 	txtji = Sprite::create("txtLevel.png");
-	txtji->setPosition(propNum->getContentSize().width+txtji->getContentSize().width/2, propNum->getContentSize().height / 2);
-	propNum->addChild(txtji);
+	txtji->setPosition(propNum->getPosition());
+	txtji->setAnchorPoint(Vec2(0,0));
+	addChild(txtji);
 	txtji->setVisible(false);
 
 	txt = Sprite::create("dianjigoumaitxt.png");
@@ -43,6 +44,7 @@ void BagCell::setValue(BagItem item)
 		return;
 	}
 	setbagitem(item);
+	auto size = getContentSize();
 	auto spPath = String::createWithFormat("item_%d.png", item.itemId);
 	propSprite->setTexture(spPath->getCString());
 	switch (item.type)
@@ -75,7 +77,15 @@ void BagCell::setValue(BagItem item)
 		txt->setVisible(false);
 		propNum->setVisible(true);
 		propNum->setString(Value(User::getInstance()->getLevelData().levelId+1).asString().c_str());//ÏÔÊ¾¼¶Êý
+		
 
+	
+
+		txtji->setAnchorPoint(Vec2(1, 0));
+		txtji->setPosition(size.width*0.95, size.height*0.1);
+
+		propNum->setAnchorPoint(Point(1, 0));
+		propNum->setPosition(txtji->getPosition()+Vec2(-txtji->getContentSize().width,0));
 		break;
 	default:
 		BagItem item;

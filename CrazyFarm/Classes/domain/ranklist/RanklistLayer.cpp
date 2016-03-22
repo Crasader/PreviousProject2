@@ -113,8 +113,8 @@ bool RanklistLayer::init()
 		coinsp->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		coinsp->setPosition(765, 445);
 		addChild(coinsp);
-
-		CoinNumTTF = LabelAtlas::create(Value(User::getInstance()->getCoins()).asString().c_str(), "coinnumTxt.png", 14, 18, '0');
+		auto coinStr = String::createWithFormat("%ld", User::getInstance()->getCoins())->getCString();
+		CoinNumTTF = LabelAtlas::create(coinStr, "coinnumTxt.png", 14, 18, '0');
 		CoinNumTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 		CoinNumTTF->setPosition(915, 445);
 		addChild(CoinNumTTF);
@@ -224,7 +224,8 @@ void RanklistLayer::changeToCoinRanklist()
 {
 	coinsp->setTexture("coin.png");
 	haveCoinTTF->setString(ChineseWord("haveCoin").c_str());
-	CoinNumTTF->setString(Value(User::getInstance()->getCoins()).asString().c_str());
+	auto coinStr = String::createWithFormat("%ld", User::getInstance()->getCoins())->getCString();
+	CoinNumTTF->setString(coinStr);
 
 
 
