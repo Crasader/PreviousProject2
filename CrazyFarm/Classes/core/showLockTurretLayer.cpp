@@ -30,7 +30,7 @@ bool showLockTurretLayer::init()
 
 			auto turret = ConfigTurrent::getInstance()->getTurrentByIndex(viewdata[i]);
 			auto bg = Sprite::create("ShowPaobg.png");
-			bg->setPosition(87.4+174.8*i, bg1->getContentSize().height*0.4);
+			bg->setPosition(100+168.5*i, bg1->getContentSize().height*0.45);
 			bg1->addChild(bg);
 			auto size = bg->getContentSize();
 			auto propSprite = Sprite::create();
@@ -92,28 +92,16 @@ bool showLockTurretLayer::init()
 			auto zengCoinTTf = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
 			zengCoinTTf->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			zengCoinTTf->setPosition(size.width / 2, 99);
-			addChild(zengCoinTTf);
+			bg->addChild(zengCoinTTf);
 			auto quex3 = Sprite::create("quex3.png");
 			quex3->setPosition(zengCoinTTf->getPosition());
-			addChild(quex3);
+			bg->addChild(quex3);
 
 
 
 			auto quexprice3 = Sprite::create("quex3.png");
 			quexprice3->setPosition(button->getContentSize() / 2 + Size(8, 3));
 			button->addChild(quexprice3, 1);
-
-
-			if (i == 2)
-			{
-				button->setScale(1);
-				bg->setScale(1);
-			}
-			else
-			{
-				button->setScale(0.8);
-				bg->setScale(0.8);
-			}
 			
 
 			auto maxlevl = User::getInstance()->getMaxTurrentLevel();
@@ -127,6 +115,8 @@ bool showLockTurretLayer::init()
 			ShowPaolight->setVisible(false);
 			if (nowIndex >= viewdata[i]) //已解锁
 			{
+				button->setScale(0.8);
+				bg->setScale(0.8);
 				lock->setVisible(false);
 				button->setVisible(false);
 				lockTTf->setVisible(true);
@@ -139,6 +129,8 @@ bool showLockTurretLayer::init()
 			}
 			else if ((nowIndex + 1) == viewdata[i])//下一级
 			{
+				button->setScale(1);
+				bg->setScale(1);
 				quexprice3->setVisible(false);
 				diamondNumTTF->setVisible(true);
 				lock->setVisible(true);
@@ -155,6 +147,8 @@ bool showLockTurretLayer::init()
 			}
 			else//未解锁
 			{
+				button->setScale(0.8);
+				bg->setScale(0.8);
 				quexprice3->setVisible(true);
 				diamondNumTTF->setVisible(false);
 				lock->setVisible(true);

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.poixao.crazyfarm.Constants;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -31,7 +32,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
         super.onCreate(savedInstanceState);
         Log.e("TBU_DEBUG", "pay wx onCreate ...");
         
-    	api = WXAPIFactory.createWXAPI(this, "wx884476f603eeb8be");
+    	api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
         api.handleIntent(getIntent(), this);
     }
 

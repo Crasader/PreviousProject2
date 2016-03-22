@@ -7,6 +7,7 @@
 #include "domain/logevent/LogEventTurrentUpgrade.h"
 #include "domain/globalschedule/GlobalSchedule.h"
 #include "domain/game/GameManage.h"
+#include "core/showLockTurretLayer.h"
 enum 
 {
 	kTagMutpleLabel = 10,
@@ -59,7 +60,7 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		}
 		else
 		{
-			auto layer = showTurretLayer::create(2);
+			auto layer = showLockTurretLayer::create();
 			layer->setPosition(Point::ZERO);
 			getParent()->getParent()->addChild(layer,20,50);
 			///////µ¯³ö³äÖµ
