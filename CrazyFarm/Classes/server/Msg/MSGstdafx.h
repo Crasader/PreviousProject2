@@ -6,4 +6,4 @@
 #include "MsgConError.h"
 #include "MsgOnExpUpdate.h"
 #include "MsgOnUpdateTurrent.h"
-
+#include "MsgUseSkill.h"

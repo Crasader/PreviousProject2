@@ -10,6 +10,7 @@
 #include "lobby/LobbyScene.h"
 #include "domain/bag/BagManager.h"
 #include "lobby/bag/bagLayer.h"
+#include "domain/Newbie/NewbieMannger.h"
 HttpMannger* HttpMannger::_instance = NULL;
 
 HttpMannger::HttpMannger(){
@@ -54,9 +55,23 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 	{
 		log("get json data err!");;
 	}
+	User::getInstance()->resetInfo();
 	User::getInstance()->setUserID(doc["user_name"].GetString());
 	User::getInstance()->setSessionid(doc["session_id"].GetString());
-	HttpToPostRequestToGetItemInfo();
+	auto &NBRewards = doc["login_rewards"];
+	std::vector<NBRewardItem> rewards;
+	NBRewardItem item;
+	item.itemId = 1012;
+	item.num = 2;
+	rewards.push_back(item);
+	for (unsigned int i = 0; i < NBRewards.Size();i++)
+	{
+		item.itemId = NBRewards[i]["item_id"].GetInt();
+		item.num = NBRewards[i]["nums"].GetInt();
+		rewards.push_back(item);
+	}
+	NewbieMannger::getInstance()->setNBRewards(rewards);
+	NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
 	CCLOG("register success");
 }
 
@@ -93,11 +108,10 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 	if (doc["errorcode"].GetInt() == 301)
 	{
 		HttpToPostRequestRegisterInfo(DeviceInfo::getChannel_id(), DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
-		User::getInstance()->resetInfo();
+		
 		return;
 	}
 	User::getInstance()->setSessionid(doc["session_id"].GetString());
-	HttpToPostRequestToGetItemInfo();
 	CCLOG("login success");
 
 }
@@ -105,6 +119,7 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 
 void HttpMannger::HttpToPostRequestBeforePay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, std::string  pay_point_desc, int price, int result, const char* orderid, int paytype)
 {
+
 	payRequest* quest = new payRequest();
 	quest->pay_and_Event_version = pay_and_Event_version;
 	quest->channel_id = channel_id;
@@ -223,6 +238,7 @@ void HttpMannger::HttpToPostRequestSyncInfo(std::string sessionid, int coin, int
 
 void HttpMannger::onHttpRequestCompletedForSetName(HttpClient *sender, HttpResponse *response)
 {
+	RemoveWaiting(Req_SetName);
 	if (!response)
 	{
 		return;
@@ -256,6 +272,11 @@ void HttpMannger::onHttpRequestCompletedForSetName(HttpClient *sender, HttpRespo
 
 void HttpMannger::HttpToPostRequestSetName(std::string sessionid,const char* nickname, int gender)
 {
+	if (isReqWaiting(Req_SetName))
+	{
+		return;
+	}
+	ShowWaiting(Req_SetName);
 	setNameRequest*data = new setNameRequest();
 	data->gender = gender;
 	data->nickname = nickname;
@@ -268,6 +289,7 @@ void HttpMannger::HttpToPostRequestSetName(std::string sessionid,const char* nic
 
 void HttpMannger::onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResponse *response)
 {
+
 	if (!response)
 	{
 		log("http back feedback info: %ld", response->getResponseCode());
@@ -445,17 +467,24 @@ void HttpMannger::onHttpRequestCompletedForLogEventCommon(HttpClient *sender, Ht
 
 void HttpMannger::HttpToPostRequestToGetUserInfo()//获取用户信息
 {
+	if (isReqWaiting(Req_GetUserInfo))
+	{
+		return;
+	}
+
 	auto sessionid = User::getInstance()->getSessionid();
 	if (sessionid=="")
 	{
 		return;
 	}
+	ShowWaiting(Req_GetUserInfo);
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_PLAYERINFO);
 	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetUserInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpResponse *response)
 {
+	RemoveWaiting(Req_GetUserInfo);
 	if (!response)
 	{
 		return;
@@ -485,29 +514,31 @@ void HttpMannger::onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpR
 		User::getInstance()->setMaxTurrentLevel(userinfo["turrent_level"].GetInt());
 		User::getInstance()->setChargeMoney(userinfo["mr"].GetInt());
 		User::getInstance()->setUserBoxLevel(userinfo["chest_level"].GetInt());
-
-		
-		
-		auto layer = LobbyScene::create();
-		Director::getInstance()->getRunningScene()->addChild(layer, 0, 888);
 	}
 
 }
 
 
-void HttpMannger::HttpToPostRequestToGetItemInfo()
+void HttpMannger::HttpToPostRequestToGetItemInfo(bool isOpenBag)
 {
+	if (isReqWaiting(Req_GetItemInfo))
+	{
+		return;
+	}
 	auto sessionid = User::getInstance()->getSessionid();
 	if (sessionid == "")
 	{
 		return;
 	}
+	ShowWaiting(Req_GetItemInfo);
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_ITEMINFO);
 	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetItemInfo, this));
+	bool *_isopen = new bool(isOpenBag);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetItemInfo, this), _isopen);
 }
 void HttpMannger::onHttpRequestCompletedForGetItemInfo(HttpClient *sender, HttpResponse *response)
 {
+	RemoveWaiting(Req_GetItemInfo);
 	if (!response)
 	{
 		return;
@@ -535,17 +566,27 @@ void HttpMannger::onHttpRequestCompletedForGetItemInfo(HttpClient *sender, HttpR
 		{
 			BagManager::getInstance()->setItemNum(item_lists[i]["item_id"].GetInt(), item_lists[i]["nums"].GetInt());
 		}
-	
+		bool isopen = *((bool*)(response->getHttpRequest()->getUserData()));
+		if (isopen)
+		{
+			Director::getInstance()->replaceScene(BagLayer::createScene());
+		}
+		
 	}
 
 }
 void HttpMannger::HttpToPostRequestToBuyItem(int itemid) //背包购买道具
 {
+	if (isReqWaiting(Req_BuyItem))
+	{
+		return;
+	}
 	auto sessionid = User::getInstance()->getSessionid();
 	if (sessionid == "")
 	{
 		return;
 	}
+	ShowWaiting(Req_BuyItem);
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_BUYITEM);
 	auto requstData = String::createWithFormat("session_id=%s&item_id=%d", sessionid.c_str(),itemid);
 	int *data = new int(itemid);
@@ -561,6 +602,7 @@ void HttpMannger::onHttpRequestCompletedForBuyItem(HttpClient *sender, HttpRespo
 	{
 		return;
 	}
+	RemoveWaiting(Req_BuyItem);
 	long statusCode = response->getResponseCode();
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
@@ -582,5 +624,39 @@ void HttpMannger::onHttpRequestCompletedForBuyItem(HttpClient *sender, HttpRespo
 
 		auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
 		((BagLayer*)layer)->gettableview()->reloadData();
+	}
+}
+
+void HttpMannger::ShowWaiting(HTTP_TYPE type)
+{
+	auto wating = Sprite::create("waitcircle.png");
+	wating->runAction(RepeatForever::create(RotateBy::create(2.0f, 360)));
+	wating->setPosition(480, 270);
+	auto listenr1 = EventListenerTouchOneByOne::create();
+	listenr1->onTouchBegan = [](Touch*touch, Event* event){
+			return false;
+	};
+	listenr1->setSwallowTouches(true);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, wating);
+	Director::getInstance()->getRunningScene()->addChild(wating, 888, type);
+}
+void HttpMannger::RemoveWaiting(HTTP_TYPE type)
+{
+	auto node = Director::getInstance()->getRunningScene()->getChildByTag(type);
+	if (node)
+	{
+		node->removeAllChildrenWithCleanup(1);
+	}
+}
+bool HttpMannger::isReqWaiting(HTTP_TYPE type)
+{
+	auto node = Director::getInstance()->getRunningScene()->getChildByTag(type);
+	if (node)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }

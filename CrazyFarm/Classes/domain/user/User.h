@@ -31,17 +31,14 @@ public:
 	int addCoins(int coins);
 	unsigned long getCoins();
 	void setCoins(unsigned long coins){ _coins = coins; }
-	CC_SYNTHESIZE(unsigned long, _LastCoins, LastCoins);
 
 	bool addExp(int exp);
 	int getExp(){ return _exp; }
 	void setExp(int exp){ _exp = exp; }
-	CC_SYNTHESIZE(int, _LastExp, LastExp);
 
 	int addDiamonds(int diamond);
 	unsigned long getDiamonds();
 	void setDiamonds(unsigned long diamonds){ _diamond = diamonds; }
-	CC_SYNTHESIZE(unsigned long, _LastDiamonds, LastDiamonds);
 
     int getMaxTurrentLevel();
 

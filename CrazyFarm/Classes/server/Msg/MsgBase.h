@@ -14,7 +14,8 @@ enum MsgId
 	MsgOnLeave,		// 'onLeave' - user leave room ...
 	MsgOnFishes,	// 'onFishes' - broadcast fish info ...
 	MsgOnUpdateTurrent,		  //  'level_update' - level update request
-	MsgOnExpUpdate						//  'expUpdate' - user exp update
+	MsgOnExpUpdate,						//  'expUpdate' - user exp update
+	MsgUseSkill
 };
 
 

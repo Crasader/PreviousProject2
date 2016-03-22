@@ -70,10 +70,10 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 	box->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("anifirstBox"), CallFunc::create([&]
 	{
 		Audio::getInstance()->playSound(OPENNEWBBOX);
-		auto rewards = ConfigExp::getInstance()->getLevelRewardItemsByLevelId(1);
+		auto rewards = NewbieMannger::getInstance()->getNBRewards();
 		for (int i = 0; i < rewards.size();i++)
 		{
-			auto cell = GiftCell::create(rewards[i].item_id, rewards[i].num);
+			auto cell = GiftCell::create(rewards[i].itemId, rewards[i].num);
 			cell->setPosition(box->getPosition());
 			cell->setScale(0);
 			cell->runAction(Sequence::create(DelayTime::create(i*0.15f),Spawn::create(ScaleTo::create(1.0f, 1.0), MoveTo::create(1.0f, Vec2(281 + i * 130, 361)), nullptr), DelayTime::create(1.0f + i*0.2f), Spawn::create(MoveTo::create(1.0f, Vec2(259.2, 48)), ScaleTo::create(1.0f, 0.1f), nullptr), CallFunc::create(
@@ -85,22 +85,11 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 
 			}), RemoveSelf::create(), nullptr));
 			addChild(cell);
-			if (rewards[i].item_id!=1012)
-			{
-
-				if (rewards[i].item_id == 1001)
-				{
-					User::getInstance()->addCoins(rewards[i].num);
-				}
-				else if (rewards[i].item_id == 1002)
-				{
-					User::getInstance()->addDiamonds(rewards[i].num);
-				}
-				else
-				{
-					BagManager::getInstance()->changeItemCount(rewards[i].item_id, rewards[i].num);
-				}
-			}
+		if (rewards[i].itemId==1001)
+		{
+			User::getInstance()->setCoins(rewards[i].num);
+		}
+			
 		}
 	}), nullptr));
 	runAction(Sequence::create(DelayTime::create(4.7f), CallFunc::create([&]{NewbieMannger::getInstance()->setisGetFirstReward(1);auto layer = NewbieSureDialog::create(); layer->setPosition(0, 0); getParent()->addChild(layer, 20); }), RemoveSelf::create(), nullptr));

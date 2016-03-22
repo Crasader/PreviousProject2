@@ -406,8 +406,8 @@ bool BagLayer::onTouchBegan(Touch*touch, Event*event)
 }
 void BagLayer::closeButtonCallBack(Ref*psend)
 {
-	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
-	Director::getInstance()->replaceScene(LobbyScene::createScene());
+	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
+	
 }
 
 void BagLayer::chankanCallBack(Ref*pesend)

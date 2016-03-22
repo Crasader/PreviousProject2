@@ -21,6 +21,9 @@ void GameData::init(){
 	setisOnGroupComing(false);
 	setisLoadMsgOnGame(false);
 	setTouchLockTurretType(0);
+
+	setchangeCoin(0);
+	setchangeExp(0);
 }
 
 GameData* GameData::getInstance(){

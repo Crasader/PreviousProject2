@@ -7,6 +7,7 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/game/GameManage.h"
 #include "domain/ToolTip/TwiceSkillSureDialog.h"
+#include "server/Server.h"
 USING_NS_CC;
 
 SkillButton::SkillButton() :
@@ -172,7 +173,6 @@ void SkillButton::skillButonUi()
 void SkillButton::useSkill()
 {
 	int type = JudgeUseSkill();
-	log("skill using condition is %d", type);
 	switch (type)
 	{
 	case -1:
@@ -202,10 +202,11 @@ void SkillButton::useSkill()
 			auto userdm = User::getInstance()->getDiamonds();
 			if (userdm > price)
 			{
-				LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, price);
+				Server::getInstance()->sendUseSkill(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id);
+				/*LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, price);
 				User::getInstance()->addDiamonds(-price);
 				skillManager::getInstance()->getButtonByID(m_skillID)->skillButonUi();
-				skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());
+				skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());*/
 			}
 			else
 			{
@@ -227,10 +228,11 @@ void SkillButton::useSkill()
 	break;
 	case 0: //直接使用
 	{
-		LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, 0);
-		BagManager::getInstance()->changeItemCount(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id, -1);
-		skillManager::getInstance()->getButtonByID(m_skillID)->skillButonUi();
-		skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());
+		Server::getInstance()->sendUseSkill(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id);
+		/*	LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, 0);
+			BagManager::getInstance()->changeItemCount(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id, -1);
+			skillManager::getInstance()->getButtonByID(m_skillID)->skillButonUi();
+			skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());*/
 	}
 	break;
 	default:

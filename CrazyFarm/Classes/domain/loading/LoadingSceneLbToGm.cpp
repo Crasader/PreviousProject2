@@ -77,6 +77,8 @@ void LoadingSceneLbToGm::update(float dt)
 }
 void LoadingSceneLbToGm::load()
 {
+	HttpMannger::getInstance()->HttpToPostRequestToGetItemInfo(false);
+	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
 	loadRes();
 }
 

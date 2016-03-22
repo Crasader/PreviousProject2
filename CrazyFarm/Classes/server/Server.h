@@ -24,6 +24,9 @@ USING_NS_CC;
 #define REQ_ROUTE_LEVELUPDATE "game.gameHandler.levelchange"
 #define REQ_LEVELUPDATE_EX ((void*)0x66)
 
+#define REQ_ROUTE_USESKILL "game.gameHandler.useskill"
+#define REQ_USESKILL_EX ((void*)0x77)
+
 class Server{
 public:
 	static Server* getInstance();
@@ -35,9 +38,11 @@ public:
 	void notify_observer(const char* msgId, const char* msgBody);
     
     void sendNewEvents(const char* params);
-    void sendUserInfoChange(int difCoins,int difDiamonds,int difExp);
+    void sendUserInfoChange(int difCoins,int difExp);
     void reqTurrentLevelUpdate();
 
+
+	void sendUseSkill(int itemid);
 private:
 	Server();
 	static Server* _instance;
@@ -54,10 +59,13 @@ private:
     static void event_cb(pc_client_t* client, int ev_type, void* ex_data, const char* arg1, const char* arg2);
     
     static void connect_cb(const pc_request_t* req, int rc, const char* resp);
+
+
     static void levelupdate_cb(const pc_request_t* req, int rc, const char* resp);
     
     static void notify_cb(const pc_notify_t* noti, int rc);
     
+	static void useSkill_cb(const pc_request_t* req, int rc, const char* resp);
     
     
     

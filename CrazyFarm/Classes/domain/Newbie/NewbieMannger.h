@@ -3,6 +3,13 @@
 #include "utill/define.h"
 using namespace cocos2d;
 
+struct NBRewardItem
+{
+	int itemId;
+	int num;
+};
+
+
 class NewbieMannger{
 public:
 	static NewbieMannger* getInstance();
@@ -10,6 +17,10 @@ public:
 private:
 	NewbieMannger();
 	static NewbieMannger* _instance;
+
+
+	CC_SYNTHESIZE(std::vector<NBRewardItem>, _NBRewards, NBRewards);
+	CC_SYNTHESIZE(bool, _isAllowdedGetFirstReward, isAllowdedGetFirstReward);
 
 	const char* KEY_ISOVERTEACHMODE = "KEY_ISOVERTEACHMODE";
 	const char* KEY_SHOOTCOUNTS = "KEY_SHOOTCOUNTS";

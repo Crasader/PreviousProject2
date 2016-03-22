@@ -1,7 +1,7 @@
 #include "TwiceSkillSureDialog.h"
 #include "utill/AnimationUtil.h"
 #include "utill/FunUtil.h"
-
+#include "server/Server.h"
 #include "data/GameData.h"
 #include "domain/skill/skillManager.h"
 #include "domain/game/GameManage.h"
@@ -116,10 +116,11 @@ void TwiceSkillSureDialog::sureButtonCallBack(Ref*psend)
 	auto userdm = User::getInstance()->getDiamonds();
 	if (userdm > price)
 	{
-		LogEventUseSkill::getInstance()->addUseSkillData(m_skiilid, 1, price);
+		Server::getInstance()->sendUseSkill(skillManager::getInstance()->getSkillInfoByID(m_skiilid).item_id);
+		/*LogEventUseSkill::getInstance()->addUseSkillData(m_skiilid, 1, price);
 		User::getInstance()->addDiamonds(-price);
 		skillManager::getInstance()->getButtonByID(m_skiilid)->skillButonUi();
-		skillManager::getInstance()->useSkillById(m_skiilid,GameManage::getInstance()->getGameLayer()->GetMyTurret());
+		skillManager::getInstance()->useSkillById(m_skiilid,GameManage::getInstance()->getGameLayer()->GetMyTurret());*/
 	}
 	else
 	{

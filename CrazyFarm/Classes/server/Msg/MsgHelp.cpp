@@ -58,5 +58,13 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 		base->setMsgId(MsgOnExpUpdate);
 
 	}
+	if (strcmp(msgId, "useSkill") == 0)
+	{
+		//ÈËÎïÉý¼¶
+		base = new Msg_UseSkill();
+		base->setBody(msgBody);
+		base->setMsgId(MsgUseSkill);
+
+	}
 	return base;
 }

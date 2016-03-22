@@ -59,15 +59,11 @@ roomCell * roomCell::createCell(const std::string& normalImage, const std::strin
 
 Scene* LobbyScene::createScene()
 {
+	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
 	auto scene = Scene::create();
 
-	//scene->runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{
-	//	auto layer = LobbyScene::create();
-	//	scene->addChild(layer, 0, 888);
-
-	//}), nullptr));
-
-
+	auto layer = LobbyScene::create();
+	scene->addChild(layer, 0, 888);
 	return scene;
 }
 
@@ -312,7 +308,7 @@ bool LobbyScene::init()
 	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, nullptr);
 	menu->setPosition(Point::ZERO);
 	addChild(menu, kZorderMenu,"menu");
-	createRoomLayer();
+	/*runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{createRoomLayer(); }), nullptr));*/
 	//Ìí¼ÓÏµÍ³·µ»Ø¼ü¼àÌý
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
@@ -389,11 +385,13 @@ bool LobbyScene::init()
 	langspEmpty->addChild(lang);
 	
 
-	if (!NewbieMannger::getInstance()->getisGetFirstReward())
+	if (NewbieMannger::getInstance()->getisAllowdedGetFirstReward())
 	{
+		User::getInstance()->setCoins(0);
 		auto nblayer = NewbieFirstGetRewardLayer::create();
 		nblayer->setPosition(Point::ZERO);
 		addChild(nblayer, kZorderDialog);
+		NewbieMannger::getInstance()->setisAllowdedGetFirstReward(false);
 	}
 	else
 	{
@@ -414,6 +412,12 @@ bool LobbyScene::init()
 
 	return true;
 }
+void LobbyScene::onEnterTransitionDidFinish()
+{
+	Layer::onEnterTransitionDidFinish();
+	createRoomLayer();
+}
+
 void LobbyScene::showSign(float dt)
 {
 	///TODO:VIP²¹×ã½ð±Ò
@@ -508,7 +512,7 @@ void LobbyScene::payDiamondCallback(Ref*psend)
 void LobbyScene::bagButtonCallback(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
-	Director::getInstance()->replaceScene(BagLayer::createScene());
+	HttpMannger::getInstance()->HttpToPostRequestToGetItemInfo(true);
 	if (psend)
 	{
 		LogEventPageChange::getInstance()->addEventItems(1, 3, 0);

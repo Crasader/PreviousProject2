@@ -34,7 +34,7 @@
 #include "core/showTurretLayer.h"
 #define BOOMRADIUS 300
 //#define TCPIDURL "106.75.141.82" //外网
-#define TCPIDURL "172.23.1.39" //内网
+#define TCPIDURL "172.23.1.34" //内网
 enum
 {
 	kTagBaseturret= 10,
@@ -228,9 +228,9 @@ bool GameLayer::init(){
 
 
 
-	User::getInstance()->setLastCoins(User::getInstance()->getCoins());
-	User::getInstance()->setLastExp(User::getInstance()->getExp());
-	User::getInstance()->setLastDiamonds(User::getInstance()->getDiamonds());
+	//User::getInstance()->setLastCoins(User::getInstance()->getCoins());
+	//User::getInstance()->setLastExp(User::getInstance()->getExp());
+	//User::getInstance()->setLastDiamonds(User::getInstance()->getDiamonds());
 	return true;
 }
 
@@ -1145,7 +1145,8 @@ void GameLayer::exitCallback(Ref*psend)
 
 	}
 	LogEventPageChange::getInstance()->addEventItems(2, 1, 0);
-	Director::getInstance()->replaceScene(LobbyScene::createScene());
+	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
+
 	GameData::getInstance()->setisOnGameScene(false);
 }
 void GameLayer::onUpdateLevel(Msg_OnExpUpdate*msg)
@@ -1155,6 +1156,44 @@ void GameLayer::onUpdateLevel(Msg_OnExpUpdate*msg)
 		GameManage::getInstance()->onPlayerUpgrade(var);
 	}
 	
+}
+
+void GameLayer::onUseSkill(Msg_UseSkill*msg)
+{
+	if (msg->errorcode==0)
+	{
+		if (msg->use_type == 0)
+		{
+			BagManager::getInstance()->changeItemCount(msg->itemid, -1);
+			auto skillid = skillManager::getInstance()->getSkillInfoByitemId(msg->itemid).skill_id;
+			skillManager::getInstance()->getButtonByID(skillid)->skillButonUi();
+			skillManager::getInstance()->useSkillById(skillid, GameManage::getInstance()->getGameLayer()->GetMyTurret());
+		}
+		else
+		{
+			User::getInstance()->addDiamonds(-msg->price);
+			auto skillid = skillManager::getInstance()->getSkillInfoByitemId(msg->itemid).skill_id;
+			skillManager::getInstance()->getButtonByID(skillid)->skillButonUi();
+			skillManager::getInstance()->useSkillById(skillid, GameManage::getInstance()->getGameLayer()->GetMyTurret());
+		}
+	}
+	else if (msg->errorcode == 302)
+	{
+		auto dialog = TwiceSureDialog::createDialog(ChineseWord("havanoDmToUseskill").c_str(), CC_CALLBACK_1(GameLayer::ToPayShopCallBack, this));
+		dialog->setPosition(Point::ZERO);
+		dialog->setName("havanoDmToUseskill");
+		GameManage::getInstance()->getGuiLayer()->addChild(dialog, 20);
+	}
+
+
+}
+void GameLayer::ToPayShopCallBack(Ref*psend)
+{
+	auto layer = payLayer::createLayer(2);
+	layer->setPosition(0, 0);
+	GameManage::getInstance()->getGuiLayer()->addChild(layer, 20);
+	auto node = GameManage::getInstance()->getGuiLayer()->getChildByName("havanoDmToUseskill");
+	node->removeFromParentAndCleanup(1);
 }
 void GameLayer::MsgUpdata(float dt)
 {
@@ -1184,6 +1223,9 @@ void GameLayer::MsgUpdata(float dt)
 			break;
 		case MsgOnExpUpdate:
 			onUpdateLevel((Msg_OnExpUpdate*)var);
+			break;
+		case MsgUseSkill:
+			onUseSkill((Msg_UseSkill*)var);
 			break;
 		default:
 			break;
@@ -1239,17 +1281,11 @@ void GameLayer::UpdateCreateFishByServer(float dt)
 
 void GameLayer::UpdateUserinfo(float dt)
 {
-	auto difCoins = User::getInstance()->getCoins()-User::getInstance()->getLastCoins();
-	auto difDiamonds =  User::getInstance()->getDiamonds()-User::getInstance()->getLastDiamonds();
-	auto difExp = User::getInstance()->getExp()-User::getInstance()->getLastExp() ;
-	if (difExp<0)
-	{
-		return;
-	}
-	User::getInstance()->setLastCoins(User::getInstance()->getCoins());
-	User::getInstance()->setLastExp(User::getInstance()->getExp());
-	User::getInstance()->setLastDiamonds(User::getInstance()->getDiamonds());
+	auto difCoins = GameData::getInstance()->getchangeCoin();
+	auto difExp = GameData::getInstance()->getchangeExp();
+	GameData::getInstance()->setchangeCoin(0);
+	GameData::getInstance()->setchangeExp(0);
 
 
-	Server::getInstance()->sendUserInfoChange(difCoins,difDiamonds,difExp);
+	Server::getInstance()->sendUserInfoChange(difCoins, difExp);
 }

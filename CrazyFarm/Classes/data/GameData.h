@@ -47,6 +47,11 @@ private:
 
 	//从哪点击的炮塔升级//0:初始 1：showTurretCell 2: MenuItemUpgrade;
 	CC_SYNTHESIZE(int, _TouchLockTurretType, TouchLockTurretType); 
+
+
+	//游戏中10S金币变化和经验变化
+	CC_SYNTHESIZE(int, _changeCoin, changeCoin);
+	CC_SYNTHESIZE(int, _changeExp, changeExp);
 };
 
 #endif

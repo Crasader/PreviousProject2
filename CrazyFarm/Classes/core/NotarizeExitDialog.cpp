@@ -41,7 +41,7 @@ void NotarizeExitDialog::querenCallback(Ref*psend)
 	
 	}
 	LogEventPageChange::getInstance()->addEventItems(2, 1, 0);
-	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
+	
 	Director::getInstance()->replaceScene(LobbyScene::createScene());
 	GameData::getInstance()->setisOnGameScene(false);
 }

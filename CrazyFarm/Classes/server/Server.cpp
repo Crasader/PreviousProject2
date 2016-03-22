@@ -61,9 +61,16 @@ void Server::sendNewEvents(const char* params) {
     pc_notify_with_timeout(workingClient, REQ_NEWEVENTS, testParams.c_str(), REQ_NEWEVENTS_EX, REQ_TIMEOUT, notify_cb);
 }
 
-void Server::sendUserInfoChange(int difCoins, int difDiamonds, int difExp) {
+void Server::sendUseSkill(int itemid) {
+	std::string reqParams = "{\"item_id\": \"" + Value(itemid).asString() + "\"}";
+	CCLOG("sendUseSkill %s", reqParams.c_str());
+	pc_request_with_timeout(workingClient, REQ_ROUTE_USESKILL, reqParams.c_str(), REQ_USESKILL_EX, REQ_TIMEOUT, useSkill_cb);
+}
+
+
+void Server::sendUserInfoChange(int difCoins, int difExp) {
     
-	auto Params = String::createWithFormat("{\"coins\": %d, \"diamonds\": %d, \"exps\": %d }", difCoins, difDiamonds, difExp);
+	auto Params = String::createWithFormat("{\"coins\": %d, \"exps\": %d }", difCoins,difExp);
 	
 	CCLOG("sendUserInfoChange %s",Params->getCString());
 		pc_notify_with_timeout(workingClient, REQ_USERINFOCHANGE, Params->getCString(), REQ_USERINFOCHANGE_EX, REQ_TIMEOUT, notify_cb);
@@ -98,7 +105,7 @@ void Server::levelupdate_cb(const pc_request_t* req, int rc, const char* resp) {
     CCLOG("levelupdate_cb: get rc %d\n", rc);
     CCLOG("levelupdate_cb: get resp %s\n", resp);
     Server::getInstance()->notify_observer("level_update", resp);
-    Server::getInstance()->sendNewEvents(resp);
+
     
 }
 
@@ -106,6 +113,13 @@ void Server::levelupdate_cb(const pc_request_t* req, int rc, const char* resp) {
 
 void Server::notify_cb(const pc_notify_t* noti, int rc) {
     CCLOG("notify_cb: get rc %d\n", rc);
+}
+
+void Server::useSkill_cb(const pc_request_t* req, int rc, const char* resp) {
+
+	CCLOG("usingskill_cb: get resp %s\n", resp);
+	Server::getInstance()->notify_observer("useSkill", resp);
+
 }
 
 void Server::add_observer(MsgObserver *o){
@@ -130,6 +144,7 @@ void Server::notify_observer(const char* msgId, const char* msgBody) {
     // 4 : 'onFishes' - broadcast fish info ...
     // 5 : 'level_update' - level update request
     // 6 : 'expUpdate' - user exp update
+	// 6 : 'useSkill' - user skill
     for(std::vector<MsgObserver*>::const_iterator it=msgObserver.begin(); it!=msgObserver.end(); it++) {
         (*it)->handle_event(msgId, msgBody);
     }

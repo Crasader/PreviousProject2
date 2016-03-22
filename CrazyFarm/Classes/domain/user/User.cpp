@@ -87,33 +87,7 @@ int User::addDiamonds(int diamonds) {
 		_diamond = 0;
 	}
 
-
-
-	if (GameManage::getInstance()->getGuiLayer())
-	{
-		//每次获得钻石同步一次信息
-	auto difCoins = User::getInstance()->getCoins() - User::getInstance()->getLastCoins();
-	auto difDiamonds = User::getInstance()->getDiamonds() - User::getInstance()->getLastDiamonds();
-	auto difExp = User::getInstance()->getExp() - User::getInstance()->getLastExp();
-	if (difExp < 0)
-	{
-		return _diamond;
-	}
-	User::getInstance()->setLastCoins(User::getInstance()->getCoins());
-	User::getInstance()->setLastExp(User::getInstance()->getExp());
-	User::getInstance()->setLastDiamonds(User::getInstance()->getDiamonds());
-
-
-	Server::getInstance()->sendUserInfoChange(difCoins, difDiamonds, difExp);
-	}
-
-	
-
-
-
-
-
-	return _diamond;
+return _diamond;
 }
 
 int User::getMaxTurrentLevel() {

@@ -23,6 +23,21 @@ struct setNameRequest
 	const char* nickname;
 	int gender;
 };
+enum HTTP_TYPE
+{
+	Req_Register,
+	Req_BeforePay,
+	Req_AfterPay,
+	Req_SyncInfo,
+	Req_SetName,
+	Req_FeedBack,
+	Req_DemandEntry,
+	Req_CancelOrder,
+	Req_GetUserInfo,
+	Req_GetItemInfo,
+	Req_BuyItem
+
+};
 class HttpMannger {
 
 public:
@@ -58,7 +73,7 @@ public:
 	void HttpToPostRequestToGetUserInfo(); //获取用户信息
 	void onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpResponse *response);
 
-	void HttpToPostRequestToGetItemInfo(); //获取用户背包道具数量
+	void HttpToPostRequestToGetItemInfo(bool isOpenBag); //获取用户背包道具数量
 	void onHttpRequestCompletedForGetItemInfo(HttpClient *sender, HttpResponse *response);
 	
 	void HttpToPostRequestToBuyItem(int itemid); //背包购买道具
@@ -67,6 +82,13 @@ public:
 	//数据埋点
 	void HttpToPostRequestLogEvent(std::string jsonString,int type); //type: 1鱼群2破产3美人鱼4界面跳转5赠送6技能使用7炮台升级	
 	void onHttpRequestCompletedForLogEventCommon(HttpClient *sender, HttpResponse *response);
+
+	
+
+	//等待转圈
+	void ShowWaiting(HTTP_TYPE type);
+	void RemoveWaiting(HTTP_TYPE type);
+	bool isReqWaiting(HTTP_TYPE type);
 private:
 	HttpMannger();
     void init();

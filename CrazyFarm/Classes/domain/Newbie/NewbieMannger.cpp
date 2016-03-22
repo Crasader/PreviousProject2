@@ -4,7 +4,7 @@
 NewbieMannger* NewbieMannger::_instance = NULL;
 
 NewbieMannger::NewbieMannger(){
-
+	setisAllowdedGetFirstReward(false);
 }
 
 

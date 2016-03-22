@@ -146,6 +146,9 @@ private:
 	void onConError(Msg_ConError*msg);
 	void onUpdateTurrent(Msg_OnUpdateTurrent*msg);
 	void onUpdateLevel(Msg_OnExpUpdate*msg);
+
+	void onUseSkill(Msg_UseSkill* msg);
+	void ToPayShopCallBack(Ref*psend);
 	void exitCallback(Ref*psend);
 	void MsgUpdata(float dt);
 	std::list<Msg_Base*> Msgs;

@@ -650,9 +650,12 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		num = fish->getFishGold()* m_turretdata.multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
 		m_CoinLabel->setString(String::createWithFormat("%ld", User::getInstance()->addCoins(num))->getCString());
 	
+		GameData::getInstance()->setchangeCoin(GameData::getInstance()->getchangeCoin()+num);
+
+
 		auto exp = fish->getFishExperience();
 		User::getInstance()->addExp(exp);
-
+		GameData::getInstance()->setchangeExp(GameData::getInstance()->getchangeExp() + exp);
 		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
 
 		auto event = GameData::getInstance()->getDiamondevent();
@@ -1199,10 +1202,16 @@ void PlayerTurret::costMoney()
 			node->removeFromParentAndCleanup(1);
 		}
 
+		//¹Ø±ÕÔùËÍ
+		/*	GameData::getInstance()->setShotDiamondCount(1 + (GameData::getInstance()->getShotDiamondCount()));
+			GameData::getInstance()->setShotPropCount(1 + (GameData::getInstance()->getShotPropCount()));*/
 
-		GameData::getInstance()->setShotDiamondCount(1 + (GameData::getInstance()->getShotDiamondCount()));
-		GameData::getInstance()->setShotPropCount(1 + (GameData::getInstance()->getShotPropCount()));
+
+
+
+
 		auto num = Value(m_turretdata.multiple).asInt();
+		GameData::getInstance()->setchangeCoin(GameData::getInstance()->getchangeCoin() - num);
 		auto nowCoin = User::getInstance()->addCoins(-num);
 		if (nowCoin <= 0)
 		{
