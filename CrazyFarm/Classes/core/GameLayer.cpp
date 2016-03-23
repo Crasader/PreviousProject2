@@ -478,7 +478,7 @@ void GameLayer::onExit()
 
     Server::getInstance()->quit();  // TODO : disconnect con
 	Msgs.clear();
-
+	FishManage::getInstance()->clearServerItemFishs();
 	Layer::onExit();
 	
 }
