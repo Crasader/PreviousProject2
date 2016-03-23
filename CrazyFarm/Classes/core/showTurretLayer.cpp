@@ -16,7 +16,6 @@ cocos2d::extension::TableViewCell* showTurretView::tableCellAtIndex(cocos2d::ext
 	showTurretCell *cell = (showTurretCell*)table->dequeueCell();
 	if (!cell) {
 		cell = showTurretCell::create();
-		cell->setPosition(0, 0);
 	}
 	else
 	{
@@ -28,7 +27,20 @@ cocos2d::extension::TableViewCell* showTurretView::tableCellAtIndex(cocos2d::ext
 	}
 	else if (nViewTp == 2)
 	{
+		cell->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		cell->setMultipleValue(m_viewData[idx]);
+		if (idx != 2)
+		{
+			cell->setScale(0.8);
+			cell->setPosition(18, 24);
+		}
+		else
+		{
+			cell->setScale(1.0);
+			cell->setPosition(-180, -12);
+	/*		cell->setPosition(18, 24.3);*/
+		}
+		
 	}
 	return cell;
 }
@@ -140,7 +152,7 @@ bool showTurretLayer::init(int type)
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(showTurretLayer::closeButtonCallBack, this));
-		close->setPosition(900, 400);
+		close->setPosition(900, 405);
 		auto menu = Menu::create(close, nullptr);
 		menu->setPosition(Point::ZERO);
 		addChild(menu);

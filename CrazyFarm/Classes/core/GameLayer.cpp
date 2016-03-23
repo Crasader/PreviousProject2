@@ -54,7 +54,6 @@ bool GameLayer::init(){
 	{
 		return false;
 	}
-	//initFishAndBulletData();
 	setIsShowYourChairno(false);
 	FishManage::getInstance()->setlayer(this);
 	skillManager::getInstance()->setlayer(this);
@@ -97,8 +96,26 @@ bool GameLayer::init(){
 	schedule(schedule_selector(GameLayer::collisionUpdate), 0.1, CC_REPEAT_FOREVER, 0);
 
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
+
 	schedule(schedule_selector(GameLayer::UpdateCreateFishByServer), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
+
+	runAction(Sequence::create(DelayTime::create(0.01f),
+		CallFunc::create([&]{
+		initFishAndBulletData();
+		FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 10));
+	for (int i = 0; i < 5;i++)
+	{
+		update(1);
+	}
+		for (auto var : FishManage::getInstance()->getAllFishInPool())
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				var->moveUpdata(1);
+			}
+		}
+ }), nullptr));
 
 	setbisOnSkillLock(false);
 
@@ -142,95 +159,9 @@ bool GameLayer::init(){
 	
 
 	schedule(schedule_selector(GameLayer::UpdateUserinfo), 10.0f, CC_REPEAT_FOREVER, 0);
-	//loadNewMonent(2);
 
-	//float difTime = 15;
-	//_fishGroupType = 1;
-	//runAction(Sequence::create(DelayTime::create(0), CallFunc::create([=]{FFOneTimeToFishes(difTime); }), nullptr));
-
-
-
-	/////////////////TEST BEGIN///////////////////////////
-	//	Vector<Fish*> needDeadFishs;
-	//	for (int i = 0; i < 10;i++)
-	//{
-	//	auto fish = FishManage::getInstance()->createFishSingle(i+1);
-	//	fish->setPosition(getRand() % 500 + 200, 100 + getRand() % 200);
-	//	addChild(fish, 10);
-	//	needDeadFishs.pushBack(fish);
-	//}
-	//	if (needDeadFishs.size() > 0)
-	//	{
-	//		auto fish = FishManage::getInstance()->createFishSingle(5);
-	//		fish->setPosition(getRand() % 500 + 200, 100 + getRand() % 200);
-	//		addChild(fish, 10);
-	//		auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
-	//		shandian->setPosition(fish->getPosition());
-	//		shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-	//		addChild(shandian, 2);
-	//		shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
-	//		auto rorate = getTurretRotation(fish->getPosition(), needDeadFishs.at(0)->getPosition());
-	//		auto distans = fish->getPosition().distance(needDeadFishs.at(0)->getPosition());
-	//		shandian->setRotation(-90 + rorate);
-	//		shandian->setScaleX(distans / 933.0f);
-	//	}
-	//	for (int i = 0; i < needDeadFishs.size(); i++)
-	//	{
-	//		auto var = needDeadFishs.at(i);
-	//		//闪电光圈
-	//		auto sp = Sprite::create();
-	//		sp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGuangqiu")));
-	//		sp->setPosition(var->getPosition());
-	//		addChild(sp, 3);
-	//		//闪电
-	//		if ((i + 1) < needDeadFishs.size())
-	//		{
-	//
-	//			auto shandian = Sprite::create("game/ui/ani/TX_shandian/shandian_1.png");
-	//			shandian->setPosition(var->getPosition());
-	//			shandian->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-	//			addChild(shandian, 2);
-	//			shandian->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShandian")));
-	//			auto rorate = getTurretRotation(var->getPosition(), needDeadFishs.at(i + 1)->getPosition());
-	//			auto distans = var->getPosition().distance(needDeadFishs.at(i + 1)->getPosition());
-	//			shandian->setRotation( - 90 + rorate);
-	//			shandian->setScaleX(distans / 933.0f);
-	//
-	//
-	//		}
-	//		
-	//	}
-	//
-	//
-	//
-
-	/////////////////TEST END///////////////////////////
-
-
-	//auto fish = FishManage::getInstance()->createFishSingle(50);
-	//fish->setVisible(false);
-	//fish->setisAutoRemove(false);
-	//fish->setMonentEightRoute(21);
-	//addChild(fish, fish->getFishZorder());
-
-
-
-	//fish->addShader();
-
-	//fish = FishManage::getInstance()->createFishSingle(50);
-	//fish->setVisible(false);
-	//fish->setisAutoRemove(false);
-	//fish->setMonentEightRoute(24);
-	//addChild(fish, fish->getFishZorder());
-
-
-	//fish->addShader();
-
-
-
-	//User::getInstance()->setLastCoins(User::getInstance()->getCoins());
-	//User::getInstance()->setLastExp(User::getInstance()->getExp());
-	//User::getInstance()->setLastDiamonds(User::getInstance()->getDiamonds());
+	
+	_touchtypes.push_back(TouchInNormal);
 	return true;
 }
 
@@ -408,7 +339,7 @@ void GameLayer::createNet(Bullet *bullet){
 	Net* fishNet = Net::create();
 	fishNet->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	fishNet->setBullet(bullet);
-	float dotdistance = bullet->getContentSize().height*0.5;
+	float dotdistance = bullet->getContentSize().height*0.2;
 	float angle = bullet->getRotation();
 	auto dotpos = Vec2(dotdistance*sin(CC_DEGREES_TO_RADIANS(angle)), dotdistance*cos(CC_DEGREES_TO_RADIANS(angle)));
 	fishNet->setPosition(bullet->getPosition() + dotpos);
@@ -515,6 +446,7 @@ void GameLayer::initFishAndBulletData()
 	{
 		FishManage::getInstance()->cleanVector();
 		BulletManage::getInstance()->ClearManage();
+		GameData::getInstance()->setisOnGroupComing(false);
 		isInitData = true;
 	}
 }
@@ -525,10 +457,11 @@ void GameLayer::onEnter()
 }
 void GameLayer::onExit()
 {
+
     Server::getInstance()->quit();  // TODO : disconnect con
 	Msgs.clear();
 	Layer::onExit();
-	initFishAndBulletData();
+	
 }
 void GameLayer::onEnterTransitionDidFinish()
 {
@@ -566,6 +499,7 @@ bool GameLayer::lightTouchEvent(Touch *touch, Event *event)
 }
 void GameLayer::beginLight()
 {
+	_touchtypes.push_back(TouchInLight);
 	m_lasttouchType = m_touchType;
 	myTurret->beginLightShoot();
 	changeTouchFunByTouchType(TouchInLight);
@@ -576,8 +510,9 @@ void GameLayer::beginLight()
 }
 void GameLayer::endLight()
 {
+	_touchtypes.remove(TouchInLight);
 	myTurret->endLightShoot();
-	changeTouchFunByTouchType(m_lasttouchType);
+	changeTouchFunByTouchType(_touchtypes.back());
 	auto node = getChildByName("TXTTip");
 	if (node)
 	{
@@ -587,18 +522,21 @@ void GameLayer::endLight()
 
 void GameLayer::beginLock()
 {
+	_touchtypes.push_back(TouchInLock);
 	m_lasttouchType = m_touchType;
 	myTurret->beginLockShoot();
 	changeTouchFunByTouchType(TouchInLock);
 
 	auto txt = Sprite::create("TXTUseLock.png");
 	txt->setPosition(myTurret->getPosition() + Vec2(0, 100));
+	txt->runAction(RepeatForever::create(Sequence::create(FadeIn::create(0.8f), FadeOut::create(0.8f), nullptr)));
 	addChild(txt, kZorderDialog, "TXTTip");
 }
 void GameLayer::endLock()
 {
+	_touchtypes.remove(TouchInLock);
 	myTurret->endLockShoot();
-	changeTouchFunByTouchType(m_lasttouchType);
+	changeTouchFunByTouchType(_touchtypes.back());
 	auto node = getChildByName("TXTTip");
 	if (node)
 	{
@@ -608,6 +546,7 @@ void GameLayer::endLock()
 
 void GameLayer::beginSkillBoom()
 {
+	_touchtypes.push_back(TouchInBoom);
 	m_lasttouchType = m_touchType;
 	changeTouchFunByTouchType(TouchInBoom);
 
@@ -617,9 +556,15 @@ void GameLayer::beginSkillBoom()
 }
 void GameLayer::endSkillBoom()
 {
-	changeTouchFunByTouchType(m_lasttouchType);
+	_touchtypes.remove(TouchInBoom);
+	changeTouchFunByTouchType(_touchtypes.back());
 
-	getChildByName("TXTTip")->removeFromParentAndCleanup(1);
+	auto txttip = getChildByName("TXTTip");
+	if (txttip)
+	{
+		txttip->removeFromParentAndCleanup(1);
+	}
+	
 }
 
 
@@ -715,13 +660,15 @@ void GameLayer::beginAutoShoot()
 {
 	autoShootPos = Point(-1, -1);
 	m_lasttouchType = m_touchType;
+	_touchtypes.push_back(TouchInAutoShoot);
 	changeTouchFunByTouchType(TouchInAutoShoot);
 	myTurret->beginAutoShoot();
 	
 }
 void GameLayer::endAutoShoot()
 {
-	changeTouchFunByTouchType(m_lasttouchType);
+	_touchtypes.remove(TouchInAutoShoot);
+	changeTouchFunByTouchType(_touchtypes.back());
 	myTurret->endAutoShoot();
 }
 bool GameLayer::AutoShootTouchEvent(Touch *touch, Event *event)
@@ -745,6 +692,20 @@ void GameLayer::useFreeze(PlayerTurret*turret)
 	addChild(bg, 0, kTagFrezzebg);
 	bg->setPosition(480, 270);
 	bg->runAction(ProgressTo::create(2, 100));
+
+
+
+	auto bg1 = ProgressTimer::create(Sprite::create("onFreezeTop.png"));
+	bg1->setScale(2);
+	bg1->setType(ProgressTimer::Type::BAR);
+	bg1->setMidpoint(Vec2(0, 0));
+	bg1->setBarChangeRate(Vec2(1, 0));
+	addChild(bg1, kZorderFishXL+11, "kTagFrezzebg");
+	bg1->setPosition(480, 270);
+	bg1->runAction(ProgressTo::create(2, 100));
+
+
+
 
 	auto aniSp = ProgressTimer::create(Sprite::create("game/ui/ani/TX_DongJie/TX_qpdj_1.png"));
 	aniSp->setType(ProgressTimer::Type::BAR);
@@ -770,6 +731,7 @@ void GameLayer::onFreezeEnd(PlayerTurret*turret)
 	scheduleUpdate();
 	createFishAcNode->resume();
 	getChildByTag(kTagFrezzebg)->removeFromParentAndCleanup(1);
+	getChildByName("kTagFrezzebg")->removeFromParentAndCleanup(1);
 	turret->getChildByName("freezetxt")->removeFromParentAndCleanup(1);
 }
 
@@ -784,7 +746,7 @@ void GameLayer::onClearFish()
 	auto lang = Sprite::create("wave.png");
 	lang->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 	lang->setPosition(1100, 270);
-	lang->runAction(Sequence::create(MoveTo::create(8, Vec2(-300, 270)), CallFunc::create([&]{
+	lang->runAction(Sequence::create(MoveTo::create(5, Vec2(-300, 270)), CallFunc::create([&]{
 		unschedule(schedule_selector(GameLayer::onClearFishUpdata)); 
 		getChildByName("yuchaotxt")->removeFromParentAndCleanup(1);
 		loadNewMonent(_fishGroupMonentType);
@@ -866,27 +828,37 @@ void GameLayer::addReward(int itemid, int num)
 
 void GameLayer::onGetReward(int itemid, int num)
 {
-	auto spPath = String::createWithFormat("item_%d.png", itemid);
+	auto spPath = String::createWithFormat("sign_%d.png", itemid);
 
 	auto sp = Sprite::create(spPath->getCString());
 	sp->setPosition(480, 270);
 	sp->setScale(0);
-	addChild(sp, 21);	
+	GameManage::getInstance()->getGuiLayer()->addChild(sp, kZorderDialog+1);	
+
+
+	auto txt = String::createWithFormat(":%d", num);
+	auto spnum = LabelAtlas::create(txt->getCString(), "turntableCellNum.png", 15, 23, '0');
+	spnum->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	spnum->setPosition(sp->getContentSize().width*0.5, sp->getContentSize().height*-0.05);
+	sp->addChild(spnum);
+
+
 	auto lightsp = Sprite::create("light1.png");
 	lightsp->setPosition(sp->getContentSize()/2);
-	lightsp->runAction(RotateTo::create(3.0f, 360.0));
+	lightsp->runAction(RotateBy::create(2.0f, 360.0));
+	lightsp->setScale(2);
 	sp->addChild(lightsp,-1);
 	auto colorlayer = LayerColor::create();
 	colorlayer->setColor(ccc3(0, 0, 0));
 	colorlayer->setOpacity(180);
-	addChild(colorlayer, 20);
+	GameManage::getInstance()->getGuiLayer()->addChild(colorlayer, kZorderDialog);
 
 	auto aninode = Sprite::create();
 	aninode->setPosition(480, 270);
-	addChild(aninode,20);
+	GameManage::getInstance()->getGuiLayer()->addChild(aninode, kZorderDialog);
 	aninode->setScale(4);
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), RemoveSelf::create(), nullptr));
-	sp->runAction(Sequence::create(DelayTime::create(2.0f), ScaleTo::create(0.2, 1.0f),CallFunc::create([=]{lightsp->removeFromParentAndCleanup(1), colorlayer->removeFromParentAndCleanup(1); }), MoveTo::create(1.0f, myTurret->getPosition()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
+	sp->runAction(Sequence::create( CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }),ScaleTo::create(1.0f, 1.0f), MoveTo::create(1.0f, myTurret->getPosition()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
 
 }
 
@@ -1166,14 +1138,12 @@ void GameLayer::onUseSkill(Msg_UseSkill*msg)
 		{
 			BagManager::getInstance()->changeItemCount(msg->itemid, -1);
 			auto skillid = skillManager::getInstance()->getSkillInfoByitemId(msg->itemid).skill_id;
-			skillManager::getInstance()->getButtonByID(skillid)->skillButonUi();
 			skillManager::getInstance()->useSkillById(skillid, GameManage::getInstance()->getGameLayer()->GetMyTurret());
 		}
 		else
 		{
 			User::getInstance()->addDiamonds(-msg->price);
 			auto skillid = skillManager::getInstance()->getSkillInfoByitemId(msg->itemid).skill_id;
-			skillManager::getInstance()->getButtonByID(skillid)->skillButonUi();
 			skillManager::getInstance()->useSkillById(skillid, GameManage::getInstance()->getGameLayer()->GetMyTurret());
 		}
 	}

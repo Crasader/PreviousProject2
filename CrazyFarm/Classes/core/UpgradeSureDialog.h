@@ -11,6 +11,6 @@ protected:
 public:
 	static UpgradeSureDialog*create(std::vector<LevelRewardItem> levelRewardItems);
 	std::vector<LevelRewardItem> m_levelRewardItems;
-	Vector<Node*> cells;
+	Vector<Sprite*> cells;
 };
 

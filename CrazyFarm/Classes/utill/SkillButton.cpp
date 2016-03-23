@@ -74,13 +74,14 @@ bool SkillButton::init(int skillID, const char* stencil_file_name, const char* b
     addChild(mProgressTimer, 100);
 
 	auto labelPropNum = LabelAtlas::create("0", "bagPropNum.png", 18, 26, '0');
-	labelPropNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-	labelPropNum->setPosition(17, 25);
+	labelPropNum->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+	labelPropNum->setPosition(40, 26);
 	addChild(labelPropNum,101,50);
 
-	auto labelPriceNum = LabelAtlas::create("0", "nowPoolNum.png", 13, 21, '0');
-	labelPriceNum->setPosition(20, -35);
-	labelPriceNum->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+	auto labelPriceNum = LabelAtlas::create("0", "multipleNum.png", 15, 28, '0');
+	labelPriceNum->setPosition(39, -34);
+	labelPriceNum->setScale(1.1);
+	labelPriceNum->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	addChild(labelPriceNum, 101, 51);
 	
 	auto sp = Sprite::create("smallDiamond.png");
@@ -149,7 +150,7 @@ void SkillButton::skillCoolDownCallBack()
     // 按钮置为可用
     mItemSkill->setEnabled(true);
 }
-void SkillButton::skillButonUi()
+void SkillButton::skillButonUi(int cdTime)
 {
 
 
@@ -164,7 +165,7 @@ void SkillButton::skillButonUi()
 	mProgressTimer->setType(ProgressTimer::Type::RADIAL);
 	mProgressTimer->stopAllActions();
 	//准备一个5秒旋转360度的动画(逐渐覆盖半透模板形成冷却效果;这里进行计时冷却动画的实现和时间控制)
-	ActionInterval* action_progress_to = Sequence::create(ProgressTo::create(mCDTime, 100), ProgressTo::create(0, 0), nullptr);
+	ActionInterval* action_progress_to = Sequence::create(ProgressTo::create(cdTime, 100), ProgressTo::create(0, 0), nullptr);
 	auto action_callback = CallFunc::create(CC_CALLBACK_0(SkillButton::skillCoolDownCallBack, this));
 	mProgressTimer->runAction(Sequence::create(action_progress_to, action_callback, NULL));
 }
@@ -203,10 +204,7 @@ void SkillButton::useSkill()
 			if (userdm > price)
 			{
 				Server::getInstance()->sendUseSkill(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id);
-				/*LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, price);
-				User::getInstance()->addDiamonds(-price);
-				skillManager::getInstance()->getButtonByID(m_skillID)->skillButonUi();
-				skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());*/
+
 			}
 			else
 			{
@@ -228,11 +226,9 @@ void SkillButton::useSkill()
 	break;
 	case 0: //直接使用
 	{
+
 		Server::getInstance()->sendUseSkill(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id);
-		/*	LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, 0);
-			BagManager::getInstance()->changeItemCount(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id, -1);
-			skillManager::getInstance()->getButtonByID(m_skillID)->skillButonUi();
-			skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());*/
+
 	}
 	break;
 	default:
@@ -246,14 +242,34 @@ int SkillButton::JudgeUseSkill()
 	{
 		return -1;
 	}
-	for (int i = 1; i <= 5; i++)
-	{
-		if (skillManager::getInstance()->isUseSkillNow(i))
+	if (m_skillID==1)
+	{	
+		if (skillManager::getInstance()->isUseSkillNow(1))
 		{
 			//TODO:技能不能组合使用;
 			return -1;
 		}
+	
 	}
+	if (m_skillID == 2)
+	{
+		if (skillManager::getInstance()->isUseSkillNow(5))
+		{
+			//TODO:技能不能组合使用;
+			return -1;
+		}
+
+	}
+	if (m_skillID == 5)
+	{
+		if (skillManager::getInstance()->isUseSkillNow(2))
+		{
+			//TODO:技能不能组合使用;
+			return -1;
+		}
+
+	}
+	
 	auto num = skillManager::getInstance()->getSKillNumById(m_skillID);
 	if (num > 0)
 	{

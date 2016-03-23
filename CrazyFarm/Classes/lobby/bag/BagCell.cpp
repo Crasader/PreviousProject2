@@ -14,13 +14,13 @@ bool BagCell::init(){
 
 	propNum = LabelAtlas::create("0", "bagPropNum.png", 18, 26, '0');
 	propNum->setAnchorPoint(Point(1,0));
-	propNum->setPosition(size.width*0.95, size.height*0.1);
-	addChild(propNum,10);
+	propNum->setPosition(size.width*0.65+27, size.height*0.1);
+	addChild(propNum);
 	propNum->setVisible(false);
 
 	txtji = Sprite::create("txtLevel.png");
-	txtji->setPosition(propNum->getPosition());
-	txtji->setAnchorPoint(Vec2(0,0));
+	txtji->setAnchorPoint(Point(1,0));
+	txtji->setPosition(size.width*0.65 + 27, size.height*0.1);
 	addChild(txtji);
 	txtji->setVisible(false);
 
@@ -76,6 +76,7 @@ void BagCell::setValue(BagItem item)
 		txtji->setVisible(true);
 		txt->setVisible(false);
 		propNum->setVisible(true);
+		propNum->setPositionX(65 + 6);
 		propNum->setString(Value(User::getInstance()->getLevelData().levelId+1).asString().c_str());//ÏÔÊ¾¼¶Êı
 		
 

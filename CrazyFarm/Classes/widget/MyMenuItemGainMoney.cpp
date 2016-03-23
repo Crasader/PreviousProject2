@@ -2,6 +2,7 @@
 #include "domain/bonuspool/BonusPoolManager.h"
 #include "domain/turntable/TurnTableDialog.h"
 #include "domain/logevent/LogEventPageChange.h"
+#include "extensions/cocos-ext.h"
 enum 
 {
 	kTagMutpleLabel = 10,
@@ -28,7 +29,7 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 	if (isElongate)
 	{
 		commonNode->setVisible(false);
-		runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(177, 0)));
 		isElongate = false;
 			auto dioag = TurnTableDialog::create();
 			dioag->setPosition(Point::ZERO);
@@ -40,7 +41,7 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(-177, 0)));
 		runAction(Sequence::create(DelayTime::create(5.0f), CallFunc::create([&]{
 			if (isElongate == false)
 			{
@@ -51,7 +52,7 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 			{
 				pNode->removeFromParentAndCleanup(1);
 			}
-			runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+			runAction(MoveBy::create(0.5f, Vec2(177, 0)));
 			commonNode->setVisible(false);
 			isElongate = false;
 		}), nullptr));
@@ -62,7 +63,7 @@ void MyMenuItemGainMoney::initItem()
 {
 
 	commonNode = Node::create();
-	commonNode->setPosition(Point::ZERO);
+	commonNode->setPosition(11, 0);
 	addChild(commonNode,1);
 
 
@@ -75,8 +76,11 @@ void MyMenuItemGainMoney::initItem()
 
 	//¾­ÑéÌõ
 	exeBarFrame = Sprite::create("exeBarFrameDiamond.png");
-	exeBarFrame->setPosition(size.width*0.40 + 16, 50);
+	exeBarFrame->setPosition(size.width*0.40 + 22, 58);
 	commonNode->addChild(exeBarFrame, 1, "exeFrame");
+
+
+
 	auto exeBar = Sprite::create("exeBarDiamond.png");
 	exeBar->setPosition(2, exeBarFrame->getContentSize().height/2);
 	exeBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
@@ -92,10 +96,10 @@ void MyMenuItemGainMoney::initItem()
 	
 	auto coinNum = LabelAtlas::create(Value(0).asString().c_str(), "bonusNumTTF.png", 14, 21, '0');
 	coinNum->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	coinNum->setPosition(size.width*0.28+24, size.height*0.29-4);
+	coinNum->setPosition(size.width*0.28+24, size.height*0.29-1);
 	commonNode->addChild(coinNum, 1, kTagCoinLabel);
 	auto coin = Sprite::create("smallCoin.png");
-	coin->setPosition(size.width*0.6, size.height*0.29-2);
+	coin->setPosition(size.width*0.6, size.height*0.29);
 	commonNode->addChild(coin);
 	
 	
@@ -124,7 +128,8 @@ void MyMenuItemGainMoney::setValue()
 	node = (LabelAtlas*)frame->getChildByTag(kTagExeDec);
 	node->setString(str->getCString());
 	auto node1 = frame->getChildByTag(kTagExeBar);
-	node1->setScaleX(0.93*scalex);
+	((Sprite*)node1)->setTextureRect(Rect(0,0,scalex*93,20));
+	/*node1->setContentSize(Size(scalex*77,node1->getContentSize().height));*/
 
 	if (isFinish)
 	{
@@ -156,7 +161,7 @@ void MyMenuItemGainMoney::showPopup()
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
+		runAction(MoveBy::create(0.5f, Vec2(-177, 0)));
 		
 		float delaytime;
 		if (isFinish)
@@ -172,7 +177,7 @@ void MyMenuItemGainMoney::showPopup()
 			if (isElongate == true)
 			{
 				commonNode->setVisible(false);
-				runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+				runAction(MoveBy::create(0.5f, Vec2(177, 0)));
 				isElongate = false;
 			};
 

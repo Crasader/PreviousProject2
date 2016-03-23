@@ -66,7 +66,7 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 	sLight = Sprite::create("light_2.png");
 	sLight->setPosition(box->getContentSize() / 2);
 	box->addChild(sLight);
-	sLight->runAction(Sequence::create(Spawn::create(ScaleBy::create(1.0f, 4), FadeOut::create(1.0f), nullptr), CallFunc::create([=]{box->setVisible(false); }), RemoveSelf::create(), nullptr));
+	sLight->runAction(Sequence::create(Spawn::create(ScaleBy::create(2.0f, 5), FadeOut::create(2.0f), nullptr), CallFunc::create([=]{box->setVisible(false); }), RemoveSelf::create(), nullptr));
 	box->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("anifirstBox"), CallFunc::create([&]
 	{
 		Audio::getInstance()->playSound(OPENNEWBBOX);
@@ -75,8 +75,9 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 		{
 			auto cell = GiftCell::create(rewards[i].itemId, rewards[i].num);
 			cell->setPosition(box->getPosition());
+			/*cell->setTextureRect(Rect(0, 0, 0, 0));*/
 			cell->setScale(0);
-			cell->runAction(Sequence::create(DelayTime::create(i*0.15f),Spawn::create(ScaleTo::create(1.0f, 1.0), MoveTo::create(1.0f, Vec2(281 + i * 130, 361)), nullptr), DelayTime::create(1.0f + i*0.2f), Spawn::create(MoveTo::create(1.0f, Vec2(259.2, 48)), ScaleTo::create(1.0f, 0.1f), nullptr), CallFunc::create(
+			cell->runAction(Sequence::create(DelayTime::create(i*0.15f),Spawn::create(ScaleTo::create(0.5f, 1.0), MoveTo::create(0.5f, Vec2(281 + i * 130, 361)), nullptr), DelayTime::create(2.0f + i*0.2f), Spawn::create(MoveTo::create(0.5f, Vec2(259.2, 48)), ScaleTo::create(0.5f, 0.5f), nullptr), CallFunc::create(
 		[=]{
 				auto parent = this->getParent();
 				auto menu = parent->getChildByName("menu");

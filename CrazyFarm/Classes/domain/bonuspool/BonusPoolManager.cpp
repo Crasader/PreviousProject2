@@ -83,7 +83,7 @@ BonuspoolResult BonusPoolManager::getBonuspoolResult() {
 	{
 		Bonuspool bonuspool = ConfigBonuspool::getInstance()->getBonuspool();
 		for (int i = 0; i < bonuspool.bonuspoolItems.size(); i++) {
-			if (coins < bonuspool.bonuspoolItems.at(i).start_coins)
+			if (coins >= bonuspool.bonuspoolItems.at(i).start_coins&&coins <= bonuspool.bonuspoolItems.at(i).end_coins)
 			{
 				bonuspoolResult.reward_list = bonuspool.bonuspoolItems.at(i).reward_list; 
 				bonuspoolResult.reward_position = 0;

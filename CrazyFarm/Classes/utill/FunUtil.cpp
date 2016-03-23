@@ -215,3 +215,4 @@ int getRand(unsigned int _Seed)
 	srand(_Seed);
 	return rand();
 }
+

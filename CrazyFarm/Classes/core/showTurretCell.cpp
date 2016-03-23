@@ -27,7 +27,7 @@ bool showTurretCell::init(){
 	auto bottom = Sprite::create("VIPbottomFrame.png");
 	bottom->setPosition(0, 0);
 	bottom->setAnchorPoint(Point::ZERO);
-	addChild(bottom);
+	addChild(bottom,0,"bottom");
 
 	
 
@@ -38,7 +38,7 @@ bool showTurretCell::init(){
 
 	
 	
-	muptleTTF = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
+	muptleTTF = LabelAtlas::create("0", "multipleNum.png", 15, 21, '0');
 	muptleTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	muptleTTF->setPosition(size.width*0.52, size.height*0.9+3);
 	addChild(muptleTTF);
@@ -110,12 +110,13 @@ bool showTurretCell::init(){
 
 void showTurretCell::setMultipleValue(int index)
 {
+	getChildByName("bottom")->setVisible(false);
 	auto size = bg->getContentSize();
 	propSprite->setPosition(size.width / 2, size.height / 2 +20);
 
 	m_type = 2;
 	button->setScale(0.9);
-	setScale(0.9);
+	//setScale(0.9);
 	
 	bg->setTexture("ShowPaobg.png");
 	auto maxlevl = User::getInstance()->getMaxTurrentLevel();
@@ -207,27 +208,31 @@ void showTurretCell::setVippaoValue(int index)
 	setAnchorPoint(Point::ANCHOR_MIDDLE);	
 	button->setScale(0.9);
 	setScale(0.9);
-	if (index == (viplv+1))
-	{
-		ShowPaolight->setVisible(true);
-	}
-	else
-	{
-		ShowPaolight->setVisible(false);
 	
-	}
 
 	if (index>viplv)
 	{
 		button->setVisible(true);
 		lockTTf->setVisible(false);
 		lock->setVisible(true);
+		ShowPaoshade->setVisible(true);
 	}
 	else
 	{
 		button->setVisible(false);
 		lockTTf->setVisible(true);
 		lock->setVisible(false); 
+		ShowPaoshade->setVisible(false);
+	}
+	if (index == (viplv+1))
+	{
+		ShowPaoshade->setVisible(false);
+		ShowPaolight->setVisible(true);
+	}
+	else
+	{
+		ShowPaolight->setVisible(false);
+	
 	}
 }
 
@@ -257,25 +262,6 @@ void showTurretCell::ButtonCallback(Ref* psend)
 		Server::getInstance()->reqTurrentLevelUpdate();
 		GameData::getInstance()->setTouchLockTurretType(1);
 		getParent()->getParent()->getParent()->removeFromParentAndCleanup(1);
-		/*auto maxlevel = User::getInstance()->getMaxTurrentLevel();
-		auto turretData = ConfigTurrent::getInstance()->getNextTurrent(maxlevel);
-		auto zengList = turretData.rewardList;
-		auto diamondNum = User::getInstance()->getDiamonds();
-		bool isFinish = diamondNum >= turretData.unlockPrice ? true : false;
-		if (isFinish)
-		{
-		GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent();
-		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
-		}
-		else
-		{
-		auto layer = payLayer::createLayer(2);
-		layer->setPosition(0, 0);
-		layer->setEventPont(12);
-		Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer, 20);
-		Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
-		LogEventPageChange::getInstance()->addEventItems(2, 13, 5);
-		}*/
 	}
 
 }

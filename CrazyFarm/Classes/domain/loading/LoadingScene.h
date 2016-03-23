@@ -12,6 +12,7 @@ struct LoadAniData
 	char animatname[50];
 	float time;
 	int numOfpng;
+	bool isSetRestoreOriginalFrame =true;
 
 };
 
@@ -36,7 +37,7 @@ public:
 
 
 	///异步加载普通动画
-	void loadAniWithPng(const char *filepath, const char *animatname, float time, int numOfpng);
+	void loadAniWithPng(const char *filepath, const char *animatname, float time, int numOfpng, bool isSetRestoreOriginalFrame = true);
 	void imageAsyncCallback(Texture2D* texture, void*aniData);
 	//异步加载鱼的动画
 	void loadFishAni(const char* PngName, const char* jsonName, const char* plistName);

@@ -53,4 +53,6 @@ template<typename Fkd>
 Fkd getRandValueInVector(Vector<Fkd> &vec)
 {
 	return vec.at(getRand() % vec.size());
+
 }
+

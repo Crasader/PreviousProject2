@@ -103,6 +103,8 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 {
 
 	((MenuItemImage*)psend)->setEnabled(false);
+	((MenuItemImage*)psend)->selected();
+
 	Audio::getInstance()->playSound(FRUITSIGN);
 	CCLOG("begin");
 	for (auto var : SpliceCells)

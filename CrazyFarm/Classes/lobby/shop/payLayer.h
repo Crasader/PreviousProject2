@@ -75,7 +75,6 @@ private:
 	virtual bool init(int payType);
 	void closeButtonCallBack(Ref*psend);
 	LabelTTF*ttf;
-	Sprite* topTip;
 
 	void showVipCallback(Ref*psend);
 };

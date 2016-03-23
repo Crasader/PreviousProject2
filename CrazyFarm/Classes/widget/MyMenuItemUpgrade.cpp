@@ -8,6 +8,8 @@
 #include "domain/globalschedule/GlobalSchedule.h"
 #include "domain/game/GameManage.h"
 #include "server/Server.h"
+#include "core/showLockTurretLayer.h"
+
 enum 
 {
 	kTagMutpleLabel = 10,
@@ -50,36 +52,28 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		commonNode->setVisible(false);
 		unfinishedNode->setVisible(false);
 		nodeZeng->setVisible(false);
-		runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+		setEnabled(false);
+		runAction(Sequence::create(MoveBy::create(0.5f, Vec2(177, 0)), CallFunc::create([=]{setEnabled(true); }), nullptr));
 		isElongate = false;
 		removeBlinkAni();
+
 		Server::getInstance()->reqTurrentLevelUpdate();
 		GameData::getInstance()->setTouchLockTurretType(2);
-		//if (isFinish)
-		//{
-		//	
-		//	GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent();
-		//}
-		//else
-		//{
-		//	auto layer = showTurretLayer::create(2);
-		//	layer->setPosition(Point::ZERO);
-		//	getParent()->getParent()->addChild(layer,20,50);
-		//	///////弹出充值
-		//}
-		//
+
 	}
 	else
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
+		setEnabled(false);
+		runAction(Sequence::create(MoveBy::create(0.5f, Vec2(-177, 0)), CallFunc::create([=]{setEnabled(true); }), nullptr));
 		runAction(Sequence::create(DelayTime::create(4.0f), CallFunc::create([&]{
 			if (isElongate==false)
 			{
 				return;
 			}
-			runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+			setEnabled(false);
+			runAction(Sequence::create(MoveBy::create(0.5f, Vec2(177, 0)), CallFunc::create([=]{setEnabled(true); }), nullptr));
 			commonNode->setVisible(false);
 			unfinishedNode->setVisible(false);
 			nodeZeng->setVisible(false);
@@ -93,43 +87,43 @@ void MyMenuItemUpgrade::initItem()
 
 
 	nodeZeng = Node::create();
-	nodeZeng->setPosition(Point::ZERO);
+	nodeZeng->setPosition(11,0);
 	unfinishedNode = Node::create();
-	unfinishedNode->setPosition(Point::ZERO);
+	unfinishedNode->setPosition(11, 0);
 	addChild(unfinishedNode,1);
 	addChild(nodeZeng,1);
 	commonNode = Node::create();
-	commonNode->setPosition(Point::ZERO);
+	commonNode->setPosition(11, 0);
 	addChild(commonNode,1);
 	nodeZeng->setVisible(false);
 	unfinishedNode->setVisible(false);
 	auto size = getContentSize();
 	auto unLockTxt = Sprite::create("clickLockTXT.png");
-	unLockTxt->setPosition(size.width*0.41-10, 33);
+	unLockTxt->setPosition(size.width*0.41-3, 38);
 	commonNode->addChild(unLockTxt);
 	auto mutpleLabel = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
 	mutpleLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	mutpleLabel->setPosition(size.width*0.44-5,49.5);
+	mutpleLabel->setPosition(size.width*0.440+2,55);
 	commonNode->addChild(mutpleLabel, 1, kTagMutpleLabel);
 
 	//已经满足条件
 	auto zeng = Sprite::create("zeng.png");
-	zeng->setPosition(size.width*0.14, size.height*0.29);
+	zeng->setPosition(size.width*0.14+3, size.height*0.29);
 	nodeZeng->addChild(zeng, 1);
 	auto coinNum = LabelAtlas::create("", "bonusNumTTF.png", 14, 21, '0');
 	coinNum->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	coinNum->setPosition(size.width*0.28+20, size.height*0.29);
+	coinNum->setPosition(size.width*0.28+23, size.height*0.29+1.5);
 	nodeZeng->addChild(coinNum, 1,kTagCoinLabel);
 	auto coin = Sprite::create("smallCoin.png");
-	coin->setPosition(size.width*0.6, size.height*0.29);
+	coin->setPosition(size.width*0.6, size.height*0.29+1.5);
 	nodeZeng->addChild(coin);
 	//不满足条件
 	auto diamond = Sprite::create("smallDiamond.png");
-	diamond->setPosition(size.width*0.15+2, size.height*0.29);
+	diamond->setPosition(size.width*0.15+2, size.height*0.29+1.5);
 	unfinishedNode->addChild(diamond);
 	//经验条
 	auto exeBarFrame = Sprite::create("exeBarFrameDiamond.png");
-	exeBarFrame->setPosition(size.width*0.40+10, size.height*0.29);
+	exeBarFrame->setPosition(size.width*0.40+10, size.height*0.29+1.5);
 	unfinishedNode->addChild(exeBarFrame,1,"exeFrame");
 	auto exeBar = Sprite::create("exeBarDiamond.png");
 	exeBar->setPosition(0+2,exeBarFrame->getContentSize().height/2);
@@ -186,7 +180,7 @@ void MyMenuItemUpgrade::setValue()
 		node->setString(str->getCString());
 
 		auto node1 = frame->getChildByTag(kTagExeBar);
-		node1->setScaleX(0.93*scalex);
+		((Sprite*)node1)->setTextureRect(Rect(0, 0, scalex * 93, 20));
 	}
 }
 
@@ -213,7 +207,8 @@ void MyMenuItemUpgrade::showPopup()
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-166, 0)));
+		setEnabled(false);
+		runAction(Sequence::create(MoveBy::create(0.5f, Vec2(-177, 0)), CallFunc::create([=]{setEnabled(true); }),nullptr));
 
 		if (isFinish)
 		{
@@ -232,7 +227,8 @@ void MyMenuItemUpgrade::showPopup()
 					commonNode->setVisible(false);
 					unfinishedNode->setVisible(false);
 					nodeZeng->setVisible(false);
-					runAction(MoveBy::create(0.5f, Vec2(166, 0)));
+					setEnabled(false);
+					runAction(Sequence::create(MoveBy::create(0.5f, Vec2(177, 0)), CallFunc::create([=]{setEnabled(true); }), nullptr));
 					isElongate = false;
 				};
 

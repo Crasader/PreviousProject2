@@ -5,7 +5,7 @@ bool MomentIntervalCreate::updata(float dt)
 {
 	nNowTime += dt;
 	auto fishcount = FishManage::getInstance()->getAllFishInPoolCount();
-	if (fishcount < fishMinSize&&nNowTime>45)//45 == ”„≥≤ ±º‰ todo:µ•∂¿≈‰÷√
+	if (fishcount < fishMinSize&&nNowTime>50)//50 == ”„≥≤ ±º‰ todo:µ•∂¿≈‰÷√
 	{
 		
 		GameManage::getInstance()->getGameLayer()->onClearFishFinish();

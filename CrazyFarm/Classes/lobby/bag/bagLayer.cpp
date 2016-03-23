@@ -245,19 +245,12 @@ bool BagLayer::init()
 		
 
 		auto exeMur = (leveldataa.haveExp*1.0) / (1.0*leveldataa.passNeedExp);
-		auto exeBarLeft = Sprite::create("exe_left.png");
-		exeBarLeft->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		exeBarLeft->setPosition(sssize2.width*0.51, sssize2.height*0.745);
-		playinfoFram->addChild(exeBarLeft);
 		auto exeBarMid = Sprite::create("exe_mid.png");
 		exeBarMid->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		exeBarMid->setScaleX(140.0 / exeBarMid->getContentSize().width*exeMur);
-		exeBarMid->setPosition(exeBarLeft->getContentSize().width, exeBarLeft->getContentSize().height / 2);
-		exeBarLeft->addChild(exeBarMid);
-		auto exeBarRight = Sprite::create("exe_right.png");
-		exeBarRight->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		exeBarRight->setPosition(exeBarMid->getBoundingBox().size.width, exeBarMid->getContentSize().height / 2);
-		exeBarMid->addChild(exeBarRight);
+		exeBarMid->setTextureRect(Rect(0,0,exeMur*150,22));
+		exeBarMid->setPosition(sssize2.width*0.51, sssize2.height*0.745-1);
+		playinfoFram->addChild(exeBarMid);
+	
 
 
 		auto exeDescribe = LabelAtlas::create(levelDes->getCString(), "exeNum.png", 12, 18, '0');
@@ -427,7 +420,7 @@ void BagLayer::chankanCallBack(Ref*pesend)
 		LogEventPageChange::getInstance()->addEventItems(3,8, 0);
 		
 	}
-	layer->setPosition(0, 0);
+	layer->setPosition(0, 10);
 	addChild(layer, 10);
 }
 

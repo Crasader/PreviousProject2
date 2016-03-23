@@ -14,7 +14,7 @@ void MomentFive::init(float FFOneTime)
 bool MomentFive::updata(float dt)
 {
 	nNowTime += dt;
-	if (datas.size()<=0&&nNowTime>(20+25))
+	if (datas.size()<=0&&nNowTime>(50))
 	{
 		GameManage::getInstance()->getGameLayer()->onClearFishFinish();
 		return true;

@@ -35,7 +35,12 @@ void MermaidTask::addCoins(int coins) {
 void MermaidTask::addOneCatchFishById(int fishId) {
     for(int i=0; i<mermaidTaskOnlineInfo.mermaidTaskItems.size();i++) {
         if( fishId == mermaidTaskOnlineInfo.mermaidTaskItems.at(i).fishId ) {
+			if (mermaidTaskOnlineInfo.mermaidTaskItems.at(i).current_num==mermaidTaskOnlineInfo.mermaidTaskItems.at(i).goal_num)
+			{
+				return;
+			}
             mermaidTaskOnlineInfo.mermaidTaskItems.at(i).current_num += 1;
+			return;
         }
     }
 }

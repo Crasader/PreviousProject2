@@ -15,6 +15,11 @@ public:
 	virtual void onTouchMoved(Touch *touch, Event *unused_event);
 	virtual void onTouchEnded(Touch *touch, Event *unused_event);
 
+
+
+	virtual void onTouchesBegan(const std::vector<Touch*>& touches, Event *unused_event){ return; };
+	virtual void onTouchesMoved(const std::vector<Touch*>& touches, Event *unused_event){ return; };
+	virtual void onTouchesEnded(const std::vector<Touch*>& touches, Event *unused_event){ return; };
 private:
 	void update(float delta);
 	virtual bool init();
@@ -28,4 +33,7 @@ private:
 	bool isTouchMove = false;
 	Node* touchnode;
 	int diffx;
+
+
+	bool isMove = false;
 };

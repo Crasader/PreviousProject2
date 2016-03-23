@@ -12,7 +12,8 @@ bool CTurntable::init()
     {
         return false;
     }
-    
+	
+
 	
 	result = BonusPoolManager::getInstance()->getBonuspoolResult();
 	auto pool = result.reward_list;
@@ -23,20 +24,21 @@ bool CTurntable::init()
     pSprite_circle->setPosition(ccp(visibleSize.width/2 , visibleSize.height/2));
     addChild(pSprite_circle, 0);
     
+	auto splight1 = Sprite::create("turntablelight_1.png");
+	splight1->setPosition(pSprite_circle->getContentSize() / 2);
+	pSprite_circle->addChild(splight1, 1);
+	splight1->runAction(RepeatForever::create(Blink::create(0.8f, 1)));
+
+	auto splight2 = Sprite::create("turntablelight_2.png");
+	splight2->setPosition(pSprite_circle->getContentSize() / 2);
+	pSprite_circle->addChild(splight2, 1);
+	splight2->runAction(Sequence::create(DelayTime::create(0.4f), CallFunc::create([=]{splight2->runAction(RepeatForever::create(Blink::create(0.8f, 1))); }), nullptr));
+
 
     Sprite* pSprite_point = Sprite::create("bg_point.png");
     pSprite_point->setPosition(visibleSize.width/2,visibleSize.height/2);
     addChild(pSprite_point, 1);
     
-	////创建奖励Item
-	//angle[0] = 0;	
-	//angle[1] = 48.25;
-	//angle[2] = 90;
-	//angle[3] = 135;
-	//angle[4] = 180;
-	//angle[5] = 225;
-	//angle[6] = 270;
-	//angle[7] = 311.75;
 	int size = pool.size();
 	 for (int i = 0; i < size; i++) 
 	{
@@ -44,17 +46,9 @@ bool CTurntable::init()
 	  int id = item.item_id;
 	  int num = item.num;
 	  auto cell = TurntableCell::create(id, num); 
-	  if (id == 1013)
-	  {
-		  cell->setScale(0.9);
-		  auto txttip = Sprite::create("TXTxzdhhf.png");
-		  txttip->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		  txttip->setPosition(cell->getContentSize().width / 2, cell->getContentSize().height-20);
-		  cell->addChild(txttip);
-
-	  }
+	
 		cell->setTag(i);
-		cell->setAnchorPoint(ccp(0.5, -1.2));
+		cell->setAnchorPoint(ccp(0.5, -1.0));
 		cell->setPosition(pSprite_circle->getContentSize()/2);
 		cell->setRotation(i*60);
 		
@@ -75,11 +69,18 @@ void CTurntable::menuButtonCallbackStop()
 	CCLOG("curAngle = %f", curangle);
 	pSprite_circle->setRotation(curangle); 
     
-    CCActionInterval* actionTo_1 = CCRotateBy::create(1.5, 360 * 2);
-    CCActionInterval* actionTo_2 = CCRotateBy::create(0.5, 144);
-    CCActionInterval* actionTo_3 = CCRotateBy::create(0.65, 108);
-    CCActionInterval* actionTo_4 = CCRotateBy::create(0.85, 72);
-    CCActionInterval* actionTo_5 = CCRotateBy::create(1.0, 36);
+	CCActionInterval* actionTo_5 = CCRotateBy::create(0.2, 36);
+	CCActionInterval* actionTo_4 = CCRotateBy::create(0.15, 72);
+	CCActionInterval* actionTo_3 = CCRotateBy::create(0.13, 108);
+	CCActionInterval* actionTo_2 = CCRotateBy::create(0.1, 144);
+	CCActionInterval* actionTo_1 = CCRotateBy::create(0.5, 360);
+
+
+    //CCActionInterval* actionTo_1 = CCRotateBy::create(1.5, 360 * 2);
+    //CCActionInterval* actionTo_2 = CCRotateBy::create(0.5, 144);
+    //CCActionInterval* actionTo_3 = CCRotateBy::create(0.65, 108);
+    //CCActionInterval* actionTo_4 = CCRotateBy::create(0.85, 72);
+    //CCActionInterval* actionTo_5 = CCRotateBy::create(1.0, 36);
 	pSprite_circle->runAction(Sequence::create(actionTo_1, actionTo_2, actionTo_3, actionTo_4, actionTo_5, DelayTime::create(1.0f), CallFunc::create([&]{
 		auto parent = (TurnTableDialog*)getParent();
 		parent->onGetRewards(reward); }),nullptr));
@@ -102,11 +103,11 @@ void CTurntable::menuButtonCallback(Ref* pSend) {
     
     if (!need_rotation) {
         need_rotation = true;
-        CCActionInterval* actionTo_5 = CCRotateBy::create(1.0, 36);
-        CCActionInterval* actionTo_4 = CCRotateBy::create(0.85, 72);
-        CCActionInterval* actionTo_3 = CCRotateBy::create(0.65, 108);
-        CCActionInterval* actionTo_2 = CCRotateBy::create(0.5, 144);
-        CCActionInterval* actionTo_1 = CCRotateBy::create(2.5, 360 * 5);
+        CCActionInterval* actionTo_5 = CCRotateBy::create(0.2, 36);
+        CCActionInterval* actionTo_4 = CCRotateBy::create(0.15, 72);
+        CCActionInterval* actionTo_3 = CCRotateBy::create(0.13, 108);
+        CCActionInterval* actionTo_2 = CCRotateBy::create(0.1, 144);
+        CCActionInterval* actionTo_1 = CCRotateBy::create(0.5, 360);
 
 		pSprite_circle->runAction(Sequence::create(actionTo_5, actionTo_4, actionTo_3, actionTo_2, actionTo_1, CallFunc::create(CC_CALLBACK_0(CTurntable::menuButtonCallbackStop, this)), nullptr));
         pSprite_circle->runAction(CCRepeatForever::create(actionTo_1));

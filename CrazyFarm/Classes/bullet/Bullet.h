@@ -7,15 +7,6 @@
 using namespace cocos2d;
 using namespace std;
 
-#define BULLETTYPE_1 0
-#define BULLETTYPE_2 1
-#define BULLETTYPE_3 2
-#define BULLETTYPE_4 3
-#define BULLETTYPE_5 4
-#define BULLETTYPE_6 5
-#define BULLETTYPE_7 6
-#define BULLETTYPE_8 7
-
 class Bullet:public Sprite{
 public:
 	virtual bool init();
@@ -30,10 +21,12 @@ public:
 	void moveTolockFishUpadate(float dt);
 	std::vector<OBBEX> getObbs();
 	std::vector<OBB> getOBBByCocos();
+
+	void stopLock();
 private:
 	int bulletSpeed;
 	int bulletRotation;
-	Fish*target = nullptr;
+	CC_SYNTHESIZE(Fish*, target, target);
 	TurretData m_turretdata;
 	string getSrcByType(int ui_type, int net_type);
 	int getSpeedByType(int type);

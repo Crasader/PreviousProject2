@@ -146,7 +146,7 @@ void LoadingSceneLbToGm::loadRes()
 	loadAniWithPng("game/ui/ani/TX_shandian/shandian_%d.png", "aniShandian", 0.5f, 4);
 	loadAniWithPng("game/ui/ani/TX_huanpao/aniHuanpao_%d.png", "aniHuanpao", 0.3f, 7);
 	loadAniWithPng("game/ui/ani/TX_guangquan/guangqiu_%d.png", "aniGuangqiu", 0.3f, 5);
-	loadAniWithPng("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.5f, 5);
+	loadAniWithPng("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.3f, 5);
 	loadAniWithPng("game/ui/ani/net_ice/netIce%d.png", "iceNet", 0.7f, 18);
 	loadAniWithPng("game/ui/ani/net_fire/netFire%d.png", "fireNet", 0.7f, 18);
 	loadAniWithPng("game/ui/ani/gold/goldAni_%d.png", "aniGold", 0.3f, 5);
@@ -200,6 +200,7 @@ void LoadingSceneLbToGm::loadRes()
 
 void LoadingSceneLbToGm::showTip()
 {
+
 	int randNum = getRand() % 9 + 1;
 	auto str = String::createWithFormat("LoadingTip%d", randNum);
 	auto label = LabelTTF::create(ChineseWord(str->getCString()).c_str(), "arial", 21);

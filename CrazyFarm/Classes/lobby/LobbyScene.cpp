@@ -307,8 +307,8 @@ bool LobbyScene::init()
 
 	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, nullptr);
 	menu->setPosition(Point::ZERO);
-	addChild(menu, kZorderMenu,"menu");
-	/*runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{createRoomLayer(); }), nullptr));*/
+	addChild(menu, kZorderMenu-1,"menu");
+
 	//添加系统返回键监听
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
@@ -426,35 +426,11 @@ void LobbyScene::showSign(float dt)
 	{
 		auto sign = SignInLayer::createLayer(rewards);
 		sign->setPosition(Point::ZERO);
-		addChild(sign, 20);
+		addChild(sign, 30);
+
 	}
 
-	//auto seqday = ConfigSign::getInstance()->CalculateTheDayToSign();
-	//if (seqday == 0)
-	//{
 
-	//}
-	//else if (seqday == -1)
-	//{
-
-	//}
-	//else
-	//{
-	//	if (User::getInstance()->getVipLevel()>6)
-	//	{
-	//		VipGainCoinSureDialog*dialog = VipGainCoinSureDialog::create();
-	//		dialog->setPosition(Point::ZERO);
-	//		addChild(dialog, kZorderDialog);
-	//		dialog->setseqDay(seqday);
-	//	}
-	//	else
-	//	{
-	//		auto sign = SignInLayer::createLayer(seqday);
-	//		sign->setPosition(Point::ZERO);
-	//		addChild(sign, 20);
-	//	}
-	//
-	//}
 }
 
 void LobbyScene::showMarquee(float dt)
@@ -467,7 +443,7 @@ void LobbyScene::showMarquee(float dt)
 	auto sp = Sprite::create("hot_marquee_bg2.png");
 	sp->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	sp->setPosition(DisplayBoard->getPositionX()-DisplayBoard->getContentSize().width/2,DisplayBoard->getPositionY());
-	addChild(sp);
+	addChild(sp, kZorderMenu);
 
 }
 

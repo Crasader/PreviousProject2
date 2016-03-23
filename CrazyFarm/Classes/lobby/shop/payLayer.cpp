@@ -57,8 +57,8 @@ bool payTableViewCell::init()
 	do
 	{
 
-		float startX = 35;
-		float offsetX = 290;
+		float startX = 4.5;
+		float offsetX = 321;
 		float offsetY = -10;
 		cell0 = PayCell::create();
 		cell0->setAnchorPoint(Point::ZERO);
@@ -188,14 +188,8 @@ bool payLayer::init(int payType)
 		auto bg = Sprite::create("paybg.png");
 		bg->setPosition(visibleSize / 2);
 		addChild(bg);
+
 	
-		auto bottomframe = Sprite::create("bottomFrame.png");
-		bottomframe->setPosition(visibleSize.width / 2, visibleSize.height*0.38);
-		addChild(bottomframe);
-	
-		auto topFrame = Sprite::create("TopFrame.png");
-		topFrame->setPosition(visibleSize.width / 2, visibleSize.height*0.73);
-		addChild(topFrame);
 
 
 		if (payType == 1)
@@ -218,16 +212,13 @@ bool payLayer::init(int payType)
 
 
 
-
-
-		//背包
-		MyTableView* tableView = MyTableView::create(tableviewDelegate, bottomframe->getContentSize());
-		tableView->setAnchorPoint(Point::ZERO);
+		MyTableView* tableView = MyTableView::create(tableviewDelegate, Size(638,279));
+		tableView->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		tableView->setDirection(ScrollView::Direction::VERTICAL);
 		tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
-		tableView->setPosition(0,0);
+		tableView->setPosition(159,70);
 		tableView->setDelegate(tableviewDelegate);
-		bottomframe->addChild(tableView);
+		addChild(tableView);
 		tableView->reloadData();
 
 		auto nowChargeMoney = User::getInstance()->getChargeMoney();
@@ -239,33 +230,32 @@ bool payLayer::init(int payType)
 		
 		auto vipConfig = ConfigVipLevel::getInstance();
 		auto nextVip =  vipConfig->getVipLevel(nowVip + 1);
-		topTip = Sprite::create("TopTip.png");
-		topTip->setPosition(topFrame->getContentSize() / 2);
-		topFrame->addChild(topTip);
-		auto size = topTip->getContentSize();
+
+	
+		
 		auto tipfish = Sprite::create("TipFish.png");
-		tipfish->setPosition(0, size.height*0.5);
-		topTip->addChild(tipfish);
+		tipfish->setPosition(242,397);
+		addChild(tipfish);
 
 		auto chinaword = ChineseWord("payVIPdes");
 		auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
-		 ttf = LabelTTF::create(strdec->getCString(), "Airal", 30);
+		 ttf = LabelTTF::create(strdec->getCString(), "Airal", 23);
 		 ttf->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		ttf->setPosition(size.width*0.1, size.height / 2);
-		topTip->addChild(ttf);
+		ttf->setPosition(316,397);
+		addChild(ttf);
 		//首次充值
 		if (!User::getInstance()->getIsHaveBycoin()&&payType ==1)
 		{
 			ttf->setString(ChineseWord("payCoinFirst").c_str());
 			auto ttf1 = LabelAtlas::create("100", "payNum.png", 16, 24, '0');
 			ttf1->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-			ttf1->setPosition(ttf->getPosition().x + ttf->getContentSize().width, ttf->getPositionY());
-			topTip->addChild(ttf1,0,"100");
+			ttf1->setPosition(ttf->getPosition().x + ttf->getContentSize().width+5, ttf->getPositionY());
+			addChild(ttf1,0,"100");
 
 			auto sp = Sprite::create("smallDiamond.png");
-			sp->setPosition(ttf1->getPosition().x + ttf1->getContentSize().width, ttf1->getPositionY());
+			sp->setPosition(ttf1->getPosition().x + ttf1->getContentSize().width+10, ttf1->getPositionY());
 			sp->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-			topTip->addChild(sp, 0, "coin");
+			addChild(sp, 0, "coin");
 
 		}
 
@@ -321,12 +311,12 @@ void payLayer::update(float delta)
 	auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
 	ttf->setString(strdec->getCString());
 
-	auto node = topTip->getChildByName("100");
+	auto node = getChildByName("100");
 	if (node)
 	{
 		node->setVisible(false);
 	}
-	node = topTip->getChildByName("coin");
+	node = getChildByName("coin");
 	if (node)
 	{
 		node->setVisible(false);

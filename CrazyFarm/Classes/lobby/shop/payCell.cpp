@@ -10,7 +10,7 @@
 #include "lobby/shop/payLayer.h"
 #include "widget/MyTableView.h"
 bool PayCell::init(){
-	if (!Sprite::initWithFile("payframe.png")){
+	if (!Sprite::initWithFile("payframe_1.png")){
 		return false;
 	}
 	auto size = getContentSize();
@@ -93,6 +93,8 @@ void PayCell::IsBeToued()
 		viewdelegate->setLastTouchTiem();
 	}
 	log("touch the pay");
+	setTexture("payframe_2.png");
+	runAction(Sequence::create(DelayTime::create(0.5f), CallFunc::create([=]{setTexture("payframe_1.png"); }), nullptr));
 	auto level =  ConfigVipLevel::getInstance()->getVipLevel(User::getInstance()->getVipLevel());
 	auto eventpoint = ((payView*)viewdelegate)->getEventPoint();
 	switch (m_PayType)
@@ -104,7 +106,7 @@ void PayCell::IsBeToued()
 	case 3:
 	{
 		auto layer = NobilityLayer::createLayer();
-		layer->setPosition(0, 0);
+		layer->setPosition(0, 10);
 		auto scene = Director::getInstance()->getRunningScene();
 		auto node = scene->getChildByTag(888);
 		if (node)

@@ -39,6 +39,12 @@ bool RoomLayer::init()
 		listenr1->onTouchEnded = CC_CALLBACK_2(RoomLayer::onTouchEnded, this);
 		listenr1->setSwallowTouches(false);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, touchnode);
+
+		auto listen2 = EventListenerTouchAllAtOnce::create();
+		listen2->onTouchesBegan = CC_CALLBACK_2(RoomLayer::onTouchesBegan, this);
+		listen2->onTouchesMoved = CC_CALLBACK_2(RoomLayer::onTouchesMoved, this);
+		listen2->onTouchesEnded = CC_CALLBACK_2(RoomLayer::onTouchesEnded, this);
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listen2, touchnode);
 		this->scheduleUpdate();
 		bRet = true;
 	} while (0);
@@ -225,6 +231,13 @@ CCLOG("**************************************");
 
 void RoomLayer::moveRoomLeft()
 {
+	
+	if (isMove)
+	{
+		return;
+	}
+	isMove = true;
+	runAction(Sequence::create(DelayTime::create(0.5f), CallFunc::create([=]{isMove = false; }), nullptr));
 	for (auto cell : roomCells)
 	{
 		cell->stopActionByTag(888);
@@ -269,6 +282,12 @@ void RoomLayer::moveRoomLeft()
 }
 void RoomLayer::moveRoomRight()
 {
+	if (isMove)
+	{
+		return;
+	}
+	isMove = true;
+	runAction(Sequence::create(DelayTime::create(0.5f), CallFunc::create([=]{isMove = false; }), nullptr));
 
 	for (auto cell : roomCells)
 	{

@@ -13,7 +13,7 @@ public:
 
 	void addAnimationBySpriteFrameName(const char *filepath, const char *animatname, float time, int numOfpng);
 
-	void addAnimationBySpriteName(const char *filepath , const char *animatname, float time, int numOfpng);
+	void addAnimationBySpriteName(const char *filepath, const char *animatname, float time, int numOfpng, bool isSetRestoreOriginalFrame=true);
 
 	void removeAnimationByName(const char* animatname);
 

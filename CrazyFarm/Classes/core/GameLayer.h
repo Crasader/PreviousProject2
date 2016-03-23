@@ -122,6 +122,9 @@ private:
 	void changeTouchFunByTouchType(TouchType type);
 	TouchType m_touchType;
 	TouchType m_lasttouchType;
+
+
+	std::list<TouchType> _touchtypes;
 	Sprite* game_bg;
 
 	CC_SYNTHESIZE(Node*, createFishAcNode, CreateFishAcNode);

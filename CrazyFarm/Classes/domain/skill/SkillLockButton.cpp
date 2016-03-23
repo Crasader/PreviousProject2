@@ -26,6 +26,7 @@ void SkillLockButton::skillClickCallBack(Ref* obj)
 	auto nd = getChildByName("tipnode");
 	if (nd)
 	{
+		setZOrder(0);
 		GameManage::getInstance()->getGuiLayer()->setLayerAlpha(0);
 		nd->removeFromParentAndCleanup(1);
 		GameManage::getInstance()->getGameLayer()->GetMyTurret()->setLockFish(FishManage::getInstance()->getHignSoreInVec());
@@ -36,7 +37,6 @@ void SkillLockButton::skillClickCallBack(Ref* obj)
 void SkillLockButton::skillCoolDownCallBack()
 {
 	SkillButton::skillCoolDownCallBack();
-	skillManager::getInstance()->useSkillLockEnd();
 
 }
 

@@ -84,7 +84,7 @@ void LoadingScene::load()
 }
 
 
-void LoadingScene::loadAniWithPng(const char *filepath, const char *animatname, float time, int numOfpng)
+void LoadingScene::loadAniWithPng(const char *filepath, const char *animatname, float time, int numOfpng, bool isSetRestoreOriginalFrame)
 {
 	for (int i = 1; i <= numOfpng;i++)
 	{
@@ -97,6 +97,7 @@ void LoadingScene::loadAniWithPng(const char *filepath, const char *animatname, 
 			strcpy(data->filepath, filepath);
 			data->time = time;
 			data->numOfpng = numOfpng;
+			data->isSetRestoreOriginalFrame = isSetRestoreOriginalFrame;
 		}
 		Director::getInstance()->getTextureCache()->addImageAsync(path->getCString(),
 			CC_CALLBACK_1(LoadingScene::imageAsyncCallback, this, data));
@@ -110,7 +111,7 @@ void LoadingScene::imageAsyncCallback(Texture2D* texture,void*aniData)
 		return;
 	}
 	LoadAniData*data = (LoadAniData*)aniData;
-	AnimationUtil::getInstance()->addAnimationBySpriteName(data->filepath, data->animatname, data->time, data->numOfpng);
+	AnimationUtil::getInstance()->addAnimationBySpriteName(data->filepath, data->animatname, data->time, data->numOfpng,data->isSetRestoreOriginalFrame);
 	delete data;
 	temp++;
 }
@@ -150,7 +151,7 @@ void LoadingScene::loadRes()
 	loadAniWithPng("game/ui/ani/VipButton/TX_VIP_%d.png", "aniVipButton", 1.3, 20);
 	loadAniWithPng("game/ui/ani/firstPay/TX_ShouChong_%d.png", "aniFirstPay", 1.3f, 10);
 	loadAniWithPng("game/ui/ani/guizu/TX_GuiZu_%d.png", "aniGuizu", 1.3f, 10);
-	loadAniWithPng("game/ui/ani/firstBox/firstBox_%d.png", "anifirstBox", 0.5f, 5);
+	loadAniWithPng("game/ui/ani/firstBox/firstBox_%d.png", "anifirstBox", 0.5f, 5,false);
 	//·¿¼ä¶¯»­
 	loadAniWithPng("game/ui/ani/roomcell/roomAni_2_%d.png", "aniRoom_id2", 0.5f, 4);
 	loadAniWithPng("game/ui/ani/roomcell/roomAni_3_%d.png", "aniRoom_id3", 0.5f, 4);
@@ -177,7 +178,7 @@ void LoadingScene::login()
 
 void LoadingScene::showTip()
 {
-	int randNum = getRand() % 9 + 1;
+	int randNum = 0;
 	auto str = String::createWithFormat("LoadingTip%d", randNum);
 	auto label = LabelTTF::create(ChineseWord(str->getCString()).c_str(), "arial", 21);
 	label->setColor(Color3B::WHITE);

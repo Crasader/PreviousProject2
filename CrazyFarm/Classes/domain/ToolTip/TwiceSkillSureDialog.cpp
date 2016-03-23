@@ -117,10 +117,6 @@ void TwiceSkillSureDialog::sureButtonCallBack(Ref*psend)
 	if (userdm > price)
 	{
 		Server::getInstance()->sendUseSkill(skillManager::getInstance()->getSkillInfoByID(m_skiilid).item_id);
-		/*LogEventUseSkill::getInstance()->addUseSkillData(m_skiilid, 1, price);
-		User::getInstance()->addDiamonds(-price);
-		skillManager::getInstance()->getButtonByID(m_skiilid)->skillButonUi();
-		skillManager::getInstance()->useSkillById(m_skiilid,GameManage::getInstance()->getGameLayer()->GetMyTurret());*/
 	}
 	else
 	{
