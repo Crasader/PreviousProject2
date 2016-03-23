@@ -414,13 +414,14 @@ bool LobbyScene::init()
 }
 void LobbyScene::onEnterTransitionDidFinish()
 {
+
 	Layer::onEnterTransitionDidFinish();
 	createRoomLayer();
 }
 
 void LobbyScene::showSign(float dt)
 {
-	///TODO:VIP²¹×ã½ð±Ò
+
 	auto rewards = SignMannger::getInstance()->getSignItems();
 	if (rewards.size() > 0)
 	{
@@ -429,6 +430,7 @@ void LobbyScene::showSign(float dt)
 		addChild(sign, 30);
 
 	}
+
 
 
 }
@@ -462,7 +464,7 @@ void LobbyScene::createRoomLayer()
 	auto layer = RoomLayer::createLayer();
 	layer->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	layer->setPosition(visibisize / 2);
-	addChild(layer, kZorderMenu - 1);
+	addChild(layer, kZorderMenu - 2);
 }
 
 

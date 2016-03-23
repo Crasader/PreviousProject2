@@ -39,7 +39,6 @@ public:
 private:
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
 	virtual void onEnterTransitionDidFinish();
-
 	void showMarquee(float dt);
 	void createRoomLayer();
 	///°´Å¥»Øµ÷

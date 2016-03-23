@@ -6,10 +6,9 @@
 #include "core/showTurretLayer.h"
 #include "domain/logevent/LogEventTurrentUpgrade.h"
 #include "domain/globalschedule/GlobalSchedule.h"
-#include "domain/game/GameManage.h"
 #include "server/Server.h"
 #include "core/showLockTurretLayer.h"
-
+#include "domain/game/GameManage.h"
 enum 
 {
 	kTagMutpleLabel = 10,

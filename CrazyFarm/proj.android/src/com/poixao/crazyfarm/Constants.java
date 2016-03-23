@@ -1,6 +1,11 @@
 package com.poixao.crazyfarm;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
 =======
 
 

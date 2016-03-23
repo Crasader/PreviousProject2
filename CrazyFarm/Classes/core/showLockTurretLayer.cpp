@@ -10,6 +10,7 @@
 #include "server/Server.h"
 
 
+
 bool showLockTurretLayer::init()
 {
 	bool bRet = false;
@@ -230,9 +231,11 @@ void showLockTurretLayer::ButtonCallback(Ref* psend)
 		bool isFinish = diamondNum >= turretData.unlockPrice ? true : false;
 		if (isFinish)
 		{
+
 			Server::getInstance()->reqTurrentLevelUpdate();
 			GameData::getInstance()->setTouchLockTurretType(1);
 			removeFromParentAndCleanup(1);
+
 		}
 		else
 		{
@@ -240,6 +243,7 @@ void showLockTurretLayer::ButtonCallback(Ref* psend)
 			layer->setPosition(0, 0);
 			layer->setEventPont(12);
 			GameManage::getInstance()->getGuiLayer()->addChild(layer, 20);
+			removeFromParentAndCleanup(1);
 			LogEventPageChange::getInstance()->addEventItems(2, 13, 5);
 		}
 	

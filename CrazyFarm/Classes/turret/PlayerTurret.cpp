@@ -41,6 +41,7 @@ bool PlayerTurret::init(){
 	setIsShowInfo(false);
 	setContentSize(Size(155, 71));
 
+
 	m_turret = Turret::create();
 
 	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
@@ -624,7 +625,9 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 
 		num = fish->getFishGold() * m_turretdata.multiple;
 		auto nowNum = Value(m_CoinLabel->getString()).asInt();
+
 		m_CoinLabel->setString(String::createWithFormat("%ld",nowNum+num)->getCString());
+
 
 	}
 	else
@@ -644,9 +647,6 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		auto exp = fish->getFishExperience();
 		User::getInstance()->addExp(exp);
 		GameData::getInstance()->setchangeExp(GameData::getInstance()->getchangeExp() + exp);
-
-
-		
 
 
 		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
@@ -713,6 +713,7 @@ void PlayerTurret::onBankrupt()
 		{
 			BankruptManager::getInstance()->RequestServerToBroke(this);
 		}
+
 		GameData::getInstance()->setisOnBankrupt(true);
 
 	}

@@ -11,7 +11,6 @@ public:
 	CREATE_FUNC(SettingDialog);
 	virtual bool init();
 protected:
-	void lingquCallback(Ref*psend);
 	void sliderEvent(Ref *pSender, Slider::EventType type);
 	void closeButtonCallBack(Ref*psend);
 };

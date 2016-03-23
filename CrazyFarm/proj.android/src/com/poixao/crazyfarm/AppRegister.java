@@ -2,7 +2,10 @@ package com.poixao.crazyfarm;
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -18,6 +21,10 @@ public class AppRegister extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		final IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 =======
 
 >>>>>>> master

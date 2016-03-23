@@ -1,6 +1,7 @@
 #ifndef _AUDIO_H_
 #define _AUDIO_H_
 #include <string>
+#include "utill/define.h"
 //BGM
 #define GAMEBGM "game/audio/bgm/gameBGM.mp3"
 #define LOBBYBGM "game/audio/bgm/lobbyBGM.mp3"
@@ -51,5 +52,11 @@ public:
 	void playShootVoic();
 private:
 	static Audio* m_instance;
+	Audio();
+	const char* KEY_BGMPERCENT = "KEY_BGMPERCENT";
+	CC_SYNTHESIZELOCALFLOAT(KEY_BGMPERCENT, BgmPercent, 0.6);
+	const char* KEY_SOUNDPERCENT = "KEY_SOUNDPERCENT";
+	CC_SYNTHESIZELOCALFLOAT(KEY_SOUNDPERCENT, SoundPercent, 0.6);
+
 };
 #endif

@@ -3,6 +3,12 @@
 #include "data/GameData.h"
 #include "utill/FunUtil.h"
 
+
+Audio::Audio()
+{
+	CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(getBgmPercent());
+	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(getSoundPercent());
+}
 Audio* Audio::m_instance = nullptr;
 Audio* Audio::getInstance(){
 	if(m_instance == nullptr){
@@ -14,7 +20,6 @@ Audio* Audio::getInstance(){
 void Audio::playBGM(const char* soundName){
 	CCLOG("play BGM %s", soundName);
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(soundName,true);
-
 }
 
 
@@ -29,16 +34,17 @@ void Audio::resumeBGM()
 	CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
 void Audio::playSound(const char* soundName){
-	/*CCLOG("play sound %s", soundName);*/
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(soundName);
 }
 void Audio::setBGMValue(float value)
 {
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(value);
+	setBgmPercent(value);
 }
 void Audio::setEffectValue(float value)
 {
 	CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(value);
+	setSoundPercent(value);
 }
 void Audio::prepare(){
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(GAMEBGM);

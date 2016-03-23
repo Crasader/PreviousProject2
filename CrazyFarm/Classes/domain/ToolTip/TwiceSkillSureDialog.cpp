@@ -116,7 +116,9 @@ void TwiceSkillSureDialog::sureButtonCallBack(Ref*psend)
 	auto userdm = User::getInstance()->getDiamonds();
 	if (userdm > price)
 	{
+
 		Server::getInstance()->sendUseSkill(skillManager::getInstance()->getSkillInfoByID(m_skiilid).item_id);
+
 	}
 	else
 	{

@@ -118,6 +118,23 @@ bool GameLayer::init(){
 		}
  }), nullptr));
 
+	runAction(Sequence::create(DelayTime::create(0.01f),
+		CallFunc::create([&]{
+		initFishAndBulletData();
+		FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 10));
+	for (int i = 0; i < 5;i++)
+	{
+		update(1);
+	}
+		for (auto var : FishManage::getInstance()->getAllFishInPool())
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				var->moveUpdata(1);
+			}
+		}
+ }), nullptr));
+
 	setbisOnSkillLock(false);
 
 	GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
@@ -461,6 +478,7 @@ void GameLayer::onExit()
 
     Server::getInstance()->quit();  // TODO : disconnect con
 	Msgs.clear();
+
 	Layer::onExit();
 	
 }
