@@ -316,7 +316,7 @@
 			"fish_type"			:	0,
 			"move_speed"		:   [35,45],
 			"probability"		:	0.0036,
-			"baseReward"		:	{"start":100,"end":250},
+			"baseReward"		:	{"start":175,"end":175},
 			"maxHitTime"		:	30,
 			"protectedTime"	    :   0,
 			"ui_id"				:	44,

@@ -10,7 +10,7 @@
   <string>再充值%d元，即可升级到VIP%d</string>
   
   <key>VIPdes</key>
-  <string>再充值    元，即可升级到         高级VIP可同时享受低级特权</string>
+  <string>再充值       元，即可升级到           高级VIP可同时享受低级特权</string>
   
   <key>payCoinFirst</key>
   <string>首次充值任意金额赠送</string>
@@ -109,7 +109,7 @@
   
   
   <key>ChangeGiftTxt</key>
-  <string>已拥有话费            元，请选择你要兑换的商品</string>
+  <string>已拥有话费           元，请选择你要兑换的商品</string>
   
   <key>paySuccess</key>
   <string>恭喜你充值成功!</string>

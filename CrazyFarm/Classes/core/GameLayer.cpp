@@ -282,33 +282,34 @@ void GameLayer::addTouchEvent(){
 
 void GameLayer::shootUpdata(float dt)
 {
+	static float temp = 0;
+	temp -= dt;
+	if (temp<=0)
+	{
+		isShoot = true;
+		
+	}
 	if (istouched == true)
 	{
-		const float shootInterval = GameConfig::getInstance()->getShootData().shootInterval;
 		if (!isShoot)
 		{
 			return ;
 		}
+		temp = GameConfig::getInstance()->getShootData().shootInterval;
 		float degree = getTurretRotation(myTurret->getPosition(), touchpos);
 		degree -= 360;
-		if (degree<-90||degree>90)
+		if (degree<-80||degree>80)
 		{
 			//射击角度范围（-80，80）；
 			return;
 		}
-		CCLOG("rorate %f", degree);
 		myTurret->shoot(degree);
 		isShoot = false;
-		runAction(Sequence::create(DelayTime::create(shootInterval), CallFunc::create([&]{
-			isShoot = true;
-		}), nullptr));
 	}
 }
 
 bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 {
-
-	
 	auto node = getChildByName("clickcatch");
 	if (node)
 	{
@@ -912,7 +913,7 @@ void GameLayer::onGetReward(int itemid, int num)
 	GameManage::getInstance()->getGuiLayer()->addChild(aninode, kZorderDialog);
 	aninode->setScale(4);
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), RemoveSelf::create(), nullptr));
-	sp->runAction(Sequence::create( CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }),ScaleTo::create(1.0f, 1.0f), MoveTo::create(1.0f, myTurret->getPosition()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
+	sp->runAction(Sequence::create(CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }), ScaleTo::create(1.0f, 1.0f), MoveTo::create(1.0f, myTurret->getPaoWorldpos()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
 
 }
 

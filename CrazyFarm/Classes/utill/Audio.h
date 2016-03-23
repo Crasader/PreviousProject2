@@ -35,7 +35,7 @@
 #define OPENNEWBBOX "game/audio/opennewbbox.ogg"
 #define CHANGETURRENT "game/audio/changeTurret.mp3"
 #define FRUITSIGN "game/audio/fruitsign.ogg"
-
+#define GETCOIN "game/audio/getCoin.mp3"
 class Audio{
 public:
 	static Audio* getInstance();

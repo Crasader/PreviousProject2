@@ -48,7 +48,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 		{
 			//»Æ½ðÓã²¶»ñ¶¯»­
 			auto ac = Director::getInstance()->getRunningScene()->getActionByTag(666);
-			if (!ac&&!turret->isRobot)
+			if (!ac)
 			{
 				auto acShake = CCShake::create(0.2, 30);
 				acShake->setTag(666);
@@ -59,7 +59,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			aninode->setPosition(0, 0);
 			turret->addChild(aninode, 1, "goldfichCatch");
 
-			Audio::getInstance()->playSound(CATCHGOLDTURNTABLE);
+			
 			auto sp = Sprite::create("goldFishCatchTable.png");
 			sp->setPosition(Vec2(80, 180));
 			aninode->addChild(sp);

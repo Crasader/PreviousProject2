@@ -16,6 +16,10 @@ bool TurnTableDialog::init()
 	do
 	{ 
 
+		auto colorlayer = LayerColor::create();
+		colorlayer->setColor(ccc3(0, 0, 0));
+		colorlayer->setOpacity(180);
+		addChild(colorlayer, -1);
 
 		auto bg = Sprite::create("turntableBgFrame.png");
 		bg->setPosition(480, 270);
@@ -59,8 +63,9 @@ bool TurnTableDialog::init()
 
 
 		bg->setVisible(false);
+		colorlayer->setVisible(false); 
 		setScale(0);
-		runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), CallFunc::create([=]{bg->setVisible(true); }), nullptr));
+		runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), CallFunc::create([=]{bg->setVisible(true); colorlayer->setVisible(true);  }), nullptr));
 
 
 		auto aniNode = Sprite::create();
@@ -228,6 +233,9 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 		//°´Å¥
 		auto bt = MenuItemImage::create("btn_choujiang_1.png", "btn_choujiang_2.png", CC_CALLBACK_1(TurnTableDialog::choujiangButtonCallBack, this));
 		bt->setPosition(382, 45);
+		auto ac = RepeatForever::create(Sequence::create(ScaleTo::create(0.17f, 1.1), ScaleTo::create(0.13f, 0.81), ScaleTo::create(0.13f, 1.1), ScaleTo::create(0.13f, 1), DelayTime::create(4.0f), nullptr));
+		bt->runAction(ac);
+
 		auto menu = Menu::create(bt, nullptr);
 		menu->setPosition(Point::ZERO);
 		menu->setName("choujiang");
@@ -272,6 +280,7 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 		//°´Å¥
 		auto bt = MenuItemImage::create("btn_showgoldFish_1.png", "btn_showgoldFish_2.png", CC_CALLBACK_1(TurnTableDialog::showGoldFishButtonCallBack, this));
 		bt->setPosition(382, 45);
+		
 		auto menu = Menu::create(bt, nullptr);
 		menu->setPosition(Point::ZERO);
 		sp->addChild(menu);

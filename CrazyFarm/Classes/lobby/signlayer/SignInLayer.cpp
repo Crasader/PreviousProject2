@@ -57,7 +57,7 @@ bool SignInLayer::init(std::vector<SignItem> items)
 
 
 	auto button = MenuItemImage::create("gainButton_1.png", "gainButton_2.png", CC_CALLBACK_1(SignInLayer::gainRewardsCallback, this));
-	button->setPosition(bg->getContentSize().width / 2, bg->getContentSize().height*0.2+20);
+	button->setPosition(bg->getContentSize().width / 2, bg->getContentSize().height*0.2+30);
 	auto menu = Menu::create(button, nullptr);
 	menu->setPosition(0, 0);
 	bg->addChild(menu);
@@ -103,7 +103,6 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 {
 
 	((MenuItemImage*)psend)->setEnabled(false);
-	((MenuItemImage*)psend)->selected();
 	Audio::getInstance()->playSound(FRUITSIGN);
 	CCLOG("begin");
 	for (auto var : SpliceCells)

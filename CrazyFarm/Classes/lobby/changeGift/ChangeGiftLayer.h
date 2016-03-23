@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "ChangeGiftCell.h"
+#include "widget/BaseLayer.h"
 USING_NS_CC;
 
 
@@ -8,7 +9,7 @@ USING_NS_CC;
 
 
 
-class ChangeGiftLayer : public cocos2d::Layer
+class ChangeGiftLayer : public BaseLayer
 {
 public:
 

@@ -563,31 +563,17 @@ void Fish::onDead()
 	runAction(RepeatForever::create(ac));
 	runAction(Sequence::create(DelayTime::create(1.2f), CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
 
-	if (getFishType() == GoldFish)
+	switch (getFishType())
 	{
+	case GoldFish:
 		setScale(1.5f);
-		runAction(RotateBy::create(1.2f, 180));
-	}
-	//…˘“Ù
-	if (fishID < 20)
-	{
-		/*Audio::getInstance()->playSound(CATCHSMALL);*/
-	}
-	else if (fishID >= 20 && fishID<30)
-	{
-		/*Audio::getInstance()->playSound(CATCHMID);*/
-	}
-	else if (fishID >= 30 && fishID<40)
-	{
-		/*Audio::getInstance()->playSound(CATCHBIG);*/
-	}
-	else if (fishID >= 40 && fishID<50)
-	{
-		
-	}
-	else
-	{
-		Audio::getInstance()->playSound(CATCHGIRLFISH);
+		runAction(RotateBy::create(1.2f, 120));
+		Audio::getInstance()->playSound(CATCHGOLD);
+		break;
+	case NormalFish:
+		Audio::getInstance()->playSound(CATCHGOLDTURNTABLE);
+	default:
+		break;
 	}
 	
 }
@@ -635,7 +621,7 @@ void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
 			sp->setPosition(diffX*(i % 5), orgY+diffY*(i / 5));
 		}
 		sp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate(data.aniName.c_str())));
-		sp->runAction(Sequence::create(DelayTime::create(0.1f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, belongPos),RemoveSelf::create(1),nullptr));
+		sp->runAction(Sequence::create(DelayTime::create(0.1f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, belongPos), CallFunc::create([=]{Audio::getInstance()->playSound(GETCOIN); }), RemoveSelf::create(1), nullptr));
 		node->addChild(sp);
 	}
 	auto str = String::createWithFormat("%s%d", ":",curMoney);

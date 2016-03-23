@@ -4,15 +4,10 @@
 #include "data/GameData.h"
 bool NobilityLayer::init()
 {
-	if (!Layer::init()){
+	if (!BaseLayer::init()){
 		return false;
 	}	
 
-
-	auto colorlayer = LayerColor::create();
-	colorlayer->setColor(ccc3(0, 0, 0));
-	colorlayer->setOpacity(180);
-	addChild(colorlayer, -1);
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
 	
@@ -22,7 +17,7 @@ bool NobilityLayer::init()
 
 
 	auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(NobilityLayer::closeButtonCallBack, this));
-	close->setPosition(650, 470);
+	close->setPosition(bg->getContentSize()-Size(5,60));
 
 	auto remainingDay = NobilityManager::getInstance()->RemainingNobilityday();
 	dayTTF = LabelAtlas::create(Value(remainingDay).asString(), "NobilitydayNum.png", 19, 29, '0');

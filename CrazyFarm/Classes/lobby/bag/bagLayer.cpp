@@ -312,10 +312,10 @@ bool BagLayer::init()
 
 		auto chakan = MenuItemImage::create("btn_small_1.png", "btn_small_2.png", CC_CALLBACK_1(BagLayer::chankanCallBack, this));
 		chakan->setName("VIP");
-		chakan->setPosition(visibleSize.width*0.48, visibleSize.height * 0.3103-3);
+		chakan->setPosition(visibleSize.width*0.48-35, visibleSize.height * 0.3103-3);
 		auto chakan1 = MenuItemImage::create("btn_small_1.png", "btn_small_2.png", CC_CALLBACK_1(BagLayer::chankanCallBack, this));
 		chakan1->setName("guizu");
-		chakan1->setPosition(visibleSize.width*0.48, visibleSize.height * 0.2303-3);
+		chakan1->setPosition(visibleSize.width*0.48-35, visibleSize.height * 0.2303-3);
 		auto setname = MenuItemImage::create("btn_setname_1.png", "btn_setname_2.png", CC_CALLBACK_1(BagLayer::setNameCallBack, this));
 		setname->setPosition(visibleSize.width*0.30, visibleSize.height * 0.125);
 

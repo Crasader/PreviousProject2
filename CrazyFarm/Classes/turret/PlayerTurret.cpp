@@ -316,11 +316,11 @@ void  PlayerTurret::onLockTheTurrent()
 	//½ğ±ÒµôÂä
 	for (int i = 0; i < 15; i++)
 	{
-		Audio::getInstance()->playSound(UPDATALEVELGAINCOIN);
+		
 		auto aniCoin = Sprite::create();
 		aniCoin->setPosition(pos.x + 40 * (rand_0_1() - 0.5), pos.y + 70);
 		aniCoin->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGold")));
-		aniCoin->runAction(Sequence::create(DelayTime::create(0.05f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, pos), RemoveSelf::create(1), nullptr));
+		aniCoin->runAction(Sequence::create(DelayTime::create(0.05f*i), CallFunc::create([=]{Audio::getInstance()->playSound(UPDATALEVELGAINCOIN); }), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, pos), RemoveSelf::create(1), nullptr));
 		GameManage::getInstance()->getGuiLayer()->addChild(aniCoin, 5);
 	}
 	//½ğ±ÒÊı×Ö
@@ -441,6 +441,8 @@ void PlayerTurret::shoot(float degree){
 
 	costMoney();
 
+
+	
 
 }
 
@@ -632,7 +634,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		LogEventFish::getInstance()->addFishUserCatchTimes(fish->getFishID());
 		m_turretdata = GameData::getInstance()->getTurrentData();
 
-		Audio::getInstance()->playSound(CATCHGOLD);
+		
 		num = fish->getFishGold()* m_turretdata.multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
 		m_CoinLabel->setString(Value(User::getInstance()->addCoins(+num)).asString().c_str());
 
@@ -1161,6 +1163,7 @@ void PlayerTurret::onPlayerUpgrade()
 void PlayerTurret::costMoney()
 {
 
+	log("shoot**************** %ld", getCurrentTime());
 	if (isRobot)
 	{
 		auto num = (Value(m_turretdata.multiple).asInt());
@@ -1228,4 +1231,9 @@ bool PlayerTurret::isCanShoot()
 	}
 	return true;
 
+}
+
+Vec2 PlayerTurret::getPaoWorldpos()
+{
+	return convertToWorldSpace(m_turret->getPosition());
 }

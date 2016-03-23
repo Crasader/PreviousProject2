@@ -1,14 +1,14 @@
 #pragma once
 #include "cocos2d.h"
 #include "utill/Chinese.h"
-
+#include "widget/BaseLayer.h"
 USING_NS_CC;
 
 
 
 
 
-class FirstPayLayer : public cocos2d::Layer
+class FirstPayLayer : public BaseLayer
 {
 public:
 

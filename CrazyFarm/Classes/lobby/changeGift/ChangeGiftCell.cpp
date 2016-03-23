@@ -18,7 +18,7 @@ bool ChangeGiftCell::init()
 		addChild(giftCell);
 
 		giftName = Sprite::create();
-		giftName->setPosition(getContentSize().width / 2, 202);
+		giftName->setPosition(getContentSize().width / 2, 202+40);
 		addChild(giftName);
 
 		bt = MenuItemImage::create("btn_duihuan_1.png", "btn_duihuan_2.png", CC_CALLBACK_1(ChangeGiftCell::changeButtonCallback, this));

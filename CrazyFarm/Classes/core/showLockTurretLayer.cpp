@@ -61,7 +61,7 @@ bool showLockTurretLayer::init()
 
 			auto button = MenuItemImage::create("btn_big_1.png", "btn_big_2.png", CC_CALLBACK_1(showLockTurretLayer::ButtonCallback, this));
 			button->setPosition(size.width / 2, size.height*0.18 - 5);
-			auto diamondNumTTF = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
+			auto diamondNumTTF = LabelAtlas::create("0", "multipleNum.png", 15, 21, '0');
 			diamondNumTTF->setPosition(Point::ANCHOR_MIDDLE);
 			diamondNumTTF->setPosition(button->getContentSize() / 2 + Size(0, -2));
 			button->addChild(diamondNumTTF, 1, 10);
@@ -89,7 +89,7 @@ bool showLockTurretLayer::init()
 			bg->addChild(SendCoin);
 		
 
-			auto zengCoinTTf = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
+			auto zengCoinTTf = LabelAtlas::create("0", "multipleNum.png", 15, 21, '0');
 			zengCoinTTf->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			zengCoinTTf->setPosition(size.width / 2, 99);
 			bg->addChild(zengCoinTTf);
@@ -182,7 +182,7 @@ bool showLockTurretLayer::init()
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(showLockTurretLayer::closeButtonCallBack, this));
-		close->setPosition(900, 405);
+		close->setPosition(908, 428);
 		auto menu = Menu::create(close, nullptr);
 		menu->setPosition(Point::ZERO);
 		addChild(menu);

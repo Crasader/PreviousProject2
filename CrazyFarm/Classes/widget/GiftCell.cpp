@@ -27,15 +27,18 @@ bool GiftCell::init(int propID, int propNum)
 		sp->setPosition(getContentSize()/2);
 		addChild(sp);
 		auto num = LabelAtlas::create(Value(propNum).asString().c_str(),"bagPropNum.png", 18,26,'0');
-		num->setPosition(getContentSize().width*0.7, getContentSize().height*0.1);
+		num->setAnchorPoint(Point(1, 0));
+		num->setPosition(getContentSize().width*0.65+27, getContentSize().height*0.1);
 		addChild(num);
+
 
 		if (propID == 1012)
 		{
 			auto ji = Sprite::create("txtLevel.png");
-			ji->setPosition(num->getContentSize().width + ji->getContentSize().width / 2, num->getContentSize().height / 2);
-			num->addChild(ji);
-			num->setPositionX(getContentSize().width*0.6-4);
+			ji->setPosition(getContentSize().width*0.65 + 27, getContentSize().height*0.1);
+			ji->setAnchorPoint(Point(1, 0));
+			addChild(ji);
+			num->setPositionX(65+6);
 		}
 		bRet = true;
 	}

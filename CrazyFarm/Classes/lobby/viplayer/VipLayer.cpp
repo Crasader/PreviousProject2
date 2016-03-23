@@ -159,7 +159,7 @@ bool VIPLayer::init()
 		VIPLvTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		VIPLvTTF->setPosition(vipSp->getPosition()+Vec2(vipSp->getContentSize().width/2,0));
 		addChild(VIPLvTTF);
-		VIPLvTTF->setScale(0.7);
+		VIPLvTTF->setScale(0.6);
 		vipSp->setScale(0.8);
 
 		attention = Sprite::create("attention.png");
@@ -236,7 +236,7 @@ void VIPLayer::chankanCallBack(Ref*pesend)
 	auto layer = payLayer::createLayer(1);
 	layer->setPosition(Point::ZERO);
 	layer->setEventPont(21);
-	getParent()->addChild(layer,20);
+	getParent()->addChild(layer,30);
 	removeFromParentAndCleanup(1);
 	LogEventPageChange::getInstance()->addEventItems(7, 13,0 );
 }

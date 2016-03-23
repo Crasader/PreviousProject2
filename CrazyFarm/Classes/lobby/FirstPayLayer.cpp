@@ -7,7 +7,7 @@
 #include "domain/logevent/LogEventPageChange.h"
 bool FirstPayLayer::init()
 {
-	if ( !Layer::init() )
+	if ( !BaseLayer::init() )
 	{
 		return false;
 	}
@@ -15,12 +15,6 @@ bool FirstPayLayer::init()
 	do 
 	{
 
-
-		
-		auto layer = LayerColor::create();
-		layer->setColor(Color3B::BLACK);
-		layer->setOpacity(192);
-		addChild(layer,-1);
 		auto size = Director::getInstance()->getVisibleSize();
 		auto bg = Sprite::create("firstPayBg.png");
 		bg->setPosition(size / 2+Size(0,50));

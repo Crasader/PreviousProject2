@@ -76,7 +76,7 @@ void Audio::prepare(){
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(CHANGETURRENT);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(CATCHGOLDTURNTABLE);
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(FRUITSIGN);
-	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.4f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(GETCOIN);
 }
 
 void Audio::playZhenrenVoice()
