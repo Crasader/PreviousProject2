@@ -184,7 +184,7 @@ void MyMenuItemUpgrade::setValue()
 		node->setString(str->getCString());
 
 		auto node1 = frame->getChildByTag(kTagExeBar);
-		node1->setScaleX(scalex);
+		((Sprite*)node1)->setTextureRect(Rect(0, 0, scalex * 93, 20));
 	}
 }
 

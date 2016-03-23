@@ -164,9 +164,6 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 
 
 	bar = LoadingBar::create("turnTableExeBar.png");
-	bar->setScale9Enabled(true);
-	bar->setCapInsets(Rect(8, 0, 11, 24));
-	bar->setContentSize(Size(207, 24));
 	bar->setPosition(Vec2(5, barframe->getContentSize().height / 2));
 	bar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 	barframe->addChild(bar);
@@ -222,7 +219,7 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 			nextlabel->setPosition(label->getPositionX() + label->getContentSize().width / 2, label->getPositionY());
 			barframe->addChild(nextlabel);
 			auto scale = (float)nowCoin / (float)nextCoin*100;
-			bar->setPercent(scale+5);
+			bar->setPercent(scale);
 			if (scale == 0)
 			{
 				bar->setVisible(false);
@@ -256,7 +253,7 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 
 
 		float ScaleX = (float)nowfish / (float)allowdfish * 100;
-		bar->setPercent(ScaleX+5);
+		bar->setPercent(ScaleX);
 		if (ScaleX==0)
 		{
 			bar->setVisible(false);
