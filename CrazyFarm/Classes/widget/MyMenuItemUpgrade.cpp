@@ -50,7 +50,8 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		commonNode->setVisible(false);
 		unfinishedNode->setVisible(false);
 		nodeZeng->setVisible(false);
-		runAction(MoveBy::create(0.5f, Vec2(177, 0)));
+		setEnabled(false);
+		runAction(Sequence::create(MoveBy::create(0.5f, Vec2(177, 0)), CallFunc::create([=]{setEnabled(true); }), nullptr));
 		isElongate = false;
 		removeBlinkAni();
 		if (isFinish)
@@ -71,13 +72,15 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-177, 0)));
+		setEnabled(false);
+		runAction(Sequence::create(MoveBy::create(0.5f, Vec2(-177, 0)), CallFunc::create([=]{setEnabled(true); }), nullptr));
 		runAction(Sequence::create(DelayTime::create(4.0f), CallFunc::create([&]{
 			if (isElongate==false)
 			{
 				return;
 			}
-			runAction(MoveBy::create(0.5f, Vec2(177, 0)));
+			setEnabled(false);
+			runAction(Sequence::create(MoveBy::create(0.5f, Vec2(177, 0)), CallFunc::create([=]{setEnabled(true); }), nullptr));
 			commonNode->setVisible(false);
 			unfinishedNode->setVisible(false);
 			nodeZeng->setVisible(false);
@@ -211,7 +214,8 @@ void MyMenuItemUpgrade::showPopup()
 	{
 		isElongate = true;
 		setValue();
-		runAction(MoveBy::create(0.5f, Vec2(-177, 0)));
+		setEnabled(false);
+		runAction(Sequence::create(MoveBy::create(0.5f, Vec2(-177, 0)), CallFunc::create([=]{setEnabled(true); }),nullptr));
 
 		if (isFinish)
 		{
@@ -230,7 +234,8 @@ void MyMenuItemUpgrade::showPopup()
 					commonNode->setVisible(false);
 					unfinishedNode->setVisible(false);
 					nodeZeng->setVisible(false);
-					runAction(MoveBy::create(0.5f, Vec2(177, 0)));
+					setEnabled(false);
+					runAction(Sequence::create(MoveBy::create(0.5f, Vec2(177, 0)), CallFunc::create([=]{setEnabled(true); }), nullptr));
 					isElongate = false;
 				};
 

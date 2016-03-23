@@ -19,5 +19,5 @@ private:
 	bool isElongate = false;
 	bool isFinish = false;
 
-	
+
 };
