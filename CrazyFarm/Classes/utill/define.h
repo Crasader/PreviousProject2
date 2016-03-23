@@ -41,3 +41,9 @@ enum FishZorder
 #define CC_SYNTHESIZELOCALINT(KeyName, funName,initValue)\
 public: int get##funName(void) const { return UserDefault::getInstance()->getIntegerForKey(KeyName,initValue); }\
 public: void set##funName(int var){ UserDefault::getInstance()->setIntegerForKey(KeyName,var); }
+
+
+
+#define CC_SYNTHESIZELOCALFLOAT(KeyName, funName,initValue)\
+public: float get##funName(void) const { return UserDefault::getInstance()->getFloatForKey(KeyName,initValue); }\
+public: void set##funName(float var){ UserDefault::getInstance()->setFloatForKey(KeyName,var); }

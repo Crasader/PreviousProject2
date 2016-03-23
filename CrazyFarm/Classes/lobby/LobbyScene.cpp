@@ -474,7 +474,7 @@ void LobbyScene::createRoomLayer()
 	auto layer = RoomLayer::createLayer();
 	layer->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	layer->setPosition(visibisize / 2);
-	addChild(layer, kZorderMenu - 1);
+	addChild(layer, kZorderMenu - 2);
 }
 
 
