@@ -20,7 +20,7 @@ RoomManager* RoomManager::getInstance(){
 
 std::vector<RoomPlayer> RoomManager::initRoomConfig(int roomMinTurrentLevel) {
     minTurrentLevel = roomMinTurrentLevel;
-    int userPosition = getRand()%2;
+	int userPosition = getRand() % 2;
     roomPlayers.clear();
     
     for(int i=0;i<4;i++) {

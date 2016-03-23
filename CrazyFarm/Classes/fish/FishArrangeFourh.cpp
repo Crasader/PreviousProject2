@@ -6,7 +6,7 @@ void FishArrangeFourh::initFishAnim(int fishID)
 {
 	//жїгу
 	int randarray[9] = { 4,7,8,9,10, 30, 31, 32, 33 };
-	int id = randarray[getRand() % 9];
+	int id = randarray[getRand(Server_Seed) % 9];
 	auto maggiceff = MagicEffect::create(5, true);
 	maggiceff->setPosition(0, 0);
 	maggiceff->setAnchorPoint(Point::ZERO);

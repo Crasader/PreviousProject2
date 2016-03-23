@@ -232,15 +232,14 @@ void showLockTurretLayer::ButtonCallback(Ref* psend)
 		{
 			Server::getInstance()->reqTurrentLevelUpdate();
 			GameData::getInstance()->setTouchLockTurretType(1);
-			getParent()->getParent()->getParent()->removeFromParentAndCleanup(1);
+			removeFromParentAndCleanup(1);
 		}
 		else
 		{
 			auto layer = payLayer::createLayer(2);
 			layer->setPosition(0, 0);
 			layer->setEventPont(12);
-			Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(layer, 20);
-			Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByTag(50)->removeFromParentAndCleanup(1);
+			GameManage::getInstance()->getGuiLayer()->addChild(layer, 20);
 			LogEventPageChange::getInstance()->addEventItems(2, 13, 5);
 		}
 	

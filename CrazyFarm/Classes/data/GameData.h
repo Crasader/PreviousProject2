@@ -6,6 +6,8 @@
 #include "domain/mermaid/MermaidTask.h"
 using namespace cocos2d;
 
+#define Server_Seed GameData::getInstance()->getRandomSeed()
+
 class GameData {
 public:
 	static GameData* getInstance();
@@ -52,6 +54,12 @@ private:
 	//游戏中10S金币变化和经验变化
 	CC_SYNTHESIZE(int, _changeCoin, changeCoin);
 	CC_SYNTHESIZE(int, _changeExp, changeExp);
+	
+	//全局随机因子
+	int _RandomSeed;
+public:
+	unsigned int getRandomSeed();
+	void setRandomSeed(unsigned int var);
 };
 
 #endif

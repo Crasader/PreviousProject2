@@ -53,3 +53,14 @@ void GameData::setMusicState(bool state) {
 bool GameData::getMusicState() {
 	return UserDefault::getInstance()->getBoolForKey("musicState", true);
 }
+
+
+unsigned int GameData::getRandomSeed()
+{
+	_RandomSeed += 10;
+		return _RandomSeed;
+}
+void GameData::setRandomSeed(unsigned int var)
+{
+	_RandomSeed = var;
+}

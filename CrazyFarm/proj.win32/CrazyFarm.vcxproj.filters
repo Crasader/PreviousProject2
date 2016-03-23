@@ -711,6 +711,9 @@
     <ClCompile Include="..\Classes\server\Msg\MsgUseSkill.cpp">
       <Filter>src\server\MSG</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\core\showLockTurretLayer.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1297,6 +1300,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\server\Msg\MsgUseSkill.h">
       <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\showLockTurretLayer.h">
+      <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

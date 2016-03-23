@@ -66,7 +66,7 @@ unsigned long  User::getCoins() {
 
 int User::addCoins(int coins) {
 	LogEventConsume::getInstance()->addEventCoin(coins);
-	_coins += (unsigned long)coins;
+	_coins += (long)coins;
 	if (_coins<0)
 	{
 		_coins = 0;
@@ -81,7 +81,7 @@ int User::addCoins(int coins) {
 
 int User::addDiamonds(int diamonds) {
 	LogEventConsume::getInstance()->addEventDiamond(diamonds);
-	_diamond += (unsigned long)diamonds;
+	_diamond += (long)diamonds;
 	if (_diamond < 0)
 	{
 		_diamond = 0;

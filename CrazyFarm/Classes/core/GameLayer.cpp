@@ -32,6 +32,7 @@
 #include "turret/PlayerTurret.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "core/showTurretLayer.h"
+#include "core/showLockTurretLayer.h"
 #define BOOMRADIUS 300
 //#define TCPIDURL "106.75.141.82" //外网
 #define TCPIDURL "172.23.1.34" //内网
@@ -1011,6 +1012,7 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 	auto FishesInfos = msg->_FishesInfos;
 	//处理当前帧鱼群
 	auto NowFpsFishInfo = FishesInfos.at(1);
+	GameData::getInstance()->setRandomSeed(NowFpsFishInfo.fishGroupsItem.randomSTC);
 	auto _fishGroupsItem = NowFpsFishInfo.fishGroupsItem;
 	unsigned long  difTime = (init_creat_time - NowFpsFishInfo.seq_create_time) / 1000;
 	_fishGroupType = _fishGroupsItem.group_type;
@@ -1038,6 +1040,7 @@ void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 	//初始鱼群
 	auto NowFpsFishInfo = msg->_info;
 	auto _fishGroupsItem = NowFpsFishInfo.fishGroupsItem;
+	GameData::getInstance()->setRandomSeed(NowFpsFishInfo.fishGroupsItem.randomSTC);
 	unsigned long  difTime = (init_creat_time - NowFpsFishInfo.seq_create_time) / 1000;
 	_fishGroupType = _fishGroupsItem.group_type;
 	if (_fishGroupsItem.group_type == 0)//鱼群
@@ -1087,7 +1090,7 @@ void GameLayer::onUpdateTurrent(Msg_OnUpdateTurrent*msg)
 	int k = 0;
 	if (msg->errorcode==0)
 	{
-		GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent(msg->_info.turrent_level,msg->_info.rewards,msg->_info.turrent_level);
+		GameManage::getInstance()->getGameLayer()->GetMyTurret()->onLockTheTurrent(msg->_info.turrent_level,msg->_info.rewards,msg->_info.requireDiamonds);
 	}
 	else
 	{
@@ -1099,7 +1102,7 @@ void GameLayer::onUpdateTurrent(Msg_OnUpdateTurrent*msg)
 		}
 		else
 		{
-			layer = showTurretLayer::create(2);
+			layer = showLockTurretLayer::create();
 		}
 		layer->setPosition(Point::ZERO);
 		GameManage::getInstance()->getGuiLayer()->addChild(layer, 20, 50);

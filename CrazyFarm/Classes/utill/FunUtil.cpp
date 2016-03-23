@@ -23,12 +23,6 @@ bool collision(Sprite*spA, Sprite*spB)
 	auto rect2 = spB->getBoundingBox();
 	rect2.setRect(rect2.getMinX() + rect2.size.width / 2 * (1 - scaleMultiple), rect2.getMinY() + rect2.size.height / 2 * (1 - scaleMultiple), rect2.size.width*scaleMultiple, rect2.size.height*scaleMultiple);
 
-#if 0
-	auto draw = DrawNode::create();
-	addChild(draw, 10);
-	draw->drawRect(rect1.origin, Vec2(rect1.getMaxX(), rect1.getMaxY()), Color4F::YELLOW);
-	draw->drawRect(rect1.origin, Vec2(rect1.getMaxX(), rect1.getMaxY()), Color4F::RED);
-#endif
 	return rect1.intersectsRect(rect2);
 }
 
@@ -76,7 +70,7 @@ float getRandonNumByAtoB(float A, float B)
 int getintRandonNumByAtoB(int A, int B, int interval)
 {
 	auto temp = (B - A) / interval+1;
-	return A+interval*(getRand()%temp);
+	return A + interval*(getRand(Server_Seed) % temp);
 }
 
 
@@ -100,19 +94,7 @@ std::string SpliceDataForPostHttp(std::vector<std::string> strs)
 
 std::string  SpliceDataForPostHttp(std::string str1, ...)
 {
-//	std:string s;
-//	va_list args;
-//	va_start(args, str1);
-//
-//	while (1){
-//		auto s1 = va_arg(args, std::string);
-//		if (s1 == "-1")
-//		{
-//			return s;
-//		}
-//		s += "&";
-//		s += s1.c_str();
-//	}
+
 	return "";
 }
 
@@ -164,7 +146,7 @@ std::string myWrap(std::string str, int length)
 int getRandValueInVec(std::vector<int> vec)
 {
 	int size = vec.size();
-	return vec.at(getRand() % size);
+	return vec.at(getRand(Server_Seed) % size);
 }
 
 Action* getForeverAcByNameAndInterval(const char* name, float interval)
@@ -177,30 +159,9 @@ Action* getForeverAcByNameAndInterval(const char* name, float interval)
 float getTurretRotation(Point start_pos, Point pos){
 	//计算两点之间的角度
 
-	//float len_y = pos.y - start_pos.y;
-	//float len_x = pos.x - start_pos.x;
 
-	//float tan_yx = abs(len_y) / abs(len_x);
-	//float angle = 0;
-	//if (len_y > 0 && len_x < 0) {
-	//	angle = atan(tan_yx) * 180 / 3.1415926 - 90;
-	//}
-	//else if (len_y > 0 && len_x > 0) {
-	//	angle = 90 - atan(tan_yx) * 180 / 3.1415926;
-	//}
-	//else if (len_y < 0 && len_x < 0) {
-	//	angle = -atan(tan_yx) * 180 / 3.1415926 - 90;
-	//}
-	//else if (len_y < 0 && len_x > 0) {
-	//	angle = atan(tan_yx) * 180 / 3.1415926 + 90;
-	//}
 	return 270-CC_RADIANS_TO_DEGREES((start_pos-pos).getAngle());
-	//CCLOG("********************");
-	//CCLOG("pos A X:%f,Y:%f", start_pos.x, start_pos.y);
-	//CCLOG("pos B X:%f,Y:%f", pos.x, pos.y);
-	//CCLOG("angle : %f",angle);
-	//CCLOG("********************");
-	//return angle;
+
 }
 
 unsigned long getCurrentTime()

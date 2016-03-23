@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "fish/Fish.h"
 #include "AnimationUtil.h"
+#include "data/GameData.h"
 USING_NS_CC;
 
 //获得随机数By随机因子，默认随机时间因子

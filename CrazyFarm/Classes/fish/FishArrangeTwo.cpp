@@ -8,7 +8,7 @@ void FishArrangeTwo::initFishAnim(int fishID)
 {
 	//Ö÷Óã
 	int randarray[7] = { 10, 30, 31, 32, 33, 34, 35 };
-	int id = randarray[getRand() % 7];
+	int id = randarray[getRand(Server_Seed) % 7];
 	auto mainfish = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
 
 	auto acName = String::createWithFormat("swim_%d", id);
@@ -26,7 +26,7 @@ void FishArrangeTwo::initFishAnim(int fishID)
 	fishes.pushBack(maggiceff);
 	//¸±Óã
 	int randarray1[6] = { 2,4,7,8,32,33 };
-	id = randarray1[getRand() % 6];
+	id = randarray1[getRand(Server_Seed) % 6];
 	auto mainSize = getContentSize();
 	auto AffiliateSize = FishAniMannage::getInstance()->getSpriteById(id)->getOriginalSize();
 	acName = String::createWithFormat("swim_%d", id);

@@ -8,7 +8,7 @@ void FishArrangeThree::initFishAnim(int fishID)
 {
 	//Ö÷Óã
 	int randarray[7] = { 10, 30, 31, 32, 33, 34, 35 };
-	int id = randarray[getRand() % 7];
+	int id = randarray[getRand(Server_Seed) % 7];
 
 	auto maggiceff = MagicEffect::create(4, false);
 	maggiceff->stopAllActions();
@@ -28,7 +28,7 @@ void FishArrangeThree::initFishAnim(int fishID)
 	centerPos = maggiceff->getContentSize() / 2;
 	//¸±Óã
 	int randarray1[6] = { 2,3,4,7,8,9};
-	id = randarray1[getRand() % 6];
+	id = randarray1[getRand(Server_Seed) % 6];
 	acName = String::createWithFormat("swim_%d", id);
 	auto ac1 = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
 	auto ac2 = ac1->clone();
