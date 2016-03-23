@@ -93,7 +93,7 @@ bool VIPLayer::init()
 		auto VIPtitle = Sprite::create("VIPtxt.png");
 		VIPtitle->setPosition(visibleSize.width*0.1, visibleSize.height*0.2);
 		addChild(VIPtitle);
-		VIPtitle->setScale(0.7);
+
 
 		auto VIPTTF = LabelAtlas::create(Value(nowVip).asString(), "VIPnum.png", 31, 43, '0');
 		VIPTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -104,14 +104,14 @@ bool VIPLayer::init()
 
 		auto VipExpBar = Sprite::create("VIP_expBar.png");
 		VipExpBar->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		VipExpBar->setPosition(15,VipExpFram->getContentSize().height/2);
+		VipExpBar->setPosition(10,VipExpFram->getContentSize().height/2+1.2);
 		VipExpBar->setTextureRect(Rect(0, 0, scale, 31));
 		VipExpFram->addChild(VipExpBar);
 
 		auto VIPtitle1 = Sprite::create("VIPtxt.png");
 		VIPtitle1->setPosition(visibleSize.width*0.60, visibleSize.height*0.2);
 		addChild(VIPtitle1);
-		VIPtitle1->setScale(0.7);
+
 		auto VIPTTF1 = LabelAtlas::create(Value(nowVip+1).asString(), "VIPnum.png", 31, 43, '0');
 		VIPTTF1->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		VIPTTF1->setPosition(visibleSize.width*0.60 + 40, visibleSize.height*0.2);
@@ -120,8 +120,8 @@ bool VIPLayer::init()
 		VIPTTF1->setScale(0.7);
 
 		auto frame = Scale9Sprite::create("txtPriceDes.png");
-		frame->setContentSize(Size(629, 36));
-		frame->setPosition(visibleSize.width*0.4, visibleSize.height*0.1);
+		frame->setContentSize(Size(670, 36));
+		frame->setPosition(visibleSize.width*0.4+41/2, visibleSize.height*0.1);
 		addChild(frame);
 
 		auto expPercentum = String::createWithFormat("%d:%d", nowChargeMoney, nextVip.charge_money);
@@ -146,24 +146,25 @@ bool VIPLayer::init()
 
 		///, nextVip.charge_money - nowChargeMoney, nextVip.vip_level
 		auto needPayMoney = LabelAtlas::create(Value(nextVip.charge_money - nowChargeMoney).asString(), "multipleNum.png", 15, 21, '0');
-		needPayMoney->setPosition(177, visibleSize.height*0.1);
+		needPayMoney->setPosition(190, visibleSize.height*0.1);
 		needPayMoney->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(needPayMoney);
 
 		auto vipSp = Sprite::create("VIPtxt.png");
-		vipSp->setPosition(363, visibleSize.height*0.1);
+		vipSp->setPosition(400, visibleSize.height*0.1);
 		
 		addChild(vipSp);
 
 		auto VIPLvTTF = LabelAtlas::create(Value(nextVip.vip_level).asString(), "VIPnum.png", 31, 43, '0');
-		VIPLvTTF->setAnchorPoint(Point::ZERO);
-		VIPLvTTF->setPosition(Point(vipSp->getContentSize().width, 0));
-		vipSp->addChild(VIPLvTTF);
-		vipSp->setScale(0.6);
+		VIPLvTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		VIPLvTTF->setPosition(vipSp->getPosition()+Vec2(vipSp->getContentSize().width/2,0));
+		addChild(VIPLvTTF);
+		VIPLvTTF->setScale(0.7);
+		vipSp->setScale(0.8);
 
 		attention = Sprite::create("attention.png");
 		attention->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		attention->setPosition(412, visibleSize.height*0.1);
+		attention->setPosition(VIPLvTTF->getPosition()+Vec2(VIPLvTTF->getContentSize().width/2+10,0));
 		addChild(attention);
 
 

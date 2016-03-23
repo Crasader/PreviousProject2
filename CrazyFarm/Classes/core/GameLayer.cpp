@@ -212,7 +212,7 @@ bool GameLayer::init(){
 
 	//fish->addShader();
 	
-
+	_touchtypes.push_back(TouchInNormal);
 	return true;
 }
 
@@ -555,6 +555,7 @@ bool GameLayer::lightTouchEvent(Touch *touch, Event *event)
 }
 void GameLayer::beginLight()
 {
+	_touchtypes.push_back(TouchInLight);
 	m_lasttouchType = m_touchType;
 	myTurret->beginLightShoot();
 	changeTouchFunByTouchType(TouchInLight);
@@ -565,8 +566,9 @@ void GameLayer::beginLight()
 }
 void GameLayer::endLight()
 {
+	_touchtypes.remove(TouchInLight);
 	myTurret->endLightShoot();
-	changeTouchFunByTouchType(m_lasttouchType);
+	changeTouchFunByTouchType(_touchtypes.back());
 	auto node = getChildByName("TXTTip");
 	if (node)
 	{
@@ -576,6 +578,7 @@ void GameLayer::endLight()
 
 void GameLayer::beginLock()
 {
+	_touchtypes.push_back(TouchInLock);
 	m_lasttouchType = m_touchType;
 	myTurret->beginLockShoot();
 	changeTouchFunByTouchType(TouchInLock);
@@ -587,8 +590,9 @@ void GameLayer::beginLock()
 }
 void GameLayer::endLock()
 {
+	_touchtypes.remove(TouchInLock);
 	myTurret->endLockShoot();
-	changeTouchFunByTouchType(m_lasttouchType);
+	changeTouchFunByTouchType(_touchtypes.back());
 	auto node = getChildByName("TXTTip");
 	if (node)
 	{
@@ -598,6 +602,7 @@ void GameLayer::endLock()
 
 void GameLayer::beginSkillBoom()
 {
+	_touchtypes.push_back(TouchInBoom);
 	m_lasttouchType = m_touchType;
 	changeTouchFunByTouchType(TouchInBoom);
 
@@ -607,7 +612,8 @@ void GameLayer::beginSkillBoom()
 }
 void GameLayer::endSkillBoom()
 {
-	changeTouchFunByTouchType(m_lasttouchType);
+	_touchtypes.remove(TouchInBoom);
+	changeTouchFunByTouchType(_touchtypes.back());
 
 	auto txttip = getChildByName("TXTTip");
 	if (txttip)
@@ -710,13 +716,15 @@ void GameLayer::beginAutoShoot()
 {
 	autoShootPos = Point(-1, -1);
 	m_lasttouchType = m_touchType;
+	_touchtypes.push_back(TouchInAutoShoot);
 	changeTouchFunByTouchType(TouchInAutoShoot);
 	myTurret->beginAutoShoot();
 	
 }
 void GameLayer::endAutoShoot()
 {
-	changeTouchFunByTouchType(m_lasttouchType);
+	_touchtypes.remove(TouchInAutoShoot);
+	changeTouchFunByTouchType(_touchtypes.back());
 	myTurret->endAutoShoot();
 }
 bool GameLayer::AutoShootTouchEvent(Touch *touch, Event *event)

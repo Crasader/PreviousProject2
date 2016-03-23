@@ -149,7 +149,7 @@ void SkillButton::skillCoolDownCallBack()
     // 按钮置为可用
     mItemSkill->setEnabled(true);
 }
-void SkillButton::skillButonUi()
+void SkillButton::skillButonUi(int cdTime)
 {
 
 
@@ -164,7 +164,7 @@ void SkillButton::skillButonUi()
 	mProgressTimer->setType(ProgressTimer::Type::RADIAL);
 	mProgressTimer->stopAllActions();
 	//准备一个5秒旋转360度的动画(逐渐覆盖半透模板形成冷却效果;这里进行计时冷却动画的实现和时间控制)
-	ActionInterval* action_progress_to = Sequence::create(ProgressTo::create(mCDTime, 100), ProgressTo::create(0, 0), nullptr);
+	ActionInterval* action_progress_to = Sequence::create(ProgressTo::create(cdTime, 100), ProgressTo::create(0, 0), nullptr);
 	auto action_callback = CallFunc::create(CC_CALLBACK_0(SkillButton::skillCoolDownCallBack, this));
 	mProgressTimer->runAction(Sequence::create(action_progress_to, action_callback, NULL));
 }
@@ -173,7 +173,6 @@ void SkillButton::skillButonUi()
 void SkillButton::useSkill()
 {
 	int type = JudgeUseSkill();
-	log("skill using condition is %d", type);
 	switch (type)
 	{
 	case -1:
@@ -205,7 +204,6 @@ void SkillButton::useSkill()
 			{
 				LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, price);
 				User::getInstance()->addDiamonds(-price);
-				skillManager::getInstance()->getButtonByID(m_skillID)->skillButonUi();
 				skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());
 			}
 			else
@@ -230,7 +228,6 @@ void SkillButton::useSkill()
 	{
 		LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 0, 0);
 		BagManager::getInstance()->changeItemCount(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id, -1);
-		skillManager::getInstance()->getButtonByID(m_skillID)->skillButonUi();
 		skillManager::getInstance()->useSkillById(m_skillID, GameManage::getInstance()->getGameLayer()->GetMyTurret());
 	}
 	break;
@@ -245,14 +242,34 @@ int SkillButton::JudgeUseSkill()
 	{
 		return -1;
 	}
-	for (int i = 1; i <= 5; i++)
-	{
-		if (skillManager::getInstance()->isUseSkillNow(i))
+	if (m_skillID==1)
+	{	
+		if (skillManager::getInstance()->isUseSkillNow(1))
 		{
 			//TODO:技能不能组合使用;
 			return -1;
 		}
+	
 	}
+	if (m_skillID == 2)
+	{
+		if (skillManager::getInstance()->isUseSkillNow(5))
+		{
+			//TODO:技能不能组合使用;
+			return -1;
+		}
+
+	}
+	if (m_skillID == 5)
+	{
+		if (skillManager::getInstance()->isUseSkillNow(2))
+		{
+			//TODO:技能不能组合使用;
+			return -1;
+		}
+
+	}
+	
 	auto num = skillManager::getInstance()->getSKillNumById(m_skillID);
 	if (num > 0)
 	{

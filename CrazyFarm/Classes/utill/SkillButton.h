@@ -27,7 +27,7 @@ public:
 	void setEnable(bool isEnable){ mItemSkill->setEnabled(isEnable); };
 	/** 技能按钮点击回调 */
 	virtual void    skillClickCallBack(Ref* obj);
-	void skillButonUi();
+	void skillButonUi(int cdTime);
 
 protected:
 	void useSkill();

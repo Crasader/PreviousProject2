@@ -819,7 +819,7 @@ void PlayerTurret::rorateAndShootOnlight(float dt)
 	auto pos = lightFish->getPosition();
 	float degree = getTurretRotation(getPosition(), pos);
 	rorateTurret(degree);
-
+	lightFish->onHeart();
 	LogEventFish::getInstance()->addFishUserCostCoin(lightFish->getFishID(), 2 * getTurrentMupltData().multiple);
 	LogEventFish::getInstance()->addFishHitTimes(lightFish->getFishID());
 	float k = rand_0_1();

@@ -37,7 +37,6 @@ void SkillLockButton::skillClickCallBack(Ref* obj)
 void SkillLockButton::skillCoolDownCallBack()
 {
 	SkillButton::skillCoolDownCallBack();
-	skillManager::getInstance()->useSkillLockEnd();
 
 }
 

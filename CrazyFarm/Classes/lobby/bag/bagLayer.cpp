@@ -245,7 +245,7 @@ bool BagLayer::init()
 		auto exeBarMid = Sprite::create("exe_mid.png");
 		exeBarMid->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		exeBarMid->setTextureRect(Rect(0,0,exeMur*150,22));
-		exeBarMid->setPosition(sssize2.width*0.51, sssize2.height*0.745);
+		exeBarMid->setPosition(sssize2.width*0.51, sssize2.height*0.745-1);
 		playinfoFram->addChild(exeBarMid);
 	
 
