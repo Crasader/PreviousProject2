@@ -332,6 +332,6 @@ void payLayer::showVipCallback(Ref*psend)
 {
 	auto layer = VIPLayer::create();
 	layer->setPosition(0, 0);
-	getParent()->addChild(layer,10);
+	getParent()->addChild(layer,30);
 	removeFromParentAndCleanup(1);
 }

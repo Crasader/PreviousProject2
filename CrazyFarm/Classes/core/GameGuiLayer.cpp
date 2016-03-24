@@ -439,7 +439,7 @@ Vec2 GameGuiLayer::getItemPos(int itemid)
 	case 1007:	
 		return  skillmanager->getButtonByID(skillmanager->getSkillInfoByitemId(itemid).skill_id)->getPosition();
 	default:
-		return GameManage::getInstance()->getGameLayer()->GetMyTurret()->getCoinLabelPos();
+		return GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPaoWorldpos();
 	}
 }
 

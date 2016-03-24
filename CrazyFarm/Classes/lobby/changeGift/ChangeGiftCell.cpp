@@ -41,6 +41,10 @@ void ChangeGiftCell::setValue(int type) //1:钻石 2：话费3：冰冻锁定
 	giftName->setTexture(str->getCString());
 	str = String::createWithFormat("giftItem_%d.png", m_type);
 	giftCell->setTexture(str->getCString());
+	if (type==1)
+	{
+		giftCell->setTexture("zuanshi_5.png");
+	}
 }
 
 void ChangeGiftCell::update(float delta)
@@ -57,7 +61,7 @@ void ChangeGiftCell::update(float delta)
 		/*colorBg->setVisible(true);*/
 		bt->setEnabled(false);
 		colorBg->setVisible(true);
-		setScale(0.7);
+		setScale(0.8);
 	}
 }
 void ChangeGiftCell::changeButtonCallback(Ref* psend)

@@ -71,12 +71,12 @@ bool TurnTableDialog::init()
 		auto aniNode = Sprite::create();
 		aniNode->setPosition(290, 160);
 		addChild(aniNode, 5);
-		aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0.1f));
+		aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0));
 
 		aniNode = Sprite::create();
 		aniNode->setPosition(650,160);
 		addChild(aniNode, 5);
-		aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0.2f));
+		aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0));
 
 
 		bRet = true;
@@ -233,7 +233,7 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 		//°´Å¥
 		auto bt = MenuItemImage::create("btn_choujiang_1.png", "btn_choujiang_2.png", CC_CALLBACK_1(TurnTableDialog::choujiangButtonCallBack, this));
 		bt->setPosition(382, 45);
-		auto ac = RepeatForever::create(Sequence::create(ScaleTo::create(0.17f, 1.1), ScaleTo::create(0.13f, 0.81), ScaleTo::create(0.13f, 1.1), ScaleTo::create(0.13f, 1), DelayTime::create(4.0f), nullptr));
+		auto ac = RepeatForever::create(Sequence::create(ScaleTo::create(0.17f, 1.1), ScaleTo::create(0.13f, 0.81), ScaleTo::create(0.13f, 1.1), ScaleTo::create(0.13f, 1), DelayTime::create(2.0f), nullptr));
 		bt->runAction(ac);
 
 		auto menu = Menu::create(bt, nullptr);

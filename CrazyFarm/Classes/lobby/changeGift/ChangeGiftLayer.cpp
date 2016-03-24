@@ -53,7 +53,7 @@ bool ChangeGiftLayer::init()
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(ChangeGiftLayer::closeButtonCallBack, this));
 		close->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		close->setPosition(bg->getContentSize());
+		close->setPosition(bg->getContentSize()-Size(50,50));
 
 
 

@@ -102,7 +102,7 @@ void UpgradeSureDialog::sureButtonCallBack(Ref*psend)
 	{
 		auto var = cells.at(i);
 		var->setTextureRect(Rect(0, 0, 0, 0));
-		var->runAction(Sequence::create(ScaleTo::create(0.25f, 1.1f), ScaleTo::create(0.25f, 1.0f), DelayTime::create(0.2f + i*0.1f), EaseSineIn::create(MoveTo::create(0.5f, convertToNodeSpace(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPosition()))), RemoveSelf::create(), nullptr));
+		var->runAction(Sequence::create(ScaleTo::create(0.25f, 1.1f), ScaleTo::create(0.25f, 1.0f), DelayTime::create(0.2f + i*0.1f), Spawn::createWithTwoActions(EaseSineIn::create(MoveTo::create(0.5f, convertToNodeSpace(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPosition()))),ScaleTo::create(0.5f,0.5f)), RemoveSelf::create(), nullptr));
 	}
 	runAction(Sequence::create(DelayTime::create(2.2f), CallFunc::create([&]
 	{

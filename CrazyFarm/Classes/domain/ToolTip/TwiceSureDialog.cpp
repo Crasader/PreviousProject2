@@ -105,11 +105,11 @@ void TwiceSureDialog::showRandonBubbleAni()
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(20,100);
 	node->addChild(aniNode, 5);
-	aniNode->runAction(getForeverAcByNameAndInterval("aniBubble",0.1f));
+	aniNode->runAction(getForeverAcByNameAndInterval("aniBubble",0));
 
 	aniNode = Sprite::create();
 	aniNode->setPosition(node->getContentSize().width-20, 100);
 	node->addChild(aniNode, 5);
-	aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0.2f));
+	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([=]{aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0)); }), nullptr));
 	
 }

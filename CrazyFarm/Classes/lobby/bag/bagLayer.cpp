@@ -8,7 +8,7 @@
 #include "lobby/Nobility/NobilityLayer.h"
 #include "lobby/shop/payLayer.h"
 #include "lobby/LobbyScene.h"
-
+#include "widget/LightEffect.h"
 enum 
 {
 	kDesignTagCell0,
@@ -205,19 +205,19 @@ bool BagLayer::init()
 		//金币
 		userCoin1 = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
 		userCoin1->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		userCoin1->setPosition(sssize2.width*0.52, sssize2.height *0.56);
+		userCoin1->setPosition(sssize2.width*0.52, 228.36-3);
 		userCoin1->setColor(Color3B::WHITE);
 		playinfoFram->addChild(userCoin1);
 		//钻石
 		userdiamond1 = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
 		userdiamond1->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		userdiamond1->setPosition(sssize2.width*0.52, sssize2.height *0.46);
+		userdiamond1->setPosition(sssize2.width*0.52,185.36-2);
 		userdiamond1->setColor(Color3B::WHITE);
 		playinfoFram->addChild(userdiamond1);
 		//VIP
 
 		auto VIPtitle1 = Sprite::create("VIPtxt.png");
-		VIPtitle1->setPosition(sssize2.width*0.50, sssize2.height * 0.36);
+		VIPtitle1->setPosition(sssize2.width*0.50, 142.36-1);
 		playinfoFram->addChild(VIPtitle1);
 		VIPtitle1->setScale(0.6);
 		auto VIPTTF1 = LabelAtlas::create(Value(user->getVipLevel()).asString(), "VIPnum.png", 31, 43, '0');
@@ -226,7 +226,7 @@ bool BagLayer::init()
 		VIPtitle1->addChild(VIPTTF1);
 		//贵族
 		auto txtshengyu = Sprite::create("shengyudayTxt.png");
-		txtshengyu->setPosition(sssize2.width*0.52, sssize2.height *0.26);
+		txtshengyu->setPosition(sssize2.width*0.52, 99.36);
 		auto guizulevel = LabelAtlas::create(Value(user->getNobillityCount()).asString().c_str(), "VIPnum.png", 31,43,'0');
 		guizulevel->setScale(0.6);
 		guizulevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -257,47 +257,94 @@ bool BagLayer::init()
 
 
 
+		//头像框
+		auto spHeadFrame = Sprite::create("HeadFrame.png");
+		spHeadFrame->setPosition(visibleSize.width*0.05, visibleSize.height*0.94);
+		addChild(spHeadFrame, 1, "spHeadFrame");
+
+
+		spHead2 = Sprite::create();
+		sex = user->getUserGender();
+		if (sex)
+		{
+			spHead2->setTexture("headWomen.png");
+		}
+		else
+		{
+			spHead2->setTexture("headMan.png");
+		}
+		spHead2->setPosition(23, 30);
+		spHeadFrame->addChild(spHead2);
+
+
+		auto userFrame = Sprite::create("coinFrame.png");
+		userFrame->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
+		userFrame->setPosition(spHeadFrame->getPositionX(), spHeadFrame->getPositionY());
+		addChild(userFrame);
+		sssize2 = userFrame->getContentSize();
+
+		userName2 = LabelTTF::create(user->getUserName(), "arial", 20);
+		userName2->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		userName2->setPosition(sssize2.width*0.5, sssize2.height*0.5);
+		userFrame->addChild(userName2);
+
+
+		auto viplevelFrame = Sprite::create("viplevelFrame.png");
+		viplevelFrame->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+		viplevelFrame->setPosition(sssize2.width * 1, sssize2.height*0.5);
+		viplevel = LabelAtlas::create(Value(user->getVipLevel()).asString().c_str(), "vipLevelNum.png", 11, 16, '0');
+		viplevel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		viplevel->setPosition(Vec2(viplevelFrame->getContentSize() / 2));
+		viplevelFrame->addChild(viplevel);
+		userFrame->addChild(viplevelFrame);
+
+
 		//金币
-			auto coinFrame = Sprite::create("coinFrame.png");
-		coinFrame->setPosition(visibleSize.width*0.12, visibleSize.height*0.95);
+		auto coinFrame = Sprite::create("coinFrame.png");
+		coinFrame->setPosition(visibleSize.width*0.39, visibleSize.height*0.94);
 		addChild(coinFrame);
-		auto sssize1 = coinFrame->getContentSize();
-		auto coin = Sprite::create("coin.png");
-		coin->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		coin->setPosition(3, sssize1.height *0.49);
-		coinFrame->addChild(coin);
+		sssize2 = coinFrame->getContentSize();
+		auto coin2 = Sprite::create("coin.png");
+		coin2->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		coin2->setPosition(5, sssize2.height *0.5);
+		coinFrame->addChild(coin2);
 
 		userCoin2 = LabelTTF::create(Value(user->getCoins()).asString().c_str(), "arial", 20);
 		userCoin2->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-		userCoin2->setPosition(sssize1.width*0.85, sssize1.height *0.5);
+		userCoin2->setPosition(sssize2.width*0.83, sssize2.height *0.5);
 		userCoin2->setColor(Color3B(254, 248, 52));
 		coinFrame->addChild(userCoin2);
 
 		auto addCoin = MenuItemImage::create("addBtn_nor.png", "addBtn_click.png", CC_CALLBACK_1(BagLayer::payCoinCallback, this));
 		addCoin->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		addCoin->setPosition(coinFrame->getPositionX() + sssize1.width*0.48, coinFrame->getPositionY());
+		addCoin->setPosition(coinFrame->getPositionX() + sssize2.width*0.48, coinFrame->getPositionY());
 
-
+		auto effect = LightEffect::create();
+		effect->setPosition(0, 0);
+		coin2->addChild(effect);
 		//钻石
 		auto diamondFrame = Sprite::create("coinFrame.png");
-		diamondFrame->setPosition(visibleSize.width*0.41, visibleSize.height*0.95);
+		diamondFrame->setPosition(visibleSize.width*0.64, visibleSize.height*0.94);
 		addChild(diamondFrame);
-		sssize1 = diamondFrame->getContentSize();
-		auto diamond = Sprite::create("bigDiamond.png");
-		diamond->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
-		diamond->setPosition(1, sssize1.height *0.495);
-		diamond->setScale(0.8);
+		sssize2 = diamondFrame->getContentSize();
+		auto diamond = Sprite::create("diamond1.png");
+		diamond->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		diamond->setPosition(5, sssize2.height *0.5 + 2);
 		diamondFrame->addChild(diamond);
 
 		userdiamond2 = LabelTTF::create(Value(user->getDiamonds()).asString().c_str(), "arial", 20);
 		userdiamond2->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
-		userdiamond2->setPosition(sssize1.width*0.85, sssize1.height *0.5);
+		userdiamond2->setPosition(sssize2.width*0.83, sssize2.height *0.5);
 		userdiamond2->setColor(Color3B(254, 248, 52));
 		diamondFrame->addChild(userdiamond2);
 
 		auto adddiamond = MenuItemImage::create("addBtn_nor.png", "addBtn_click.png", CC_CALLBACK_1(BagLayer::payDiamondCallback, this));
 		adddiamond->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		adddiamond->setPosition(diamondFrame->getPositionX() + sssize1.width*0.48, diamondFrame->getPositionY());
+		adddiamond->setPosition(diamondFrame->getPositionX() + sssize2.width*0.48, diamondFrame->getPositionY());
+
+		effect = LightEffect::create();
+		effect->setPosition(0, 0);
+		diamond->addChild(effect);
 
 
 
@@ -332,9 +379,9 @@ bool BagLayer::init()
 
 
 
-
+		
 		//背包 tableviewBUg
-		tableView = MyTableView::create(tableviewDelegate, baginfoFram->getContentSize());
+		tableView = MyTableView::create(tableviewDelegate, baginfoFram->getContentSize()-Size(0,20));
 		tableView->setAnchorPoint(Point::ZERO);
 		tableView->setDirection(ScrollView::Direction::VERTICAL);
 		tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
@@ -342,6 +389,8 @@ bool BagLayer::init()
 		tableView->setDelegate(tableviewDelegate);
 		baginfoFram->addChild(tableView);
 		tableView->reloadData();
+		tableView->setContentOffset(Vec2(0,-46.7));
+		
 		
 		schedule(schedule_selector(BagLayer::refreshCoinLabel),0);
 
@@ -454,11 +503,15 @@ void BagLayer::refreshCoinLabel(float dt)
 	if (sex)
 	{
 		spHead->setTexture("bagFamale.png");
+		spHead2->setTexture("headWomen.png");
+
 	}
 	else
 	{
 		spHead->setTexture("bagMale.png");
+		spHead2->setTexture("headMan.png");
 	}
 	userName->setString(user->getUserName());
+	userName2->setString(user->getUserName());
 }
 

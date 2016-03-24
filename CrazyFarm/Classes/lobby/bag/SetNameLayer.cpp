@@ -84,7 +84,7 @@ bool SetNameLayer::init()
 		_editName = ui::EditBox::create(Size(270,48), ui::Scale9Sprite::create("setnameTxt.png"));
 		_editName->setPosition(Vec2(522,266));
 		_editName->setFontName("Arial");
-		_editName->setFontSize(25);
+		_editName->setFontSize(20);
 		_editName->setFontColor(Color3B::WHITE);
 		_editName->setPlaceHolder(ChineseWord("nichengTip").c_str());
 		_editName->setPlaceholderFontColor(Color3B::GRAY);
@@ -186,7 +186,6 @@ void SetNameLayer::quedingcallback(Ref*)
 	auto sessionid = User::getInstance()->getSessionid();
 	checkTheName(txt);
 	HttpMannger::getInstance()->HttpToPostRequestSetName(sessionid, txt, sex);
-	/*HttpMannger::getInstance()->HttpToPostRequestFeedback(sessionid, txt);*/
 }
 
 void SetNameLayer::closeButtonCallBack(Ref*psend)

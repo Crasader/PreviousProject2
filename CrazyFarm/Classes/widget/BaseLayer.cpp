@@ -8,8 +8,12 @@ bool BaseLayer::init()
 	auto colorlayer = LayerColor::create();
 	colorlayer->setColor(ccc3(0, 0, 0));
 	colorlayer->setOpacity(180);
+	colorlayer->pause();
+	colorlayer->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	colorlayer->setPosition(0,0);
+	colorlayer->setScale(100);
+	//colorlayer->setContentSize(Size(5000,5000));
 	addChild(colorlayer, -1);
-	colorlayer->setVisible(false);
 	setScale(0);
 	runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), CallFunc::create([=]{colorlayer->setVisible(true); }), nullptr));
 

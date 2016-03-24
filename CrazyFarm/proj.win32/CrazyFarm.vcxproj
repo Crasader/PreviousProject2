@@ -248,9 +248,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\fish\FishOfAllKilled.cpp" />
     <ClCompile Include="..\Classes\fish\FishRouteData.cpp" />
     <ClCompile Include="..\Classes\fish\FishShader.cpp" />
-    <ClCompile Include="..\Classes\level\LevelLayer.cpp" />
-    <ClCompile Include="..\Classes\level\LevelScene.cpp" />
-    <ClCompile Include="..\Classes\level\LevelSelectPage.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\BagCell.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\bagLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\SetNameLayer.cpp" />
@@ -431,9 +428,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\fish\FishOfAllKilled.h" />
     <ClInclude Include="..\Classes\fish\FishRouteData.h" />
     <ClInclude Include="..\Classes\fish\FishShader.h" />
-    <ClInclude Include="..\Classes\level\LevelLayer.h" />
-    <ClInclude Include="..\Classes\level\LevelScene.h" />
-    <ClInclude Include="..\Classes\level\LevelSelectPage.h" />
     <ClInclude Include="..\Classes\lobby\bag\BagCell.h" />
     <ClInclude Include="..\Classes\lobby\bag\bagLayer.h" />
     <ClInclude Include="..\Classes\lobby\bag\SetNameLayer.h" />

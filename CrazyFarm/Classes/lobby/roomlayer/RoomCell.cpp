@@ -161,7 +161,7 @@ void RoomCell::playNormalAni()
 	auto paopaoNode = Sprite::create();
 	paopaoNode->setScale(1.4);
 	paopaoNode->setPosition(getContentSize().width / 2, getContentSize().height / 2);
-	paopaoNode->runAction(RepeatForever::create(Sequence::create(DelayTime::create(0.8f), AnimationUtil::getInstance()->getAnimate("aniBubble"), nullptr)));
+	paopaoNode->runAction(RepeatForever::create(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniBubble"), nullptr)));
 	addChild(paopaoNode);
 	anis.push_back(paopaoNode);
 	switch (m_room.room_id)

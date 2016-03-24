@@ -35,7 +35,7 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 			dioag->setPosition(Point::ZERO);
 			LogEventPageChange::getInstance()->addEventItems(2, 10, 0);
 			getParent()->getParent()->addChild(dioag,30);
-			removeBlinkAni();
+			
 	}
 	else
 	{
@@ -46,11 +46,6 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 			if (isElongate == false)
 			{
 				return;
-			}
-			auto pNode = getChildByName("blinkAni");
-			if (pNode)
-			{
-				pNode->removeFromParentAndCleanup(1);
 			}
 			runAction(MoveBy::create(0.5f, Vec2(177, 0)));
 			commonNode->setVisible(false);
@@ -107,6 +102,23 @@ void MyMenuItemGainMoney::initItem()
 	isElongate = false;
 	commonNode->setVisible(false);
 
+
+	showBlinkAni();
+	scheduleUpdate();
+}
+void MyMenuItemGainMoney::update(float delta)
+{
+	auto pNode = getChildByName("blinkAni");
+	int nowFish = BonusPoolManager::getInstance()->getFishCounts();
+	int alowdFish = BonusPoolManager::getInstance()->getAllowCatchFishCounts();
+	if (nowFish >= alowdFish)
+	{
+		pNode->setVisible(true);
+	}
+	else
+	{
+		pNode->setVisible(false);
+	}
 }
 
 void MyMenuItemGainMoney::setValue()
@@ -145,7 +157,6 @@ void MyMenuItemGainMoney::setValue()
 }
 void MyMenuItemGainMoney::showBlinkAni()
 {
-	removeBlinkAni();
 	auto node = Sprite::create("UnlockFrame_2.png");
 	node->setPosition(getContentSize() / 2);
 	addChild(node, 0, "blinkAni");
@@ -166,7 +177,6 @@ void MyMenuItemGainMoney::showPopup()
 		float delaytime;
 		if (isFinish)
 		{
-			showBlinkAni();
 			delaytime = 6.0f;
 		}
 		else

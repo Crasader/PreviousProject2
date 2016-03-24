@@ -7,6 +7,5 @@ class GameScene: public cocos2d::Scene{
 public:
 	virtual bool init();
 	CREATE_FUNC(GameScene);
-	void gotoLevelScene();
 };
 #endif

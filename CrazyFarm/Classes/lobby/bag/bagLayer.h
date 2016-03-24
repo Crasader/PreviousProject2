@@ -67,7 +67,10 @@ private:
 	LabelTTF* userdiamond2;
 	LabelTTF* userCoin2;
 	LabelTTF*userName;
+	LabelTTF*userName2;
+	LabelAtlas *viplevel;
 	Sprite*spHead;
+	Sprite*spHead2;
 	///°´Å¥»Øµ÷
 	MyTableView* tableView;
 	void payCoinCallback(Ref*psend);

@@ -937,7 +937,7 @@ void GameLayer::onGetRewardByfish(PlayerTurret*turrent, Fish*fish, int itemid, i
 	sp->setPosition(480,270);
 	sp->setScale(0);
 	GameManage::getInstance()->getGuiLayer()->addChild(sp,20);
-	auto distans = turrent->getCoinLabelPos().distance(sp->getPosition());
+	auto distans = turrent->getPaoWorldpos().distance(sp->getPosition());
 
 	Point curPos = GameManage::getInstance()->getGuiLayer()->getItemPos(itemid);
 

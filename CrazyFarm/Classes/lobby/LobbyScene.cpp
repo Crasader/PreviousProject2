@@ -266,7 +266,7 @@ bool LobbyScene::init()
 	auto aninode2 = Sprite::create("quickStart2.png");
 	aninode2->setPosition(quickBegin->getContentSize() / 2+Size(0,7));
 	quickBegin->addChild(aninode2);
-	aninode2->runAction(RepeatForever::create(RotateBy::create(3,360)));
+	aninode2->runAction(RepeatForever::create(RotateBy::create(1.5,360)));
 
 
 
@@ -398,13 +398,17 @@ bool LobbyScene::init()
 	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg(); }), nullptr));
 
 	
-	auto randPos = Vec2(100, 150 + rand() % 200);
+	auto aniNode = Sprite::create();
+	aniNode->setPosition(385, 68);
+	addChild(aniNode);
+	aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0));
+
+	aniNode = Sprite::create();
+	aniNode->setPosition(719,119);
+	addChild(aniNode);
+	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([=]{aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0)); }), nullptr));
 
 
-	//auto SummonBottle = Sprite::create("SummonBottle.png");
-	//SummonBottle->setPosition(200,100);
-	//addChild(SummonBottle, 100);
-	//SummonBottle->runAction(Spawn::create(MoveTo::create(2.0f, randPos), RotateBy::create(2.0f, 360), RemoveSelf::create(), nullptr));
 
 	return true;
 }

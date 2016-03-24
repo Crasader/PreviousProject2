@@ -1,7 +1,6 @@
 #include "core/GameScene.h"
 #include "core/GameLayer.h"
 #include "core/GameGuiLayer.h"
-#include "level/LevelScene.h"
 #include "domain/game/GameManage.h"
 bool GameScene::init(){
 	if ( !Scene::init() )
@@ -26,6 +25,3 @@ bool GameScene::init(){
 	return true;
 }
 
-void GameScene::gotoLevelScene(){
-	Director::getInstance()->replaceScene(TransitionFade::create(1, LevelScene::create()));
-}

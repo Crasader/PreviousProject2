@@ -117,7 +117,15 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 	{
 		auto sp = Sprite::create("signRewards.png", Rect(0, 406-83 * curindexs.at(i), 83, 83));
 		sp->setPosition(213 + i*90.28, 330);
-		sp->runAction(Sequence::create(Spawn::create(MoveTo::create(1.0f, Vec2(259.2, 48)), ScaleTo::create(1.0f, 0.1f), nullptr), RemoveSelf::create(), nullptr));
+		sp->setScale(0);
+		sp->runAction(Sequence::create(DelayTime::create(i*0.15f), Spawn::create(ScaleTo::create(0.5f, 1.0), MoveTo::create(0.5f, Vec2(281 + i * 130, 361)), nullptr), DelayTime::create(2.0f + i*0.1f), Spawn::create(MoveTo::create(0.5f, Vec2(259.2, 48)), ScaleTo::create(0.5f, 0.5f), nullptr), CallFunc::create(
+			[=]{
+			auto parent = this->getParent();
+			auto menu = parent->getChildByName("menu");
+			auto bag = menu->getChildByName("bag");
+			bag->runAction(Sequence::createWithTwoActions(ScaleTo::create(0.1, 1.2f), ScaleTo::create(0.1, 1.0f)));
+
+		}), RemoveSelf::create(), nullptr));
 		if (User::getInstance()->getVipLevel()>0)
 		{
 			auto vipx2 = Sprite::create("VIPX2.png");
@@ -126,7 +134,7 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 		}
 		getParent()->addChild(sp, 30);
 	}
-	runAction(Sequence::create(DelayTime::create(1.2f), CallFunc::create([=]{
+	runAction(Sequence::create(DelayTime::create(curindexs.size()*0.15 + 0.5 + 2.0 + curindexs.size()*0.1+0.5), CallFunc::create([=]{
 	for (auto var : _items)
 	{
 		BagManager::getInstance()->addreward(var.itemId, var.num);

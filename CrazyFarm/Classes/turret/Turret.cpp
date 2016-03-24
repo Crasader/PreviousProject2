@@ -49,8 +49,7 @@ void Turret::shoot()
 
 	auto distance = getContentSize().height*SCALETURRET*0.1;
 	auto movebypos = Vec2(distance*cos(CC_DEGREES_TO_RADIANS(90-getRotation())), distance*sin(CC_DEGREES_TO_RADIANS(90-getRotation())));
-	//setAnchorPoint(Vec2(0.5,0.2));
-	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([=]{this->setScale(1 * SCALETURRET, 0.8*SCALETURRET); this->setPosition(getPosition() - movebypos); }), DelayTime::create(0.1f),
+	runAction(Sequence::create(/*DelayTime::create(0.1f),*/ CallFunc::create([=]{this->setScale(1 * SCALETURRET, 0.8*SCALETURRET); this->setPosition(getPosition() - movebypos); }), DelayTime::create(0.1f),
 		CallFunc::create([=]{this->setScale(1 * SCALETURRET, 1.0*SCALETURRET); this->setPosition(getPosition() +movebypos); }), nullptr));
 
 

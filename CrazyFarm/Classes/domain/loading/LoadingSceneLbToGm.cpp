@@ -141,7 +141,7 @@ void LoadingSceneLbToGm::loadRes()
 	loadAniWithPng("game/ui/ani/TX_BossLight/TX_BOSS_%d.png", "aniBossLight", 1.0f, 16);
 	loadAniWithPng("game/ui/ani/TX_GoldFish/aniGoldfish_%d.png", "aniGoldfish", 2.0f, 18);
 	loadAniWithPng("game/ui/ani/TX_DianQiu/TX_DianQiu_%d.png", "aniDianQiu", 1.0f, 13);
-	loadAniWithPng("game/ui/ani/TX_shandian/shandian_%d.png", "aniShandian", 0.5f, 4);
+	loadAniWithPng("game/ui/ani/TX_shandian/shandian_%d.png", "aniShandian", 0.2f, 4);
 	loadAniWithPng("game/ui/ani/TX_huanpao/aniHuanpao_%d.png", "aniHuanpao", 0.3f, 7);
 	loadAniWithPng("game/ui/ani/TX_guangquan/guangqiu_%d.png", "aniGuangqiu", 0.15f, 5);
 	loadAniWithPng("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.3f, 5);

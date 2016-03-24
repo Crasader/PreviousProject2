@@ -188,7 +188,7 @@ bool VIPLayer::init()
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(VIPLayer::closeButtonCallBack, this));
-		close->setPosition(880, 492);
+		close->setPosition(885, 492);
 
 		auto quickPay = MenuItemImage::create("quickPay_1.png", "quickPay_2.png", CC_CALLBACK_1(VIPLayer::chankanCallBack, this));
 		quickPay->setPosition(812, 90);

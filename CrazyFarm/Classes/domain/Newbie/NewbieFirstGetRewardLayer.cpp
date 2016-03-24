@@ -75,7 +75,6 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 		{
 			auto cell = GiftCell::create(rewards[i].item_id, rewards[i].num);
 			cell->setPosition(box->getPosition());
-			/*cell->setTextureRect(Rect(0, 0, 0, 0));*/
 			cell->setScale(0);
 			cell->runAction(Sequence::create(DelayTime::create(i*0.15f),Spawn::create(ScaleTo::create(0.5f, 1.0), MoveTo::create(0.5f, Vec2(281 + i * 130, 361)), nullptr), DelayTime::create(2.0f + i*0.1f), Spawn::create(MoveTo::create(0.5f, Vec2(259.2, 48)), ScaleTo::create(0.5f, 0.5f), nullptr), CallFunc::create(
 		[=]{
