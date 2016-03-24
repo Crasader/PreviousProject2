@@ -541,7 +541,8 @@ void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 		auto rorate = getTurretRotation(fish->getPosition(), needDeadFishs.at(0)->getPosition());
 		auto distans = fish->getPosition().distance(needDeadFishs.at(0)->getPosition());
 		shandian->setRotation(-90 + rorate);
-		shandian->setScaleX(distans / 933.0f);
+	/*	shandian->setScaleX(distans / 933.0f);*/
+		shandian->setTextureRect(Rect(0, 0, distans, 70));
 	}
 	for (int i = 0; i < needDeadFishs.size();i++)
 	{	
@@ -562,7 +563,8 @@ void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 			auto rorate = getTurretRotation(var->getPosition(), needDeadFishs.at(i + 1)->getPosition());
 			auto distans = var->getPosition().distance(needDeadFishs.at(i + 1)->getPosition());
 			shandian->setRotation(-var->getRotation()-90 + rorate);
-			shandian->setScaleX(distans / 933.0f);
+			shandian->setTextureRect(Rect(0, 0, distans, 70));
+			/*shandian->setScaleX(distans / 933.0f);*/
 			allKillAninode->addChild(shandian, 1);
 			GameManage::getInstance()->CatchTheFishOntheTurrent(var, 1, pTurret);
 		}
