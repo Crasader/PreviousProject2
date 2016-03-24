@@ -71,10 +71,10 @@ void Server::sendUseSkill(int itemid) {
 }
 void Server::sendBounsPool()
 {
-	pc_request_with_timeout(workingClient, REQ_ROUTE_BOUNSPOOL, "", REQ_BOUNSPOOL_EX, REQ_TIMEOUT, bounsPool_cb);
+	pc_request_with_timeout(workingClient, REQ_ROUTE_USESKILL, "sendBounsPool", REQ_USESKILL_EX, REQ_TIMEOUT, useSkill_cb);
 }
 
-void Server::sendUserInfoChange(int gainCoins, int costCoin, int difExp, std::vector<CatchFishIdByMultiple> fishes, std::vector<int> goldfishes) {
+void Server::sendUserInfoChange(int gainCoins, int costCoin, int difExp, std::vector<CatchFishIdByMultiple> fishes, std::vector<int> goldfishes, int shootCounts) {
     
 	rapidjson::Document document;
 	document.SetObject();
@@ -105,6 +105,7 @@ void Server::sendUserInfoChange(int gainCoins, int costCoin, int difExp, std::ve
 	document.AddMember("use_coins", costCoin, allocator);
 	document.AddMember("get_coins", gainCoins, allocator);
 	document.AddMember("get_exps", difExp, allocator);
+	document.AddMember("fire_nums", shootCounts, allocator);
 	rapidjson::StringBuffer  buffer;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 	document.Accept(writer);

@@ -17,7 +17,8 @@ enum MsgId
 	MsgOnExpUpdate,						//  'expUpdate' - user exp update
 	MsgUseSkill,
 	MsgOnGetBounsPool,
-	MsgLuckDraw
+	MsgLuckDraw,
+	MsgOnMagnate
 };
 
 

@@ -1191,7 +1191,13 @@ void GameLayer::onLuckDraw(Msg_LuckDraw* msg)
 	auto table = GameManage::getInstance()->getGuiLayer()->getChildByName("turntable");
 	((TurnTableDialog*)table)->BeginTurnTable(msg->itemid, msg->num);
 }
-
+void GameLayer::onMagnate(Msg_OnMagnate*msg)
+{
+	for (auto var:msg->items)
+	{
+		onGetRewardByfish(myTurret,nullptr , var.itemid, var.num);
+	}
+}
 
 void GameLayer::ToPayShopCallBack(Ref*psend)
 {
@@ -1236,6 +1242,9 @@ void GameLayer::MsgUpdata(float dt)
 		case MsgOnGetBounsPool:
 				onGetBounsPool((Msg_OnGetBounsPool*)var);
 				break;
+		case MsgOnMagnate:
+			onMagnate((Msg_OnMagnate*)var);
+			break;	
 		default:
 			break;
 		}
@@ -1295,13 +1304,14 @@ void GameLayer::UpdateUserinfo(float dt)
 	auto costCoins = GameData::getInstance()->getcostCoin();
 	auto catchfishes = GameData::getInstance()->getCatchFishes();
 	auto catchgoldFishes = GameData::getInstance()->getCatchGoldFishes();
+	auto shootCounts = GameData::getInstance()->getshootCounts();
 
-
-	Server::getInstance()->sendUserInfoChange(gainCoins, costCoins, difExp, catchfishes, catchgoldFishes);
+	Server::getInstance()->sendUserInfoChange(gainCoins, costCoins, difExp, catchfishes, catchgoldFishes,shootCounts);
 	
 	GameData::getInstance()->setcostCoin(0);
 	GameData::getInstance()->setgainCoin(0);
 	GameData::getInstance()->getCatchFishes().clear();
 	GameData::getInstance()->getCatchGoldFishes().clear();
 	GameData::getInstance()->setchangeExp(0);
+	GameData::getInstance()->setshootCounts(0);
 }

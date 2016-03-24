@@ -9,3 +9,4 @@
 #include "MsgUseSkill.h"
 #include "MsgOnGetBounsPool.h"
 #include "MsgLuckDraw.h"
+#include "MsgOnMagnate.h"

@@ -665,28 +665,6 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 			GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
 		}
 
-
-		
-
-	/*	auto event = GameData::getInstance()->getDiamondevent();
-		if (GameData::getInstance()->getShotDiamondCount() >= event.fireTimes)
-		{
-			GameManage::getInstance()->getGameLayer()->onGetRewardByfish(this, fish, 1002, event.num);
-			LogEventMagnate::getInstance()->addMagnateNum(event.itemId, event.num);
-			GameData::getInstance()->setShotDiamondCount(0);
-			GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
-
-
-		}
-		event = GameData::getInstance()->getpropevent();
-		if (GameData::getInstance()->getShotPropCount() >= event.fireTimes)
-		{
-			GameManage::getInstance()->getGameLayer()->onGetRewardByfish(this, fish, event.itemId, event.num);
-			LogEventMagnate::getInstance()->addMagnateNum(event.itemId, event.num);
-			GameData::getInstance()->setShotPropCount(0);
-			GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
-
-		}*/
 	}
 	fish->createDropOutAniByCoin(getPosition(), num);
 	for (auto reward : fish->getFishRewards())
@@ -1189,7 +1167,7 @@ void PlayerTurret::costMoney()
 
 
 
-
+		GameData::getInstance()->setshootCounts(GameData::getInstance()->getshootCounts() + 1);
 
 		auto num = Value(m_turretdata.multiple).asInt();
 		GameData::getInstance()->setcostCoin(GameData::getInstance()->getcostCoin() + num);

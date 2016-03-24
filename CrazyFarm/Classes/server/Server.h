@@ -26,7 +26,6 @@ USING_NS_CC;
 
 #define REQ_ROUTE_USESKILL "game.gameHandler.useskill"
 #define REQ_USESKILL_EX ((void*)0x77)
-
 #define REQ_ROUTE_BOUNSPOOL "game.gameHandler.bonuspool"
 #define REQ_BOUNSPOOL_EX ((void*)0x88)
 
@@ -42,7 +41,7 @@ public:
 	void notify_observer(const char* msgId, const char* msgBody);
     
     void sendNewEvents(const char* params);
-	void sendUserInfoChange(int gainCoins, int costCoin, int difExp, std::vector<CatchFishIdByMultiple> fishes,std::vector<int> goldfishes);
+	void sendUserInfoChange(int gainCoins, int costCoin, int difExp, std::vector<CatchFishIdByMultiple> fishes, std::vector<int> goldfishes, int shootCounts);
     void reqTurrentLevelUpdate();
 
 

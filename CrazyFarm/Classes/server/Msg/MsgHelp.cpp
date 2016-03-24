@@ -82,5 +82,13 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 		base->setMsgId(MsgLuckDraw);
 
 	}
+	if (strcmp(msgId, "magnate") == 0)
+	{
+		//ÈËÎïÉý¼¶
+		base = new Msg_OnMagnate();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnMagnate);
+
+	}
 	return base;
 }

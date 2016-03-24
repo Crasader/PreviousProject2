@@ -720,6 +720,9 @@
     <ClCompile Include="..\Classes\server\Msg\MsgLuckDraw.cpp">
       <Filter>src\server\MSG</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnMagnate.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1314,6 +1317,9 @@
       <Filter>src\server\MSG</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\server\Msg\MsgLuckDraw.h">
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnMagnate.h">
       <Filter>src\server\MSG</Filter>
     </ClInclude>
   </ItemGroup>

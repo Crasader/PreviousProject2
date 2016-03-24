@@ -65,6 +65,8 @@ private:
 
 	std::vector<CatchFishIdByMultiple> _catchFishes;
 	std::vector<int> _goldFishIds;
+
+	CC_SYNTHESIZE(int, _shootCounts, shootCounts);
 public:
 	std::vector<CatchFishIdByMultiple>& getCatchFishes(){ return _catchFishes; };
 	std::vector<int>& getCatchGoldFishes(){ return _goldFishIds; };

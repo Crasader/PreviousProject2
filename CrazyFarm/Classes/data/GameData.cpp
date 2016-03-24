@@ -26,6 +26,7 @@ void GameData::init(){
 	setcostCoin(0);
 	setchangeExp(0);
 	getCatchFishes().clear();
+	setshootCounts(0);
 }
 
 GameData* GameData::getInstance(){

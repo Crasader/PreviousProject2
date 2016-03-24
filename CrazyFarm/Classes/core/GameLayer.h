@@ -152,6 +152,7 @@ private:
 	void onGetBounsPool(Msg_OnGetBounsPool*msg);
 	void onUseSkill(Msg_UseSkill* msg);
 	void onLuckDraw(Msg_LuckDraw* msg);
+	void onMagnate(Msg_OnMagnate*msg);
 	void ToPayShopCallBack(Ref*psend);
 	void exitCallback(Ref*psend);
 	void MsgUpdata(float dt);
