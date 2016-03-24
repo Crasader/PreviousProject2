@@ -7,6 +7,7 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "utill/Chinese.h"
 #include "domain/game/GameManage.h"
+#include "server/Server.h"
 #include "domain/logevent/LogEventTurnTable.h"
 USING_NS_CC_EXT;
 bool TurnTableDialog::init()
@@ -39,7 +40,8 @@ bool TurnTableDialog::init()
 
 		createBottomFrame(BonusPoolManager::getInstance()->allowBonusPool());
 
-		auto nowBounsLabel = LabelAtlas::create(Value(BonusPoolManager::getInstance()->getCoins()).asString(), "bounspoolnum.png", 15, 24,'0');
+		auto nowBounsStr = String::createWithFormat("%ld", BonusPoolManager::getInstance()->getBounsCoins())->getCString();
+		auto nowBounsLabel = LabelAtlas::create(nowBounsStr, "bounspoolnum.png", 15, 24, '0');
 		nowBounsLabel->setPosition(480, 300);
 		nowBounsLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(nowBounsLabel); 
@@ -98,7 +100,7 @@ void TurnTableDialog::choujiangButtonCallBack(Ref*psend)
 	}
 	if (nextCoin!=-1)
 	{
-		auto str = String::createWithFormat(ChineseWord("choujiangSure").c_str(), nextCoin-BonusPoolManager::getInstance()->getCoins());
+		auto str = String::createWithFormat(ChineseWord("choujiangSure").c_str(), nextCoin-BonusPoolManager::getInstance()->getBounsCoins());
 		auto toast = TwiceSureDialog::createDialog(str->getCString(), CC_CALLBACK_1(TurnTableDialog::beginChoujiangButtonCallBack, this));
 		toast->setPosition(0, 0);
 		addChild(toast, 20,"toast");
@@ -110,14 +112,10 @@ void TurnTableDialog::choujiangButtonCallBack(Ref*psend)
 	
 	
 }
-void TurnTableDialog::beginChoujiangButtonCallBack(Ref*psend)
+void TurnTableDialog::BeginTurnTable(int itemID, int num)
 {
-	auto node = getChildByName("toast");
-	if (node)
-	{
-		node->removeFromParentAndCleanup(1);
-	}
-	table->menuButtonCallback(nullptr);
+
+	table->menuButtonCallback(itemID,num);
 
 
 	auto ac = ProgressTo::create(0.5f, 0);
@@ -125,9 +123,18 @@ void TurnTableDialog::beginChoujiangButtonCallBack(Ref*psend)
 
 	labelNowCoin->setString("0");
 
-	BonusPoolManager::getInstance()->cleanCoinsAndFishCounts();
 	((Menu*)getChildByName("close"))->setEnabled(false);
 	((Menu*)(getChildByName("bottomframe")->getChildByName("choujiang")))->setEnabled(false);
+}
+
+void TurnTableDialog::beginChoujiangButtonCallBack(Ref*psend)
+{
+	Server::getInstance()->sendBounsPool();
+	auto node = getChildByName("toast");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+	}
 }
 void TurnTableDialog::showGoldFishButtonCallBack(Ref*psend)
 {
@@ -188,10 +195,10 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 			nextCoin = -1;
 		}
 	
+		auto nowCoin = BonusPoolManager::getInstance()->getBounsCoins();
 
-
-		auto nowCoin = BonusPoolManager::getInstance()->getCoins();
-	labelNowCoin = LabelAtlas::create(Value(nowCoin).asString(), "nowPoolNum.png", 13, 21, '0');
+		auto nowCoinStr = String::createWithFormat("%ld", nowCoin)->getCString();
+		labelNowCoin = LabelAtlas::create(nowCoinStr, "nowPoolNum.png", 13, 21, '0');
 		labelNowCoin->setScale(0.9);
 		labelNowCoin->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 		labelNowCoin->setPosition(barframe->getContentSize().width / 2 - 5, barframe->getContentSize().height / 2);
@@ -248,7 +255,7 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 
 		//¾­ÑéÌõ
 		auto bonus = BonusPoolManager::getInstance();
-		auto nowfish = bonus->getFishCounts();
+		auto nowfish = bonus->getBounsFishCounts();
 		auto allowdfish = bonus->getAllowCatchFishCounts();
 
 

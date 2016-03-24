@@ -13,6 +13,7 @@ public:
 	virtual bool init();
 	void onGetRewards(BonuspoolRewardItem reward);
 	void createBottomFrame(bool isFinish);
+	void BeginTurnTable(int itemID,int num);
 protected:
 	void closeButtonCallBack(Ref*psend);
 	void choujiangButtonCallBack(Ref*psend);

@@ -33,9 +33,11 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "core/showTurretLayer.h"
 #include "core/showLockTurretLayer.h"
+#include "domain/bonuspool/BonusPoolManager.h"
+#include "domain/turntable/TurnTableDialog.h"
 #define BOOMRADIUS 300
 //#define TCPIDURL "106.75.141.82" //外网
-#define TCPIDURL "172.23.1.34" //内网
+#define TCPIDURL "172.23.1.47" //内网
 enum
 {
 	kTagBaseturret= 10,
@@ -1030,7 +1032,7 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 	auto FishesInfos = msg->_FishesInfos;
 	//处理当前帧鱼群
 	auto NowFpsFishInfo = FishesInfos.at(1);
-	GameData::getInstance()->setRandomSeed(NowFpsFishInfo.fishGroupsItem.randomSTC);
+	GameData::getInstance()->setRandomSeed(NowFpsFishInfo.randomSTC);
 	auto _fishGroupsItem = NowFpsFishInfo.fishGroupsItem;
 	unsigned long  difTime = (init_creat_time - NowFpsFishInfo.seq_create_time) / 1000;
 	_fishGroupType = _fishGroupsItem.group_type;
@@ -1058,7 +1060,7 @@ void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 	//初始鱼群
 	auto NowFpsFishInfo = msg->_info;
 	auto _fishGroupsItem = NowFpsFishInfo.fishGroupsItem;
-	GameData::getInstance()->setRandomSeed(NowFpsFishInfo.fishGroupsItem.randomSTC);
+	GameData::getInstance()->setRandomSeed(NowFpsFishInfo.randomSTC);
 	unsigned long  difTime = (init_creat_time - NowFpsFishInfo.seq_create_time) / 1000;
 	_fishGroupType = _fishGroupsItem.group_type;
 	if (_fishGroupsItem.group_type == 0)//鱼群
@@ -1150,6 +1152,12 @@ void GameLayer::onUpdateLevel(Msg_OnExpUpdate*msg)
 	}
 	
 }
+void GameLayer::onGetBounsPool(Msg_OnGetBounsPool*msg)
+{
+	BonusPoolManager::getInstance()->setBounsCoins(msg->fish_coins);
+	BonusPoolManager::getInstance()->setBounsFishCounts(msg->fish_nums);
+
+}
 
 void GameLayer::onUseSkill(Msg_UseSkill*msg)
 {
@@ -1178,6 +1186,13 @@ void GameLayer::onUseSkill(Msg_UseSkill*msg)
 
 
 }
+void GameLayer::onLuckDraw(Msg_LuckDraw* msg)
+{
+	auto table = GameManage::getInstance()->getGuiLayer()->getChildByName("turntable");
+	((TurnTableDialog*)table)->BeginTurnTable(msg->itemid, msg->num);
+}
+
+
 void GameLayer::ToPayShopCallBack(Ref*psend)
 {
 	auto layer = payLayer::createLayer(2);
@@ -1218,6 +1233,9 @@ void GameLayer::MsgUpdata(float dt)
 		case MsgUseSkill:
 			onUseSkill((Msg_UseSkill*)var);
 			break;
+		case MsgOnGetBounsPool:
+				onGetBounsPool((Msg_OnGetBounsPool*)var);
+				break;
 		default:
 			break;
 		}
@@ -1272,11 +1290,18 @@ void GameLayer::UpdateCreateFishByServer(float dt)
 
 void GameLayer::UpdateUserinfo(float dt)
 {
-	auto difCoins = GameData::getInstance()->getchangeCoin();
+	auto gainCoins = GameData::getInstance()->getgainCoin();
 	auto difExp = GameData::getInstance()->getchangeExp();
-	GameData::getInstance()->setchangeCoin(0);
+	auto costCoins = GameData::getInstance()->getcostCoin();
+	auto catchfishes = GameData::getInstance()->getCatchFishes();
+	auto catchgoldFishes = GameData::getInstance()->getCatchGoldFishes();
+
+
+	Server::getInstance()->sendUserInfoChange(gainCoins, costCoins, difExp, catchfishes, catchgoldFishes);
+	
+	GameData::getInstance()->setcostCoin(0);
+	GameData::getInstance()->setgainCoin(0);
+	GameData::getInstance()->getCatchFishes().clear();
+	GameData::getInstance()->getCatchGoldFishes().clear();
 	GameData::getInstance()->setchangeExp(0);
-
-
-	Server::getInstance()->sendUserInfoChange(difCoins, difExp);
 }

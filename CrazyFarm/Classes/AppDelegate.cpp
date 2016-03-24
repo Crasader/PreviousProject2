@@ -95,8 +95,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// run
 	director->runWithScene(scene);
 
-	//LoadingScene* node = (LoadingScene*)(scene->getChildByTag(888));
-	//node->load();
+
+	unsigned int k = 1458784939890;
+
+	int a = 1458784939890;
+	long b = 1458784939890;
+	unsigned long long c = 1458784939890;
 	return true;
 }
 

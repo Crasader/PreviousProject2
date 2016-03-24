@@ -36,39 +36,6 @@ void Bullet::moveToLockfish(float time, Fish*fish)
 	target = fish;
 	target->addLockBullet(this);
 	schedule(schedule_selector(Bullet::moveTolockFishUpadate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
-	/*runAction(Sequence::create(MoveTo::create(time, fish->convertToWorldSpace(fish->getCentrenPos())), CallFunc::create([=]{
-
-		setVisible(false); 
-		((GameLayer*)getParent())->createNet(this);
-		auto turretdata = getTurretdata();
-		auto curryFish = fish;
-		if (curryFish == nullptr)
-		{
-			return;
-		}
-		LogEventFish::getInstance()->addFishHitTimes(curryFish->getFishID());
-		float k = rand_0_1();
-		float per = curryFish->getGrabProbability();
-
-		if (!getPlayerTurret()->isRobot)
-		{
-			LogEventFish::getInstance()->addFishUserCostCoin(curryFish->getFishID(), getPlayerTurret()->getTurrentMupltData().multiple);
-			float perForLevel = ConfigNewbieFishCatch::getInstance()->getperByLevelAndFishID(User::getInstance()->getLevelData().levelId, fish->getFishID());
-			if (perForLevel > 0)
-			{
-				per = perForLevel;
-			}
-		}
-		if (k < (per*turretdata.catch_per))
-		{
-			GameManage::getInstance()->CatchTheFishOntheTurrent(curryFish, 1, getPlayerTurret());
-		}
-		removeFromParentAndCleanup(1); 
-	
-	
-	
-	}
-	), nullptr));*/
 }
 
 int Bullet::getSpeedByType(int type){

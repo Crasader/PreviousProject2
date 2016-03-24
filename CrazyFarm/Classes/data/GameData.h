@@ -8,6 +8,13 @@ using namespace cocos2d;
 
 #define Server_Seed GameData::getInstance()->getRandomSeed()
 
+
+struct CatchFishIdByMultiple
+{
+	std::vector<int> fishids;
+	
+	int Multiple;
+};
 class GameData {
 public:
 	static GameData* getInstance();
@@ -52,12 +59,22 @@ private:
 
 
 	//游戏中10S金币变化和经验变化
-	CC_SYNTHESIZE(int, _changeCoin, changeCoin);
+	CC_SYNTHESIZE(int, _gainCoin, gainCoin);
+	CC_SYNTHESIZE(int, _costCoin, costCoin);
 	CC_SYNTHESIZE(int, _changeExp, changeExp);
-	
+
+	std::vector<CatchFishIdByMultiple> _catchFishes;
+	std::vector<int> _goldFishIds;
+public:
+	std::vector<CatchFishIdByMultiple>& getCatchFishes(){ return _catchFishes; };
+	std::vector<int>& getCatchGoldFishes(){ return _goldFishIds; };
+	void addCatchFishes(int fishid, int level);
+	void addGoldCatchFishes(int fishid);
+private:
 	//全局随机因子
 	int _RandomSeed;
 public:
+	
 	unsigned int getRandomSeed();
 	void setRandomSeed(unsigned int var);
 };

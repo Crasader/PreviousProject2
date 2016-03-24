@@ -17,8 +17,7 @@ bool CTurntable::init()
 	
 	result = BonusPoolManager::getInstance()->getBonuspoolResult();
 	auto pool = result.reward_list;
-	reward = pool.at(result.reward_position);
-	curPos = result.reward_position;
+
 	Size visibleSize = getContentSize();
 	pSprite_circle = CCSprite::create("turntable_rarota.png");
     pSprite_circle->setPosition(ccp(visibleSize.width/2 , visibleSize.height/2));
@@ -90,17 +89,10 @@ void CTurntable::menuButtonCallbackStop()
 
 }
 
-void CTurntable::menuButtonCallback(Ref* pSend) {
-    
+void CTurntable::menuButtonCallback(int itemid,int num) {
 
-
-	LogEventTurnTable::getInstance()->sendDataToServer(result.bouns_position + 1, result.reward_position + 1);
-    static bool need_rotation = false;
-
-
-    
-    
-    
+	curPos = getRewardPosByRewards(itemid, num, result.reward_list);
+    static bool need_rotation = false;    
     if (!need_rotation) {
         need_rotation = true;
         CCActionInterval* actionTo_5 = CCRotateBy::create(0.2, 36);
@@ -117,4 +109,13 @@ void CTurntable::menuButtonCallback(Ref* pSend) {
 }
 
 
-
+int CTurntable::getRewardPosByRewards(int itemid, int num,std::vector<BonuspoolRewardItem> _reward_list)
+{
+	for (int i = 0; i < _reward_list.size();i++)
+	{
+		if (itemid == _reward_list[i].item_id&&num == _reward_list[i].num)
+		{
+			return i;
+		}
+	}
+}

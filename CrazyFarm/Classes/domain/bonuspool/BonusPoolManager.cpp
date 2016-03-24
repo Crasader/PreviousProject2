@@ -22,32 +22,9 @@ int BonusPoolManager::getAllowCatchFishCounts(){
     return ConfigBonuspool::getInstance()->getBonuspool().allow_draw_fish_counts;
 }
 
-int BonusPoolManager::getCoins() {
-    return UserDefault::getInstance()->getIntegerForKey(BonusPoolManager::KEY_BONUSPOOL_COINS, 0);
-}
-
-int BonusPoolManager::getFishCounts() {
-    return UserDefault::getInstance()->getIntegerForKey(BonusPoolManager::KEY_BONUSPOOL_FISHCOUNTS, 0);
-}
-
-bool BonusPoolManager::addCoins(int coins) {
-    if(coins > 0) {
-        UserDefault::getInstance()->setIntegerForKey(BonusPoolManager::KEY_BONUSPOOL_COINS, getCoins() + coins);
-        UserDefault::getInstance()->setIntegerForKey(BonusPoolManager::KEY_BONUSPOOL_FISHCOUNTS, getFishCounts() + 1);
-        return true;
-    }
-    return false;
-
-}
-
-bool BonusPoolManager::cleanCoinsAndFishCounts() {
-    UserDefault::getInstance()->setIntegerForKey(BonusPoolManager::KEY_BONUSPOOL_COINS, 0);
-	UserDefault::getInstance()->setIntegerForKey(BonusPoolManager::KEY_BONUSPOOL_FISHCOUNTS, 0);
-    return true;
-}
 
 bool BonusPoolManager::allowBonusPool() {
-    if( getFishCounts() >= getAllowCatchFishCounts() ) {
+    if( getBounsFishCounts() >= getAllowCatchFishCounts() ) {
         return true;
     }else {
         return false;
@@ -56,47 +33,24 @@ bool BonusPoolManager::allowBonusPool() {
 
 BonuspoolResult BonusPoolManager::getBonuspoolResult() {
     BonuspoolResult bonuspoolResult; 
-	int coins = getCoins();
-    if(allowBonusPool()) {
-      
+	int coins = getBounsCoins();
         Bonuspool bonuspool = ConfigBonuspool::getInstance()->getBonuspool();
         for(int i=0; i < bonuspool.bonuspoolItems.size(); i++) {
             if( ( coins >= bonuspool.bonuspoolItems.at(i).start_coins ) &&
                     ( coins < bonuspool.bonuspoolItems.at(i).end_coins ) ) {
 				bonuspoolResult.bouns_position = i;
                 bonuspoolResult.reward_list = bonuspool.bonuspoolItems.at(i).reward_list;
-				int random = getRand() % 100+1;
-				int count = 0;
-				for (int j = 0; j < bonuspoolResult.reward_list.size(); j++) {
-
-				count += bonuspoolResult.reward_list.at(j).per;
-
-				if (count >= random) {
-					bonuspoolResult.reward_position = j;
-					return bonuspoolResult;
-				}
+				return bonuspoolResult;
 				}
             }
-        }
-    }
-	else
-	{
-		Bonuspool bonuspool = ConfigBonuspool::getInstance()->getBonuspool();
-		for (int i = 0; i < bonuspool.bonuspoolItems.size(); i++) {
-			if (coins >= bonuspool.bonuspoolItems.at(i).start_coins&&coins <= bonuspool.bonuspoolItems.at(i).end_coins)
-			{
-				bonuspoolResult.reward_list = bonuspool.bonuspoolItems.at(i).reward_list; 
-				bonuspoolResult.reward_position = 0;
-				return bonuspoolResult;
-			}
-		}
-	}
-   
+		return bonuspoolResult;
 }
+   
+
 
 ///TODO::È±ÉÙ±£»¤
 BonuspoolItem*  BonusPoolManager::getNextBonuspool() {
-	int coins = getCoins();
+	int coins = getBounsCoins();
 	Bonuspool bonuspool = ConfigBonuspool::getInstance()->getBonuspool();
 	for (int i = 0; i < bonuspool.bonuspoolItems.size(); i++) {
 		if ((coins >= bonuspool.bonuspoolItems.at(i).start_coins) &&
@@ -119,3 +73,30 @@ BonuspoolItem*  BonusPoolManager::getNextBonuspool() {
 	}
 }
 
+
+
+unsigned long BonusPoolManager::getBounsCoins()
+{
+	return _coins;
+}
+void BonusPoolManager::setBounsCoins(unsigned long coins)
+{
+	_coins = coins;
+}
+void BonusPoolManager::addBounsCoins(int coins)
+{
+	_coins += ((unsigned long)coins);
+}
+
+int BonusPoolManager::getBounsFishCounts()
+{
+	return _fishCounts;
+}
+void BonusPoolManager::setBounsFishCounts(int fishcounts)
+{
+	_fishCounts = fishcounts;
+}
+void BonusPoolManager::addBounsFishCounts(int fishcounts)
+{
+	_fishCounts += fishcounts;
+}

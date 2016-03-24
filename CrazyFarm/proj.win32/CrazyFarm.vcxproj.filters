@@ -714,6 +714,12 @@
     <ClCompile Include="..\Classes\core\showLockTurretLayer.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnGetBounsPool.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgLuckDraw.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1303,6 +1309,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\core\showLockTurretLayer.h">
       <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnGetBounsPool.h">
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgLuckDraw.h">
+      <Filter>src\server\MSG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

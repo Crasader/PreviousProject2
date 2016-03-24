@@ -22,8 +22,10 @@ void GameData::init(){
 	setisLoadMsgOnGame(false);
 	setTouchLockTurretType(0);
 
-	setchangeCoin(0);
+	setgainCoin(0);
+	setcostCoin(0);
 	setchangeExp(0);
+	getCatchFishes().clear();
 }
 
 GameData* GameData::getInstance(){
@@ -63,4 +65,25 @@ unsigned int GameData::getRandomSeed()
 void GameData::setRandomSeed(unsigned int var)
 {
 	_RandomSeed = var;
+}
+
+void GameData::addCatchFishes(int fishid, int level)
+{
+	for (auto &var:_catchFishes)
+	{
+		if (var.Multiple == level)
+		{
+			var.fishids.push_back(fishid);
+			return;
+		}
+	}
+	CatchFishIdByMultiple info;
+	info.fishids.push_back(fishid);
+	info.Multiple = level;
+	_catchFishes.push_back(info);
+	return;
+}
+void GameData::addGoldCatchFishes(int fishid)
+{
+	_goldFishIds.push_back(fishid);
 }

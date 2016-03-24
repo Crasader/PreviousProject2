@@ -5,7 +5,7 @@
 #include <pomelo.h>
 #include <pomelo_trans.h>
 #include <pc_JSON.h>
-
+#include "data/GameData.h"
 #include "server/MsgObserver.h"
 USING_NS_CC;
 #define EV_HANDLER_EX ((void*)0x44)
@@ -27,6 +27,10 @@ USING_NS_CC;
 #define REQ_ROUTE_USESKILL "game.gameHandler.useskill"
 #define REQ_USESKILL_EX ((void*)0x77)
 
+#define REQ_ROUTE_BOUNSPOOL "game.gameHandler.bonuspool"
+#define REQ_BOUNSPOOL_EX ((void*)0x88)
+
+
 class Server{
 public:
 	static Server* getInstance();
@@ -38,11 +42,13 @@ public:
 	void notify_observer(const char* msgId, const char* msgBody);
     
     void sendNewEvents(const char* params);
-    void sendUserInfoChange(int difCoins,int difExp);
+	void sendUserInfoChange(int gainCoins, int costCoin, int difExp, std::vector<CatchFishIdByMultiple> fishes,std::vector<int> goldfishes);
     void reqTurrentLevelUpdate();
 
 
 	void sendUseSkill(int itemid);
+
+	void sendBounsPool();
 private:
 	Server();
 	static Server* _instance;
@@ -67,7 +73,7 @@ private:
     
 	static void useSkill_cb(const pc_request_t* req, int rc, const char* resp);
     
-    
+	static void bounsPool_cb(const pc_request_t* req, int rc, const char* resp);
     
     std::string username;
 

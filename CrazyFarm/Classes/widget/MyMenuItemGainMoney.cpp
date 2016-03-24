@@ -3,6 +3,7 @@
 #include "domain/turntable/TurnTableDialog.h"
 #include "domain/logevent/LogEventPageChange.h"
 #include "extensions/cocos-ext.h"
+#include "server/Server.h"
 enum 
 {
 	kTagMutpleLabel = 10,
@@ -31,10 +32,11 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 		commonNode->setVisible(false);
 		runAction(MoveBy::create(0.5f, Vec2(177, 0)));
 		isElongate = false;
-			auto dioag = TurnTableDialog::create();
-			dioag->setPosition(Point::ZERO);
-			LogEventPageChange::getInstance()->addEventItems(2, 10, 0);
-			getParent()->getParent()->addChild(dioag,20);
+		auto dioag = TurnTableDialog::create();
+		dioag->setPosition(Point::ZERO);
+		LogEventPageChange::getInstance()->addEventItems(2, 10, 0);
+		getParent()->getParent()->addChild(dioag,30,"turntable");
+	
 			removeBlinkAni();
 	}
 	else
@@ -113,9 +115,9 @@ void MyMenuItemGainMoney::setValue()
 {
 
 	commonNode->setVisible(true);
-	int nowFish = BonusPoolManager::getInstance()->getFishCounts();
+	int nowFish = BonusPoolManager::getInstance()->getBounsFishCounts();
 	int alowdFish = BonusPoolManager::getInstance()->getAllowCatchFishCounts();
-	int poolNum = BonusPoolManager::getInstance()->getCoins();
+	unsigned long poolNum = BonusPoolManager::getInstance()->getBounsCoins();
 	auto str = String::createWithFormat("%d:%d", nowFish, alowdFish);
 	auto scalex = ((float)nowFish) / ((float)alowdFish);
 
@@ -123,13 +125,14 @@ void MyMenuItemGainMoney::setValue()
 	isFinish = nowFish >= alowdFish ? true : false;
 	
 	auto node = (LabelAtlas*)commonNode->getChildByTag(kTagCoinLabel);
-	node->setString(Value(poolNum).asString().c_str());
+	auto poolNumStr = String::createWithFormat("%ld", poolNum)->getCString();
+	node->setString(poolNumStr);
 	auto frame = commonNode->getChildByName("exeFrame");
 	node = (LabelAtlas*)frame->getChildByTag(kTagExeDec);
 	node->setString(str->getCString());
 	auto node1 = frame->getChildByTag(kTagExeBar);
 	((Sprite*)node1)->setTextureRect(Rect(0,0,scalex*93,20));
-	/*node1->setContentSize(Size(scalex*77,node1->getContentSize().height));*/
+
 
 	if (isFinish)
 	{

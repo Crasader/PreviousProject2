@@ -59,8 +59,8 @@ private:
 	void update(float dt);
 	void shootUpdata(float dt);
 	//间隔10S同步一次信息
+public:
 	void UpdateUserinfo(float dt);
-
 
 	//激光
 public:
@@ -149,8 +149,9 @@ private:
 	void onConError(Msg_ConError*msg);
 	void onUpdateTurrent(Msg_OnUpdateTurrent*msg);
 	void onUpdateLevel(Msg_OnExpUpdate*msg);
-
+	void onGetBounsPool(Msg_OnGetBounsPool*msg);
 	void onUseSkill(Msg_UseSkill* msg);
+	void onLuckDraw(Msg_LuckDraw* msg);
 	void ToPayShopCallBack(Ref*psend);
 	void exitCallback(Ref*psend);
 	void MsgUpdata(float dt);

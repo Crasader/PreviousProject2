@@ -12,11 +12,12 @@ public:
     // a selector callback
 	void menuButtonCallbackStop();
     
-	void menuButtonCallback(Ref* pSender);
+	void menuButtonCallback(int itemid, int num);
 
 	CREATE_FUNC(CTurntable);
     
 private:
+	int getRewardPosByRewards(int itemid, int num, std::vector<BonuspoolRewardItem> _reward_list);
 	int curPos;
     Sprite* pSprite_circle;
     MenuItemImage *m_menuBegin;

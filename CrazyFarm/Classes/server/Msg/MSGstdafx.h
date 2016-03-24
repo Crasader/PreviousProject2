@@ -7,3 +7,5 @@
 #include "MsgOnExpUpdate.h"
 #include "MsgOnUpdateTurrent.h"
 #include "MsgUseSkill.h"
+#include "MsgOnGetBounsPool.h"
+#include "MsgLuckDraw.h"

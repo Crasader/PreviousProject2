@@ -1,4 +1,7 @@
 #include "Server.h"
+#include "json/document.h"
+#include "json/stringbuffer.h"
+#include "json/writer.h"
 
 Server* Server::_instance = NULL;
 
@@ -66,14 +69,52 @@ void Server::sendUseSkill(int itemid) {
 	CCLOG("sendUseSkill %s", reqParams.c_str());
 	pc_request_with_timeout(workingClient, REQ_ROUTE_USESKILL, reqParams.c_str(), REQ_USESKILL_EX, REQ_TIMEOUT, useSkill_cb);
 }
+void Server::sendBounsPool()
+{
+	pc_request_with_timeout(workingClient, REQ_ROUTE_BOUNSPOOL, "", REQ_BOUNSPOOL_EX, REQ_TIMEOUT, bounsPool_cb);
+}
 
-
-void Server::sendUserInfoChange(int difCoins, int difExp) {
+void Server::sendUserInfoChange(int gainCoins, int costCoin, int difExp, std::vector<CatchFishIdByMultiple> fishes, std::vector<int> goldfishes) {
     
-	auto Params = String::createWithFormat("{\"coins\": %d, \"exps\": %d }", difCoins,difExp);
+	rapidjson::Document document;
+	document.SetObject();
+	rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+	rapidjson::Value array(rapidjson::kArrayType);
+	rapidjson::Value array2(rapidjson::kArrayType);
+	for (auto var : fishes)
+	{
+		rapidjson::Value object(rapidjson::kObjectType);
+		object.AddMember("turrent_level", var.Multiple, allocator);
+		rapidjson::Value array1(rapidjson::kArrayType);
+		for (auto var1:var.fishids)
+		{
+			array1.PushBack(var1, allocator);
+		}
+		object.AddMember("fishes", array1, allocator);
+		array.PushBack(object, allocator);
+	}
+	for (auto var : goldfishes)
+	{
+		rapidjson::Value object(rapidjson::kObjectType);
+		array2.PushBack(var, allocator);
+	}
+
+
+	document.AddMember("fishes", array, allocator);
+	document.AddMember("gold_fishes", array2, allocator);
+	document.AddMember("use_coins", costCoin, allocator);
+	document.AddMember("get_coins", gainCoins, allocator);
+	document.AddMember("get_exps", difExp, allocator);
+	rapidjson::StringBuffer  buffer;
+	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	document.Accept(writer);
+	std::string result = buffer.GetString();
+
+
+	//auto Params = String::createWithFormat("{\"coins\": %d, \"exps\": %d }", difCoins,difExp);
 	
-	CCLOG("sendUserInfoChange %s",Params->getCString());
-		pc_notify_with_timeout(workingClient, REQ_USERINFOCHANGE, Params->getCString(), REQ_USERINFOCHANGE_EX, REQ_TIMEOUT, notify_cb);
+	CCLOG("sendUserInfoChange %s", result.c_str());
+	pc_notify_with_timeout(workingClient, REQ_USERINFOCHANGE, result.c_str(), REQ_USERINFOCHANGE_EX, REQ_TIMEOUT, notify_cb);
 }
 
 void Server::reqTurrentLevelUpdate() {
@@ -122,6 +163,13 @@ void Server::useSkill_cb(const pc_request_t* req, int rc, const char* resp) {
 
 }
 
+void Server::bounsPool_cb(const pc_request_t* req, int rc, const char* resp) {
+
+	CCLOG("bounsPool_cb: get resp %s\n", resp);
+	Server::getInstance()->notify_observer("LuckDraw", resp);
+
+}
+
 void Server::add_observer(MsgObserver *o){
     msgObserver.push_back(o);
 }
@@ -144,7 +192,7 @@ void Server::notify_observer(const char* msgId, const char* msgBody) {
     // 4 : 'onFishes' - broadcast fish info ...
     // 5 : 'level_update' - level update request
     // 6 : 'expUpdate' - user exp update
-	// 6 : 'useSkill' - user skill
+	// 7 : 'useSkill' - user skill
     for(std::vector<MsgObserver*>::const_iterator it=msgObserver.begin(); it!=msgObserver.end(); it++) {
         (*it)->handle_event(msgId, msgBody);
     }

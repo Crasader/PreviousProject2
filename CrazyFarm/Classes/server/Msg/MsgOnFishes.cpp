@@ -21,10 +21,10 @@ void Msg_OnFishes::setBody(const char* msgBody)
 	_info.seq_id = info["seq_id"].GetInt();
 	_info.seq_interval = info["seq_interval"].GetInt();
 	_info.seq_create_time = info["seq_create_time"].GetDouble();
+	_info.randomSTC = info["seq_create_time"].GetDouble();
 	{
 		auto &fishgroupinfo = info["fish_group_info"];
 		MsgFishGourpInfo groupInfo;
-		groupInfo.randomSTC = getRand() % 1000;
 		groupInfo.group_type = fishgroupinfo["group_type"].GetInt();
 		groupInfo.sub_type = fishgroupinfo["sub_type"].GetInt();
 		groupInfo.seq = fishgroupinfo["seq"].GetInt();

@@ -66,5 +66,21 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 		base->setMsgId(MsgUseSkill);
 
 	}
+	if (strcmp(msgId, "BonuspoolInfo") == 0)
+	{
+		//人物升级
+		base = new Msg_OnGetBounsPool();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnGetBounsPool);
+
+	}
+	if (strcmp(msgId, "LuckDraw") == 0)
+	{
+		//人物升级
+		base = new Msg_LuckDraw();
+		base->setBody(msgBody);
+		base->setMsgId(MsgLuckDraw);
+
+	}
 	return base;
 }

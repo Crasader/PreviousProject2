@@ -34,5 +34,7 @@ private:
 	bool checkHeightBorder(float y);//y边界检查
 	bool checkWidthBorder(float x);//x边界检查
 	Point getNextPostion(Point pos, float speed, float degree);
+
+	CC_SYNTHESIZE(int, _multiple, multiple);
 };
 #endif

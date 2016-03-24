@@ -15,7 +15,9 @@ enum MsgId
 	MsgOnFishes,	// 'onFishes' - broadcast fish info ...
 	MsgOnUpdateTurrent,		  //  'level_update' - level update request
 	MsgOnExpUpdate,						//  'expUpdate' - user exp update
-	MsgUseSkill
+	MsgUseSkill,
+	MsgOnGetBounsPool,
+	MsgLuckDraw
 };
 
 
@@ -32,7 +34,6 @@ struct MsgFishGourpInfo
 	int sub_type; // 鱼巢几
 	int seq;
 	int seq_time;
-	int randomSTC;//随机因子
 	std::vector<MsgFishInfo> fishItems;
 };
 
@@ -40,6 +41,7 @@ struct MsgFishesInfo
 {
 	int seq_id;
 	int seq_interval;
+	unsigned int randomSTC;//随机因子
 	unsigned long seq_create_time;
 	MsgFishGourpInfo fishGroupsItem;
 

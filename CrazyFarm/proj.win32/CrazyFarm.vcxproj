@@ -297,9 +297,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\server\Msg\MsgBase.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgConError.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgHelp.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgLuckDraw.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnAdd.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnExpUpdate.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnFishes.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgOnGetBounsPool.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnInit.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnLeave.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnUpdateTurrent.cpp" />
@@ -493,9 +495,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\server\Msg\MsgBase.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgConError.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgHelp.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgLuckDraw.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnAdd.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnExpUpdate.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnFishes.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgOnGetBounsPool.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnInit.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnLeave.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnUpdateTurrent.h" />

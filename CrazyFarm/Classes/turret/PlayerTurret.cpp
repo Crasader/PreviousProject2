@@ -642,16 +642,33 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		Audio::getInstance()->playSound(CATCHGOLD);
 		num = fish->getFishGold()* m_turretdata.multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
 		m_CoinLabel->setString(String::createWithFormat("%ld", User::getInstance()->addCoins(num))->getCString());
-		GameData::getInstance()->setchangeCoin(GameData::getInstance()->getchangeCoin()+num);
+		GameData::getInstance()->setgainCoin(GameData::getInstance()->getgainCoin()+num);
 
 		auto exp = fish->getFishExperience();
 		User::getInstance()->addExp(exp);
 		GameData::getInstance()->setchangeExp(GameData::getInstance()->getchangeExp() + exp);
 
 
-		BonusPoolManager::getInstance()->addCoins(fish->getBounsPoorGold());
+		
+		if (fish->getFishType()==AllKilledFish)
+		{
+			GameData::getInstance()->addCatchFishes(fish->getuiId(),m_turretdata.multiple);
+		}
+		else
+		{
+			GameData::getInstance()->addCatchFishes(fish->getFishID(), m_turretdata.multiple);
+		}
+		
+		if (fish->getBounsPoorGold()>0)
+		{
+			GameData::getInstance()->addGoldCatchFishes(fish->getFishID());
+			GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
+		}
 
-		auto event = GameData::getInstance()->getDiamondevent();
+
+		
+
+	/*	auto event = GameData::getInstance()->getDiamondevent();
 		if (GameData::getInstance()->getShotDiamondCount() >= event.fireTimes)
 		{
 			GameManage::getInstance()->getGameLayer()->onGetRewardByfish(this, fish, 1002, event.num);
@@ -669,7 +686,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 			GameData::getInstance()->setShotPropCount(0);
 			GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
 
-		}
+		}*/
 	}
 	fish->createDropOutAniByCoin(getPosition(), num);
 	for (auto reward : fish->getFishRewards())
@@ -1175,7 +1192,7 @@ void PlayerTurret::costMoney()
 
 
 		auto num = Value(m_turretdata.multiple).asInt();
-		GameData::getInstance()->setchangeCoin(GameData::getInstance()->getchangeCoin() - num);
+		GameData::getInstance()->setcostCoin(GameData::getInstance()->getcostCoin() + num);
 		auto nowCoin = User::getInstance()->addCoins(-num);
 		if (nowCoin <= 0)
 		{
