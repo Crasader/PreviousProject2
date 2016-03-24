@@ -1186,6 +1186,23 @@ void GameLayer::onUseSkill(Msg_UseSkill*msg)
 
 
 }
+void GameLayer::onbankruptRebirth(Msg_OnBankruptRebirth* msg)
+{
+	
+	if (msg->errorcode == 0)
+	{
+		GameManage::getInstance()->onRebirthBySomeTurret(msg->getCoin);
+	}
+	else
+	{
+		GameManage::getInstance()->onRebirthBySomeTurret(1000);
+	}
+}
+void GameLayer::onBankrupt(Msg_OnBankrupt* msg)
+{
+	myTurret->onBankrupt();
+	GameManage::getInstance()->onBrokeBySomeTurret(myTurret, msg->left_times, msg->wait_time);
+}
 void GameLayer::onLuckDraw(Msg_LuckDraw* msg)
 {
 	auto table = GameManage::getInstance()->getGuiLayer()->getChildByName("turntable");
@@ -1244,7 +1261,16 @@ void GameLayer::MsgUpdata(float dt)
 				break;
 		case MsgOnMagnate:
 			onMagnate((Msg_OnMagnate*)var);
+			break;
+		case MsgLuckDraw:
+			onLuckDraw((Msg_LuckDraw*)var);
 			break;	
+		case MsgOnBankrupt:
+			onBankrupt((Msg_OnBankrupt*)var);
+			break;
+		case MsgOnBankruptRebirth:
+			onbankruptRebirth((Msg_OnBankruptRebirth*)var);
+			break;
 		default:
 			break;
 		}

@@ -90,5 +90,21 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 		base->setMsgId(MsgOnMagnate);
 
 	}
+	if (strcmp(msgId, "bankruptBroke") == 0)
+	{
+		//人物升级
+		base = new Msg_OnBankrupt();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnBankrupt);
+
+	}
+	if (strcmp(msgId, "bankruptRebirth") == 0)
+	{
+		//人物升级
+		base = new Msg_OnBankruptRebirth();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnBankruptRebirth);
+
+	}
 	return base;
 }

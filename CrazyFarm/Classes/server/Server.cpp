@@ -71,9 +71,14 @@ void Server::sendUseSkill(int itemid) {
 }
 void Server::sendBounsPool()
 {
-	pc_request_with_timeout(workingClient, REQ_ROUTE_USESKILL, "sendBounsPool", REQ_USESKILL_EX, REQ_TIMEOUT, useSkill_cb);
+	char* Params = "{}";
+	pc_request_with_timeout(workingClient, REQ_ROUTE_BOUNSPOOL, Params, REQ_BOUNSPOOL_EX, REQ_TIMEOUT, bounsPool_cb);
 }
-
+void Server::sendBankruptRebirth()
+{
+	char* Params = "{}";
+	pc_request_with_timeout(workingClient, REQ_ROUTE_BANKRUPTREBIRTH, Params, REQ_BANKRUPTREBIRTH_EX, REQ_TIMEOUT, bankruptRebirth_cb);
+}
 void Server::sendUserInfoChange(int gainCoins, int costCoin, int difExp, std::vector<CatchFishIdByMultiple> fishes, std::vector<int> goldfishes, int shootCounts) {
     
 	rapidjson::Document document;
@@ -161,6 +166,13 @@ void Server::useSkill_cb(const pc_request_t* req, int rc, const char* resp) {
 
 	CCLOG("usingskill_cb: get resp %s\n", resp);
 	Server::getInstance()->notify_observer("useSkill", resp);
+
+}
+
+void Server::bankruptRebirth_cb(const pc_request_t* req, int rc, const char* resp) {
+
+	CCLOG("usingskill_cb: get resp %s\n", resp);
+	Server::getInstance()->notify_observer("bankruptRebirth", resp);
 
 }
 

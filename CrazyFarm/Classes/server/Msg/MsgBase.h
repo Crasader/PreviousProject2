@@ -18,7 +18,9 @@ enum MsgId
 	MsgUseSkill,
 	MsgOnGetBounsPool,
 	MsgLuckDraw,
-	MsgOnMagnate
+	MsgOnMagnate,
+	MsgOnBankrupt,
+	MsgOnBankruptRebirth
 };
 
 

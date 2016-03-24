@@ -29,6 +29,9 @@ USING_NS_CC;
 #define REQ_ROUTE_BOUNSPOOL "game.gameHandler.bonuspool"
 #define REQ_BOUNSPOOL_EX ((void*)0x88)
 
+#define REQ_ROUTE_BANKRUPTREBIRTH "game.gameHandler.bankruptRebirth"
+#define REQ_BANKRUPTREBIRTH_EX ((void*)0x99)
+
 
 class Server{
 public:
@@ -48,6 +51,8 @@ public:
 	void sendUseSkill(int itemid);
 
 	void sendBounsPool();
+
+	void sendBankruptRebirth();
 private:
 	Server();
 	static Server* _instance;
@@ -74,6 +79,8 @@ private:
     
 	static void bounsPool_cb(const pc_request_t* req, int rc, const char* resp);
     
+	static void bankruptRebirth_cb(const pc_request_t* req, int rc, const char* resp);
+
     std::string username;
 
 	int _room_id;

@@ -564,7 +564,7 @@ void PlayerTurret::initWithDate(User* user, int index)
 	nChairNoIndex = index;
 	if (GameData::getInstance()->getisOnBankrupt() || user->getCoins() <= 0)
 	{
-		onBankrupt();
+		GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
 	}
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
@@ -706,7 +706,7 @@ void PlayerTurret::onBankrupt()
 	{
 		if (!BankruptManager::getInstance()->getgetRewardNode())
 		{
-			BankruptManager::getInstance()->RequestServerToBroke(this);
+			/*BankruptManager::getInstance()->RequestServerToBroke(this);*/
 		}
 
 		GameData::getInstance()->setisOnBankrupt(true);
@@ -1174,7 +1174,7 @@ void PlayerTurret::costMoney()
 		auto nowCoin = User::getInstance()->addCoins(-num);
 		if (nowCoin <= 0)
 		{
-			onBankrupt();
+			GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
 		}
 		m_CoinLabel->setString(Value(nowCoin).asString().c_str());
 

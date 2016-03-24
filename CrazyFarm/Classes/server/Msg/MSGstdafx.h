@@ -10,3 +10,5 @@
 #include "MsgOnGetBounsPool.h"
 #include "MsgLuckDraw.h"
 #include "MsgOnMagnate.h"
+#include "MsgOnBankrupt.h"
+#include "MsgOnBankruptRebirth.h"

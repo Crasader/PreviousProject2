@@ -723,6 +723,12 @@
     <ClCompile Include="..\Classes\server\Msg\MsgOnMagnate.cpp">
       <Filter>src\server\MSG</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnBankrupt.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnBankruptRebirth.cpp">
+      <Filter>src\server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1321,6 +1327,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\server\Msg\MsgOnMagnate.h">
       <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnBankrupt.h">
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnBankruptRebirth.h">
+      <Filter>src\server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

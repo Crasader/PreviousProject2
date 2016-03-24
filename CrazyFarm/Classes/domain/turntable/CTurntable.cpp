@@ -92,6 +92,8 @@ void CTurntable::menuButtonCallbackStop()
 void CTurntable::menuButtonCallback(int itemid,int num) {
 
 	curPos = getRewardPosByRewards(itemid, num, result.reward_list);
+	reward.item_id = itemid;
+	reward.num = num;
     static bool need_rotation = false;    
     if (!need_rotation) {
         need_rotation = true;
