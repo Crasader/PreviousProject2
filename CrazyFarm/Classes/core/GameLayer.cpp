@@ -204,14 +204,6 @@ bool GameLayer::init(){
 
 	//fish->addShader();
 
-	//fish = FishManage::getInstance()->createFishSingle(50);
-	//fish->setVisible(false);
-	//fish->setisAutoRemove(false);
-	//fish->setMonentEightRoute(24);
-	//addChild(fish, fish->getFishZorder());
-
-	//fish->addShader();
-	
 	_touchtypes.push_back(TouchInNormal);
 	return true;
 }
@@ -389,6 +381,9 @@ void GameLayer::rotateTurret(float degree,PlayerTurret* turret){
 }
 
 void GameLayer::update(float dt){
+
+
+
 	FishManage::getInstance()->UpdateWhenController(dt);
 	FishManage::getInstance()->UpdataCreateFish(dt);
 }
@@ -401,7 +396,7 @@ void GameLayer::createNet(Bullet *bullet){
 	float dotdistance = bullet->getContentSize().height*0.2;
 	float angle = bullet->getRotation();
 	auto dotpos = Vec2(dotdistance*sin(CC_DEGREES_TO_RADIANS(angle)), dotdistance*cos(CC_DEGREES_TO_RADIANS(angle)));
-	fishNet->setPosition(bullet->getPosition() + dotpos);
+	fishNet->setPosition(bullet->getPosition()/* + dotpos*/);
 	fishNet->setRotation(bullet->getRotation());
 	fishNet->initNetByType();
 	this->addChild(fishNet, kZorderNet);

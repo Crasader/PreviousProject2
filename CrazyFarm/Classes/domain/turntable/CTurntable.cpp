@@ -40,18 +40,34 @@ bool CTurntable::init()
     addChild(pSprite_point, 1);
     
 	int size = pool.size();
+
+	int tempCoin = 3;
+	int tempDm = 2;
 	 for (int i = 0; i < size; i++) 
 	{
+		String *path;
 	  auto item = pool[i];
 	  int id = item.item_id;
 	  int num = item.num;
-	  auto cell = TurntableCell::create(id, num); 
-	
+	  if (id != 1001 && id != 1002)
+	  {
+		  path = String::createWithFormat("sign_%d.png", id);
+	  }
+	  else if (id == 1001)
+	  {
+		  path = String::createWithFormat("coin_%d.png", tempCoin++);
+	  }
+	  else if (id == 1002)
+	  {
+		  path = String::createWithFormat("zuanshi_%d.png", tempDm++);
+	  }/*path = String::createWithFormat("sign_%d.png", id);*/
+
+	 
+		auto cell = TurntableCell::create(path->getCString(), num);
 		cell->setTag(i);
-		cell->setAnchorPoint(ccp(0.5, -1.0));
 		cell->setPosition(pSprite_circle->getContentSize()/2);
 		cell->setRotation(i*60);
-		
+		(id != 1001 && id != 1002) ? cell->setAnchorPoint(ccp(0.5, -1.0)) : cell->setAnchorPoint(ccp(0.5, -1.2));
 		pSprite_circle->addChild(cell);   
     }
     return true;

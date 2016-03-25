@@ -462,8 +462,8 @@ void Fish::setMonentEightRoute(int routeTag)
 void Fish::addShader()
 {
 	m_shadesprite = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(nUiID));
-	m_shadesprite->setPosition(getContentSize().width*0.65,getContentSize().height*0.35);
-	addChild(m_shadesprite, -1,"shader");
+	m_shadesprite->setPosition(getContentSize().width*0.65, getContentSize().height*0.35);
+	addChild(m_shadesprite, -1, "shader");
 
 
 	auto acName = String::createWithFormat("swim_%d", nUiID);

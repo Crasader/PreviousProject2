@@ -123,5 +123,9 @@ private:
 
 
 	bool isInitData = false;
+
+
+	DrawNode* drawnode;
+	Fish* fish;
 };
 #endif

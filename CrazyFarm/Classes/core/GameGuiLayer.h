@@ -65,6 +65,8 @@ public:
 	void onBossWarning(int fishID);
 
 	void showGainMoneyTurrent();
+	
+	void anastole();
 private:
 	////
 	//²¥·ÅÕæÈËÉùÒô

@@ -5,13 +5,13 @@ WaitCircle*  WaitCircle::ShowPayWaitCircle()
 {
 	auto circle = WaitCircle::create();
 	circle->setPosition(480, 270);
-	Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(circle, 100);
+	Director::getInstance()->getRunningScene()->addChild(circle, 30);
 	return circle;
 }
 void WaitCircle::RemovePayWaitCircle(std::string prepayid)
 {
 
-	auto circle = Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByName(prepayid);
+	auto circle = Director::getInstance()->getRunningScene()->getChildByName(prepayid);
 		if (circle)
 		{
 			circle->removeFromParentAndCleanup(1);

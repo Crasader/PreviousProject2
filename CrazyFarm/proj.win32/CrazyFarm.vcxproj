@@ -310,6 +310,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\widget\GiftCell.cpp" />
     <ClCompile Include="..\Classes\widget\LightEffect.cpp" />
     <ClCompile Include="..\Classes\widget\MyDialog.cpp" />
+    <ClCompile Include="..\Classes\widget\MyLabelAtlas.cpp" />
     <ClCompile Include="..\Classes\widget\MyMenuItemGainMoney.cpp" />
     <ClCompile Include="..\Classes\widget\MyMenuItemUpgrade.cpp" />
     <ClCompile Include="..\Classes\widget\MyTableView.cpp" />
@@ -491,6 +492,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\widget\GiftCell.h" />
     <ClInclude Include="..\Classes\widget\LightEffect.h" />
     <ClInclude Include="..\Classes\widget\MyDialog.h" />
+    <ClInclude Include="..\Classes\widget\MyLabelAtlas.h" />
     <ClInclude Include="..\Classes\widget\MyMenuItemGainMoney.h" />
     <ClInclude Include="..\Classes\widget\MyMenuItemUpgrade.h" />
     <ClInclude Include="..\Classes\widget\MyTableView.h" />

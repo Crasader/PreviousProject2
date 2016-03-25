@@ -41,7 +41,7 @@
 #include "domain/pay/WaitCircle.h"
 #include "domain/loading/LoadingSceneLbToGm.h"
 #include "lobby/signlayer/SignMannger.h"
-
+#include "widget/MyLabelAtlas.h"
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
 roomCell * roomCell::createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback)
@@ -409,7 +409,10 @@ bool LobbyScene::init()
 	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([=]{aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0)); }), nullptr));
 
 
-
+	//auto lba = MyLabelAtlas::create(Value(1).asString(), "vipLevelNum.png", 11, 16, '0', 100);
+	//lba->setPosition(480, 270);
+	//lba->runAction(RepeatForever::create(Sequence::create(DelayTime::create(0.5f), CallFunc::create([=]{ static int i = 1; i *= 10; lba->setString(Value(i).asString()); }), nullptr)));
+	//addChild(lba, 2000);
 	return true;
 }
 void LobbyScene::showSign(float dt)
@@ -484,6 +487,7 @@ void LobbyScene::createRoomLayer()
 
 void LobbyScene::payCoinCallback(Ref*psend)
 {
+	WaitCircle::ShowPayWaitCircle();
 	Audio::getInstance()->playSound(CLICKSURE);
 	auto paylayer = payLayer::createLayer(1);
 	paylayer->setPosition(Point::ZERO);

@@ -88,6 +88,19 @@ void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 		}), nullptr));
 	}
 }
+void MyMenuItemUpgrade::anastole()
+{
+	if (isElongate == false)
+	{
+		return;
+	}
+	setEnabled(false);
+	runAction(Sequence::create(MoveBy::create(0.5f, Vec2(177, 0)), CallFunc::create([=]{setEnabled(true); }), nullptr));
+	commonNode->setVisible(false);
+	unfinishedNode->setVisible(false);
+	nodeZeng->setVisible(false);
+	isElongate = false;
+}
 
 void MyMenuItemUpgrade::initItem()
 {

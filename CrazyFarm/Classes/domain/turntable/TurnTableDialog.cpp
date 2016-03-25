@@ -8,6 +8,8 @@
 #include "utill/Chinese.h"
 #include "domain/game/GameManage.h"
 #include "domain/logevent/LogEventTurnTable.h"
+#include "widget/MyTableView.h"
+#include "widget/MyLabelAtlas.h"
 USING_NS_CC_EXT;
 bool TurnTableDialog::init()
 {
@@ -43,7 +45,7 @@ bool TurnTableDialog::init()
 
 		createBottomFrame(BonusPoolManager::getInstance()->allowBonusPool());
 
-		auto nowBounsLabel = LabelAtlas::create(Value(BonusPoolManager::getInstance()->getCoins()).asString(), "bounspoolnum.png", 15, 24,'0');
+		auto nowBounsLabel = MyLabelAtlas::create(Value(BonusPoolManager::getInstance()->getCoins()).asString(), "bounspoolnum.png", 15, 24,'0',75);
 		nowBounsLabel->setPosition(480, 300);
 		nowBounsLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(nowBounsLabel); 

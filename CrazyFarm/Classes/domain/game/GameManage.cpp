@@ -5,6 +5,7 @@
 #include "config/ConfigChest.h"
 #include "domain/Newbie/NewbieMannger.h"
 #include "core/GetRewardNode.h"
+#include "widget/MyLabelAtlas.h"
 GameManage* GameManage::_instance = 0;
 
 GameManage* GameManage::getInstance(){
@@ -76,7 +77,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 
 
 			auto num = fish->getFishGold()* turret->getTurrentMupltData().multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
-			auto lb = LabelAtlas::create(Value(Value(num).asInt()).asString(), "goldFishNum.png", 28, 41, '0');
+			auto lb = MyLabelAtlas::create(Value(Value(num).asInt()).asString(), "goldFishNum.png", 28, 41, '0',120);
 			lb->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			lb->setPosition(Vec2(80, 180));
 			lb->setRotation(-30);

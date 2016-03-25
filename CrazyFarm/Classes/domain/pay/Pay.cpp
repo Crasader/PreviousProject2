@@ -134,9 +134,8 @@ void Pay::jniCallBack(int code, const char*msg, const char*wx_prepayid)
 			log("have no data on client %s",wx_prepayid);
 			return;
 		}
-		auto circle = WaitCircle::ShowPayWaitCircle();
-		circle->setMyPrepayid(wx_prepayid);
-		circle->setName(wx_prepayid);
+		wx_cb_prepayid = wx_prepayid;
+		payResult = 3;
 		m_state = DemandEntrying;
 	}
 	else
@@ -253,7 +252,14 @@ void Pay::update(float dt)
 		payResult = -1;
 	}
 		break;
-
+	case 3:
+	{
+		auto circle = WaitCircle::ShowPayWaitCircle();
+		circle->setMyPrepayid(wx_cb_prepayid);
+		circle->setName(wx_cb_prepayid);
+	
+		payResult = -1;
+	}
 	default:
 		break;
 	}

@@ -166,12 +166,12 @@ std::vector<int> ConfigTurrent::getCurrentShowTurrentIndexs()
 			}
 		}
 	}
-	else if (maxlv == 900||maxlv == 1000)
+	else if (maxlv == 800||maxlv == 900)
 	{
 		maxlv = 800;
-		Turrent turrent2 = getTurrent(maxlv);
+		Turrent turrent3 = getTurrent(maxlv);
+		Turrent turrent2 = getLastTurrent(turrent3.turrentId);
 		Turrent turrent1 = getLastTurrent(turrent2.turrentId);
-		Turrent turrent3 = getNextTurrent(turrent2.turrentId);
 		Turrent turrent4 = getNextTurrent(turrent3.turrentId);
 		Turrent turrent5 = getNextTurrent(turrent4.turrentId);
 		vec.push_back(getIndexByMaxlv(turrent1.turrentId));

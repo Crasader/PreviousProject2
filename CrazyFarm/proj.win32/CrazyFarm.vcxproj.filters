@@ -660,6 +660,9 @@
     <ClCompile Include="..\Classes\core\showLockTurretLayer.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\widget\MyLabelAtlas.cpp">
+      <Filter>src\widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1198,6 +1201,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\core\showLockTurretLayer.h">
       <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\widget\MyLabelAtlas.h">
+      <Filter>src\widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

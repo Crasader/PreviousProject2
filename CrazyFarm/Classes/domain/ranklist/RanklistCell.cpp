@@ -2,6 +2,7 @@
 #include "utill/Chinese.h"
 #include "domain/ranklist/RanklistManager.h"
 #include "config/ConfigExp.h"
+#include "widget/MyLabelAtlas.h"
 bool RanklistCell::init(){
 
 	bg = Sprite::create("ranklistBar1.png");
@@ -74,7 +75,7 @@ bool RanklistCell::init(){
 	coinsp->setVisible(false);
 	addChild(coinsp,0,"coinsp");
 
-	CoinNumTTF = LabelAtlas::create("0", "coinnumTxt.png", 14, 18, '0');
+	CoinNumTTF = MyLabelAtlas::create("0", "coinnumTxt.png", 14, 18, '0',9*14);
 	CoinNumTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	CoinNumTTF->setPosition(857, size.height / 2);
 	addChild(CoinNumTTF);

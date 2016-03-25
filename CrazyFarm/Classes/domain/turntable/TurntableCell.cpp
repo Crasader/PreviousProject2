@@ -1,9 +1,9 @@
 #include "TurntableCell.h"
-
-TurntableCell* TurntableCell::create(int propID, int propNum)
+#include "widget/MyLabelAtlas.h"
+TurntableCell* TurntableCell::create(const char*path, int propNum)
 {
 	TurntableCell* bRet = new TurntableCell();
-	if (bRet&&bRet->init(propID, propNum))
+	if (bRet&&bRet->init(path, propNum))
 	{
 		bRet->autorelease(); 
 			return bRet; 
@@ -16,18 +16,19 @@ TurntableCell* TurntableCell::create(int propID, int propNum)
 	} 
 }
 
-bool TurntableCell::init(int propID, int propNum)
+bool TurntableCell::init(const char*path, int propNum)
 {
-	auto spPath = String::createWithFormat("sign_%d.png", propID);
-	initWithFile(spPath->getCString());
+	initWithFile(path);
+	setContentSize(Size(83, 83));
 	bool bRet = false;
 	while (!bRet)
 	{
 		auto txt = String::createWithFormat(":%d", propNum);
-		auto num = LabelAtlas::create(txt->getCString(), "turntableCellNum.png", 15, 23, '0');
-		num->setAnchorPoint(Point::ANCHOR_MIDDLE);
-		num->setPosition(getContentSize().width*0.5, getContentSize().height*-0.05);
+		auto num = MyLabelAtlas::create(txt->getCString(), "turntableCellNum.png", 15, 23, '0',60);
+		num->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
 		addChild(num);
+		num->setPosition(getContentSize().width*0.5, -5);
+		
 		bRet = true;
 	}
 	return bRet;

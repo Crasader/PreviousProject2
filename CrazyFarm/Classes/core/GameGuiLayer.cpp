@@ -317,7 +317,10 @@ void GameGuiLayer::showGainMoneyTurrent()
 {
 	sEainCoin->showPopup();
 }
-
+void GameGuiLayer::anastole()
+{
+	sUpgradeTurret->anastole();
+}
 void GameGuiLayer::onBossWarning(int fishID)
 {
 	Audio::getInstance()->playSound(BOSSWARN);

@@ -2,7 +2,7 @@
 #include "domain/ranklist/RanklistManager.h"
 #include "utill/Chinese.h"
 #include "domain/user/User.h"
-
+#include "widget/MyLabelAtlas.h"
 void RanklistView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
@@ -114,7 +114,7 @@ bool RanklistLayer::init()
 		coinsp->setPosition(765, 445);
 		addChild(coinsp);
 
-		CoinNumTTF = LabelAtlas::create(Value(User::getInstance()->getCoins()).asString().c_str(), "coinnumTxt.png", 14, 18, '0');
+		CoinNumTTF = MyLabelAtlas::create(Value(User::getInstance()->getCoins()).asString().c_str(), "coinnumTxt.png", 14, 18, '0',98);
 		CoinNumTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 		CoinNumTTF->setPosition(915, 445);
 		addChild(CoinNumTTF);

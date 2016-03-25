@@ -28,6 +28,7 @@
 #include "core/GameScene.h"
 #include "domain/loading/LoadingSceneLbToGm.h"
 #include "core/showLockTurretLayer.h"
+#include "widget/MyLabelAtlas.h"
 enum
 {
 	kTagBankrupt = 20
@@ -265,6 +266,9 @@ void PlayerTurret::ShowLockTurretTip()
 }
 void  PlayerTurret::onLockTheTurrent()
 {
+	GameManage::getInstance()->getGuiLayer()->anastole();
+
+
 	m_btType = 0;
 	auto node = getChildByName("locknode");
 	if (node)
@@ -484,12 +488,12 @@ void PlayerTurret::createPlayerCoin(User* user, int index)
 	spCoinBG->setPosition(coinPos[index]);
 	addChild(spCoinBG, 10, index);
 	m_coinLabelPos = spCoinBG->getPosition();
-	m_CoinLabel = LabelAtlas::create(Value(user->getCoins()).asString().c_str(), "multipleNum.png", 15, 21, '0');
+	m_CoinLabel = MyLabelAtlas::create(Value(user->getCoins()).asString().c_str(), "multipleNum.png", 15, 21, '0',110);
 	m_CoinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
 	m_CoinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_CoinLabel);
 
-	m_DiamondLabel = LabelAtlas::create(Value(user->getDiamonds()).asString().c_str(), "multipleNum.png", 15, 21, '0');
+	m_DiamondLabel = MyLabelAtlas::create(Value(user->getDiamonds()).asString().c_str(), "multipleNum.png", 15, 21, '0',110);
 	m_DiamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.29);
 	m_DiamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_DiamondLabel);
@@ -1162,8 +1166,6 @@ void PlayerTurret::onPlayerUpgrade()
 
 void PlayerTurret::costMoney()
 {
-
-	log("shoot**************** %ld", getCurrentTime());
 	if (isRobot)
 	{
 		auto num = (Value(m_turretdata.multiple).asInt());
