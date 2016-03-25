@@ -36,8 +36,8 @@
 #include "domain/bonuspool/BonusPoolManager.h"
 #include "domain/turntable/TurnTableDialog.h"
 #define BOOMRADIUS 300
-//#define TCPIDURL "106.75.141.82" //外网
-#define TCPIDURL "172.23.1.47" //内网
+#define TCPIDURL "106.75.141.82" //外网
+/*#define TCPIDURL "172.23.1.76"*/ //内网
 enum
 {
 	kTagBaseturret= 10,
@@ -106,35 +106,6 @@ bool GameLayer::init(){
 	runAction(Sequence::create(DelayTime::create(0.01f),
 		CallFunc::create([&]{
 		initFishAndBulletData();
-		FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 10));
-	for (int i = 0; i < 5;i++)
-	{
-		update(1);
-	}
-		for (auto var : FishManage::getInstance()->getAllFishInPool())
-		{
-			for (int i = 0; i < 5; i++)
-			{
-				var->moveUpdata(1);
-			}
-		}
- }), nullptr));
-
-	runAction(Sequence::create(DelayTime::create(0.01f),
-		CallFunc::create([&]{
-		initFishAndBulletData();
-		FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(rand() % 3 + 81,rand() % (300 - 35) + 10));
-	for (int i = 0; i < 5;i++)
-	{
-		update(1);
-	}
-		for (auto var : FishManage::getInstance()->getAllFishInPool())
-		{
-			for (int i = 0; i < 5; i++)
-			{
-				var->moveUpdata(1);
-			}
-		}
  }), nullptr));
 
 	setbisOnSkillLock(false);
@@ -178,7 +149,7 @@ bool GameLayer::init(){
 	schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	
 
-	schedule(schedule_selector(GameLayer::UpdateUserinfo), 10.0f, CC_REPEAT_FOREVER, 0);
+	/*schedule(schedule_selector(GameLayer::UpdateUserinfo), 10.0f, CC_REPEAT_FOREVER, 0);*/
 
 	
 	_touchtypes.push_back(TouchInNormal);
@@ -1195,7 +1166,7 @@ void GameLayer::onbankruptRebirth(Msg_OnBankruptRebirth* msg)
 	}
 	else
 	{
-		GameManage::getInstance()->onRebirthBySomeTurret(1000);
+		//////TODO:非0处理
 	}
 }
 void GameLayer::onBankrupt(Msg_OnBankrupt* msg)
@@ -1257,8 +1228,8 @@ void GameLayer::MsgUpdata(float dt)
 			onUseSkill((Msg_UseSkill*)var);
 			break;
 		case MsgOnGetBounsPool:
-				onGetBounsPool((Msg_OnGetBounsPool*)var);
-				break;
+			onGetBounsPool((Msg_OnGetBounsPool*)var);
+			break;
 		case MsgOnMagnate:
 			onMagnate((Msg_OnMagnate*)var);
 			break;

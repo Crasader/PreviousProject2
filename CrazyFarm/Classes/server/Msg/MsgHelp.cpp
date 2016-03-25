@@ -2,6 +2,10 @@
 Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 {
 	Msg_Base* base = nullptr; 
+	if (!msgBody)
+	{
+		return nullptr;
+	}
 	if (strcmp(msgId, "conError") == 0)
 	{
 		//断开连接
@@ -60,7 +64,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "useSkill") == 0)
 	{
-		//人物升级
+		//使用技能
 		base = new Msg_UseSkill();
 		base->setBody(msgBody);
 		base->setMsgId(MsgUseSkill);
@@ -68,7 +72,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "BonuspoolInfo") == 0)
 	{
-		//人物升级
+		//同步奖池信息
 		base = new Msg_OnGetBounsPool();
 		base->setBody(msgBody);
 		base->setMsgId(MsgOnGetBounsPool);
@@ -76,7 +80,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "LuckDraw") == 0)
 	{
-		//人物升级
+		//抽奖
 		base = new Msg_LuckDraw();
 		base->setBody(msgBody);
 		base->setMsgId(MsgLuckDraw);
@@ -84,7 +88,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "magnate") == 0)
 	{
-		//人物升级
+		//赠送
 		base = new Msg_OnMagnate();
 		base->setBody(msgBody);
 		base->setMsgId(MsgOnMagnate);
@@ -92,7 +96,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "bankruptBroke") == 0)
 	{
-		//人物升级
+		//破产箱子
 		base = new Msg_OnBankrupt();
 		base->setBody(msgBody);
 		base->setMsgId(MsgOnBankrupt);
@@ -100,7 +104,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "bankruptRebirth") == 0)
 	{
-		//人物升级
+		//破产领取
 		base = new Msg_OnBankruptRebirth();
 		base->setBody(msgBody);
 		base->setMsgId(MsgOnBankruptRebirth);

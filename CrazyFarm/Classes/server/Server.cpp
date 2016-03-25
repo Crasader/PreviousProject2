@@ -171,7 +171,7 @@ void Server::useSkill_cb(const pc_request_t* req, int rc, const char* resp) {
 
 void Server::bankruptRebirth_cb(const pc_request_t* req, int rc, const char* resp) {
 
-	CCLOG("usingskill_cb: get resp %s\n", resp);
+	CCLOG("bankruptRebirth_cb: get resp %s\n", resp);
 	Server::getInstance()->notify_observer("bankruptRebirth", resp);
 
 }

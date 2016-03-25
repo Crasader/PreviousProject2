@@ -3,7 +3,7 @@
 #include "domain/user/User.h"
 #include "domain/logevent/LogEventBankrupt.h"
 #include "data/GameData.h"
-
+#include "server/Server.h"
 GetRewardNode* GetRewardNode::create(Bankrupt baknrupt)
 {
 	GetRewardNode *pRet = new GetRewardNode();
@@ -83,7 +83,8 @@ bool GetRewardNode::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	if (isTimeOut)
 	{
-		BankruptManager::getInstance()->RequestServerToRebirth();
+		/*BankruptManager::getInstance()->RequestServerToRebirth();*/
+		Server::getInstance()->sendBankruptRebirth();
 		
 	}
 	return true;
