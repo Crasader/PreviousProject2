@@ -51,7 +51,7 @@ private :
 	void createSettingBoard();
 	void createGuizuGiftLayer();
 	
-	
+
 	/////////美人鱼相关///////////////////////////////////////////////
 	float fmaridNowTime = 0;
 	void maridTaskTime(float dt);

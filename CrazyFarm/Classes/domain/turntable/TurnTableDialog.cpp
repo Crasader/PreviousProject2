@@ -146,8 +146,9 @@ void TurnTableDialog::showGoldFishButtonCallBack(Ref*psend)
 
 void TurnTableDialog::onGetRewards(BonuspoolRewardItem reward)
 {
+	runAction(Sequence::createWithTwoActions(DelayTime::create(1.5f), CallFunc::create([=]{removeFromParentAndCleanup(1); })));
 	GameManage::getInstance()->getGameLayer()->onGetReward(reward.item_id, reward.num);
-	removeFromParentAndCleanup(1);
+	
 }
 
 void TurnTableDialog::createBottomFrame(bool isFinish)

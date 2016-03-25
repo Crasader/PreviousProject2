@@ -200,7 +200,7 @@ void SkillButton::useSkill()
 		{
 			auto price = skillManager::getInstance()->getSkillPriceById(m_skillID);
 			auto userdm = User::getInstance()->getDiamonds();
-			if (userdm > price)
+			if (userdm >= price)
 			{
 				LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 1, price);
 				User::getInstance()->addDiamonds(-price);

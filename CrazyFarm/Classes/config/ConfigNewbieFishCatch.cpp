@@ -73,6 +73,10 @@ bool ConfigNewbieFishCatch::LoadConfig() {
 
 float ConfigNewbieFishCatch::getperByLevelAndFishID(int level, int fishid)
 {
+	if (level>levelToNewbieFishCatchs.size())
+	{
+		return -1;
+	}
 	auto vec = levelToNewbieFishCatchs[level];
 	for (auto var : vec)
 	{

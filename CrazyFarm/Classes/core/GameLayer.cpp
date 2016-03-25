@@ -317,6 +317,10 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	}
 	if (GameData::getInstance()->getisOnBankrupt())
 	{
+		auto pay = payLayer::createLayer(1);
+		pay->setPosition(0, 0);
+		pay->setEventPont(19);
+		GameManage::getInstance()->getGuiLayer()->addChild(pay, 30);
 		return true;
 	}
 	removePlayerInfo();
@@ -881,9 +885,8 @@ void GameLayer::onGetReward(int itemid, int num)
 	auto spPath = String::createWithFormat("sign_%d.png", itemid);
 
 	auto sp = Sprite::create(spPath->getCString());
-	sp->setPosition(480, 270);
-	sp->setScale(0);
-	GameManage::getInstance()->getGuiLayer()->addChild(sp, kZorderDialog+1);	
+	sp->setPosition(480, 300);
+	GameManage::getInstance()->getGuiLayer()->addChild(sp, kZorderDialog+2);	
 
 
 	auto txt = String::createWithFormat(":%d", num);
@@ -901,14 +904,14 @@ void GameLayer::onGetReward(int itemid, int num)
 	auto colorlayer = LayerColor::create();
 	colorlayer->setColor(ccc3(0, 0, 0));
 	colorlayer->setOpacity(180);
-	GameManage::getInstance()->getGuiLayer()->addChild(colorlayer, kZorderDialog);
+	GameManage::getInstance()->getGuiLayer()->addChild(colorlayer, kZorderDialog+1);
 
 	auto aninode = Sprite::create();
 	aninode->setPosition(480, 270);
-	GameManage::getInstance()->getGuiLayer()->addChild(aninode, kZorderDialog);
+	GameManage::getInstance()->getGuiLayer()->addChild(aninode, kZorderDialog+1);
 	aninode->setScale(4);
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), RemoveSelf::create(), nullptr));
-	sp->runAction(Sequence::create(CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }), ScaleTo::create(1.0f, 1.0f), MoveTo::create(1.0f, myTurret->getPaoWorldpos()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
+	sp->runAction(Sequence::create( ScaleTo::create(1.5f, 1.4f), CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }),Spawn::create(MoveTo::create(1.0f, myTurret->getPaoWorldpos()),ScaleTo::create(1.0f,0.5f),nullptr), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
 
 }
 

@@ -178,7 +178,7 @@ void GameManage::onBrokeBySomeTurret(PlayerTurret*turret, int lefttime, float wa
 		auto layer = m_pGuilayer;
 		auto node = GetRewardNode::create(baknrupt);
 		node->setPosition(turret->getPosition() + Vec2(0, 150));
-		layer->addChild(node, 10);
+		layer->addChild(node, 100);
 		BankruptManager::getInstance()->setgetRewardNode(node);
 	}
 	else if (lefttime == 0)

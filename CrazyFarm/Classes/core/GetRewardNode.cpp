@@ -45,7 +45,7 @@ bool GetRewardNode::init(Bankrupt baknrupt)
 		/*scheduleUpdate();*/
 		auto listenr1 = EventListenerTouchOneByOne::create();
 		listenr1->onTouchBegan = CC_CALLBACK_2(GetRewardNode::onTouchBegan, this);
-		listenr1->setSwallowTouches(false);
+		listenr1->setSwallowTouches(true);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
 
 		///今日很能领取几次救济金

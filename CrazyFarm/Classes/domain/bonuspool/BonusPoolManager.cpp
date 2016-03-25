@@ -65,16 +65,26 @@ BonuspoolResult BonusPoolManager::getBonuspoolResult() {
                     ( coins < bonuspool.bonuspoolItems.at(i).end_coins ) ) {
 				bonuspoolResult.bouns_position = i;
                 bonuspoolResult.reward_list = bonuspool.bonuspoolItems.at(i).reward_list;
-				int random = rand() % 100+1;
-				int count = 0;
-				for (int j = 0; j < bonuspoolResult.reward_list.size(); j++) {
-
-				count += bonuspoolResult.reward_list.at(j).per;
-
-				if (count >= random) {
-					bonuspoolResult.reward_position = j;
+				if (UserDefault::getInstance()->getBoolForKey(KEY_BONUSPOOL_FIRST,true))
+				{
+					UserDefault::getInstance()->setBoolForKey(KEY_BONUSPOOL_FIRST, false);
+					bonuspoolResult.reward_position = 0;
 					return bonuspoolResult;
 				}
+				else
+				{
+					int random = rand() % 100 + 1;
+					int count = 0;
+					for (int j = 0; j < bonuspoolResult.reward_list.size(); j++) {
+
+						count += bonuspoolResult.reward_list.at(j).per;
+
+						if (count >= random) {
+							bonuspoolResult.reward_position = j;
+							return bonuspoolResult;
+						}
+				}
+			
 				}
             }
         }
