@@ -100,6 +100,9 @@ private:
 	bool onTouTurret(Point pos);
 	void removePlayerInfo();
 	void calculateFreeChair();
+	//utill
+	static bool sortFish(const Fish * m1, const Fish * m2);
+
 	PlayerTurret* myTurret;
 	Vector<PlayerTurret*> otherTurrets;
 	std::vector<RoomPlayer> players;

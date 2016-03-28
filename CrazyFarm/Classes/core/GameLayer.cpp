@@ -79,7 +79,7 @@ bool GameLayer::init(){
 	calculateFreeChair();
 	createTurret();
 	//0.1f执行一次碰撞
-	schedule(schedule_selector(GameLayer::collisionUpdate), 0.1, CC_REPEAT_FOREVER, 0);
+	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 40.0f, CC_REPEAT_FOREVER, 0);
 
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 	
@@ -290,9 +290,9 @@ void GameLayer::shootUpdata(float dt)
 		temp = GameConfig::getInstance()->getShootData().shootInterval;
 		float degree = getTurretRotation(myTurret->getPosition(), touchpos);
 		degree -= 360;
-		if (degree<-80||degree>80)
+		if (degree<-85||degree>85)
 		{
-			//射击角度范围（-80，80）；
+			//射击角度范围（-85，85）；
 			return;
 		}
 		myTurret->shoot(degree);
@@ -315,7 +315,7 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	{
 		return true;
 	}
-	if (GameData::getInstance()->getisOnBankrupt())
+	if (GameData::getInstance()->getisOnBankrupt()&&!BankruptManager::getInstance()->getgetRewardNode())
 	{
 		auto pay = payLayer::createLayer(1);
 		pay->setPosition(0, 0);
@@ -440,7 +440,12 @@ void GameLayer::AiUpdata(float dt)
 {
 	//AIManager::getInstance()->mainUpdata(dt);
 }
-
+bool GameLayer::sortFish(const Fish * m1, const Fish * m2) {
+	auto _tempBullerPos = GameData::getInstance()->getTempBullerPos();
+	float distans1 = m1->getPosition().distance(_tempBullerPos);
+	float distans2 = m2->getPosition().distance(_tempBullerPos);
+	return distans1 < distans2;
+}
 void GameLayer::collisionUpdate(float dt)
 {
 	//TODO 碰撞逻辑
@@ -453,6 +458,8 @@ void GameLayer::collisionUpdate(float dt)
 
 	for (auto bullet : allBullets)
 	{
+		GameData::getInstance()->setTempBullerPos(bullet->getPosition());
+		std::sort(allFish.begin(), allFish.end(), GameLayer::sortFish);
 		for (auto fish : allFish)
 		{
 			if (CollisionUtill::isCollisionFishAAndBullet(fish, bullet)){

@@ -12,8 +12,10 @@ PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion) {
         lastFire = false;
         return playerWork;
     }
-    
-	if (FishManage::getInstance()->getAllFishInPoolCount() < 5 || FishManage::getInstance()->getAllFishInPoolCount() >1111 || BulletManage::getInstance()->getBulletPoolSize()>20) {
+	bool k = FishManage::getInstance()->getAllFishInPoolCount() < 5;
+	bool k1 = FishManage::getInstance()->getAllFishInPoolCount() > 1111;
+	bool k2 = BulletManage::getInstance()->getBulletPoolSize() > 20;
+	if ( k||k1||k2 ) {
         playerWork.setAngle((float)angle);
         playerWork.setFire(false);
         lastFire = false;

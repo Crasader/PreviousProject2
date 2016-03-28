@@ -1,6 +1,6 @@
 #include "utill/CollisionUtill.h"
 #define IsArrangeFish fish->getFishID()>=101&&fish->getFishID()<=104
-#define RECTSCALE 0.75
+#define RECTSCALE 0.7
 
 bool CollisionUtill::isCollisionFishAAndBullet(Fish*fish, Bullet*bullet)
 {
@@ -11,6 +11,15 @@ bool CollisionUtill::isCollisionFishAAndBullet(Fish*fish, Bullet*bullet)
 	else
 	{
 		return CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), bullet->getBoundingBox());
+		/*if (CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), bullet->getBoundingBox()))
+		{
+		return CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), bullet->getObbs());
+		}
+		else
+		{
+		return false;
+		}*/
+		
 	}
 }
 bool CollisionUtill::isCollisionFishAAndNet(Fish*fish, Net*net)
