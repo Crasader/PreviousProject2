@@ -2,9 +2,9 @@
 #define _SERVER_H_
 
 #include "cocos2d.h"
-#include <pomelo.h>
-#include <pomelo_trans.h>
-#include <pc_JSON.h>
+#include "pomelo.h"
+#include "pomelo_trans.h"
+#include "pc_JSON.h"
 #include "data/GameData.h"
 #include "server/MsgObserver.h"
 USING_NS_CC;

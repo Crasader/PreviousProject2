@@ -96,7 +96,7 @@ bool GameLayer::init(){
 	players = RoomManager::getInstance()->initRoomConfig(roominfo.unlock_turrent_level);
 	calculateFreeChair();
 
-	schedule(schedule_selector(GameLayer::collisionUpdate), 0.1, CC_REPEAT_FOREVER, 0);
+	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 40.0f, CC_REPEAT_FOREVER, 0);
 
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 

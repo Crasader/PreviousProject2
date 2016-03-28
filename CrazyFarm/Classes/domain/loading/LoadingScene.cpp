@@ -139,7 +139,7 @@ void LoadingScene::imageFishAniAsyncCallback(Texture2D* texture, void*aniData)
 
 void LoadingScene::loadRes()
 {
-	login();
+	/*login();*/
 
 	
 	ConfigManager::getInstance()->LoadConfig();

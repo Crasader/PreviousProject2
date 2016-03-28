@@ -8,6 +8,7 @@
 #include "domain/logevent/LogEventMannger.h"
 #include "utill/Audio.h"
 #include "domain/pay/Pay.h"
+#include "domain/login/LoginScene.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -90,17 +91,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	srand(time(NULL));
 	auto timenode = GlobalSchedule::getInstance();
 	// create a scene. it's an autorelease object
-	auto scene = LoadingScene::createScene();
+	auto scene = LoginScene::createScene();
 	
 	// run
 	director->runWithScene(scene);
 
 
-	unsigned int k = 1458784939890;
 
-	int a = 1458784939890;
-	long b = 1458784939890;
-	unsigned long long c = 1458784939890;
 	return true;
 }
 
