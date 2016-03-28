@@ -42,7 +42,6 @@ std::string User::getUserName() {
     if( name.compare("guest") == 0) {
         return getUserId();
     }
-     log("guest != guest");
     return name;
 }
 

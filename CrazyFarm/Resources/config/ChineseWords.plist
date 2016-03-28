@@ -175,6 +175,10 @@
   
   <key>BuySuccess</key>
   <string>购买成功</string>
+  
+  
+    <key>LoginTimeOut</key>
+  <string>登录超时，请重新登录</string>
   </dict> 
 </array>
 </plist>

@@ -2,10 +2,12 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := libserver
-LOCAL_SRC_FILES := $(LOCAL_PATH)/../../extendandroid/lib/libserver.so
-include $(PREBUILT_SHARED_LIBRARY)
-LOCAL_SHARED_LIBRARIES := libserver
 
+LOCAL_SRC_FILES := prebuilt/libserver.so
+
+include $(PREBUILT_SHARED_LIBRARY)
+
+LOCAL_SHARED_LIBRARIES := libserver
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d)
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d/external)
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d/cocos)
@@ -32,13 +34,13 @@ LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes\
-					 $(LOCAL_PATH)/../../extendandroid/include/uv\
-		    		$(LOCAL_PATH)/../../extendandroid/include\				
+$(LOCAL_PATH)/../../extendandroid/include/uv\
+$(LOCAL_PATH)/../../extendandroid/include\
 
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static
 
-
+include $(BUILD_SHARED_LIBRARY)
 
 $(call import-module,.)
 

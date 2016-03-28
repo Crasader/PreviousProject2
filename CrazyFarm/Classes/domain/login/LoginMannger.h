@@ -10,5 +10,6 @@ public:
 private:
 	LoginMannger();
 	static LoginMannger* _instance;
+	CC_SYNTHESIZE(bool, _isLoginSuccess, isLoginSuccess);
 };
 

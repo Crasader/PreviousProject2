@@ -7,7 +7,7 @@
 LoginMannger* LoginMannger::_instance = NULL;
 
 LoginMannger::LoginMannger(){
-
+	setisLoginSuccess(false);
 }
 
 
@@ -24,7 +24,7 @@ void LoginMannger::login()
 	{
 		HttpMannger::getInstance()->HttpToPostRequestRegisterInfo(DeviceInfo::getChannel_id(), DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
 	}
-	else
+	else 
 	{
 		HttpMannger::getInstance()->HttpToPostRequestLogInInfo(DeviceInfo::getChannel_id(), name, DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
 	}

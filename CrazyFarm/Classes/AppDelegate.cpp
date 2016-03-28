@@ -9,6 +9,7 @@
 #include "utill/Audio.h"
 #include "domain/pay/Pay.h"
 #include "domain/login/LoginScene.h"
+#include "utill/AnimationUtil.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -87,6 +88,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("game/ui/gamelayer/playerturret");
 	paths.push_back("game/ui/loading");
 	paths.push_back("game/ui/payShop");
+	paths.push_back("game/ui/login");
+	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bubble/aniBubble%d.png", "aniBubble", 3.5f, 46);
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand(time(NULL));
 	auto timenode = GlobalSchedule::getInstance();

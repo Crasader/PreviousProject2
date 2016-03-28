@@ -13,5 +13,6 @@ private:
 	void loginCallBack(Ref*psend);
     virtual bool init();
 	CREATE_FUNC(LoginScene);
-
+	void update(float delta);
+	float  nTempTime = 0;
 };

@@ -35,7 +35,7 @@ bool LoadingScene::init()
 	auto bg = Sprite::create("loading_new.jpg");
 	bg->setPosition(480, 270);
 	addChild(bg);
-	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bubble/aniBubble%d.png", "aniBubble", 3.5f, 46);
+
 	load();
 
 	auto aniNode = Sprite::create();

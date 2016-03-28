@@ -18,6 +18,8 @@ using namespace cocos2d;
 #define URL_PLAYERINFO "/player/info/get"
 #define URL_ITEMINFO "/player/info/bag/get/"
 #define URL_BUYITEM "/player/info/bag/buy/"
+#define URL_BIND "/user/nickname/bind/"
+#define URL_BYNICKNAME "/user/nickname/login"
 struct setNameRequest
 {
 	const char* nickname;
@@ -26,10 +28,13 @@ struct setNameRequest
 enum HTTP_TYPE
 {
 	Req_Register,
+	Req_Login,
+	Req_LoginByName,
 	Req_BeforePay,
 	Req_AfterPay,
 	Req_SyncInfo,
 	Req_SetName,
+	Req_BindName,
 	Req_FeedBack,
 	Req_DemandEntry,
 	Req_CancelOrder,
@@ -49,6 +54,9 @@ public:
 	void HttpToPostRequestLogInInfo(std::string channelId, std::string username, const char* imei, const char* hd_type, const char* hd_factory);//µ«¬º«Î«Û
 	void onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpResponse *response);
 
+	void HttpToPostRequestLogInByName(const char*nickname, const char* password);//’À∫≈µ«¬º
+	void onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpResponse *response);
+
 	void HttpToPostRequestBeforePay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, std::string pay_point_desc, int price, int result = 0, const char* orderid = "0", int paytype = 0);//œ¬µ•
 	void onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpResponse *response);
 
@@ -60,6 +68,10 @@ public:
 
 	void HttpToPostRequestSetName(std::string sessionid,const  char* nickname, int gender);//…Ë÷√Í«≥∆
 	void onHttpRequestCompletedForSetName(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestBindName(const  char* nickname, int gender,const char* password);//∞Û∂®’À∫≈
+	void onHttpRequestCompletedForBindName(HttpClient *sender, HttpResponse *response);
+
 
 	void HttpToPostRequestFeedback(const  char* feedback);//”√ªß∑¥¿°	
 	void onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResponse *response);
