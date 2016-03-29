@@ -71,7 +71,7 @@ bool LoadingScene::init()
 void LoadingScene::update(float dt)
 {
 	loadingBar->setPercent(((float)temp) / 15.0f*100+1);
-	if (temp>=15)
+	if (temp >= 15 && LoginMannger::getInstance()->getisLoginSuccess())///TODo:第一次登陆没网
 	{
 	
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
@@ -171,10 +171,6 @@ void LoadingScene::loadRes()
 
 
 
-void LoadingScene::login()
-{
-	LoginMannger::getInstance()->login();
-}
 
 void LoadingScene::showTip()
 {

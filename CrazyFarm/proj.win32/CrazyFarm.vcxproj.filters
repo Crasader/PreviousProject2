@@ -732,6 +732,15 @@
     <ClCompile Include="..\Classes\domain\login\LoginScene.cpp">
       <Filter>src\login</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\login\ChangeIDDialog.cpp">
+      <Filter>src\login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\login\RegisterDialog.cpp">
+      <Filter>src\login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\bag\SexHead.cpp">
+      <Filter>src\lobby\bag</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1339,6 +1348,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\login\LoginScene.h">
       <Filter>src\login</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\login\ChangeIDDialog.h">
+      <Filter>src\login</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\login\RegisterDialog.h">
+      <Filter>src\login</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\bag\SexHead.h">
+      <Filter>src\lobby\bag</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

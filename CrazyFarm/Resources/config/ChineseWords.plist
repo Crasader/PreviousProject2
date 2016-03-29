@@ -179,6 +179,14 @@
   
     <key>LoginTimeOut</key>
   <string>登录超时，请重新登录</string>
+  
+  
+  <key>InputName_1</key>
+  <string>账号和密码由3-12位数字和字母组成</string>
+    <key>InputName_2</key>
+  <string>账号和密码由3-12位数字和字母组成</string>
+    <key>InputName_3</key>
+  <string>账号和密码由3-12位数字和字母组成</string>
   </dict> 
 </array>
 </plist>

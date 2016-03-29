@@ -32,7 +32,6 @@ public:
 	virtual bool init();
 
 	void load();
-	void login();
 	void loadRes();
 
 

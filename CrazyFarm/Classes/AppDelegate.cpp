@@ -10,6 +10,7 @@
 #include "domain/pay/Pay.h"
 #include "domain/login/LoginScene.h"
 #include "utill/AnimationUtil.h"
+#include "domain/login/LoginMannger.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -93,11 +94,25 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand(time(NULL));
 	auto timenode = GlobalSchedule::getInstance();
+	LoginMannger::getInstance()->loadMemoryNickname();
 	// create a scene. it's an autorelease object
-	auto scene = LoginScene::createScene();
+
+	auto memoryNicknames = LoginMannger::getInstance()->getMemoryNickname();
+	if (memoryNicknames.size()>0)
+	{
+		auto scene = LoginScene::createScene();
+		director->runWithScene(scene);
+	}
+	else
+	{
+		LoginMannger::getInstance()->toRegister();
+		auto scene = LoadingScene::createScene();
+		director->runWithScene(scene);
+
+	}
+
+
 	
-	// run
-	director->runWithScene(scene);
 
 
 

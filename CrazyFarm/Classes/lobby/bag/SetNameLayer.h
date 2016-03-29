@@ -3,17 +3,12 @@
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
 #include "utill/Chinese.h"
+#include "SexHead.h"
 USING_NS_CC_EXT;
 USING_NS_CC;
 
 
-class SexHead :public Sprite
-{
-	public:
-		static SexHead* create(int sex, int isChoose);
-		bool init(int sex, int isChoose);
-		void setIsChoose(bool isChoose);
-};
+
 
 
 class SetNameLayer : public cocos2d::Layer,public cocos2d::ui::EditBoxDelegate

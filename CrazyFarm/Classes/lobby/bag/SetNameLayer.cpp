@@ -2,56 +2,6 @@
 #include "server/HttpMannger.h"
 #include "domain/user/User.h"
 
-
-SexHead* SexHead::create(int sex, int isChoose)
-{
-	auto head = new SexHead();
-	if (head->init(sex,isChoose)&&head)
-	{
-		head->autorelease();
-	}
-	else
-	{
-		head = nullptr;
-	}
-	return head;
-
-}
-
-bool SexHead::init(int sex, int isChoose)
-{
-	if (sex)
-	{
-		initWithFile("bagFamale.png");
-	}
-	else
-	{
-		initWithFile("bagMale.png");
-	}
-	auto sp = Sprite::create("sexChooseFlag.png");
-	sp->setPosition(80, 28);
-	addChild(sp,0,10);
-	if (isChoose)
-	{
-		sp->setVisible(true);
-	}
-	else
-	{
-		sp->setVisible(false);
-	}
-	return true;
-}
-void SexHead::setIsChoose(bool isChoose)
-{
-	getChildByTag(10)->setVisible(isChoose);
-}
-
-
-
-
-
-
-
 bool SetNameLayer::init()
 {
 	if ( !Layer::init() )
@@ -75,7 +25,7 @@ bool SetNameLayer::init()
 		sexBoy->setPosition(468, 357);
 		addChild(sexBoy);
 
-		sexGirl = SexHead::create(1 ,0);
+		sexGirl = SexHead::create(1, 0);
 		sexGirl->setPosition(628, 357);
 		addChild(sexGirl);
 

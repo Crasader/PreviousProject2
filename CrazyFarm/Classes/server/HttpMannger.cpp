@@ -31,14 +31,14 @@ HttpMannger* HttpMannger::getInstance(){
 
 void HttpMannger::HttpToPostRequestRegisterInfo(std::string channelId, const char* imei, const char* hd_type, const char* hd_factory)
 {
-	ShowWaiting(Req_Register);
+	/*ShowWaiting(Req_Register);*/
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_REGISTER);
 	auto requstData = String::createWithFormat("channel_id=%s&imei=%s&hd_type=%s&hd_factory=%s", channelId.c_str(),imei, hd_type, hd_factory);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForRegisterInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, HttpResponse *response)
 {
-	RemoveWaiting(Req_Register);
+	//RemoveWaiting(Req_Register);
 	if (!response)
 	{
 		return;
@@ -76,6 +76,8 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 	NewbieMannger::getInstance()->setNBRewards(rewards);
 	NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
 	LoginMannger::getInstance()->setisLoginSuccess(true);
+
+	LoginMannger::getInstance()->addMemoryNickname(doc["user_name"].GetString(), "defaultpassword");
 }
 
 
@@ -83,14 +85,14 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 
 void HttpMannger::HttpToPostRequestLogInInfo(std::string channelId, std::string username, const char* imei, const char*  hd_type, const char*  hd_factory)
 {
-	ShowWaiting(Req_Login);
+	//ShowWaiting(Req_Login);
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_LOGIN);
 	auto requstData = String::createWithFormat("channel_id=%s&user_name=%s&imei=%s&hd_type=%s&hd_factory=%s", channelId.c_str(),username.c_str(), imei, hd_type, hd_factory);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogInInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpResponse *response)
 {
-	RemoveWaiting(Req_Login);
+	/*RemoveWaiting(Req_Login);*/
 	if (!response)
 	{
 		return;
@@ -118,20 +120,21 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 	}
 	User::getInstance()->setSessionid(doc["session_id"].GetString());
 	LoginMannger::getInstance()->setisLoginSuccess(true);
+	LoginMannger::getInstance()->addMemoryNickname(User::getInstance()->getUserName().c_str(), "defaultpassword");
 }
 
 
 
 void HttpMannger::HttpToPostRequestLogInByName(const char*nickname, const char* password)
 {
-	ShowWaiting(Req_LoginByName);
+	/*ShowWaiting(Req_LoginByName);*/
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_BYNICKNAME);
 	auto requstData = String::createWithFormat("nick_name=%s&password=%s", nickname,password);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogInByName, this));
 }
 void HttpMannger::onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpResponse *response)
 {
-	RemoveWaiting(Req_LoginByName);
+	//RemoveWaiting(Req_LoginByName);
 	if (!response)
 	{
 		return;
@@ -147,12 +150,23 @@ void HttpMannger::onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpR
 	log("http  login back info: %s", temp.c_str());
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+	
+
 	if (doc.HasParseError())
 	{
 		log("get json data err!");;
 	}
 	User::getInstance()->setSessionid(doc["session_id"].GetString());
 	LoginMannger::getInstance()->setisLoginSuccess(true);
+
+	char* nickname;
+	char*password;
+		auto requstData = response->getHttpRequest()->getRequestData();
+		int num = sscanf(requstData, "nick_name=%s&password=%s",
+			&nickname, &password);
+
+		LoginMannger::getInstance()->addMemoryNickname(nickname, password);
+
 }
 
 
