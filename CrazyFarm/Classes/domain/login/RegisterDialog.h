@@ -9,15 +9,18 @@ USING_NS_CC;
 
 class RegisterDialog : public cocos2d::Layer, public cocos2d::ui::EditBoxDelegate
 {
-
+public:
+	CREATE_FUNC(RegisterDialog);
 private:
 	void loginCallBack(Ref*psend);
-	void btCallBack(Ref*psend);
+	void closeCallBack(Ref*psend);
+	void httpCallback(Ref*psend);
+	int checkRegister(std::string nickname, std::string password, std::string repetPassword);
     virtual bool init();
-	CREATE_FUNC(RegisterDialog);
-	void update(float delta);
+	bool onTouchBegan(Touch *touch, Event *unused_event);
 	SexHead* sexBoy;
 	SexHead* sexGirl;
+	int sex;
 	//edit box
 	ui::EditBox *_editNickname;
 	ui::EditBox *_editPassword;

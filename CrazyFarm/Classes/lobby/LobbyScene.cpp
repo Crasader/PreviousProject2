@@ -41,6 +41,7 @@
 #include "domain/pay/WaitCircle.h"
 #include "domain/loading/LoadingSceneLbToGm.h"
 #include "lobby/signlayer/SignMannger.h"
+#include "lobby/CDKeyDialog.h"
 
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
@@ -504,7 +505,7 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
-	auto layer = ChangeGiftLayer::create();
+	auto layer = CDKeyDialog::create();
 	layer->setPosition(Point::ZERO);
 	addChild(layer, kZorderDialog);
 	LogEventPageChange::getInstance()->addEventItems(1, 4, 0);

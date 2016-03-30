@@ -10,17 +10,22 @@ class LoginScene : public cocos2d::Layer, public cocos2d::ui::EditBoxDelegate
 {
 public:
     static cocos2d::Scene* createScene();
+	void setChangeNickName(std::string srt);
 private:
+	void httpCallback(Ref*psend);
+
 	void loginCallBack(Ref*psend);
-	void changeIdCallBack(Ref*psend);
+	void RegisterCallBack(Ref*psend);
 	void findPasswordCallBack(Ref*psend);
+	void moreIdCallback(Ref*psend);
     virtual bool init();
 	CREATE_FUNC(LoginScene);
-	void update(float delta);
-	float  nTempTime = 0;
+	std::list<std::string> nicknames;
 	//edit box
+public:
 	ui::EditBox *_editName;
 	ui::EditBox *_editPassword;
+private:
 	virtual void editBoxEditingDidBegin(cocos2d::ui::EditBox* editBox);
 	virtual void editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox);
 	virtual void editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text);

@@ -44,10 +44,10 @@ void SexHead::setIsChoose(bool isChoose)
 	getChildByTag(10)->setVisible(isChoose);
 	if (isChoose)
 	{
-		setScale(1.2);
+		setScale(1.0);
 	}
 	else
 	{
-		setScale(1.0);
+		setScale(0.8);
 	}
 }

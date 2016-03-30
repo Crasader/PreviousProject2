@@ -12,6 +12,8 @@
 #include "lobby/bag/bagLayer.h"
 #include "domain/Newbie/NewbieMannger.h"
 #include "domain/login/LoginMannger.h"
+#include "domain/login/LoginScene.h"
+#include "domain/loading/LoadingScene.h"
 HttpMannger* HttpMannger::_instance = NULL;
 
 HttpMannger::HttpMannger(){
@@ -38,89 +40,210 @@ void HttpMannger::HttpToPostRequestRegisterInfo(std::string channelId, const cha
 }
 void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, HttpResponse *response)
 {
-	//RemoveWaiting(Req_Register);
-	if (!response)
+	FirstRegisterValue* value = new FirstRegisterValue();
+	while (1)
 	{
-		return;
-	}
-	if (!response->isSucceed())
-	{
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back base json info  info: %s", temp.c_str());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	if (doc.HasParseError())
-	{
-		log("get json data err!");;
-	}
-	User::getInstance()->resetInfo();
-	User::getInstance()->setUserID(doc["user_name"].GetString());
-	User::getInstance()->setSessionid(doc["session_id"].GetString());
-	auto &NBRewards = doc["login_rewards"];
-	std::vector<NBRewardItem> rewards;
-	NBRewardItem item;
-	item.itemId = 1012;
-	item.num = 2;
-	rewards.push_back(item);
-	for (unsigned int i = 0; i < NBRewards.Size();i++)
-	{
-		item.itemId = NBRewards[i]["item_id"].GetInt();
-		item.num = NBRewards[i]["nums"].GetInt();
-		rewards.push_back(item);
-	}
-	NewbieMannger::getInstance()->setNBRewards(rewards);
-	NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
-	LoginMannger::getInstance()->setisLoginSuccess(true);
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back get cdkey info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
 
-	LoginMannger::getInstance()->addMemoryNickname(doc["user_name"].GetString(), "defaultpassword");
+		int result = doc["error_code"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			value->_sesssionid = doc["session_id"].GetString();
+			auto &NBRewards = doc["login_rewards"];
+			std::vector<RewardValue> rewards;
+			rewards.push_back(RewardValue(1012,2));
+			for (unsigned int i = 0; i < NBRewards.Size(); i++)
+			{
+				rewards.push_back(RewardValue(NBRewards[i]["item_id"].GetInt(), NBRewards[i]["nums"].GetInt()));
+
+			}
+			value->rewards = rewards;
+			value->username = doc["user_name"].GetString();
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	switch (value->_errorcode)
+	{
+	case 0:
+	{
+		auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
+		((LoadingScene*)layer)->isRegisterdialog = true;
+
+		User::getInstance()->setSessionid(value->_sesssionid);
+		User::getInstance()->setUserName(value->username);
+		User::getInstance()->setUserGender(0);
+		LoginMannger::getInstance()->addMemoryNickname(value->username.c_str(), "defalut");
+		NewbieMannger::getInstance()->setNBRewards(value->rewards);
+		NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
+	}
+		break;
+	case 404:
+	{
+		Director::getInstance()->replaceScene(LoginScene::createScene());
+		/*auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
+		dioag->setPosition(0, 0);
+		addChild(dioag, 30);*/
+	}
+	break;
+	default:
+	{
+
+		Director::getInstance()->replaceScene(LoginScene::createScene());
+		/*	auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+		dioag->setPosition(0, 0);
+		addChild(dioag, 30);*/
+	}
+	break;
+	}
+	/*Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("firstRegister", value); });*/
 }
+
+
+void HttpMannger::HttpToPostRequestRegisterForwardly(const char*nickname, const char* password, int gender, std::string channelId, const char* imei, const char* hd_type, const char* hd_factory)
+{
+
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_REGISTERFORWARDLY);
+	auto requstData = String::createWithFormat("channel_id=%s&imei=%s&hd_type=%s&hd_factory=%s&nick_name=%s&password=%s&gender=%d", channelId.c_str(), imei, hd_type, hd_factory,nickname,password,gender);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForRegisterForwardly, this));
+
+}
+void HttpMannger::onHttpRequestCompletedForRegisterForwardly(HttpClient *sender, HttpResponse *response)
+{
+	RegisterValue* value = new RegisterValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back get cdkey info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			value->_sesssionid = doc["session_id"].GetString();
+			auto &NBRewards = doc["login_rewards"];
+			std::vector<RewardValue> rewards;
+			rewards.push_back(RewardValue(1012, 2));
+			for (unsigned int i = 0; i < NBRewards.Size(); i++)
+			{
+				rewards.push_back(RewardValue(NBRewards[i]["item_id"].GetInt(), NBRewards[i]["nums"].GetInt()));
+
+			}
+			value->rewards = rewards;
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+
+	NotificationCenter::getInstance()->postNotification("register", value);
+}
+
+
+
+
 
 
 
 
 void HttpMannger::HttpToPostRequestLogInInfo(std::string channelId, std::string username, const char* imei, const char*  hd_type, const char*  hd_factory)
 {
-	//ShowWaiting(Req_Login);
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_LOGIN);
 	auto requstData = String::createWithFormat("channel_id=%s&user_name=%s&imei=%s&hd_type=%s&hd_factory=%s", channelId.c_str(),username.c_str(), imei, hd_type, hd_factory);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogInInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpResponse *response)
 {
-	/*RemoveWaiting(Req_Login);*/
-	if (!response)
+	LoginValue* value = new LoginValue();
+	while (1)
 	{
-		return;
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back get cdkey info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			value->_sesssionid = doc["session_id"].GetString();
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
 	}
-	if (!response->isSucceed())
-	{
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http  login back info: %s", temp.c_str());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	if (doc.HasParseError())
-	{
-		log("get json data err!");;
-	}
-	if (doc["errorcode"].GetInt() == 301)
-	{
-		HttpToPostRequestRegisterInfo(DeviceInfo::getChannel_id(), DeviceInfo::getImei(), DeviceInfo::getHd_type(), DeviceInfo::getHd_factory());
-		
-		return;
-	}
-	User::getInstance()->setSessionid(doc["session_id"].GetString());
-	LoginMannger::getInstance()->setisLoginSuccess(true);
-	LoginMannger::getInstance()->addMemoryNickname(User::getInstance()->getUserName().c_str(), "defaultpassword");
+
+	NotificationCenter::getInstance()->postNotification("login", value);
 }
 
 
@@ -135,37 +258,47 @@ void HttpMannger::HttpToPostRequestLogInByName(const char*nickname, const char* 
 void HttpMannger::onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpResponse *response)
 {
 	//RemoveWaiting(Req_LoginByName);
-	if (!response)
+	LoginValue* value = new LoginValue();
+	while (1)
 	{
-		return;
-	}
-	if (!response->isSucceed())
-	{
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http  login back info: %s", temp.c_str());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back get cdkey info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
 
-	if (doc.HasParseError())
-	{
-		log("get json data err!");;
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			value->_sesssionid = doc["session_id"].GetString();
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
 	}
-	User::getInstance()->setSessionid(doc["session_id"].GetString());
-	LoginMannger::getInstance()->setisLoginSuccess(true);
 
-	char* nickname;
-	char*password;
-		auto requstData = response->getHttpRequest()->getRequestData();
-		int num = sscanf(requstData, "nick_name=%s&password=%s",
-			&nickname, &password);
-
-		LoginMannger::getInstance()->addMemoryNickname(nickname, password);
+	NotificationCenter::getInstance()->postNotification("login", value);
 
 }
 
@@ -343,52 +476,53 @@ void HttpMannger::HttpToPostRequestSetName(std::string sessionid,const char* nic
 
 void HttpMannger::onHttpRequestCompletedForBindName(HttpClient *sender, HttpResponse *response)
 {
-	RemoveWaiting(Req_BindName);
-	if (!response)
+	SetNameValue*value = new SetNameValue();
+	while (1)
 	{
-		return;
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back get cdkey info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (value->_errorcode!=0)
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
 	}
-	if (!response->isSucceed())
-	{
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	if (doc.HasParseError())
-	{
-		log("get json data err!");;
-	}
-	int result = doc["errorcode"].GetInt();
-	if (result == 0)
-	{
-		auto data = (setNameRequest*)response->getHttpRequest()->getUserData();
-		User::getInstance()->setUserName(data->nickname);
-		User::getInstance()->setUserGender(data->gender);
-		User::getInstance()->setHaveSetName();
-		//Director::getInstance()->getRunningScene()->getChildByTag(50)->getChildByName("setnamelayer")->removeFromParentAndCleanup(1);
-		delete data;
-	}
-	log("http back setname info: %s", temp.c_str());
+
+	NotificationCenter::getInstance()->postNotification("setname", value);
+
+	
 }
 
 void HttpMannger::HttpToPostRequestBindName(const char* nickname, int gender,const char* password)
 {
-	if (isReqWaiting(Req_BindName))
-	{
-		return;
-	}
-	ShowWaiting(Req_BindName);
-	setNameRequest*data = new setNameRequest();
-	data->gender = gender;
-	data->nickname = nickname;
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_BIND);
 	auto requstData = String::createWithFormat("session_id=%s&nick_name=%s&gender=%d&password=%s",User::getInstance()->getSessionid().c_str(), nickname, gender,password);
 
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForBindName, this), data);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForBindName, this));
 
 }
 
@@ -735,7 +869,7 @@ void HttpMannger::onHttpRequestCompletedForBuyItem(HttpClient *sender, HttpRespo
 
 void HttpMannger::ShowWaiting(HTTP_TYPE type)
 {
-	auto wating = Sprite::create("waitcircle.png");
+	/*auto wating = Sprite::create("waitcircle.png");
 	wating->runAction(RepeatForever::create(RotateBy::create(2.0f, 360)));
 	wating->setPosition(480, 270);
 	auto listenr1 = EventListenerTouchOneByOne::create();
@@ -744,25 +878,87 @@ void HttpMannger::ShowWaiting(HTTP_TYPE type)
 	};
 	listenr1->setSwallowTouches(true);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, wating);
-	Director::getInstance()->getRunningScene()->addChild(wating, 888, type);
+	Director::getInstance()->getRunningScene()->addChild(wating, 888, type);*/
 }
 void HttpMannger::RemoveWaiting(HTTP_TYPE type)
 {
-	auto node = Director::getInstance()->getRunningScene()->getChildByTag(type);
-	if (node)
-	{
-		node->removeAllChildrenWithCleanup(1);
-	}
+	//auto node = Director::getInstance()->getRunningScene()->getChildByTag(type);
+	//if (node)
+	//{
+	//	node->removeAllChildrenWithCleanup(1);
+	//}
 }
 bool HttpMannger::isReqWaiting(HTTP_TYPE type)
 {
-	auto node = Director::getInstance()->getRunningScene()->getChildByTag(type);
-	if (node)
+	//auto node = Director::getInstance()->getRunningScene()->getChildByTag(type);
+	//if (node)
+	//{
+	//	return true;
+	//}
+	//else
+	//{
+	//	return false;
+	//}
+	return false;
+}
+
+
+void HttpMannger::HttpToPostRequestCDKey(std::string cdkey) //±³°ü¹ºÂòµÀ¾ß
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
 	{
-		return true;
+		return;
 	}
-	else
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_CDKEY);
+	auto requstData = String::createWithFormat("session_id=%s&cdkey=%s", sessionid.c_str(), cdkey.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForCDKey, this));
+}
+void HttpMannger::onHttpRequestCompletedForCDKey(HttpClient *sender, HttpResponse *response)
+{
+	CDkeyValue* value = new CDkeyValue();
+	while (1)
 	{
-		return false;
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back get cdkey info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto& rewards = doc["reward_lists"];
+			for (unsigned int i = 0; i < rewards.Size(); i++)
+			{
+				value->_rewards.push_back(RewardValue(rewards[i]["item_id"].GetInt(), rewards[i]["nums"].GetInt()));
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
 	}
+	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("CDKEY", value); });
+	
 }

@@ -182,11 +182,14 @@
   
   
   <key>InputName_1</key>
-  <string>账号和密码由3-12位数字和字母组成</string>
+  <string>账号由3-12位数字和字母组成</string>
     <key>InputName_2</key>
-  <string>账号和密码由3-12位数字和字母组成</string>
+  <string>密码由3-12位数字和字母组成</string>
     <key>InputName_3</key>
-  <string>账号和密码由3-12位数字和字母组成</string>
+  <string>请再次输入密码</string>
+  <key>UserOtherNickname</key>
+  <string>使用其他账号登录</string>
+  
   </dict> 
 </array>
 </plist>

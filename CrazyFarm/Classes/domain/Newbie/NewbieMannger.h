@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "utill/define.h"
+#include "server/HttpMsgDefine.h"
 using namespace cocos2d;
 
 struct NBRewardItem
@@ -19,7 +20,7 @@ private:
 	static NewbieMannger* _instance;
 
 
-	CC_SYNTHESIZE(std::vector<NBRewardItem>, _NBRewards, NBRewards);
+	CC_SYNTHESIZE(std::vector<RewardValue>, _NBRewards, NBRewards);
 	CC_SYNTHESIZE(bool, _isAllowdedGetFirstReward, isAllowdedGetFirstReward);
 
 	const char* KEY_ISOVERTEACHMODE = "KEY_ISOVERTEACHMODE";

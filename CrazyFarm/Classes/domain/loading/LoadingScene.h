@@ -33,6 +33,7 @@ public:
 
 	void load();
 	void loadRes();
+	void toRegister();
 
 
 	///异步加载普通动画
@@ -45,9 +46,12 @@ public:
 	void update(float dt);
 
 	void showTip();
+	bool isRegisterdialog = true;
 private:
+	void httpCallback(Ref*psend);
 	ui::LoadingBar* loadingBar;
 	int temp = 0;
+	
 
 };
 

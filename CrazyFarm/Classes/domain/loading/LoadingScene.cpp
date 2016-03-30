@@ -14,7 +14,9 @@
 #include "utill/CircleMoveTo.h"
 #include "utill/Audio.h"
 #include "lobby/signlayer/SignMannger.h"
-
+#include "domain/ToolTip/TwiceSureDialog.h"
+#include "domain/Newbie/NewbieMannger.h"
+#include "domain/login/LoginScene.h"
 Scene* LoadingScene::createScene()
 {
 	auto scene = Scene::create();
@@ -71,7 +73,7 @@ bool LoadingScene::init()
 void LoadingScene::update(float dt)
 {
 	loadingBar->setPercent(((float)temp) / 15.0f*100+1);
-	if (temp >= 15 && LoginMannger::getInstance()->getisLoginSuccess())///TODo:第一次登陆没网
+	if (temp >= 15 && isRegisterdialog)///TODo:第一次登陆没网
 	{
 	
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
@@ -135,12 +137,55 @@ void LoadingScene::imageFishAniAsyncCallback(Texture2D* texture, void*aniData)
 
 
 
+void LoadingScene::toRegister()
+{
+	isRegisterdialog = false;
+	LoginMannger::getInstance()->toRegister();
+	//NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(LoadingScene::httpCallback), "firstRegister", NULL);
+
+}
+void LoadingScene::httpCallback(Ref*psend)
+{
+	FirstRegisterValue *value = (FirstRegisterValue*)psend;
+	switch (value->_errorcode)
+	{
+	case 0:
+		isRegisterdialog = true;
+		User::getInstance()->setSessionid(value->_sesssionid);
+		User::getInstance()->setUserName(value->username);
+		User::getInstance()->setUserGender(0);
+		LoginMannger::getInstance()->addMemoryNickname(value->username.c_str(), "defalut");
+		NewbieMannger::getInstance()->setNBRewards(value->rewards);
+		NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
+
+		break;
+	case 404:
+	{
+		Director::getInstance()->replaceScene(LoginScene::createScene());
+		/*auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
+		dioag->setPosition(0, 0);
+		addChild(dioag, 30);*/
+	}
+	break;
+	default:
+	{
+	
+		Director::getInstance()->replaceScene(LoginScene::createScene());
+		/*	auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+			dioag->setPosition(0, 0);
+			addChild(dioag, 30);*/
+	}
+	break;
+	}
+	//NotificationCenter::getInstance()->removeObserver(this, "firstRegister");
+	delete value;
+}
+
 
 
 void LoadingScene::loadRes()
 {
-	/*login();*/
-
+	
 	
 	ConfigManager::getInstance()->LoadConfig();
 

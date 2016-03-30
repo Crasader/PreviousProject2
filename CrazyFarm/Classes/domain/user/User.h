@@ -18,11 +18,8 @@ public:
 
 
 
-    std::string getUserName();
-    bool setUserName(std::string newUserName);
 
-	int getUserGender();
-	void setUserGender(int gender);
+
 
 	
 
@@ -97,8 +94,8 @@ private:
 	const char* KEY_ISHAVESETNAME = "ISHAVESETNAME";
 	const char* KEY_ISHAVEBYCOIN = "KEY_ISHAVEBYCOIN";
 	CC_SYNTHESIZE(std::string, session_id, Sessionid);
-
-
+	CC_SYNTHESIZE(std::string, _username, UserName);
+	CC_SYNTHESIZE(int, _userGenderd, UserGender);
 	unsigned long _coins =0;
 	unsigned long  _diamond = 0;
 

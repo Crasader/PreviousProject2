@@ -1,7 +1,9 @@
 #include "lobby/bag/SetNameLayer.h"
 #include "server/HttpMannger.h"
 #include "domain/user/User.h"
-
+#include "server/HttpMsgDefine.h"
+#include "domain/ToolTip/TwiceSureDialog.h"
+#include "domain/login/LoginMannger.h"
 bool SetNameLayer::init()
 {
 	if ( !Layer::init() )
@@ -11,54 +13,115 @@ bool SetNameLayer::init()
 	bool bRet = false;
 	do 
 	{
-		auto layer = LayerColor::create();
-		layer->setColor(Color3B::BLACK);
-		layer->setOpacity(128);
-		addChild(layer,-1);
-		auto size = Director::getInstance()->getVisibleSize();
-		auto bg = Sprite::create("setnameBg.png");
-		bg->setPosition(size / 2);
-		addChild(bg);
+		auto colorbg = LayerColor::create();
+		colorbg->setPosition(0, 0);
+		colorbg->setColor(Color3B::BLACK);
+		colorbg->setOpacity(128);
+		addChild(colorbg, -1);
 
+		auto bg = Sprite::create("RegisterBg.png");
+		bg->setPosition(480, 270);
+		addChild(bg,0,"bg");
+
+		sex = 0;
+		auto spor = Sprite::create("or.png");
+		spor->setPosition(480, 400);
+		addChild(spor);
 
 		sexBoy = SexHead::create(0, 1);
-		sexBoy->setPosition(468, 357);
+		sexBoy->setPosition(480 - 65, 400);
 		addChild(sexBoy);
 
 		sexGirl = SexHead::create(1, 0);
-		sexGirl->setPosition(628, 357);
+		sexGirl->setPosition(480 + 65, 400);
 		addChild(sexGirl);
 
-		sex = 0;
-
-		_editName = ui::EditBox::create(Size(270,48), ui::Scale9Sprite::create("setnameTxt.png"));
-		_editName->setPosition(Vec2(522,266));
-		_editName->setFontName("Arial");
-		_editName->setFontSize(25);
-		_editName->setFontColor(Color3B::WHITE);
-		_editName->setPlaceHolder(ChineseWord("nichengTip").c_str());
-		_editName->setPlaceholderFontColor(Color3B::GRAY);
-		_editName->setPlaceholderFontSize(25);
-		_editName->setMaxLength(16);
-		_editName->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
-		_editName->setDelegate(this);
-		addChild(_editName);
-
-		auto bt = MenuItemImage::create("btn_queding.png", "btn_queding_2.png", CC_CALLBACK_1(SetNameLayer::quedingcallback, this));
-		bt->setPosition(bg->getContentSize().width / 2, 120);
-	
 
 
+		auto size = bg->getContentSize();
+
+		///请输入账号
+		auto txt1 = Sprite::create("TxtInputName.png");
+		txt1->setPosition(size.width / 2, 288);
+		bg->addChild(txt1);
+
+		auto frame = Sprite::create("RegisterInputFrame.png");
+		frame->setPosition(Vec2(size.width / 2, 250));
+		bg->addChild(frame);
+
+		_editNickname = ui::EditBox::create(Size(270, 51), ui::Scale9Sprite::create());
+		_editNickname->setPosition(Vec2(size.width / 2, 250));
+		_editNickname->setFontName("Arial");
+		_editNickname->setFontSize(20);
+		_editNickname->setFontColor(Color3B::YELLOW);
+		_editNickname->setPlaceHolder(ChineseWord("InputName_1").c_str());
+		_editNickname->setPlaceholderFontColor(Color3B::GRAY);
+		_editNickname->setPlaceholderFontSize(25);
+		_editNickname->setMaxLength(14);
+		_editNickname->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
+		_editNickname->setDelegate(this);
+		bg->addChild(_editNickname);
+		///请输入密码
+		txt1 = Sprite::create("TxtInputPassword.png");
+		txt1->setPosition(size.width / 2, 215);
+		bg->addChild(txt1);
+
+
+
+		frame = Sprite::create("RegisterInputFrame.png");
+		frame->setPosition(Vec2(size.width / 2, 176));
+		bg->addChild(frame);
+		_editPassword = ui::EditBox::create(Size(270, 51), ui::Scale9Sprite::create());
+		_editPassword->setPosition(Vec2(size.width / 2, 176));
+		_editPassword->setFontName("Arial");
+		_editPassword->setFontSize(20);
+		_editPassword->setFontColor(Color3B::YELLOW);
+		_editPassword->setPlaceHolder(ChineseWord("InputName_2").c_str());
+		_editPassword->setPlaceholderFontColor(Color3B::GRAY);
+		_editPassword->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
+		_editPassword->setPlaceholderFontSize(25);
+		_editPassword->setMaxLength(14);
+		_editPassword->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
+		_editPassword->setDelegate(this);
+		bg->addChild(_editPassword);
+		///请再次输入密码
+		txt1 = Sprite::create("TxtRepetInputPassword.png");
+		txt1->setPosition(size.width / 2, 142);
+		bg->addChild(txt1);
+
+
+
+		frame = Sprite::create("RegisterInputFrame.png");
+		frame->setPosition(Vec2(size.width / 2, 105));
+		bg->addChild(frame);
+		_editRepeatword = ui::EditBox::create(Size(270, 51), ui::Scale9Sprite::create());
+		_editRepeatword->setPosition(Vec2(size.width / 2, 105));
+		_editRepeatword->setFontName("Arial");
+		_editRepeatword->setFontSize(20);
+		_editRepeatword->setFontColor(Color3B::YELLOW);
+		_editRepeatword->setPlaceHolder(ChineseWord("InputName_3").c_str());
+		_editRepeatword->setPlaceholderFontColor(Color3B::GRAY);
+		_editRepeatword->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
+		_editRepeatword->setPlaceholderFontSize(25);
+		_editRepeatword->setMaxLength(14);
+		_editRepeatword->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
+		_editRepeatword->setDelegate(this);
+		bg->addChild(_editRepeatword);
+
+
+		auto sureBt = MenuItemImage::create("btn_queding.png", "btn_queding_2.png", CC_CALLBACK_1(SetNameLayer::quedingcallback, this));
+		sureBt->setPosition(size.width / 2, 40);
+		sureBt->setName("sureBt");
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(SetNameLayer::closeButtonCallBack, this));
+		close->setPosition(size);
 		close->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
-		close->setPosition(bg->getContentSize());
 
-
-
-		auto menu = Menu::create(bt, close, nullptr);
+		auto menu = Menu::create(close, sureBt, nullptr);
 		menu->setPosition(0, 0);
-		bg->addChild(menu);
+		bg->addChild(menu, 1, "menu");
+		scheduleUpdate();
+
 
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->setSwallowTouches(true);
@@ -66,21 +129,6 @@ bool SetNameLayer::init()
 		touchListener->onTouchMoved = CC_CALLBACK_2(SetNameLayer::onTouchMoved, this);
 		touchListener->onTouchEnded = CC_CALLBACK_2(SetNameLayer::onTouchEnded, this);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-	//添加系统返回键监听
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
-		switch (code)
-		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-			removeFromParentAndCleanup(1);
-			break;
-		default:
-			break;
-		}
-	};
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 		bRet = true;
 	} while (0);
 	
@@ -124,19 +172,34 @@ void SetNameLayer::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::
 
 void SetNameLayer::editBoxReturn(ui::EditBox* editBox)
 {
-	auto str = String::createWithFormat("%s", _editName->getText());
-	_editName->setText(str->getCString());
+	auto str = String::createWithFormat("%s", editBox->getText());
+	editBox->setText(str->getCString());
 	log("editBox %p was returned !", editBox);
 
 }
 
-void SetNameLayer::quedingcallback(Ref*)
+void SetNameLayer::quedingcallback(Ref*psend)
 {
-	auto txt = _editName->getText();
-	auto sessionid = User::getInstance()->getSessionid();
-	checkTheName(txt);
-	HttpMannger::getInstance()->HttpToPostRequestBindName (txt, sex,"poxiao888");
-	/*HttpMannger::getInstance()->HttpToPostRequestFeedback(sessionid, txt);*/
+	auto item = (MenuItem*)psend;
+	item->setEnabled(false);
+	std::string nickname = _editNickname->getText();
+	std::string password = _editPassword->getText();
+	std::string repeatPassword = _editRepeatword->getText();
+
+	int type = checkRegister(nickname, password, repeatPassword);//TODO:校验处理
+	if (type == 0)
+	{
+		HttpMannger::getInstance()->HttpToPostRequestBindName(nickname.c_str(), sex, password.c_str());
+		NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(SetNameLayer::httpCallback), "setname", NULL);
+		item->setEnabled(false);
+	}
+	else
+	{
+		auto dialog = TwiceSureDialog::createDialog("error parame");
+		dialog->setPosition(0, 0);
+		getParent()->addChild(dialog,30);
+		item->setEnabled(true);
+	}
 }
 
 void SetNameLayer::closeButtonCallBack(Ref*psend)
@@ -148,4 +211,56 @@ bool SetNameLayer::checkTheName(const char* name)
 {
 	CCLOG("%d", std::strlen(name));
 	return true;
+}
+
+int  SetNameLayer::checkRegister(std::string nickname, std::string password, std::string repetPassword)
+{
+	if (nickname.size() > 5 && nickname.size() < 13 && password.size() > 5 && password.size() < 13 && password == repetPassword)
+	{
+		return 0;
+	}
+	else
+	{
+		return -1;
+	}
+	if (nickname == "" || password == "" || repetPassword == "")
+	{
+		return -1;
+	}
+}
+
+void SetNameLayer::httpCallback(Ref*psend)
+{
+	SetNameValue *value = (SetNameValue*)psend;
+	auto menu = getChildByName("bg")->getChildByName("menu");
+	auto bt = ((MenuItem*)(menu->getChildByName("sureBt")));
+	TwiceSureDialog*dialog;
+	switch (value->_errorcode)
+	{
+	case 0:
+		LoginMannger::getInstance()->removeMemoryNickname(User::getInstance()->getUserName().c_str());
+		User::getInstance()->setUserName(_editNickname->getText());
+		User::getInstance()->setUserGender(sex);
+		User::getInstance()->setHaveSetName();
+		dialog = TwiceSureDialog::createDialog("set name successful");
+		LoginMannger::getInstance()->addMemoryNickname(_editNickname->getText(), _editPassword->getText());
+		
+		break;
+	case 404:
+		dialog = TwiceSureDialog::createDialog("time out");
+		bt->setEnabled(true);
+		break;
+	default:
+		dialog = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+		bt->setEnabled(true);
+		break;
+	}
+	dialog->setPosition(0, 0);
+	getParent()->addChild(dialog, 30);
+	NotificationCenter::getInstance()->removeObserver(this, "CDKEY");
+	if (value->_errorcode==0)
+	{
+		removeFromParentAndCleanup(true);
+	}
+	
 }

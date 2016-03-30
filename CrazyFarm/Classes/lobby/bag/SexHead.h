@@ -7,5 +7,4 @@ public:
 	static SexHead* create(int sex, int isChoose);
 	bool init(int sex, int isChoose);
 	void setIsChoose(bool isChoose);
-	void update(float delta);
 };

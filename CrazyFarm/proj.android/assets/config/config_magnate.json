@@ -4,12 +4,12 @@
   "item_list": [
     {
       "type"  :	1,
-      "fire_time_from" :	50,
-      "fire_time_to"    : 120
+      "fire_time_from" :	45,
+      "fire_time_to"    : 65
     },
     {
       "type"  : 2,
-      "fire_time_from" :  200,
+      "fire_time_from" :  250,
       "fire_time_to"    : 300
     }
   ]

@@ -11,6 +11,7 @@ User::User(){
 
 void User::init(){
 	setSessionid("");
+	setUserGender(1);
     // TODO : first use init user name and id
 }
 
@@ -28,32 +29,6 @@ std::string User::getUserId() {
 void User::setUserID(std::string userId) {
 	UserDefault::getInstance()->setStringForKey(User::KEY_USER_ID, userId);
 }
-
-int User::getUserGender() {
-	return UserDefault::getInstance()->getIntegerForKey(User::KEY_USER_GENDER,0);
-}
-
-void User::setUserGender(int gender) {
-	UserDefault::getInstance()->setIntegerForKey(User::KEY_USER_GENDER, gender);
-}
-
-std::string User::getUserName() {
-    std::string name = UserDefault::getInstance()->getStringForKey(User::KEY_USER_NAME, "guest");
-    if( name.compare("guest") == 0) {
-        return getUserId();
-    }
-    return name;
-}
-
-bool User::setUserName(std::string newUserName) {
-    std::string name = UserDefault::getInstance()->getStringForKey(User::KEY_USER_NAME, "guest");
-    if(name == "guest") {
-        UserDefault::getInstance()->setStringForKey(User::KEY_USER_NAME, newUserName);
-        return true;
-    }
-    return false;
-}
-
 
 
 

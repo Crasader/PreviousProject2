@@ -73,7 +73,7 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 		auto rewards = NewbieMannger::getInstance()->getNBRewards();
 		for (int i = 0; i < rewards.size();i++)
 		{
-			auto cell = GiftCell::create(rewards[i].itemId, rewards[i].num);
+			auto cell = GiftCell::create(rewards[i]._itemid, rewards[i]._num);
 			cell->setPosition(box->getPosition());
 			/*cell->setTextureRect(Rect(0, 0, 0, 0));*/
 			cell->setScale(0);
@@ -86,9 +86,10 @@ bool NewbieFirstGetRewardLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 
 			}), RemoveSelf::create(), nullptr));
 			addChild(cell);
-		if (rewards[i].itemId==1001)
+		if (rewards[i]._itemid==1001)
 		{
-			User::getInstance()->setCoins(rewards[i].num);
+			User::getInstance()->setCoins(rewards[i]._num
+);
 		}
 			
 		}

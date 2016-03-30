@@ -1,8 +1,10 @@
 #pragma once
 #include "cocos2d.h"
 #include "server/HttpClientUtill.h"
+#include "HttpMsgDefine.h"
 using namespace cocos2d;
-#define URL_HEAD "http://106.75.135.78:1701"
+#define URL_HEAD "http://106.75.135.78:1701" //外网
+//#define URL_HEAD "http://172.23.1.22:1701"
 #define URL_BASECONFIG  "/config/get/base"
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
@@ -16,10 +18,12 @@ using namespace cocos2d;
 #define URL_BROKE "/bankrupt/broke"
 #define URL_REBRITH "/bankrupt/rebirth"
 #define URL_PLAYERINFO "/player/info/get"
-#define URL_ITEMINFO "/player/info/bag/get/"
-#define URL_BUYITEM "/player/info/bag/buy/"
+#define URL_ITEMINFO "/player/info/bag/get"
+#define URL_BUYITEM "/player/info/bag/buy"
 #define URL_BIND "/user/nickname/bind/"
 #define URL_BYNICKNAME "/user/nickname/login"
+#define URL_REGISTERFORWARDLY "/user/register"
+#define URL_CDKEY "/cdkey/get"
 struct setNameRequest
 {
 	const char* nickname;
@@ -50,6 +54,10 @@ public:
 	
 	void HttpToPostRequestRegisterInfo(std::string channelId, const char* imei, const char* hd_type, const char* hd_factory);//注册请求
 	void onHttpRequestCompletedForRegisterInfo(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestRegisterForwardly(const char*nickname, const char* password, int gender,std::string channelId, const char* imei, const char* hd_type, const char* hd_factory);//注册请求
+	void onHttpRequestCompletedForRegisterForwardly(HttpClient *sender, HttpResponse *response);
+
 
 	void HttpToPostRequestLogInInfo(std::string channelId, std::string username, const char* imei, const char* hd_type, const char* hd_factory);//登录请求
 	void onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpResponse *response);
@@ -95,7 +103,11 @@ public:
 	void HttpToPostRequestLogEvent(std::string jsonString,int type); //type: 1鱼群2破产3美人鱼4界面跳转5赠送6技能使用7炮台升级	
 	void onHttpRequestCompletedForLogEventCommon(HttpClient *sender, HttpResponse *response);
 
-	
+	void HttpToPostRequestCDKey(std::string cdkey); //兑换码
+	void onHttpRequestCompletedForCDKey(HttpClient *sender, HttpResponse *response);
+
+
+
 
 	//等待转圈
 	void ShowWaiting(HTTP_TYPE type);

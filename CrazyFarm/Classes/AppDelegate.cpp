@@ -94,7 +94,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand(time(NULL));
 	auto timenode = GlobalSchedule::getInstance();
-	LoginMannger::getInstance()->loadMemoryNickname();
 	// create a scene. it's an autorelease object
 
 	auto memoryNicknames = LoginMannger::getInstance()->getMemoryNickname();
@@ -105,8 +104,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	}
 	else
 	{
-		LoginMannger::getInstance()->toRegister();
-		auto scene = LoadingScene::createScene();
+		auto  scene = LoadingScene::createScene();
+		((LoadingScene*)scene)->toRegister();
 		director->runWithScene(scene);
 
 	}
