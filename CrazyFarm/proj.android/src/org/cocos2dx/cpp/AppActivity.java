@@ -158,6 +158,10 @@ public class AppActivity extends Cocos2dxActivity  {
 			}
 		});
 	}
+	
+	public static  boolean isWXAppInstalled() {
+		return msgApi.isWXAppInstalled();
+	}
 
 	
 }

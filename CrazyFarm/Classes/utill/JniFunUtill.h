@@ -18,6 +18,7 @@ public:
 
 	void showFeedBackDialog();
 
+	bool isWXAppInstalled();
 
 	void SKYPay(int price, const char* orderid);
 	void WXPay(const char* prepayId, const char* nonceStr, const char* timeStamp, const char* sign);

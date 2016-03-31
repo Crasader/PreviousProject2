@@ -487,7 +487,6 @@ void LobbyScene::createRoomLayer()
 
 void LobbyScene::payCoinCallback(Ref*psend)
 {
-	WaitCircle::ShowPayWaitCircle();
 	Audio::getInstance()->playSound(CLICKSURE);
 	auto paylayer = payLayer::createLayer(1);
 	paylayer->setPosition(Point::ZERO);

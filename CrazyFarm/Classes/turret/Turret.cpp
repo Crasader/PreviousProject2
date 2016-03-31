@@ -54,8 +54,8 @@ void Turret::shoot()
 
 
 	auto aniNode = Sprite::create();
-	aniNode->setPosition(getContentSize().width / 2, getContentSize().height*1.0);
-	addChild(aniNode, -1);
+	aniNode->setPosition(convertToWorldSpace(Vec2(getContentSize().width / 2, getContentSize().height*1.1)));
+	getParent()->getParent()->addChild(aniNode,getParent()->getZOrder()-1);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
 
 	if (NewbieMannger::getInstance()->getNBShootCounts() != -1&&!isrobot)

@@ -169,7 +169,8 @@
   <string>正在为您准备话费兑换券，请稍后！</string>
   
   
-  
+   <key>nowxpaytip</key>
+  <string>对不起，请先安装微信，再进行付款</string>
   
   </dict> 
 </array>
