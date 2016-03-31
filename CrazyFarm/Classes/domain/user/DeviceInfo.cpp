@@ -50,6 +50,6 @@ int DeviceInfo::getVesion()
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	return 2;
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	return 7;//正式版本8
+	return 8;//正式版本8
 #endif
 }

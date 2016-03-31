@@ -528,25 +528,12 @@ void LobbyScene::changeRewardCallback(Ref*psend)
 }
 void LobbyScene::RankListCallback(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICKSURE);
-	RanklistManager::getInstance()->loadConfig();
-	runAction(Sequence::create(DelayTime::create(2.0f), CallFunc::create([&]
-	{
-		if (RanklistManager::getInstance()->IsSuccess())
-		{
-			auto layer = RanklistLayer::create();
-			layer->setPosition(Point::ZERO);
-			addChild(layer, kZorderDialog);
-			LogEventPageChange::getInstance()->addEventItems(1, 5, 0);
-		}
-		else
-		{
-			auto layer = TwiceSureDialog::createDialog(ChineseWord("onRanklistTip").c_str(),nullptr);
-			layer->setPosition(Point::ZERO);
-			addChild(layer, kZorderDialog);
-		}
-	}), nullptr));
+	auto layer = RanklistLayer::create();
+	layer->setPosition(Point::ZERO);
+	addChild(layer, kZorderDialog);
+	LogEventPageChange::getInstance()->addEventItems(1, 5, 0);
 
+	Audio::getInstance()->playSound(CLICKSURE);
 }
 
 

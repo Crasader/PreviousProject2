@@ -67,6 +67,7 @@ void Pay::OverbookingActual(int paypoint, int eventPoint)
 	{
 		m_state = UnDoing;
 		ToolTipMannger::ShowPayTimeoutTip();
+		PayingDialog::RemovePayDialog();
 		return; 
 	}
 	int payeventVersion = PayEventPointConfig::getInstance()->getPayeventVersion();

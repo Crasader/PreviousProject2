@@ -17,7 +17,7 @@ void HttpClientUtill::destroyInstance(){
 }
 
 
-void HttpClientUtill::onGetHttp(char* Url,const ccHttpRequestCallback& callback)
+void HttpClientUtill::onGetHttp(const char* Url,const ccHttpRequestCallback& callback)
 {
 
 	HttpRequest* request = new (std::nothrow) HttpRequest();
