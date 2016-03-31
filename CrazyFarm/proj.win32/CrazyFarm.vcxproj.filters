@@ -136,6 +136,9 @@
     <Filter Include="src\server\MSG">
       <UniqueIdentifier>{d368c34e-02e7-40c4-a289-a342fc934b4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\mission">
+      <UniqueIdentifier>{c692dbf3-1419-4534-a071-f980a6f18746}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -743,6 +746,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\lobby\CDKeyDialog.cpp">
       <Filter>src\lobby</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\mission\MissionLayer.cpp">
+      <Filter>src\mission</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\mission\MissionManager.cpp">
+      <Filter>src\mission</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\mission\MissionCell.cpp">
+      <Filter>src\mission</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1366,6 +1378,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\server\HttpMsgDefine.h">
       <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\mission\MissionLayer.h">
+      <Filter>src\mission</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\mission\MissionManager.h">
+      <Filter>src\mission</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\mission\MissionCell.h">
+      <Filter>src\mission</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

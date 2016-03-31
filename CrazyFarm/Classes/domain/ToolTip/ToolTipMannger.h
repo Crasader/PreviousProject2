@@ -6,5 +6,8 @@ class ToolTipMannger
 public:
 	static void ShowPayTimeoutTip();
 	static void ShowPaySuccessTip();
+
+
+	static void showDioag(std::string str);
 };
 

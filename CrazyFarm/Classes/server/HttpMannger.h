@@ -25,6 +25,8 @@ using namespace cocos2d;
 #define URL_REGISTERFORWARDLY "/user/register"
 #define URL_CDKEY "/cdkey/get"
 #define URL_OPENBOX "/bag/chest/get"
+#define URL_GETMISSIONLIST "/gametask/everyday"
+#define URL_GETMISSIONREWARD "/gametask/everyday/getreward"
 struct setNameRequest
 {
 	const char* nickname;
@@ -110,7 +112,11 @@ public:
 	void HttpToPostRequestOpenBox(int itemid); //开宝箱
 	void onHttpRequestCompletedForOpenBox(HttpClient *sender, HttpResponse *response);
 
-
+	void HttpToPostRequestGetMissionList(); //获取任务列表
+	void onHttpRequestCompletedForGetMissionList(HttpClient *sender, HttpResponse *response);
+	
+	void HttpToPostRequestGetMissionReward(int missionId); //领取任务奖励
+	void onHttpRequestCompletedForGetMissionReward(HttpClient *sender, HttpResponse *response);
 	//等待转圈
 	void ShowWaiting(HTTP_TYPE type);
 	void RemoveWaiting(HTTP_TYPE type);

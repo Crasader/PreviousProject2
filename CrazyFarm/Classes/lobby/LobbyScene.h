@@ -37,6 +37,7 @@ public:
 	void quickBeginCallback(Ref*psend);
 	void showSign(float dt);
 private:
+	virtual void onExit();
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
 	virtual void onEnterTransitionDidFinish();
 	void showMarquee(float dt);

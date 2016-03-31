@@ -21,28 +21,34 @@ struct  rankRange
 	long int rank_end;
 };
 
+struct RanklistValue 
+{
+	std::vector<rankListItem > rankItems;
+	std::vector<rankRange> rankRange;
+	int _errorcode;
+	std::string _errormsg;
+};
+
+
 class RanklistManager {
 
 public:
 	static RanklistManager* getInstance();
-	void loadConfig();
+	void loadCoin();
+	void loadExp();
 	void onHttpRequestCompletedForCoin(HttpClient *sender, HttpResponse *response);
 	void onHttpRequestCompletedForExp(HttpClient *sender, HttpResponse *response);
-	std::vector<rankListItem > getCoinRankListData(){ return rankItemsByCoin; };
-	std::vector<rankListItem > getExpRankListData(){ return rankItemsByExp; };
-	bool IsSuccess(){ return bIsGetDataSuccess; };
+
 	int getRankByCoin(int coin);
 	int getRankByExp(int exp);
 	int getRankByCoinForMyself(int coin);
 private:
 	RanklistManager();
-	std::vector<rankListItem > rankItemsByCoin;
-	std::vector<rankListItem > rankItemsByExp;
-    std::vector<rankRange> rankCoinRange;
-	std::vector<rankRange> rankExpRange;
-	static RanklistManager* _instance;
-	bool bIsGetDataSuccess = false;
-
+	static RanklistManager*_instance;
+	CC_SYNTHESIZE(std::vector<rankListItem >, rankItemsByCoin, CoinRankListData);
+	CC_SYNTHESIZE(std::vector<rankListItem >, rankItemsByExp, ExpRankListData);
+	CC_SYNTHESIZE(std::vector<rankRange >, _rankCoinRange,RankCoinRange);
+	CC_SYNTHESIZE(std::vector<rankRange >, _rankExpRange, RankExpRange);
     
 };
 

@@ -1019,3 +1019,141 @@ void HttpMannger::onHttpRequestCompletedForOpenBox(HttpClient *sender, HttpRespo
 	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("openBox", value); });
 
 }
+
+void HttpMannger::HttpToPostRequestGetMissionList()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETMISSIONLIST);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetMissionList, this));
+}
+void HttpMannger::onHttpRequestCompletedForGetMissionList(HttpClient *sender, HttpResponse *response)
+{
+	MissionListValue* value = new MissionListValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back openbox cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+
+			auto &task_lists = doc["task_lists"];
+			for (unsigned int i = 0; i < task_lists.Size();i++)
+			{
+				auto &temp = task_lists[i];
+				MissionListItem item;
+				item.mission_id = temp["every_task_id"].GetInt();
+				item.current_nums = temp["current_nums"].GetInt();
+				item.isReceive = (temp["user_get"].GetInt() != 0);
+				item.require_nums = temp["task_require_nums"].GetInt();
+				item.to_page = temp["to_page"].GetInt();
+				item.task_content = temp["task_content"].GetString();
+			/*	item.tast_content_url_pic = temp[" content_pic_url"].GetString();*/
+				auto &rewards = temp["reward_lists"];
+				for (unsigned int j = 0; j < rewards.Size();j++)
+				{
+					item.rewards.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+				}
+				value->MissionItems.push_back(item);
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	EventCustom event("get_mission_info");
+	event.setUserData(value);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+}
+
+
+void HttpMannger::HttpToPostRequestGetMissionReward(int missionid)
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETMISSIONREWARD);
+	auto requstData = String::createWithFormat("session_id=%s&every_task_id=%d", sessionid.c_str(),missionid);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetMissionReward, this));
+}
+void HttpMannger::onHttpRequestCompletedForGetMissionReward(HttpClient *sender, HttpResponse *response)
+{
+	MissionRewardValue* value = new MissionRewardValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back openbox cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto &rewards = doc["reward_lists"];
+			for (unsigned int j = 0; j < rewards.Size(); j++)
+			{
+				value->rewards.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	EventCustom event("get_mission_rewards");
+	event.setUserData(value);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+}

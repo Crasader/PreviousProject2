@@ -51,3 +51,30 @@ struct OpenBoxValue :public Ref
 	int  _reward_coins;
 	int _chestLevel;
 };
+
+struct MissionListItem
+{
+	int mission_id;
+	std::string task_content;
+	std::string tast_content_url_pic;
+	std::vector<RewardValue> rewards;
+	int to_page;
+	int require_nums;
+	int current_nums;
+	bool isReceive;
+};
+
+struct MissionListValue 
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<MissionListItem> MissionItems;
+};
+
+
+struct MissionRewardValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<RewardValue> rewards;
+};

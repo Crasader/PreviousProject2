@@ -11,6 +11,8 @@ public:
 	static GameManage* getInstance();
 	void setGuilayer(GameGuiLayer* guilayer){ m_pGuilayer = guilayer; };
 	void  setGameyer(GameLayer* layer){ m_pGameyer = layer; };
+	void  setLobbyLayer(LobbyScene* layer){ m_pLobbylayer = layer; };
+	LobbyScene * getLobbyLayer(){ return m_pLobbylayer; };
 
 	GameGuiLayer* getGuiLayer(){
 		return m_pGuilayer;
@@ -38,4 +40,5 @@ private :
 	static GameManage* _instance;
 	GameGuiLayer* m_pGuilayer = nullptr;
 	GameLayer*m_pGameyer= nullptr;
+	LobbyScene* m_pLobbylayer = nullptr;
  };

@@ -212,6 +212,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp" />
     <ClCompile Include="..\Classes\domain\marquee\MarqueeManager.cpp" />
     <ClCompile Include="..\Classes\domain\mermaid\MermaidTask.cpp" />
+    <ClCompile Include="..\Classes\domain\mission\MissionCell.cpp" />
+    <ClCompile Include="..\Classes\domain\mission\MissionLayer.cpp" />
+    <ClCompile Include="..\Classes\domain\mission\MissionManager.cpp" />
     <ClCompile Include="..\Classes\domain\Newbie\NewbieFirstGetRewardLayer.cpp" />
     <ClCompile Include="..\Classes\domain\Newbie\NewbieMannger.cpp" />
     <ClCompile Include="..\Classes\domain\Newbie\NewbieSureDialog.cpp" />
@@ -417,6 +420,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h" />
     <ClInclude Include="..\Classes\domain\marquee\MarqueeManager.h" />
     <ClInclude Include="..\Classes\domain\mermaid\MermaidTask.h" />
+    <ClInclude Include="..\Classes\domain\mission\MissionCell.h" />
+    <ClInclude Include="..\Classes\domain\mission\MissionLayer.h" />
+    <ClInclude Include="..\Classes\domain\mission\MissionManager.h" />
     <ClInclude Include="..\Classes\domain\Newbie\NewbieFirstGetRewardLayer.h" />
     <ClInclude Include="..\Classes\domain\Newbie\NewbieMannger.h" />
     <ClInclude Include="..\Classes\domain\Newbie\NewbieSureDialog.h" />

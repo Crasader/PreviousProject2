@@ -42,7 +42,9 @@
 #include "domain/loading/LoadingSceneLbToGm.h"
 #include "lobby/signlayer/SignMannger.h"
 #include "lobby/CDKeyDialog.h"
-
+#include "domain/mission/MissionLayer.h"
+#include "domain/mission/MissionManager.h"
+#include "domain/game/GameManage.h"
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
 roomCell * roomCell::createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback)
@@ -60,14 +62,20 @@ roomCell * roomCell::createCell(const std::string& normalImage, const std::strin
 
 Scene* LobbyScene::createScene()
 {
-	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
-	auto scene = Scene::create();
+	
 
+	auto scene = Scene::create();
+	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
 	auto layer = LobbyScene::create();
+	GameManage::getInstance()->setLobbyLayer(layer);
 	scene->addChild(layer, 0, 888);
 	return scene;
 }
-
+void LobbyScene::onExit()
+{
+	Layer::onExit();
+	GameManage::getInstance()->setLobbyLayer(nullptr);
+}
 bool LobbyScene::init()
 {
 	if (!Layer::init())
@@ -306,7 +314,26 @@ bool LobbyScene::init()
 		addChild(node);
 	}
 
-	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, nullptr);
+	auto MissionBT = MenuItemFont::create("MissionLayer", [=](Ref* sender){
+		Audio::getInstance()->playSound(CLICKSURE);
+		auto layer = MissionLayer::create();
+		layer->setPosition(Point::ZERO);
+		addChild(layer, kZorderDialog);
+	});
+	MissionBT->setPosition(480, 38);
+	auto CDKEYbt= MenuItemFont::create("CDKEYbt", [=](Ref* sender){
+		Audio::getInstance()->playSound(CLICKSURE);
+		auto layer = CDKeyDialog::create();
+		layer->setPosition(Point::ZERO);
+		addChild(layer, kZorderDialog);
+	});
+
+	CDKEYbt->setPosition(700, 38);
+
+
+
+
+	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, MissionBT,CDKEYbt, nullptr);
 	menu->setPosition(Point::ZERO);
 	addChild(menu, kZorderMenu-1,"menu");
 
@@ -417,6 +444,8 @@ void LobbyScene::onEnterTransitionDidFinish()
 {
 
 	Layer::onEnterTransitionDidFinish();
+	
+	MissionManager::getInstance()->loadConfig();
 	createRoomLayer();
 }
 
@@ -504,32 +533,35 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
+	/*MissionLayer*/
 	Audio::getInstance()->playSound(CLICKSURE);
-	auto layer = CDKeyDialog::create();
+	auto layer = ChangeGiftLayer::create();
 	layer->setPosition(Point::ZERO);
 	addChild(layer, kZorderDialog);
 	LogEventPageChange::getInstance()->addEventItems(1, 4, 0);
 }
 void LobbyScene::RankListCallback(Ref*psend)
 {
+	auto layer = RanklistLayer::create();
+	layer->setPosition(Point::ZERO);
+	addChild(layer, kZorderDialog);
+	LogEventPageChange::getInstance()->addEventItems(1, 5, 0);
+
 	Audio::getInstance()->playSound(CLICKSURE);
-	RanklistManager::getInstance()->loadConfig();
-	runAction(Sequence::create(DelayTime::create(2.0f), CallFunc::create([&]
-	{
-		if (RanklistManager::getInstance()->IsSuccess())
-		{
-			auto layer = RanklistLayer::create();
-			layer->setPosition(Point::ZERO);
-			addChild(layer, kZorderDialog);
-			LogEventPageChange::getInstance()->addEventItems(1, 5, 0);
-		}
-		else
-		{
-			auto layer = TwiceSureDialog::createDialog(ChineseWord("onRanklistTip").c_str(),nullptr);
-			layer->setPosition(Point::ZERO);
-			addChild(layer, kZorderDialog);
-		}
-	}), nullptr));
+	//RanklistManager::getInstance()->loadConfig();
+	//runAction(Sequence::create(DelayTime::create(2.0f), CallFunc::create([&]
+	//{
+	//	if (RanklistManager::getInstance()->IsSuccess())
+	//	{
+	//	
+	//	}
+	//	else
+	//	{
+	//		auto layer = TwiceSureDialog::createDialog(ChineseWord("onRanklistTip").c_str(),nullptr);
+	//		layer->setPosition(Point::ZERO);
+	//		addChild(layer, kZorderDialog);
+	//	}
+	//}), nullptr));
 
 }
 

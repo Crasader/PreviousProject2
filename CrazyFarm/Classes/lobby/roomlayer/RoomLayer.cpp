@@ -220,12 +220,6 @@ std::vector<Room> RoomLayer::sortRoomByMaxlevel(int maxLevel)
 		int x = z - 1<0 ? curData2.size()-1 : z - 1;
 		curData2[z] = curData[x];
 	}
-	for (auto var :curData2)
-	{
-		CCLOG("%d", var.room_id);
-		
-	}
-CCLOG("**************************************");
 	return curData2;
 }
 
