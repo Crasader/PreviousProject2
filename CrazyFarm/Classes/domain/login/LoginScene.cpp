@@ -156,11 +156,17 @@ void LoginScene::httpCallback(Ref*psend)
 	switch (value->_errorcode)
 	{
 	case 0:
+	{
 		User::getInstance()->setSessionid(value->_sesssionid);
+	
 		User::getInstance()->setUserName(_editName->getText());
-		LoginMannger::getInstance()->addMemoryNickname(_editName->getText(),_editPassword->getText());
-		Director::getInstance()->replaceScene(LoadingScene::createScene());
-		
+	
+		LoginMannger::getInstance()->addMemoryNickname(_editName->getText(), _editPassword->getText());
+
+	
+		auto scene = LoadingScene::createScene();	
+		Director::getInstance()->replaceScene(scene);
+	}
 		break;
 	case 404:
 	{

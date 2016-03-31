@@ -89,40 +89,40 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 		}
 		break;
 	}
-	switch (value->_errorcode)
-	{
-	case 0:
-	{
-		auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
-		((LoadingScene*)layer)->isRegisterdialog = true;
+	//switch (value->_errorcode)
+	//{
+	//case 0:
+	//{
+	//	auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
+	//	((LoadingScene*)layer)->isRegisterdialog = true;
 
-		User::getInstance()->setSessionid(value->_sesssionid);
-		User::getInstance()->setUserName(value->username);
-		User::getInstance()->setUserGender(0);
-		LoginMannger::getInstance()->addMemoryNickname(value->username.c_str(), "defalut");
-		NewbieMannger::getInstance()->setNBRewards(value->rewards);
-		NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
-	}
-		break;
-	case 404:
-	{
-		Director::getInstance()->replaceScene(LoginScene::createScene());
-		/*auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
-		dioag->setPosition(0, 0);
-		addChild(dioag, 30);*/
-	}
-	break;
-	default:
-	{
+	//	User::getInstance()->setSessionid(value->_sesssionid);
+	//	User::getInstance()->setUserName(value->username);
+	//	User::getInstance()->setUserGender(0);
+	//	LoginMannger::getInstance()->addMemoryNickname(value->username.c_str(), "defalut");
+	//	NewbieMannger::getInstance()->setNBRewards(value->rewards);
+	//	NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
+	//}
+	//	break;
+	//case 404:
+	//{
+	//	Director::getInstance()->replaceScene(LoginScene::createScene());
+	//	/*auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
+	//	dioag->setPosition(0, 0);
+	//	addChild(dioag, 30);*/
+	//}
+	//break;
+	//default:
+	//{
 
-		Director::getInstance()->replaceScene(LoginScene::createScene());
-		/*	auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
-		dioag->setPosition(0, 0);
-		addChild(dioag, 30);*/
-	}
-	break;
-	}
-	/*Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("firstRegister", value); });*/
+	//	Director::getInstance()->replaceScene(LoginScene::createScene());
+	//	/*	auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+	//	dioag->setPosition(0, 0);
+	//	addChild(dioag, 30);*/
+	//}
+	//break;
+	//}
+	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("firstRegister", value); });
 }
 
 
@@ -297,8 +297,8 @@ void HttpMannger::onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpR
 		}
 		break;
 	}
+	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("login", value); });
 
-	NotificationCenter::getInstance()->postNotification("login", value);
 
 }
 
@@ -971,12 +971,12 @@ void HttpMannger::HttpToPostRequestOpenBox(int itemid) //±³°ü¹ºÂòµÀ¾ß
 		return;
 	}
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_OPENBOX);
-	auto requstData = String::createWithFormat("session_id=%s&cdkey=%s", sessionid.c_str(), cdkey.c_str());
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForCDKey, this));
+	auto requstData = String::createWithFormat("session_id=%s&item_id=%d", sessionid.c_str(), itemid);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForOpenBox, this));
 }
-void HttpMannger::onHttpRequestCompletedForCDKey(HttpClient *sender, HttpResponse *response)
+void HttpMannger::onHttpRequestCompletedForOpenBox(HttpClient *sender, HttpResponse *response)
 {
-	CDkeyValue* value = new CDkeyValue();
+	OpenBoxValue* value = new OpenBoxValue();
 	while (1)
 	{
 		if (!response)
@@ -993,7 +993,7 @@ void HttpMannger::onHttpRequestCompletedForCDKey(HttpClient *sender, HttpRespons
 		// dump data
 		std::vector<char> *buffer = response->getResponseData();
 		auto temp = std::string(buffer->begin(), buffer->end());
-		log("http back get cdkey info: %s", temp.c_str());
+		log("http back openbox cb  info: %s", temp.c_str());
 		rapidjson::Document doc;
 		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 		if (doc.HasParseError())
@@ -1007,11 +1007,8 @@ void HttpMannger::onHttpRequestCompletedForCDKey(HttpClient *sender, HttpRespons
 		value->_errorcode = result;
 		if (result == 0)
 		{
-			auto& rewards = doc["reward_lists"];
-			for (unsigned int i = 0; i < rewards.Size(); i++)
-			{
-				value->_rewards.push_back(RewardValue(rewards[i]["item_id"].GetInt(), rewards[i]["nums"].GetInt()));
-			}
+			value->_chestLevel = doc["chest_level"].GetInt();
+			value->_reward_coins = doc["reward_coins"].GetInt();
 		}
 		else
 		{
@@ -1019,6 +1016,6 @@ void HttpMannger::onHttpRequestCompletedForCDKey(HttpClient *sender, HttpRespons
 		}
 		break;
 	}
-	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("CDKEY", value); });
+	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("openBox", value); });
 
 }

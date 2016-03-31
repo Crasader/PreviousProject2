@@ -44,3 +44,10 @@ struct SetNameValue :public Ref
 	int _errorcode;
 	std::string _errormsg;
 };
+struct OpenBoxValue :public Ref
+{
+	int _errorcode;
+	std::string _errormsg;
+	int  _reward_coins;
+	int _chestLevel;
+};

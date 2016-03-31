@@ -26,10 +26,12 @@ struct LoadFishAniData
 class LoadingScene : public Layer
 {
 public:
-	CREATE_FUNC(LoadingScene);
-	static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene(bool isFirstComingNeedRegister = false);
+	
+private:
+	static LoadingScene*create(bool isFirstComingNeedRegister);
 
-	virtual bool init();
+	virtual bool init(bool isFirstComingNeedRegister);
 
 	void load();
 	void loadRes();

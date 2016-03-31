@@ -9,6 +9,7 @@
 #include "lobby/bag/bagLayer.h"
 #include "config/ConfigChest.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
+#include "server/HttpMannger.h"
 ShowBoxLayer*ShowBoxLayer::create(int itemid)
 {
 	ShowBoxLayer *pRet = new ShowBoxLayer();
@@ -97,7 +98,7 @@ bool ShowBoxLayer::init(int itemid)
 		
 			auto BtBuy = MenuItemImage::create("btn_shiyong_1.png", "btn_shiyong_2.png", CC_CALLBACK_1(ShowBoxLayer::quedingcallback, this));
 		BtBuy->setPosition(480,80);
-		
+		BtBuy->setName("surebt");
 		auto BtSend = MenuItemImage::create("btn_zengsong_1.png", "btn_zengsong_2.png", CC_CALLBACK_1(ShowBoxLayer::quedingcallback, this));
 		BtSend->setPosition(480-90, 80);
 
@@ -109,7 +110,7 @@ bool ShowBoxLayer::init(int itemid)
 
 		auto menu = Menu::create(BtBuy, close, nullptr);
 		menu->setPosition(0, 0);
-		addChild(menu);
+		addChild(menu,0,"menu");
 
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->setSwallowTouches(true);
@@ -143,34 +144,23 @@ bool ShowBoxLayer::onTouchBegan(Touch *touch, Event *unused_event)
 	return true;
 }
 
-void ShowBoxLayer::quedingcallback(Ref*)
+void ShowBoxLayer::quedingcallback(Ref*psend)
 {
-
+	((MenuItem*)psend)->setEnabled(false);
 	if (m_itemId ==1008)
 	{
 		User::getInstance()->addCoins(CoinBox::getInstance()->getPerCoinBox());
+		BagManager::getInstance()->changeItemCount(m_itemId, -1);
+		((BagLayer*)getParent())->gettableview()->reloadData();
+		removeFromParentAndCleanup(1);
 	}
 	else
 	{
-		auto lv = User::getInstance()->getUserBoxLevel();
-		auto box = ConfigChest::getInstance()->getChestByItemId(m_itemId);
-		if (lv<box.chest_level)
-		{
-			User::getInstance()->setUserBoxLevel(box.chest_level);
-		}
-		else
-		{
-			User::getInstance()->addCoins(box.have_get_reward);
-		}
-		auto str = String::createWithFormat("getXXcoin", box.have_get_reward);
-		auto dioag = TwiceSureDialog::createDialog(str->getCString(), nullptr);
-		dioag->setPosition(0, 0);
-		getParent()->addChild(dioag, 20);
+		HttpMannger::getInstance()->HttpToPostRequestOpenBox(m_itemId);
+		NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(ShowBoxLayer::httpCallback), "openBox", NULL);
 	}
 	
-	BagManager::getInstance()->changeItemCount(m_itemId, -1);
-	((BagLayer*)getParent())->gettableview()->reloadData();
-	removeFromParentAndCleanup(1);
+	
 }
 
 void ShowBoxLayer::closeButtonCallBack(Ref*psend)
@@ -178,3 +168,38 @@ void ShowBoxLayer::closeButtonCallBack(Ref*psend)
 	removeFromParentAndCleanup(1);
 }
 
+void ShowBoxLayer::httpCallback(Ref*psend)
+{
+	OpenBoxValue *value = (OpenBoxValue*)psend;
+	TwiceSureDialog*dialog;
+	switch (value->_errorcode)
+	{
+	case 0:
+		BagManager::getInstance()->changeItemCount(m_itemId, -1);
+		User::getInstance()->addCoins(value->_reward_coins);
+		User::getInstance()->setUserBoxLevel(value->_chestLevel);
+		if (value->_reward_coins > 0)
+		{
+			auto str = String::createWithFormat(ChineseWord("getXXcoin").c_str(), value->_reward_coins);
+			dialog = TwiceSureDialog::createDialog(str->getCString());
+		}
+		else
+		{
+			auto str = String::createWithFormat("upgrade chest lv to %d", value->_chestLevel);
+			dialog = TwiceSureDialog::createDialog(str->getCString());
+		}
+		break;
+	case 404:
+		dialog = TwiceSureDialog::createDialog("time out");
+		break;
+	default:
+		dialog = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+		break;
+	}
+	dialog->setPosition(0, 0);
+	getParent()->addChild(dialog, 30);
+	NotificationCenter::getInstance()->removeObserver(this, "openBox");
+	((BagLayer*)getParent())->gettableview()->reloadData();
+	removeFromParentAndCleanup(true);
+	
+}

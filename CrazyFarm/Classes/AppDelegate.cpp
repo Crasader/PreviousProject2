@@ -104,8 +104,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	}
 	else
 	{
-		auto  scene = LoadingScene::createScene();
-		((LoadingScene*)scene)->toRegister();
+		auto  scene = LoadingScene::createScene(true);
 		director->runWithScene(scene);
 
 	}

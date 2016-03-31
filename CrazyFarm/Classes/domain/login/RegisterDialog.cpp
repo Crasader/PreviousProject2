@@ -216,14 +216,16 @@ void RegisterDialog::httpCallback(Ref*psend)
 	switch (value->_errorcode)
 	{
 	case 0:
+	{	
 		User::getInstance()->setSessionid(value->_sesssionid);
 		User::getInstance()->setUserName(_editNickname->getText());
 		User::getInstance()->setUserGender(sex);
 		LoginMannger::getInstance()->addMemoryNickname(_editNickname->getText(), _editPassword->getText());
-		Director::getInstance()->replaceScene(LoadingScene::createScene());
+		auto scene = LoadingScene::createScene();
+		Director::getInstance()->replaceScene(scene);
 		NewbieMannger::getInstance()->setNBRewards(value->rewards);
 		NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
-
+	}
 		break;
 	case 404:
 	{

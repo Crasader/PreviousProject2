@@ -21,6 +21,7 @@ private:
 	bool onTouchBegan(Touch *touch, Event *unused_event);
 	void quedingcallback(Ref*);
 	void closeButtonCallBack(Ref*psend);
+	void httpCallback(Ref*psend);
 	Item Iitem;
 	int m_itemId;
 };

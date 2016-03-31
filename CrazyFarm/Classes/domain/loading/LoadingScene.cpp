@@ -17,18 +17,36 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/Newbie/NewbieMannger.h"
 #include "domain/login/LoginScene.h"
-Scene* LoadingScene::createScene()
+
+
+
+LoadingScene*LoadingScene::create(bool isisFirstComingNeedRegister)
+{
+	LoadingScene *pRet = new LoadingScene();
+	if (pRet && pRet->init(isisFirstComingNeedRegister))
+	{
+		pRet->autorelease();
+		return pRet;
+	}
+	else
+	{
+		delete pRet;
+		pRet = NULL;
+		return NULL;
+	}
+}
+Scene* LoadingScene::createScene(bool isisFirstComingNeedRegister)
 {
 	auto scene = Scene::create();
 
-	auto layer = LoadingScene::create();
+	auto layer = LoadingScene::create(isisFirstComingNeedRegister);
 
 	scene->addChild(layer, 0, 888);
 
 	return scene;
 }
 
-bool LoadingScene::init()
+bool LoadingScene::init(bool isisFirstComingNeedRegister)
 {
 	if (!Layer::init())
 	{
@@ -38,7 +56,7 @@ bool LoadingScene::init()
 	bg->setPosition(480, 270);
 	addChild(bg);
 
-	load();
+
 
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(900, 150);
@@ -65,8 +83,14 @@ bool LoadingScene::init()
 	Audio::getInstance()->prepare();
 	scheduleUpdate();
 
-	
-
+	if (isisFirstComingNeedRegister)
+	{
+		toRegister();
+	}
+	else
+	{
+		load();
+	}
 	return true;
 }
 
@@ -141,7 +165,7 @@ void LoadingScene::toRegister()
 {
 	isRegisterdialog = false;
 	LoginMannger::getInstance()->toRegister();
-	//NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(LoadingScene::httpCallback), "firstRegister", NULL);
+	NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(LoadingScene::httpCallback), "firstRegister", NULL);
 
 }
 void LoadingScene::httpCallback(Ref*psend)
@@ -157,27 +181,28 @@ void LoadingScene::httpCallback(Ref*psend)
 		LoginMannger::getInstance()->addMemoryNickname(value->username.c_str(), "defalut");
 		NewbieMannger::getInstance()->setNBRewards(value->rewards);
 		NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
-
+		load();
 		break;
 	case 404:
 	{
-		Director::getInstance()->replaceScene(LoginScene::createScene());
-		/*auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
+		auto scene = LoginScene::createScene();
+		Director::getInstance()->replaceScene(scene);
+		auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
 		dioag->setPosition(0, 0);
-		addChild(dioag, 30);*/
+		scene->addChild(dioag, 30);
 	}
 	break;
 	default:
 	{
-	
-		Director::getInstance()->replaceScene(LoginScene::createScene());
-		/*	auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
-			dioag->setPosition(0, 0);
-			addChild(dioag, 30);*/
+		auto scene = LoginScene::createScene();
+		Director::getInstance()->replaceScene(scene);
+		auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+		dioag->setPosition(0, 0);
+		scene->addChild(dioag, 30);
 	}
 	break;
 	}
-	//NotificationCenter::getInstance()->removeObserver(this, "firstRegister");
+	NotificationCenter::getInstance()->removeObserver(this, "firstRegister");
 	delete value;
 }
 
