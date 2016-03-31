@@ -962,3 +962,63 @@ void HttpMannger::onHttpRequestCompletedForCDKey(HttpClient *sender, HttpRespons
 	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("CDKEY", value); });
 	
 }
+
+void HttpMannger::HttpToPostRequestOpenBox(int itemid) //±³°ü¹ºÂòµÀ¾ß
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_OPENBOX);
+	auto requstData = String::createWithFormat("session_id=%s&cdkey=%s", sessionid.c_str(), cdkey.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForCDKey, this));
+}
+void HttpMannger::onHttpRequestCompletedForCDKey(HttpClient *sender, HttpResponse *response)
+{
+	CDkeyValue* value = new CDkeyValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back get cdkey info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto& rewards = doc["reward_lists"];
+			for (unsigned int i = 0; i < rewards.Size(); i++)
+			{
+				value->_rewards.push_back(RewardValue(rewards[i]["item_id"].GetInt(), rewards[i]["nums"].GetInt()));
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("CDKEY", value); });
+
+}

@@ -24,6 +24,7 @@ using namespace cocos2d;
 #define URL_BYNICKNAME "/user/nickname/login"
 #define URL_REGISTERFORWARDLY "/user/register"
 #define URL_CDKEY "/cdkey/get"
+#define URL_OPENBOX "/bag/chest/get"
 struct setNameRequest
 {
 	const char* nickname;
@@ -106,7 +107,8 @@ public:
 	void HttpToPostRequestCDKey(std::string cdkey); //¶Ò»»Âë
 	void onHttpRequestCompletedForCDKey(HttpClient *sender, HttpResponse *response);
 
-
+	void HttpToPostRequestOpenBox(int itemid); //¿ª±¦Ïä
+	void onHttpRequestCompletedForOpenBox(HttpClient *sender, HttpResponse *response);
 
 
 	//µÈ´ý×ªÈ¦
