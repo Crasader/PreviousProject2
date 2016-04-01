@@ -2,9 +2,10 @@
 #include "cocos2d.h"
 #include "server/HttpClientUtill.h"
 #include "HttpMsgDefine.h"
+#include "widget/LoadingCircle.h"
 using namespace cocos2d;
-/*#define URL_HEAD "http://106.75.135.78:1701" *///外网
-#define URL_HEAD "http://172.23.1.30:1701"
+#define URL_HEAD "http://106.75.135.78:1701" ///外网
+//#define URL_HEAD "http://172.23.1.30:1701"
 #define URL_BASECONFIG  "/config/get/base"
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
@@ -27,7 +28,7 @@ using namespace cocos2d;
 #define URL_OPENBOX "/bag/chest/get"
 #define URL_GETMISSIONLIST "/gametask/everyday"
 #define URL_GETMISSIONREWARD "/gametask/everyday/getreward"
-
+#define URL_GETNACTIVEINFO "/activity/config"
 #define URL_GETNOBILITYINFO "/nobility/surplus"
 #define URL_GETNOBILITYREWARD "/nobility/today/reward"
 struct setNameRequest
@@ -80,8 +81,7 @@ public:
 	void HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp,int maxTurretLevel,int PayRMB,int nobillityCount);//上传同步信息
 	void onHttpRequestCompletedForSyncInfo(HttpClient *sender, HttpResponse *response);
 
-	void HttpToPostRequestSetName(std::string sessionid,const  char* nickname, int gender);//设置昵称
-	void onHttpRequestCompletedForSetName(HttpClient *sender, HttpResponse *response);
+
 
 	void HttpToPostRequestBindName(const  char* nickname, int gender,const char* password);//绑定账号
 	void onHttpRequestCompletedForBindName(HttpClient *sender, HttpResponse *response);
@@ -127,10 +127,13 @@ public:
 
 	void HttpToPostRequestToGetNobilityReward(); //领取贵族奖励
 	void onHttpRequestCompletedForGetNobilityReward(HttpClient *sender, HttpResponse *response);
-	//等待转圈
-	void ShowWaiting(HTTP_TYPE type);
-	void RemoveWaiting(HTTP_TYPE type);
-	bool isReqWaiting(HTTP_TYPE type);
+
+
+	void HttpToPostRequestToGetActiveInfo(); //获取活动信息
+	void onHttpRequestCompletedForGetActiveInfo(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestToGetUrlImg(std::string url); //获取网络图片
+	void onHttpRequestCompletedForGetUrlImg(HttpClient *sender, HttpResponse *response);
 private:
 	HttpMannger();
     void init();

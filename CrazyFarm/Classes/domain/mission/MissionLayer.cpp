@@ -3,28 +3,6 @@
 #include "utill/Chinese.h"
 #include "domain/user/User.h"
 
-void MissionView::tableCellTouched(TableView* table, TableViewCell* cell){
-
-}
-Size MissionView::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx){
-	return CCSizeMake(700, 106);
-}
-cocos2d::extension::TableViewCell* MissionView::tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx){
-	MissionCell *cell = (MissionCell*)table->dequeueCell();
-	if (!cell) {
-		cell = MissionCell::create();
-	}
-	else
-	{
-
-	}
-	cell->setValue(MissionManager::getInstance()->getMissionListData().at(idx));
-	return cell;
-}
-ssize_t MissionView::numberOfCellsInTableView(cocos2d::extension::TableView *table){
-	return MissionManager::getInstance()->getMissionListData().size();
-}
-
 
 
 
@@ -48,20 +26,20 @@ bool MissionLayer::init()
 	bool bRet = false;
 	do 
 	{
-		tableviewDelegate = new MissionView();
+		_MissionViewDelegate = new MissionView();
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		auto bg = Sprite::create("missionFrame.png");
 		bg->setPosition(visibleSize / 2);
-		addChild(bg);
+		addChild(bg,0,"bg");
 
 
 
 		//tableview
-		tableView = MyTableView::create(tableviewDelegate, Size(894,383));
+		tableView = MyTableView::create(_MissionViewDelegate, Size(894, 383));
 		tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
 		tableView->setDirection(ScrollView::Direction::VERTICAL);
 		tableView->setPosition(35,26);
-		tableView->setDelegate(tableviewDelegate);
+		tableView->setDelegate(_MissionViewDelegate);
 		bg->addChild(tableView);
 		tableView->reloadData();
 
@@ -86,7 +64,7 @@ bool MissionLayer::init()
 		sp2->addChild(txt2);
 
 		auto coinButton = MenuItemSprite::create(sp1,sp2, CC_CALLBACK_1(MissionLayer::changeTypeCallBack, this));
-		coinButton->setName("coin");
+		coinButton->setName("mission");
 		coinButton->setPosition(109+22, 439);
 		coinButton->setEnabled(false);
 
@@ -101,7 +79,7 @@ bool MissionLayer::init()
 		sp2->addChild(txt2);
 
 		auto expButton = MenuItemSprite::create(sp1,sp2, CC_CALLBACK_1(MissionLayer::changeTypeCallBack, this));
-		expButton->setName("exp");
+		expButton->setName("achieve");
 		expButton->setPosition(298+22, 439);
 		auto menu = Menu::create(close, coinButton, expButton,nullptr);
 		menu->setPosition(Point::ZERO);
@@ -140,71 +118,50 @@ void MissionLayer::changeTypeCallBack(Ref*psend)
 {
 	auto bt = (MenuItemImage*)(psend);
 	auto btName = bt->getName();
-	if (btName == "coin")
+	if (btName == "mission")
 	{
 		bt->setEnabled(false);
 		bt->selected();
-		auto otherBt = (MenuItemImage*)bt->getParent()->getChildByName("exp");
+		auto otherBt = (MenuItemImage*)bt->getParent()->getChildByName("achieve");
 		otherBt->unselected();
 		otherBt->setEnabled(true);
-		changeToCoinRanklist();
+		changeToMissionlist();
 	}
 	else
 	{
 		bt->setEnabled(false);
 		bt->selected();
-		auto otherBt = (MenuItemImage*)bt->getParent()->getChildByName("coin");
+		auto otherBt = (MenuItemImage*)bt->getParent()->getChildByName("mission");
 		otherBt->unselected();
 		otherBt->setEnabled(true);
-		changeToexpRanklist();
+		changeToAchievelist();
 	}
 }
-void MissionLayer::changeToexpRanklist()
+void MissionLayer::changeToMissionlist()
 {
-	/*coinsp->setTexture("EXP.png");
+	tableView->removeFromParentAndCleanup(1);
+	_MissionViewDelegate = new MissionView();
+	tableView = MyTableView::create(_MissionViewDelegate, Size(894, 383));
+	tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
+	tableView->setDirection(ScrollView::Direction::VERTICAL);
+	tableView->setPosition(35, 26);
+	tableView->setDelegate(_MissionViewDelegate);
+	getChildByName("bg")->addChild(tableView);
+	tableView->reloadData();
+
 	
-	haveCoinTTF->setString(ChineseWord("haveExp").c_str());
-	CoinNumTTF->setString(Value(User::getInstance()->getExp()).asString().c_str());
-
-
-
-
-	bool isZero = (User::getInstance()->getExp() <= 0);
-	auto rank = RanklistManager::getInstance()->getRankByExp(User::getInstance()->getExp());
-	std::string rankTxt = Value(rank).asString().c_str();
-	if (isZero)
-	{
-		rankTxt += ":";
-	}
-	labelRank->setString(rankTxt.c_str());
-	tableviewDelegate = new MissionView();
-	tableviewDelegate->setType(1);
-	tableView->setDelegate(tableviewDelegate);
-	tableView->setDataSource(tableviewDelegate);
-	tableView->reloadData();*/
+	
 }
 
-void MissionLayer::changeToCoinRanklist()
+void MissionLayer::changeToAchievelist()
 {
-	/*coinsp->setTexture("coin.png");
-	haveCoinTTF->setString(ChineseWord("haveCoin").c_str());
-	auto coinStr = String::createWithFormat("%ld", User::getInstance()->getCoins())->getCString();
-	CoinNumTTF->setString(coinStr);
-
-
-
-
-	bool isZero = (User::getInstance()->getCoins() <= 0);
-	auto rank = RanklistManager::getInstance()->getRankByCoin(User::getInstance()->getCoins());
-	std::string rankTxt = Value(rank).asString().c_str();
-	if (isZero)
-	{
-		rankTxt += ":";
-	}
-	labelRank->setString(rankTxt.c_str());
-	tableviewDelegate = new MissionView();
-	tableviewDelegate->setType(2);
-	tableView->setDelegate(tableviewDelegate);
-	tableView->setDataSource(tableviewDelegate);
-	tableView->reloadData();*/
+	tableView->removeFromParentAndCleanup(1);
+	_achieveViewDelegate = new AchieveView();
+	tableView = MyTableView::create(_achieveViewDelegate, Size(894, 383));
+	tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
+	tableView->setDirection(ScrollView::Direction::VERTICAL);
+	tableView->setPosition(35, 26);
+	tableView->setDelegate(_achieveViewDelegate);
+	getChildByName("bg")->addChild(tableView);
+	tableView->reloadData();
 }

@@ -78,8 +78,10 @@ void MissionCell::btCallback(Ref*psend)
 			}
 			delete value;
 			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_mission_rewards");
+			LoadingCircle::RemoveLoadingCircle();
 
 		});
+		LoadingCircle::showLoadingCircle();
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
 		HttpMannger::getInstance()->HttpToPostRequestGetMissionReward(_item.mission_id);
 	}

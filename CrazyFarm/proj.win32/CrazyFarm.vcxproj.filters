@@ -756,6 +756,24 @@
     <ClCompile Include="..\Classes\domain\mission\MissionCell.cpp">
       <Filter>src\mission</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\widget\LoadingCircle.cpp">
+      <Filter>src\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\mission\MissionView.cpp">
+      <Filter>src\mission</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\mission\AchieveView.cpp">
+      <Filter>src\mission</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\mission\AchieveCell.cpp">
+      <Filter>src\mission</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\mission\AchieveStar.cpp">
+      <Filter>src\mission</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\UrlImage\UrlImageMannger.cpp">
+      <Filter>src\mannager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1387,6 +1405,24 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\mission\MissionCell.h">
       <Filter>src\mission</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\widget\LoadingCircle.h">
+      <Filter>src\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\mission\MissionView.h">
+      <Filter>src\mission</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\mission\AchieveView.h">
+      <Filter>src\mission</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\mission\AchieveCell.h">
+      <Filter>src\mission</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\mission\AchieveStar.h">
+      <Filter>src\mission</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\UrlImage\UrlImageMannger.h">
+      <Filter>src\mannager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

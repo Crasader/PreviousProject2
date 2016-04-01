@@ -212,9 +212,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp" />
     <ClCompile Include="..\Classes\domain\marquee\MarqueeManager.cpp" />
     <ClCompile Include="..\Classes\domain\mermaid\MermaidTask.cpp" />
+    <ClCompile Include="..\Classes\domain\mission\AchieveCell.cpp" />
+    <ClCompile Include="..\Classes\domain\mission\AchieveStar.cpp" />
+    <ClCompile Include="..\Classes\domain\mission\AchieveView.cpp" />
     <ClCompile Include="..\Classes\domain\mission\MissionCell.cpp" />
     <ClCompile Include="..\Classes\domain\mission\MissionLayer.cpp" />
     <ClCompile Include="..\Classes\domain\mission\MissionManager.cpp" />
+    <ClCompile Include="..\Classes\domain\mission\MissionView.cpp" />
     <ClCompile Include="..\Classes\domain\Newbie\NewbieFirstGetRewardLayer.cpp" />
     <ClCompile Include="..\Classes\domain\Newbie\NewbieMannger.cpp" />
     <ClCompile Include="..\Classes\domain\Newbie\NewbieSureDialog.cpp" />
@@ -241,6 +245,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\turntable\CTurntable.cpp" />
     <ClCompile Include="..\Classes\domain\turntable\TurntableCell.cpp" />
     <ClCompile Include="..\Classes\domain\turntable\TurnTableDialog.cpp" />
+    <ClCompile Include="..\Classes\domain\UrlImage\UrlImageMannger.cpp" />
     <ClCompile Include="..\Classes\domain\user\DeviceInfo.cpp" />
     <ClCompile Include="..\Classes\domain\user\User.cpp" />
     <ClCompile Include="..\Classes\fish\Fish.cpp" />
@@ -337,6 +342,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\widget\BaseLayer.cpp" />
     <ClCompile Include="..\Classes\widget\GiftCell.cpp" />
     <ClCompile Include="..\Classes\widget\LightEffect.cpp" />
+    <ClCompile Include="..\Classes\widget\LoadingCircle.cpp" />
     <ClCompile Include="..\Classes\widget\MyDialog.cpp" />
     <ClCompile Include="..\Classes\widget\MyMenuItemGainMoney.cpp" />
     <ClCompile Include="..\Classes\widget\MyMenuItemUpgrade.cpp" />
@@ -420,9 +426,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h" />
     <ClInclude Include="..\Classes\domain\marquee\MarqueeManager.h" />
     <ClInclude Include="..\Classes\domain\mermaid\MermaidTask.h" />
+    <ClInclude Include="..\Classes\domain\mission\AchieveCell.h" />
+    <ClInclude Include="..\Classes\domain\mission\AchieveStar.h" />
+    <ClInclude Include="..\Classes\domain\mission\AchieveView.h" />
     <ClInclude Include="..\Classes\domain\mission\MissionCell.h" />
     <ClInclude Include="..\Classes\domain\mission\MissionLayer.h" />
     <ClInclude Include="..\Classes\domain\mission\MissionManager.h" />
+    <ClInclude Include="..\Classes\domain\mission\MissionView.h" />
     <ClInclude Include="..\Classes\domain\Newbie\NewbieFirstGetRewardLayer.h" />
     <ClInclude Include="..\Classes\domain\Newbie\NewbieMannger.h" />
     <ClInclude Include="..\Classes\domain\Newbie\NewbieSureDialog.h" />
@@ -449,6 +459,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\turntable\CTurntable.h" />
     <ClInclude Include="..\Classes\domain\turntable\TurntableCell.h" />
     <ClInclude Include="..\Classes\domain\turntable\TurnTableDialog.h" />
+    <ClInclude Include="..\Classes\domain\UrlImage\UrlImageMannger.h" />
     <ClInclude Include="..\Classes\domain\user\DeviceInfo.h" />
     <ClInclude Include="..\Classes\domain\user\User.h" />
     <ClInclude Include="..\Classes\fish\Fish.h" />
@@ -549,6 +560,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\widget\BaseLayer.h" />
     <ClInclude Include="..\Classes\widget\GiftCell.h" />
     <ClInclude Include="..\Classes\widget\LightEffect.h" />
+    <ClInclude Include="..\Classes\widget\LoadingCircle.h" />
     <ClInclude Include="..\Classes\widget\MyDialog.h" />
     <ClInclude Include="..\Classes\widget\MyMenuItemGainMoney.h" />
     <ClInclude Include="..\Classes\widget\MyMenuItemUpgrade.h" />

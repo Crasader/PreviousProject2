@@ -91,6 +91,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("game/ui/payShop");
 	paths.push_back("game/ui/login");
 	paths.push_back("game/ui/mission");
+	paths.push_back("game/ui/mission/achieve");
 	AnimationUtil::getInstance()->addAnimationBySpriteName("game/ui/ani/bubble/aniBubble%d.png", "aniBubble", 3.5f, 46);
 	FileUtils::getInstance()->setSearchResolutionsOrder(paths);
 	srand(time(NULL));

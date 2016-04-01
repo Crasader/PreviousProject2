@@ -4,6 +4,7 @@
 #include "server/HttpMsgDefine.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/login/LoginMannger.h"
+#include "widget/LoadingCircle.h"
 bool SetNameLayer::init()
 {
 	if ( !Layer::init() )
@@ -190,6 +191,7 @@ void SetNameLayer::quedingcallback(Ref*psend)
 	if (type == 0)
 	{
 		HttpMannger::getInstance()->HttpToPostRequestBindName(nickname.c_str(), sex, password.c_str());
+		LoadingCircle::showLoadingCircle();
 		NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(SetNameLayer::httpCallback), "setname", NULL);
 		item->setEnabled(false);
 	}
@@ -231,6 +233,7 @@ int  SetNameLayer::checkRegister(std::string nickname, std::string password, std
 
 void SetNameLayer::httpCallback(Ref*psend)
 {
+	LoadingCircle::RemoveLoadingCircle();
 	SetNameValue *value = (SetNameValue*)psend;
 	auto menu = getChildByName("bg")->getChildByName("menu");
 	auto bt = ((MenuItem*)(menu->getChildByName("sureBt")));

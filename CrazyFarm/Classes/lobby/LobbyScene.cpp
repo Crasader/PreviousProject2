@@ -46,19 +46,11 @@
 #include "domain/mission/MissionManager.h"
 #include "domain/game/GameManage.h"
 #include "domain/ToolTip/ToolTipMannger.h"
+#include "widget/LoadingCircle.h"
+#include "domain/UrlImage/UrlImageMannger.h"
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
-roomCell * roomCell::createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback)
-{
-	roomCell *ret = new (std::nothrow) roomCell();
-	if (ret && ret->initWithNormalImage(normalImage, selectedImage, "", callback))
-	{
-		ret->autorelease();
-		return ret;
-	}
-	CC_SAFE_DELETE(ret);
-	return nullptr;
-}
+
 
 
 Scene* LobbyScene::createScene()
@@ -67,7 +59,8 @@ Scene* LobbyScene::createScene()
 
 	auto scene = Scene::create();
 	HttpMannger::getInstance()->HttpToPostRequestToGetNobilityInfo();
-	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
+	UrlImageMannger::getInstance()->LoadImgByUrl("http://img.hb.aicdn.com/edbcaed536dbca4e1c258f6c32d18f2e368500ab40fa-unkKoo_fw658");
+	//HttpMannger::getInstance()->HttpToPostRequestToGetUrlImg("http://img.hb.aicdn.com/edbcaed536dbca4e1c258f6c32d18f2e368500ab40fa-unkKoo_fw658");
 	auto layer = LobbyScene::create();
 	GameManage::getInstance()->setLobbyLayer(layer);
 	scene->addChild(layer, 0, 888);
@@ -98,22 +91,15 @@ bool LobbyScene::init()
 	lobby_bg->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(2.25f, 1.02), ScaleTo::create(2.25f, 1), nullptr)));
 
 
+	
 	//头像框
 	auto spHeadFrame = Sprite::create("HeadFrame.png");
 	spHeadFrame->setPosition(visibleSize.width*0.05, visibleSize.height*0.94);
 	addChild(spHeadFrame, 1, "spHeadFrame");
 
 
-	auto spHead = Sprite::create();
-	int sex = user->getUserGender();
-	if (sex)
-	{
-		spHead->setTexture("headWomen.png");
-	}
-	else
-	{
-		spHead->setTexture("headMan.png");
-	}
+	spHead = Sprite::create();
+
 	spHead->setPosition(23, 30);
 	spHeadFrame->addChild(spHead);
 
@@ -332,9 +318,6 @@ bool LobbyScene::init()
 
 	CDKEYbt->setPosition(700, 38);
 
-
-
-
 	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, MissionBT,CDKEYbt, nullptr);
 	menu->setPosition(Point::ZERO);
 	addChild(menu, kZorderMenu-1,"menu");
@@ -429,26 +412,58 @@ bool LobbyScene::init()
 		SignMannger::getInstance()->sendRequest();
 		  
 	}
-	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg();  }), nullptr));
 
 	
-	
 
-
-	//auto SummonBottle = Sprite::create("SummonBottle.png");
-	//SummonBottle->setPosition(200,100);
-	//addChild(SummonBottle, 100);
-	//SummonBottle->runAction(Spawn::create(MoveTo::create(2.0f, randPos), RotateBy::create(2.0f, 360), RemoveSelf::create(), nullptr));
 
 	return true;
+}
+void LobbyScene::setValue()
+{
+	int sex = User::getInstance()->getUserGender();
+	if (sex)
+	{
+		spHead->setTexture("headWomen.png");
+	}
+	else
+	{
+		spHead->setTexture("headMan.png");
+	}
+
+	userName->setString(User::getInstance()->getUserName());
+	viplevel->setString(Value(User::getInstance()->getVipLevel()).asString().c_str());
+	refreshCoinLabel();
 }
 void LobbyScene::onEnterTransitionDidFinish()
 {
 
 	Layer::onEnterTransitionDidFinish();
-	
+	EventListenerCustom* _listener2 = EventListenerCustom::create("get_user_info", [=](EventCustom* event){
+
+		UserInfoValue*value = static_cast<UserInfoValue*>(event->getUserData());
+		if (value->_errorcode == 0)
+		{
+			User::getInstance()->setCoins(value->_coins);
+			User::getInstance()->setExp(value->_exps);
+			User::getInstance()->setDiamonds(value->_diamonds);
+			User::getInstance()->setMaxTurrentLevel(value->_maxTurrentLv);
+			User::getInstance()->setChargeMoney(value->_chargemoney);
+			User::getInstance()->setUserBoxLevel(value->_chestLevel);
+			setValue();
+			createRoomLayer();
+		}
+		else
+		{
+			ToolTipMannger::showDioag(value->_errormsg);
+		}
+		delete value;
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_user_info");
+
+	});
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
 	MissionManager::getInstance()->loadConfig();
-	createRoomLayer();
+	
 }
 
 void LobbyScene::showSign(float dt)
@@ -615,11 +630,21 @@ void LobbyScene::guizuCallback(Ref*psend)
 
 void LobbyScene::showVipCallBack(Ref*psend)
 {
-	Audio::getInstance()->playSound(CLICKSURE);
+
+	string path = UrlImageMannger::getInstance()->getImgNameByUrl("http://img.hb.aicdn.com/edbcaed536dbca4e1c258f6c32d18f2e368500ab40fa-unkKoo_fw658");
+
+	//这里建议使用成员变量来保存精灵，不然有可能导致显示白色块，出现异常！
+	
+	Sprite* sprite = Sprite::create(path);
+	sprite->setPosition(ccp(240, 160));
+	this->addChild(sprite, 10);
+;
+
+	/*Audio::getInstance()->playSound(CLICKSURE);
 	auto viplayer = VIPLayer::create();
 	viplayer->setPosition(Point::ZERO);
 	addChild(viplayer, kZorderDialog);
-	LogEventPageChange::getInstance()->addEventItems(1, 7, 0);
+	LogEventPageChange::getInstance()->addEventItems(1, 7, 0);*/
 }
 void LobbyScene::quickBeginCallback(Ref*psend)
 {

@@ -63,6 +63,23 @@ struct MissionListItem
 	int current_nums;
 	bool isReceive;
 };
+struct AchieveListItem
+{
+	int mission_id;
+	std::string task_content;
+	std::string tast_content_url_pic;
+	std::string tast_icon_url_pic;
+	std::vector<RewardValue> rewards;
+	int max_level;//任务最大等级
+	int current_level;//任务当前级别
+
+	int to_page;
+	int require_nums;
+	int current_nums;
+	bool isReceive;
+};
+
+
 
 struct MissionListValue 
 {
@@ -84,4 +101,17 @@ struct GuizuRewardValue
 	int _errorcode;
 	std::string _errormsg;
 	std::vector<RewardValue> rewards;
+};
+
+
+struct UserInfoValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	unsigned long _coins;
+	int _exps;
+	unsigned long _diamonds;
+	int _maxTurrentLv;
+	int _chargemoney;
+	int _chestLevel;
 };

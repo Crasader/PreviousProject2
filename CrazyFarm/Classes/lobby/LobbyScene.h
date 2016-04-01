@@ -9,14 +9,6 @@ using namespace cocos2d::network;
 USING_NS_CC;
 
 
-class  roomCell:public MenuItemImage
-{
-public:
-	static roomCell * createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback);
-	CC_SYNTHESIZE(int, minEnterLevel, MinEnterLevel);
-	CC_SYNTHESIZE(bool, isLock, Islock);
-	CC_SYNTHESIZE(int, roomid, Roomid);
-};
 
 
 
@@ -40,6 +32,8 @@ public:
 
 	void showGuizuGetRewards();
 private:
+	void setValue();
+
 	virtual void onExit();
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
 	virtual void onEnterTransitionDidFinish();
@@ -64,8 +58,9 @@ private:
 	LabelTTF* userCoin;
 	MenuItemImage* fistPay;
 	Sprite*lang;
+	Sprite* spHead;
+	
 	Sprite*langspEmpty;
-	Vector<roomCell*> roomCells;
 	LabelTTF* userName;
 	LabelAtlas *viplevel;
 };

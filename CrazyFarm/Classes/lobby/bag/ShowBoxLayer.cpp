@@ -157,6 +157,7 @@ void ShowBoxLayer::quedingcallback(Ref*psend)
 	else
 	{
 		HttpMannger::getInstance()->HttpToPostRequestOpenBox(m_itemId);
+		LoadingCircle::showLoadingCircle();
 		NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(ShowBoxLayer::httpCallback), "openBox", NULL);
 	}
 	
@@ -170,6 +171,7 @@ void ShowBoxLayer::closeButtonCallBack(Ref*psend)
 
 void ShowBoxLayer::httpCallback(Ref*psend)
 {
+	LoadingCircle::RemoveLoadingCircle();
 	OpenBoxValue *value = (OpenBoxValue*)psend;
 	TwiceSureDialog*dialog;
 	switch (value->_errorcode)

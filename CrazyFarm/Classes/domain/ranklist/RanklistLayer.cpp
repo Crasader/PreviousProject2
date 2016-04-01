@@ -3,6 +3,7 @@
 #include "utill/Chinese.h"
 #include "domain/user/User.h"
 #include "domain/ToolTip/ToolTipMannger.h"
+#include "widget/LoadingCircle.h"
 void RanklistView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
@@ -185,8 +186,10 @@ bool RanklistLayer::init()
 			}
 			CC_SAFE_DELETE(value);
 			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_ranklist_coin_info");
+			LoadingCircle::RemoveLoadingCircle();
 
 		});
+		LoadingCircle::showLoadingCircle();
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
 		RanklistManager::getInstance()->loadCoin();
 
@@ -265,11 +268,12 @@ void RanklistLayer::changeToexpRanklist()
 		}
 		CC_SAFE_DELETE(value);
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_ranklist_exp_info");
+		LoadingCircle::RemoveLoadingCircle();
 
 	});
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
 	RanklistManager::getInstance()->loadExp();
-
+	LoadingCircle::showLoadingCircle();
 	
 }
 
@@ -311,13 +315,14 @@ void RanklistLayer::changeToCoinRanklist()
 		}
 		CC_SAFE_DELETE(value);
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_ranklist_coin_info");
+		LoadingCircle::RemoveLoadingCircle();
 
 	});
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
 	RanklistManager::getInstance()->loadCoin();
 
 
-
+	LoadingCircle::showLoadingCircle();
 
 
 }

@@ -6,6 +6,7 @@
 #include "domain/login/DropDownListBox.h"
 #include "server/HttpMsgDefine.h"
 #include "domain/user/User.h"
+#include "widget/LoadingCircle.h"
 Scene* LoginScene::createScene()
 {
 	auto scene = Scene::create();
@@ -148,10 +149,12 @@ void LoginScene::loginCallBack(Ref*psend)
 	}
 	NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(LoginScene::httpCallback), "login", NULL);
 	((MenuItemImage*)psend)->setEnabled(false);
+	LoadingCircle::showLoadingCircle();
 	LoginMannger::getInstance()->toLogin(_editName->getText(), _editPassword->getText());	
 }
 void LoginScene::httpCallback(Ref*psend)
 {
+	LoadingCircle::RemoveLoadingCircle();
 	LoginValue *value = (LoginValue*)psend;
 	switch (value->_errorcode)
 	{

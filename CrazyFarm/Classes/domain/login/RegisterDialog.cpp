@@ -6,6 +6,7 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/user/User.h"
 #include "domain/Newbie/NewbieMannger.h"
+#include "widget/LoadingCircle.h"
 bool RegisterDialog::init()
 {
 	if (!Layer::init())
@@ -161,6 +162,7 @@ void RegisterDialog::loginCallBack(Ref*psend)
 		LoginMannger::getInstance()->toRegister(nickname.c_str(), password.c_str(), sex);
 
 		((MenuItemImage*)psend)->setEnabled(false);
+		LoadingCircle::showLoadingCircle();
 		NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(RegisterDialog::httpCallback), "register", NULL);
 	}
 	
@@ -212,6 +214,7 @@ void RegisterDialog::editBoxReturn(ui::EditBox* editBox)
 
 void RegisterDialog::httpCallback(Ref*psend)
 {
+	LoadingCircle::RemoveLoadingCircle();
 	RegisterValue *value = (RegisterValue*)psend;
 	switch (value->_errorcode)
 	{
