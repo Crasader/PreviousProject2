@@ -3,8 +3,8 @@
 #include "server/HttpClientUtill.h"
 #include "HttpMsgDefine.h"
 using namespace cocos2d;
-#define URL_HEAD "http://106.75.135.78:1701" //外网
-//#define URL_HEAD "http://172.23.1.22:1701"
+/*#define URL_HEAD "http://106.75.135.78:1701" *///外网
+#define URL_HEAD "http://172.23.1.30:1701"
 #define URL_BASECONFIG  "/config/get/base"
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
@@ -27,6 +27,9 @@ using namespace cocos2d;
 #define URL_OPENBOX "/bag/chest/get"
 #define URL_GETMISSIONLIST "/gametask/everyday"
 #define URL_GETMISSIONREWARD "/gametask/everyday/getreward"
+
+#define URL_GETNOBILITYINFO "/nobility/surplus"
+#define URL_GETNOBILITYREWARD "/nobility/today/reward"
 struct setNameRequest
 {
 	const char* nickname;
@@ -117,6 +120,13 @@ public:
 	
 	void HttpToPostRequestGetMissionReward(int missionId); //领取任务奖励
 	void onHttpRequestCompletedForGetMissionReward(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestToGetNobilityInfo(); //获取用户贵族天数
+	void onHttpRequestCompletedForGetNobilityInfo(HttpClient *sender, HttpResponse *response);
+
+
+	void HttpToPostRequestToGetNobilityReward(); //领取贵族奖励
+	void onHttpRequestCompletedForGetNobilityReward(HttpClient *sender, HttpResponse *response);
 	//等待转圈
 	void ShowWaiting(HTTP_TYPE type);
 	void RemoveWaiting(HTTP_TYPE type);

@@ -25,11 +25,11 @@ bool GuizuGiftDialog::init()
 		int i = 0;
 		for (auto var:vec)
 		{
-			auto propNum = LabelAtlas::create(Value(var.num).asString().c_str(), "guizuPropNum.png", 15, 22,'0');
+			auto propNum = LabelAtlas::create(Value(var._num).asString().c_str(), "guizuPropNum.png", 15, 22,'0');
 			propNum->setAnchorPoint(Point::ANCHOR_MIDDLE);
-			auto path = String::createWithFormat("item_%d.png", var.item_id);
+			auto path = String::createWithFormat("item_%d.png", var._itemid);
 			auto prop = Sprite::create(path->getCString());
-			if (var.item_id == 1001)
+			if (var._itemid == 1001)
 			{
 				propNum->setPosition(prop->getContentSize().width / 2, 17);
 			}
@@ -55,17 +55,9 @@ void GuizuGiftDialog::lingquCallback(Ref*psend)
 	auto vec = NobilityManager::getInstance()->getNobilityRewadItems();
 	for (auto var:vec)
 	{
-		if (var.item_id == 1001)
-		{
-			User::getInstance()->addCoins(var.num);
-		}
-		if (var.item_id == 1002)
-		{
-			User::getInstance()->addDiamonds(var.num);
-		}
-		BagManager::getInstance()->changeItemCount(var.item_id, var.num);
+		BagManager::getInstance()->addreward(var._itemid, var._num);
 
 	}
-	NobilityManager::getInstance()->setGetRewardToday();
+
 	removeFromParentAndCleanup(1);
 }

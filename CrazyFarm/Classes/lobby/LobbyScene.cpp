@@ -45,6 +45,7 @@
 #include "domain/mission/MissionLayer.h"
 #include "domain/mission/MissionManager.h"
 #include "domain/game/GameManage.h"
+#include "domain/ToolTip/ToolTipMannger.h"
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
 roomCell * roomCell::createCell(const std::string& normalImage, const std::string& selectedImage, const ccMenuCallback& callback)
@@ -65,6 +66,7 @@ Scene* LobbyScene::createScene()
 	
 
 	auto scene = Scene::create();
+	HttpMannger::getInstance()->HttpToPostRequestToGetNobilityInfo();
 	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
 	auto layer = LobbyScene::create();
 	GameManage::getInstance()->setLobbyLayer(layer);
@@ -427,7 +429,7 @@ bool LobbyScene::init()
 		SignMannger::getInstance()->sendRequest();
 		  
 	}
-	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg(); }), nullptr));
+	runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([=]{LogEventMannger::getInstance()->sendMsg();  }), nullptr));
 
 	
 	
@@ -451,7 +453,7 @@ void LobbyScene::onEnterTransitionDidFinish()
 
 void LobbyScene::showSign(float dt)
 {
-
+	
 	auto rewards = SignMannger::getInstance()->getSignItems();
 	if (rewards.size() > 0)
 	{
@@ -727,4 +729,39 @@ void LobbyScene::feedBackCallback(Ref*psend)
 	
 
 
+}
+
+void LobbyScene::showGuizuGetRewards()
+{
+	int day = NobilityManager::getInstance()->RemainingNobilityday();
+	if (day>0)
+	{
+		EventListenerCustom* _listener2 = EventListenerCustom::create("get_guizu_rewards", [=](EventCustom* event){
+
+		GuizuRewardValue*value = static_cast<GuizuRewardValue*>(event->getUserData());
+			if (value->_errorcode == 0)
+				{
+					NobilityManager::getInstance()->setNobilityRewadItems(value->rewards);
+					auto layer = GuizuGiftDialog::create();
+					layer->setPosition(0, 0);
+					addChild(layer, kZorderDialog);
+				}
+				else
+				{
+					ToolTipMannger::showDioag(value->_errormsg);
+				}
+				delete value;
+				Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_guizu_rewards");
+
+			});
+			Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+			HttpMannger::getInstance()->HttpToPostRequestToGetNobilityReward();
+	
+			
+		
+	}
+	else
+	{
+		guizuCallback(nullptr);
+	}
 }

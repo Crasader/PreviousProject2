@@ -182,7 +182,7 @@ void Pay::payCallBack(int code, const char* msg, std::string prepayid)
 					User::getInstance()->addDiamonds(var.ItemNum*lvdata.pay_reward);
 					break;
 				case 3:
-					NobilityManager::getInstance()->addStepsDay(30);
+		/*			NobilityManager::getInstance()->addStepsDay(30);*/
 					break;
 			default:
 				break;

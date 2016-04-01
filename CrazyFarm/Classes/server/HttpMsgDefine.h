@@ -78,3 +78,10 @@ struct MissionRewardValue
 	std::string _errormsg;
 	std::vector<RewardValue> rewards;
 };
+
+struct GuizuRewardValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<RewardValue> rewards;
+};

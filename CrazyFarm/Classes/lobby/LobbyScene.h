@@ -36,6 +36,9 @@ public:
 	void showVipCallBack(Ref*psend);
 	void quickBeginCallback(Ref*psend);
 	void showSign(float dt);
+
+
+	void showGuizuGetRewards();
 private:
 	virtual void onExit();
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);

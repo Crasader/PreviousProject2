@@ -12,7 +12,8 @@ User::User(){
 void User::init(){
 	setSessionid("");
 	setUserGender(1);
-    // TODO : first use init user name and id
+	setNobilityDay(0);
+
 }
 
 User* User::getInstance(){

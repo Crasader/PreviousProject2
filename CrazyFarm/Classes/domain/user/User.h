@@ -96,6 +96,7 @@ private:
 	CC_SYNTHESIZE(std::string, session_id, Sessionid);
 	CC_SYNTHESIZE(std::string, _username, UserName);
 	CC_SYNTHESIZE(int, _userGenderd, UserGender);
+	CC_SYNTHESIZE(int, _nobilityDay, NobilityDay);
 	unsigned long _coins =0;
 	unsigned long  _diamond = 0;
 

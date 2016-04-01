@@ -135,7 +135,12 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 	}
 	SignMannger::getInstance()->clearSignItem();
 
-	((LobbyScene*)(this->getParent()))->guizuCallback(nullptr);
+
+	
+	((LobbyScene*)(this->getParent()))->showGuizuGetRewards();
+	
+
+	
 	this->removeFromParentAndCleanup(1);}), nullptr));
 	
 

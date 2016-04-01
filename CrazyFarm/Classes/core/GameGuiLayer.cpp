@@ -119,14 +119,14 @@ void GameGuiLayer::refreshSkillNum()
 
 void GameGuiLayer::createGuizuGiftLayer()
 {
-	auto b = NobilityManager::getInstance()->isGetRewardToday();
-	if (b)
-	{
-		auto layer = GuizuGiftDialog::create();
-		layer->setPosition(0, 0);
-		addChild(layer,kZorderDialog);
-		
-	}
+	//auto b = NobilityManager::getInstance()->isGetRewardToday();
+	//if (b)
+	//{
+	//	auto layer = GuizuGiftDialog::create();
+	//	layer->setPosition(0, 0);
+	//	addChild(layer,kZorderDialog);
+	//	
+	//}
 }
 void GameGuiLayer::addCoinCallBack(Ref*psend)
 {

@@ -1157,3 +1157,114 @@ void HttpMannger::onHttpRequestCompletedForGetMissionReward(HttpClient *sender, 
 	event.setUserData(value);
 	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }
+
+
+void HttpMannger::HttpToPostRequestToGetNobilityInfo()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETNOBILITYINFO);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetNobilityInfo, this));
+}
+void HttpMannger::onHttpRequestCompletedForGetNobilityInfo(HttpClient *sender, HttpResponse *response)
+{
+	while (1)
+	{
+		if (!response)
+		{
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back getNobittyday cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		if (result == 0)
+		{
+			User::getInstance()->setNobilityDay(doc["surplus_day"].GetInt());
+		}
+		
+		break;
+	}
+
+}
+
+
+
+void HttpMannger::HttpToPostRequestToGetNobilityReward()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETNOBILITYREWARD);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetNobilityReward, this));
+}
+void HttpMannger::onHttpRequestCompletedForGetNobilityReward(HttpClient *sender, HttpResponse *response)
+{
+	GuizuRewardValue* value = new GuizuRewardValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back openbox cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto &rewards = doc["reward_lists"];
+			for (unsigned int j = 0; j < rewards.Size(); j++)
+			{
+				value->rewards.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	EventCustom event("get_guizu_rewards");
+	event.setUserData(value);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+}
