@@ -36,8 +36,8 @@
 #include "domain/bonuspool/BonusPoolManager.h"
 #include "domain/turntable/TurnTableDialog.h"
 #define BOOMRADIUS 300
-#define TCPIDURL "106.75.141.82" //外网
-/*#define TCPIDURL "172.23.1.76"*/ //内网
+//#define TCPIDURL "106.75.141.82" //外网
+#define TCPIDURL "172.23.1.30" //内网
 enum
 {
 	kTagBaseturret= 10,
@@ -100,7 +100,7 @@ bool GameLayer::init(){
 
 	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 
-	schedule(schedule_selector(GameLayer::UpdateCreateFishByServer), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
+	schedule(schedule_selector(GameLayer::UpdateCreateFishByServer), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0.02f);
 
 
 	runAction(Sequence::create(DelayTime::create(0.01f),
@@ -200,6 +200,45 @@ void GameLayer::createTurret(){
 	}
 	TxtWaitingTurrent[m_index]->setVisible(false);
 	showYourChairno();
+
+
+
+
+
+
+
+
+
+
+	RoomPlayer* usera = new RoomPlayer();
+	usera->setCoins(1200000);
+	usera->setDiamonds(100);
+	usera->setLevel(10l);
+	usera->setMaxTurretLevel(1);
+	usera->setUserName("robot");
+	usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
+	usera->setChestLv(2);
+	AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
+	usera->setAi(ai);
+	int uiPos = 3;
+	if (uiPos > 3)
+	{
+		uiPos -= 4;
+	}
+	if (uiPos < 0)
+	{
+		uiPos += 4;
+	}
+	usera->setRoomPosition(uiPos);
+
+	auto otherTurret = PlayerTurret::create();
+	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+	otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
+	otherTurret->initWithDate(usera);
+	otherTurrets.pushBack(otherTurret);
+	addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
+
+	TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
 }
 
 
@@ -388,7 +427,7 @@ void GameLayer::collisionUpdate(float dt)
 	{
 		for (auto fish : allFish)
 		{
-			if (CollisionUtill::isCollisionFishAAndBullet(fish, bullet)){
+			if ( CollisionUtill::isCollisionFishAAndBullet(fish, bullet)){
 				//发生碰撞,移除子弹,在这里计算捕获鱼，渔网只有UI作用，无影响
 				bulletNeedRemove.pushBack(bullet);
 				bullet->setVisible(false);
@@ -424,8 +463,7 @@ void GameLayer::collisionUpdate(float dt)
 	}
 
 	for (Bullet* bullet : bulletNeedRemove){
-		bullet->removeFromParentAndCleanup(1);
-		BulletManage::getInstance()->removeBullet(bullet);
+		BulletManage::getInstance()->moveBulletToCacheFromPool(bullet);
 	}
 	
 	
@@ -435,8 +473,8 @@ void GameLayer::initFishAndBulletData()
 {
 	if (isInitData == false)
 	{
-		FishManage::getInstance()->cleanVector();
-		BulletManage::getInstance()->ClearManage();
+		FishManage::getInstance()->initFishPool();
+		BulletManage::getInstance()->initBulletManage();
 		GameData::getInstance()->setisOnGroupComing(false);
 		isInitData = true;
 	}
@@ -788,12 +826,7 @@ void GameLayer::onClearFishUpdata(float dt)
 		}
 		for (auto bullet : needRemove1)
 		{
-			BulletManage::getInstance()->removeBullet(bullet);
-			if (bullet->getParent())
-			{
-				bullet->removeFromParentAndCleanup(1);
-			}
-
+			BulletManage::getInstance()->moveBulletToCacheFromPool(bullet);
 		}
 	}
 

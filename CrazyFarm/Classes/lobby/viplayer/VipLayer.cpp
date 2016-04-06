@@ -210,7 +210,7 @@ bool VIPLayer::init()
 		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-			removeFromParentAndCleanup(1);
+
 			break;
 		default:
 			break;

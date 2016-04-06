@@ -339,8 +339,7 @@ bool BagLayer::init()
 
 
 		//±³°ü tableviewBUg
-		tableView = MyTableView::create(tableviewDelegate, baginfoFram->getContentSize());
-		tableView->setAnchorPoint(Point::ZERO);
+		tableView = MyTableView::create(tableviewDelegate, Size(340,380));
 		tableView->setDirection(ScrollView::Direction::VERTICAL);
 		tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
 		tableView->setPosition(5,10);
@@ -367,7 +366,7 @@ bool BagLayer::init()
 		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-			closeButtonCallBack(nullptr);
+	
 			break;
 		default:
 			break;

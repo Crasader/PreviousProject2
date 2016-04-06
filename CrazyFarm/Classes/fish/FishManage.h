@@ -9,6 +9,7 @@
 #include "config/ConfigMomentEight.h"
 #include "moment/MonmetEightRoute.h"
 #include "turret/PlayerTurret.h"
+#include "fish/FishOfAllKilled.h"
 using namespace cocos2d;
 
 #define BORDER_LEFT 0
@@ -19,6 +20,7 @@ class GameLayer;
 class FishManage {
 public:
 	static FishManage* getInstance();
+	bool initFishPool();
 	void cleanVector();
 
 
@@ -49,7 +51,7 @@ public:
 
 
 	void createCycleFish(int count, int Radius, int fishID, Point center, Point curPos, float moveTime);//建立一圈鱼
-	Fish*getFishByPosInPool(Point pos);
+	
     Point getBestRewardPostion();
     
 	void UpdateWhenController(float dt);
@@ -61,8 +63,9 @@ public:
 	void onClearFish();   //鱼潮来临，清场
 
 
-	Fish*getHignSoreInVec();
-
+	Fish*getHignSoreInPool();//获得分值最高的鱼
+	Fish*getFishByPosInPool(Point pos);//获得点击的鱼
+	Fish*getLowDistanceInPool(Point pos);//获得距离某点最近的鱼
 
 	//sever fish create design;
 private:
@@ -72,11 +75,17 @@ public:
 	void clearServerItemFishs();
 	void UpdateServerWhenController(float dt);
 	void UpdataServerCreateFish(float dt);
-
+	//鱼对象池
+public:
+	void moveFishToCacheFromPool(Fish*fish);
+private:
+	Fish* getFreeFishInCache();
+	Vector<Fish*> fishPool;//屏幕中的鱼
+	std::vector<Fish*> cacheFishPool; //没有用到的普通鱼
 private :
 	FishManage();
 	static FishManage* _instance;
-	Vector<Fish*> fishPool;
+	
 	std::vector<MomentEightItemFishs> waitCreateMomentEightFishs;
 	Moment* m_nowMonent = nullptr;
 	CC_SYNTHESIZE(GameLayer*, m_layer, layer);

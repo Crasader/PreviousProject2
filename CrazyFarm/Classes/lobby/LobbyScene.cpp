@@ -59,8 +59,6 @@ Scene* LobbyScene::createScene()
 
 	auto scene = Scene::create();
 	HttpMannger::getInstance()->HttpToPostRequestToGetNobilityInfo();
-	UrlImageMannger::getInstance()->LoadImgByUrl("http://img.hb.aicdn.com/edbcaed536dbca4e1c258f6c32d18f2e368500ab40fa-unkKoo_fw658");
-	//HttpMannger::getInstance()->HttpToPostRequestToGetUrlImg("http://img.hb.aicdn.com/edbcaed536dbca4e1c258f6c32d18f2e368500ab40fa-unkKoo_fw658");
 	auto layer = LobbyScene::create();
 	GameManage::getInstance()->setLobbyLayer(layer);
 	scene->addChild(layer, 0, 888);
@@ -412,8 +410,6 @@ bool LobbyScene::init()
 		SignMannger::getInstance()->sendRequest();
 		  
 	}
-
-	
 
 
 	return true;

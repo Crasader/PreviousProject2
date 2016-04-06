@@ -87,7 +87,7 @@ bool RanklistLayer::init()
 			if (value->_errorcode == 0)
 			{
 				RanklistManager::getInstance()->setCoinRankListData(value->rankItems);
-				RanklistManager::getInstance()->setRankCoinRange(value->rankRange);
+				RanklistManager::getInstance()->setRankCoinRange(value->_rankRange);
 
 
 
@@ -122,7 +122,7 @@ bool RanklistLayer::init()
 
 
 
-				//ÓµÓÐ½ð±Ò
+				//Óµï¿½Ð½ï¿½ï¿½
 				haveCoinTTF = LabelTTF::create(ChineseWord("haveCoin").c_str(), "arial", 20);
 				haveCoinTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
 				haveCoinTTF->setPosition(700, 445);
@@ -159,7 +159,7 @@ bool RanklistLayer::init()
 				coinButton->selected();
 
 
-				//Ìí¼ÓÏµÍ³·µ»Ø¼ü¼àÌý
+				//ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½
 				auto listener = EventListenerKeyboard::create();
 				listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
 					switch (code)
@@ -167,7 +167,7 @@ bool RanklistLayer::init()
 					case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
 						break;
 					case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-						removeFromParentAndCleanup(1);
+			
 						break;
 					default:
 						break;
@@ -239,7 +239,7 @@ void RanklistLayer::changeToexpRanklist()
 		if (value->_errorcode == 0)
 		{
 			RanklistManager::getInstance()->setExpRankListData(value->rankItems);
-			RanklistManager::getInstance()->setRankExpRange(value->rankRange);
+			RanklistManager::getInstance()->setRankExpRange(value->_rankRange);
 			coinsp->setTexture("EXP.png");
 
 			haveCoinTTF->setString(ChineseWord("haveExp").c_str());
@@ -286,7 +286,7 @@ void RanklistLayer::changeToCoinRanklist()
 		if (value->_errorcode == 0)
 		{
 			RanklistManager::getInstance()->setCoinRankListData(value->rankItems);
-			RanklistManager::getInstance()->setRankCoinRange(value->rankRange);
+			RanklistManager::getInstance()->setRankCoinRange(value->_rankRange);
 			coinsp->setTexture("coin.png");
 			haveCoinTTF->setString(ChineseWord("haveCoin").c_str());
 			auto coinStr = String::createWithFormat("%ld", User::getInstance()->getCoins())->getCString();

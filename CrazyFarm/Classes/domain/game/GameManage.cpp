@@ -40,7 +40,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 		fish->getTargeLockTurret()->setLockFish(nullptr);
 	}
 	fish->removeAllBullet();
-	FishManage::getInstance()->getAllFishInPool().eraseObject(fish);
+	fish->setTag(-1);
 	if (isDead)
 	{
 

@@ -68,21 +68,77 @@ bool AchieveCell::init(){
 
 void AchieveCell::btCallback(Ref*psend)
 {
+	bool isfinish = (_item.current_nums >= _item.require_nums);
+	if (isfinish)
+	{
+		EventListenerCustom* _listener2 = EventListenerCustom::create("get_achieve_rewards", [=](EventCustom* event){
 
+			AchieveRewardValue*value = static_cast<AchieveRewardValue*>(event->getUserData());
+			if (value->_errorcode == 0)
+			{
+				for (auto var : value->rewards)
+				{
+					BagManager::getInstance()->addreward(var._itemid, var._num);
+				}
+				if (value->_new_task_item.tag!=-1)
+				{
+					_item = value->_new_task_item;
+				}
+				else
+				{
+					_item.isReceive = true;
+				}
+				setValue(_item);
+				for (auto var:MissionManager::getInstance()->getAchieveListData())
+				{
+					if (var.mission_id == _item.mission_id)
+					{
+						var = _item;
+						break;
+					}
+				}
+			}
+			else 
+			{
+				ToolTipMannger::showDioag(value->_errormsg);
+			}
+			delete value;
+			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_achieve_rewards");
+			LoadingCircle::RemoveLoadingCircle();
+
+		});
+		LoadingCircle::showLoadingCircle();
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+		HttpMannger::getInstance()->HttpToPostRequestGetAchieveReward(_item.mission_id);
+	}
+	else
+	{
+		GameManage::getInstance()->getLobbyLayer()->quickBeginCallback(nullptr);
+	}
 	
 }
 void AchieveCell::setValue(AchieveListItem item)
 {
 
-
 	_item = item;
-	_icon->setTexture(item.tast_icon_url_pic);
-	_missionName->setTexture(item.tast_content_url_pic);
-	auto str = String::createWithFormat("sign_%d.png", _item.rewards.at(0)._itemid);
+	auto str = String::createWithFormat("CrazyFarm_achieve_icon_%d.png", item.mission_id);
+	_icon->setTexture(str->getCString());
+	str = String::createWithFormat("CrazyFarm_achieve_content_%d.png", item.mission_id);
+	_missionName->setTexture(str->getCString());
+	str = String::createWithFormat("sign_%d.png", _item.rewards.at(0)._itemid);
 	_rewardProp->setTexture(str->getCString());
 	str = String::createWithFormat(":%d", _item.rewards.at(0)._num);
 	_rewardPropNum->setString(str->getCString());
-	_stars->setValue(_item.max_level, _item.current_level - 1);
+
+	if (_item.isReceive == true && _item.current_level == _item.max_level)
+	{
+		_stars->setValue(_item.max_level, _item.current_level);
+	}
+	else
+	{
+		_stars->setValue(_item.max_level, _item.current_level - 1);
+	}
+	
 	_missionContant->setString(_item.task_content);
 
 	if (_item.current_nums==0)
@@ -117,7 +173,7 @@ void AchieveCell::setValue(AchieveListItem item)
 		_txtProgressContant->setVisible(false);
 	}
 
-	if (_item.max_level==_item.current_level-1)
+	if (_item.max_level==_item.current_level&&_item.isReceive)
 	{
 		bt->setNormalImage(Sprite::create("Havetoreceive.png"));
 		bt->setSelectedImage(Sprite::create("Havetoreceive.png"));

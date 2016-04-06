@@ -7,77 +7,378 @@
 #include"utill/FunUtil.h"
 #include "utill/Audio.h"
 #include "domain/game/GameManage.h"
-
+#include "utill/MagicEffect.h"
 
 bool Fish::init(){
 	if (!Sprite::init())
 	{
 		return false;
 	}
+	
+	return true;
+}
+
+void Fish::initFish(int fishID){
+
 	scheduleUpdate();
-	setRotation(150);
 	setisAutoRemove(true);
 	aniEmptyNode = Node::create();
 	addChild(aniEmptyNode);
 	setTargeLightTurret(nullptr);
 	setTargeLockTurret(nullptr);
 	schedule(schedule_selector(Fish::moveUpdata), 0, CC_REPEAT_FOREVER, 0);
-	return true;
-}
-
-void Fish::initFish(int fishID){
-	auto fishdata = ConfigFish::getInstance()->getFish(fishID);
-	fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
-	this->grabProbability = fishdata.probability;
-	this->fishID = fishID;
-	this->speed = getRandValueInVec(fishdata.move_speeds);
-	this->experience = getFishExperienceByID(fishID);
+	m_movetype = 0;
 	setFishType(getFishTypeByID(fishID));
-	BonusPoorGold = fishdata.bonus_pool_reward;
-	setuiId(fishdata.uiId);
-	initFishAnim(fishdata.uiId);
-	rewards = fishdata.rewards;
-	obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(fishdata.uiId);
-	LogEventFish::getInstance()->addFishCreateTimes(fishID);
-	centerPos =getCentrenPos();
+
+	if (getFishType()==ArrangeFish)
+	{
+		auto fishdata = ConfigFish::getInstance()->getFish(fishID);
+		fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
+		this->grabProbability = fishdata.probability;
+		this->fishID = fishID;
+		this->speed = getRandValueInVec(fishdata.move_speeds);
+		this->experience = getFishExperienceByID(fishID);
+		this->BonusPoorGold = fishdata.bonus_pool_reward;
+		setFishType(getFishTypeByID(fishID));
+		setuiId(fishdata.uiId);
+		initFishAnim(fishdata.uiId);
+		rewards = fishdata.rewards;
+		LogEventFish::getInstance()->addFishCreateTimes(fishID);
+	}
+	else if (getFishType()==AllKilledFish)
+	{
+		int fishid = getRand(Server_Seed) % 2 ? getRand(Server_Seed) % 7 + 4 : getRand(Server_Seed) % 6 + 30;
+		auto fishdata = ConfigFish::getInstance()->getFish(fishid);
+		if (fishid == 44)
+		{
+			fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd, 50);
+		}
+		else
+		{
+			fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
+		}
+		this->grabProbability = fishdata.probability;
+		this->fishID = fishID;
+		this->speed = getRandValueInVec(fishdata.move_speeds);
+		this->experience = getFishExperienceByID(fishid);
+		setFishType(getFishTypeByID(fishID));
+		initFishAnim(fishdata.uiId);
+		setuiId(fishdata.uiId);
+		obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(fishdata.uiId);
+		rewards = fishdata.rewards;
+		centerPos = getContentSize() / 2;
+		auto aninode = Sprite::create("game/ui/effect/allkilledEffect.png");
+		aninode->setPosition(getContentSize() / 2);
+		addChild(aninode, -1);
+		aninode->runAction(RepeatForever::create(RotateBy::create(7, 360)));
+		LogEventFish::getInstance()->addFishCreateTimes(fishID);
+	}
+	else
+	{
+		auto fishdata = ConfigFish::getInstance()->getFish(fishID);
+		fishGold = getintRandonNumByAtoB(fishdata.baseRewardStart, fishdata.baseRewardEnd);
+		this->grabProbability = fishdata.probability;
+		this->fishID = fishID;
+		this->speed = getRandValueInVec(fishdata.move_speeds);
+		this->experience = getFishExperienceByID(fishID);
+
+		BonusPoorGold = fishdata.bonus_pool_reward;
+		setuiId(fishdata.uiId);
+		initFishAnim(fishdata.uiId);
+		rewards = fishdata.rewards;
+		obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(fishdata.uiId);
+		LogEventFish::getInstance()->addFishCreateTimes(fishID);
+		centerPos = getCentrenPos();
+	}
+	addShader();
+
 }
 
 void Fish::initFishAnim(int fishID){
-	initWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(fishID));
-
-	auto acName = String::createWithFormat("swim_%d", fishID);
-	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
-	ac->setTag(kTagAcNormal);
-	runAction(ac);
-
-	//BOSS鱼特效
-	if (fishID>=50&&fishID<60)
+	//4.5新加，为了让fish类统一
+	if (getFishType()==ArrangeFish)
 	{
-		auto aninode = Sprite::create();
-		aninode->setPosition(getContentSize().width*0.6, getContentSize().height / 2);
-		addChild(aninode,-1);
-		aninode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniBossLight")));
-	}
-	//黄金鱼特效
-	else if (fishID >= 40 && fishID<50)
-	{
-		auto aninode = Sprite::create();
-		aninode->setPosition(getContentSize().width*0.4, getContentSize().height / 2);
-		addChild(aninode);
-		aninode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGoldfish")));
-
-		if (fishID == 44 )
+		switch (fishID)
 		{
-			auto aninode1 = Sprite::create("game/ui/effect/frogEffect.png");
-			aninode1->setPosition(getContentSize() / 2);
-			addChild(aninode1, -1);
-			aninode1->runAction(RepeatForever::create(RotateBy::create(5, 360)));
+		case 101:
+		{
+			//主鱼
+			int randarray[7] = { 10, 30, 31, 32, 33, 34, 35 };
+			int id = randarray[getRand(Server_Seed) % 7];
+			auto acName = String::createWithFormat("swim_%d", id);
+			auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+			auto sp1 = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			sp1->runAction(ac);
+			auto maggiceff = MagicEffect::create(1, true);
+			maggiceff->setPosition(maggiceff->getContentSize() / 2);
+			addChild(maggiceff, 2);
+			sp1->setPosition(maggiceff->getPosition());
+			addChild(sp1, 2);
+			obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(101);
+			fishes.pushBack(sp1);
+			centerPos = maggiceff->getContentSize() / 2;
 
+			fishes.pushBack(maggiceff);
+			//副鱼
+			int randarray1[6] = { 2, 3, 4, 7, 8, 9 };
+			id = randarray1[getRand(Server_Seed) % 6];
+			acName = String::createWithFormat("swim_%d", id);
+			auto ac1 = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+			auto ac2 = ac1->clone();
+
+
+			auto sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			sp->runAction(ac1);
+			maggiceff = MagicEffect::create(2, true);
+			maggiceff->setPosition(-35, centerPos.y);
+			addChild(maggiceff, 1);
+			sp->setPosition(maggiceff->getPosition());
+			addChild(sp, 1);
+			fishes.pushBack(sp);
+			fishes.pushBack(maggiceff);
+			sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			maggiceff = MagicEffect::create(2, true);
+			maggiceff->setPosition(137, centerPos.y);
+			addChild(maggiceff, 1);
+			sp->setPosition(maggiceff->getPosition());
+			sp->runAction(ac2);
+			addChild(sp, 1);
+			fishes.pushBack(sp);
+			fishes.pushBack(maggiceff);
+		}
+			break;
+		case 102:
+		{
+			//主鱼
+			int randarray[7] = { 10, 30, 31, 32, 33, 34, 35 };
+			int id = randarray[getRand(Server_Seed) % 7];
+			auto mainfish = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+
+			auto acName = String::createWithFormat("swim_%d", id);
+			auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+			mainfish->runAction(ac);
+			auto maggiceff = MagicEffect::create(1, false);
+			maggiceff->stopAllActions();
+			maggiceff->setPosition(maggiceff->getContentSize() / 2);
+			addChild(maggiceff, 1);
+			mainfish->setPosition(maggiceff->getPosition());
+			addChild(mainfish, 1);
+			fishes.pushBack(mainfish);
+			obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(102);
+			centerPos = maggiceff->getContentSize() / 2;
+			fishes.pushBack(maggiceff);
+			//副鱼
+			int randarray1[6] = { 2, 4, 7, 8, 32, 33 };
+			id = randarray1[getRand(Server_Seed) % 6];
+			auto mainSize = getContentSize();
+			auto AffiliateSize = FishAniMannage::getInstance()->getSpriteById(id)->getOriginalSize();
+			acName = String::createWithFormat("swim_%d", id);
+			auto ac1 = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+			auto ac2 = ac1->clone();
+			auto ac3 = ac1->clone();
+			auto ac4 = ac1->clone();
+			setAnchorPoint(Point::ANCHOR_MIDDLE);
+			auto sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			maggiceff = MagicEffect::create(3, false);
+			maggiceff->setPosition(-15, -15);
+			addChild(maggiceff, 0);
+			sp->setPosition(maggiceff->getPosition());
+			sp->runAction(ac1);
+			addChild(sp, 1);
+			fishes.pushBack(sp);
+			fishes.pushBack(maggiceff);
+			sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			maggiceff = MagicEffect::create(3, false);
+			maggiceff->setPosition(-15, -15 + 132);
+			addChild(maggiceff, 0);
+			sp->setPosition(maggiceff->getPosition());
+			sp->runAction(ac2);
+			addChild(sp, 1);
+			fishes.pushBack(sp);
+			fishes.pushBack(maggiceff);
+			sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			maggiceff = MagicEffect::create(3, false);
+			maggiceff->setPosition(-15 + 132, -15 + 132);
+			addChild(maggiceff, 0);
+			sp->setPosition(maggiceff->getPosition());
+			sp->runAction(ac3);
+			addChild(sp, 1);
+			fishes.pushBack(sp);
+			fishes.pushBack(maggiceff);
+			sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			maggiceff = MagicEffect::create(3, false);
+			maggiceff->setPosition(-15 + 132, -15);
+			addChild(maggiceff, 0);
+			sp->setPosition(maggiceff->getPosition());
+			sp->runAction(ac3);
+			addChild(sp, 1);
+			fishes.pushBack(sp);
+			fishes.pushBack(maggiceff);
+		}
+
+			break;
+		case  103:
+		{
+			//主鱼
+			int randarray[7] = { 10, 30, 31, 32, 33, 34, 35 };
+			int id = randarray[getRand(Server_Seed) % 7];
+
+			auto maggiceff = MagicEffect::create(4, false);
+			maggiceff->stopAllActions();
+			maggiceff->setPosition(0, 0);
+			maggiceff->setAnchorPoint(Point::ZERO);
+			addChild(maggiceff, 0);
+			auto mainfish = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			mainfish->setPosition(maggiceff->getContentSize() / 2);
+			addChild(mainfish, 3);
+			centerPos = mainfish->getPosition();
+			auto acName = String::createWithFormat("swim_%d", id);
+			auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+			mainfish->runAction(ac);
+			obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(103);
+			fishes.pushBack(mainfish);
+			fishes.pushBack(maggiceff);
+			centerPos = maggiceff->getContentSize() / 2;
+			//副鱼
+			int randarray1[6] = { 2, 3, 4, 7, 8, 9 };
+			id = randarray1[getRand(Server_Seed) % 6];
+			acName = String::createWithFormat("swim_%d", id);
+			auto ac1 = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+			auto ac2 = ac1->clone();
+			auto ac3 = ac1->clone();
+
+
+
+			auto maggiceff1 = MagicEffect::create(3, false);
+			maggiceff1->setPosition(145, maggiceff->getContentSize().height / 2);
+			addChild(maggiceff1, 0);
+			auto sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			sp->setPosition(maggiceff1->getPosition());
+			sp->runAction(ac1);
+			addChild(sp, 1);
+			fishes.pushBack(sp);
+			fishes.pushBack(maggiceff1);
+
+			auto maggiceff2 = MagicEffect::create(3, false);
+			maggiceff2->setPosition(25, -8);
+			addChild(maggiceff2, 0);
+			sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			sp->setPosition(maggiceff2->getPosition());
+			sp->runAction(ac2);
+			addChild(sp, 1);
+			fishes.pushBack(sp);
+			fishes.pushBack(maggiceff2);
+
+			auto maggiceff3 = MagicEffect::create(3, false);
+			maggiceff3->setPosition(25, 8 + maggiceff->getContentSize().height);
+			addChild(maggiceff3, 0);
+			sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			sp->setPosition(maggiceff3->getPosition());
+			sp->runAction(ac3);
+			addChild(sp, 1);
+			fishes.pushBack(sp);
+			fishes.pushBack(maggiceff3);
+		}
+			break;
+		case 104:
+		{
+			//主鱼
+			int randarray[9] = { 4, 7, 8, 9, 10, 30, 31, 32, 33 };
+			int id = randarray[getRand(Server_Seed) % 9];
+			auto maggiceff = MagicEffect::create(5, true);
+			maggiceff->setPosition(0, 0);
+			maggiceff->setAnchorPoint(Point::ZERO);
+			addChild(maggiceff, -1);
+			auto mainfish = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			mainfish->setPosition(maggiceff->getContentSize() / 2);
+			addChild(mainfish);
+			fishes.pushBack(mainfish);
+			fishes.pushBack(maggiceff);
+			auto acName = String::createWithFormat("swim_%d", id);
+			auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+			auto ac1 = ac->clone();
+			auto ac2 = ac->clone();
+			auto ac3 = ac->clone();
+			mainfish->runAction(ac);
+			obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(104);
+
+
+
+
+			auto maggiceff1 = MagicEffect::create(5, true);
+			maggiceff1->setPosition(108, maggiceff->getContentSize().height / 2);
+			addChild(maggiceff1, -1);
+			auto sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			sp->setPosition(maggiceff1->getPosition());
+			sp->runAction(ac1);
+			addChild(sp);
+			fishes.pushBack(maggiceff1);
+			fishes.pushBack(sp);
+			centerPos = maggiceff1->getPosition();
+
+			auto maggiceff2 = MagicEffect::create(5, true);
+			maggiceff2->setPosition(130, -20);
+			addChild(maggiceff2, -1);
+			sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			sp->setPosition(maggiceff2->getPosition());
+			sp->runAction(ac2);
+			addChild(sp);
+			fishes.pushBack(maggiceff2);
+			fishes.pushBack(sp);
+
+			auto maggiceff3 = MagicEffect::create(5, true);
+			maggiceff3->setPosition(130 + 72, -20);
+			addChild(maggiceff3, -1);
+			sp = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(id));
+			sp->setPosition(maggiceff3->getPosition());
+			sp->runAction(ac3);
+			addChild(sp);
+			fishes.pushBack(sp);
+			fishes.pushBack(maggiceff3);
+		}
+
+			break;
+		default:
+			break;
+		}
+		
+		
+	}
+	else
+	{
+		initWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(fishID));
+
+		auto acName = String::createWithFormat("swim_%d", fishID);
+		auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
+		ac->setTag(kTagAcNormal);
+		runAction(ac);
+
+		//BOSS鱼特效
+		if (fishID >= 50 && fishID < 60)
+		{
+			auto aninode = Sprite::create();
+			aninode->setPosition(getContentSize().width*0.6, getContentSize().height / 2);
+			addChild(aninode, -1);
+			aninode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniBossLight")));
+		}
+		//黄金鱼特效
+		else if (fishID >= 40 && fishID < 50)
+		{
+			auto aninode = Sprite::create();
+			aninode->setPosition(getContentSize().width*0.4, getContentSize().height / 2);
+			addChild(aninode);
+			aninode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGoldfish")));
+
+			if (fishID == 44)
+			{
+				auto aninode1 = Sprite::create("game/ui/effect/frogEffect.png");
+				aninode1->setPosition(getContentSize() / 2);
+				addChild(aninode1, -1);
+				aninode1->runAction(RepeatForever::create(RotateBy::create(5, 360)));
+
+			}
 		}
 	}
-	
-	
-
 }
 void Fish::update(float dt)
 {
@@ -152,6 +453,8 @@ void Fish::moveUpdata(float dt)
 		break;
 	case 4:
 		moveFishRandomStraightForBigFish(dt);
+		break;
+	default:
 		break;
 	}
 }
@@ -418,7 +721,11 @@ void Fish::setMonentEightRoute(int routeTag)
 
 void Fish::addShader()
 {
-	m_shadesprite = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(nUiID));
+	if (getFishType()==ArrangeFish)
+	{
+		return;
+	}
+	auto m_shadesprite = Sprite::createWithSpriteFrame(FishAniMannage::getInstance()->getSpriteById(nUiID));
 	m_shadesprite->setPosition(getContentSize().width*0.65,getContentSize().height*0.35);
 	addChild(m_shadesprite, -1,"shader");
 
@@ -432,6 +739,7 @@ void Fish::addShader()
 }
 void Fish::ShadeUpdata(float dt)
 {
+	auto m_shadesprite = getChildByName("shader");
 	if (m_shadesprite!=nullptr)
 	{
 		m_shadesprite->setPosition(getPositionX() + getContentSize().width*0.15, getPositionY() + getContentSize().height*-0.15);
@@ -455,35 +763,74 @@ void Fish::removeself()
 	
 	stopLightShoot();
 	stopLockShoot();	
-	removeFromParentAndCleanup(1);
-
+	setVisible(false);
+	stopAllActions();
+	unscheduleAllCallbacks();
+	removeAllChildrenWithCleanup(1);
+	FishManage::getInstance()->moveFishToCacheFromPool(this);
+	//removeFromParentAndCleanup(1);
 }
 
 void Fish::onHeart()
 {
-	auto ac = aniEmptyNode->getActionByTag(50);
-	if (ac)
+	if (getFishType()==ArrangeFish)
 	{
-		aniEmptyNode->stopAllActionsByTag(50);
+		for (auto child : fishes)
+		{
+			auto ac = child->getActionByTag(50);
+			if (ac)
+			{
+				child->stopAllActionsByTag(50);
+			}
+			auto action = Sequence::create(
+				CallFunc::create([=]{child->setColor(Color3B(135, 105, 80)); }),
+				DelayTime::create(0.3f),
+				CallFunc::create([=]{child->setColor(Color3B::WHITE); }),
+				nullptr);
+			action->setTag(50);
+			child->runAction(action);
+		}
 	}
-	auto action = Sequence::create(
-		CallFunc::create([=]{setColor(Color3B(135,105,80)); }),
-		DelayTime::create(0.3f),
-		CallFunc::create([=]{setColor(Color3B::WHITE); }),
-		nullptr);
-	action->setTag(50);
-	aniEmptyNode->runAction(action);
+	else
+	{
+		auto ac = aniEmptyNode->getActionByTag(50);
+		if (ac)
+		{
+			aniEmptyNode->stopAllActionsByTag(50);
+		}
+		auto action = Sequence::create(
+			CallFunc::create([=]{setColor(Color3B(135, 105, 80)); }),
+			DelayTime::create(0.3f),
+			CallFunc::create([=]{setColor(Color3B::WHITE); }),
+			nullptr);
+		action->setTag(50);
+		aniEmptyNode->runAction(action);
+	}
+
+
+	
 
 	
 }
 void Fish::onFreeze()
 {
-	pause();
-	auto node = getChildByName("shader");
-	if (node)
+	if (getFishType()==ArrangeFish)
 	{
-		node->pause();
+		for (auto child : fishes)
+		{
+			child->pause();
+		}
 	}
+	else
+	{
+		pause();
+		auto node = getChildByName("shader");
+		if (node)
+		{
+			node->pause();
+		}
+	}
+	
 	//冻结时候无受击动画处理
 	//_scheduler->pauseTarget(this);
 	//stopAllActionsByTag(kTagAcNormal);
@@ -491,69 +838,88 @@ void Fish::onFreeze()
 }
 void Fish::onFreezeResume()
 {
-	resume();
-	auto node = getChildByName("shader");
-	if (node)
+	if (getFishType()==ArrangeFish)
 	{
-		node->resume();
+		for (auto child : fishes)
+		{
+			child->resume();
+		}
 	}
-	//_scheduler->pauseTarget(this);
-	//pauseAllActionsByTag(kTagAcNormal);
-	//_eventDispatcher->pauseEventListenersForTarget(this);
+	else
+	{
+		resume();
+		auto node = getChildByName("shader");
+		if (node)
+		{
+			node->resume();
+		}
+	}
+	
 }
 
 void Fish::onDead()
 {
-
-	stopAllActions();
-	unscheduleAllCallbacks();
-	onFreezeResume();
-	stopLockShoot();
-	stopLightShoot();
-
-	auto acName = String::createWithFormat("dead_%d", nUiID);
-	auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()),1);
-	auto ac1 = ac->clone();
-	if (m_shadesprite)
+	if (getFishType()==ArrangeFish)
 	{
-		m_shadesprite->runAction(RepeatForever::create(ac));
-	}
-	runAction(RepeatForever::create(ac));
-	runAction(Sequence::create(DelayTime::create(1.2f), CallFunc::create(CC_CALLBACK_0(Fish::removeself,this)),nullptr));
-
-	if (getFishType() == GoldFish)
-	{
-		setScale(1.5f);
-		runAction(RotateBy::create(1.2f, 180));
-	}
-	//声音
-	if (fishID < 20)
-	{
-		/*Audio::getInstance()->playSound(CATCHSMALL);*/
-	}
-	else if (fishID >= 20 && fishID<30)
-	{
-		/*Audio::getInstance()->playSound(CATCHMID);*/
-	}
-	else if (fishID >= 30 && fishID<40)
-	{
-		/*Audio::getInstance()->playSound(CATCHBIG);*/
-	}
-	else if (fishID >= 40 && fishID<50)
-	{
-		
+		onFreezeResume();
+		stopAllActions();
+		runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create(CC_CALLBACK_0(Fish::removeself, this)), nullptr));
 	}
 	else
 	{
-		Audio::getInstance()->playSound(CATCHGIRLFISH);
+		stopAllActions();
+		unscheduleAllCallbacks();
+		onFreezeResume();
+		stopLockShoot();
+		stopLightShoot();
+
+		auto acName = String::createWithFormat("dead_%d", nUiID);
+		auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()), 1);
+		auto ac1 = ac->clone();
+		auto m_shadesprite = getChildByName("shader");
+		if (m_shadesprite)
+		{
+			m_shadesprite->runAction(RepeatForever::create(ac));
+		}
+		runAction(RepeatForever::create(ac));
+		runAction(Sequence::create(DelayTime::create(1.2f), CallFunc::create(CC_CALLBACK_0(Fish::removeself, this)), nullptr));
+
+		if (getFishType() == GoldFish)
+		{
+			setScale(1.5f);
+			runAction(RotateBy::create(1.2f, 180));
+		}
+		//声音
+		if (fishID < 20)
+		{
+			/*Audio::getInstance()->playSound(CATCHSMALL);*/
+		}
+		else if (fishID >= 20 && fishID < 30)
+		{
+			/*Audio::getInstance()->playSound(CATCHMID);*/
+		}
+		else if (fishID >= 30 && fishID < 40)
+		{
+			/*Audio::getInstance()->playSound(CATCHBIG);*/
+		}
+		else if (fishID >= 40 && fishID < 50)
+		{
+
+		}
+		else
+		{
+			Audio::getInstance()->playSound(CATCHGIRLFISH);
+		}
 	}
+
+	
 	
 }
 
 
 void Fish::ShadeResume()
 {
-
+	auto m_shadesprite = getChildByName("shader");
 	if (m_shadesprite)
 	{
 		m_shadesprite->resume();
@@ -562,6 +928,7 @@ void Fish::ShadeResume()
 }
 void Fish::ShadePause()
 {
+	auto m_shadesprite = getChildByName("shader");
 	if (m_shadesprite)
 	{
 		m_shadesprite->pause();
@@ -636,7 +1003,21 @@ std::vector<OBB> Fish::getOBBByCocos()
 std::vector<Rect> Fish::getAABBBoxs()
 {
 	std::vector<Rect> vec;
-	vec.push_back(getBoundingBox());
+	if (getFishType()==ArrangeFish)
+	{
+		for (auto child : fishes)
+		{
+			auto box = child->getBoundingBox();
+			auto orgin = convertToWorldSpace(box.origin);
+			box.setRect(orgin.x, orgin.y, box.size.width, box.size.height);
+			vec.push_back(box);
+		}
+	}
+	else
+	{
+		vec.push_back(getBoundingBox());
+	}
+	
 	return vec;
 }
 
@@ -678,7 +1059,7 @@ void Fish::removeAllBullet()
 {
 	for (auto var:_lockBullets)
 	{
-		if (var!=nullptr)
+		if (var->getTag()!=-1)
 		{
 			var->stopLock();
 		}
@@ -700,6 +1081,11 @@ void Fish::removeSingleBullet(Bullet *lockbullet)
 
 Vec2 Fish::getCentrenPos()
 {
+	if (getFishType()==ArrangeFish)
+	{
+		return centerPos;
+	}
+	
 	switch (fishID)
 	{
 	case 1:

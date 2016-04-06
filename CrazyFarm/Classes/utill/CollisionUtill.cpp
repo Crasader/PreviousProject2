@@ -4,6 +4,10 @@
 
 bool CollisionUtill::isCollisionFishAAndBullet(Fish*fish, Bullet*bullet)
 {
+	if (fish->getTag()==-1)
+	{
+		return false;
+	}
 	if (IsArrangeFish)
 	{
 		return CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), bullet->getObbs());

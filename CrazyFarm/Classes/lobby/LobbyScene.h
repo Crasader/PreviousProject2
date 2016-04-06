@@ -63,5 +63,8 @@ private:
 	Sprite*langspEmpty;
 	LabelTTF* userName;
 	LabelAtlas *viplevel;
+
+
+	Sprite*testsp = nullptr;
 };
 #endif

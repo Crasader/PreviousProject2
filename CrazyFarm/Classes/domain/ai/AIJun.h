@@ -5,7 +5,7 @@
 #include "fish/FishManage.h"
 
 using namespace cocos2d;
-
+//选取最近的鱼打
 class AIJun : public AI {
 
 public:

@@ -28,6 +28,7 @@
 #include "core/GameScene.h"
 #include "domain/loading/LoadingSceneLbToGm.h"
 #include "core/showLockTurretLayer.h"
+#include "domain/ai/AIManager.h"
 enum
 {
 	kTagBankrupt = 20
@@ -455,8 +456,13 @@ void PlayerTurret::setAIinfo(AI*info)
 
 void PlayerTurret::doAIthing(float dt)
 {
-
-	auto walk = m_aiinfo->nextStep(nNowMoney, getPosition());
+	robotTempTime += dt;
+	if (robotTempTime>robotAiLifeTime)
+	{
+		m_aiinfo = AIManager::getInstance()->getAI(nNowMoney);
+		robotTempTime = 0;
+	}
+	auto walk = m_aiinfo->nextStep(nNowMoney, m_turret->getTampionPos());
 	auto angle = walk.getAngle();
 	m_turret->setRotation(angle);
 	if (walk.getFire())

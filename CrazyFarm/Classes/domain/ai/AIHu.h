@@ -7,6 +7,7 @@
 
 using namespace cocos2d;
 
+///朝着屏幕中最大的鱼不停打
 class AIHu : public AI {
 
 public:

@@ -28,6 +28,8 @@ using namespace cocos2d;
 #define URL_OPENBOX "/bag/chest/get"
 #define URL_GETMISSIONLIST "/gametask/everyday"
 #define URL_GETMISSIONREWARD "/gametask/everyday/getreward"
+#define URL_GETACHIEVELIST "/gametask/achievement"
+#define URL_GETACHIEVEREWARD "/gametask/achievement/getreward"
 #define URL_GETNACTIVEINFO "/activity/config"
 #define URL_GETNOBILITYINFO "/nobility/surplus"
 #define URL_GETNOBILITYREWARD "/nobility/today/reward"
@@ -72,12 +74,6 @@ public:
 	void HttpToPostRequestLogInByName(const char*nickname, const char* password);//账号登录
 	void onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpResponse *response);
 
-	void HttpToPostRequestBeforePay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, std::string pay_point_desc, int price, int result = 0, const char* orderid = "0", int paytype = 0);//下单
-	void onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpResponse *response);
-
-	void HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price,int result, const char* orderid, int paytype=1 );//上传购买信息
-	void onHttpRequestCompletedForAfterPay(HttpClient *sender, HttpResponse *response);
-
 	void HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp,int maxTurretLevel,int PayRMB,int nobillityCount);//上传同步信息
 	void onHttpRequestCompletedForSyncInfo(HttpClient *sender, HttpResponse *response);
 
@@ -90,11 +86,20 @@ public:
 	void HttpToPostRequestFeedback(const  char* feedback);//用户反馈	
 	void onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResponse *response);
 
+//----------------------------------------PAY BEGIN--------------------------------------------------
+	void HttpToPostRequestBeforePay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, std::string pay_point_desc, int price, int result = 0, const char* orderid = "0", int paytype = 0);//下单
+	void onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price, int result, const char* orderid, int paytype = 1);//上传购买信息
+	void onHttpRequestCompletedForAfterPay(HttpClient *sender, HttpResponse *response);
+
 	void HttpToPostRequestDemandEntry(std::string prepayid, int reqNum);//用户支付完后查询订单	
 	void onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpResponse *response);
 
 	void HttpToPostRequestCancelOrder(std::string orderid);//关闭订单订单	
 	void onHttpRequestCompletedForCancelOrder(HttpClient *sender, HttpResponse *response);
+//----------------------------------------PAY END--------------------------------------------------
+
 
 	void HttpToPostRequestToGetUserInfo(); //获取用户信息
 	void onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpResponse *response);
@@ -134,6 +139,12 @@ public:
 
 	void HttpToPostRequestToGetUrlImg(std::string url); //获取网络图片
 	void onHttpRequestCompletedForGetUrlImg(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestToGetAchieveInfo(); //获取成就列表
+	void onHttpRequestCompletedForToGetAchieveInfo(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestGetAchieveReward(int missionId); //领取任务奖励
+	void onHttpRequestCompletedForGetAchieveReward(HttpClient *sender, HttpResponse *response);
 private:
 	HttpMannger();
     void init();

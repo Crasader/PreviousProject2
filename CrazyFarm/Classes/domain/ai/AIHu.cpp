@@ -5,39 +5,44 @@ PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
 
 
 	PlayerWork playerWork;
-
-	playerWork.setTurrentLevel(this->getMaxTurrentLevel());
-
-	if (!AIManager::getInstance()->allowAiFire()) {
-		playerWork.setAngle((float)angle);
-		playerWork.setFire(false);
-		return playerWork;
+	while (1)
+	{
+		if (!AIManager::getInstance()->allowAiFire()) {
+			break;
+		}
+		
+		if (_currentFish)
+		{			
+			angle = getTurretRotation(currentPostion, _currentFish->getPosition());
+			if (currentPostion.y>270)
+			{
+				angle -= 180;
+			}
+			playerWork.setFire(true);
+			playerWork.setAngle(angle);
+			return playerWork;
+		}
+		else
+		{
+			_currentFish = FishManage::getInstance()->getHignSoreInPool();
+			if (_currentFish)
+			{
+				angle = getTurretRotation(currentPostion, _currentFish->getPosition());
+				if (currentPostion.y > 270)
+				{
+					angle -= 180;
+				}
+				playerWork.setFire(true);
+				playerWork.setAngle(angle);
+				return playerWork;
+			}
+			else
+			{
+				break;
+			}
+		}
 	}
-
-	if (FishManage::getInstance()->getAllFishInPoolCount() < 2|| FishManage::getInstance()->getAllFishInPoolCount() > 1111 || BulletManage::getInstance()->getBulletPoolSize() > 20) {
-		playerWork.setAngle((float)angle);
-		playerWork.setFire(false);
-		return playerWork;
-	}
-    
-    int fire = getRand()%10;
-    
-    if(fire < 6) { // TODO : just test value
-        angle = 60 - getRand()%120;
-        
-        playerWork.setAngle((float)angle);
-        if(fire < 3) {
-            playerWork.setFire(true);
-        }else {
-            playerWork.setFire(false);
-        }
-        return playerWork;
-    }else {
-        playerWork.setFire(false);
-        playerWork.setAngle(angle);
-        return playerWork;
-    }
-    
-    
-    
+	playerWork.setAngle((float)angle);
+	playerWork.setFire(false);
+	return playerWork;
 }

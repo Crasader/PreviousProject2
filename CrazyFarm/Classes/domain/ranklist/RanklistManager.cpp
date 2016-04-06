@@ -82,7 +82,7 @@ void RanklistManager::onHttpRequestCompletedForExp(HttpClient *sender, HttpRespo
 				item.rank_end = vec[i]["rank_end"].GetDouble();
 				item.value_start = vec[i]["coin_start"].GetDouble();
 				item.value_end = vec[i]["coin_end"].GetDouble();
-				value->rankRange.push_back(item);
+				value->_rankRange.push_back(item);
 			};
 		}
 		else
@@ -149,7 +149,7 @@ void RanklistManager::onHttpRequestCompletedForCoin(HttpClient *sender, HttpResp
 				item.rank_end = vec[i]["rank_end"].GetDouble();
 				item.value_start = vec[i]["coin_start"].GetDouble();
 				item.value_end = vec[i]["coin_end"].GetDouble();
-				value->rankRange.push_back(item);
+				value->_rankRange.push_back(item);
 			};
 		}
 		else

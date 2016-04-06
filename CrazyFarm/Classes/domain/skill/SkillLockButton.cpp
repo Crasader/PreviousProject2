@@ -29,7 +29,7 @@ void SkillLockButton::skillClickCallBack(Ref* obj)
 		setZOrder(0);
 		GameManage::getInstance()->getGuiLayer()->setLayerAlpha(0);
 		nd->removeFromParentAndCleanup(1);
-		GameManage::getInstance()->getGameLayer()->GetMyTurret()->setLockFish(FishManage::getInstance()->getHignSoreInVec());
+		GameManage::getInstance()->getGameLayer()->GetMyTurret()->setLockFish(FishManage::getInstance()->getHignSoreInPool());
 	}
 }
 

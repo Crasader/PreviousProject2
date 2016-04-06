@@ -24,7 +24,7 @@ struct  rankRange
 struct RanklistValue 
 {
 	std::vector<rankListItem > rankItems;
-	std::vector<rankRange> rankRange;
+	std::vector<rankRange> _rankRange;
 	int _errorcode;
 	std::string _errormsg;
 };

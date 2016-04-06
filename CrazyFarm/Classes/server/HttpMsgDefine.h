@@ -65,6 +65,7 @@ struct MissionListItem
 };
 struct AchieveListItem
 {
+	int tag = 1;
 	int mission_id;
 	std::string task_content;
 	std::string tast_content_url_pic;
@@ -88,13 +89,31 @@ struct MissionListValue
 	std::vector<MissionListItem> MissionItems;
 };
 
-
 struct MissionRewardValue
 {
 	int _errorcode;
 	std::string _errormsg;
 	std::vector<RewardValue> rewards;
 };
+
+struct AchieveRewardValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<RewardValue> rewards;
+	AchieveListItem _new_task_item;
+};
+
+struct AchieveListValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<AchieveListItem> AchieveItems;
+};
+
+
+
+
 
 struct GuizuRewardValue
 {

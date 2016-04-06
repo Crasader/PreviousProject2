@@ -477,18 +477,7 @@ void HttpMannger::HttpToPostRequestFeedback(const char* feedback)
 }
 
 
-void HttpMannger::HttpToPostRequestDemandEntry(std::string prepayid, int reqNum)
-{
-	auto orderid = Pay::getInstance()->getOrderIdByprepayid(prepayid);
-	auto sessionid = User::getInstance()->getSessionid();
-	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_DEMANDENTRY);
-	auto requstData = String::createWithFormat("session_id=%s&order_id=%s", sessionid.c_str(), orderid.c_str());
 
-	prepayidAndReqNum* reqData = new prepayidAndReqNum();
-	reqData->reqnum = reqNum;
-	reqData->prepayid = prepayid;
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForDemandEntry, this), reqData);
-}
 
 void HttpMannger::onHttpRequestCompletedForCancelOrder(HttpClient *sender, HttpResponse *response)
 {
@@ -534,7 +523,18 @@ void HttpMannger::HttpToPostRequestCancelOrder(std::string orderid)
 	std::string* reqData = new std::string(orderid);
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForCancelOrder, this), reqData);
 }
+void HttpMannger::HttpToPostRequestDemandEntry(std::string prepayid, int reqNum)
+{
+	auto orderid = Pay::getInstance()->getOrderIdByprepayid(prepayid);
+	auto sessionid = User::getInstance()->getSessionid();
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_DEMANDENTRY);
+	auto requstData = String::createWithFormat("session_id=%s&order_id=%s", sessionid.c_str(), orderid.c_str());
 
+	prepayidAndReqNum* reqData = new prepayidAndReqNum();
+	reqData->reqnum = reqNum;
+	reqData->prepayid = prepayid;
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForDemandEntry, this), reqData);
+}
 void HttpMannger::onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpResponse *response)
 {
 	if (!response)
@@ -1234,4 +1234,180 @@ void HttpMannger::onHttpRequestCompletedForGetUrlImg(HttpClient *sender, HttpRes
 	event.setUserData(buffer);
 	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 
+}
+
+
+
+void HttpMannger::HttpToPostRequestToGetAchieveInfo()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETACHIEVELIST);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForToGetAchieveInfo, this));
+}
+void HttpMannger::onHttpRequestCompletedForToGetAchieveInfo(HttpClient *sender, HttpResponse *response)
+{
+	AchieveListValue* value = new AchieveListValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back achieve cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+
+			auto &task_lists = doc["task_lists"];
+			for (unsigned int i = 0; i < task_lists.Size(); i++)
+			{
+				auto &temp = task_lists[i];
+				AchieveListItem item;
+				item.mission_id = temp["achievement_task_id"].GetInt();
+				item.current_nums = temp["current_nums"].GetInt();
+				item.isReceive = (temp["user_get"].GetInt() != 0);
+				item.require_nums = temp["task_require_nums"].GetInt();
+				item.to_page = temp["to_page"].GetInt();
+				item.task_content = temp["task_content"].GetString();
+				item.tast_content_url_pic = temp["title_pic_url"].GetString();
+				item.tast_icon_url_pic = temp["icon_pic_url"].GetString();
+				item.current_level = temp["current_level"].GetInt();
+				item.max_level = temp["max_level"].GetInt();
+				auto &rewards = temp["reward_lists"];
+				for (unsigned int j = 0; j < rewards.Size(); j++)
+				{
+					item.rewards.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+				}
+				
+				value->AchieveItems.push_back(item);
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	EventCustom event("get_achieve_info");
+	event.setUserData(value);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+}
+
+
+void HttpMannger::HttpToPostRequestGetAchieveReward(int missionid)
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETACHIEVEREWARD);
+	auto requstData = String::createWithFormat("session_id=%s&achievement_task_id=%d", sessionid.c_str(), missionid);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetAchieveReward, this));
+}
+void HttpMannger::onHttpRequestCompletedForGetAchieveReward(HttpClient *sender, HttpResponse *response)
+{
+	AchieveRewardValue* value = new AchieveRewardValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back openbox cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto &rewards = doc["reward_lists"];
+			for (unsigned int j = 0; j < rewards.Size(); j++)
+			{
+				value->rewards.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+			}
+			auto &temp = doc["next_level"];
+			if (temp.IsObject())
+			{
+				AchieveListItem item;
+				item.mission_id = temp["achievement_task_id"].GetInt();
+				item.current_nums = temp["current_nums"].GetInt();
+				item.isReceive = (temp["user_get"].GetInt() != 0);
+				item.require_nums = temp["task_require_nums"].GetInt();
+				item.to_page = temp["to_page"].GetInt();
+				item.task_content = temp["task_content"].GetString();
+				item.tast_content_url_pic = temp["title_pic_url"].GetString();
+				item.tast_icon_url_pic = temp["icon_pic_url"].GetString();
+				item.current_level = temp["current_level"].GetInt();
+				item.max_level = temp["max_level"].GetInt();
+				auto &rewards = temp["reward_lists"];
+				for (unsigned int j = 0; j < rewards.Size(); j++)
+				{
+					item.rewards.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+				}
+				if (item.isReceive == true && item.current_level == item.max_level)
+				{
+					item.current_level = item.max_level + 1;
+				}
+				value->_new_task_item = item;
+			}
+			else
+			{
+				AchieveListItem item;
+				item.tag = -1;
+				value->_new_task_item = item;
+			}
+			
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	EventCustom event("get_achieve_rewards");
+	event.setUserData(value);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }

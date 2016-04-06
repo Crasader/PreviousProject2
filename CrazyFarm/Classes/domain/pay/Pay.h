@@ -2,6 +2,7 @@
 #define _PAY_H_
 #include "cocos2d.h"
 #include "PayPointConfig.h"
+#include "server/HttpMsgDefine.h"
 using namespace cocos2d;
 
 struct payRequest
@@ -20,12 +21,19 @@ struct payRequest
 	std::string wx_timestamp;//微信时间戳
 };
 
+
 struct prepayidAndReqNum
 {
 	std::string prepayid;
 	int reqnum;
 };
 
+struct DemandOrderValue
+{
+	prepayidAndReqNum data;
+	std::vector<RewardValue> rewards;
+
+};
 enum PayState
 {
 	UnDoing,//未在进行

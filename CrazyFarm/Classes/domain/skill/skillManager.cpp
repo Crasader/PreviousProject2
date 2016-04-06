@@ -66,7 +66,7 @@ void skillManager::useSkillSummon(PlayerTurret*turret)
 	fish->setPosition(randPos);
 	fish->setMoveAngle(0);
 	fish->setScale(0);
-	fish->addShader();
+	 
 	fish->runAction(Sequence::create(ScaleTo::create(0.4, 1), CallFunc::create([=]{fish->move(3); aniNode->removeFromParentAndCleanup(1); }), nullptr));
 	m_gamelayer->addChild(fish, fish->getFishZorder());
 	}),nullptr));

@@ -136,7 +136,6 @@ protected:
 	//“ı”∞
 	std::vector<ShadeData> shadedatas;
 	Vector<Sprite*>  m_shadesprites;
-	Sprite* m_shadesprite = nullptr;
 	void ShadeUpdata(float dt);
 	void ShadeResume();
 	void ShadePause();
@@ -145,7 +144,7 @@ protected:
 
 	std::vector<FishReward> rewards;
 
-
+	Vector<Node*> fishes;
 private:
 	std::vector <Bullet*> _lockBullets;
 public:

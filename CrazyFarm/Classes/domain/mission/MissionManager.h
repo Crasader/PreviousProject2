@@ -13,8 +13,8 @@ class MissionManager {
 public:
 	static MissionManager* getInstance();
 	void loadConfig();
-	std::vector<MissionListItem> getMissionListData(){ return _missionList; };
-	std::vector<AchieveListItem> getAchieveListData(){ return _achieveList; };
+	std::vector<MissionListItem> &getMissionListData(){ return _missionList; };
+	std::vector<AchieveListItem> &getAchieveListData(){ return _achieveList; };
 private:
 	MissionManager();
 	std::vector<MissionListItem> _missionList;

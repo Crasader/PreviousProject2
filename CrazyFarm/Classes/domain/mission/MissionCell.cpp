@@ -70,6 +70,14 @@ void MissionCell::btCallback(Ref*psend)
 					BagManager::getInstance()->addreward(var._itemid, var._num);
 				}
 				_item.isReceive = true;
+				for (auto var : MissionManager::getInstance()->getMissionListData())
+				{
+					if (var.mission_id == _item.mission_id)
+					{
+						var = _item;
+						break;
+					}
+				}
 				setValue(_item);
 			}
 			else

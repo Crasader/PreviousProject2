@@ -10,11 +10,12 @@ bool Bullet::init(){
 	if (!Sprite::init()){
 		return false;
 	}
-	settarget(nullptr);
+	
 	return true;
 }
 
 void Bullet::initBullet(TurretData turretdata, float rotation){
+	settarget(nullptr);
 	this->bulletRotation = rotation;
 	this->bulletSpeed = getSpeedByType(1);
 	m_turretdata = turretdata;
@@ -44,6 +45,16 @@ int Bullet::getSpeedByType(int type){
 
 void Bullet::update(float dt){
 	//子弹运动
+	auto size = Director::getInstance()->getWinSize();
+	auto rect = Rect(-100, -100, size.width + 200, size.height + 200);
+	if (!rect.containsPoint(getPosition()))
+	{
+		BulletManage::getInstance()->moveBulletToCacheFromPool(this); 
+	}
+
+
+
+
 	Point nextPos = getNextPostion(getPosition(), bulletSpeed*dt, this->getRotation());
 	auto move = MoveBy::create(dt, nextPos);
 	this->runAction(move);
@@ -96,11 +107,12 @@ void Bullet::getCoinForFish(Vector<Fish*> fishs)
 void Bullet::moveTolockFishUpadate(float dt)
 {
 	Rect rect = Rect(-getContentSize().width / 2, -getContentSize().height / 2, getContentSize().width + 960, getContentSize().height + 540);
-	if (!rect.containsPoint(getPosition()))
+	if (checkWidthBorder(getPositionX())||checkHeightBorder(getPositionY()))
 	{
 		target->removeSingleBullet(this);
 		unschedule(schedule_selector(Bullet::moveTolockFishUpadate));
-		removeFromParentAndCleanup(1);
+	
+		BulletManage::getInstance()->moveBulletToCacheFromPool(this);
 		return;
 	}
 
@@ -121,8 +133,9 @@ void Bullet::moveTolockFishUpadate(float dt)
 		//捕获
 		if (pos.distance(getPosition()) <= 10)
 		{
-			/*unschedule(schedule_selector(Bullet::moveTolockFishUpadate));*/
-			setVisible(false);
+
+			unschedule(schedule_selector(Bullet::moveTolockFishUpadate));
+			BulletManage::getInstance()->moveBulletToCacheFromPool(this);
 			target->removeSingleBullet(this);
 			auto turretdata = getTurretdata();
 			auto curryFish = target;
@@ -147,7 +160,7 @@ void Bullet::moveTolockFishUpadate(float dt)
 			{
 				GameManage::getInstance()->CatchTheFishOntheTurrent(curryFish, 1, getPlayerTurret());
 			}
-			((GameLayer*)getParent())->createNet(this);
+			GameManage::getInstance()->getGameLayer()->createNet(this);
 		}
 	
 	}

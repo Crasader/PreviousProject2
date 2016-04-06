@@ -2,30 +2,46 @@
 #include "domain/ai/AIManager.h"
 
 PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion) {
-    PlayerWork playerWork;
-//    int turrentLevel = getRand()%this->getMaxTurrentLevel();
-//    playerWork.setTurrentLevel(turrentLevel);
-    
-    if(! AIManager::getInstance()->allowAiFire()) {
-        playerWork.setAngle((float)angle);
-        playerWork.setFire(false);
-        lastFire = false;
-        return playerWork;
-    }
-	auto fishcount = FishManage::getInstance()->getAllFishInPoolCount();
-	auto bulletcount = BulletManage::getInstance()->getBulletPoolSize();
-	if (fishcount < 5 || fishcount > 11111 || bulletcount>20) {
-        playerWork.setAngle((float)angle);
-        playerWork.setFire(false);
-        lastFire = false;
-        return playerWork;
-    }
-	else
+
+	PlayerWork playerWork;
+	while (1)
 	{
-		angle = CC_RADIANS_TO_DEGREES(currentPostion.getAngle(FishManage::getInstance()->getBestRewardPostion()));
-		playerWork.setAngle((float)angle);
-		playerWork.setFire(true);
-		lastFire = true;
-		return playerWork;
+		if (!AIManager::getInstance()->allowAiFire()) {
+			break;
+		}
+
+		if (_currentFish&&_currentFish->getTag() != -1)
+		{
+			angle = getTurretRotation(currentPostion, _currentFish->getPosition());
+			if (currentPostion.y > 270)
+			{
+				angle -= 180;
+			}
+			playerWork.setFire(true);
+			playerWork.setAngle(angle);
+			return playerWork;
+		}
+		else
+		{
+			_currentFish = FishManage::getInstance()->getLowDistanceInPool(currentPostion);
+			if (_currentFish&&_currentFish->getTag() != -1)
+			{
+				angle = getTurretRotation(currentPostion, _currentFish->getPosition());
+				if (currentPostion.y > 270)
+				{
+					angle -= 180;
+				}
+				playerWork.setFire(true);
+				playerWork.setAngle(angle);
+				return playerWork;
+			}
+			else
+			{
+				break;
+			}
+		}
 	}
+	playerWork.setAngle((float)angle);
+	playerWork.setFire(false);
+	return playerWork;
 }

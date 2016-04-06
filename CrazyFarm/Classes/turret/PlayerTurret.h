@@ -68,7 +68,8 @@ public:
 	  void doAIthing(float dt);
 	  void stopAI();
 	  void addGoldFishForAi();
-
+	  float robotTempTime = 0;//.AI某种策略的计时时间
+	  const float robotAiLifeTime = 10;// AI某种策略的生存期180秒
 	  //破产
 	  void onBankrupt();
 	  void onAIResurgenceCallBack(Node* sender, void* data);

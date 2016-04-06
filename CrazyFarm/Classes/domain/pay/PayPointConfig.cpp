@@ -47,8 +47,8 @@ bool PayPointConfig::LoadConfig() {
 			for (unsigned int i = 0; i < payitems.Size();++i)
 			{
 				PayItem item;
-				item.ItemID = payitems[i]["propid"].GetInt();
-				item.ItemNum = payitems[i]["propnum"].GetInt();
+				item.ItemID = payitems[i]["item_id"].GetInt();
+				item.ItemNum = payitems[i]["nums"].GetInt();
 				info.items.push_back(item);
 			}
 			payPointInfos.push_back(info);

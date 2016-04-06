@@ -26,6 +26,14 @@ bool MissionLayer::init()
 	bool bRet = false;
 	do 
 	{
+		auto colorLayer = LayerColor::create();
+		colorLayer->setColor(ccc3(0, 0, 0));
+		colorLayer->setOpacity(180);
+		colorLayer->setPosition(0, 0);
+		addChild(colorLayer, -1);
+
+
+
 		_MissionViewDelegate = new MissionView();
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		auto bg = Sprite::create("missionFrame.png");
@@ -95,7 +103,6 @@ bool MissionLayer::init()
 		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-			removeFromParentAndCleanup(1);
 			break;
 		default:
 			break;
