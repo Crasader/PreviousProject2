@@ -270,69 +270,69 @@ void HttpMannger::onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpR
 }
 
 
-void HttpMannger::HttpToPostRequestBeforePay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, std::string  pay_point_desc, int price, int result, const char* orderid, int paytype)
+void HttpMannger::HttpToPostRequestBeforePay(int paythirdtype,std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, std::string  pay_point_desc, int price, int result, const char* orderid, int paytype)
 {
 
-	payRequest* quest = new payRequest();
-	quest->pay_and_Event_version = pay_and_Event_version;
-	quest->channel_id = channel_id;
-	quest->sessionid = sessionid;
-	quest->pay_point_id = pay_point_id;
-	quest->pay_event_id = pay_event_id;
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_PAY);
 	auto requstData = String::createWithFormat("session_id=%s&pay_and_event_version=%d&pay_event_id=%d&pay_point_id=%d&channel_id=%s&price=%d&pay_type=%d&result=%d&order_id=%s&third_type=%d&pay_point_desc=%s",
-		quest->sessionid.c_str(), quest->pay_and_Event_version, quest->pay_event_id, quest->pay_point_id, quest->channel_id.c_str(),price, paytype,result,orderid,quest->third_payType,pay_point_desc.c_str());
+		sessionid.c_str(), pay_and_Event_version, pay_event_id, pay_point_id, channel_id.c_str(), price, paytype, result, orderid, paythirdtype, pay_point_desc.c_str());
 
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForBeforePay, this), quest);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForBeforePay, this));
 
 
 
 }
 void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpResponse *response)
 {
-	if (!response||!response->isSucceed())
+	OverBookValue* value = new OverBookValue();
+	while (1)
 	{
-		log("http back  before pay info falied");
-		Pay::getInstance()->setPayState(UnDoing);
-		ToolTipMannger::ShowPayTimeoutTip();
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back  before pay info: %s", temp.c_str());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	if (doc.HasParseError())
-	{
-		log("get json data err!");;
-	}
-	int result = doc["errorcode"].GetInt();
-	
-	if (result == 0)
-	{
-		const char* orderId = doc["order_id"].GetString();
-
-		auto userdata = (payRequest*)response->getHttpRequest()->getUserData();
-		userdata->orderID = orderId;
-		if (userdata->third_payType==1)
+		if (!response)
 		{
-			userdata->wx_prepayid = doc["wx_prepayid"].GetString();
-			userdata->wx_sign = doc["wx_sign"].GetString();
-			userdata->wx_timestamp = doc["wx_timestamp"].GetString();
-			userdata->wx_nonceStr = doc["wx_nonce_str"].GetString();
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back openbox cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			const char* orderId = doc["order_id"].GetString();
+
+			value->orderID = orderId;
+			value->wx_prepayid = doc["wx_prepayid"].GetString();
+			value->wx_sign = doc["wx_sign"].GetString();
+			value->wx_timestamp = doc["wx_timestamp"].GetString();
+			value->wx_nonceStr = doc["wx_nonce_str"].GetString();
 			log("pay http errormsg = %s", doc["errormsg"].GetString());
 		}
-	
-		Pay::getInstance()->pay(userdata);
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
 	}
-	else
-	{
-		Pay::getInstance()->setPayState(UnDoing);
-		ToolTipMannger::ShowPayTimeoutTip();
-
-	}
+	EventCustom event("Over_Book_Order");
+	event.setUserData(value);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }
 void HttpMannger::HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price,int result, const char* orderid, int paytype )
 {
@@ -481,35 +481,6 @@ void HttpMannger::HttpToPostRequestFeedback(const char* feedback)
 
 void HttpMannger::onHttpRequestCompletedForCancelOrder(HttpClient *sender, HttpResponse *response)
 {
-	if (!response)
-	{
-		return;
-	}
-	auto data = response->getHttpRequest()->getUserData();
-	std::string *reqdata = (std::string*)data;
-	if (!response->isSucceed())
-	{
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back cancelorder info: %s", temp.c_str());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	if (doc.HasParseError())
-	{
-		log("get json data err!");
-	}
-	int result = doc["errorcode"].GetInt();
-	if (result == 0)
-	{	
-		Pay::getInstance()->payCallBack(1, "", Pay::getInstance()->getPrepayIdByOrderid(*reqdata));
-		
-	}
-	
-	delete reqdata;
 	return;
 }
 
@@ -519,9 +490,7 @@ void HttpMannger::HttpToPostRequestCancelOrder(std::string orderid)
 	auto sessionid = User::getInstance()->getSessionid();
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_CANCELORDER);
 	auto requstData = String::createWithFormat("session_id=%s&order_id=%s", sessionid.c_str(), orderid.c_str());
-
-	std::string* reqData = new std::string(orderid);
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForCancelOrder, this), reqData);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForCancelOrder, this));
 }
 void HttpMannger::HttpToPostRequestDemandEntry(std::string prepayid, int reqNum)
 {
@@ -530,54 +499,59 @@ void HttpMannger::HttpToPostRequestDemandEntry(std::string prepayid, int reqNum)
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_DEMANDENTRY);
 	auto requstData = String::createWithFormat("session_id=%s&order_id=%s", sessionid.c_str(), orderid.c_str());
 
-	prepayidAndReqNum* reqData = new prepayidAndReqNum();
-	reqData->reqnum = reqNum;
-	reqData->prepayid = prepayid;
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForDemandEntry, this), reqData);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForDemandEntry, this));
 }
 void HttpMannger::onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpResponse *response)
 {
-	if (!response)
+	DemandOrderValue* value = new DemandOrderValue();
+	while (1)
 	{
-		Pay::getInstance()->payCallBack(1, "failed", "");
-		return;
-	}
-	auto data = response->getHttpRequest()->getUserData();
-	prepayidAndReqNum *reqdata = (prepayidAndReqNum*)data;
-	if (!response->isSucceed())
-	{
-		Pay::getInstance()->payCallBack(1, "failed", reqdata->prepayid);
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back logevent info: %s", temp.c_str());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	if (doc.HasParseError())
-	{
-		log("get json data err!");
-	}
-	int result = doc["errorcode"].GetInt();
-	if (result == 0)
-	{
-		Pay::getInstance()->payCallBack(result, doc["success"].GetString(), reqdata->prepayid);
-	}
-	else
-	{
-		if (reqdata->reqnum >= 3)
+		if (!response)
 		{
-			Pay::getInstance()->payCallBack(1, "failed", reqdata->prepayid);
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back DemandOrderValue cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+	
+		if (result == 0)
+		{
+			value->realprice = doc["realprice"].GetInt();
+			auto &temp = doc["reward_lists"];
+			for (unsigned int i = 0; i < temp.Size();i++)
+			{
+				value->rewards.push_back(RewardValue(temp[i]["item_id"].GetInt(), temp[i]["nums"].GetInt()));
+			}
+			value->_errormsg = "success";
 		}
 		else
 		{
-			WaitCircle::sendRequestWaitCirCle(reqdata->prepayid);
+			value->_errormsg = doc["errormsg"].GetString();
 		}
+		break;
 	}
-
-	delete reqdata;
+	EventCustom event("DemandEntry");
+	event.setUserData(value);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }
 
 

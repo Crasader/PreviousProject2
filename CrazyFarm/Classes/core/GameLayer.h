@@ -155,6 +155,7 @@ private:
 	void onBankrupt(Msg_OnBankrupt* msg);
 	void onbankruptRebirth(Msg_OnBankruptRebirth* msg);
 	void onMagnate(Msg_OnMagnate*msg);
+	void onPayresulet(Msg_Payresult*msg);
 	void ToPayShopCallBack(Ref*psend);
 	void exitCallback(Ref*psend);
 	void MsgUpdata(float dt);

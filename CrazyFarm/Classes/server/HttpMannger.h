@@ -5,7 +5,7 @@
 #include "widget/LoadingCircle.h"
 using namespace cocos2d;
 #define URL_HEAD "http://106.75.135.78:1701" ///外网
-//#define URL_HEAD "http://172.23.1.30:1701"
+//#define URL_HEAD "http://172.23.1.40:1701"
 #define URL_BASECONFIG  "/config/get/base"
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
@@ -87,7 +87,7 @@ public:
 	void onHttpRequestCompletedForFeedback(HttpClient *sender, HttpResponse *response);
 
 //----------------------------------------PAY BEGIN--------------------------------------------------
-	void HttpToPostRequestBeforePay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, std::string pay_point_desc, int price, int result = 0, const char* orderid = "0", int paytype = 0);//下单
+	void HttpToPostRequestBeforePay(int paythirdtype,std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, std::string pay_point_desc, int price, int result = 0, const char* orderid = "0", int paytype = 0);//下单
 	void onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpResponse *response);
 
 	void HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price, int result, const char* orderid, int paytype = 1);//上传购买信息
@@ -99,6 +99,8 @@ public:
 	void HttpToPostRequestCancelOrder(std::string orderid);//关闭订单订单	
 	void onHttpRequestCompletedForCancelOrder(HttpClient *sender, HttpResponse *response);
 //----------------------------------------PAY END--------------------------------------------------
+
+
 
 
 	void HttpToPostRequestToGetUserInfo(); //获取用户信息

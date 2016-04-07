@@ -20,7 +20,8 @@ enum MsgId
 	MsgLuckDraw,
 	MsgOnMagnate,
 	MsgOnBankrupt,
-	MsgOnBankruptRebirth
+	MsgOnBankruptRebirth,
+	MsgPayresult
 };
 
 

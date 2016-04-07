@@ -37,7 +37,7 @@
 #include "domain/turntable/TurnTableDialog.h"
 #define BOOMRADIUS 300
 //#define TCPIDURL "106.75.141.82" //外网
-#define TCPIDURL "172.23.1.30" //内网
+#define TCPIDURL "172.23.1.40" //内网
 enum
 {
 	kTagBaseturret= 10,
@@ -105,6 +105,7 @@ bool GameLayer::init(){
 
 	runAction(Sequence::create(DelayTime::create(0.01f),
 		CallFunc::create([&]{
+		
 		initFishAndBulletData();
  }), nullptr));
 
@@ -147,11 +148,7 @@ bool GameLayer::init(){
 	Server::getInstance()->conConnect(TCPIDURL, 3050, User::getInstance()->getSessionid().c_str(), GameData::getInstance()->getRoomID());   // TODO  : test init server
 	Server::getInstance()->add_observer(this);
 	schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
-	
-
-	/*schedule(schedule_selector(GameLayer::UpdateUserinfo), 10.0f, CC_REPEAT_FOREVER, 0);*/
-
-	
+		
 	_touchtypes.push_back(TouchInNormal);
 	return true;
 }
@@ -273,6 +270,7 @@ void GameLayer::shootUpdata(float dt)
 
 		myTurret->shoot(degree);
 		isShoot = false;
+
 		runAction(Sequence::create(DelayTime::create(shootInterval), CallFunc::create([&]{
 			isShoot = true;
 		}), nullptr));
@@ -1057,6 +1055,7 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 	}
 	runAction(Sequence::create(DelayTime::create(0), CallFunc::create([=]{FFOneTimeToFishes(difTime); }), nullptr));
 
+	
 }
 void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 {
@@ -1275,16 +1274,53 @@ void GameLayer::MsgUpdata(float dt)
 		case MsgOnBankruptRebirth:
 			onbankruptRebirth((Msg_OnBankruptRebirth*)var);
 			break;
+		case MsgPayresult:
+			onPayresulet((Msg_Payresult*)var);
+			break;
 		default:
 			break;
 		}
 		Msgs.pop_front();
-		delete var;
+		CC_SAFE_DELETE(var);
 	}
 	
 }
 
+void GameLayer::onPayresulet(Msg_Payresult*msg)
+{
 
+	auto resp = msg->msg.c_str();
+	DemandOrderValue* value = new DemandOrderValue();
+	while (1)
+	{
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(resp);
+		if (doc.HasParseError())
+		{
+			break;
+		}
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			value->realprice = doc["realprice"].GetInt();
+			auto &temp = doc["reward_lists"];
+			for (unsigned int i = 0; i < temp.Size(); i++)
+			{
+				value->rewards.push_back(RewardValue(temp[i]["item_id"].GetInt(), temp[i]["nums"].GetInt()));
+			}
+			value->_errormsg = "success";
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	EventCustom event("DemandEntry");
+	event.setUserData(value);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+}
 
 void GameLayer::FFOneTimeToFishes(float FFTime)
 {

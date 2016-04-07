@@ -7,7 +7,7 @@ PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
 	PlayerWork playerWork;
 	while (1)
 	{
-		if (!AIManager::getInstance()->allowAiFire()) {
+		if (!AIManager::getInstance()->allowAiFire()||FishManage::getInstance()->getAllFishInPoolCount()<5) {
 			break;
 		}
 		

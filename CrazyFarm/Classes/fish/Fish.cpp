@@ -21,6 +21,7 @@ bool Fish::init(){
 void Fish::initFish(int fishID){
 
 	scheduleUpdate();
+	setScale(1);
 	setisAutoRemove(true);
 	aniEmptyNode = Node::create();
 	addChild(aniEmptyNode);

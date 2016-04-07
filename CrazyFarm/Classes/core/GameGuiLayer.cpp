@@ -215,6 +215,7 @@ void GameGuiLayer::onExit()
 
 void GameGuiLayer::settingCallback(Ref *pSender)
 {
+	
 	Audio::getInstance()->playSound(CLICKSURE);
 	if (!setttingBoard->getActionByTag(66))
 	{

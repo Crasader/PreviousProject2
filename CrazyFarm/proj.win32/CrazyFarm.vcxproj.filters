@@ -774,6 +774,9 @@
     <ClCompile Include="..\Classes\domain\UrlImage\UrlImageMannger.cpp">
       <Filter>src\mannager</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgPayresult.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1423,6 +1426,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\UrlImage\UrlImageMannger.h">
       <Filter>src\mannager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgPayresult.h">
+      <Filter>src\server\MSG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

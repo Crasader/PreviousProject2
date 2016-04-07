@@ -2,7 +2,7 @@
 #include "json/document.h"
 #include "json/stringbuffer.h"
 #include "json/writer.h"
-
+#include "server/HttpMsgDefine.h"
 Server* Server::_instance = NULL;
 
 Server::Server(){
@@ -144,8 +144,6 @@ void Server::connect_cb(const pc_request_t* req, int rc, const char* resp) {
     CCLOG("connect_cb: get rc %d\n", rc);
     CCLOG("connect_cb: get resp %s\n", resp);
     Server::getInstance()->notify_observer("init", resp);
-    Server::getInstance()->sendNewEvents(resp);
-	
 }
 
 void Server::levelupdate_cb(const pc_request_t* req, int rc, const char* resp) {
@@ -186,6 +184,59 @@ void Server::bounsPool_cb(const pc_request_t* req, int rc, const char* resp) {
 void Server::add_observer(MsgObserver *o){
     msgObserver.push_back(o);
 }
+void Server::sendCheckPayresult(std::string order_id,int paythirdtype)
+{
+	rapidjson::Document document;
+	document.SetObject();
+	rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+	document.AddMember("order_id", order_id.c_str(), allocator);
+	document.AddMember("pay_type", paythirdtype, allocator);
+	rapidjson::StringBuffer  buffer;
+	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	document.Accept(writer);
+	std::string result = buffer.GetString();
+	log("sendCheckPayresult %s", result.c_str());
+	pc_request_with_timeout(workingClient, REQ_ROUTE_PAYRESULT, result.c_str(), REQ_PAYRESULT_EX, REQ_TIMEOUT, Paysult_cb);
+}
+
+void Server::Paysult_cb(const pc_request_t* req, int rc, const char* resp)
+{
+	log("payresult: get resp %s\n", resp);
+	/*DemandOrderValue* value = new DemandOrderValue();
+	while (1)
+	{
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(resp);
+	if (doc.HasParseError())
+	{
+	return;
+	}
+	int result = doc["errorcode"].GetInt();
+	value->_errorcode = result;
+	value->_errormsg = doc["errormsg"].GetString();
+	if (result == 0)
+	{
+	value->realprice = doc["realprice"].GetInt();
+	auto &temp = doc["reward_lists"];
+	for (unsigned int i = 0; i < temp.Size(); i++)
+	{
+	value->rewards.push_back(RewardValue(temp[i]["item_id"].GetInt(), temp[i]["nums"].GetInt()));
+	}
+	}
+	else
+	{
+
+	}
+	break;
+	}
+	EventCustom event("DemandEntry");
+	event.setUserData(value);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);*/
+	Server::getInstance()->notify_observer("payresult", resp);
+	
+}
+
+
 
 void Server::remove_observer(MsgObserver *o) {
     for(std::vector<MsgObserver*>::iterator it=msgObserver.begin(); it!=msgObserver.end(); it++) {

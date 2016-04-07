@@ -14,6 +14,7 @@
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "WaitCircle.h"
 #include "PayingDialog.h"
+#include "server/Server.h"
 #define PAYPOSTREQUEST "http://114.119.39.150:1701/mo/order/booking"
 
 Pay* Pay::_instance = NULL;
@@ -35,6 +36,13 @@ Pay* Pay::getInstance(){
 }
 void Pay::Overbooking(int paypoint, int eventPoint, Node*paynode)
 {
+	//if (!JniFunUtill::getInstance()->isWXAppInstalled())
+	//{
+	//	auto dio = TwiceSureDialog::createDialog(ChineseWord("nowxpaytip").c_str());
+	//	dio->setPosition(0, 0);
+	//	Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(dio, 40);
+	//	return;
+	//}
 	if (m_state!=UnDoing)
 	{
 		return;
@@ -60,6 +68,7 @@ void Pay::OverbookingActual(int paypoint, int eventPoint)
 	{
 		m_state = UnDoing;
 		ToolTipMannger::ShowPayTimeoutTip();
+		PayingDialog::RemovePayDialog();
 		return; 
 	}
 	int payeventVersion = PayEventPointConfig::getInstance()->getPayeventVersion();
@@ -68,20 +77,65 @@ void Pay::OverbookingActual(int paypoint, int eventPoint)
 	auto channel_id = DeviceInfo::getChannel_id();
 	auto sessionid = User::getInstance()->getSessionid();
 	int price = payPointInfo.price;
-	HttpMannger::getInstance()->HttpToPostRequestBeforePay(sessionid, payPointVersion * 1000 + payeventVersion, eventPoint, paypoint, channel_id,payPointInfo.pay_point_desc,price);
+
+
+	EventListenerCustom* _listener2 = EventListenerCustom::create("Over_Book_Order", [=](EventCustom* event){
+
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("Over_Book_Order");
+		OverBookValue*value = static_cast<OverBookValue*>(event->getUserData());
+		if (value->_errorcode == 0)
+		{
+			payRequest*request = new payRequest();
+			request->channel_id = channel_id;
+			request->orderID = value->orderID;
+			request->pay_and_Event_version = payPointVersion * 1000 + payeventVersion;
+			request->pay_event_id = eventPoint;
+			request->pay_point_id = paypoint;
+			request->sessionid = sessionid;
+			request->third_payType = 1;
+			request->wx_nonceStr = value->wx_nonceStr;
+			request->wx_prepayid = value->wx_prepayid;
+			request->wx_sign = value->wx_sign;
+			request->wx_timestamp = value->wx_timestamp;
+			pay(request);
+		}
+		else if (value->_errorcode==404)
+		{
+			ToolTipMannger::ShowPayTimeoutTip();
+			setPayState(UnDoing);
+			PayingDialog::RemovePayDialog();
+		}
+		else
+		{
+			ToolTipMannger::showDioag(value->_errormsg);
+			setPayState(UnDoing);
+			PayingDialog::RemovePayDialog();
+		}
+		CC_SAFE_DELETE(value);
+		
+
+	});
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+
+	HttpMannger::getInstance()->HttpToPostRequestBeforePay(1,sessionid, payPointVersion * 1000 + payeventVersion, eventPoint, paypoint, channel_id,payPointInfo.pay_point_desc,price);
 }
 
 void Pay::pay(payRequest*data)
 {
-	prepayidToPayRequest[data->wx_prepayid] = data;
+	prepayid_To_orderid[data->wx_prepayid] = data->orderID;
 	log("pushback data wx_prepayid = %s", data->wx_prepayid.c_str());
 	nowPayOrderId = data->orderID;
 	payResult = -1;
 	m_state = WxPaying;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	payCallBack(0, "success", data->wx_prepayid);
+	std::vector<RewardValue> value;
+	for (auto var: PayPointConfig::getInstance()->getPayPointInfoById(data->pay_point_id).items)
+	{
+		value.push_back(RewardValue(var.ItemID, var.ItemNum));
+	}
+	payCallBack(0, "success", value,PayPointConfig::getInstance()->getPayPointInfoById(data->pay_point_id).price,data->wx_prepayid);
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	payCallBack(0, "success",data->wx_prepayid);
+	payCallBack(0, "success", value,PayPointConfig::getInstance()->getPayPointInfoById(data->pay_point_id).price,data->wx_prepayid);
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	switch (data->third_payType)
 	{	
@@ -97,28 +151,27 @@ void Pay::pay(payRequest*data)
 		break;
 }
 #endif
+	CC_SAFE_DELETE(data);
 }
 std::string Pay::getOrderIdByprepayid(std::string prepayid)
 {
-	if (!(prepayidToPayRequest.find(prepayid) != prepayidToPayRequest.end()))
+	if (!(prepayid_To_orderid.find(prepayid) != prepayid_To_orderid.end()))
 	{
 
 		return "";
 	}
 	else
 	{
-		return prepayidToPayRequest[prepayid]->orderID;
+		return prepayid_To_orderid[prepayid];
 	}
 }
 
 std::string Pay::getPrepayIdByOrderid(std::string orderid)
 {
-	log("cin orderid = %s",orderid.c_str());
-	for (auto it = prepayidToPayRequest.begin(); it != prepayidToPayRequest.end(); ++it)
+	for (auto it = prepayid_To_orderid.begin(); it != prepayid_To_orderid.end(); ++it)
 	{
-		if (orderid == it->second->orderID)
+		if (orderid == it->second)
 		{
-			log("cout prepayid = %s", it->first.c_str());
 			return it->first;
 		}
 	}
@@ -126,51 +179,88 @@ std::string Pay::getPrepayIdByOrderid(std::string orderid)
 }
 void Pay::jniCallBack(int code, const char*msg, const char*wx_prepayid)
 {
-	log("jni callBack code = %d",code);
 	if (code == 0)
 	{
-		if (!(prepayidToPayRequest.find(wx_prepayid) != prepayidToPayRequest.end()))
+		if (!(prepayid_To_orderid.find(wx_prepayid) != prepayid_To_orderid.end()))
 		{
-			log("have no data on client %s",wx_prepayid);
+			std::vector<RewardValue> rewards;
+			payCallBack(code, msg, rewards, 0, wx_prepayid);
 			return;
 		}
-		auto circle = WaitCircle::ShowPayWaitCircle();
-		circle->setMyPrepayid(wx_prepayid);
-		circle->setName(wx_prepayid);
+		wx_cb_prepayid = wx_prepayid;
+		payResult = 3;
 		m_state = DemandEntrying;
 	}
 	else
 	{
-		payCallBack(code, msg,wx_prepayid);
+		std::vector<RewardValue> rewards;
+			payCallBack(code, msg, rewards, 0, wx_prepayid);
 	}
 }
-void Pay::DemandEntry(int reqNum, std::string orederid)
+void Pay::DemandEntry(int reqNum, std::string prePayid)
 {
-	HttpMannger::getInstance()->HttpToPostRequestDemandEntry(orederid, reqNum);
+
+	EventListenerCustom* _listener2 = EventListenerCustom::create("DemandEntry", [=](EventCustom* event){
+		
+			log("demandentry cb");
+			DemandOrderValue*value = static_cast<DemandOrderValue*>(event->getUserData());
+			if (value->_errorcode == 0)
+			{
+				if (value->realprice > 0)
+				{
+					WaitCircle::RemovePayWaitCircle(prePayid);
+					payCallBack(value->_errorcode, value->_errormsg.c_str(), value->rewards, value->realprice, prePayid);
+				}
+			}
+			else
+			{
+				if (reqNum > 2)
+				{
+					WaitCircle::RemovePayWaitCircle(prePayid);
+					payCallBack(value->_errorcode, value->_errormsg.c_str(), value->rewards, value->realprice, prePayid);
+				}
+				else
+				{
+					WaitCircle::sendRequestWaitCirCle(prePayid);
+				}
+			}
+			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("DemandEntry");
+		}
+		
+
+		
+
+	);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+
+	if (GameManage::getInstance()->getGuiLayer())
+	{
+		log("demand in game");
+		Server::getInstance()->sendCheckPayresult(getOrderIdByprepayid(prePayid),1);
+	}
+	else
+	{
+		log("demand not in game");
+		HttpMannger::getInstance()->HttpToPostRequestDemandEntry(prePayid, reqNum);
+	}
+	
 }
-void Pay::payCallBack(int code, const char* msg, std::string prepayid)
+void Pay::payCallBack(int code, const char* msg, std::vector<RewardValue> rewards, int releprice,std::string prepayid)
 {
-	WaitCircle::RemovePayWaitCircle(prepayid);
+	
 	PayingDialog::RemovePayDialog();
 	m_state = UnDoing;
-	log("pay callback success  prepayid =%s",prepayid.c_str());
-	if (!(prepayidToPayRequest.find(prepayid) != prepayidToPayRequest.end()))
-	{
-		log("have no data on callback %s", prepayid.c_str());
-		return;
-	}
-	auto nowData = prepayidToPayRequest[prepayid];
-	auto info = PayPointConfig::getInstance()->getPayPointInfoById(nowData->pay_point_id);
+	prepayid_To_orderid.erase(prepayid);
 	if (code == 0)
 	{
 		int lastlv = User::getInstance()->getVipLevel();
 		auto lvdata = ConfigVipLevel::getInstance()->getVipLevel(lastlv);
-		for (auto var:info.items)
+		for (auto var : rewards)
 		{
-			switch (var.ItemID)
+			switch (var._itemid)
 			{
-				case 1:
-					User::getInstance()->addCoins(var.ItemNum*lvdata.pay_reward);
+				case 1001:
+					User::getInstance()->addCoins(var._num*lvdata.pay_reward);
 					if (!User::getInstance()->getIsHaveBycoin())
 					{
 						User::getInstance()->setHaveBycoin();
@@ -178,26 +268,21 @@ void Pay::payCallBack(int code, const char* msg, std::string prepayid)
 					}
 					
 					break;
-				case 2:
-					User::getInstance()->addDiamonds(var.ItemNum*lvdata.pay_reward);
+				case 1002:
+					User::getInstance()->addDiamonds(var._num*lvdata.pay_reward);
 					break;
-				case 3:
-		/*			NobilityManager::getInstance()->addStepsDay(30);*/
+				case 1000:
+					User::getInstance()->setNobilityDay(User::getInstance()->getNobilityDay() + var._num);
 					break;
 			default:
 				break;
 			}
 		}
-		
-		if (nowData->pay_point_id == 15)
-		{
-			User::getInstance()->setHaveFirstPay();
-		}
-		User::getInstance()->addChargeMoney(info.price / 100);
+
+		User::getInstance()->addChargeMoney(releprice);
 		
 		
 		payResult = 1;
-		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
 	
 		///VIP升级
 		int nowlv = User::getInstance()->getVipLevel();
@@ -213,18 +298,16 @@ void Pay::payCallBack(int code, const char* msg, std::string prepayid)
 	else
 	{
 		payResult = 2;
-		HttpMannger::getInstance()->HttpToPostRequestAfterPay(nowData->sessionid, nowData->pay_and_Event_version, nowData->pay_event_id, nowData->pay_point_id, nowData->channel_id, info.price,code, nowData->orderID.c_str());
+		
 	}
-	prepayidToPayRequest.erase(nowData->wx_prepayid);
-	delete nowData;
-	
-	nowData = nullptr;
 }
 void Pay::CancelTheOrder()
 {
 	if (nowPayOrderId!=""&&m_state!=DemandEntrying)
 	{
-		HttpMannger::getInstance()->HttpToPostRequestCancelOrder(nowPayOrderId);
+		std::vector<RewardValue> rewards;
+		payCallBack(1, "failed", rewards, 0, getPrepayIdByOrderid(nowPayOrderId));
+		/*HttpMannger::getInstance()->HttpToPostRequestCancelOrder(nowPayOrderId);*/
 	}
 	
 }
@@ -241,7 +324,7 @@ void Pay::update(float dt)
 	{
 		auto layer = TwiceSureDialog::createDialog(ChineseWord("paySuccess").c_str(), nullptr);
 		layer->setPosition(0, 0);
-		Director::getInstance()->getRunningScene()->addChild(layer, 10);
+		Director::getInstance()->getRunningScene()->addChild(layer, 30);
 		payResult = -1;
 	}
 		break;
@@ -249,11 +332,18 @@ void Pay::update(float dt)
 	{
 		auto layer = TwiceSureDialog::createDialog(ChineseWord("payFailed").c_str(), nullptr);
 		layer->setPosition(0, 0);
-		Director::getInstance()->getRunningScene()->addChild(layer, 10);
+		Director::getInstance()->getRunningScene()->addChild(layer, 30);
 		payResult = -1;
 	}
 		break;
-
+	case 3:
+	{
+		auto circle = WaitCircle::ShowPayWaitCircle();
+		circle->setMyPrepayid(wx_cb_prepayid);
+		circle->setName(wx_cb_prepayid);
+	
+		payResult = -1;
+	}
 	default:
 		break;
 	}

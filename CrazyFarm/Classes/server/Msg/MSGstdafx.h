@@ -12,3 +12,4 @@
 #include "MsgOnMagnate.h"
 #include "MsgOnBankrupt.h"
 #include "MsgOnBankruptRebirth.h"
+#include "MsgPayresult.h"

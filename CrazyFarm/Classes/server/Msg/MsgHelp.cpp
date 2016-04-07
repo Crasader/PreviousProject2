@@ -110,5 +110,13 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 		base->setMsgId(MsgOnBankruptRebirth);
 
 	}
+	if (strcmp(msgId, "payresult") == 0)
+	{
+		//ÆÆ²úÁìÈ¡
+		base = new Msg_Payresult();
+		base->setBody(msgBody);
+		base->setMsgId(MsgPayresult);
+
+	}
 	return base;
 }

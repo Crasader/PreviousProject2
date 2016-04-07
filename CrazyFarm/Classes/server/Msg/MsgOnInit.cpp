@@ -25,7 +25,7 @@ void Msg_onInit::setBody(const char* msgBody)
 		player->setMaxTurretLevel(user["turrent_level"].GetInt());
 		player->setLevel(user["vip_level"].GetInt());
 		player->setChestLv(user["box_level"].GetInt());
-		player->setUserName(user["username"].GetString());
+		player->setUserName(user["user_id"].GetString());
 		player->setRoomPosition(user["pos"].GetInt());
 		roomplayers.push_back(player);
 	}

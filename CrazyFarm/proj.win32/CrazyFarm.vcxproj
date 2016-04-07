@@ -321,6 +321,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\server\Msg\MsgOnLeave.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnMagnate.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnUpdateTurrent.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgPayresult.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgUseSkill.cpp" />
     <ClCompile Include="..\Classes\server\Server.cpp" />
     <ClCompile Include="..\Classes\turret\PlayerTurret.cpp" />
@@ -537,6 +538,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\server\Msg\MsgOnLeave.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnMagnate.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnUpdateTurrent.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgPayresult.h" />
     <ClInclude Include="..\Classes\server\Msg\MSGstdafx.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgUseSkill.h" />
     <ClInclude Include="..\Classes\server\Server.h" />

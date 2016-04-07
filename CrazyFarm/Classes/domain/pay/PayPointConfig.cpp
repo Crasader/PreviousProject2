@@ -43,7 +43,7 @@ bool PayPointConfig::LoadConfig() {
 			info.paypoint_id = val["id"].GetInt();
 			info.price = val["price"].GetInt();
 			info.pay_point_desc = val["desc"].GetString();
-			auto &payitems = val["describe"];
+			auto &payitems = val["reward_lists"];
 			for (unsigned int i = 0; i < payitems.Size();++i)
 			{
 				PayItem item;

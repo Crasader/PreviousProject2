@@ -23,8 +23,7 @@ void BulletManage::initBulletManage()
 		bullet->retain();
 		_cacheBullet.push_back(bullet);
 		bullet->setTag(-1);
-		bullet->setVisible(false);
-		
+		bullet->setVisible(false);	
 	}
 }
 void BulletManage::moveBulletToCacheFromPool(Bullet*bullet)
@@ -44,7 +43,6 @@ Bullet* BulletManage::getFreeBulletInCache()
 	{
 		return nullptr;
 	}
-
 	auto bullet = _cacheBullet.back();
 	_cacheBullet.pop_back();
 	bullet->setTag(1);

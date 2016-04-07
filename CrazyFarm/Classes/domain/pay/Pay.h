@@ -13,7 +13,7 @@ struct payRequest
 	int pay_point_id;
 	std::string channel_id;
 	std::string orderID;
-	int third_payType =1; //0:斯凯支付1:支付宝 2:微信
+	int third_payType =1; //0:斯凯支付2:支付宝 1:微信
 	//微信参数
 	std::string wx_nonceStr;//随机字符串
 	std::string wx_prepayid;//微信订单号
@@ -28,12 +28,7 @@ struct prepayidAndReqNum
 	int reqnum;
 };
 
-struct DemandOrderValue
-{
-	prepayidAndReqNum data;
-	std::vector<RewardValue> rewards;
 
-};
 enum PayState
 {
 	UnDoing,//未在进行
@@ -57,7 +52,7 @@ public:
 	
 
 	void pay(payRequest*data);//起支付插件
-	void payCallBack(int code, const char* msg, std::string prepayid);
+	void payCallBack(int code, const char* msg,std::vector<RewardValue> rewards,int releprice,std::string prepayid);
 	void update(float dt);
 	void DemandEntry(int reqNum,std::string prePayid);//最多请求两次
 
@@ -77,7 +72,8 @@ private:
     Pay();
     bool init();
     static Pay* _instance;
-	std::map<std::string, payRequest*>  prepayidToPayRequest;
+
+	std::map<std::string, std::string> prepayid_To_orderid;
 
 	std::string nowPayOrderId;
 
@@ -85,6 +81,8 @@ private:
 	PayState m_state = UnDoing;
 	int payResult = -1;   //初始值-1,成功1，失败2'
 	
+
+	std::string wx_cb_prepayid;
 };
 
 #endif

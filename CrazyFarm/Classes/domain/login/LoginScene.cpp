@@ -34,7 +34,7 @@ bool LoginScene::init()
 	}
 
 
-	auto password = UserDefault::getInstance()->getStringForKey(nickname.c_str(),"defaultWord");
+	auto password = UserDefault::getInstance()->getStringForKey(nickname.c_str(),"");
 	auto bg = Sprite::create("loginBg.png");
 	bg->setPosition(480, 270);
 	addChild(bg, -1);

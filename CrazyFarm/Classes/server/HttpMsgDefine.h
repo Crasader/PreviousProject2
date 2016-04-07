@@ -134,3 +134,26 @@ struct UserInfoValue
 	int _chargemoney;
 	int _chestLevel;
 };
+
+
+
+////-----------------------------pay--------------------------
+struct OverBookValue 
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::string orderID;
+	/////Œ¢–≈÷ß∏∂
+	std::string wx_prepayid ;
+	std::string wx_sign;
+	std::string wx_timestamp ;
+	std::string wx_nonceStr;
+};
+
+struct DemandOrderValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<RewardValue> rewards;
+	int realprice;
+};
