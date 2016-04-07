@@ -14,8 +14,6 @@ void GameData::init(){
 	setIsOnMaridTask(false);
 	setisOnBankrupt(false);
 	setisPlayerOneGame(false);
-	setShotDiamondCount(0);
-	setShotPropCount(0);
 	setisOnGameScene(false);
 	setisDirectUseSkill(false);
 	setisOnGroupComing(false);

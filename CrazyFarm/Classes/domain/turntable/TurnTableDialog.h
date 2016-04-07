@@ -23,5 +23,6 @@ protected:
 	CTurntable*table;
 	LoadingBar* bar;
 	LabelAtlas* labelNowCoin;
+	LayerColor*colorlayer;
 };
 

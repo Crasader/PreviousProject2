@@ -48,19 +48,30 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
 	}
 
 	@Override
-	public void onResp(BaseResp resp) {
-		 Log.e("TBU_DEBUG", "onPayFinish, errCode = " + resp.errCode);
+	public void onResp(final BaseResp resp) {
+
 
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-			PayResp payResp = (PayResp)resp;
-			 Log.e("TBU_DEBUG", "payresp prepayId =  " + payResp.prepayId);
+			final PayResp payResp = (PayResp)resp;
 			if(resp.errCode == BaseResp.ErrCode.ERR_OK)
 			{
-				JniPayCallbackHelper.payResultCallBack(0,"scuess",payResp.prepayId);					
+				WXPayEntryActivity.this.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						JniPayCallbackHelper.payResultCallBack(0,"scuess",payResp.prepayId);	
+					}
+				});
+								
 			}
 			else
 			{
-				JniPayCallbackHelper.payResultCallBack(resp.errCode,"failed",payResp.prepayId);	
+				WXPayEntryActivity.this.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						JniPayCallbackHelper.payResultCallBack(resp.errCode,"failed",payResp.prepayId);	
+					}
+				});
+				
 			}
 		}
 		

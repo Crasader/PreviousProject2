@@ -13,5 +13,6 @@ public:
 	
 	std::vector<MsgFishesInfo> _FishesInfos;
 	unsigned long initCreateTime;
+	float _catchper;
 };
 

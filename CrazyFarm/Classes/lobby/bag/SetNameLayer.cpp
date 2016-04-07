@@ -181,6 +181,7 @@ void SetNameLayer::editBoxReturn(ui::EditBox* editBox)
 
 void SetNameLayer::quedingcallback(Ref*psend)
 {
+
 	auto item = (MenuItem*)psend;
 	item->setEnabled(false);
 	std::string nickname = _editNickname->getText();
@@ -202,6 +203,7 @@ void SetNameLayer::quedingcallback(Ref*psend)
 		getParent()->addChild(dialog,30);
 		item->setEnabled(true);
 	}
+
 }
 
 void SetNameLayer::closeButtonCallBack(Ref*psend)

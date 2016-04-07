@@ -145,6 +145,7 @@ protected:
 	std::vector<FishReward> rewards;
 
 	Vector<Node*> fishes;
+
 private:
 	std::vector <Bullet*> _lockBullets;
 public:

@@ -47,5 +47,7 @@ private:
 	int _fishCounts;
     const char* KEY_BONUSPOOL_COINS = "KEY_BONUSPOOL_COINS";
     const char* KEY_BONUSPOOL_FISHCOUNTS = "KEY_BONUSPOOL_FISHCOUNTS";
+
+	const char* KEY_BONUSPOOL_FIRST = "KEY_BONUSPOOL_FIRST";
 };
 

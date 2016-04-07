@@ -31,6 +31,7 @@ void Fish::initFish(int fishID){
 	m_movetype = 0;
 	setFishType(getFishTypeByID(fishID));
 
+
 	if (getFishType()==ArrangeFish)
 	{
 		auto fishdata = ConfigFish::getInstance()->getFish(fishID);
@@ -91,6 +92,7 @@ void Fish::initFish(int fishID){
 		LogEventFish::getInstance()->addFishCreateTimes(fishID);
 		centerPos = getCentrenPos();
 	}
+
 	addShader();
 
 }
@@ -731,6 +733,7 @@ void Fish::addShader()
 	addChild(m_shadesprite, -1,"shader");
 
 
+
 	auto acName = String::createWithFormat("swim_%d", nUiID);
 	auto ac = RepeatForever::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()));
 	m_shadesprite->setColor(Color3B::BLACK);
@@ -860,6 +863,7 @@ void Fish::onFreezeResume()
 
 void Fish::onDead()
 {
+
 	if (getFishType()==ArrangeFish)
 	{
 		onFreezeResume();
@@ -877,7 +881,7 @@ void Fish::onDead()
 		auto acName = String::createWithFormat("dead_%d", nUiID);
 		auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()), 1);
 		auto ac1 = ac->clone();
-		auto m_shadesprite = getChildByName("shader");
+		auto m_shadesprite = getChildByName("shader"); 
 		if (m_shadesprite)
 		{
 			m_shadesprite->runAction(RepeatForever::create(ac));
@@ -885,31 +889,18 @@ void Fish::onDead()
 		runAction(RepeatForever::create(ac));
 		runAction(Sequence::create(DelayTime::create(1.2f), CallFunc::create(CC_CALLBACK_0(Fish::removeself, this)), nullptr));
 
-		if (getFishType() == GoldFish)
+		switch (getFishType())
 		{
+		case GoldFish:
 			setScale(1.5f);
-			runAction(RotateBy::create(1.2f, 180));
-		}
-		//…˘“Ù
-		if (fishID < 20)
-		{
-			/*Audio::getInstance()->playSound(CATCHSMALL);*/
-		}
-		else if (fishID >= 20 && fishID < 30)
-		{
-			/*Audio::getInstance()->playSound(CATCHMID);*/
-		}
-		else if (fishID >= 30 && fishID < 40)
-		{
-			/*Audio::getInstance()->playSound(CATCHBIG);*/
-		}
-		else if (fishID >= 40 && fishID < 50)
-		{
+			runAction(RotateBy::create(1.2f, 120));
+			Audio::getInstance()->playSound(CATCHGOLD);
+			break;
+		case NormalFish:
+			Audio::getInstance()->playSound(CATCHGOLDTURNTABLE);
+		default:
+			break;
 
-		}
-		else
-		{
-			Audio::getInstance()->playSound(CATCHGIRLFISH);
 		}
 	}
 
@@ -961,7 +952,7 @@ void Fish::createDropOutAniByCoin(Point belongPos, int curMoney)
 			sp->setPosition(diffX*(i % 5), orgY+diffY*(i / 5));
 		}
 		sp->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate(data.aniName.c_str())));
-		sp->runAction(Sequence::create(DelayTime::create(0.1f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, belongPos),RemoveSelf::create(1),nullptr));
+		sp->runAction(Sequence::create(DelayTime::create(0.1f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, belongPos), CallFunc::create([=]{Audio::getInstance()->playSound(GETCOIN); }), RemoveSelf::create(1), nullptr));
 		node->addChild(sp);
 	}
 	auto str = String::createWithFormat("%s%d", ":",curMoney);
@@ -1060,6 +1051,7 @@ void Fish::removeAllBullet()
 {
 	for (auto var:_lockBullets)
 	{
+
 		if (var->getTag()!=-1)
 		{
 			var->stopLock();
@@ -1082,11 +1074,12 @@ void Fish::removeSingleBullet(Bullet *lockbullet)
 
 Vec2 Fish::getCentrenPos()
 {
+
 	if (getFishType()==ArrangeFish)
 	{
 		return centerPos;
 	}
-	
+
 	switch (fishID)
 	{
 	case 1:

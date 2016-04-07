@@ -644,7 +644,7 @@ void HttpMannger::onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpR
 			value->_exps = userinfo["exps"].GetInt();
 			value->_diamonds = userinfo["diamonds"].GetUint64();
 			value->_maxTurrentLv = userinfo["turrent_level"].GetInt();
-			value->_chargemoney= userinfo["mr"].GetInt();
+			value->_chargemoney= userinfo["mo"].GetInt();
 			value->_chestLevel = userinfo["chest_level"].GetInt();
 		}
 		else

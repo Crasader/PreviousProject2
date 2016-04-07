@@ -1,5 +1,6 @@
 package com.poixao.crazyfarm;
 
+
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 

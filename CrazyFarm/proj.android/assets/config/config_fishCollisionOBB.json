@@ -5,7 +5,7 @@
         {
             "fish_UiId": 1,
             "figures": [
-                { "leftBottom": { "x": 11, "y": 7 }, "rightBottom": { "x": 45, "y": 7 }, "rightTop": { "x": 45, "y": 18 }, "leftTop": { "x": 11, "y": 18 } }
+                { "leftBottom": { "x": 11, "y": 0 }, "rightBottom": { "x": 45, "y": 0 }, "rightTop": { "x": 45, "y": 21 }, "leftTop": { "x": 11, "y": 21 } }
             ]
         },
         {
@@ -17,7 +17,7 @@
         {
             "fish_UiId": 3,
             "figures": [
-                { "leftBottom": { "x": 12, "y": 11 }, "rightBottom": { "x": 43, "y": 11 }, "rightTop": { "x": 43, "y": 27 }, "leftTop": { "x": 12, "y": 27 } }
+                { "leftBottom": { "x": 12, "y": 6 }, "rightBottom": { "x": 43, "y": 6 }, "rightTop": { "x": 43, "y": 27 }, "leftTop": { "x": 12, "y": 27 } }
             ]
         },
         {

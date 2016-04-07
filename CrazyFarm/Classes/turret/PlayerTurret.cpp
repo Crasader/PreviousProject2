@@ -29,6 +29,7 @@
 #include "domain/loading/LoadingSceneLbToGm.h"
 #include "core/showLockTurretLayer.h"
 #include "domain/ai/AIManager.h"
+#include "widget/MyLabelAtlas.h"
 enum
 {
 	kTagBankrupt = 20
@@ -40,6 +41,7 @@ bool PlayerTurret::init(){
 		return false;
 	}
 	setIsShowInfo(false);
+
 	setContentSize(Size(155, 71));
 
 
@@ -269,6 +271,9 @@ void PlayerTurret::ShowLockTurretTip()
 }
 void  PlayerTurret::onLockTheTurrent(int curTurretLv, int rewardsCoin, int costDiamonds)
 {
+	GameManage::getInstance()->getGuiLayer()->anastole();
+
+
 	m_btType = 0;
 	auto node = getChildByName("locknode");
 	if (node)
@@ -320,11 +325,11 @@ void  PlayerTurret::onLockTheTurrent(int curTurretLv, int rewardsCoin, int costD
 	//½ð±ÒµôÂä
 	for (int i = 0; i < 15; i++)
 	{
-		Audio::getInstance()->playSound(UPDATALEVELGAINCOIN);
+		
 		auto aniCoin = Sprite::create();
 		aniCoin->setPosition(pos.x + 40 * (rand_0_1() - 0.5), pos.y + 70);
 		aniCoin->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniGold")));
-		aniCoin->runAction(Sequence::create(DelayTime::create(0.05f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, pos), RemoveSelf::create(1), nullptr));
+		aniCoin->runAction(Sequence::create(DelayTime::create(0.05f*i), CallFunc::create([=]{Audio::getInstance()->playSound(UPDATALEVELGAINCOIN); }), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, pos), RemoveSelf::create(1), nullptr));
 		GameManage::getInstance()->getGuiLayer()->addChild(aniCoin, 5);
 	}
 	//½ð±ÒÊý×Ö
@@ -491,12 +496,16 @@ void PlayerTurret::createPlayerCoin(User* user, int index)
 	spCoinBG->setPosition(coinPos[index]);
 	addChild(spCoinBG, 10, index);
 	m_coinLabelPos = spCoinBG->getPosition();
-	m_CoinLabel = LabelAtlas::create(String::createWithFormat("%ld",user->getCoins())->getCString(), "multipleNum.png", 15, 21, '0');
+
+		m_CoinLabel = MyLabelAtlas::create(String::createWithFormat("%ld", user->getCoins())->getCString(), "multipleNum.png", 15, 21, '0',110);
+
 	m_CoinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
 	m_CoinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_CoinLabel);
 
-	m_DiamondLabel = LabelAtlas::create(String::createWithFormat("%ld", user->getDiamonds())->getCString(), "multipleNum.png", 15, 21, '0');
+
+	m_DiamondLabel = MyLabelAtlas::create(String::createWithFormat("%ld", user->getDiamonds())->getCString(), "multipleNum.png", 15, 21, '0',110);
+
 	m_DiamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.29);
 	m_DiamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_DiamondLabel);
@@ -579,6 +588,7 @@ void PlayerTurret::initWithDate(RoomPlayer* user)
 	int boxlv = user->getChestLv();
 	
 
+
 	if (boxlv > 0)
 	{
 		auto sp = Sprite::create("circyleLight.png");
@@ -631,7 +641,6 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 
 		num = fish->getFishGold() * m_turretdata.multiple;
 		auto nowNum = Value(m_CoinLabel->getString()).asInt();
-
 		m_CoinLabel->setString(String::createWithFormat("%ld",nowNum+num)->getCString());
 
 
@@ -645,7 +654,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		LogEventFish::getInstance()->addFishUserCatchTimes(fish->getFishID());
 		m_turretdata = GameData::getInstance()->getTurrentData();
 
-		Audio::getInstance()->playSound(CATCHGOLD);
+
 		num = fish->getFishGold()* m_turretdata.multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
 		m_CoinLabel->setString(String::createWithFormat("%ld", User::getInstance()->addCoins(num))->getCString());
 		GameData::getInstance()->setgainCoin(GameData::getInstance()->getgainCoin()+num);
@@ -653,6 +662,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		auto exp = fish->getFishExperience();
 		User::getInstance()->addExp(exp);
 		GameData::getInstance()->setchangeExp(GameData::getInstance()->getchangeExp() + exp);
+
 
 
 		
@@ -669,6 +679,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		{
 			GameData::getInstance()->addGoldCatchFishes(fish->getFishID());
 			GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
+
 		}
 
 	}
@@ -712,9 +723,8 @@ void PlayerTurret::onBankrupt()
 	{
 		if (!BankruptManager::getInstance()->getgetRewardNode())
 		{
-			/*BankruptManager::getInstance()->RequestServerToBroke(this);*/
+			BankruptManager::getInstance()->RequestServerToBroke(this);
 		}
-
 		GameData::getInstance()->setisOnBankrupt(true);
 
 	}
@@ -1147,7 +1157,6 @@ void PlayerTurret::autoShootCallback(Ref*psend)
 
 void PlayerTurret::costMoney()
 {
-
 	if (isRobot)
 	{
 		auto num = (Value(m_turretdata.multiple).asInt());
@@ -1220,5 +1229,12 @@ bool PlayerTurret::isCanShoot()
 		return false;
 	}
 	return true;
+
+
+}
+
+Vec2 PlayerTurret::getPaoWorldpos()
+{
+	return convertToWorldSpace(m_turret->getPosition());
 
 }

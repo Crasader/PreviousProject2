@@ -76,4 +76,5 @@ void Msg_onInit::setBody(const char* msgBody)
 	//≥ı º ±º‰¥¡
 	initCreateTime = doc["create_time"].GetDouble();
 
+	_catchper = doc["catch_per"].GetDouble();
 }

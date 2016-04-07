@@ -19,6 +19,7 @@ void ToolTipMannger::ShowPaySuccessTip()
 void ToolTipMannger::showDioag(std::string str)
 {
 	auto dialog = TwiceSureDialog::createDialog(str.c_str());
-	dialog->setPosition(0, 0);
+
+	dialog->setPosition(Point::ZERO);
 	Director::getInstance()->getRunningScene()->addChild(dialog, 40);
 }

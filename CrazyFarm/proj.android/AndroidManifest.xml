@@ -80,7 +80,7 @@
             android:value="xxxx" /> -->
             
         <meta-data android:name="Channel ID"
-            android:value="test"/>
+            android:value="daiji_2000"/>
     </application>
 
     <supports-screens android:anyDensity="true"

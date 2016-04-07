@@ -11,6 +11,7 @@
 
 
 
+
 bool showLockTurretLayer::init()
 {
 	bool bRet = false;
@@ -35,7 +36,9 @@ bool showLockTurretLayer::init()
 			bg1->addChild(bg);
 			auto size = bg->getContentSize();
 			auto propSprite = Sprite::create();
-			propSprite->setPosition(size.width / 2, size.height / 2 - 20);
+
+			propSprite->setPosition(size.width / 2, size.height / 2 + 20);
+
 			bg->addChild(propSprite);
 			if (turret.multiple > 30)
 			{
@@ -55,16 +58,20 @@ bool showLockTurretLayer::init()
 
 			auto muptleTTF = LabelAtlas::create(Value(turret.multiple).asString(), "multipleNum.png", 15, 21, '0');
 			muptleTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
-			muptleTTF->setPosition(size.width*0.52, size.height*0.9 + 3);
+
+			muptleTTF->setPosition(size.width*0.51, size.height*0.9 + 3);
+
 			bg->addChild(muptleTTF);
 
 
 
 			auto button = MenuItemImage::create("btn_big_1.png", "btn_big_2.png", CC_CALLBACK_1(showLockTurretLayer::ButtonCallback, this));
 			button->setPosition(size.width / 2, size.height*0.18 - 5);
-			auto diamondNumTTF = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
-			diamondNumTTF->setPosition(Point::ANCHOR_MIDDLE);
-			diamondNumTTF->setPosition(button->getContentSize() / 2 + Size(0, -2));
+
+			auto diamondNumTTF = LabelAtlas::create("0", "multipleNum.png", 15, 21, '0');
+			diamondNumTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
+			diamondNumTTF->setPosition(button->getContentSize() / 2 +Size(0,2));
+
 			button->addChild(diamondNumTTF, 1, 10);
 
 			auto menu = Menu::create(button, nullptr);
@@ -86,13 +93,15 @@ bool showLockTurretLayer::init()
 	
 
 			auto SendCoin = Sprite::create("sendCoin.png");
-			SendCoin->setPosition(size.width / 2, 99);
+
+			SendCoin->setPosition(size.width / 2, 90);
 			bg->addChild(SendCoin);
 		
 
-			auto zengCoinTTf = LabelAtlas::create("0", "unLockNumTTF.png", 13, 19, '0');
+			auto zengCoinTTf = LabelAtlas::create("0", "multipleNum.png", 15, 21, '0');
 			zengCoinTTf->setAnchorPoint(Point::ANCHOR_MIDDLE);
-			zengCoinTTf->setPosition(size.width / 2, 99);
+			zengCoinTTf->setPosition(size.width / 2, 90);
+
 			bg->addChild(zengCoinTTf);
 			auto quex3 = Sprite::create("quex3.png");
 			quex3->setPosition(zengCoinTTf->getPosition());
@@ -183,27 +192,13 @@ bool showLockTurretLayer::init()
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(showLockTurretLayer::closeButtonCallBack, this));
-		close->setPosition(900, 405);
+
+		close->setPosition(890, 410);
 		auto menu = Menu::create(close, nullptr);
 		menu->setPosition(Point::ZERO);
 		addChild(menu);
 
 
-	//添加系统返回键监听
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
-		switch (code)
-		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-		
-			break;
-		default:
-			break;
-		}
-	};
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 		bRet = true;
 	} while (0);
 	
@@ -242,8 +237,10 @@ void showLockTurretLayer::ButtonCallback(Ref* psend)
 			auto layer = payLayer::createLayer(2);
 			layer->setPosition(0, 0);
 			layer->setEventPont(12);
+
 			GameManage::getInstance()->getGuiLayer()->addChild(layer, 20);
 			removeFromParentAndCleanup(1);
+
 			LogEventPageChange::getInstance()->addEventItems(2, 13, 5);
 		}
 	

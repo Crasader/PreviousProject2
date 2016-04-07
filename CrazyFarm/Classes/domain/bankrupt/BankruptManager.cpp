@@ -107,6 +107,7 @@ void BankruptManager::onHttpRequestCompletedForBroke(HttpClient *sender, HttpRes
 {
 	if (!response)
 	{
+
 		return;
 	}
 	if (!response->isSucceed())

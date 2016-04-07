@@ -143,9 +143,11 @@ void LoadingSceneLbToGm::loadRes()
 	loadAniWithPng("game/ui/ani/TX_BossLight/TX_BOSS_%d.png", "aniBossLight", 1.0f, 16);
 	loadAniWithPng("game/ui/ani/TX_GoldFish/aniGoldfish_%d.png", "aniGoldfish", 2.0f, 18);
 	loadAniWithPng("game/ui/ani/TX_DianQiu/TX_DianQiu_%d.png", "aniDianQiu", 1.0f, 13);
-	loadAniWithPng("game/ui/ani/TX_shandian/shandian_%d.png", "aniShandian", 0.5f, 4);
+	loadAniWithPng("game/ui/ani/TX_shandian/shandian_%d.png", "aniShandian", 0.2f, 4);
 	loadAniWithPng("game/ui/ani/TX_huanpao/aniHuanpao_%d.png", "aniHuanpao", 0.3f, 7);
-	loadAniWithPng("game/ui/ani/TX_guangquan/guangqiu_%d.png", "aniGuangqiu", 0.3f, 5);
+
+	loadAniWithPng("game/ui/ani/TX_guangquan/guangqiu_%d.png", "aniGuangqiu", 0.15f, 5);
+
 	loadAniWithPng("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.3f, 5);
 	loadAniWithPng("game/ui/ani/net_ice/netIce%d.png", "iceNet", 0.7f, 18);
 	loadAniWithPng("game/ui/ani/net_fire/netFire%d.png", "fireNet", 0.7f, 18);
@@ -201,8 +203,7 @@ void LoadingSceneLbToGm::loadRes()
 void LoadingSceneLbToGm::showTip()
 {
 
-	int randNum = getRand() % 9 + 1;
-
+	int randNum = rand() % 10 + 1;
 	auto str = String::createWithFormat("LoadingTip%d", randNum);
 	auto label = LabelTTF::create(ChineseWord(str->getCString()).c_str(), "arial", 21);
 	label->setColor(Color3B::WHITE);

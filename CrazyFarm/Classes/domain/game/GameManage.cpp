@@ -5,6 +5,7 @@
 #include "config/ConfigChest.h"
 #include "domain/Newbie/NewbieMannger.h"
 #include "core/GetRewardNode.h"
+#include "widget/MyLabelAtlas.h"
 GameManage* GameManage::_instance = 0;
 
 GameManage* GameManage::getInstance(){
@@ -48,7 +49,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 		{
 			//»Æ½ðÓã²¶»ñ¶¯»­
 			auto ac = Director::getInstance()->getRunningScene()->getActionByTag(666);
-			if (!ac&&!turret->isRobot)
+			if (!ac)
 			{
 				auto acShake = CCShake::create(0.2, 30);
 				acShake->setTag(666);
@@ -59,7 +60,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			aninode->setPosition(0, 0);
 			turret->addChild(aninode, 1, "goldfichCatch");
 
-			Audio::getInstance()->playSound(CATCHGOLDTURNTABLE);
+			
 			auto sp = Sprite::create("goldFishCatchTable.png");
 			sp->setPosition(Vec2(80, 180));
 			aninode->addChild(sp);
@@ -76,7 +77,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 
 
 			auto num = fish->getFishGold()* turret->getTurrentMupltData().multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
-			auto lb = LabelAtlas::create(Value(Value(num).asInt()).asString(), "goldFishNum.png", 28, 41, '0');
+			auto lb = MyLabelAtlas::create(Value(Value(num).asInt()).asString(), "goldFishNum.png", 28, 41, '0',120);
 			lb->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			lb->setPosition(Vec2(80, 180));
 			lb->setRotation(-30);
@@ -177,7 +178,7 @@ void GameManage::onBrokeBySomeTurret(PlayerTurret*turret, int lefttime, float wa
 		auto layer = m_pGuilayer;
 		auto node = GetRewardNode::create(baknrupt);
 		node->setPosition(turret->getPosition() + Vec2(0, 150));
-		layer->addChild(node, 10);
+		layer->addChild(node, 100);
 		BankruptManager::getInstance()->setgetRewardNode(node);
 	}
 	else if (lefttime == 0)

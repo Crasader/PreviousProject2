@@ -72,7 +72,9 @@ void RanklistManager::onHttpRequestCompletedForExp(HttpClient *sender, HttpRespo
 				item.exp = vec[i]["exp"].GetDouble();
 				item.coin = vec[i]["coins"].GetDouble();
 				item.gender = vec[i]["gender"].GetInt();
-				value->rankItems.push_back(item);
+
+				value->_rankItems.push_back(item);
+
 			}
 			vec = doc["rankrule"];
 			for (unsigned int i = 0; i < vec.Size(); i++)
@@ -139,7 +141,9 @@ void RanklistManager::onHttpRequestCompletedForCoin(HttpClient *sender, HttpResp
 				item.exp = vec[i]["exp"].GetDouble();
 				item.coin = vec[i]["coins"].GetDouble();
 				item.gender = vec[i]["gender"].GetInt();
-				value->rankItems.push_back(item);
+
+				value->_rankItems.push_back(item);
+
 			}
 			vec = doc["rankrule"];
 			for (unsigned int i = 0; i < vec.Size(); i++)

@@ -79,10 +79,11 @@ private:
 
 
 	PayState m_state = UnDoing;
-	int payResult = -1;   //初始值-1,成功1，失败2'
+	int payResult = -1;   //初始值-1,成功1，3,查单，失败2
+	
+	std::string wx_cb_prepayid;
 	
 
-	std::string wx_cb_prepayid;
 };
 
 #endif

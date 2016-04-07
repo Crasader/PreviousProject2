@@ -29,14 +29,16 @@ public:
 	void quickBeginCallback(Ref*psend);
 	void showSign(float dt);
 
-
 	void showGuizuGetRewards();
+
 private:
 	void setValue();
 
 	virtual void onExit();
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
+
 	virtual void onEnterTransitionDidFinish();
+
 	void showMarquee(float dt);
 	void createRoomLayer();
 	///°´Å¥»Øµ÷

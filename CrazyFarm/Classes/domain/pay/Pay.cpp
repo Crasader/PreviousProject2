@@ -36,13 +36,14 @@ Pay* Pay::getInstance(){
 }
 void Pay::Overbooking(int paypoint, int eventPoint, Node*paynode)
 {
-	//if (!JniFunUtill::getInstance()->isWXAppInstalled())
-	//{
-	//	auto dio = TwiceSureDialog::createDialog(ChineseWord("nowxpaytip").c_str());
-	//	dio->setPosition(0, 0);
-	//	Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(dio, 40);
-	//	return;
-	//}
+
+	if (!JniFunUtill::getInstance()->isWXAppInstalled())
+	{
+		auto dio = TwiceSureDialog::createDialog(ChineseWord("nowxpaytip").c_str());
+		dio->setPosition(0, 0);
+		Director::getInstance()->getRunningScene()->getChildByTag(888)->addChild(dio, 40);
+		return;
+	}
 	if (m_state!=UnDoing)
 	{
 		return;

@@ -10,7 +10,7 @@ bool Bullet::init(){
 	if (!Sprite::init()){
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -119,17 +119,10 @@ void Bullet::moveTolockFishUpadate(float dt)
 	if (target != nullptr)
 	{
 		
-
-
-
 		auto pos = target->convertToWorldSpace(target->getCentrenPos());
 		float degree = CC_DEGREES_TO_RADIANS(getTurretRotation(getPosition(), pos));
 		Vec2 diffPos = Vec2(sin(degree)*bulletSpeed*dt, cos(degree)*bulletSpeed*dt);
 		setPosition(getPosition() + diffPos);
-
-
-
-
 		//²¶»ñ
 		if (pos.distance(getPosition()) <= 10)
 		{
@@ -179,6 +172,7 @@ void Bullet::stopLock()
 	BulletManage::getInstance()->getAllBullets().pushBack(this);
 	scheduleUpdate();
 }
+
 std::vector<OBBEX> Bullet::getObbs()
 {
 	std::vector<OBBEX> vec;

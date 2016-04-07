@@ -7,6 +7,7 @@ public:
 	static MyMenuItemGainMoney * create();
 	void setValue();
 	void showPopup();
+	void update(float delta);
 private:
 	void ItemCallBack(Ref* psend);
 	void initItem();

@@ -19,9 +19,6 @@
     <Filter Include="src\lobby">
       <UniqueIdentifier>{5df39d18-eef1-4a1f-903b-5df323ea1fcf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\level">
-      <UniqueIdentifier>{1793ccc9-a05f-47ab-abf9-7cd7773733ce}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\core">
       <UniqueIdentifier>{9d08e1d8-2d25-4e74-9fa1-a9544cf11f0e}</UniqueIdentifier>
     </Filter>
@@ -167,15 +164,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\fish\FishManage.cpp">
       <Filter>src\fish</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\level\LevelLayer.cpp">
-      <Filter>src\level</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\level\LevelScene.cpp">
-      <Filter>src\level</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\level\LevelSelectPage.cpp">
-      <Filter>src\level</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp">
       <Filter>src\lobby</Filter>
@@ -777,6 +765,9 @@
     <ClCompile Include="..\Classes\server\Msg\MsgPayresult.cpp">
       <Filter>src\server\MSG</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\widget\MyLabelAtlas.cpp">
+      <Filter>src\widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -805,15 +796,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\fish\FishManage.h">
       <Filter>src\fish</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\level\LevelLayer.h">
-      <Filter>src\level</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\level\LevelScene.h">
-      <Filter>src\level</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\level\LevelSelectPage.h">
-      <Filter>src\level</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\LobbyScene.h">
       <Filter>src\lobby</Filter>
@@ -1429,6 +1411,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\server\Msg\MsgPayresult.h">
       <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\widget\MyLabelAtlas.h">
+      <Filter>src\widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

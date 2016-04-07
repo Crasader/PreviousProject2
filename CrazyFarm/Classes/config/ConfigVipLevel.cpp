@@ -56,7 +56,7 @@ filename += JniFunUtill::getInstance()->getSDcardpath();
             viplevel.kill_per_add = val["kill_per_add"].GetDouble();           // 鍑绘潃姒傜巼绯绘暟
             viplevel.send_coins_over = val["send_coins_over"].GetInt();         // 閲戝竵琛ヨ冻閲戦
             viplevel.send_coins_over_day_time = val["send_coins_over_day_time"].GetInt(); // 姣忔棩閲戝竵琛ヨ冻娆℃暟
-
+			viplevel.charge_money *= 100;
 			vipLevels[i] = viplevel;
 		}
 		

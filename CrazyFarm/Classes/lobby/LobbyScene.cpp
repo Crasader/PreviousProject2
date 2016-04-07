@@ -48,6 +48,7 @@
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "widget/LoadingCircle.h"
 #include "domain/UrlImage/UrlImageMannger.h"
+#include "widget/MyLabelAtlas.h"
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
 
@@ -263,7 +264,7 @@ bool LobbyScene::init()
 	auto aninode2 = Sprite::create("quickStart2.png");
 	aninode2->setPosition(quickBegin->getContentSize() / 2+Size(0,7));
 	quickBegin->addChild(aninode2);
-	aninode2->runAction(RepeatForever::create(RotateBy::create(3,360)));
+	aninode2->runAction(RepeatForever::create(RotateBy::create(1.5,360)));
 
 
 
@@ -411,6 +412,17 @@ bool LobbyScene::init()
 		  
 	}
 
+	auto aniNode = Sprite::create();
+	aniNode->setPosition(385, 68);
+	addChild(aniNode);
+	aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0));
+
+
+	aniNode = Sprite::create();
+	aniNode->setPosition(719,119);
+	addChild(aniNode);
+	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([=]{aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0)); }), nullptr));
+
 
 	return true;
 }
@@ -464,18 +476,13 @@ void LobbyScene::onEnterTransitionDidFinish()
 
 void LobbyScene::showSign(float dt)
 {
-	
 	auto rewards = SignMannger::getInstance()->getSignItems();
 	if (rewards.size() > 0)
 	{
 		auto sign = SignInLayer::createLayer(rewards);
 		sign->setPosition(Point::ZERO);
 		addChild(sign, 30);
-
 	}
-
-
-
 }
 
 void LobbyScene::showMarquee(float dt)
@@ -561,21 +568,6 @@ void LobbyScene::RankListCallback(Ref*psend)
 	LogEventPageChange::getInstance()->addEventItems(1, 5, 0);
 
 	Audio::getInstance()->playSound(CLICKSURE);
-	//RanklistManager::getInstance()->loadConfig();
-	//runAction(Sequence::create(DelayTime::create(2.0f), CallFunc::create([&]
-	//{
-	//	if (RanklistManager::getInstance()->IsSuccess())
-	//	{
-	//	
-	//	}
-	//	else
-	//	{
-	//		auto layer = TwiceSureDialog::createDialog(ChineseWord("onRanklistTip").c_str(),nullptr);
-	//		layer->setPosition(Point::ZERO);
-	//		addChild(layer, kZorderDialog);
-	//	}
-	//}), nullptr));
-
 }
 
 

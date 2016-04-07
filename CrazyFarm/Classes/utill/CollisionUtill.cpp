@@ -1,6 +1,6 @@
 #include "utill/CollisionUtill.h"
 #define IsArrangeFish fish->getFishID()>=101&&fish->getFishID()<=104
-
+#define RECTSCALE 0.7
 
 bool CollisionUtill::isCollisionFishAAndBullet(Fish*fish, Bullet*bullet)
 {
@@ -15,6 +15,15 @@ bool CollisionUtill::isCollisionFishAAndBullet(Fish*fish, Bullet*bullet)
 	else
 	{
 		return CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), bullet->getBoundingBox());
+		/*if (CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), bullet->getBoundingBox()))
+		{
+		return CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), bullet->getObbs());
+		}
+		else
+		{
+		return false;
+		}*/
+		
 	}
 }
 bool CollisionUtill::isCollisionFishAAndNet(Fish*fish, Net*net)
@@ -146,10 +155,10 @@ bool CollisionUtill::isCollisionNodeAAndRect(Node*nodeA, Rect rect)
 
 bool CollisionUtill::isCollisionRectAsAndRectB(std::vector<Rect> rectAs, Rect rectB)
 {
-	rectB.setRect(rectB.origin.x + rectB.size.width*0.15, rectB.origin.y + rectB.size.height*0.15, rectB.size.width*0.7, rectB.size.height*0.7);
+	rectB.setRect(rectB.origin.x + rectB.size.width*(0.5 - RECTSCALE / 2), rectB.origin.y + rectB.size.height*(0.5 - RECTSCALE / 2), rectB.size.width*RECTSCALE, rectB.size.height*RECTSCALE);
 	for (auto rectA:rectAs)
 	{
-		rectA.setRect(rectA.origin.x + rectA.size.width*0.15, rectA.origin.y + rectA.size.height*0.15, rectA.size.width*0.7, rectA.size.height*0.7);
+		rectA.setRect(rectA.origin.x + rectA.size.width*(0.5 - RECTSCALE / 2), rectA.origin.y + rectA.size.height*(0.5 - RECTSCALE / 2), rectA.size.width*RECTSCALE, rectA.size.height*RECTSCALE);
 		if (rectA.intersectsRect(rectB))
 		{
 			return true;

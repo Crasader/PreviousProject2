@@ -51,7 +51,7 @@ private :
 	void createSettingBoard();
 	void createGuizuGiftLayer();
 	
-	
+
 	/////////美人鱼相关///////////////////////////////////////////////
 	float fmaridNowTime = 0;
 	void maridTaskTime(float dt);
@@ -65,6 +65,8 @@ public:
 	void onBossWarning(int fishID);
 
 	void showGainMoneyTurrent();
+	
+	void anastole();
 private:
 	////
 	//播放真人声音

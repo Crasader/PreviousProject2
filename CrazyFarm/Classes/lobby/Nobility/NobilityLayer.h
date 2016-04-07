@@ -2,9 +2,10 @@
 #include "cocos2d.h"
 #include "NobilityLayer.h"
 #include "utill/FunUtil.h"
+#include "widget/BaseLayer.h"
 USING_NS_CC;
 
-class NobilityLayer : public Layer
+class NobilityLayer : public BaseLayer
 {
 public:
 	virtual bool init();

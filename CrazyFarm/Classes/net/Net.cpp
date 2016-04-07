@@ -17,7 +17,9 @@ void Net::initNetByType(){
 	TurretData turretdata = m_bullet->getTurretdata();
 	initWithFile(getFrameNameByType(turretdata.ui_type, turretdata.net_type));
 	initAniByType(turretdata.ui_type, turretdata.net_type);
-	setScale(1);
+
+	setScale(0.5);
+
 
 	//ÍøµÄÅö×²Ãæ»ý
 	m_netType = turretdata.net_type;
@@ -25,7 +27,9 @@ void Net::initNetByType(){
 	isRobot = m_bullet->getPlayerTurret()->isRobot;
 	m_bullet->removeFromParentAndCleanup(1);
 	checkCatchFish();
-	runAction(Sequence::create( ScaleTo::create(0.08, 1.3), ScaleTo::create(0.08, 0.9), ScaleTo::create(0.08, 1.1), ScaleTo::create(0.08, 1.0)/*, CallFunc::create([&]{checkCatchFish(); })*/, FadeOut::create(0.5), RemoveSelf::create(1), nullptr));
+
+	runAction(Sequence::create( ScaleTo::create(0.08, 1.2), ScaleTo::create(0.08, 0.9), ScaleTo::create(0.08, 1.1), ScaleTo::create(0.08, 1.0)/*, CallFunc::create([&]{checkCatchFish(); })*/, FadeOut::create(0.5), RemoveSelf::create(1), nullptr));
+
 }
 
 //

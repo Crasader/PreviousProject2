@@ -5,7 +5,9 @@ WaitCircle*  WaitCircle::ShowPayWaitCircle()
 {
 	auto circle = WaitCircle::create();
 	circle->setPosition(480, 270);
+
 	Director::getInstance()->getRunningScene()->addChild(circle, 100);
+
 	return circle;
 }
 void WaitCircle::RemovePayWaitCircle(std::string prepayid)

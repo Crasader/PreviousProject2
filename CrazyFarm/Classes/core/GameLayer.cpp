@@ -102,17 +102,13 @@ bool GameLayer::init(){
 
 	schedule(schedule_selector(GameLayer::UpdateCreateFishByServer), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0.02f);
 
-
 	runAction(Sequence::create(DelayTime::create(0.01f),
 		CallFunc::create([&]{
 		
 		initFishAndBulletData();
  }), nullptr));
 
-	setbisOnSkillLock(false);
 
-	GameData::getInstance()->setDiamondevent(MagnateManager::getInstance()->getDiamandMagnateEvent());
-	GameData::getInstance()->setpropevent(MagnateManager::getInstance()->getItemMagnateEvent());
 
 
 	if (!NewbieMannger::getInstance()->getisOverTeachMode())
@@ -149,6 +145,7 @@ bool GameLayer::init(){
 	Server::getInstance()->add_observer(this);
 	schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 		
+
 	_touchtypes.push_back(TouchInNormal);
 	return true;
 }
@@ -207,35 +204,35 @@ void GameLayer::createTurret(){
 
 
 
-	RoomPlayer* usera = new RoomPlayer();
-	usera->setCoins(1200000);
-	usera->setDiamonds(100);
-	usera->setLevel(10l);
-	usera->setMaxTurretLevel(1);
-	usera->setUserName("robot");
-	usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
-	usera->setChestLv(2);
-	AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
-	usera->setAi(ai);
-	int uiPos = 3;
-	if (uiPos > 3)
-	{
-		uiPos -= 4;
-	}
-	if (uiPos < 0)
-	{
-		uiPos += 4;
-	}
-	usera->setRoomPosition(uiPos);
+	//RoomPlayer* usera = new RoomPlayer();
+	//usera->setCoins(1200000);
+	//usera->setDiamonds(100);
+	//usera->setLevel(10l);
+	//usera->setMaxTurretLevel(1);
+	//usera->setUserName("robot");
+	//usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
+	//usera->setChestLv(2);
+	//AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
+	//usera->setAi(ai);
+	//int uiPos = 3;
+	//if (uiPos > 3)
+	//{
+	//	uiPos -= 4;
+	//}
+	//if (uiPos < 0)
+	//{
+	//	uiPos += 4;
+	//}
+	//usera->setRoomPosition(uiPos);
 
-	auto otherTurret = PlayerTurret::create();
-	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-	otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
-	otherTurret->initWithDate(usera);
-	otherTurrets.pushBack(otherTurret);
-	addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
+	//auto otherTurret = PlayerTurret::create();
+	//otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+	//otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
+	//otherTurret->initWithDate(usera);
+	//otherTurrets.pushBack(otherTurret);
+	//addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
 
-	TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
+	//TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
 }
 
 
@@ -253,27 +250,30 @@ void GameLayer::addTouchEvent(){
 
 void GameLayer::shootUpdata(float dt)
 {
+	static float temp = 0;
+	temp -= dt;
+	if (temp<=0)
+	{
+		isShoot = true;
+		
+	}
 	if (istouched == true)
 	{
-		const float shootInterval = GameConfig::getInstance()->getShootData().shootInterval;
 		if (!isShoot)
 		{
 			return ;
 		}
+		temp = GameConfig::getInstance()->getShootData().shootInterval;
 		float degree = getTurretRotation(myTurret->getPosition(), touchpos);
 		degree -= 360;
-		if (degree<-90||degree>90)
+		if (degree<-85||degree>85)
 		{
-			//射击角度范围（-80，80）；
+			//射击角度范围（-85，85）；
 			return;
 		}
-
 		myTurret->shoot(degree);
 		isShoot = false;
 
-		runAction(Sequence::create(DelayTime::create(shootInterval), CallFunc::create([&]{
-			isShoot = true;
-		}), nullptr));
 	}
 }
 
@@ -292,8 +292,12 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	{
 		return true;
 	}
-	if (GameData::getInstance()->getisOnBankrupt())
+	if (GameData::getInstance()->getisOnBankrupt()&&!BankruptManager::getInstance()->getgetRewardNode())
 	{
+		auto pay = payLayer::createLayer(1);
+		pay->setPosition(0, 0);
+		pay->setEventPont(19);
+		GameManage::getInstance()->getGuiLayer()->addChild(pay, 30);
 		return true;
 	}
 	removePlayerInfo();
@@ -358,6 +362,9 @@ void GameLayer::rotateTurret(float degree,PlayerTurret* turret){
 }
 
 void GameLayer::update(float dt){
+
+
+
 	FishManage::getInstance()->UpdateWhenController(dt);
 	FishManage::getInstance()->UpdataCreateFish(dt);
 }
@@ -370,7 +377,7 @@ void GameLayer::createNet(Bullet *bullet){
 	float dotdistance = bullet->getContentSize().height*0.2;
 	float angle = bullet->getRotation();
 	auto dotpos = Vec2(dotdistance*sin(CC_DEGREES_TO_RADIANS(angle)), dotdistance*cos(CC_DEGREES_TO_RADIANS(angle)));
-	fishNet->setPosition(bullet->getPosition() + dotpos);
+	fishNet->setPosition(bullet->getPosition()/* + dotpos*/);
 	fishNet->setRotation(bullet->getRotation());
 	fishNet->initNetByType();
 	this->addChild(fishNet, kZorderNet);
@@ -410,7 +417,12 @@ void GameLayer::AiUpdata(float dt)
 {
 	//AIManager::getInstance()->mainUpdata(dt);
 }
-
+bool GameLayer::sortFish(const Fish * m1, const Fish * m2) {
+	auto _tempBullerPos = GameData::getInstance()->getTempBullerPos();
+	float distans1 = m1->getPosition().distance(_tempBullerPos);
+	float distans2 = m2->getPosition().distance(_tempBullerPos);
+	return distans1 < distans2;
+}
 void GameLayer::collisionUpdate(float dt)
 {
 	//TODO 碰撞逻辑
@@ -423,6 +435,8 @@ void GameLayer::collisionUpdate(float dt)
 
 	for (auto bullet : allBullets)
 	{
+		GameData::getInstance()->setTempBullerPos(bullet->getPosition());
+		std::sort(allFish.begin(), allFish.end(), GameLayer::sortFish);
 		for (auto fish : allFish)
 		{
 			if ( CollisionUtill::isCollisionFishAAndBullet(fish, bullet)){
@@ -471,8 +485,10 @@ void GameLayer::initFishAndBulletData()
 {
 	if (isInitData == false)
 	{
+
 		FishManage::getInstance()->initFishPool();
 		BulletManage::getInstance()->initBulletManage();
+
 		GameData::getInstance()->setisOnGroupComing(false);
 		isInitData = true;
 	}
@@ -484,6 +500,7 @@ void GameLayer::onEnter()
 }
 void GameLayer::onExit()
 {
+
 	UpdateUserinfo(0);
     Server::getInstance()->quit();  // TODO : disconnect con
 	Msgs.clear();
@@ -854,9 +871,10 @@ void GameLayer::onGetReward(int itemid, int num)
 	auto spPath = String::createWithFormat("sign_%d.png", itemid);
 
 	auto sp = Sprite::create(spPath->getCString());
-	sp->setPosition(480, 270);
-	sp->setScale(0);
-	GameManage::getInstance()->getGuiLayer()->addChild(sp, kZorderDialog+1);	
+
+	sp->setPosition(480, 300);
+	GameManage::getInstance()->getGuiLayer()->addChild(sp, kZorderDialog+2);	
+
 
 
 	auto txt = String::createWithFormat(":%d", num);
@@ -874,14 +892,16 @@ void GameLayer::onGetReward(int itemid, int num)
 	auto colorlayer = LayerColor::create();
 	colorlayer->setColor(ccc3(0, 0, 0));
 	colorlayer->setOpacity(180);
-	GameManage::getInstance()->getGuiLayer()->addChild(colorlayer, kZorderDialog);
+
+	GameManage::getInstance()->getGuiLayer()->addChild(colorlayer, kZorderDialog+1);
 
 	auto aninode = Sprite::create();
 	aninode->setPosition(480, 270);
-	GameManage::getInstance()->getGuiLayer()->addChild(aninode, kZorderDialog);
+	GameManage::getInstance()->getGuiLayer()->addChild(aninode, kZorderDialog+1);
 	aninode->setScale(4);
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), RemoveSelf::create(), nullptr));
-	sp->runAction(Sequence::create( CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }),ScaleTo::create(1.0f, 1.0f), MoveTo::create(1.0f, myTurret->getPosition()), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
+	sp->runAction(Sequence::create( ScaleTo::create(1.5f, 1.4f), CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }),Spawn::create(MoveTo::create(1.0f, myTurret->getPaoWorldpos()),ScaleTo::create(1.0f,0.5f),nullptr), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
+
 
 }
 
@@ -905,7 +925,7 @@ void GameLayer::onGetRewardByfish(PlayerTurret*turrent, Fish*fish, int itemid, i
 	sp->setPosition(480,270);
 	sp->setScale(0);
 	GameManage::getInstance()->getGuiLayer()->addChild(sp,20);
-	auto distans = turrent->getCoinLabelPos().distance(sp->getPosition());
+	auto distans = turrent->getPaoWorldpos().distance(sp->getPosition());
 
 	Point curPos = GameManage::getInstance()->getGuiLayer()->getItemPos(itemid);
 
@@ -997,6 +1017,7 @@ void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 }
 void GameLayer::onClientInit(Msg_onInit* msg)
 {
+	User::getInstance()->setcatchPer(msg->_catchper);
 	//初始座位
 	createTurret();
 	m_curIndex = msg->roomPos;

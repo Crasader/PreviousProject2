@@ -221,7 +221,7 @@ bool payLayer::init(int payType)
 		addChild(tableView);
 		tableView->reloadData();
 
-		auto nowChargeMoney = User::getInstance()->getChargeMoney();
+		auto nowChargeMoney = User::getInstance()->getChargeMoney()/100;
 	
 		
 
@@ -306,7 +306,7 @@ void payLayer::update(float delta)
 	
 	auto vipConfig = ConfigVipLevel::getInstance();
 	auto nextVip = vipConfig->getVipLevel(nowVip + 1);
-	auto nowChargeMoney = User::getInstance()->getChargeMoney();
+	auto nowChargeMoney = User::getInstance()->getChargeMoney()/100;
 	auto chinaword = ChineseWord("payVIPdes");
 	auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
 	ttf->setString(strdec->getCString());
@@ -332,6 +332,6 @@ void payLayer::showVipCallback(Ref*psend)
 {
 	auto layer = VIPLayer::create();
 	layer->setPosition(0, 0);
-	getParent()->addChild(layer,10);
+	getParent()->addChild(layer,30);
 	removeFromParentAndCleanup(1);
 }

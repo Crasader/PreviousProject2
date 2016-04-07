@@ -75,7 +75,6 @@ public:
 private:
 	void LockUpdata(float dt);
 	bool lockTouchEvent(Touch *touch, Event  *event);
-	CC_SYNTHESIZE(bool, bIsOnSkillLock, bisOnSkillLock);
 //ºËµ¯
 public:
 	void beginSkillBoom();
@@ -112,7 +111,12 @@ private:
 	bool onTouTurret(Point pos);
 	void removePlayerInfo();
 	void calculateFreeChair();
-	PlayerTurret* myTurret =nullptr;
+
+	//utill
+	static bool sortFish(const Fish * m1, const Fish * m2);
+
+	PlayerTurret* myTurret = NULL;
+
 	Vector<PlayerTurret*> otherTurrets;
 	std::vector<RoomPlayer> players;
 	
@@ -173,6 +177,7 @@ private:
 	int _fishGroupMonentType;
 	//
 	bool isInitData = false;
+
 
 };
 #endif

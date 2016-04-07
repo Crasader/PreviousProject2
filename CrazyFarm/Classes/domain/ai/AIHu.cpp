@@ -42,7 +42,9 @@ PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
 			}
 		}
 	}
+
 	playerWork.setAngle((float)angle);
 	playerWork.setFire(false);
 	return playerWork;
+
 }

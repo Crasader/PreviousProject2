@@ -8,17 +8,14 @@
 
 bool ChangeGiftLayer::init()
 {
-	if ( !Layer::init() )
+	if ( !BaseLayer::init() )
 	{
 		return false;
 	}
 	bool bRet = false;
 	do 
 	{
-		auto layer = LayerColor::create();
-		layer->setColor(Color3B::BLACK);
-		layer->setOpacity(128);
-		addChild(layer,-1);
+	
 		auto size = Director::getInstance()->getVisibleSize();
 		auto bg = Sprite::create("changeRewardBg.png");
 		bg->setPosition(size / 2);
@@ -26,13 +23,14 @@ bool ChangeGiftLayer::init()
 
 
 		auto label = LabelTTF::create(ChineseWord("ChangeGiftTxt").c_str(), "arial", 20);
-		label->setPosition(bg->getContentSize().width / 2+10, 380);
+		label->setPosition(bg->getContentSize().width / 2+24, 383);
 		label->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		bg->addChild(label);
 
-		auto str = Value(BagManager::getInstance()->getItemNum(1013)).asString();
+		auto str = Value(BagManager::getInstance()->getItemNum(1013)/10).asString();
 		auto num = LabelAtlas::create(str.c_str(), "medalNum.png", 16, 24, '0');
-		num->setPosition(104, 0);
+		num->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
+		num->setPosition(130, 0);
 		label->addChild(num);
 
 		//»»½±Æ·ÁÐ±í
@@ -49,13 +47,13 @@ bool ChangeGiftLayer::init()
 			{
 				cell->setisSelected(false);
 			}
-			cell->setPosition(139+12.5 + cell->getContentSize().width/2+cell->getContentSize().width*0.85*(i-1), 220);
+			cell->setPosition(139+12.5 + cell->getContentSize().width/2+cell->getContentSize().width*0.85*(i-1), 200);
 			addChild(cell, 1, i);
 		}
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(ChangeGiftLayer::closeButtonCallBack, this));
-		close->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
-		close->setPosition(bg->getContentSize());
+		close->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		close->setPosition(bg->getContentSize()-Size(50,50));
 
 
 

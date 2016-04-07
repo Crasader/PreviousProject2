@@ -201,7 +201,7 @@ void SkillButton::useSkill()
 		{
 			auto price = skillManager::getInstance()->getSkillPriceById(m_skillID);
 			auto userdm = User::getInstance()->getDiamonds();
-			if (userdm > price)
+			if (userdm >= price)
 			{
 
 				Server::getInstance()->sendUseSkill(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id);
@@ -228,7 +228,6 @@ void SkillButton::useSkill()
 	break;
 	case 0: //直接使用
 	{
-
 
 		Server::getInstance()->sendUseSkill(skillManager::getInstance()->getSkillInfoByID(m_skillID).item_id);
 
@@ -263,6 +262,7 @@ int SkillButton::JudgeUseSkill()
 		}
 
 	}
+
 	if (m_skillID == 5)
 	{
 		if (skillManager::getInstance()->isUseSkillNow(2))
@@ -272,6 +272,7 @@ int SkillButton::JudgeUseSkill()
 		}
 
 	}
+
 	
 	auto num = skillManager::getInstance()->getSKillNumById(m_skillID);
 	if (num > 0)

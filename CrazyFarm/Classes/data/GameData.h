@@ -35,11 +35,7 @@ private:
 	CC_SYNTHESIZE(bool, bisPlayerOneGame, isPlayerOneGame);//是否进行过一次游戏
 
 	CC_SYNTHESIZE(bool, bIsOnGameScene, isOnGameScene);
-	//事件变量
-	CC_SYNTHESIZE(int, nShotDiamondCount, ShotDiamondCount);
-	CC_SYNTHESIZE(int, nShotPropCount, ShotPropCount);
-	CC_SYNTHESIZE(MagnateEvent, m_Diamondevent, Diamondevent);
-	CC_SYNTHESIZE(MagnateEvent, m_propevent, propevent);
+
 
 	CC_SYNTHESIZE(int, nChairNo, chairNo);
 
@@ -51,6 +47,7 @@ private:
 	CC_SYNTHESIZE(bool, m_isOnGroupComing, isOnGroupComing);
 	//是否加载过游戏里的数据
 	CC_SYNTHESIZE(bool, m_isLoadMsgOnGame, isLoadMsgOnGame);
+
 
 
 
@@ -79,6 +76,8 @@ public:
 	
 	unsigned int getRandomSeed();
 	void setRandomSeed(unsigned int var);
+
+	CC_SYNTHESIZE(Vec2, _tempBullerPos,	TempBullerPos);
 };
 
 #endif

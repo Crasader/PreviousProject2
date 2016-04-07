@@ -4,6 +4,7 @@
 #include "domain/user/User.h"
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "widget/LoadingCircle.h"
+
 void RanklistView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
@@ -81,12 +82,13 @@ bool RanklistLayer::init()
 		listenr1->setSwallowTouches(true);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
 
+
 		EventListenerCustom* _listener2 = EventListenerCustom::create("get_ranklist_coin_info", [=](EventCustom* event){
 
 			RanklistValue*value = static_cast<RanklistValue*>(event->getUserData());
 			if (value->_errorcode == 0)
 			{
-				RanklistManager::getInstance()->setCoinRankListData(value->rankItems);
+				RanklistManager::getInstance()->setCoinRankListData(value->_rankItems);
 				RanklistManager::getInstance()->setRankCoinRange(value->_rankRange);
 
 
@@ -120,13 +122,11 @@ bool RanklistLayer::init()
 				labelRank->setAnchorPoint(Point::ANCHOR_MIDDLE);
 				addChild(labelRank);
 
-
-
-				//ӵ�н��
 				haveCoinTTF = LabelTTF::create(ChineseWord("haveCoin").c_str(), "arial", 20);
 				haveCoinTTF->setAnchorPoint(Point::ANCHOR_MIDDLE);
 				haveCoinTTF->setPosition(700, 445);
 				addChild(haveCoinTTF);
+
 
 				coinsp = Sprite::create("coin.png");
 				coinsp->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -159,7 +159,7 @@ bool RanklistLayer::init()
 				coinButton->selected();
 
 
-				//���ϵͳ���ؼ�����
+				//���ϵͳ���ؼ�����?
 				auto listener = EventListenerKeyboard::create();
 				listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
 					switch (code)
@@ -192,6 +192,7 @@ bool RanklistLayer::init()
 		LoadingCircle::showLoadingCircle();
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
 		RanklistManager::getInstance()->loadCoin();
+
 
 
 
@@ -238,7 +239,9 @@ void RanklistLayer::changeToexpRanklist()
 		RanklistValue*value = static_cast<RanklistValue*>(event->getUserData());
 		if (value->_errorcode == 0)
 		{
-			RanklistManager::getInstance()->setExpRankListData(value->rankItems);
+
+			RanklistManager::getInstance()->setExpRankListData(value->_rankItems);
+
 			RanklistManager::getInstance()->setRankExpRange(value->_rankRange);
 			coinsp->setTexture("EXP.png");
 
@@ -268,24 +271,29 @@ void RanklistLayer::changeToexpRanklist()
 		}
 		CC_SAFE_DELETE(value);
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_ranklist_exp_info");
+
 		LoadingCircle::RemoveLoadingCircle();
+
+
 
 	});
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
 	RanklistManager::getInstance()->loadExp();
 	LoadingCircle::showLoadingCircle();
+
 	
 }
 
 void RanklistLayer::changeToCoinRanklist()
 {
 
+
 	EventListenerCustom* _listener2 = EventListenerCustom::create("get_ranklist_coin_info", [=](EventCustom* event){
 
 		RanklistValue*value = static_cast<RanklistValue*>(event->getUserData());
 		if (value->_errorcode == 0)
 		{
-			RanklistManager::getInstance()->setCoinRankListData(value->rankItems);
+			RanklistManager::getInstance()->setCoinRankListData(value->_rankItems);
 			RanklistManager::getInstance()->setRankCoinRange(value->_rankRange);
 			coinsp->setTexture("coin.png");
 			haveCoinTTF->setString(ChineseWord("haveCoin").c_str());
@@ -322,7 +330,9 @@ void RanklistLayer::changeToCoinRanklist()
 	RanklistManager::getInstance()->loadCoin();
 
 
+
 	LoadingCircle::showLoadingCircle();
 
 
 }
+

@@ -135,3 +135,17 @@ void JniFunUtill::WXPay(const char* prepayId, const char* nonceStr, const char* 
 	}
 #endif
 }
+
+bool JniFunUtill::isWXAppInstalled()
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	jboolean r = false;
+	JniMethodInfo t;
+	if (JniHelper::getStaticMethodInfo(t,"org/cocos2dx/cpp/AppActivity", "isWXAppInstalled", "()Z")) {
+		r = t.env->CallStaticBooleanMethod(t.classID, t.methodID);
+		t.env->DeleteLocalRef(t.classID);
+	}
+	return r;
+#endif
+	return true;
+}

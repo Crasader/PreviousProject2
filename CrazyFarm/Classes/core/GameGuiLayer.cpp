@@ -108,6 +108,7 @@ bool GameGuiLayer::init(){
 
 
 
+
 	return true;
 
 }
@@ -318,7 +319,10 @@ void GameGuiLayer::showGainMoneyTurrent()
 {
 	sEainCoin->showPopup();
 }
-
+void GameGuiLayer::anastole()
+{
+	sUpgradeTurret->anastole();
+}
 void GameGuiLayer::onBossWarning(int fishID)
 {
 	Audio::getInstance()->playSound(BOSSWARN);
@@ -440,7 +444,7 @@ Vec2 GameGuiLayer::getItemPos(int itemid)
 	case 1007:	
 		return  skillmanager->getButtonByID(skillmanager->getSkillInfoByitemId(itemid).skill_id)->getPosition();
 	default:
-		return GameManage::getInstance()->getGameLayer()->GetMyTurret()->getCoinLabelPos();
+		return GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPaoWorldpos();
 	}
 }
 

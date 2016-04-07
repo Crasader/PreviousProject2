@@ -159,7 +159,9 @@ bool VIPLayer::init()
 		VIPLvTTF->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		VIPLvTTF->setPosition(vipSp->getPosition()+Vec2(vipSp->getContentSize().width/2,0));
 		addChild(VIPLvTTF);
-		VIPLvTTF->setScale(0.7);
+
+		VIPLvTTF->setScale(0.6);
+
 		vipSp->setScale(0.8);
 
 		attention = Sprite::create("attention.png");
@@ -188,7 +190,7 @@ bool VIPLayer::init()
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(VIPLayer::closeButtonCallBack, this));
-		close->setPosition(880, 492);
+		close->setPosition(885, 492);
 
 		auto quickPay = MenuItemImage::create("quickPay_1.png", "quickPay_2.png", CC_CALLBACK_1(VIPLayer::chankanCallBack, this));
 		quickPay->setPosition(812, 90);
@@ -236,7 +238,7 @@ void VIPLayer::chankanCallBack(Ref*pesend)
 	auto layer = payLayer::createLayer(1);
 	layer->setPosition(Point::ZERO);
 	layer->setEventPont(21);
-	getParent()->addChild(layer,20);
+	getParent()->addChild(layer,30);
 	removeFromParentAndCleanup(1);
 	LogEventPageChange::getInstance()->addEventItems(7, 13,0 );
 }

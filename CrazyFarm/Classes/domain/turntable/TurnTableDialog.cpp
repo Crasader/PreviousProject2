@@ -9,6 +9,9 @@
 #include "domain/game/GameManage.h"
 #include "server/Server.h"
 #include "domain/logevent/LogEventTurnTable.h"
+#include "widget/MyTableView.h"
+#include "widget/MyLabelAtlas.h"
+
 USING_NS_CC_EXT;
 bool TurnTableDialog::init()
 {
@@ -16,7 +19,10 @@ bool TurnTableDialog::init()
 	bool bRet = false;
 	do
 	{ 
-
+		colorlayer = LayerColor::create();
+		colorlayer->setColor(Color3B::BLACK);
+		colorlayer->setOpacity(125);
+		addChild(colorlayer, -2);
 
 		auto bg = Sprite::create("turntableBgFrame.png");
 		bg->setPosition(480, 270);
@@ -26,6 +32,7 @@ bool TurnTableDialog::init()
 		caidainode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniCaidai")));
 		caidainode->setPosition(480, 486);
 		addChild(caidainode,1);
+
 
 		auto size = Director::getInstance()->getVisibleSize();
 		table = CTurntable::create();
@@ -40,8 +47,9 @@ bool TurnTableDialog::init()
 
 		createBottomFrame(BonusPoolManager::getInstance()->allowBonusPool());
 
-		auto nowBounsStr = String::createWithFormat("%ld", BonusPoolManager::getInstance()->getBounsCoins())->getCString();
-		auto nowBounsLabel = LabelAtlas::create(nowBounsStr, "bounspoolnum.png", 15, 24, '0');
+		
+		auto nowBounsLabel = MyLabelAtlas::create(String::createWithFormat("%ld",BonusPoolManager::getInstance()->getBounsCoins())->getCString(), "bounspoolnum.png", 15, 24,'0',75);
+
 		nowBounsLabel->setPosition(480, 300);
 		nowBounsLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(nowBounsLabel); 
@@ -61,19 +69,26 @@ bool TurnTableDialog::init()
 
 
 		bg->setVisible(false);
+
+		colorlayer->setVisible(false); 
 		setScale(0);
-		runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), CallFunc::create([=]{bg->setVisible(true); }), nullptr));
+		runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), CallFunc::create([=]{bg->setVisible(true); colorlayer->setVisible(true);  }), nullptr));
+
 
 
 		auto aniNode = Sprite::create();
 		aniNode->setPosition(290, 160);
 		addChild(aniNode, 5);
-		aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0.1f));
+
+		aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0));
+
 
 		aniNode = Sprite::create();
 		aniNode->setPosition(650,160);
 		addChild(aniNode, 5);
-		aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0.2f));
+
+		aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0));
+
 
 
 		bRet = true;
@@ -100,7 +115,9 @@ void TurnTableDialog::choujiangButtonCallBack(Ref*psend)
 	}
 	if (nextCoin!=-1)
 	{
+
 		auto str = String::createWithFormat(ChineseWord("choujiangSure").c_str(), nextCoin-BonusPoolManager::getInstance()->getBounsCoins());
+
 		auto toast = TwiceSureDialog::createDialog(str->getCString(), CC_CALLBACK_1(TurnTableDialog::beginChoujiangButtonCallBack, this));
 		toast->setPosition(0, 0);
 		addChild(toast, 20,"toast");
@@ -114,6 +131,7 @@ void TurnTableDialog::choujiangButtonCallBack(Ref*psend)
 }
 void TurnTableDialog::BeginTurnTable(int itemID, int num)
 {
+
 
 	table->menuButtonCallback(itemID,num);
 
@@ -147,8 +165,9 @@ void TurnTableDialog::showGoldFishButtonCallBack(Ref*psend)
 
 void TurnTableDialog::onGetRewards(BonuspoolRewardItem reward)
 {
+	runAction(Sequence::createWithTwoActions(DelayTime::create(1.5f), CallFunc::create([=]{removeFromParentAndCleanup(1); })));
 	GameManage::getInstance()->getGameLayer()->onGetReward(reward.item_id, reward.num);
-	removeFromParentAndCleanup(1);
+	
 }
 
 void TurnTableDialog::createBottomFrame(bool isFinish)
@@ -196,10 +215,12 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 			nextCoin = -1;
 		}
 	
+
 		auto nowCoin = BonusPoolManager::getInstance()->getBounsCoins();
 
 		auto nowCoinStr = String::createWithFormat("%ld", nowCoin)->getCString();
 		labelNowCoin = LabelAtlas::create(nowCoinStr, "nowPoolNum.png", 13, 21, '0');
+
 		labelNowCoin->setScale(0.9);
 		labelNowCoin->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 		labelNowCoin->setPosition(barframe->getContentSize().width / 2 - 5, barframe->getContentSize().height / 2);
@@ -236,6 +257,9 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 		//°´Å¥
 		auto bt = MenuItemImage::create("btn_choujiang_1.png", "btn_choujiang_2.png", CC_CALLBACK_1(TurnTableDialog::choujiangButtonCallBack, this));
 		bt->setPosition(382, 45);
+		auto ac = RepeatForever::create(Sequence::create(ScaleTo::create(0.17f, 1.1), ScaleTo::create(0.13f, 0.81), ScaleTo::create(0.13f, 1.1), ScaleTo::create(0.13f, 1), DelayTime::create(2.0f), nullptr));
+		bt->runAction(ac);
+
 		auto menu = Menu::create(bt, nullptr);
 		menu->setPosition(Point::ZERO);
 		menu->setName("choujiang");
@@ -280,6 +304,7 @@ void TurnTableDialog::createBottomFrame(bool isFinish)
 		//°´Å¥
 		auto bt = MenuItemImage::create("btn_showgoldFish_1.png", "btn_showgoldFish_2.png", CC_CALLBACK_1(TurnTableDialog::showGoldFishButtonCallBack, this));
 		bt->setPosition(382, 45);
+		
 		auto menu = Menu::create(bt, nullptr);
 		menu->setPosition(Point::ZERO);
 		sp->addChild(menu);

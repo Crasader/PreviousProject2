@@ -30,12 +30,6 @@ bool ScrollTextEx::init() {
 }
 void ScrollTextEx::setScrollStrs(std::vector<std::string> strs)
 {
-	static int i = 0;
-	auto str = String::createWithFormat("test broadcast data %d", ++i);
-	m_strs.push_back(str->getCString());
-	return;
-
-
 	auto vec = strs;
 	std::string str1;
 	for (auto var : vec)

@@ -23,7 +23,8 @@ struct  rankRange
 
 struct RanklistValue 
 {
-	std::vector<rankListItem > rankItems;
+
+	std::vector<rankListItem > _rankItems;
 	std::vector<rankRange> _rankRange;
 	int _errorcode;
 	std::string _errormsg;
