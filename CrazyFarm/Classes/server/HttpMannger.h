@@ -34,6 +34,7 @@ using namespace cocos2d;
 #define URL_GETNACTIVEINFO "/activity/config"
 #define URL_GETNOBILITYINFO "/nobility/surplus"
 #define URL_GETNOBILITYREWARD "/nobility/today/reward"
+#define URL_MARQUEE  "/marquee/config"
 struct setNameRequest
 {
 	const char* nickname;

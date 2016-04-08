@@ -17,7 +17,8 @@
 #include "server/Server.h"
 #include "domain/game/GameManage.h"
 #include "server/HttpMannger.h"
-#define TCPIDURL "172.23.1.40" //ÄÚÍø
+//#define TCPIDURL "172.23.1.40"  //ÄÚÍø
+#define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
 Scene* LoadingSceneLbToGm::createScene()
 {
 	auto scene = Scene::create();
@@ -68,7 +69,7 @@ bool LoadingSceneLbToGm::init()
 	
 	scene = GameScene::create();
 	scene->retain();
-	Server::getInstance()->conConnect(/*HttpMannger::getInstance()->getGameUrl().c_str()*/TCPIDURL, HttpMannger::getInstance()->getGamePort(), User::getInstance()->getSessionid().c_str(), GameData::getInstance()->getRoomID());   // TODO  : test init server
+	Server::getInstance()->conConnect(TCPIDURL, HttpMannger::getInstance()->getGamePort(), User::getInstance()->getSessionid().c_str(), GameData::getInstance()->getRoomID());   // TODO  : test init server
 	Server::getInstance()->add_observer(GameManage::getInstance()->getGameLayer());
 
 	return true;

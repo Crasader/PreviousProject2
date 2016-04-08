@@ -25,7 +25,7 @@ void MissionManager::loadConfig()
 			{
 				_missionList = value->MissionItems;
 			}
-			delete value;
+		
 			
 
 		
@@ -45,7 +45,7 @@ void MissionManager::loadConfig()
 		{
 			_achieveList = value->AchieveItems;
 		}
-		delete value;
+	
 	});
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener1, 1);

@@ -168,7 +168,6 @@ void LoadingScene::toRegister()
 
 	LoginMannger::getInstance()->toRegister();
 
-
 	EventListenerCustom* _listener2 = EventListenerCustom::create("firstRegister", [=](EventCustom* event){
 
 		FirstRegisterValue*value = static_cast<FirstRegisterValue*>(event->getUserData());
@@ -214,7 +213,7 @@ void LoadingScene::toRegister()
 		}
 		break;
 		}
-		delete value;
+		
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("firstRegister");
 
 	});

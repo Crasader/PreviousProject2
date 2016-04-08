@@ -84,7 +84,7 @@ void MissionCell::btCallback(Ref*psend)
 			{
 				ToolTipMannger::showDioag(value->_errormsg);
 			}
-			delete value;
+		
 			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_mission_rewards");
 			LoadingCircle::RemoveLoadingCircle();
 

@@ -102,7 +102,6 @@ void AchieveCell::btCallback(Ref*psend)
 			{
 				ToolTipMannger::showDioag(value->_errormsg);
 			}
-			delete value;
 			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_achieve_rewards");
 			LoadingCircle::RemoveLoadingCircle();
 

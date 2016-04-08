@@ -364,7 +364,7 @@ void PlayerTurret::ChangeNextRoom(Ref*psend)
 
 	}
 	GameData::getInstance()->setRoomID(nextroom.room_id);
-	Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
+	Director::getInstance()->replaceScene(LoadingSceneLbToGm::createScene());
 }
 
 

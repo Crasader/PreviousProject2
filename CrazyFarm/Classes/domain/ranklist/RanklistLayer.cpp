@@ -184,7 +184,7 @@ bool RanklistLayer::init()
 				removeFromParentAndCleanup(1);
 				ToolTipMannger::showDioag(value->_errormsg);
 			}
-			CC_SAFE_DELETE(value);
+	
 			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_ranklist_coin_info");
 			LoadingCircle::RemoveLoadingCircle();
 
@@ -269,7 +269,7 @@ void RanklistLayer::changeToexpRanklist()
 		{
 			ToolTipMannger::showDioag(value->_errormsg);
 		}
-		CC_SAFE_DELETE(value);
+	
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_ranklist_exp_info");
 
 		LoadingCircle::RemoveLoadingCircle();
@@ -321,7 +321,7 @@ void RanklistLayer::changeToCoinRanklist()
 		{
 			ToolTipMannger::showDioag(value->_errormsg);
 		}
-		CC_SAFE_DELETE(value);
+	
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_ranklist_coin_info");
 		LoadingCircle::RemoveLoadingCircle();
 

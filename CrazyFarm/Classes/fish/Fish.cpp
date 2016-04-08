@@ -834,11 +834,6 @@ void Fish::onFreeze()
 			node->pause();
 		}
 	}
-	
-	//冻结时候无受击动画处理
-	//_scheduler->pauseTarget(this);
-	//stopAllActionsByTag(kTagAcNormal);
-	//_eventDispatcher->pauseEventListenersForTarget(this);
 }
 void Fish::onFreezeResume()
 {

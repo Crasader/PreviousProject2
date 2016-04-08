@@ -1125,9 +1125,13 @@ void GameLayer::onConError(Msg_ConError*msg)
 	pause();
 	for (auto var:FishManage::getInstance()->getAllFishInPool())
 	{
-		var->pause();
+		var->onFreeze();
 	}
 	for (auto var:BulletManage::getInstance()->getAllBullets())
+	{
+		var->pause();
+	}
+	for (auto var:otherTurrets)
 	{
 		var->pause();
 	}

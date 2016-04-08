@@ -112,7 +112,7 @@ void Pay::OverbookingActual(int paypoint, int eventPoint)
 			setPayState(UnDoing);
 			PayingDialog::RemovePayDialog();
 		}
-		CC_SAFE_DELETE(value);
+
 		
 
 	});

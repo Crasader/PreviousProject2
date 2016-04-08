@@ -1,6 +1,6 @@
 #include "domain/marquee//MarqueeManager.h"
 #include "server/HttpClientUtill.h"
-#define SIGNURL "http://114.119.39.150:1701/marquee/config"
+#include "server/HttpMannger.h"
 MarqueeManager* MarqueeManager::_instance = NULL;
 
 MarqueeManager::MarqueeManager(){
@@ -9,7 +9,8 @@ MarqueeManager::MarqueeManager(){
 
 
 void MarqueeManager::init(){
-	HttpClientUtill::getInstance()->onGetHttp(SIGNURL, CC_CALLBACK_2(MarqueeManager::onHttpRequestCompleted, this));
+	auto url = String::createWithFormat("%s%s", URL_HEAD_FIX, URL_MARQUEE);
+	HttpClientUtill::getInstance()->onGetHttp(url->getCString(), CC_CALLBACK_2(MarqueeManager::onHttpRequestCompleted, this));
 }
 
 MarqueeManager* MarqueeManager::getInstance(){

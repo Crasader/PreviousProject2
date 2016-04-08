@@ -483,7 +483,6 @@ void LobbyScene::onEnterTransitionDidFinish()
 		{
 			ToolTipMannger::showDioag(value->_errormsg);
 		}
-		delete value;
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_user_info");
 
 	});
@@ -799,7 +798,6 @@ void LobbyScene::showGuizuGetRewards()
 				{
 					ToolTipMannger::showDioag(value->_errormsg);
 				}
-				delete value;
 				Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_guizu_rewards");
 
 			});
