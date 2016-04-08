@@ -71,6 +71,16 @@ bool DropDownList::onTouchBegan(CCTouch *touch, CCEvent *event)
 		}
 		
 	}
+	else
+	{
+		if (isShowMenu)
+		{
+			_loginscene->setChangeNickName(selectLabels.at(0));
+			onClose(); 
+		}
+			
+		
+	}
 	return false;
 
 	
@@ -106,6 +116,25 @@ void DropDownList::onSelected(CCObject* sender)
 	{
 		lastSelectedIndex = item->getTag();
 		_loginscene->setChangeNickName(selectLabels.at(lastSelectedIndex));
+		if (lastSelectedIndex != 0)
+		{
+			std::string temp;
+			temp = selectLabels[0];
+			selectLabels[0] = selectLabels[lastSelectedIndex];
+			selectLabels[lastSelectedIndex] = temp;
+
+			Vec2 tempPos;
+			tempPos = mainMenu->getChildByTag(0)->getPosition();
+			mainMenu->getChildByTag(0)->setPosition(mainMenu->getChildByTag(lastSelectedIndex)->getPosition());
+			mainMenu->getChildByTag(lastSelectedIndex)->setPosition(tempPos);
+
+
+			Node*tempnode;
+			tempnode = mainMenu->getChildByTag(lastSelectedIndex);
+			mainMenu->getChildByTag(0)->setTag(lastSelectedIndex);
+			tempnode->setTag(0);
+		}
+		
 
 	}
 	onClose(); //关闭下拉列表框

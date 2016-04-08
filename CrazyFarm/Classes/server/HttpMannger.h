@@ -4,8 +4,9 @@
 #include "HttpMsgDefine.h"
 #include "widget/LoadingCircle.h"
 using namespace cocos2d;
-#define URL_HEAD "http://106.75.135.78:1701" ///外网
-//#define URL_HEAD "http://172.23.1.40:1701"
+#define URL_HEAD_FIX "http://106.75.135.78:1701" ///外网
+//#define URL_HEAD_FIX "http://172.23.1.40:1701" 
+#define URL_HEAD  HttpMannger::getInstance()->getCurUrl().c_str()
 #define URL_BASECONFIG  "/config/get/base"
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
@@ -74,8 +75,7 @@ public:
 	void HttpToPostRequestLogInByName(const char*nickname, const char* password);//账号登录
 	void onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpResponse *response);
 
-	void HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp,int maxTurretLevel,int PayRMB,int nobillityCount);//上传同步信息
-	void onHttpRequestCompletedForSyncInfo(HttpClient *sender, HttpResponse *response);
+	
 
 
 
@@ -90,9 +90,6 @@ public:
 	void HttpToPostRequestBeforePay(int paythirdtype,std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, std::string pay_point_desc, int price, int result = 0, const char* orderid = "0", int paytype = 0);//下单
 	void onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpResponse *response);
 
-	void HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price, int result, const char* orderid, int paytype = 1);//上传购买信息
-	void onHttpRequestCompletedForAfterPay(HttpClient *sender, HttpResponse *response);
-
 	void HttpToPostRequestDemandEntry(std::string prepayid, int reqNum);//用户支付完后查询订单	
 	void onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpResponse *response);
 
@@ -106,7 +103,7 @@ public:
 	void HttpToPostRequestToGetUserInfo(); //获取用户信息
 	void onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpResponse *response);
 
-	void HttpToPostRequestToGetItemInfo(bool isOpenBag); //获取用户背包道具数量
+	void HttpToPostRequestToGetItemInfo(); //获取用户背包道具数量
 	void onHttpRequestCompletedForGetItemInfo(HttpClient *sender, HttpResponse *response);
 	
 	void HttpToPostRequestToBuyItem(int itemid); //背包购买道具
@@ -147,7 +144,17 @@ public:
 
 	void HttpToPostRequestGetAchieveReward(int missionId); //领取任务奖励
 	void onHttpRequestCompletedForGetAchieveReward(HttpClient *sender, HttpResponse *response);
+
+
+
+
 private:
+	bool checkIsRelogin(int msgId,std::string msg);///会话ID失效，重新登录
+
+	CC_SYNTHESIZE(std::string, _curUrl, CurUrl);
+
+	CC_SYNTHESIZE(std::string, _gameUrl, GameUrl);
+	CC_SYNTHESIZE(int, _gamePort, GamePort);
 	HttpMannger();
     void init();
 	static HttpMannger* _instance;

@@ -156,9 +156,46 @@ void ShowBoxLayer::quedingcallback(Ref*psend)
 	}
 	else
 	{
+		auto _listen = EventListenerCustom::create("openBox", [=](EventCustom*event)
+		{
+			LoadingCircle::RemoveLoadingCircle();
+			OpenBoxValue *value =(OpenBoxValue*)( event->getUserData());
+			TwiceSureDialog*dialog;
+			switch (value->_errorcode)
+			{
+			case 0:
+				BagManager::getInstance()->changeItemCount(m_itemId, -1);
+				User::getInstance()->addCoins(value->_reward_coins);
+				User::getInstance()->setUserBoxLevel(value->_chestLevel);
+				if (value->_reward_coins > 0)
+				{
+					auto str = String::createWithFormat(ChineseWord("getXXcoin").c_str(), value->_reward_coins);
+					dialog = TwiceSureDialog::createDialog(str->getCString());
+				}
+				else
+				{
+					auto str = String::createWithFormat("upgrade chest lv to %d", value->_chestLevel);
+					dialog = TwiceSureDialog::createDialog(str->getCString());
+				}
+				break;
+			case 404:
+				dialog = TwiceSureDialog::createDialog("time out");
+				break;
+			default:
+				dialog = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+				break;
+			}
+			dialog->setPosition(0, 0);
+			getParent()->addChild(dialog, 30);
+			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("openBox");
+			((BagLayer*)getParent())->gettableview()->reloadData();
+			removeFromParentAndCleanup(true);
+
+		});
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listen,1);
 		HttpMannger::getInstance()->HttpToPostRequestOpenBox(m_itemId);
 		LoadingCircle::showLoadingCircle();
-		NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(ShowBoxLayer::httpCallback), "openBox", NULL);
+
 	}
 	
 	

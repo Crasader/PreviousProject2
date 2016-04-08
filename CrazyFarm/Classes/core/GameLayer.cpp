@@ -36,8 +36,7 @@
 #include "domain/bonuspool/BonusPoolManager.h"
 #include "domain/turntable/TurnTableDialog.h"
 #define BOOMRADIUS 300
-//#define TCPIDURL "106.75.141.82" //外网
-#define TCPIDURL "172.23.1.40" //内网
+
 enum
 {
 	kTagBaseturret= 10,
@@ -60,7 +59,6 @@ bool GameLayer::init(){
 	setIsShowYourChairno(false);
 	FishManage::getInstance()->setlayer(this);
 	skillManager::getInstance()->setlayer(this);
-	GameManage::getInstance()->setGameyer(this);
 	//add game bg to this layer
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	game_bg = Sprite::create("aniWater1.jpg");
@@ -141,8 +139,6 @@ bool GameLayer::init(){
 
 
 	//初始化完毕，建立连接
-	Server::getInstance()->conConnect(TCPIDURL, 3050, User::getInstance()->getSessionid().c_str(), GameData::getInstance()->getRoomID());   // TODO  : test init server
-	Server::getInstance()->add_observer(this);
 	schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 		
 
@@ -204,35 +200,35 @@ void GameLayer::createTurret(){
 
 
 
-	//RoomPlayer* usera = new RoomPlayer();
-	//usera->setCoins(1200000);
-	//usera->setDiamonds(100);
-	//usera->setLevel(10l);
-	//usera->setMaxTurretLevel(1);
-	//usera->setUserName("robot");
-	//usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
-	//usera->setChestLv(2);
-	//AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
-	//usera->setAi(ai);
-	//int uiPos = 3;
-	//if (uiPos > 3)
-	//{
-	//	uiPos -= 4;
-	//}
-	//if (uiPos < 0)
-	//{
-	//	uiPos += 4;
-	//}
-	//usera->setRoomPosition(uiPos);
+	/*RoomPlayer* usera = new RoomPlayer();
+	usera->setCoins(1200000);
+	usera->setDiamonds(100);
+	usera->setLevel(10l);
+	usera->setMaxTurretLevel(1);
+	usera->setUserName("robot");
+	usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
+	usera->setChestLv(2);
+	AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
+	usera->setAi(ai);
+	int uiPos = 3;
+	if (uiPos > 3)
+	{
+		uiPos -= 4;
+	}
+	if (uiPos < 0)
+	{
+		uiPos += 4;
+	}
+	usera->setRoomPosition(uiPos);
 
-	//auto otherTurret = PlayerTurret::create();
-	//otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-	//otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
-	//otherTurret->initWithDate(usera);
-	//otherTurrets.pushBack(otherTurret);
-	//addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
+	auto otherTurret = PlayerTurret::create();
+	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+	otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
+	otherTurret->initWithDate(usera);
+	otherTurrets.pushBack(otherTurret);
+	addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
 
-	//TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
+	TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);*/
 }
 
 
@@ -423,6 +419,7 @@ bool GameLayer::sortFish(const Fish * m1, const Fish * m2) {
 	float distans2 = m2->getPosition().distance(_tempBullerPos);
 	return distans1 < distans2;
 }
+
 void GameLayer::collisionUpdate(float dt)
 {
 	//TODO 碰撞逻辑
@@ -462,7 +459,7 @@ void GameLayer::collisionUpdate(float dt)
 						per = perForLevel;
 					}
 				}
-				if (k < (per*turretdata.catch_per))
+				if (k < (per*turretdata.catch_per*bullet->getPlayerTurret()->getchestper()))
 				{
 					GameManage::getInstance()->CatchTheFishOntheTurrent(curryFish, 1, bullet->getPlayerTurret());
 				}
@@ -980,6 +977,7 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 	user->setUserName(msg->username.c_str());
 	user->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
 	user->setChestLv(msg->box_level);
+	user->setchestper(msg->catch_per);
 	AI* ai = AIManager::getInstance()->getAI(user->getMaxTurretLevel());
 	user->setAi(ai);
 	int uiPos = msg->roomPos - m_curIndex + m_index;
@@ -994,6 +992,7 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 	user->setRoomPosition(uiPos);
 
 	auto otherTurret = PlayerTurret::create();
+	otherTurret->setcurRoomPos(msg->roomPos);
 	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
 	otherTurret->setPosition(turretPos[user->getRoomPosition()]);
 	otherTurret->initWithDate(user);
@@ -1006,18 +1005,20 @@ void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 {
 	for (auto var:otherTurrets)
 	{
-		if (var->getRoomPos() == msg->roomPos)
+		if (var->getcurRoomPos() == msg->roomPos)
 		{
-			var->removeFromParentAndCleanup(1);
+			TxtWaitingTurrent[var->getRoomPos()]->setVisible(true);
 			otherTurrets.eraseObject(var);
-			TxtWaitingTurrent[msg->roomPos]->setVisible(true);
+			var->removeFromParentAndCleanup(1);
+		
+			
 			return;
 		}
 	}
 }
 void GameLayer::onClientInit(Msg_onInit* msg)
 {
-	User::getInstance()->setcatchPer(msg->_catchper);
+	isInitMsg = true;
 	//初始座位
 	createTurret();
 	m_curIndex = msg->roomPos;
@@ -1122,6 +1123,16 @@ void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 void GameLayer::onConError(Msg_ConError*msg)
 {
 	pause();
+	for (auto var:FishManage::getInstance()->getAllFishInPool())
+	{
+		var->pause();
+	}
+	for (auto var:BulletManage::getInstance()->getAllBullets())
+	{
+		var->pause();
+	}
+	unscheduleAllCallbacks();
+
 	auto dioag = TwiceSureDialog::createDialog(ChineseWord("ConError").c_str(), CC_CALLBACK_1(GameLayer::exitCallback, this));
 	dioag->setPosition(0, 0);
 	dioag->setCloseButtonCallback(CC_CALLBACK_1(GameLayer::exitCallback, this));
@@ -1251,6 +1262,21 @@ void GameLayer::ToPayShopCallBack(Ref*psend)
 void GameLayer::MsgUpdata(float dt)
 {
 	auto msg = Msgs;
+
+	///确保首先执行init方法
+	bool isHavaInitOrConError = false;
+	for (auto var:msg)
+	{
+		if (var->getMsgId() == MsgInit||var->getMsgId()==MsgConError)
+		{
+			isHavaInitOrConError = true;
+			break;
+		}
+	}
+	if (isInitMsg==false&&isHavaInitOrConError==false)
+	{
+		return;
+	}
 	//防止异步线程加入时，Msgs越界处理
 	for (auto var : msg)
 	{

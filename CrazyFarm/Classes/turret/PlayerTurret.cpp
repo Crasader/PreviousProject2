@@ -442,7 +442,7 @@ void PlayerTurret::shoot(float degree){
 	bullet->setRotation(degree);
 	bullet->setPosition(/*this->getPosition()*/m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
-	getParent()->addChild(bullet, 8);
+	getParent()->addChild(bullet, kZorderBullet);
 
 	//ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½
 
@@ -544,7 +544,7 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 void PlayerTurret::initWithDate(User* user, int index)
 {
 	m_turret->setIsRobot(false);
-
+	_chestPer = user->getcatchPer();
 
 	int boxlv = user->getUserBoxLevel();
 
@@ -586,7 +586,7 @@ void PlayerTurret::initWithDate(RoomPlayer* user)
 {
 
 	int boxlv = user->getChestLv();
-	
+	_chestPer = user->getchestper();
 
 
 	if (boxlv > 0)
@@ -641,7 +641,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 
 		num = fish->getFishGold() * m_turretdata.multiple;
 		auto nowNum = Value(m_CoinLabel->getString()).asInt();
-		m_CoinLabel->setString(String::createWithFormat("%ld",nowNum+num)->getCString());
+		m_CoinLabel->setString(String::createWithFormat("%ld", nowNum + num)->getCString());
 
 
 	}
@@ -655,9 +655,9 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 		m_turretdata = GameData::getInstance()->getTurrentData();
 
 
-		num = fish->getFishGold()* m_turretdata.multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
+		num = fish->getFishGold()* m_turretdata.multiple;
 		m_CoinLabel->setString(String::createWithFormat("%ld", User::getInstance()->addCoins(num))->getCString());
-		GameData::getInstance()->setgainCoin(GameData::getInstance()->getgainCoin()+num);
+		GameData::getInstance()->setgainCoin(GameData::getInstance()->getgainCoin() + num);
 
 		auto exp = fish->getFishExperience();
 		User::getInstance()->addExp(exp);
@@ -665,16 +665,16 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 
 
 
-		
-		if (fish->getFishType()==AllKilledFish)
+
+		if (fish->getFishType() == AllKilledFish||fish->getFishType()==AllKilledFishEX)
 		{
-			GameData::getInstance()->addCatchFishes(fish->getuiId(),m_turretdata.multiple);
+			GameData::getInstance()->addCatchFishes(fish->getuiId(), m_turretdata.multiple);
 		}
 		else
 		{
 			GameData::getInstance()->addCatchFishes(fish->getFishID(), m_turretdata.multiple);
 		}
-		
+
 		if (fish->getBounsPoorGold()>0)
 		{
 			GameData::getInstance()->addGoldCatchFishes(fish->getFishID());
@@ -835,7 +835,7 @@ void PlayerTurret::rorateAndShootOnlight(float dt)
 		}
 	}
 
-	if (k < (per*turretdata.catch_per * 2))
+	if (k < (per*turretdata.catch_per * 2*getchestper()))
 	{
 		GameManage::getInstance()->CatchTheFishOntheTurrent(lightFish, 1, this);
 		lightFish = nullptr;
@@ -977,14 +977,14 @@ void PlayerTurret::shootOnLock(float dt){
 	bullet->setPlayerTurret(this);
 	auto duration = pos.distance(lockFish->convertToWorldSpace(lockFish->getCentrenPos())) / GameConfig::getInstance()->getShootData().shootSpeed;
 	bullet->moveToLockfish(duration, lockFish);
-	getParent()->addChild(bullet, 8);
+	getParent()->addChild(bullet, kZorderBullet);
 
 
 
 
 	m_turret->shoot();
 
-
+	
 	costMoney();
 }
 
@@ -1030,14 +1030,9 @@ void PlayerTurret::shootOnAuto(float dt){
 	auto pos = m_turret->getTampionPos();
 	bullet->setPosition(m_turret->getTampionPos());
 	bullet->setPlayerTurret(this);
-	getParent()->addChild(bullet, 8);
+	getParent()->addChild(bullet, kZorderBullet);
 	m_turret->shoot();
-
-	//ï¿½ï¿½ï¿½ð¶¯»ï¿½
 	
-
-
-	//ï¿½ï¿½ï¿½Ñ½ï¿½ï¿?
 	costMoney();
 }
 
@@ -1176,13 +1171,11 @@ void PlayerTurret::costMoney()
 			node->removeFromParentAndCleanup(1);
 		}
 
-		//¹Ø±ÕÔùËÍ
-		/*	GameData::getInstance()->setShotDiamondCount(1 + (GameData::getInstance()->getShotDiamondCount()));
-			GameData::getInstance()->setShotPropCount(1 + (GameData::getInstance()->getShotPropCount()));*/
-
-
-
 		GameData::getInstance()->setshootCounts(GameData::getInstance()->getshootCounts() + 1);
+		if (GameData::getInstance()->getshootCounts()>80)
+		{
+			GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
+		}
 
 		auto num = Value(m_turretdata.multiple).asInt();
 		GameData::getInstance()->setcostCoin(GameData::getInstance()->getcostCoin() + num);

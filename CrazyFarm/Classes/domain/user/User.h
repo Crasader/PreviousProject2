@@ -26,7 +26,7 @@ public:
 	int getNobillityCount();
 
 	int addCoins(int coins);
-	unsigned long getCoins();
+	long getCoins();
 	void setCoins(unsigned long coins){ _coins = coins; }
 
 	bool addExp(int exp);
@@ -34,7 +34,7 @@ public:
 	void setExp(int exp){ _exp = exp; }
 
 	int addDiamonds(int diamond);
-	unsigned long getDiamonds();
+	long getDiamonds();
 	void setDiamonds(unsigned long diamonds){ _diamond = diamonds; }
 
     int getMaxTurrentLevel();
@@ -98,8 +98,8 @@ private:
 	CC_SYNTHESIZE(int, _userGenderd, UserGender);
 	CC_SYNTHESIZE(int, _nobilityDay, NobilityDay);
 	CC_SYNTHESIZE(float, _catchPer, catchPer);
-	unsigned long _coins =0;
-	unsigned long  _diamond = 0;
+	long _coins =0;
+	long  _diamond = 0;
 
 	int _exp=0;
 	int _chargeMoney = 0;

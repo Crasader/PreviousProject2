@@ -54,7 +54,7 @@ void RoomCell::isBeClicked()
 	{
 		auto layer = TwiceSureDialog::createDialog(ChineseWord("enterRoomTip").c_str(),CC_CALLBACK_1(RoomCell::TiPCallBack,this));
 		layer->setPosition(-480,-270);
-		getParent()->addChild(layer, 30, "tip");
+		getParent()->addChild(layer, 100, "tip");
 	}
 	else
 	{
@@ -66,14 +66,9 @@ void RoomCell::isBeClicked()
 
 		}
 		GameData::getInstance()->setRoomID(m_room.room_id);
-		if (GameData::getInstance()->getisLoadMsgOnGame())
-		{
-			Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
-		}
-		else
-		{
-			Director::getInstance()->replaceScene(TransitionFade::create(1, LoadingSceneLbToGm::createScene()));
-		}
+
+			Director::getInstance()->replaceScene( LoadingSceneLbToGm::createScene());
+		
 	}
 	
 }

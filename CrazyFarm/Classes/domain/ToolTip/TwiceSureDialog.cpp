@@ -68,20 +68,7 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 		listenr1->setSwallowTouches(true);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, this);
 
-		//添加系统返回键监听
-		auto listener = EventListenerKeyboard::create();
-		listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
-			switch (code)
-			{
-			case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
-				break;
-			case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-				break;
-			default:
-				break;
-			}
-		};
-		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+	
 		/////////弹出动画
 		bg->setScale(0);
 		bg->runAction(Sequence::create(ScaleTo::create(0.2f, 1.0f), ScaleTo::create(0.07f, 0.8f), ScaleTo::create(0.07f, 1.0f), nullptr));

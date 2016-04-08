@@ -24,8 +24,8 @@ enum
 {
 	kZorderMenu = 20,
 	kZorderDialog = 30,
-	kZorderNet = 11,
-	kZorderBullet = 12,
+	kZorderNet = 12,
+	kZorderBullet = 11,
 	kZorderTurrent = 13
 };
 enum FishZorder

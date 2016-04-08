@@ -164,55 +164,78 @@ void LoadingScene::imageFishAniAsyncCallback(Texture2D* texture, void*aniData)
 void LoadingScene::toRegister()
 {
 	isRegisterdialog = false;
+
+
 	LoginMannger::getInstance()->toRegister();
-	NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(LoadingScene::httpCallback), "firstRegister", NULL);
 
-}
-void LoadingScene::httpCallback(Ref*psend)
-{
-	FirstRegisterValue *value = (FirstRegisterValue*)psend;
-	switch (value->_errorcode)
-	{
-	case 0:
-		isRegisterdialog = true;
-		User::getInstance()->setSessionid(value->_sesssionid);
-		User::getInstance()->setUserName(value->username);
-		User::getInstance()->setUserGender(0);
-		LoginMannger::getInstance()->addMemoryNickname(value->username.c_str(), "defalut");
-		NewbieMannger::getInstance()->setNBRewards(value->rewards);
-		NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
-		load();
+
+	EventListenerCustom* _listener2 = EventListenerCustom::create("firstRegister", [=](EventCustom* event){
+
+		FirstRegisterValue*value = static_cast<FirstRegisterValue*>(event->getUserData());
+		switch (value->_errorcode)
+		{
+		case 0:
+			isRegisterdialog = true;
+			User::getInstance()->setSessionid(value->_sesssionid);
+			User::getInstance()->setUserName(value->username);
+			User::getInstance()->setUserGender(0);
+			LoginMannger::getInstance()->addMemoryNickname(value->username.c_str(), "defalut");
+			NewbieMannger::getInstance()->setNBRewards(value->rewards);
+			NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
+			load();
+			break;
+		case 404:
+		{
+			auto scene = LoginScene::createScene();
+			Director::getInstance()->replaceScene(scene);
+			auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
+			dioag->setPosition(0, 0);
+			scene->addChild(dioag, 30);
+		}
 		break;
-	case 404:
-	{
-		auto scene = LoginScene::createScene();
-		Director::getInstance()->replaceScene(scene);
-		auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
-		dioag->setPosition(0, 0);
-		scene->addChild(dioag, 30);
-	}
-	break;
-	default:
-	{
-		auto scene = LoginScene::createScene();
-		Director::getInstance()->replaceScene(scene);
-		auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
-		dioag->setPosition(0, 0);
-		scene->addChild(dioag, 30);
-	}
-	break;
-	}
-	NotificationCenter::getInstance()->removeObserver(this, "firstRegister");
-	delete value;
-}
+		case 310:
+		{
+			auto menu = getChildByName("menu");
+			auto bt = menu->getChildByName("loginBt");
+			((MenuItemImage*)bt)->setEnabled(true);
+			auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str(), CC_CALLBACK_1(LoadingScene::openUrl, this));
+			dioag->setName(value->_downurl);
+			dioag->setPosition(0, 0);
+			addChild(dioag, 30);
+		}
+		break;
+		default:
+		{
+			auto scene = LoginScene::createScene();
+			Director::getInstance()->replaceScene(scene);
+			auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+			dioag->setPosition(0, 0);
+			scene->addChild(dioag, 30);
+		}
+		break;
+		}
+		delete value;
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("firstRegister");
 
+	});
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+}
+void LoadingScene::openUrl(Ref*psend)
+{
+	Application::getInstance()->openURL(((Node*)psend)->getParent()->getParent()->getParent()->getName());
+}
 
 
 void LoadingScene::loadRes()
 {
+	static bool isLoadJson = false;
+	if (!isLoadJson)
+	{
+		isLoadJson = true;
+		ConfigManager::getInstance()->LoadConfig();
+	}
 	
 	
-	ConfigManager::getInstance()->LoadConfig();
 
 	/*ConfigSign::getInstance()->LoadConfig();*/
 	//´óÌü¶¯»­

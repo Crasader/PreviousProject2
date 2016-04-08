@@ -159,11 +159,66 @@ void RegisterDialog::loginCallBack(Ref*psend)
 	int type = checkRegister(nickname, password, repeatPassword);
 	if (type==0)
 	{
-		LoginMannger::getInstance()->toRegister(nickname.c_str(), password.c_str(), sex);
+		
 
 		((MenuItemImage*)psend)->setEnabled(false);
+		LoginMannger::getInstance()->toRegister(nickname.c_str(), password.c_str(), sex);
+		EventListenerCustom* _listener2 = EventListenerCustom::create("register", [=](EventCustom* event){
+
+			LoadingCircle::RemoveLoadingCircle();
+			RegisterValue*value = static_cast<RegisterValue*>(event->getUserData());
+			switch (value->_errorcode)
+			{
+			case 0:
+			{
+				User::getInstance()->setSessionid(value->_sesssionid);
+				User::getInstance()->setUserName(_editNickname->getText());
+				User::getInstance()->setUserGender(sex);
+				LoginMannger::getInstance()->addMemoryNickname(_editNickname->getText(), _editPassword->getText());
+				auto scene = LoadingScene::createScene();
+				Director::getInstance()->replaceScene(scene);
+				NewbieMannger::getInstance()->setNBRewards(value->rewards);
+				NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
+			}
+			break;
+			case 404:
+			{
+				auto menu = getChildByName("menu");
+				auto bt = menu->getChildByName("surebt");
+				((MenuItemImage*)bt)->setEnabled(true);
+				auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
+				dioag->setPosition(0, 0);
+				addChild(dioag, 30);
+			}
+			break;
+			case 310:
+			{
+				auto menu = getChildByName("menu");
+				auto bt = menu->getChildByName("loginBt");
+				((MenuItemImage*)bt)->setEnabled(true);
+				auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str(), CC_CALLBACK_1(RegisterDialog::openUrl, this));
+				dioag->setName(value->_downurl);
+				dioag->setPosition(0, 0);
+				addChild(dioag, 30);
+			}
+			break;
+			default:
+			{
+				auto menu = getChildByName("menu");
+				auto bt = menu->getChildByName("loginBt");
+				((MenuItemImage*)bt)->setEnabled(true);
+				auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+				dioag->setPosition(0, 0);
+				addChild(dioag, 30);
+			}
+			break;
+			}
+			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("register");
+
+		});
 		LoadingCircle::showLoadingCircle();
-		NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(RegisterDialog::httpCallback), "register", NULL);
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+
 	}
 	
 }
@@ -212,45 +267,8 @@ void RegisterDialog::editBoxReturn(ui::EditBox* editBox)
 }
 
 
-void RegisterDialog::httpCallback(Ref*psend)
-{
-	LoadingCircle::RemoveLoadingCircle();
-	RegisterValue *value = (RegisterValue*)psend;
-	switch (value->_errorcode)
-	{
-	case 0:
-	{	
-		User::getInstance()->setSessionid(value->_sesssionid);
-		User::getInstance()->setUserName(_editNickname->getText());
-		User::getInstance()->setUserGender(sex);
-		LoginMannger::getInstance()->addMemoryNickname(_editNickname->getText(), _editPassword->getText());
-		auto scene = LoadingScene::createScene();
-		Director::getInstance()->replaceScene(scene);
-		NewbieMannger::getInstance()->setNBRewards(value->rewards);
-		NewbieMannger::getInstance()->setisAllowdedGetFirstReward(true);
-	}
-		break;
-	case 404:
-	{
-		auto menu = getChildByName("menu");
-		auto bt = menu->getChildByName("surebt");
-		((MenuItemImage*)bt)->setEnabled(true);
-		auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
-		dioag->setPosition(0, 0);
-		addChild(dioag, 30);
-	}
-	break;
-	default:
-	{
-		auto menu = getChildByName("menu");
-		auto bt = menu->getChildByName("loginBt");
-		((MenuItemImage*)bt)->setEnabled(true);
-		auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
-		dioag->setPosition(0, 0);
-		addChild(dioag, 30);
-	}
-	break;
-	}
-	NotificationCenter::getInstance()->removeObserver(this, "CDKEY");
 
+void RegisterDialog::openUrl(Ref*psend)
+{
+	Application::getInstance()->openURL(((Node*)psend)->getParent()->getParent()->getParent()->getName());
 }

@@ -149,7 +149,7 @@ void Bullet::moveTolockFishUpadate(float dt)
 					per = perForLevel;
 				}
 			}
-			if (k < (per*turretdata.catch_per))
+			if (k < (per*turretdata.catch_per*getPlayerTurret()->getchestper()))
 			{
 				GameManage::getInstance()->CatchTheFishOntheTurrent(curryFish, 1, getPlayerTurret());
 			}

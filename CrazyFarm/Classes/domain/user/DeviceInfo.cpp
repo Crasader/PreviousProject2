@@ -53,3 +53,9 @@ int DeviceInfo::getVesion()
 	return 7;//ÕýÊ½°æ±¾7
 #endif
 }
+
+
+int DeviceInfo::getGameVersion()
+{
+	return 0;
+}

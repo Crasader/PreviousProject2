@@ -14,5 +14,6 @@ public:
 	int vip_level;
 	int box_level;
 	int roomPos;
+	float catch_per;
 };
 

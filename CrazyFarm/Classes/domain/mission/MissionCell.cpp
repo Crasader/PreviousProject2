@@ -10,7 +10,7 @@ bool MissionCell::init(){
 	auto bg = Sprite::create("missionBg.png");
 	auto size = bg->getContentSize();
 	bg->setPosition(size/2);
-	addChild(bg);
+	addChild(bg,0,"bg");
 
 
 
@@ -20,8 +20,8 @@ bool MissionCell::init(){
 	bg->addChild(_missionContant);
 
 	auto sp = Sprite::create("missionBarFrane.png");
-	sp->setPosition(140, 41);
-	bg->addChild(sp);
+	sp->setPosition(140-20, 41);
+	bg->addChild(sp,0,"missionBarFrane");
 
 	_progressbar = ui::LoadingBar::create("missionBar.png");
 	_progressbar->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -70,7 +70,7 @@ void MissionCell::btCallback(Ref*psend)
 					BagManager::getInstance()->addreward(var._itemid, var._num);
 				}
 				_item.isReceive = true;
-				for (auto var : MissionManager::getInstance()->getMissionListData())
+				for (auto &var : MissionManager::getInstance()->getMissionListData())
 				{
 					if (var.mission_id == _item.mission_id)
 					{
@@ -102,6 +102,11 @@ void MissionCell::btCallback(Ref*psend)
 void MissionCell::setValue(MissionListItem item)
 {
 	_item = item;
+	if (_item.current_nums>=_item
+		.require_nums)
+	{
+		_item.current_nums = _item.require_nums;
+	}
 	auto str = String::createWithFormat("CrazyFarm_Mission_%d.png", _item.mission_id);
 	_missionContant->setTexture(str->getCString());
 	str = String::createWithFormat("%d:%d", _item.current_nums, _item.require_nums);
@@ -117,6 +122,7 @@ void MissionCell::setValue(MissionListItem item)
 	{
 		bt->setNormalImage(Sprite::create("Havetoreceive.png"));
 		bt->setEnabled(false);
+		getChildByName("bg")->getChildByName("missionBarFrane")->setVisible(false);
 	}
 	else
 	{
@@ -133,6 +139,7 @@ void MissionCell::setValue(MissionListItem item)
 			bt->setSelectedImage(Sprite::create("missionGoto_2.png"));
 			bt->setEnabled(true);
 		}
+		getChildByName("bg")->getChildByName("missionBarFrane")->setVisible(true);
 	}
 
 }

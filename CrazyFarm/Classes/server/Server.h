@@ -38,7 +38,7 @@ USING_NS_CC;
 class Server{
 public:
 	static Server* getInstance();
-	void conConnect(char* host, int port, const char* session_id, int room_id);
+	void conConnect(const char* host, int port, const char* session_id, int room_id);
 	void quit();
 
 	void add_observer(MsgObserver *o);

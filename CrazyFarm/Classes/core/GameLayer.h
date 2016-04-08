@@ -114,6 +114,7 @@ private:
 
 	//utill
 	static bool sortFish(const Fish * m1, const Fish * m2);
+	
 
 	PlayerTurret* myTurret = NULL;
 
@@ -149,6 +150,7 @@ private:
 	void onSomeoneLeave(Msg_onLeave* msg);
 	void onSomeoneComing(Msg_onAdd* msg);
 	void onClientInit(Msg_onInit* msg);
+	bool isInitMsg = false;
 	void onFishesMsg(Msg_OnFishes*msg);
 	void onConError(Msg_ConError*msg);
 	void onUpdateTurrent(Msg_OnUpdateTurrent*msg);

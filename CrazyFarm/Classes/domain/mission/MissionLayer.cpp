@@ -95,20 +95,11 @@ bool MissionLayer::init()
 		coinButton->selected();
 
 
-	//添加系统返回键监听
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
-		switch (code)
-		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-			break;
-		default:
-			break;
-		}
-	};
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+		LabelTTF*tip = LabelTTF::create(ChineseWord("dayMissionTxt").c_str(), "arial", 18);
+		tip->setAnchorPoint(Point::ANCHOR_MIDDLE);
+		tip->setColor(Color3B::RED);
+		tip->setPosition(542, 439);
+		bg->addChild(tip,0,"tip");
 		bRet = true;
 	} while (0);
 	
@@ -133,6 +124,7 @@ void MissionLayer::changeTypeCallBack(Ref*psend)
 		otherBt->unselected();
 		otherBt->setEnabled(true);
 		changeToMissionlist();
+		getChildByName("bg")->getChildByName("tip")->setVisible(true);
 	}
 	else
 	{
@@ -142,6 +134,7 @@ void MissionLayer::changeTypeCallBack(Ref*psend)
 		otherBt->unselected();
 		otherBt->setEnabled(true);
 		changeToAchievelist();
+		getChildByName("bg")->getChildByName("tip")->setVisible(false);
 	}
 }
 void MissionLayer::changeToMissionlist()

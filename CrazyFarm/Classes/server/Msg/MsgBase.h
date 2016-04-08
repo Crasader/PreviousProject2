@@ -9,7 +9,8 @@ using namespace cocos2d;
 enum MsgId
 {
 	MsgConError = 0,	// 'conError' - connect error
-	MsgInit,			// 'init' - client defined info ...
+	MsgPayresult,
+	MsgInit,// 'init' - client defined info ...
 	MsgOnAdd,			// 'onAdd' - new user coming ...
 	MsgOnLeave,		// 'onLeave' - user leave room ...
 	MsgOnFishes,	// 'onFishes' - broadcast fish info ...
@@ -21,7 +22,6 @@ enum MsgId
 	MsgOnMagnate,
 	MsgOnBankrupt,
 	MsgOnBankruptRebirth,
-	MsgPayresult
 };
 
 

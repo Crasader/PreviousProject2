@@ -10,6 +10,7 @@ bool Turret::init(){
 	
 	emptySp = nullptr;
 	lightSp = nullptr;
+	fireSp = nullptr;
 	setAnchorPoint(Vec2(0.5, 0.5));
 	return true;
 }
@@ -35,6 +36,13 @@ void Turret::initWithType(int type){
 	lightSp->setPosition(getContentSize().width / 2, getContentSize().height*0.5);
 	addChild(lightSp);
 
+	if (fireSp)
+	{
+		fireSp->removeFromParentAndCleanup(1);
+	}
+	fireSp = Sprite::create();
+	fireSp->setPosition(getContentSize().width / 2, getContentSize().height*1.1);
+	addChild(fireSp);
 
 }
 
@@ -50,15 +58,18 @@ void Turret::shoot()
 	auto distance = getContentSize().height*SCALETURRET*0.1;
 	auto movebypos = Vec2(distance*cos(CC_DEGREES_TO_RADIANS(90-getRotation())), distance*sin(CC_DEGREES_TO_RADIANS(90-getRotation())));
 
-	runAction(Sequence::create(/*DelayTime::create(0.1f),*/ CallFunc::create([=]{this->setScale(1 * SCALETURRET, 0.8*SCALETURRET); this->setPosition(getPosition() - movebypos); }), DelayTime::create(0.1f),
-		CallFunc::create([=]{this->setScale(1 * SCALETURRET, 1.0*SCALETURRET); this->setPosition(getPosition() +movebypos); }), nullptr));
-
+	auto ac = Sequence::create( CallFunc::create([=]{this->setScale(1 * SCALETURRET, 0.8*SCALETURRET); this->setPosition(getPosition() - movebypos); }), DelayTime::create(0.1f),
+		CallFunc::create([=]{this->setScale(1 * SCALETURRET, 1.0*SCALETURRET); this->setPosition(getPosition() + movebypos); }), nullptr);
+	runAction(ac);
 
 	auto aniNode = Sprite::create();
 
-	aniNode->setPosition(convertToWorldSpace(Vec2(getContentSize().width / 2, getContentSize().height*1.1)));
-	getParent()->getParent()->addChild(aniNode,getParent()->getZOrder()-1);
+	aniNode->setPosition(getContentSize().width/2,getContentSize().height*1.2);/*(m_turret->getPositionX(), m_turret->getPositionY()+m_turret->getContentSize().height*0.6*/;
+	addChild(aniNode, - 1);
+	auto ac1 = Sequence::create(CallFunc::create([=]{aniNode->setScale(1.0 / (1 * SCALETURRET), 1.0 / (0.8*SCALETURRET)); aniNode->setPosition(aniNode->getPosition() + movebypos); }), DelayTime::create(0.1f),
+		CallFunc::create([=]{aniNode->setScale(1.0 / (1 * SCALETURRET), 1.0 / (1.0*SCALETURRET)); aniNode->setPosition(aniNode->getPosition() - movebypos); }), nullptr);
 	aniNode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniShoot"), RemoveSelf::create(1), nullptr));
+	aniNode->runAction(ac1);
 
 	if (NewbieMannger::getInstance()->getNBShootCounts() != -1&&!isrobot)
 	{

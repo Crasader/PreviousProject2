@@ -10,6 +10,8 @@
 #include "domain/pay/Pay.h"
 #include "domain/login/LoginScene.h"
 #include "utill/AnimationUtil.h"
+#include "domain/game/GameManage.h"
+#include "server/Server.h"
 #include "domain/login/LoginMannger.h"
 USING_NS_CC;
 
@@ -125,6 +127,10 @@ void AppDelegate::applicationDidEnterBackground() {
 	Audio::getInstance()->pauseBGM();
 	LogEventMannger::getInstance()->sendMsg();
 	log("come to backgroud");
+	if (GameManage::getInstance()->getGameLayer())
+	{
+		Server::getInstance()->notify_observer("conError", "");
+	}
 
 }
 
@@ -137,7 +143,7 @@ void AppDelegate::applicationWillEnterForeground() {
 	{
 		Pay::getInstance()->CancelTheOrder();
 	}
-
+	
 	log("come to game");
 
 }

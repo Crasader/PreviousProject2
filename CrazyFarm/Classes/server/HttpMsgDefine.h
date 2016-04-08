@@ -21,6 +21,7 @@ struct LoginValue :public Ref
 	int _errorcode;
 	std::string _errormsg;
 	std::string _sesssionid;
+	std::string _downurl;
 
 };
 struct RegisterValue :public Ref
@@ -29,6 +30,7 @@ struct RegisterValue :public Ref
 	std::string _errormsg;
 	std::string _sesssionid;
 	std::vector<RewardValue> rewards;
+	std::string _downurl;
 };
 
 struct FirstRegisterValue :public Ref
@@ -38,6 +40,7 @@ struct FirstRegisterValue :public Ref
 	std::string _sesssionid;
 	std::vector<RewardValue> rewards;
 	std::string username;
+	std::string _downurl;
 };
 struct SetNameValue :public Ref
 {
@@ -156,4 +159,20 @@ struct DemandOrderValue
 	std::string _errormsg;
 	std::vector<RewardValue> rewards;
 	int realprice;
+};
+////-----------------------------pay--------------------------
+
+struct BagItemValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<RewardValue> itemLists;
+};
+
+struct BuyBagItemValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	int costDmNum;
+	int buyItemNum;
 };

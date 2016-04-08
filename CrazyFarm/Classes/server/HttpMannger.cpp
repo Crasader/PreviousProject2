@@ -33,9 +33,8 @@ HttpMannger* HttpMannger::getInstance(){
 
 void HttpMannger::HttpToPostRequestRegisterInfo(std::string channelId, const char* imei, const char* hd_type, const char* hd_factory)
 {
-	/*ShowWaiting(Req_Register);*/
-	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_REGISTER);
-	auto requstData = String::createWithFormat("channel_id=%s&imei=%s&hd_type=%s&hd_factory=%s", channelId.c_str(),imei, hd_type, hd_factory);
+	auto url = String::createWithFormat("%s%s", URL_HEAD_FIX, URL_REGISTER);
+	auto requstData = String::createWithFormat("channel_id=%s&imei=%s&hd_type=%s&hd_factory=%s&game_version=%d", channelId.c_str(),imei, hd_type, hd_factory,DeviceInfo::getGameVersion());
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForRegisterInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, HttpResponse *response)
@@ -82,6 +81,16 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 			}
 			value->rewards = rewards;
 			value->username = doc["user_name"].GetString();
+			auto str = String::createWithFormat("%s:%d", doc["app_address"].GetString(), doc["app_port"].GetInt());
+			setCurUrl(str->getCString());
+
+			setGameUrl(doc["game_address"].GetString());
+			setGamePort(doc["game_port"].GetInt());
+		}
+		else if (result==310)
+		{
+			value->_downurl = doc["url"].GetString();
+			value->_errormsg = doc["errormsg"].GetString();
 		}
 		else
 		{
@@ -89,15 +98,25 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 		}
 		break;
 	}
-	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("firstRegister", value); });
+	if (checkIsRelogin(value->_errorcode,value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("firstRegister");
+	}
+	else
+	{
+		EventCustom event("firstRegister");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
 }
 
 
 void HttpMannger::HttpToPostRequestRegisterForwardly(const char*nickname, const char* password, int gender, std::string channelId, const char* imei, const char* hd_type, const char* hd_factory)
 {
 
-	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_REGISTERFORWARDLY);
-	auto requstData = String::createWithFormat("channel_id=%s&imei=%s&hd_type=%s&hd_factory=%s&nick_name=%s&password=%s&gender=%d", channelId.c_str(), imei, hd_type, hd_factory,nickname,password,gender);
+	auto url = String::createWithFormat("%s%s", URL_HEAD_FIX, URL_REGISTERFORWARDLY);
+	auto requstData = String::createWithFormat("channel_id=%s&imei=%s&hd_type=%s&hd_factory=%s&nick_name=%s&password=%s&gender=%d&game_version=%d", channelId.c_str(), imei, hd_type, hd_factory,nickname,password,gender,DeviceInfo::getGameVersion());
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForRegisterForwardly, this));
 
 }
@@ -144,6 +163,17 @@ void HttpMannger::onHttpRequestCompletedForRegisterForwardly(HttpClient *sender,
 
 			}
 			value->rewards = rewards;
+			auto str = String::createWithFormat("%s:%d", doc["app_address"].GetString(), doc["app_port"].GetInt());
+			setCurUrl(str->getCString());
+
+			setGameUrl(doc["game_address"].GetString());
+			setGamePort(doc["game_port"].GetInt());
+
+		}
+		else if (result == 310)
+		{
+			value->_downurl = doc["url"].GetString();
+			value->_errormsg = doc["errormsg"].GetString();
 		}
 		else
 		{
@@ -151,8 +181,17 @@ void HttpMannger::onHttpRequestCompletedForRegisterForwardly(HttpClient *sender,
 		}
 		break;
 	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("register");
+	}
+	else
+	{
+		EventCustom event("register");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
 
-	NotificationCenter::getInstance()->postNotification("register", value);
 }
 
 
@@ -164,8 +203,8 @@ void HttpMannger::onHttpRequestCompletedForRegisterForwardly(HttpClient *sender,
 
 void HttpMannger::HttpToPostRequestLogInInfo(std::string channelId, std::string username, const char* imei, const char*  hd_type, const char*  hd_factory)
 {
-	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_LOGIN);
-	auto requstData = String::createWithFormat("channel_id=%s&user_name=%s&imei=%s&hd_type=%s&hd_factory=%s", channelId.c_str(),username.c_str(), imei, hd_type, hd_factory);
+	auto url = String::createWithFormat("%s%s", URL_HEAD_FIX, URL_LOGIN);
+	auto requstData = String::createWithFormat("channel_id=%s&user_name=%s&imei=%s&hd_type=%s&hd_factory=%s&game_version=%d", channelId.c_str(),username.c_str(), imei, hd_type, hd_factory,DeviceInfo::getGameVersion());
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogInInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpResponse *response)
@@ -202,6 +241,16 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 		if (result == 0)
 		{
 			value->_sesssionid = doc["session_id"].GetString();
+			auto str = String::createWithFormat("%s:%d", doc["app_address"].GetString(), doc["app_port"].GetInt());
+			setCurUrl(str->getCString());
+
+			setGameUrl(doc["game_address"].GetString());
+			setGamePort(doc["game_port"].GetInt());
+		}
+		else if (result == 310)
+		{
+			value->_downurl = doc["url"].GetString();
+			value->_errormsg = doc["errormsg"].GetString();
 		}
 		else
 		{
@@ -209,22 +258,28 @@ void HttpMannger::onHttpRequestCompletedForLogInInfo(HttpClient *sender, HttpRes
 		}
 		break;
 	}
-
-	NotificationCenter::getInstance()->postNotification("login", value);
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("login");
+	}
+	else
+	{
+		EventCustom event("login");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
 }
 
 
 
 void HttpMannger::HttpToPostRequestLogInByName(const char*nickname, const char* password)
 {
-	/*ShowWaiting(Req_LoginByName);*/
-	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_BYNICKNAME);
-	auto requstData = String::createWithFormat("nick_name=%s&password=%s", nickname,password);
+	auto url = String::createWithFormat("%s%s", URL_HEAD_FIX, URL_BYNICKNAME);
+	auto requstData = String::createWithFormat("nick_name=%s&password=%s&game_version=%d", nickname,password,DeviceInfo::getGameVersion());
 	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForLogInByName, this));
 }
 void HttpMannger::onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpResponse *response)
 {
-	//RemoveWaiting(Req_LoginByName);
 	LoginValue* value = new LoginValue();
 	while (1)
 	{
@@ -242,11 +297,11 @@ void HttpMannger::onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpR
 		// dump data
 		std::vector<char> *buffer = response->getResponseData();
 		auto temp = std::string(buffer->begin(), buffer->end());
-		log("http back get cdkey info: %s", temp.c_str());
+		log("http back get loginbynickname info: %s", temp.c_str());
 		rapidjson::Document doc;
 		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 		if (doc.HasParseError())
-		{
+		{	
 			log("get json data err!");
 			value->_errorcode = TIMEOUT;
 			break;
@@ -257,6 +312,16 @@ void HttpMannger::onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpR
 		if (result == 0)
 		{
 			value->_sesssionid = doc["session_id"].GetString();
+			auto str = String::createWithFormat("%s:%d", doc["app_address"].GetString(), doc["app_port"].GetInt());
+			setCurUrl(str->getCString());
+
+			setGameUrl(doc["game_address"].GetString());
+			setGamePort(doc["game_port"].GetInt());
+		}
+		else if (result == 310)
+		{
+			value->_downurl = doc["url"].GetString();
+			value->_errormsg = doc["errormsg"].GetString();
 		}
 		else
 		{
@@ -264,8 +329,16 @@ void HttpMannger::onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpR
 		}
 		break;
 	}
-	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("login", value); });
-
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("login");
+	}
+	else
+	{
+		EventCustom event("login");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
 
 }
 
@@ -330,65 +403,18 @@ void HttpMannger::onHttpRequestCompletedForBeforePay(HttpClient *sender, HttpRes
 		}
 		break;
 	}
-	EventCustom event("Over_Book_Order");
-	event.setUserData(value);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
-}
-void HttpMannger::HttpToPostRequestAfterPay(std::string sessionid, int pay_and_Event_version, int pay_event_id, int pay_point_id, std::string channel_id, int price,int result, const char* orderid, int paytype )
-{
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	return;
-#endif
-
-	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_PAY);
-	auto requstData = String::createWithFormat("session_id=%s&pay_and_event_version=%d&pay_event_id=%d&pay_point_id=%d&channel_id=%s&price=%d&pay_type=%d&result=%d&order_id=%s",
-		sessionid.c_str(), pay_and_Event_version, pay_event_id, pay_point_id, channel_id.c_str(),price, paytype, result, orderid);
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForAfterPay, this));
-}
-
-void HttpMannger::onHttpRequestCompletedForAfterPay(HttpClient *sender, HttpResponse *response)
-{
-	if (!response)
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
 	{
-		return;
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("Over_Book_Order");
 	}
-	if (!response->isSucceed())
+	else
 	{
-		return;
+		EventCustom event("Over_Book_Order");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back afterpay info: %s", temp.c_str());
-}
-void HttpMannger::onHttpRequestCompletedForSyncInfo(HttpClient *sender, HttpResponse *response)
-{
-	if (!response)
-	{
-		return;
-	}
-	if (!response->isSucceed())
-	{
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back syncinfo  info: %s", temp.c_str());
-}
 
-void HttpMannger::HttpToPostRequestSyncInfo(std::string sessionid, int coin, int diamond, int exp, int maxTurretLevel, int PayRMB, int nobillityCount)
-{
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	return;
-#endif
-	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_SYNCINFO);
-	auto requstData = String::createWithFormat("session_id=%s&coins=%d&diamonds=%d&exp=%d&turrent_level=%d&mo=%d&nobility_time=%d", sessionid.c_str(), coin, diamond, exp, maxTurretLevel, PayRMB, nobillityCount);
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForSyncInfo, this));
 }
-
 
 void HttpMannger::onHttpRequestCompletedForBindName(HttpClient *sender, HttpResponse *response)
 {
@@ -428,8 +454,16 @@ void HttpMannger::onHttpRequestCompletedForBindName(HttpClient *sender, HttpResp
 		break;
 	}
 
-	NotificationCenter::getInstance()->postNotification("setname", value);
-
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("setname");
+	}
+	else
+	{
+		EventCustom event("setname");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
 	
 }
 
@@ -549,9 +583,16 @@ void HttpMannger::onHttpRequestCompletedForDemandEntry(HttpClient *sender, HttpR
 		}
 		break;
 	}
-	EventCustom event("DemandEntry");
-	event.setUserData(value);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("DemandEntry");
+	}
+	else
+	{
+		EventCustom event("DemandEntry");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
 }
 
 
@@ -653,13 +694,20 @@ void HttpMannger::onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpR
 		}
 		break;
 	}
-	EventCustom event("get_user_info");
-	event.setUserData(value);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_user_info");
+	}
+	else
+	{
+		EventCustom event("get_user_info");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
 }
 
 
-void HttpMannger::HttpToPostRequestToGetItemInfo(bool isOpenBag)
+void HttpMannger::HttpToPostRequestToGetItemInfo()
 {
 	auto sessionid = User::getInstance()->getSessionid();
 	if (sessionid == "")
@@ -668,46 +716,64 @@ void HttpMannger::HttpToPostRequestToGetItemInfo(bool isOpenBag)
 	}
 	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_ITEMINFO);
 	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
-	bool *_isopen = new bool(isOpenBag);
-	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetItemInfo, this), _isopen);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetItemInfo, this));
 }
 void HttpMannger::onHttpRequestCompletedForGetItemInfo(HttpClient *sender, HttpResponse *response)
 {
-	if (!response)
+	BagItemValue* value = new BagItemValue();
+	while (1)
 	{
-		return;
-	}
-	if (!response->isSucceed())
-	{
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back get user item info: %s", temp.c_str());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	if (doc.HasParseError())
-	{
-		log("get json data err!");;
-	}
-	int result = doc["errorcode"].GetInt();
-	if (result == 0)
-	{
-		auto &item_lists = doc["item_lists"];
-		for (unsigned int i = 0; i < item_lists.Size();i++)
+		if (!response)
 		{
-			BagManager::getInstance()->setItemNum(item_lists[i]["item_id"].GetInt(), item_lists[i]["nums"].GetInt());
+			value->_errorcode = TIMEOUT;
+			break;
 		}
-		bool isopen = *((bool*)(response->getHttpRequest()->getUserData()));
-		if (isopen)
+		if (!response->isSucceed())
 		{
-			Director::getInstance()->replaceScene(BagLayer::createScene());
+			value->_errorcode = TIMEOUT;
+			break;
 		}
-		
-	}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back getiteminfo cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
 
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto &rewards = doc["item_lists"];
+			for (unsigned int j = 0; j < rewards.Size(); j++)
+			{
+				value->itemLists.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+			}
+
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_bagitem_info");
+	}
+	else
+	{
+		EventCustom event("get_bagitem_info");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
 }
 void HttpMannger::HttpToPostRequestToBuyItem(int itemid) //背包购买道具
 {
@@ -723,42 +789,63 @@ void HttpMannger::HttpToPostRequestToBuyItem(int itemid) //背包购买道具
 }
 void HttpMannger::onHttpRequestCompletedForBuyItem(HttpClient *sender, HttpResponse *response)
 {
-	if (!response)
-	{
-		return;
-	}
-	if (!response->isSucceed())
-	{
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	// dump data
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back get user item info: %s", temp.c_str());
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	if (doc.HasParseError())
-	{
-		log("get json data err!");;
-	}
-	int result = doc["errorcode"].GetInt();
-	if (result == 0)
-	{
-		ToolTipMannger::ShowPaySuccessTip();
-		int itemid = *((int*)response->getHttpRequest()->getUserData());
-		BagManager::getInstance()->addreward(itemid, doc["buy_nums"].GetInt());
-		User::getInstance()->addDiamonds(-doc["diamonds_price"].GetInt());
 
-		auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
-		((BagLayer*)layer)->gettableview()->reloadData();
+	BuyBagItemValue* value = new BuyBagItemValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			value->buyItemNum = doc["buy_nums"].GetInt();
+			value->costDmNum = doc["diamonds_price"].GetInt();
+
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("buyitem");
+	}
+	else
+	{
+		EventCustom event("buyitem");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 	}
 }
 
 
 
 
-void HttpMannger::HttpToPostRequestCDKey(std::string cdkey) //背包购买道具
+void HttpMannger::HttpToPostRequestCDKey(std::string cdkey) 
 {
 	auto sessionid = User::getInstance()->getSessionid();
 	if (sessionid == "")
@@ -814,8 +901,16 @@ void HttpMannger::onHttpRequestCompletedForCDKey(HttpClient *sender, HttpRespons
 		}
 		break;
 	}
-	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("CDKEY", value); });
-	
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("CDKEY");
+	}
+	else
+	{
+		EventCustom event("CDKEY");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
 }
 
 void HttpMannger::HttpToPostRequestOpenBox(int itemid) //背包购买道具
@@ -871,7 +966,17 @@ void HttpMannger::onHttpRequestCompletedForOpenBox(HttpClient *sender, HttpRespo
 		}
 		break;
 	}
-	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){NotificationCenter::getInstance()->postNotification("openBox", value); });
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("openBox");
+	}
+	else
+	{
+		EventCustom event("openBox");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
 
 }
 
@@ -946,9 +1051,17 @@ void HttpMannger::onHttpRequestCompletedForGetMissionList(HttpClient *sender, Ht
 		}
 		break;
 	}
-	EventCustom event("get_mission_info");
-	event.setUserData(value);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_mission_info");
+	}
+	else
+	{
+		EventCustom event("get_mission_info");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
 }
 
 
@@ -1008,9 +1121,17 @@ void HttpMannger::onHttpRequestCompletedForGetMissionReward(HttpClient *sender, 
 		}
 		break;
 	}
-	EventCustom event("get_mission_rewards");
-	event.setUserData(value);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_mission_rewards");
+	}
+	else
+	{
+		EventCustom event("get_mission_rewards");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
 }
 
 
@@ -1119,9 +1240,17 @@ void HttpMannger::onHttpRequestCompletedForGetNobilityReward(HttpClient *sender,
 		}
 		break;
 	}
-	EventCustom event("get_guizu_rewards");
-	event.setUserData(value);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_guizu_rewards");
+	}
+	else
+	{
+		EventCustom event("get_guizu_rewards");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
 }
 
 
@@ -1177,9 +1306,18 @@ void HttpMannger::onHttpRequestCompletedForGetActiveInfo(HttpClient *sender, Htt
 		}
 		break;
 	}
-	EventCustom event("get_guizu_rewards");
-	event.setUserData(value);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("active");
+	}
+	else
+	{
+		EventCustom event("active");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
+
 }
 
 void HttpMannger::HttpToPostRequestToGetUrlImg(std::string url) //获取网络图片
@@ -1204,6 +1342,9 @@ void HttpMannger::onHttpRequestCompletedForGetUrlImg(HttpClient *sender, HttpRes
 		buffer = response->getResponseData();
 		break;
 	}
+
+
+
 	EventCustom event(response->getHttpRequest()->getUrl());
 	event.setUserData(buffer);
 	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
@@ -1287,9 +1428,17 @@ void HttpMannger::onHttpRequestCompletedForToGetAchieveInfo(HttpClient *sender, 
 		}
 		break;
 	}
-	EventCustom event("get_achieve_info");
-	event.setUserData(value);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_achieve_info");
+	}
+	else
+	{
+		EventCustom event("get_achieve_info");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
 }
 
 
@@ -1381,7 +1530,26 @@ void HttpMannger::onHttpRequestCompletedForGetAchieveReward(HttpClient *sender, 
 		}
 		break;
 	}
-	EventCustom event("get_achieve_rewards");
-	event.setUserData(value);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_achieve_rewards");
+	}
+	else
+	{
+		EventCustom event("get_achieve_rewards");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
+}
+
+
+bool HttpMannger::checkIsRelogin(int msgId, std::string msg)
+{
+	if (msgId == 311||msgId == 304)
+	{
+		ToolTipMannger::ShowReloginTip(msg);
+		return true;
+	}
+	return false;
 }

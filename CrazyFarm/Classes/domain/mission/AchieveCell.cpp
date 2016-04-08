@@ -89,7 +89,7 @@ void AchieveCell::btCallback(Ref*psend)
 					_item.isReceive = true;
 				}
 				setValue(_item);
-				for (auto var:MissionManager::getInstance()->getAchieveListData())
+				for (auto &var:MissionManager::getInstance()->getAchieveListData())
 				{
 					if (var.mission_id == _item.mission_id)
 					{

@@ -35,7 +35,7 @@ void User::setUserID(std::string userId) {
 
 
 
-unsigned long  User::getCoins() {
+long  User::getCoins() {
     return	_coins;
 }
 
@@ -50,7 +50,7 @@ int User::addCoins(int coins) {
 }
 
 
- unsigned long User::getDiamonds() {
+long User::getDiamonds() {
 	return _diamond;
 }
 
@@ -62,7 +62,7 @@ int User::addDiamonds(int diamonds) {
 		_diamond = 0;
 	}
 
-return _diamond;
+	return _diamond;
 }
 
 int User::getMaxTurrentLevel() {

@@ -139,4 +139,7 @@ private:
 	  Fish* lockFish = nullptr;
 	  Fish* lightFish = nullptr;
 	  int goldfishcounts = 1;
+
+	  CC_SYNTHESIZE(float, _chestPer, chestper);
+	  CC_SYNTHESIZE(int, _curRoomPos, curRoomPos);
 };

@@ -50,8 +50,8 @@ private:
 	void showTip();
 	bool isRegisterdialog = true;
 private:
-	void httpCallback(Ref*psend);
 	ui::LoadingBar* loadingBar;
+	void openUrl(Ref*psend);
 	int temp = 0;
 	
 

@@ -1,5 +1,6 @@
 #include "MsgOnInit.h"
-
+#include "domain/user/User.h"
+#include "domain/bag/BagManager.h"
 void Msg_onInit::setBody(const char* msgBody)
 {
 	rapidjson::Document doc;
@@ -8,14 +9,34 @@ void Msg_onInit::setBody(const char* msgBody)
 	{
 		return;
 	}
-	roomPos = doc["r_pos"].GetInt();
+	
 	rapidjson::Value& users = doc["users"];
 	if (!users.IsArray())
 	{
 		log("ConfigExp The data is not json");
 		return;
 	}
+	auto &my_info = doc["my_info"];
 	//用户信息
+	User::getInstance()->setUserName(my_info["nick_name"].GetString());
+	User::getInstance()->setCoins(my_info["coins"].GetInt64());
+	User::getInstance()->setDiamonds(my_info["diamonds"].GetInt64());
+	User::getInstance()->setExp(my_info["exps"].GetInt());
+	User::getInstance()->setMaxTurrentLevel(my_info["turrent_level"].GetInt());
+	User::getInstance()->setUserBoxLevel(my_info["chest_level"].GetInt());
+	User::getInstance()->setChargeMoney(my_info["mo"].GetInt());
+	User::getInstance()->setcatchPer(my_info["catch_per"].GetDouble());
+	roomPos = my_info["r_pos"].GetInt();
+	auto &item_lists = my_info["item_lists"];
+	for (unsigned int i = 0; i < item_lists.Size();i++)
+	{
+		BagManager::getInstance()->setItemNum(item_lists[i]["item_id"].GetInt(), item_lists[i]["nums"].GetInt());
+	}
+
+
+
+
+	//玩家信息
 	for (unsigned int i = 0; i < users.Size();i++)
 	{
 		auto &user = users[i];
@@ -25,8 +46,8 @@ void Msg_onInit::setBody(const char* msgBody)
 		player->setMaxTurretLevel(user["turrent_level"].GetInt());
 		player->setLevel(user["vip_level"].GetInt());
 		player->setChestLv(user["box_level"].GetInt());
-		player->setUserName(user["user_id"].GetString());
-		player->setRoomPosition(user["pos"].GetInt());
+		player->setUserName(user["nick_name"].GetString());
+		player->setRoomPosition(user["r_pos"].GetInt());
 		roomplayers.push_back(player);
 	}
 	//鱼群
@@ -76,5 +97,4 @@ void Msg_onInit::setBody(const char* msgBody)
 	//初始时间戳
 	initCreateTime = doc["create_time"].GetDouble();
 
-	_catchper = doc["catch_per"].GetDouble();
 }

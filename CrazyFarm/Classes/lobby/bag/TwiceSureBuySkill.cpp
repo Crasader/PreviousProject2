@@ -4,6 +4,8 @@
 #include "domain/bag/BagManager.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "server/HttpMannger.h"
+#include "domain/ToolTip/ToolTipMannger.h"
+#include "lobby/bag/bagLayer.h"
 TwiceSureBuySkill*TwiceSureBuySkill::createTwiceBuySkillTip(int itemid)
 {
 	TwiceSureBuySkill*ref = new TwiceSureBuySkill();
@@ -110,8 +112,48 @@ void TwiceSureBuySkill::sureButtonCallBack(Ref*psend)
 		if (User::getInstance()->getMaxTurrentLevel()>300)
 		{
 			HttpMannger::getInstance()->HttpToPostRequestToBuyItem(m_itemid);
-			/*User::getInstance()->addDiamonds(-200);
-			BagManager::getInstance()->changeItemCount(m_itemid, 200 / skillManager::getInstance()->getSkillPriceById(skillManager::getInstance()->getSkillInfoByitemId(m_itemid).skill_id));*/
+			LoadingCircle::showLoadingCircle();
+			EventListenerCustom* _listener2 = EventListenerCustom::create("buyitem", [=](EventCustom* event){
+
+				LoadingCircle::RemoveLoadingCircle();
+				BuyBagItemValue *value = (BuyBagItemValue*)event->getUserData();
+				auto menu = getChildByName("bg")->getChildByName("menu");
+				auto bt = ((MenuItem*)(menu->getChildByName("sureBt")));
+				TwiceSureDialog*dialog;
+				switch (value->_errorcode)
+				{
+				case 0:
+				{
+					dialog = TwiceSureDialog::createDialog("pay success ");
+					BagManager::getInstance()->addreward(m_itemid, value->buyItemNum);
+					User::getInstance()->addDiamonds(-value->costDmNum);
+
+					auto layer = Director::getInstance()->getRunningScene()->getChildByTag(888);
+					((BagLayer*)layer)->gettableview()->reloadData();
+				}
+					break;
+				case 404:
+					dialog = TwiceSureDialog::createDialog("time out");
+					bt->setEnabled(true);
+					break;
+				default:
+					dialog = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+					bt->setEnabled(true);
+					break;
+				}
+				dialog->setPosition(0, 0);
+				getParent()->addChild(dialog, 30);
+				if (value->_errorcode == 0)
+				{
+					removeFromParentAndCleanup(true);
+				}
+
+				Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("buyitem");
+
+			});
+			Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+
+
 		}
 		else
 		{

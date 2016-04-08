@@ -88,10 +88,10 @@
   
   
   <key>nextBox</key>
-  <string>获得%d万金币</string>
+  <string>获得%d金币</string>
   
     <key>coinBox</key>
-  <string>获得?万金币数量</string>
+  <string>获得?金币数量</string>
   
     <key>enterRoomTip</key>
   <string>您当前的最大解锁炮塔等级不够，请到低等级房间进行磨练</string>
@@ -102,7 +102,8 @@
   <string>还有%d秒就可以获得%d金币哦！我们舍不得你走！确定和X</string>
    <key>onExitTip3</key>
   <string>每天都有免费奖励领取哦！明天再来吧！</string>
-  
+   <key>onExitTip4</key>
+  <string>您确定退出吗</string>
   
     <key>onRanklistTip</key>
   <string>请您打开WIFI或移动网络查看排行榜</string>
@@ -200,6 +201,12 @@
   <key>UserOtherNickname</key>
   <string>使用其他账号登录</string>
   
+    <key>dayMissionTxt</key>
+  <string>每日24:00刷新每日任务</string>
+
+  
+     <key>cinYourCDkey</key>
+  <string>输入您的兑换码</string>
   </dict> 
 </array>
 </plist>

@@ -881,11 +881,11 @@ void Fish::onDead()
 		auto acName = String::createWithFormat("dead_%d", nUiID);
 		auto ac = Repeat::create(FishAniMannage::getInstance()->getAnimate(acName->getCString()), 1);
 		auto ac1 = ac->clone();
-		auto m_shadesprite = getChildByName("shader"); 
+	/*	auto m_shadesprite = getChildByName("shader"); 
 		if (m_shadesprite)
 		{
 			m_shadesprite->runAction(RepeatForever::create(ac));
-		}
+		}*/
 		runAction(RepeatForever::create(ac));
 		runAction(Sequence::create(DelayTime::create(1.2f), CallFunc::create(CC_CALLBACK_0(Fish::removeself, this)), nullptr));
 

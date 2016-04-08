@@ -34,7 +34,7 @@ public:
 private:
 	ui::LoadingBar* loadingBar;
 	int temp = 0;
-
+	Scene*scene;
 };
 
 

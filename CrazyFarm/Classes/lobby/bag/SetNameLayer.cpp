@@ -193,7 +193,44 @@ void SetNameLayer::quedingcallback(Ref*psend)
 	{
 		HttpMannger::getInstance()->HttpToPostRequestBindName(nickname.c_str(), sex, password.c_str());
 		LoadingCircle::showLoadingCircle();
-		NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(SetNameLayer::httpCallback), "setname", NULL);
+		EventListenerCustom* _listener2 = EventListenerCustom::create("setname", [=](EventCustom* event){
+
+		LoadingCircle::RemoveLoadingCircle();
+		SetNameValue *value = (SetNameValue*)event->getUserData();
+		auto menu = getChildByName("bg")->getChildByName("menu");
+		auto bt = ((MenuItem*)(menu->getChildByName("sureBt")));
+		TwiceSureDialog*dialog;
+		switch (value->_errorcode)
+		{
+		case 0:
+			LoginMannger::getInstance()->removeMemoryNickname(User::getInstance()->getUserName().c_str());
+			User::getInstance()->setUserName(_editNickname->getText());
+			User::getInstance()->setUserGender(sex);
+			User::getInstance()->setHaveSetName();
+			dialog = TwiceSureDialog::createDialog("set name successful");
+			LoginMannger::getInstance()->addMemoryNickname(_editNickname->getText(), _editPassword->getText());
+
+			break;
+		case 404:
+			dialog = TwiceSureDialog::createDialog("time out");
+			bt->setEnabled(true);
+			break;
+		default:
+			dialog = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+			bt->setEnabled(true);
+			break;
+		}
+		dialog->setPosition(0, 0);
+		getParent()->addChild(dialog, 30);
+		if (value->_errorcode == 0)
+		{
+			removeFromParentAndCleanup(true);
+		}
+
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("setname");
+
+	});
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
 		item->setEnabled(false);
 	}
 	else
@@ -262,7 +299,7 @@ void SetNameLayer::httpCallback(Ref*psend)
 	}
 	dialog->setPosition(0, 0);
 	getParent()->addChild(dialog, 30);
-	NotificationCenter::getInstance()->removeObserver(this, "CDKEY");
+	NotificationCenter::getInstance()->removeObserver(this, "setname");
 	if (value->_errorcode==0)
 	{
 		removeFromParentAndCleanup(true);

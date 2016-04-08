@@ -39,6 +39,7 @@ enum FISHTYPE
 	BossFish,
 	BoomFish,
 	AllKilledFish,
+	AllKilledFishEX,
 	ArrangeFish
 };
 class PlayerTurret;

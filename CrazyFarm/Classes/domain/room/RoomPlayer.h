@@ -39,7 +39,7 @@ public:
     CC_SYNTHESIZE(int, maxturretLevel, MaxTurretLevel);
 	CC_SYNTHESIZE(int, chestLv, ChestLv);
     CC_SYNTHESIZE(AI*, ai, Ai);
-
+	CC_SYNTHESIZE(float, _chestPer, chestper);
 
 private:
     

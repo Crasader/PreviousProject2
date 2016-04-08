@@ -7,6 +7,7 @@
 #include "server/HttpMsgDefine.h"
 #include "domain/user/User.h"
 #include "widget/LoadingCircle.h"
+#include "utill/Audio.h"
 Scene* LoginScene::createScene()
 {
 	auto scene = Scene::create();
@@ -46,6 +47,10 @@ bool LoginScene::init()
 	loginBt->setPosition(480, 87);
 	loginBt->setName("loginBt");
 	
+
+	auto exitBt = MenuItemImage::create("onExit_1.png", "onExit_2.png", CC_CALLBACK_1(LoginScene::onExitCallback, this));
+	exitBt->setPosition(923, 495);
+
 
 	auto frame = Sprite::create("loginFram.png");
 	frame->setPosition(480, 232);
@@ -98,7 +103,7 @@ bool LoginScene::init()
 	lockSp->setPosition(frame->getPositionX() - frame->getContentSize().width / 2+20, frame->getPositionY());
 	addChild(lockSp);
 
-	auto menu = Menu::create(loginBt,nullptr);
+	auto menu = Menu::create(loginBt, exitBt,nullptr);
 	menu->setPosition(0, 0);
 	addChild(menu, 2, "menu");
 
@@ -147,56 +152,68 @@ void LoginScene::loginCallBack(Ref*psend)
 	{
 		return;
 	}
-	NotificationCenter::getInstance()->addObserver(this, CC_CALLFUNCO_SELECTOR(LoginScene::httpCallback), "login", NULL);
 	((MenuItemImage*)psend)->setEnabled(false);
-	LoadingCircle::showLoadingCircle();
 	LoginMannger::getInstance()->toLogin(_editName->getText(), _editPassword->getText());	
+
+	EventListenerCustom* _listener2 = EventListenerCustom::create("login", [=](EventCustom* event){
+
+		LoadingCircle::RemoveLoadingCircle();
+		LoginValue*value = static_cast<LoginValue*>(event->getUserData());
+		switch (value->_errorcode)
+		{
+		case 0:
+		{
+			User::getInstance()->setSessionid(value->_sesssionid);
+
+			User::getInstance()->setUserName(_editName->getText());
+
+			LoginMannger::getInstance()->addMemoryNickname(_editName->getText(), _editPassword->getText());
+
+
+			auto scene = LoadingScene::createScene();
+			Director::getInstance()->replaceScene(scene);
+		}
+		break;
+		case 404:
+		{
+			auto menu = getChildByName("menu");
+			auto bt = menu->getChildByName("loginBt");
+			((MenuItemImage*)bt)->setEnabled(true);
+			auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
+			dioag->setPosition(0, 0);
+			addChild(dioag, 30);
+		}
+		break;
+		case 310:
+		{
+			auto menu = getChildByName("menu");
+			auto bt = menu->getChildByName("loginBt");
+			((MenuItemImage*)bt)->setEnabled(true);
+			auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str(), CC_CALLBACK_1(LoginScene::openUrl, this));
+			dioag->setName(value->_downurl);
+			dioag->setPosition(0, 0);
+			addChild(dioag, 30);
+		}
+		break;
+		default:
+		{
+			auto menu = getChildByName("menu");
+			auto bt = menu->getChildByName("loginBt");
+			((MenuItemImage*)bt)->setEnabled(true);
+			auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
+			dioag->setPosition(0, 0);
+			addChild(dioag, 30);
+		}
+		break;
+		}
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("login");
+
+	});
+	LoadingCircle::showLoadingCircle();
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+
+
 }
-void LoginScene::httpCallback(Ref*psend)
-{
-	LoadingCircle::RemoveLoadingCircle();
-	LoginValue *value = (LoginValue*)psend;
-	switch (value->_errorcode)
-	{
-	case 0:
-	{
-		User::getInstance()->setSessionid(value->_sesssionid);
-	
-		User::getInstance()->setUserName(_editName->getText());
-	
-		LoginMannger::getInstance()->addMemoryNickname(_editName->getText(), _editPassword->getText());
-
-	
-		auto scene = LoadingScene::createScene();	
-		Director::getInstance()->replaceScene(scene);
-	}
-		break;
-	case 404:
-	{
-		auto menu = getChildByName("menu");
-		auto bt = menu->getChildByName("loginBt");
-		((MenuItemImage*)bt)->setEnabled(true);
-		auto dioag = TwiceSureDialog::createDialog(ChineseWord("LoginTimeOut").c_str());
-		dioag->setPosition(0, 0);
-		addChild(dioag, 30); 
-	}
-		break;
-	default:
-	{
-		auto menu = getChildByName("menu");
-		auto bt = menu->getChildByName("loginBt");
-		((MenuItemImage*)bt)->setEnabled(true);
-		auto dioag = TwiceSureDialog::createDialog(value->_errormsg.c_str());
-		dioag->setPosition(0, 0);
-		addChild(dioag, 30);
-	}
-		break;
-	}
-	NotificationCenter::getInstance()->removeObserver(this, "CDKEY");
-
-}
-
-
 
 void LoginScene::editBoxEditingDidBegin(cocos2d::ui::EditBox* editBox)
 {
@@ -235,4 +252,22 @@ void LoginScene::setChangeNickName(std::string srt)
 	_editPassword->setText(UserDefault::getInstance()->getStringForKey(srt.c_str()).c_str());
 	_editPassword->setEnabled(false);
 
+}
+void LoginScene::endGame(Ref*psend)
+{
+	Director::getInstance()->end();
+}
+void LoginScene::onExitCallback(Ref*psend)
+{
+	Audio::getInstance()->playSound(CLICKSURE);
+
+		auto str = ChineseWord("onExitTip4");
+		auto dioag = TwiceSureDialog::createDialog(str.c_str(), CC_CALLBACK_1(LoginScene::endGame,this));
+		dioag->setPosition(0, 0);
+		addChild(dioag, kZorderDialog);
+
+}
+void LoginScene::openUrl(Ref*psend)
+{
+	Application::getInstance()->openURL(((Node*)psend)->getParent()->getParent()->getParent()->getName());
 }

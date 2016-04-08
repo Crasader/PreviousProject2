@@ -4,6 +4,7 @@
 #include "domain/logevent/LogEventPageChange.h"
 #include "extensions/cocos-ext.h"
 #include "server/Server.h"
+#include "domain/game/GameManage.h"
 
 enum 
 {
@@ -36,7 +37,7 @@ void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 			auto dioag = TurnTableDialog::create();
 			dioag->setPosition(Point::ZERO);
 			LogEventPageChange::getInstance()->addEventItems(2, 10, 0);
-			getParent()->getParent()->addChild(dioag,30);
+			GameManage::getInstance()->getGuiLayer()->addChild(dioag, 30, "turntable");
 
 	}
 	else

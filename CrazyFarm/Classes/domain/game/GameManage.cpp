@@ -76,7 +76,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			aninode1->runAction(RepeatForever::create(Sequence::create(Spawn::create(FadeIn::create(0.001), ScaleTo::create(0.001, 0), nullptr), Spawn::create(FadeOut::create(2.0), ScaleTo::create(2.0, 2.0f), nullptr), nullptr)));
 
 
-			auto num = fish->getFishGold()* turret->getTurrentMupltData().multiple*ConfigChest::getInstance()->getChestByLevel(User::getInstance()->getUserBoxLevel()).catch_per;
+			auto num = fish->getFishGold()* turret->getTurrentMupltData().multiple*turret->getchestper();
 			auto lb = MyLabelAtlas::create(Value(Value(num).asInt()).asString(), "goldFishNum.png", 28, 41, '0',120);
 			lb->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			lb->setPosition(Vec2(80, 180));

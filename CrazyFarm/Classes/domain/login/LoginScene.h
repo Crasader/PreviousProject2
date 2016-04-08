@@ -12,8 +12,10 @@ public:
     static cocos2d::Scene* createScene();
 	void setChangeNickName(std::string srt);
 private:
-	void httpCallback(Ref*psend);
+	void openUrl(Ref*psend);
 
+	void endGame(Ref*psend);
+	void onExitCallback(Ref*psend);
 	void loginCallBack(Ref*psend);
 	void RegisterCallBack(Ref*psend);
 	void findPasswordCallBack(Ref*psend);

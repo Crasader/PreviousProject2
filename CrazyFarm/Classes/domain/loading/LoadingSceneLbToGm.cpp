@@ -14,6 +14,10 @@
 #include "core/GameScene.h"
 #include "data/GameData.h"
 #include "domain/loading/LoadingScene.h"
+#include "server/Server.h"
+#include "domain/game/GameManage.h"
+#include "server/HttpMannger.h"
+#define TCPIDURL "172.23.1.40" //ÄÚÍø
 Scene* LoadingSceneLbToGm::createScene()
 {
 	auto scene = Scene::create();
@@ -62,6 +66,10 @@ bool LoadingSceneLbToGm::init()
 	scheduleUpdate();
 
 	
+	scene = GameScene::create();
+	scene->retain();
+	Server::getInstance()->conConnect(/*HttpMannger::getInstance()->getGameUrl().c_str()*/TCPIDURL, HttpMannger::getInstance()->getGamePort(), User::getInstance()->getSessionid().c_str(), GameData::getInstance()->getRoomID());   // TODO  : test init server
+	Server::getInstance()->add_observer(GameManage::getInstance()->getGameLayer());
 
 	return true;
 }
@@ -71,13 +79,12 @@ void LoadingSceneLbToGm::update(float dt)
 	loadingBar->setPercent(((float)temp) / 46.0f*100+1);
 	if (temp>=46)
 	{
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, GameScene::create()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, scene));
 		unscheduleUpdate();
 	}
 }
 void LoadingSceneLbToGm::load()
 {
-	HttpMannger::getInstance()->HttpToPostRequestToGetItemInfo(false);
 	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
 	loadRes();
 }

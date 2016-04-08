@@ -620,7 +620,8 @@ void FishManage::UpdateWhenController(float dt)
 	{
 		if (m_nowMonent->updata(dt))
 		{
-			/*m_layer->loadNewMonent(0);*/
+			CC_SAFE_DELETE(m_nowMonent);
+			m_nowMonent = nullptr;
 		}
 		
 	}
@@ -672,6 +673,7 @@ void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 	{
 		if (var->getFishType() == AllKilledFish)
 		{
+			var->setFishType(AllKilledFishEX);
 			needDeadFishs.pushBack(var);
 		}
 	}

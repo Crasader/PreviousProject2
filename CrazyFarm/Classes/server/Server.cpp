@@ -130,7 +130,7 @@ void Server::reqTurrentLevelUpdate() {
 
 
 
-void Server::conConnect(char* host, int port, const char* session_id,int room_id) {
+void Server::conConnect(const char* host, int port, const char* session_id,int room_id) {
     username = session_id;
 	_room_id = room_id;
     pc_lib_init(NULL, NULL, NULL, NULL);

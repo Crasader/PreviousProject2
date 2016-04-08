@@ -23,10 +23,12 @@ public:
 	  Point getTampionPos(){ return emptySp->convertToWorldSpace(Point(0, 0)); }
 
 	  Point getLightLaughPos(){ return lightSp->convertToWorldSpace(Point(0, 0)); }
+
+	  Point getFirePos(){ return fireSp->getPosition(); }
 private:
 	  int turretType;
 	  Sprite* emptySp;
-
+	  Sprite* fireSp;
 	  Sprite*lightSp;
 	  CC_SYNTHESIZE(bool, isrobot, IsRobot);
 	

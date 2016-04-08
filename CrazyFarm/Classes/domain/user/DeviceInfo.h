@@ -10,5 +10,7 @@ public:
 	static const char*  getHd_factory();
 	static int getVesion();
 
+
+	static int getGameVersion();
 };
 

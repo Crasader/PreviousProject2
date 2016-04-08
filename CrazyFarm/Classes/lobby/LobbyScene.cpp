@@ -49,6 +49,8 @@
 #include "widget/LoadingCircle.h"
 #include "domain/UrlImage/UrlImageMannger.h"
 #include "widget/MyLabelAtlas.h"
+#include "domain/bag/BagManager.h"
+#include "domain/login/LoginScene.h"
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
 
@@ -181,16 +183,34 @@ bool LobbyScene::init()
 
 	MarqueeManager::getInstance()->init();
 
-	//背包
-	auto bag = MenuItemImage::create("bag.png", "bag.png", CC_CALLBACK_1(LobbyScene::bagButtonCallback, this));
-	bag->setPosition(visibleSize.width*0.27, visibleSize.height*0.10);
-	bag->setName("bag");
-	//换奖品
-	auto changeReward = MenuItemImage::create("changeReward.png", "changeReward.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
-	changeReward->setPosition(visibleSize.width*0.17, visibleSize.height*0.10);
+
+	//下左
+	float startX = 66.0;
+	float starY = 47.0;
+	float diffX = 80;
 
 	auto rankList = MenuItemImage::create("ranklist.png", "ranklist.png", CC_CALLBACK_1(LobbyScene::RankListCallback, this));
-	rankList->setPosition(visibleSize.width*0.07, visibleSize.height*0.10);
+	rankList->setPosition(startX, starY);
+	startX += diffX;
+	auto changeReward = MenuItemImage::create("changeReward.png", "changeReward.png", CC_CALLBACK_1(LobbyScene::changeRewardCallback, this));
+	changeReward->setPosition(startX, starY);
+	startX += diffX;
+	auto bag = MenuItemImage::create("bag.png", "bag.png", CC_CALLBACK_1(LobbyScene::bagButtonCallback, this));
+	bag->setPosition(startX, starY);
+	bag->setName("bag");
+	startX += diffX;
+	
+	auto MissionBT = MenuItemImage::create("missionicon.png","missionicon.png", [=](Ref* sender){
+		Audio::getInstance()->playSound(CLICKSURE);
+		auto layer = MissionLayer::create();
+		layer->setPosition(Point::ZERO);
+		addChild(layer, kZorderDialog);
+	});
+	MissionBT->setPosition(startX, starY);
+	startX += diffX;
+
+
+
 
 
 	auto VIP = MenuItemImage::create("VIP.png", "VIP.png", CC_CALLBACK_1(LobbyScene::showVipCallBack, this));
@@ -286,9 +306,21 @@ bool LobbyScene::init()
 		close1 = MenuItemToggle::createWithCallback(CC_CALLBACK_1(LobbyScene::onAudioOnOffCallback, this), close, open, nullptr);
 		close1->setPosition(ccp(923, 495 - 74));
 	}
+
+
+
+	auto CDKEYbt = MenuItemImage::create("cdkey_1.png","cdkey_2.png", [=](Ref* sender){
+		Audio::getInstance()->playSound(CLICKSURE);
+		auto layer = CDKeyDialog::create();
+		layer->setPosition(Point::ZERO);
+		addChild(layer, kZorderDialog);
+	});
+
+	CDKEYbt->setPosition(923, 495 - 74 - 74);
+
 	//客服
 	auto feedbackbt = MenuItemImage::create("kefu_1.png", "kefu_2.png", CC_CALLBACK_1(LobbyScene::feedBackCallback, this));
-	feedbackbt->setPosition(923, 495 - 74 - 74);
+	feedbackbt->setPosition(923, 495 - 74 - 74-74);
 
 
 
@@ -301,21 +333,8 @@ bool LobbyScene::init()
 		addChild(node);
 	}
 
-	auto MissionBT = MenuItemFont::create("MissionLayer", [=](Ref* sender){
-		Audio::getInstance()->playSound(CLICKSURE);
-		auto layer = MissionLayer::create();
-		layer->setPosition(Point::ZERO);
-		addChild(layer, kZorderDialog);
-	});
-	MissionBT->setPosition(480, 38);
-	auto CDKEYbt= MenuItemFont::create("CDKEYbt", [=](Ref* sender){
-		Audio::getInstance()->playSound(CLICKSURE);
-		auto layer = CDKeyDialog::create();
-		layer->setPosition(Point::ZERO);
-		addChild(layer, kZorderDialog);
-	});
 
-	CDKEYbt->setPosition(700, 38);
+	
 
 	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, MissionBT,CDKEYbt, nullptr);
 	menu->setPosition(Point::ZERO);
@@ -540,7 +559,28 @@ void LobbyScene::payDiamondCallback(Ref*psend)
 void LobbyScene::bagButtonCallback(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
-	HttpMannger::getInstance()->HttpToPostRequestToGetItemInfo(true);
+	EventListenerCustom* _listener2 = EventListenerCustom::create("get_bagitem_info", [=](EventCustom* event){
+
+		BagItemValue*value = static_cast<BagItemValue*>(event->getUserData());
+		if (value->_errorcode == 0)
+		{
+			for (auto var : value->itemLists)
+			{
+				BagManager::getInstance()->setItemNum(var._itemid, var._num);
+			}
+			Director::getInstance()->replaceScene(TransitionFade::create(1,BagLayer::createScene()));
+		}
+		else
+		{
+			ToolTipMannger::showDioag(value->_errormsg);
+		}
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_bagitem_info");
+		LoadingCircle::RemoveLoadingCircle();
+
+	});
+	LoadingCircle::showLoadingCircle();
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+	HttpMannger::getInstance()->HttpToPostRequestToGetItemInfo();
 	if (psend)
 	{
 		LogEventPageChange::getInstance()->addEventItems(1, 3, 0);
@@ -553,7 +593,7 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
-	/*MissionLayer*/
+
 	Audio::getInstance()->playSound(CLICKSURE);
 	auto layer = ChangeGiftLayer::create();
 	layer->setPosition(Point::ZERO);
@@ -619,20 +659,20 @@ void LobbyScene::guizuCallback(Ref*psend)
 void LobbyScene::showVipCallBack(Ref*psend)
 {
 
-	string path = UrlImageMannger::getInstance()->getImgNameByUrl("http://img.hb.aicdn.com/edbcaed536dbca4e1c258f6c32d18f2e368500ab40fa-unkKoo_fw658");
+	//string path = UrlImageMannger::getInstance()->getImgNameByUrl("http://img.hb.aicdn.com/edbcaed536dbca4e1c258f6c32d18f2e368500ab40fa-unkKoo_fw658");
 
-	//这里建议使用成员变量来保存精灵，不然有可能导致显示白色块，出现异常！
-	
-	Sprite* sprite = Sprite::create(path);
-	sprite->setPosition(ccp(240, 160));
-	this->addChild(sprite, 10);
+	////这里建议使用成员变量来保存精灵，不然有可能导致显示白色块，出现异常！
+	//
+	//Sprite* sprite = Sprite::create(path);
+	//sprite->setPosition(ccp(240, 160));
+	//this->addChild(sprite, 10);
 ;
 
-	/*Audio::getInstance()->playSound(CLICKSURE);
-	auto viplayer = VIPLayer::create();
-	viplayer->setPosition(Point::ZERO);
-	addChild(viplayer, kZorderDialog);
-	LogEventPageChange::getInstance()->addEventItems(1, 7, 0);*/
+Audio::getInstance()->playSound(CLICKSURE);
+auto viplayer = VIPLayer::create();
+viplayer->setPosition(Point::ZERO);
+addChild(viplayer, kZorderDialog);
+LogEventPageChange::getInstance()->addEventItems(1, 7, 0);
 }
 void LobbyScene::quickBeginCallback(Ref*psend)
 {
@@ -657,14 +697,9 @@ void LobbyScene::quickBeginCallback(Ref*psend)
 
 	}
 	GameData::getInstance()->setRoomID(roomDatas.at(i).room_id);
-	if (GameData::getInstance()->getisLoadMsgOnGame())
-	{
-		Director::getInstance()->replaceScene(TransitionFade::create(1, GameScene::create()));
-	}
-	else
-	{
-		Director::getInstance()->replaceScene(TransitionFade::create(1, LoadingSceneLbToGm::createScene()));
-	}
+
+	Director::getInstance()->replaceScene(LoadingSceneLbToGm::createScene());
+	
 	
 	LogEventPageChange::getInstance()->addEventItems(1, 2, 0);
 }
@@ -684,7 +719,8 @@ void LobbyScene::onExitSureCallback(Ref*psend)
 }
 void LobbyScene::endGameCallback(Ref*psend)
 {
-	Director::getInstance()->end();
+	Director::getInstance()->replaceScene(LoginScene::createScene());
+	User::getInstance()->setSessionid("");
 }
 void LobbyScene::onExitCallback(Ref*psend)
 {

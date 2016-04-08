@@ -14,7 +14,6 @@ public:
 private:
 	void loginCallBack(Ref*psend);
 	void closeCallBack(Ref*psend);
-	void httpCallback(Ref*psend);
 	int checkRegister(std::string nickname, std::string password, std::string repetPassword);
     virtual bool init();
 	bool onTouchBegan(Touch *touch, Event *unused_event);
@@ -29,4 +28,5 @@ private:
 	virtual void editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox);
 	virtual void editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text);
 	virtual void editBoxReturn(cocos2d::ui::EditBox* editBox);
+	void openUrl(Ref*psend);
 };
