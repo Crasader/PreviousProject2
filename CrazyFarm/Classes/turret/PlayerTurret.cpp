@@ -684,10 +684,10 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 
 	}
 	fish->createDropOutAniByCoin(getPosition(), num);
-	for (auto reward : fish->getFishRewards())
-	{
-		GameManage::getInstance()->getGameLayer()->onGetRewardByfish(this, fish, reward.item_id, reward.num);
-	}
+	//for (auto reward : fish->getFishRewards())
+	//{
+	//	GameManage::getInstance()->getGameLayer()->onGetRewardByfish(this, fish, reward.item_id, reward.num);
+	//}
 
 
 }
