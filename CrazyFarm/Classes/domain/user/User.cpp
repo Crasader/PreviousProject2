@@ -32,8 +32,13 @@ void User::setUserID(std::string userId) {
 }
 
 
-
-
+void User::setCoins(long coins)
+{ _coins = coins;
+if (_coins < 0)
+{
+	_coins = 0;
+}
+}
 
 long  User::getCoins() {
     return	_coins;
@@ -49,7 +54,14 @@ int User::addCoins(int coins) {
 	return _coins;
 }
 
-
+void User::setDiamonds(long diamonds)
+{
+	_diamond = diamonds;
+	if (_diamond < 0)
+	{
+		_diamond = 0;
+	}
+}
 long User::getDiamonds() {
 	return _diamond;
 }

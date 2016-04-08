@@ -681,9 +681,9 @@ void HttpMannger::onHttpRequestCompletedForGetUserInfo(HttpClient *sender, HttpR
 		if (result == 0)
 		{
 			auto &userinfo = doc["user_info"];
-			value->_coins = userinfo["coins"].GetUint64();
+			value->_coins = userinfo["coins"].GetInt64();
 			value->_exps = userinfo["exps"].GetInt();
-			value->_diamonds = userinfo["diamonds"].GetUint64();
+			value->_diamonds = userinfo["diamonds"].GetInt64();
 			value->_maxTurrentLv = userinfo["turrent_level"].GetInt();
 			value->_chargemoney= userinfo["mo"].GetInt();
 			value->_chestLevel = userinfo["chest_level"].GetInt();

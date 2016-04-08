@@ -1122,6 +1122,7 @@ void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 }
 void GameLayer::onConError(Msg_ConError*msg)
 {
+	createFishAcNode->pause();
 	pause();
 	for (auto var:FishManage::getInstance()->getAllFishInPool())
 	{
@@ -1251,7 +1252,16 @@ void GameLayer::onMagnate(Msg_OnMagnate*msg)
 {
 	for (auto var:msg->items)
 	{
-		onGetRewardByfish(myTurret,nullptr , var.itemid, var.num);
+		if (var.itemid == 1004&&!NewbieMannger::getInstance()->getisShowLockTip())
+		{
+			NewbieMannger::getInstance()->setisShowLockTip(1);
+			GameManage::getInstance()->getGuiLayer()->ShowUseLockTip(Point(480, 270));
+		}
+		else
+		{
+			onGetRewardByfish(myTurret, nullptr, var.itemid, var.num);
+		}
+		
 	}
 }
 

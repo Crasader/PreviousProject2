@@ -1,34 +1,42 @@
 #include "utill/CollisionUtill.h"
-#define IsArrangeFish fish->getFishID()>=101&&fish->getFishID()<=104
+#define IsArrangeFish fish->getFishType() == ArrangeFish
+#define IsGoldFish fish->getFishType() == GoldFish
+#define IsBossFish fish->getFishType() == BossFish
 #define RECTSCALE 0.7
 
 bool CollisionUtill::isCollisionFishAAndBullet(Fish*fish, Bullet*bullet)
 {
-	if (fish->getTag()==-1)
+	if (fish->getTag() == -1)
 	{
 		return false;
 	}
-	if (IsArrangeFish)
+	if (IsArrangeFish )
 	{
 		return CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), bullet->getObbs());
 	}
 	else
 	{
-		return CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), bullet->getBoundingBox());
-		/*if (CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), bullet->getBoundingBox()))
+		if (fish->getFishID()<=10)
 		{
-		return CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), bullet->getObbs());
+			return CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), bullet->getBoundingBox());
 		}
 		else
 		{
-		return false;
-		}*/
+			if (CollisionUtill::isCollisionRectAsAndRectB(fish->getAABBBoxs(), bullet->getBoundingBox()))
+			{
+				return CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), bullet->getObbs());
+			}
+			else
+			{
+				return false;
+			}
+		}
 		
 	}
 }
 bool CollisionUtill::isCollisionFishAAndNet(Fish*fish, Net*net)
 {
-	if (IsArrangeFish)
+	if (IsArrangeFish || IsBossFish || IsGoldFish)
 	{
 		return CollisionUtill::isCollisionOBBsAndOBBs(fish->getOBBs(), net->getObbs());
 	}
@@ -50,7 +58,7 @@ bool CollisionUtill::isCollisionFishAAndPos(Fish*fish, Vec2 pos)
 }
 bool CollisionUtill::isCollisionFishAAndRect(Fish*fish, Rect rect)
 {
-	if (IsArrangeFish)
+	if (IsArrangeFish || IsBossFish || IsGoldFish)
 	{
 		return CollisionUtill::isCollisionOBBsAndRect(fish->getOBBs(), rect);
 	}

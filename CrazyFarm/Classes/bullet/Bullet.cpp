@@ -50,6 +50,8 @@ void Bullet::update(float dt){
 	if (!rect.containsPoint(getPosition()))
 	{
 		BulletManage::getInstance()->moveBulletToCacheFromPool(this); 
+		unscheduleUpdate();
+		return;
 	}
 
 

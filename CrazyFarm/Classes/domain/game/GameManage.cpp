@@ -149,7 +149,7 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			if (NewbieMannger::getInstance()->getNBShootCounts() >= 10)
 			{
 				NewbieMannger::getInstance()->setNBShootCounts(-1);
-				m_pGuilayer->ShowUseLockTip(fish->getPosition());
+		/*		m_pGuilayer->ShowUseLockTip(fish->getPosition());*/
 			}
 
 

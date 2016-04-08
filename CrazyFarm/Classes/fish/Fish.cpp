@@ -46,6 +46,7 @@ void Fish::initFish(int fishID){
 		initFishAnim(fishdata.uiId);
 		rewards = fishdata.rewards;
 		LogEventFish::getInstance()->addFishCreateTimes(fishID);
+		setTextureRect(Rect(0, 0, 0, 0));
 	}
 	else if (getFishType()==AllKilledFish)
 	{
@@ -74,6 +75,7 @@ void Fish::initFish(int fishID){
 		addChild(aninode, -1);
 		aninode->runAction(RepeatForever::create(RotateBy::create(7, 360)));
 		LogEventFish::getInstance()->addFishCreateTimes(fishID);
+		setTextureRect(Rect(0, 0, getContentSize().width, getContentSize().height));
 	}
 	else
 	{
@@ -91,6 +93,7 @@ void Fish::initFish(int fishID){
 		obbdatas = ConfigFishCollisionOBB::getInstance()->getFishFOBBPoints(fishdata.uiId);
 		LogEventFish::getInstance()->addFishCreateTimes(fishID);
 		centerPos = getCentrenPos();
+		setTextureRect(Rect(0, 0, getContentSize().width, getContentSize().height));
 	}
 
 	addShader();
@@ -820,6 +823,7 @@ void Fish::onFreeze()
 {
 	if (getFishType()==ArrangeFish)
 	{
+		pause();
 		for (auto child : fishes)
 		{
 			child->pause();

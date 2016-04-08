@@ -27,7 +27,7 @@ public:
 
 	int addCoins(int coins);
 	long getCoins();
-	void setCoins(unsigned long coins){ _coins = coins; }
+	void setCoins(long coins);
 
 	bool addExp(int exp);
 	int getExp(){ return _exp; }
@@ -35,7 +35,7 @@ public:
 
 	int addDiamonds(int diamond);
 	long getDiamonds();
-	void setDiamonds(unsigned long diamonds){ _diamond = diamonds; }
+	void setDiamonds(long diamonds);
 
     int getMaxTurrentLevel();
 
@@ -56,7 +56,7 @@ public:
      */
     
     
-	bool getIsHaveFirstPay(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVEFIRSTPAY,false); };
+	bool getIsHaveFirstPay(){ return getChargeMoney()>0; };
 	void setHaveFirstPay(){ UserDefault::getInstance()->setBoolForKey(KEY_ISHAVEFIRSTPAY, true); };
 
 	bool getIsHaveBycoin(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVEBYCOIN, false); };

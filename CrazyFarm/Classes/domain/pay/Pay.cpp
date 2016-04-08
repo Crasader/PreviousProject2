@@ -266,8 +266,7 @@ void Pay::payCallBack(int code, const char* msg, std::vector<RewardValue> reward
 					{
 						User::getInstance()->setHaveBycoin();
 						User::getInstance()->addDiamonds(100);
-					}
-					
+					}	
 					break;
 				case 1002:
 					User::getInstance()->addDiamonds(var._num*lvdata.pay_reward);
@@ -308,7 +307,6 @@ void Pay::CancelTheOrder()
 	{
 		std::vector<RewardValue> rewards;
 		payCallBack(1, "failed", rewards, 0, getPrepayIdByOrderid(nowPayOrderId));
-		/*HttpMannger::getInstance()->HttpToPostRequestCancelOrder(nowPayOrderId);*/
 	}
 	
 }
