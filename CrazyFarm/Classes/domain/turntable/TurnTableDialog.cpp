@@ -161,7 +161,7 @@ void TurnTableDialog::showGoldFishButtonCallBack(Ref*psend)
 {
 	auto layer = showFishLayer::create();
 	layer->setPosition(Point::ZERO);
-	getParent()->addChild(layer, 20);
+	getParent()->addChild(layer, getZOrder()+1);
 	//Pay::getInstance()->Overbooking(14, 24, getParent());
 
 }

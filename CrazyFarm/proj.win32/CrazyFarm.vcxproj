@@ -181,6 +181,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\ai\AI.cpp" />
     <ClCompile Include="..\Classes\domain\ai\AIHu.cpp" />
     <ClCompile Include="..\Classes\domain\ai\AIJun.cpp" />
+    <ClCompile Include="..\Classes\domain\ai\AILei.cpp" />
     <ClCompile Include="..\Classes\domain\ai\AIManager.cpp" />
     <ClCompile Include="..\Classes\domain\ai\AIMolo.cpp" />
     <ClCompile Include="..\Classes\domain\ai\PlayerWork.cpp" />
@@ -397,6 +398,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\ai\AI.h" />
     <ClInclude Include="..\Classes\domain\ai\AIHu.h" />
     <ClInclude Include="..\Classes\domain\ai\AIJun.h" />
+    <ClInclude Include="..\Classes\domain\ai\AILei.h" />
     <ClInclude Include="..\Classes\domain\ai\AIManager.h" />
     <ClInclude Include="..\Classes\domain\ai\AIMolo.h" />
     <ClInclude Include="..\Classes\domain\ai\PlayerWork.h" />

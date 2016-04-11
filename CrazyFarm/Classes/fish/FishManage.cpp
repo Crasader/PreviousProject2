@@ -805,7 +805,31 @@ Fish*FishManage::getLowDistanceInPool(Point pos)
 	}
 	return fish;
 }
-
+Fish*FishManage::getLowDistanceGoldFishInPool(Point pos)
+{
+	Vector<Fish*> vec;
+	for (auto var:fishPool)
+	{
+		if (var->getFishType() == GoldFish||var->getFishType() == BossFish||var->getFishType() == ArrangeFish)
+		{
+			vec.pushBack(var);
+		}
+	}
+	if (vec.size() == 0)
+	{
+		return nullptr;
+	}
+	Fish* fish = vec.at(0);
+	auto distance = pos.distance(fish->getPosition());
+	for (auto var : vec)
+	{
+		if (pos.distance(var->getPosition()) <= pos.distance(fish->getPosition()))
+		{
+			fish = var;
+		}
+	}
+	return fish;
+}
 
 //server 
 void FishManage::addServerItemFishs(MsgFishInfo fishs)

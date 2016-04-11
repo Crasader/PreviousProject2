@@ -2,9 +2,6 @@ package org.cocos2dx.cpp;
 
 import java.io.File;
 
-
-
-
 import org.cocos2dx.lib.Cocos2dxActivity;
 
 import android.app.Activity;
@@ -17,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -39,7 +37,9 @@ public class AppActivity extends Cocos2dxActivity  {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AppActivity.activity = this;
-		
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
 		// 将该app注册到微信
 		msgApi = WXAPIFactory.createWXAPI(this,Constants.APP_ID, false);
 		msgApi.registerApp(Constants.APP_ID);//写死

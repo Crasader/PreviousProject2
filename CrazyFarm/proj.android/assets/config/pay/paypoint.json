@@ -1,6 +1,6 @@
 {
 	"paypoint":[
-		{ "id": 1, "name": "金币", "price": 1, "desc": "8元金币宝箱。","reward_lists": [ { "item_id": 1001, "nums": 40000 } ] },
+		{ "id": 1, "name": "金币", "price": 800, "desc": "8元金币宝箱。","reward_lists": [ { "item_id": 1001, "nums": 40000 } ] },
 		{ "id": 2, "name": "金币", "price": 1800, "desc": "18元金币宝箱","reward_lists": [ { "item_id": 1001, "nums": 180000 } ] },
 		{ "id": 3, "name": "金币", "price": 3800, "desc": "38元3金币宝箱","reward_lists": [ { "item_id": 1001, "nums": 380000 } ] },
 		{ "id": 4, "name": "金币", "price": 5800, "desc": "58元金币宝箱","reward_lists": [ { "item_id": 1001, "nums": 580000 } ] },
@@ -14,7 +14,7 @@
 		{ "id": 12, "name": "钻石", "price":38800, "desc": "388元钻石礼包","reward_lists": [ { "item_id": 1002, "nums": 4268 } ] },
 		{ "id": 13, "name": "贵族礼包", "price": 3800, "desc": "贵族礼包","reward_lists": [ { "item_id": 1000, "nums": 1 } ] },
 		{ "id": 14, "name": "首冲礼包", "price": 1, "desc": "隐藏大礼包","reward_lists": [ { "item_id": 1001, "nums": 1 }, { "item_id": 1002, "nums": 1 }] },
-		{ "id": 15, "name": "首冲礼包（新）", "price": 5, "desc": "首冲礼包","reward_lists": [ { "item_id": 1001, "nums": 20000 }, { "item_id": 1002, "nums": 118 }] }
+		{ "id": 15, "name": "首冲礼包（新）", "price": 1000, "desc": "首冲礼包","reward_lists": [ { "item_id": 1001, "nums": 20000 }, { "item_id": 1002, "nums": 118 }] }
 	],
 	"pay_version": 102
 }

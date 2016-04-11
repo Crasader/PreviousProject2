@@ -467,7 +467,7 @@ void PlayerTurret::doAIthing(float dt)
 		m_aiinfo = AIManager::getInstance()->getAI(nNowMoney);
 		robotTempTime = 0;
 	}
-	auto walk = m_aiinfo->nextStep(nNowMoney, m_turret->getTampionPos());
+	auto walk = m_aiinfo->nextStep(nNowMoney, convertToWorldSpace(m_turret->getPosition()));
 	auto angle = walk.getAngle();
 	m_turret->setRotation(angle);
 	if (walk.getFire())

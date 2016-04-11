@@ -21,17 +21,21 @@ PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion) {
 		if (_currentFish&&_currentFish->getTag() != -1)
 		{
 			auto currentPos = _currentFish->convertToWorldSpace(_currentFish->getCentrenPos());
-			angle = getTurretRotation(currentPostion, currentPos);
+			float fangle = getTurretRotation(currentPostion, currentPos);
 			if (currentPostion.y > 270)
 			{
-				angle -= 180;
+				fangle -= 180;
 			}
-			if (angle > 85 || angle < -85)
+			if (fangle > 85 || fangle < -85)
 			{
 				break;
 			}
+			else
+			{
+				angle = fangle;
+			}
 
-			CCLOG("AiJun shoot _currentPos = (%f,%f)  angle = %f _currentFishId = %d", currentPos.x, currentPos.y, angle,_currentFish->getFishID());
+			CCLOG("AiJun shoot turrentPostion = (%f,%f) _currentPos = (%f,%f)  angle = %f _currentFishId = %d",currentPostion.x,currentPostion.y,currentPos.x, currentPos.y, angle,_currentFish->getFishID());
 			playerWork.setFire(true);
 			playerWork.setAngle(angle);
 			return playerWork;

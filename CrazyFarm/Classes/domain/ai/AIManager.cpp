@@ -3,6 +3,7 @@
 #include "domain/game/GameManage.h"
 #include "utill/FunUtil.h"
 #include "AIJun.h"
+#include"AILei.h"
 AIManager* AIManager::_instance = NULL;
 
 AIManager::AIManager(){
@@ -22,7 +23,7 @@ AIManager* AIManager::getInstance(){
 
 AI* AIManager::getAI( int maxTurrentLevel) {
 
-	AI*jun = new AIJun();
+	AI*jun = new AILei();
 	jun->setMaxTurrentLevel(maxTurrentLevel);
 	jun->setReqSteps(0.2f);
 	return jun;

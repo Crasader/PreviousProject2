@@ -84,7 +84,6 @@ bool GameLayer::init(){
 
 
 
-	//scheduleUpdate(); 
 
 
 

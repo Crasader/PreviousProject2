@@ -777,6 +777,9 @@
     <ClCompile Include="..\Classes\server\Msg\MsgOnMarquee.cpp">
       <Filter>src\server\MSG</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\domain\ai\AILei.cpp">
+      <Filter>src\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1432,6 +1435,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\server\Msg\MsgOnMarquee.h">
       <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\ai\AILei.h">
+      <Filter>src\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
