@@ -136,7 +136,12 @@ void Pay::pay(payRequest*data)
 	}
 	payCallBack(0, "success", value,PayPointConfig::getInstance()->getPayPointInfoById(data->pay_point_id).price,data->wx_prepayid);
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	payCallBack(0, "success", value,PayPointConfig::getInstance()->getPayPointInfoById(data->pay_point_id).price,data->wx_prepayid);
+    std::vector<RewardValue> value;
+    for (auto var: PayPointConfig::getInstance()->getPayPointInfoById(data->pay_point_id).items)
+    {
+        value.push_back(RewardValue(var.ItemID, var.ItemNum));
+    }
+    payCallBack(0, "success", value,PayPointConfig::getInstance()->getPayPointInfoById(data->pay_point_id).price,data->wx_prepayid);
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	switch (data->third_payType)
 	{	
