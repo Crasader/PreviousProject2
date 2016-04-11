@@ -2,8 +2,8 @@
 #include "config/ConfigRoom.h"
 #include "domain/user/User.h"
 #include "utill/dayUtil.h"
-
-
+#include "widget/LoadingCircle.h"
+#include "domain/ToolTip/ToolTipMannger.h"
 RoomLayer * RoomLayer::createLayer()
 {
 	RoomLayer *ret = new  RoomLayer();
@@ -28,24 +28,49 @@ bool RoomLayer::init()
 	do 
 	{
 		setContentSize(Size(960, 340));
-		createRoomLayer();
-		//屏蔽向下触摸
-		touchnode = Node::create();
-		touchnode->setPosition(Point::ZERO);
-		addChild(touchnode,3);
-		auto listenr1 = EventListenerTouchOneByOne::create();
-		listenr1->onTouchBegan = CC_CALLBACK_2(RoomLayer::onTouchBegan, this);
-		listenr1->onTouchMoved = CC_CALLBACK_2(RoomLayer::onTouchMoved, this);
-		listenr1->onTouchEnded = CC_CALLBACK_2(RoomLayer::onTouchEnded, this);
-		listenr1->setSwallowTouches(false);
-		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, touchnode);
 
-		auto listen2 = EventListenerTouchAllAtOnce::create();
-		listen2->onTouchesBegan = CC_CALLBACK_2(RoomLayer::onTouchesBegan, this);
-		listen2->onTouchesMoved = CC_CALLBACK_2(RoomLayer::onTouchesMoved, this);
-		listen2->onTouchesEnded = CC_CALLBACK_2(RoomLayer::onTouchesEnded, this);
-		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listen2, touchnode);
-		this->scheduleUpdate();
+		EventListenerCustom* _listener2 = EventListenerCustom::create("get_room_info", [=](EventCustom* event){
+
+			RoomInfoValue*value = static_cast<RoomInfoValue*>(event->getUserData());
+			if (value->_errorcode == 0)
+			{
+				_roomitems = value->_roomitems;
+
+				createRoomLayer();
+				//屏蔽向下触摸
+				touchnode = Node::create();
+				touchnode->setPosition(Point::ZERO);
+				addChild(touchnode, 3);
+				auto listenr1 = EventListenerTouchOneByOne::create();
+				listenr1->onTouchBegan = CC_CALLBACK_2(RoomLayer::onTouchBegan, this);
+				listenr1->onTouchMoved = CC_CALLBACK_2(RoomLayer::onTouchMoved, this);
+				listenr1->onTouchEnded = CC_CALLBACK_2(RoomLayer::onTouchEnded, this);
+				listenr1->setSwallowTouches(false);
+				Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenr1, touchnode);
+
+				auto listen2 = EventListenerTouchAllAtOnce::create();
+				listen2->onTouchesBegan = CC_CALLBACK_2(RoomLayer::onTouchesBegan, this);
+				listen2->onTouchesMoved = CC_CALLBACK_2(RoomLayer::onTouchesMoved, this);
+				listen2->onTouchesEnded = CC_CALLBACK_2(RoomLayer::onTouchesEnded, this);
+				Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listen2, touchnode);
+				this->scheduleUpdate();
+			}
+			else
+			{
+				ToolTipMannger::ShowReloginTip("get roominfo failed! please login again!");
+			}
+
+			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_room_info");
+			LoadingCircle::RemoveLoadingCircle();
+
+		});
+		LoadingCircle::showLoadingCircle();
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+		HttpMannger::getInstance()->HttpToPostRequestToGetRoomInfo();
+
+
+
+
 		bRet = true;
 	} while (0);
 	return bRet;
@@ -181,19 +206,19 @@ void RoomLayer::createRoomLayer()
 
 }
 
-std::vector<Room> RoomLayer::sortRoomByMaxlevel(int maxLevel)
+std::vector<RoomItem> RoomLayer::sortRoomByMaxlevel(int maxLevel)
 {
-	auto roomDatas = ConfigRoom::getInstance()->getRooms();
+	auto roomDatas =_roomitems;
 	///获得最大可进房间ID
 	int i = roomDatas.size() - 1;
 	for (; i > 0; i--)
 	{
-		if (roomDatas[i].unlock_turrent_level <= maxLevel)
+		if (roomDatas[i].requireTurrentLv <= maxLevel)
 		{
 			break;
 		}
 	}
-	std::vector<Room> curData;
+	std::vector<RoomItem> curData;
 	curData.resize(roomDatas.size());
 	int maxRoomId = i;
 	int j = 0;
@@ -213,7 +238,7 @@ std::vector<Room> RoomLayer::sortRoomByMaxlevel(int maxLevel)
 		curData[j] = roomDatas[k];
 
 	}
-	std::vector<Room> curData2;
+	std::vector<RoomItem> curData2;
 	curData2.resize(curData.size());
 	for (int z = 0; z < curData2.size();z++)
 	{

@@ -7,7 +7,7 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/bankrupt/BankruptManager.h"
 #include "domain/loading/LoadingSceneLbToGm.h"
-RoomCell*RoomCell::createCell(Room room)
+RoomCell*RoomCell::createCell(RoomItem room)
 {
 	RoomCell*cell = new RoomCell();
 	if (cell&&cell->init(room))
@@ -21,10 +21,10 @@ RoomCell*RoomCell::createCell(Room room)
 	return cell;
 }
 
-bool RoomCell::init(Room room)
+bool RoomCell::init(RoomItem room)
 {
 	m_room = room;
-	auto str = String::createWithFormat("level_%d.png", m_room.room_id);
+	auto str = String::createWithFormat("level_%d.png", m_room.roomid);
 	initWithFile(str->getCString());
 	playNormalAni();//播放基准动画
 	setPlayerNum();//虚构房间人数
@@ -65,7 +65,7 @@ void RoomCell::isBeClicked()
 			node->removeFromParentAndCleanup(false);
 
 		}
-		GameData::getInstance()->setRoomID(m_room.room_id);
+		GameData::getInstance()->setRoomID(m_room.roomid);
 
 			Director::getInstance()->replaceScene( LoadingSceneLbToGm::createScene());
 		
@@ -79,7 +79,7 @@ void RoomCell::setPlayerNum()
 	///设置房间人数
 
 	int nHour = SystemTime::getNowHour();
-	int nPlayerNum = ConfigRoom::getInstance()->getPlayerCounts(nHour, m_room.room_id);
+	int nPlayerNum = m_room.playerNum;
 	auto sp = Sprite::create("onLinePlayer.png");
 	sp->setPosition(getContentSize().width*0.4, getContentSize().height*0.14);
 	addChild(sp, 0, "onLinePlayer");
@@ -93,7 +93,7 @@ void RoomCell::lockRoom()
 	//加锁和
 	setIslock(false);;
 	auto userLevel = User::getInstance()->getMaxTurrentLevel();
-	if (userLevel < m_room.unlock_turrent_level)
+	if (userLevel < m_room.requireTurrentLv)
 	{
 		auto lock = Sprite::create("lock.png");
 		lock->setPosition(getContentSize().width*0.2, getContentSize().height*0.8);
@@ -108,7 +108,7 @@ void RoomCell::resumeNormalAni()
 	{
 		var->setVisible(true);
 	}
-	if (m_room.room_id==4)
+	if (m_room.roomid==4)
 	{
 		IsloveOn = true;
 	}
@@ -138,12 +138,12 @@ void RoomCell::stopNormalAni()
 void RoomCell::playNormalAni()
 {
 
-	if (m_room.room_id != 1)
+	if (m_room.roomid != 1)
 	{
 		auto aniNode = Sprite::create();
 		aniNode->setPosition(getContentSize() / 2);
 		addChild(aniNode);
-		auto str = String::createWithFormat("aniRoom_id%d", m_room.room_id);
+		auto str = String::createWithFormat("aniRoom_id%d", m_room.roomid);
 		auto ac = AnimationUtil::getInstance()->getAnimate(str->getCString());
 		if (ac)
 		{
@@ -159,7 +159,7 @@ void RoomCell::playNormalAni()
 	paopaoNode->runAction(RepeatForever::create(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniBubble"), nullptr)));
 	addChild(paopaoNode);
 	anis.push_back(paopaoNode);
-	switch (m_room.room_id)
+	switch (m_room.roomid)
 	{
 	case 1:
 	{

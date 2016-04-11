@@ -5,6 +5,7 @@
 #include "config/ConfigRoom.h"
 #include "utill/dayUtil.h"
 #include "domain/user/User.h"
+#include "server/HttpMsgDefine.h"
 using namespace cocos2d;
 
 
@@ -14,8 +15,8 @@ using namespace cocos2d;
 class RoomCell :public Sprite
 {
 public:
-	static RoomCell * createCell(Room room);
-	bool init(Room room);
+	static RoomCell * createCell(RoomItem room);
+	bool init(RoomItem room);
 	void lockRoom();
 	void setPlayerNum();
 	void stopNormalAni();
@@ -26,7 +27,7 @@ public:
 	CC_SYNTHESIZE(bool, isLock, Islock);
 private:
 	~RoomCell();
-	Room m_room;
+	RoomItem m_room;
 
 	void TiPCallBack(Ref*psend);
 

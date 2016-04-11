@@ -1543,6 +1543,82 @@ void HttpMannger::onHttpRequestCompletedForGetAchieveReward(HttpClient *sender, 
 
 }
 
+void HttpMannger::HttpToPostRequestToGetRoomInfo()
+{
+	auto game_version = DeviceInfo::getGameVersion();
+
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETROOMINFO);
+	auto requstData = String::createWithFormat("game_version=%d", game_version);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForToGetRoomInfo, this));
+}
+void HttpMannger::onHttpRequestCompletedForToGetRoomInfo(HttpClient *sender, HttpResponse *response)
+{
+	RoomInfoValue* value = new RoomInfoValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back getroominfo cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto &room_lists = doc["room_lists"];
+			for (unsigned int j = 0; j < room_lists.Size(); j++)
+			{
+				RoomItem item; 
+				item.playerNum = room_lists[j]["player_nums"].GetInt();
+				item.roomid = room_lists[j]["room_id"].GetInt();
+				item.requireTurrentLv = room_lists[j]["require_turrent_level"].GetInt();
+				value->_roomitems.push_back(item);
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_room_info");
+	}
+	else
+	{
+		EventCustom event("get_room_info");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
+}
+
+
+
+
+
+
+
 
 bool HttpMannger::checkIsRelogin(int msgId, std::string msg)
 {

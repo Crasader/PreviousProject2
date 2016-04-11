@@ -35,6 +35,7 @@ using namespace cocos2d;
 #define URL_GETNOBILITYINFO "/nobility/surplus"
 #define URL_GETNOBILITYREWARD "/nobility/today/reward"
 #define URL_MARQUEE  "/marquee/config"
+#define URL_GETROOMINFO  "/room/roominfo"
 struct setNameRequest
 {
 	const char* nickname;
@@ -146,7 +147,8 @@ public:
 	void HttpToPostRequestGetAchieveReward(int missionId); //领取任务奖励
 	void onHttpRequestCompletedForGetAchieveReward(HttpClient *sender, HttpResponse *response);
 
-
+	void HttpToPostRequestToGetRoomInfo(); //获取房间信息
+	void onHttpRequestCompletedForToGetRoomInfo(HttpClient *sender, HttpResponse *response);
 
 
 private:

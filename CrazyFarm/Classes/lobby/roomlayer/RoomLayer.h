@@ -1,5 +1,6 @@
 #pragma once
 #include "cocos2d.h"
+#include "server/HttpMannger.h"
 #include "RoomCell.h"
 USING_NS_CC;
 
@@ -24,7 +25,7 @@ private:
 	void update(float delta);
 	virtual bool init();
 	void createRoomLayer();
-	std::vector<Room> sortRoomByMaxlevel(int maxLevel);
+	std::vector<RoomItem> sortRoomByMaxlevel(int maxLevel);
 	void closeButtonCallBack(Ref*psend);
 	Vector<RoomCell*> roomCells;
 	void moveRoomRight();
@@ -34,6 +35,6 @@ private:
 	Node* touchnode;
 	int diffx;
 
-
+	std::vector<RoomItem> _roomitems;
 	bool isMove = false;
 };

@@ -176,3 +176,19 @@ struct BuyBagItemValue
 	int costDmNum;
 	int buyItemNum;
 };
+
+
+struct RoomItem
+{
+	int roomid;
+	int playerNum;
+	int requireTurrentLv;
+
+};
+struct RoomInfoValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<RoomItem> _roomitems;
+
+};
