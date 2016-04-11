@@ -238,7 +238,8 @@ bool payLayer::init(int payType)
 		addChild(tipfish);
 
 		auto chinaword = ChineseWord("payVIPdes");
-		auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
+		int needmoney = nextVip.charge_money - nowChargeMoney;
+		auto strdec = String::createWithFormat(chinaword.c_str(), needmoney, nextVip.vip_level);
 		 ttf = LabelTTF::create(strdec->getCString(), "Airal", 23);
 		 ttf->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		ttf->setPosition(316,397);
@@ -306,9 +307,10 @@ void payLayer::update(float delta)
 	
 	auto vipConfig = ConfigVipLevel::getInstance();
 	auto nextVip = vipConfig->getVipLevel(nowVip + 1);
-	auto nowChargeMoney = User::getInstance()->getChargeMoney()/100;
+	auto nowChargeMoney = User::getInstance()->getChargeMoney();
 	auto chinaword = ChineseWord("payVIPdes");
-	auto strdec = String::createWithFormat(chinaword.c_str(), nextVip.charge_money - nowChargeMoney, nextVip.vip_level);
+	int needmoney = nextVip.charge_money - nowChargeMoney;
+	auto strdec = String::createWithFormat(chinaword.c_str(), needmoney, nextVip.vip_level);
 	ttf->setString(strdec->getCString());
 
 	auto node = getChildByName("100");

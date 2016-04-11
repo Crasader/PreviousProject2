@@ -1,6 +1,7 @@
 #include "moment/momentFishGroup/MomentIntervalCreate.h"
 #include "fish/FishManage.h"
 #include "domain/game/GameManage.h"
+#include "fish/FishAniMannage.h"
 bool MomentIntervalCreate::updata(float dt)
 {
 	nNowTime += dt;
@@ -49,7 +50,7 @@ void MomentIntervalCreate::init(float FFOneTime)
 		}
 
 	}
-	//FishManage::getInstance()->createFishGroup(m_groupTag);
+
 }
 
 void MomentIntervalCreate::initData()

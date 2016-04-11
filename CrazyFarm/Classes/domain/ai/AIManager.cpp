@@ -22,6 +22,10 @@ AIManager* AIManager::getInstance(){
 
 AI* AIManager::getAI( int maxTurrentLevel) {
 
+	AI*jun = new AIJun();
+	jun->setMaxTurrentLevel(maxTurrentLevel);
+	jun->setReqSteps(0.2f);
+	return jun;
     int who = getRand()%100;
     if(who < 40) {
 		AI* molo = new AIMolo();

@@ -14,7 +14,7 @@ struct MsgUpdateTurrentInfo
 
 
 
-
+///todo: 303 vip等级不够，304， 炮台等级不够
 class  Msg_OnUpdateTurrent :public Msg_Base
 {
 public:

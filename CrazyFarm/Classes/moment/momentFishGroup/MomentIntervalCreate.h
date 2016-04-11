@@ -11,6 +11,8 @@ struct MomentIntervalCreateFishInfo
 	int  _fishid;
 	int  _route;
 	Vec2 _startPos;
+	Vec2 _endPos;
+	float  _moveTime;
 	float _time;
 };
 

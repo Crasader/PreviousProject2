@@ -16,7 +16,13 @@ SignMannger* SignMannger::getInstance(){
 
 void SignMannger::sendRequest()
 {
-	HttpToPostRequestSign(); 
+	static bool isSendRequest = false;
+	if (!isSendRequest)
+	{
+		HttpToPostRequestSign();
+		isSendRequest = true;
+	}
+	
 }
 
 void SignMannger::HttpToPostRequestSign()

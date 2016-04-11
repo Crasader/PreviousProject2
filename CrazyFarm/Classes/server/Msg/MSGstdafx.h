@@ -13,3 +13,5 @@
 #include "MsgOnBankrupt.h"
 #include "MsgOnBankruptRebirth.h"
 #include "MsgPayresult.h"
+#include "MsgOnMarquee.h"
+#include "MsgOnBossDead.h"

@@ -262,10 +262,9 @@ void Pay::payCallBack(int code, const char* msg, std::vector<RewardValue> reward
 			{
 				case 1001:
 					User::getInstance()->addCoins(var._num*lvdata.pay_reward);
-					if (!User::getInstance()->getIsHaveBycoin())
+					if (!User::getInstance()->getIsHaveBycoin() && releprice != 1000&&releprice != 5)
 					{
-						User::getInstance()->setHaveBycoin();
-						User::getInstance()->addDiamonds(100);
+						User::getInstance()->setIsHaveBycoin(true);
 					}	
 					break;
 				case 1002:
@@ -278,9 +277,12 @@ void Pay::payCallBack(int code, const char* msg, std::vector<RewardValue> reward
 				break;
 			}
 		}
-
-		User::getInstance()->addChargeMoney(releprice);
+		User::getInstance()->addChargeMoney(releprice/100);
 		
+		if (releprice == 1000 || releprice == 5)
+		{
+			User::getInstance()->setIsHaveFirstPay(true);
+		}
 		
 		payResult = 1;
 	

@@ -28,6 +28,10 @@ bool ScrollTextEx::init() {
 	}
 	return ret;
 }
+void ScrollTextEx::setScrollStr(std::string str)
+{
+	m_strs.push_back(str);
+}
 void ScrollTextEx::setScrollStrs(std::vector<std::string> strs)
 {
 	auto vec = strs;

@@ -390,7 +390,7 @@ void Fish::update(float dt)
 {
 
 
-	if (getPosition().distance(LastPos) > 0)
+	if (getPosition().distance(LastPos) >0.01) //两帧距离大于0.01个像素
 	{
 		auto raroAngle = 1.5*3.1415926f - (getPosition() - LastPos).getAngle();
 		setRotation(CC_RADIANS_TO_DEGREES(raroAngle) + 90);

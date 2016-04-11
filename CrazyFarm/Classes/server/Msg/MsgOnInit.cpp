@@ -24,7 +24,7 @@ void Msg_onInit::setBody(const char* msgBody)
 	User::getInstance()->setExp(my_info["exps"].GetInt());
 	User::getInstance()->setMaxTurrentLevel(my_info["turrent_level"].GetInt());
 	User::getInstance()->setUserBoxLevel(my_info["chest_level"].GetInt());
-	User::getInstance()->setChargeMoney(my_info["mo"].GetInt());
+	User::getInstance()->setChargeMoney(my_info["mo"].GetInt()/100);
 	User::getInstance()->setcatchPer(my_info["catch_per"].GetDouble());
 	roomPos = my_info["r_pos"].GetInt();
 	auto &item_lists = my_info["item_lists"];
@@ -96,5 +96,7 @@ void Msg_onInit::setBody(const char* msgBody)
 
 	//初始时间戳
 	initCreateTime = doc["create_time"].GetDouble();
-
+	//子弹相关
+	//bullet_speed = doc["bullet_speed"].GetDouble();
+	//bullet_interval = doc["bullet_interval"].GetDouble();
 }

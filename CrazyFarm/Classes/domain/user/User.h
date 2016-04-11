@@ -55,12 +55,6 @@ public:
      * return true, level up!! else, return false.
      */
     
-    
-	bool getIsHaveFirstPay(){ return getChargeMoney()>0; };
-	void setHaveFirstPay(){ UserDefault::getInstance()->setBoolForKey(KEY_ISHAVEFIRSTPAY, true); };
-
-	bool getIsHaveBycoin(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVEBYCOIN, false); };
-	void setHaveBycoin(){ UserDefault::getInstance()->setBoolForKey(KEY_ISHAVEBYCOIN, true); };
 
 
 	bool getIsHaveSetName(){ return UserDefault::getInstance()->getBoolForKey(KEY_ISHAVESETNAME, false); };
@@ -98,6 +92,9 @@ private:
 	CC_SYNTHESIZE(int, _userGenderd, UserGender);
 	CC_SYNTHESIZE(int, _nobilityDay, NobilityDay);
 	CC_SYNTHESIZE(float, _catchPer, catchPer);
+
+	CC_SYNTHESIZE(bool, _IsHaveFirstPay, IsHaveFirstPay);
+	CC_SYNTHESIZE(bool, _IsHaveBycoin, IsHaveBycoin);
 	long _coins =0;
 	long  _diamond = 0;
 

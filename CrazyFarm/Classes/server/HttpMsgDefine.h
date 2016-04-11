@@ -136,6 +136,9 @@ struct UserInfoValue
 	int _maxTurrentLv;
 	int _chargemoney;
 	int _chestLevel;
+	//สืณๅฯเนุ
+	int mo_coins;
+	int mo_first;
 };
 
 

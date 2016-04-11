@@ -18,6 +18,7 @@ public:
 	long getCurrentTime();
 public:
 	 void setScrollStrs(std::vector<std::string> strs);
+	 void setScrollStr(std::string str);
 	 void setAutoScroll(bool isScroll, bool byWidth = false);
 private:
 	cocos2d::Label* _mLable;

@@ -22,6 +22,8 @@ enum MsgId
 	MsgOnMagnate,
 	MsgOnBankrupt,
 	MsgOnBankruptRebirth,
+	MsgOnMarquee,
+	MsgOnBossDead
 };
 
 

@@ -102,7 +102,8 @@ bool GameLayer::init(){
 
 	runAction(Sequence::create(DelayTime::create(0.01f),
 		CallFunc::create([&]{
-		
+		/*	loadNewMonent(2);
+			_fishGroupType = 1;*/
 		initFishAndBulletData();
  }), nullptr));
 
@@ -198,37 +199,38 @@ void GameLayer::createTurret(){
 
 
 
-/*
 
-	RoomPlayer* usera = new RoomPlayer();
-	usera->setCoins(1200000);
-	usera->setDiamonds(100);
-	usera->setLevel(10l);
-	usera->setMaxTurretLevel(1);
-	usera->setUserName("robot");
-	usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
-	usera->setChestLv(2);
-	AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
-	usera->setAi(ai);
-	int uiPos = 3;
-	if (uiPos > 3)
-	{
-		uiPos -= 4;
-	}
-	if (uiPos < 0)
-	{
-		uiPos += 4;
-	}
-	usera->setRoomPosition(uiPos);
 
-	auto otherTurret = PlayerTurret::create();
-	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-	otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
-	otherTurret->initWithDate(usera);
-	otherTurrets.pushBack(otherTurret);
-	addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
+	//RoomPlayer* usera = new RoomPlayer();
+	//usera->setCoins(1200000);
+	//usera->setDiamonds(100);
+	//usera->setLevel(10l);
+	//usera->setMaxTurretLevel(1);
+	//usera->setUserName("robot");
+	//usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
+	//usera->setChestLv(2);
+	//usera->setchestper(1.0);
+	//AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
+	//usera->setAi(ai);
+	//int uiPos = 3;
+	//if (uiPos > 3)
+	//{
+	//	uiPos -= 4;
+	//}
+	//if (uiPos < 0)
+	//{
+	//	uiPos += 4;
+	//}
+	//usera->setRoomPosition(uiPos);
 
-	TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);*/
+	//auto otherTurret = PlayerTurret::create();
+	//otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+	//otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
+	//otherTurret->initWithDate(usera);
+	//otherTurrets.pushBack(otherTurret);
+	//addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
+
+	//TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
 }
 
 
@@ -1094,19 +1096,25 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 	}
 	else if (_fishGroupsItem.group_type == 1)
 	{
-		_fishGroupMonentType = _fishGroupsItem.group_type;
+		_fishGroupMonentType = _fishGroupsItem.sub_type;
 		loadNewMonent(_fishGroupMonentType);
 		difTime = (init_creat_time - NowFpsFishInfo.seq_create_time) / 1000;
 		difTime +=(int)(NowFpsFishInfo.seq_interval*NowFpsFishInfo.fishGroupsItem.seq - 1)-7;
 	}
 	runAction(Sequence::create(DelayTime::create(0), CallFunc::create([=]{FFOneTimeToFishes(difTime); }), nullptr));
+	//子弹相关
+	ShootData shootdata;
+	shootdata.shootInterval = msg->bullet_interval;
+	shootdata.shootSpeed = msg->bullet_speed;
+	GameConfig::getInstance()->setShootData(shootdata);
+
 
 	
 }
 void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 {
-	//鱼群信息
-	//初始鱼群
+	////鱼群信息
+	////初始鱼群
 	auto NowFpsFishInfo = msg->_info;
 	auto _fishGroupsItem = NowFpsFishInfo.fishGroupsItem;
 	GameData::getInstance()->setRandomSeed(NowFpsFishInfo.randomSTC);
@@ -1126,7 +1134,7 @@ void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 		{
 			loadNewMonent(9);
 		}
-		_fishGroupMonentType = _fishGroupsItem.group_type;
+		_fishGroupMonentType = _fishGroupsItem.sub_type;
 		
 	}
 	//广播
@@ -1290,6 +1298,34 @@ void GameLayer::onMagnate(Msg_OnMagnate*msg)
 	}
 }
 
+void GameLayer::onBossDead(Msg_OnBossDead*msg)
+{
+	for (auto var:msg->_items)
+	{
+		BagManager::getInstance()->addreward(var._itemid, var._num);
+	}
+}
+void GameLayer::onMarquee(Msg_OnMarquee*msg)
+{
+	auto node = GameManage::getInstance()->getGuiLayer()->getChildByName("displayboard");
+	if (node)
+	{
+		((ScrollTextEx*)node)->setScrollStr(msg->msg);
+		return;
+	}
+	auto DisplayBoard = ScrollTextEx::create();
+	DisplayBoard->setPosition(498, 463);
+	DisplayBoard->setAutoScroll(true);
+	DisplayBoard->setScrollStr(msg->msg);
+	DisplayBoard->setName("displayboard");
+	GameManage::getInstance()->getGuiLayer()->addChild(DisplayBoard, kZorderMenu);
+}
+
+
+
+
+
+
 void GameLayer::ToPayShopCallBack(Ref*psend)
 {
 	auto layer = payLayer::createLayer(2);
@@ -1363,6 +1399,13 @@ void GameLayer::MsgUpdata(float dt)
 		case MsgPayresult:
 			onPayresulet((Msg_Payresult*)var);
 			break;
+		case MsgOnBossDead:
+			onBossDead((Msg_OnBossDead*)var);
+			break;
+		case MsgOnMarquee:
+			onMarquee((Msg_OnMarquee*)var);
+			break;
+
 		default:
 			break;
 		}

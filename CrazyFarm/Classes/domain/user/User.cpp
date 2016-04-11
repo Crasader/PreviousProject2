@@ -13,7 +13,8 @@ void User::init(){
 	setSessionid("");
 	setUserGender(1);
 	setNobilityDay(0);
-
+	setIsHaveFirstPay(false);
+	setIsHaveBycoin(false);
 }
 
 User* User::getInstance(){

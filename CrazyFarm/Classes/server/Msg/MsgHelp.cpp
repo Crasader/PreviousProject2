@@ -118,5 +118,21 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 		base->setMsgId(MsgPayresult);
 
 	}
+	if (strcmp(msgId, "boss") == 0)
+	{
+		//破产领取
+		base = new Msg_OnBossDead();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnBossDead);
+
+	}
+	if (strcmp(msgId, "marquee") == 0)
+	{
+		//破产领取
+		base = new Msg_OnMarquee();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnMarquee);
+
+	}
 	return base;
 }

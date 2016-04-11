@@ -338,6 +338,7 @@ bool LobbyScene::init()
 
 	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, MissionBT,CDKEYbt, nullptr);
 	menu->setPosition(Point::ZERO);
+	menu->setVisible(false);
 	addChild(menu, kZorderMenu-1,"menu");
 
 	//添加系统返回键监听
@@ -474,9 +475,14 @@ void LobbyScene::onEnterTransitionDidFinish()
 			User::getInstance()->setExp(value->_exps);
 			User::getInstance()->setDiamonds(value->_diamonds);
 			User::getInstance()->setMaxTurrentLevel(value->_maxTurrentLv);
-			User::getInstance()->setChargeMoney(value->_chargemoney);
+			User::getInstance()->setChargeMoney(value->_chargemoney/100);
 			User::getInstance()->setUserBoxLevel(value->_chestLevel);
+
+			User::getInstance()->setIsHaveBycoin(Value(value->mo_coins).asBool());
+			User::getInstance()->setIsHaveFirstPay(Value(value->mo_first).asBool());
+
 			setValue();
+			getChildByName("menu")->setVisible(true);
 			createRoomLayer();
 		}
 		else

@@ -771,6 +771,12 @@
     <ClCompile Include="..\Classes\domain\ToolTip\ReloginDialog.cpp">
       <Filter>src\ToolTip</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnBossDead.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Msg\MsgOnMarquee.cpp">
+      <Filter>src\server\MSG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1420,6 +1426,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ToolTip\ReloginDialog.h">
       <Filter>src\ToolTip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnBossDead.h">
+      <Filter>src\server\MSG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Msg\MsgOnMarquee.h">
+      <Filter>src\server\MSG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

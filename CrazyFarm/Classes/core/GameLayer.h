@@ -147,22 +147,25 @@ private:
 public:
 	virtual void handle_event(const char* msgId, const char* msgBody);
 private:
-//某个玩家去留
-	void onSomeoneLeave(Msg_onLeave* msg);
-	void onSomeoneComing(Msg_onAdd* msg);
-	void onClientInit(Msg_onInit* msg);
+//消息
+	void onSomeoneLeave(Msg_onLeave* msg);  //玩家离开
+	void onSomeoneComing(Msg_onAdd* msg);  //玩家进入
+	void onClientInit(Msg_onInit* msg);   //init
 	bool isInitMsg = false;
-	void onFishesMsg(Msg_OnFishes*msg);
-	void onConError(Msg_ConError*msg);
-	void onUpdateTurrent(Msg_OnUpdateTurrent*msg);
-	void onUpdateLevel(Msg_OnExpUpdate*msg);
-	void onGetBounsPool(Msg_OnGetBounsPool*msg);
-	void onUseSkill(Msg_UseSkill* msg);
-	void onLuckDraw(Msg_LuckDraw* msg);
-	void onBankrupt(Msg_OnBankrupt* msg);
-	void onbankruptRebirth(Msg_OnBankruptRebirth* msg);
-	void onMagnate(Msg_OnMagnate*msg);
-	void onPayresulet(Msg_Payresult*msg);
+	void onFishesMsg(Msg_OnFishes*msg);  //鱼群信息
+	void onConError(Msg_ConError*msg);  //断开连接
+	void onUpdateTurrent(Msg_OnUpdateTurrent*msg); //升级炮塔
+	void onUpdateLevel(Msg_OnExpUpdate*msg); //升级
+	void onGetBounsPool(Msg_OnGetBounsPool*msg); //获取奖金池
+	void onUseSkill(Msg_UseSkill* msg); //使用技能
+	void onLuckDraw(Msg_LuckDraw* msg); //转盘抽奖
+	void onBankrupt(Msg_OnBankrupt* msg); //破产信息
+	void onbankruptRebirth(Msg_OnBankruptRebirth* msg); //破产领取
+	void onMagnate(Msg_OnMagnate*msg); //赠送
+	void onPayresulet(Msg_Payresult*msg); //支付结果
+	void onBossDead(Msg_OnBossDead*msg); //BOSS鱼死亡
+	void onMarquee(Msg_OnMarquee*msg);  //跑马灯任务完成信息
+
 	void ToPayShopCallBack(Ref*psend);
 	void exitCallback(Ref*psend);
 	void MsgUpdata(float dt);

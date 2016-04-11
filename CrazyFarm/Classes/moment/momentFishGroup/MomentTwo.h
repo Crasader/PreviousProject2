@@ -8,5 +8,6 @@ class MomentTwo : public MomentIntervalCreate {
 
 public:
 	virtual void initData();
-
+	virtual bool updata(float dt);
+	virtual void init(float ffonetime);
 };

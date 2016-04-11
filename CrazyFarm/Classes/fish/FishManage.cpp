@@ -135,11 +135,23 @@ void FishManage::createFishMonmentInterval(int fishid, int route,Vec2 startPos)
 		fish->setRoute(route);
 		fish->setPosition(startPos);
 		fish->setZOrder(fish->getFishZorder());
-	}
-	
-
-	 
+	}	 
 }
+
+void FishManage::createFishMonmentInterval(int fishid,Vec2 startPos, Vec2 endPos,float movetime)
+{
+	Fish* fish = FishManage::getInstance()->createFishSingle(fishid);
+	if (fish)
+	{
+		fish->setVisible(true);
+		fish->setisAutoRemove(false);
+		auto acNoRepeat = Sequence::create(MoveTo::create(movetime, endPos), CallFunc::create([=]{GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 0, nullptr); }), nullptr);
+		fish->runAction(acNoRepeat)->setTag(kTagAcMove);
+		fish->setPosition(startPos);
+		fish->setZOrder(fish->getFishZorder());
+	}
+}
+
 
 
 void FishManage::createFishGroup(int grouptag)

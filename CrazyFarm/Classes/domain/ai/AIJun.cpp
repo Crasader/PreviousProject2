@@ -12,33 +12,33 @@ PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion) {
 
 		if (_currentFish&&_currentFish->getTag() != -1)
 		{
-			angle = getTurretRotation(currentPostion, _currentFish->getPosition());
+	
+		}
+		else
+		{
+			_currentFish = FishManage::getInstance()->getLowDistanceInPool(currentPostion);
+		}
+		if (_currentFish&&_currentFish->getTag() != -1)
+		{
+			auto currentPos = _currentFish->convertToWorldSpace(_currentFish->getCentrenPos());
+			angle = getTurretRotation(currentPostion, currentPos);
 			if (currentPostion.y > 270)
 			{
 				angle -= 180;
 			}
+			if (angle > 85 || angle < -85)
+			{
+				break;
+			}
+
+			CCLOG("AiJun shoot _currentPos = (%f,%f)  angle = %f _currentFishId = %d", currentPos.x, currentPos.y, angle,_currentFish->getFishID());
 			playerWork.setFire(true);
 			playerWork.setAngle(angle);
 			return playerWork;
 		}
 		else
 		{
-			_currentFish = FishManage::getInstance()->getLowDistanceInPool(currentPostion);
-			if (_currentFish&&_currentFish->getTag() != -1)
-			{
-				angle = getTurretRotation(currentPostion, _currentFish->getPosition());
-				if (currentPostion.y > 270)
-				{
-					angle -= 180;
-				}
-				playerWork.setFire(true);
-				playerWork.setAngle(angle);
-				return playerWork;
-			}
-			else
-			{
-				break;
-			}
+			break;
 		}
 	}
 	playerWork.setAngle((float)angle);

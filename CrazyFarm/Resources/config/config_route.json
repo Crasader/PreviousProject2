@@ -7,7 +7,7 @@
             "routePoint": [
                 {
                      "moveState": 1,
-                    "MoveByPos":{"x":-1500,"y":0},
+                    "MoveByPos":{"x":-1200,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
                     "time": 30
@@ -19,7 +19,7 @@
             "routePoint": [
                 {
                     "moveState": 1,
-                    "MoveByPos":{"x":-1500,"y":0},
+                    "MoveByPos":{"x":-1200,"y":0},
                     "isRepet": 0,   
                     "delay": 0,
                     "time": 30

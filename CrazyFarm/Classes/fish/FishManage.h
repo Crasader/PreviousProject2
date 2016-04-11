@@ -34,12 +34,15 @@ public:
 	void createFishRand(int fishId);
 	void createFishArrangeRand(int fishId);
 	void createFishAssign(int fishId, int momentEightroutetag);
-	///队列鱼  同生不共死
-	void createFishQueue(int fishId, int momentEightroutetag);
+	
+	void createFishQueue(int fishId, int momentEightroutetag);///队列鱼  同生不共死
 
 
 
 	void createFishMonmentInterval(int fishid, int route, Vec2 startPos);
+
+	void createFishMonmentInterval(int fishid,  Vec2 startPos,Vec2 endPos,float  movetime);
+
 
 
 	void decideFishPos(Fish* fish);//决定鱼的出生位置
