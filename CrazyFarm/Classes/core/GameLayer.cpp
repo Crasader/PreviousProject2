@@ -100,12 +100,8 @@ bool GameLayer::init(){
 
 	schedule(schedule_selector(GameLayer::UpdateCreateFishByServer), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0.02f);
 
-	runAction(Sequence::create(DelayTime::create(0.01f),
-		CallFunc::create([&]{
-		/*	loadNewMonent(2);
-			_fishGroupType = 1;*/
 		initFishAndBulletData();
- }), nullptr));
+
 
 
 
@@ -201,36 +197,36 @@ void GameLayer::createTurret(){
 
 
 
-	//RoomPlayer* usera = new RoomPlayer();
-	//usera->setCoins(1200000);
-	//usera->setDiamonds(100);
-	//usera->setLevel(10l);
-	//usera->setMaxTurretLevel(1);
-	//usera->setUserName("robot");
-	//usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
-	//usera->setChestLv(2);
-	//usera->setchestper(1.0);
-	//AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
-	//usera->setAi(ai);
-	//int uiPos = 3;
-	//if (uiPos > 3)
-	//{
-	//	uiPos -= 4;
-	//}
-	//if (uiPos < 0)
-	//{
-	//	uiPos += 4;
-	//}
-	//usera->setRoomPosition(uiPos);
+	RoomPlayer* usera = new RoomPlayer();
+	usera->setCoins(1200000);
+	usera->setDiamonds(100);
+	usera->setLevel(10l);
+	usera->setMaxTurretLevel(1);
+	usera->setUserName("robot");
+	usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
+	usera->setChestLv(2);
+	usera->setchestper(1.0);
+	AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
+	usera->setAi(ai);
+	int uiPos = 3;
+	if (uiPos > 3)
+	{
+		uiPos -= 4;
+	}
+	if (uiPos < 0)
+	{
+		uiPos += 4;
+	}
+	usera->setRoomPosition(uiPos);
 
-	//auto otherTurret = PlayerTurret::create();
-	//otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-	//otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
-	//otherTurret->initWithDate(usera);
-	//otherTurrets.pushBack(otherTurret);
-	//addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
+	auto otherTurret = PlayerTurret::create();
+	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+	otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
+	otherTurret->initWithDate(usera);
+	otherTurrets.pushBack(otherTurret);
+	addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
 
-	//TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
+	TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
 }
 
 

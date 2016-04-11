@@ -97,6 +97,6 @@ void Msg_onInit::setBody(const char* msgBody)
 	//初始时间戳
 	initCreateTime = doc["create_time"].GetDouble();
 	//子弹相关
-	//bullet_speed = doc["bullet_speed"].GetDouble();
-	//bullet_interval = doc["bullet_interval"].GetDouble();
+	bullet_speed = doc["bullet_speed"].GetDouble();
+	bullet_interval = doc["bullet_interval"].GetDouble();
 }
