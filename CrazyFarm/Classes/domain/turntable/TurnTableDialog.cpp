@@ -135,6 +135,9 @@ void TurnTableDialog::BeginTurnTable(int itemID, int num)
 
 	table->menuButtonCallback(itemID,num);
 
+	//清空奖金池和奖金鱼
+	BonusPoolManager::getInstance()->setBounsCoins(0);
+	BonusPoolManager::getInstance()->setBounsFishCounts(0);
 
 	auto ac = ProgressTo::create(0.5f, 0);
 	bar->runAction(ac);

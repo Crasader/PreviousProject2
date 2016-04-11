@@ -124,11 +124,11 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 			break;
 		}
 		turret->getCoinByFish(fish);
-		//如果是自己捕获到
-		if (!turret->isRobot&&fish->getFishType()==GoldFish)
-		{
-			showGainMoneyTurrent();
-		}
+		////如果是自己捕获到
+		//if (!turret->isRobot&&fish->getFishType()==GoldFish)
+		//{
+		//	showGainMoneyTurrent();
+		//}
 		if (!turret->isRobot)
 		{
 			//美人鱼任务相关

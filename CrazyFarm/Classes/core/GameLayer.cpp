@@ -908,7 +908,8 @@ void GameLayer::onGetReward(int itemid, int num)
 	aninode->runAction(Sequence::create(Repeat::create(AnimationUtil::getInstance()->getAnimate("aniShengji"), 2), RemoveSelf::create(), nullptr));
 	sp->runAction(Sequence::create( ScaleTo::create(1.5f, 1.4f), CallFunc::create([=]{colorlayer->removeFromParentAndCleanup(1); }),Spawn::create(MoveTo::create(1.0f, myTurret->getPaoWorldpos()),ScaleTo::create(1.0f,0.5f),nullptr), CallFunc::create([=]{addReward(itemid, num); }), RemoveSelf::create(1), nullptr));
 
-
+	
+	UpdateUserinfo(0);
 }
 
 
@@ -1205,6 +1206,7 @@ void GameLayer::onGetBounsPool(Msg_OnGetBounsPool*msg)
 {
 	BonusPoolManager::getInstance()->setBounsCoins(msg->fish_coins);
 	BonusPoolManager::getInstance()->setBounsFishCounts(msg->fish_nums);
+	GameManage::getInstance()->showGainMoneyTurrent();
 
 }
 
