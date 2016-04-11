@@ -843,6 +843,7 @@ void Fish::onFreezeResume()
 {
 	if (getFishType()==ArrangeFish)
 	{
+		resume();
 		for (auto child : fishes)
 		{
 			child->resume();

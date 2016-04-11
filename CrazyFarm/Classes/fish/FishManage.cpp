@@ -816,35 +816,43 @@ void FishManage::UpdataServerCreateFish(float dt)
 		it->time -= dt;
 		if (it->time < 0)
 		{
-			auto route = it->fish_route;
-			auto fishid = it->fish_ids;
-			switch (route)
+			if (it->time<-4.0f)
 			{
-			case -1:
-				if (fishid >= 100 && fishid
-					< 200)
+
+			}
+			else
+			{
+				auto route = it->fish_route;
+				auto fishid = it->fish_ids;
+				switch (route)
 				{
-					createFishArrangeRand(fishid);
-				}
-				else if (fishid>999)
-				{
+				case -1:
+					if (fishid >= 100 && fishid
+						< 200)
+					{
+						createFishArrangeRand(fishid);
+					}
+					else if (fishid > 999)
+					{
+						break;
+					}
+					else
+					{
+						createFishRand(fishid);
+					}
+					break;
+				case -2:
+					createFishAssign(fishid, getRand(Server_Seed) % 16 + 1);
+					break;
+				case -3:
+					createFishAssign(fishid, getRand(Server_Seed) % 4 + 17);
+					break;
+				default:
+					createFishAssign(fishid, route);
 					break;
 				}
-				else
-				{
-					createFishRand(fishid);
-				}
-				break;
-			case -2:
-				createFishAssign(fishid, getRand(Server_Seed) % 16 + 1);
-				break;
-			case -3:
-				createFishAssign(fishid, getRand(Server_Seed) % 4 + 17);
-				break;
-			default:
-				createFishAssign(fishid, route);
-				break;
 			}
+		
 			it = waitCreateFishes.erase(it);
 		}
 		else

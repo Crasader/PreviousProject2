@@ -10,8 +10,8 @@ void Msg_onAdd::setBody(const char* msgBody)
 	}
 	rapidjson::Value& userinfo = doc["user_info"];
 	username = userinfo["nick_name"].GetString();
-	coins = userinfo["coins"].GetUint();
-	diamonds = userinfo["diamonds"].GetUint();
+	coins = userinfo["coins"].GetInt();
+	diamonds = userinfo["diamonds"].GetInt();
 	turrent_level = userinfo["turrent_level"].GetInt();
 	vip_level = userinfo["vip_level"].GetInt();
 	box_level = userinfo["box_level"].GetInt();

@@ -200,7 +200,7 @@ void GameLayer::createTurret(){
 
 
 
-	/*RoomPlayer* usera = new RoomPlayer();
+	RoomPlayer* usera = new RoomPlayer();
 	usera->setCoins(1200000);
 	usera->setDiamonds(100);
 	usera->setLevel(10l);
@@ -228,7 +228,7 @@ void GameLayer::createTurret(){
 	otherTurrets.pushBack(otherTurret);
 	addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
 
-	TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);*/
+	TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
 }
 
 
@@ -610,7 +610,7 @@ void GameLayer::endSkillBoom()
 }
 
 
-void GameLayer::onBoomCatchFish(Point pos)
+void GameLayer::onBoomCatchFish(Point pos,PlayerTurret*turret)
 {
 	auto fishPool = FishManage::getInstance()->getAllFishInPool();
 	auto data = GameData::getInstance();
@@ -618,23 +618,16 @@ void GameLayer::onBoomCatchFish(Point pos)
 	{
 		if (CollisionUtill::isCollisionFishAAndRect(fish, Rect(pos.x - 200, pos.y - 200, 400, 400)))
 		{
-			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, myTurret);
+			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, turret);
 		}
 
 	}
 	endSkillBoom();
 }
-
-bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
+void GameLayer::doBoom(Point pos, PlayerTurret*turrent,bool isRobot)
 {
-	auto pos = touch->getLocation();
-	if (onTouTurret(pos))
-	{
-		return true;
-	}
-	removePlayerInfo();
 	auto sp = Sprite::create("sign_1006.png");
-	sp->setPosition(myTurret->getPosition());
+	sp->setPosition(turrent->getPosition());
 	sp->runAction(Sequence::create(Spawn::create(ScaleTo::create(0.13f, 1), MoveTo::create(0.13f, pos), nullptr), RemoveSelf::create(), CallFunc::create([=]{
 		auto boombg = Sprite::create("boomBg.png");
 		boombg->setPosition(pos);
@@ -646,10 +639,24 @@ bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
 		anisp->setPosition(pos);
 		anisp->setScale(2);
 		addChild(anisp);
-		onBoomCatchFish(pos);
-		anisp->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniTXTBoom"),RemoveSelf::create(),nullptr));
-	}),nullptr));
+		onBoomCatchFish(pos, turrent);
+		if (!isRobot)
+		{
+			endSkillBoom();
+		}
+		anisp->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniTXTBoom"), RemoveSelf::create(), nullptr));
+	}), nullptr));
 	addChild(sp);
+}
+bool GameLayer::boomTouchEvent(Touch *touch, Event  *event)
+{
+	auto pos = touch->getLocation();
+	if (onTouTurret(pos))
+	{
+		return true;
+	}
+	removePlayerInfo();
+	doBoom(pos, myTurret,true);
 
 
 	return true;
@@ -726,6 +733,7 @@ bool GameLayer::AutoShootTouchEvent(Touch *touch, Event *event)
 void GameLayer::useFreeze(PlayerTurret*turret)
 {
 	unscheduleUpdate();
+	unschedule(schedule_selector(GameLayer::UpdateCreateFishByServer));
 	createFishAcNode->pause();
 	auto bg = ProgressTimer::create(Sprite::create("iceFram4.jpg"));
 	bg->setType(ProgressTimer::Type::BAR);
@@ -770,6 +778,7 @@ void GameLayer::useFreeze(PlayerTurret*turret)
 
 void GameLayer::onFreezeEnd(PlayerTurret*turret)
 {
+	schedule(schedule_selector(GameLayer::UpdateCreateFishByServer), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0.02f);
 	scheduleUpdate();
 	createFishAcNode->resume();
 	getChildByTag(kTagFrezzebg)->removeFromParentAndCleanup(1);

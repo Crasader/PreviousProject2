@@ -33,7 +33,7 @@ public:
 	void useSkillLockEnd();
 	void useSkillLight();
 	void useSkillLightEnd();
-	void useSkillBoom();
+	void useSkillBoom(PlayerTurret*turret);
 	void init();
 	void setlayer(GameLayer*layer){ m_gamelayer = layer; }
 	void addskillButton(int id, SkillButton* button){ map_id_skillbutton[id] = button; };

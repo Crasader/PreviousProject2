@@ -523,12 +523,12 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 	addChild(spCoinBG, 10, user->getRoomPosition());
 	m_coinLabelPos = spCoinBG->getPosition();
 	nNowMoney = user->getCoins();
-	m_CoinLabel = LabelAtlas::create(String::createWithFormat("%ld", user->getCoins())->getCString(), "multipleNum.png", 15, 21, '0');
+	m_CoinLabel = MyLabelAtlas::create(String::createWithFormat("%ld", user->getCoins())->getCString(), "multipleNum.png", 15, 21, '0',110);
 	m_CoinLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.71);
 	m_CoinLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_CoinLabel);
 
-	m_DiamondLabel = LabelAtlas::create(String::createWithFormat("%ld", user->getDiamonds())->getCString(), "multipleNum.png", 15, 21, '0');
+	m_DiamondLabel = MyLabelAtlas::create(String::createWithFormat("%ld", user->getDiamonds())->getCString(), "multipleNum.png", 15, 21, '0',110);
 	m_DiamondLabel->setPosition(spCoinBG->getContentSize().width*0.9, spCoinBG->getContentSize().height*0.29);
 	m_DiamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_DiamondLabel);

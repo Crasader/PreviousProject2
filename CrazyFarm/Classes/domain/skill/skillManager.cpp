@@ -105,7 +105,7 @@ void skillManager::useSkillById(int skillid, PlayerTurret*turret)
 		}
 		break;
 	case 4:
-		useSkillBoom();
+		useSkillBoom(turret);
 		if (turret == GameManage::getInstance()->getGameLayer()->GetMyTurret())
 		{
 			getButtonByID(skillid)->skillButonUi(getSkillInfoByID(skillid).cd_time);
@@ -166,10 +166,18 @@ void skillManager::useSkillLockEnd()
 	m_gamelayer->endLock();
 }
 
-void skillManager::useSkillBoom()
+void skillManager::useSkillBoom(PlayerTurret*turret)
 {
 	Audio::getInstance()->playSound(SKILLBOOM);
-	m_gamelayer->beginSkillBoom();
+	if (turret == GameManage::getInstance()->getGameLayer()->GetMyTurret())
+	{
+		m_gamelayer->beginSkillBoom();
+	}
+	else
+	{
+		Vec2 pos = Vec2(480+rand()%400-200,270+rand()%200-100);
+		m_gamelayer->doBoom(pos, turret, true);
+	}
 }
 
 

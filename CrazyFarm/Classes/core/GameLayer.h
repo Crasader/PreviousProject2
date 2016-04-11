@@ -79,7 +79,8 @@ private:
 public:
 	void beginSkillBoom();
 	void endSkillBoom(); 
-	void onBoomCatchFish(Point pos); 
+	void onBoomCatchFish(Point pos,PlayerTurret*turrent);
+	void doBoom(Point pos, PlayerTurret*turrent,bool isrobot);
 private:
 	bool boomTouchEvent(Touch *touch, Event  *event);
 	
