@@ -44,9 +44,14 @@ Bullet* BulletManage::getFreeBulletInCache()
 		return nullptr;
 	}
 	auto bullet = _cacheBullet.back();
-	_cacheBullet.pop_back();
+	_cacheBullet.pop_back(); 
+	if (bullet->getParent())
+	{
+		bullet->removeFromParentAndCleanup(false);
+	}
 	bullet->setTag(1);
 	bullet->setVisible(true);
+	
 	return bullet;
 }
 void BulletManage::ClearManage()

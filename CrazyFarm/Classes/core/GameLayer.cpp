@@ -198,7 +198,7 @@ void GameLayer::createTurret(){
 
 
 
-
+/*
 
 	RoomPlayer* usera = new RoomPlayer();
 	usera->setCoins(1200000);
@@ -228,7 +228,7 @@ void GameLayer::createTurret(){
 	otherTurrets.pushBack(otherTurret);
 	addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
 
-	TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
+	TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);*/
 }
 
 
@@ -977,8 +977,7 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 	{
 		return;
 	}
-
-
+	
 	RoomPlayer* user = new RoomPlayer();
 	user->setCoins(msg->coins);
 	user->setDiamonds(msg->diamonds);
@@ -1001,10 +1000,25 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 	}
 	user->setRoomPosition(uiPos);
 
+
+	for (auto var : otherTurrets)
+	{
+		if (var->getTag()==uiPos)
+		{
+			TxtWaitingTurrent[var->getRoomPos()]->setVisible(true);
+			otherTurrets.eraseObject(var);
+			var->removeFromParentAndCleanup(1);
+
+		}
+	}
+
+
+
 	auto otherTurret = PlayerTurret::create();
 	otherTurret->setcurRoomPos(msg->roomPos);
 	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
 	otherTurret->setPosition(turretPos[user->getRoomPosition()]);
+	otherTurret->setTag(uiPos);
 	otherTurret->initWithDate(user);
 	otherTurrets.pushBack(otherTurret);
 	addChild(otherTurret, kZorderMenu, kTagBaseturret + user->getRoomPosition());
