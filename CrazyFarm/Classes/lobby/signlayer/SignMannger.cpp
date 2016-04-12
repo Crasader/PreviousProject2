@@ -22,6 +22,10 @@ void SignMannger::sendRequest()
 		HttpToPostRequestSign();
 		isSendRequest = true;
 	}
+	else
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_sign_info");
+	}
 	
 }
 
@@ -36,42 +40,55 @@ void SignMannger::HttpToPostRequestSign()
 }
 void SignMannger::onHttpRequestCompletedForSign(HttpClient *sender, HttpResponse *response)
 {
-	if (!response || !response->isSucceed())
+	int result;
+	while (1)
 	{
-		log("http back  get sign info falied");
-		return;
-	}
-	long statusCode = response->getResponseCode();
-	std::vector<char> *buffer = response->getResponseData();
-	auto temp = std::string(buffer->begin(), buffer->end());
-	log("http back  sign info: %s", temp.c_str());
-
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
-	if (doc.HasParseError())
-	{
-		log("get json data err!");;
-	}
-	int result = doc["errorcode"].GetInt();
-
-	if (result == 0)
-	{
-		auto &rewards = doc["rewards"];
-		unsigned int size = rewards.Size();
-		if (size>0)
+		if (!response || !response->isSucceed())
 		{
-			for (unsigned int i = 0; i < size;i++)
-			{
-				SignItem item;
-				item.itemId = rewards[i]["item_id"].GetInt();
-				item.num = rewards[i]["nums"].GetInt();
-				_signItems.push_back(item);
-			}
-			_layer->showSign(1);
+			result = 404;
+			break;
 		}
-	}
-	else
-	{
+		long statusCode = response->getResponseCode();
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back  sign info: %s", temp.c_str());
 
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			result = 404;
+			break;
+		}
+		result = doc["errorcode"].GetInt();
+
+		if (result == 0)
+		{
+			auto &rewards = doc["rewards"];
+			unsigned int size = rewards.Size();
+			if (size > 0)
+			{
+				for (unsigned int i = 0; i < size; i++)
+				{
+					SignItem item;
+					item.itemId = rewards[i]["item_id"].GetInt();
+					item.num = rewards[i]["nums"].GetInt();
+					_signItems.push_back(item);
+				}
+				
+			}
+		}
+		else
+		{
+
+		}
+		break;
 	}
+
+	setresult(result);
+		EventCustom event("get_sign_info");
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	
+
+	
 }

@@ -36,6 +36,7 @@ public:
     
     CC_SYNTHESIZE(const char*, userName, UserName);
     CC_SYNTHESIZE(int, level, Level);
+	CC_SYNTHESIZE(int, viplevel, VipLevel);
     CC_SYNTHESIZE(int, maxturretLevel, MaxTurretLevel);
 	CC_SYNTHESIZE(int, chestLv, ChestLv);
     CC_SYNTHESIZE(AI*, ai, Ai);

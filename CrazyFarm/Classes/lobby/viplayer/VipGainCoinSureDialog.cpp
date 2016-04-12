@@ -5,6 +5,7 @@
 #include "lobby/signlayer/SignInLayer.h"
 #include "domain/user/User.h"
 #include "config/ConfigVipLevel.h"
+#include "domain/game/GameManage.h"
 bool VipGainCoinSureDialog::init()
 {
 
@@ -81,12 +82,11 @@ void VipGainCoinSureDialog::sureButtonCallBack(Ref*psend)
 	}
 	runAction(Sequence::create(DelayTime::create(2.5f), CallFunc::create([=]
 	{
-		//TODO:
-		/*auto sign = SignInLayer::createLayer(m_seqDay);
-		sign->setPosition(Point::ZERO);
-		getParent()->addChild(sign, 20);
-		User::getInstance()->addCoins(ConfigVipLevel::getInstance()->getVipLevel(User::getInstance()->getVipLevel()).send_coins_over);
-		removeFromParentAndCleanup(1);*/
+		
+		User::getInstance()->addCoins(_money);
+		removeFromParentAndCleanup(1);
+		EventCustom event("show_poppage");
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 	}), nullptr));
 	
 	

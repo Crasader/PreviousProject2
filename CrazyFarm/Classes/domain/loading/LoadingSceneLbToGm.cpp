@@ -17,7 +17,7 @@
 #include "server/Server.h"
 #include "domain/game/GameManage.h"
 #include "server/HttpMannger.h"
-/*#define TCPIDURL "172.23.1.30" */ //ÄÚÍø
+//#define TCPIDURL "172.23.1.61"  //ÄÚÍø
 #define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
 Scene* LoadingSceneLbToGm::createScene()
 {
@@ -78,7 +78,7 @@ bool LoadingSceneLbToGm::init()
 void LoadingSceneLbToGm::update(float dt)
 {
 	loadingBar->setPercent(((float)temp) / 46.0f*100+1);
-	if (temp>=46)
+	if (temp>=45)
 	{
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, scene));
 		unscheduleUpdate();
@@ -159,7 +159,7 @@ void LoadingSceneLbToGm::loadRes()
 	loadAniWithPng("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.3f, 5);
 	loadAniWithPng("game/ui/ani/net_ice/netIce%d.png", "iceNet", 0.7f, 18);
 	loadAniWithPng("game/ui/ani/net_fire/netFire%d.png", "fireNet", 0.7f, 18);
-	loadAniWithPng("game/ui/ani/gold/goldAni_%d.png", "aniGold", 0.3f, 5);
+	
 	loadAniWithPng("game/ui/ani/silver/yinbi_%d.png", "aniSilver", 0.3f, 5);
 	loadAniWithPng("game/ui/ani/zhaohuan/TX_ZhaoHuan_%d.png", "aniZhaoHuan", 1.1f, 37);
 	loadAniWithPng("game/ui/ani/TX_DongJie/TX_qpdj_%d.png", "aniTXTdj", 1.1f, 14);

@@ -9,7 +9,12 @@ using namespace cocos2d::network;
 USING_NS_CC;
 
 
-
+enum AudioPopPage
+{
+	Page_sign,
+	Page_vip,
+	Page_guizu
+};
 
 
 
@@ -27,12 +32,17 @@ public:
 	void refreshCoinLabel();
 	void showVipCallBack(Ref*psend);
 	void quickBeginCallback(Ref*psend);
-	void showSign(float dt);
+	
 
-	void showGuizuGetRewards();
-
+	void  showPopPage();
 private:
 	void setValue();
+
+	///Ö÷¶¯µ¯³ö
+	void showSign();
+	void showGuizuGetRewards();
+	void showGetVipCoins();
+
 
 	virtual void onExit();
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
@@ -65,6 +75,8 @@ private:
 	Sprite*langspEmpty;
 	LabelTTF* userName;
 	LabelAtlas *viplevel;
+
+	std::list<AudioPopPage> _pages;
 
 
 	Sprite*testsp = nullptr;

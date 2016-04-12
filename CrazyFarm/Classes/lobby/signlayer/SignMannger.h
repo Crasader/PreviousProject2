@@ -30,6 +30,7 @@ private:
 	void onHttpRequestCompletedForSign(HttpClient *sender, HttpResponse *response);
 	static SignMannger* _instance;
 	std::vector<SignItem> _signItems;
+	CC_SYNTHESIZE(int, _result, result);
 	LobbyScene*_layer;
 };
 

@@ -178,7 +178,7 @@ bool VIPLayer::init()
 		tableView->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		addChild(tableView);
 		tableView->reloadData();
-		tableView->setContentOffset(Vec2(nowVip*-210, 0));
+		tableView->setContentOffset(Vec2((nowVip>=7?7:nowVip)*-210, 0));
 
 
 	

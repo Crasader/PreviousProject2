@@ -4,9 +4,13 @@
 #include "HttpMsgDefine.h"
 #include "widget/LoadingCircle.h"
 using namespace cocos2d;
+
+//#define URL_HEAD_FIX "http://172.23.1.61:1701" 
+//#define URL_HEAD "http://172.23.1.61:1701" 
+
 #define URL_HEAD_FIX "http://106.75.135.78:1701" ///外网
-//#define URL_HEAD_FIX "http://172.23.1.40:1701" 
 #define URL_HEAD  HttpMannger::getInstance()->getCurUrl().c_str()
+
 #define URL_BASECONFIG  "/config/get/base"
 #define URL_REGISTER  "/user/hello"
 #define URL_LOGIN  "/user/login"
@@ -36,6 +40,7 @@ using namespace cocos2d;
 #define URL_GETNOBILITYREWARD "/nobility/today/reward"
 #define URL_MARQUEE  "/marquee/config"
 #define URL_GETROOMINFO  "/room/roominfo"
+#define URL_GETVIPCOINS  "/vip/getrewards"
 struct setNameRequest
 {
 	const char* nickname;
@@ -149,6 +154,10 @@ public:
 
 	void HttpToPostRequestToGetRoomInfo(); //获取房间信息
 	void onHttpRequestCompletedForToGetRoomInfo(HttpClient *sender, HttpResponse *response);
+
+
+	void HttpToPostRequestToGetVipCoins(); //获取VIP补足
+	void onHttpRequestCompletedForToGetVipCoins(HttpClient *sender, HttpResponse *response);
 
 
 private:

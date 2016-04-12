@@ -12,5 +12,6 @@ public:
 	
 	CREATE_FUNC(VipGainCoinSureDialog);
 	CC_SYNTHESIZE(int, m_seqDay, seqDay);
+	CC_SYNTHESIZE(long, _money, money);
 };
 

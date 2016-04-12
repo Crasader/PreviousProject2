@@ -43,7 +43,7 @@ enum
 	kTagFrezzebg  = 11,
 	kTagBoomAniNode = 12
 };
-const Point turretPos[4] =
+const Point turretPos[5] =
 {
 	Vec2(288, 35.5),
 	Vec2(672, 35.5),
@@ -86,12 +86,8 @@ bool GameLayer::init(){
 
 
 
-
-
 	addTouchEvent();
-	auto roominfo = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID());
-	players = RoomManager::getInstance()->initRoomConfig(roominfo.unlock_turrent_level);
-	calculateFreeChair();
+	
 
 	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 40.0f, CC_REPEAT_FOREVER, 0);
 
@@ -196,36 +192,36 @@ void GameLayer::createTurret(){
 
 
 
-	RoomPlayer* usera = new RoomPlayer();
-	usera->setCoins(1200000);
-	usera->setDiamonds(100);
-	usera->setLevel(10l);
-	usera->setMaxTurretLevel(1);
-	usera->setUserName("robot");
-	usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
-	usera->setChestLv(2);
-	usera->setchestper(1.0);
-	AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
-	usera->setAi(ai);
-	int uiPos = 3;
-	if (uiPos > 3)
-	{
-		uiPos -= 4;
-	}
-	if (uiPos < 0)
-	{
-		uiPos += 4;
-	}
-	usera->setRoomPosition(uiPos);
+	//RoomPlayer* usera = new RoomPlayer();
+	//usera->setCoins(1200000);
+	//usera->setDiamonds(100);
+	//usera->setLevel(10l);
+	//usera->setMaxTurretLevel(1);
+	//usera->setUserName("robot");
+	//usera->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
+	//usera->setChestLv(2);
+	//usera->setchestper(1.0);
+	//AI* ai = AIManager::getInstance()->getAI(usera->getMaxTurretLevel());
+	//usera->setAi(ai);
+	//int uiPos = 3;
+	//if (uiPos > 3)
+	//{
+	//	uiPos -= 4;
+	//}
+	//if (uiPos < 0)
+	//{
+	//	uiPos += 4;
+	//}
+	//usera->setRoomPosition(uiPos);
 
-	auto otherTurret = PlayerTurret::create();
-	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-	otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
-	otherTurret->initWithDate(usera);
-	otherTurrets.pushBack(otherTurret);
-	addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
+	//auto otherTurret = PlayerTurret::create();
+	//otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+	//otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
+	//otherTurret->initWithDate(usera);
+	//otherTurrets.pushBack(otherTurret);
+	//addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
 
-	TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
+	//TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
 }
 
 
@@ -387,22 +383,6 @@ void GameLayer::calculateFreeChair()
 	else
 	{
 		m_index = getRand() % 1;
-	}
-	std::vector<int> freeChairno;
-	for (int i = 0; i < 4;i++)
-	{
-		if (i==m_index)
-		{
-			continue;
-		}
-		else
-		{
-			freeChairno.push_back(i);
-		}
-	}
-	for (int i = 0; i < 3;i++)
-	{
-		players[i].setRoomPosition(freeChairno[i]);
 	}
 }
 
@@ -970,8 +950,10 @@ void GameLayer::handle_event(const char* msgId, const char* msgBody)
 
 void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 {
+
 	if (msg->roomPos == m_curIndex)
 	{
+		MessageBox("玩家加入位置与本人一样","error r_pos");
 		return;
 	}
 	
@@ -984,20 +966,38 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 	user->setPlayerState(RoomPlayer::PLAYERSTATE_NEW);
 	user->setChestLv(msg->box_level);
 	user->setchestper(msg->catch_per);
+	user->setVipLevel(msg->vip_level);
 	AI* ai = AIManager::getInstance()->getAI(user->getMaxTurretLevel());
 	user->setAi(ai);
-	int uiPos = msg->roomPos - m_curIndex + m_index;
-	if (uiPos>3)
+	int uiPos;
+	if (msg->roomPos==-1)
 	{
-		uiPos -= 4;
+		for (auto ite = TxtWaitingTurrent.begin(); ite != TxtWaitingTurrent.end(); ite++)
+		{
+			if (ite->second->isVisible() == true)
+			{
+				uiPos = ite->first;
+				break;
+			}
+		}
 	}
-	if (uiPos<0)
+	else
 	{
-		uiPos += 4;
+		uiPos = msg->roomPos - m_curIndex + m_index;
+		if (uiPos > 3)
+		{
+			uiPos -= 4;
+		}
+		if (uiPos < 0)
+		{
+			uiPos += 4;
+		}
+	}
+	if (uiPos == -1)
+	{
+		return;
 	}
 	user->setRoomPosition(uiPos);
-
-
 	for (auto var : otherTurrets)
 	{
 		if (var->getTag()==uiPos)
@@ -1031,8 +1031,6 @@ void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 			TxtWaitingTurrent[var->getRoomPos()]->setVisible(true);
 			otherTurrets.eraseObject(var);
 			var->removeFromParentAndCleanup(1);
-		
-			
 			return;
 		}
 	}
@@ -1040,25 +1038,50 @@ void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 void GameLayer::onClientInit(Msg_onInit* msg)
 {
 	isInitMsg = true;
+	calculateFreeChair();
+	m_curIndex = msg->roomPos;
 	//初始座位
 	createTurret();
-	m_curIndex = msg->roomPos;
+	
 	auto vec = msg->roomplayers;
 	for (auto var:vec)
 	{
 		if (var->getRoomPosition() == m_curIndex)
 		{
+			MessageBox("玩家加入位置与本人一样", "error r_pos");
 			return;
 		}
-		int uiPos = var->getRoomPosition() - m_curIndex + m_index;
-		if (uiPos > 3)
+		int uiPos =-1;
+		if (var->getRoomPosition()==-1)
 		{
-			uiPos -= 4;
+			for (auto ite = TxtWaitingTurrent.begin(); ite != TxtWaitingTurrent.end();ite++)
+			{
+				if (ite->second->isVisible() == true)
+				{
+					uiPos = ite->first;
+					break;
+				}
+			}
 		}
-		if (uiPos < 0)
+		else
 		{
-			uiPos += 4;
+			uiPos = var->getRoomPosition() - m_curIndex + m_index;
+			if (uiPos > 3)
+			{
+				uiPos -= 4;
+			}
+			if (uiPos < 0)
+			{
+				uiPos += 4;
+			}
 		}
+
+		if (uiPos==-1)
+		{
+			break;
+		}
+
+		
 		var->setRoomPosition(uiPos);
 		AI* ai = AIManager::getInstance()->getAI(var->getMaxTurretLevel());
 		var->setAi(ai);

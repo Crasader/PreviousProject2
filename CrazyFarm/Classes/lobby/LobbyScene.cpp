@@ -417,20 +417,7 @@ bool LobbyScene::init()
 	langspEmpty->addChild(lang);
 	
 
-	if (NewbieMannger::getInstance()->getisAllowdedGetFirstReward())
-	{
-		User::getInstance()->setCoins(0);
-		auto nblayer = NewbieFirstGetRewardLayer::create();
-		nblayer->setPosition(Point::ZERO);
-		addChild(nblayer, kZorderDialog);
-		NewbieMannger::getInstance()->setisAllowdedGetFirstReward(false);
-	}
-	else
-	{
-		SignMannger::getInstance()->setLobbyLayer(this);
-		SignMannger::getInstance()->sendRequest();
-		  
-	}
+
 
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(385, 68);
@@ -462,6 +449,7 @@ void LobbyScene::setValue()
 	viplevel->setString(Value(User::getInstance()->getVipLevel()).asString().c_str());
 	refreshCoinLabel();
 }
+
 void LobbyScene::onEnterTransitionDidFinish()
 {
 
@@ -484,13 +472,44 @@ void LobbyScene::onEnterTransitionDidFinish()
 			setValue();
 			getChildByName("menu")->setVisible(true);
 			createRoomLayer();
+			
+
+
+			_pages.clear();
+			_pages.push_back(Page_sign);
+			if (User::getInstance()->getChargeMoney()>=10000)
+			{
+				_pages.push_back(Page_vip);
+			}
+			if (User::getInstance()->getNobilityDay()>0)
+			{
+				_pages.push_back(Page_guizu);
+			}
+
+
+			if (NewbieMannger::getInstance()->getisAllowdedGetFirstReward())
+			{
+				User::getInstance()->setCoins(0);
+				auto nblayer = NewbieFirstGetRewardLayer::create();
+				nblayer->setPosition(Point::ZERO);
+				addChild(nblayer, kZorderDialog);
+				NewbieMannger::getInstance()->setisAllowdedGetFirstReward(false);
+			}
+			else
+			{
+			
+				showPopPage();
+				EventListenerCustom* _listener1 = EventListenerCustom::create("show_poppage", [=](EventCustom* event){
+					showPopPage();
+				});
+				Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener1, 1);
+			}
 		}
 		else
 		{
 			ToolTipMannger::showDioag(value->_errormsg);
 		}
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_user_info");
-
 	});
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
 	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
@@ -498,15 +517,117 @@ void LobbyScene::onEnterTransitionDidFinish()
 	
 }
 
-void LobbyScene::showSign(float dt)
+
+void  LobbyScene::showPopPage()
 {
-	auto rewards = SignMannger::getInstance()->getSignItems();
-	if (rewards.size() > 0)
+	if (_pages.size()<=0)
 	{
-		auto sign = SignInLayer::createLayer(rewards);
-		sign->setPosition(Point::ZERO);
-		addChild(sign, 30);
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("show_poppage");
+		return;
 	}
+	auto page = _pages.front();
+	_pages.pop_front();
+	switch (page)
+	{
+	case Page_sign:
+		showSign();
+		break;
+	case Page_vip:
+		showGetVipCoins();
+		break;
+	case Page_guizu:
+		showGuizuGetRewards();
+		break;
+	default:
+		break;
+	}
+}
+
+void LobbyScene::showGuizuGetRewards()
+{
+	int day = NobilityManager::getInstance()->RemainingNobilityday();
+	if (day > 0)
+	{
+		EventListenerCustom* _listener2 = EventListenerCustom::create("get_guizu_rewards", [=](EventCustom* event){
+
+			GuizuRewardValue*value = static_cast<GuizuRewardValue*>(event->getUserData());
+			if (value->_errorcode == 0&&value->rewards.size()>0)
+			{
+				NobilityManager::getInstance()->setNobilityRewadItems(value->rewards);
+				auto layer = GuizuGiftDialog::create();
+				layer->setPosition(0, 0);
+				addChild(layer, kZorderDialog);
+			}
+			else
+			{
+				showPopPage();
+			}
+			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_guizu_rewards");
+
+		});
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+		HttpMannger::getInstance()->HttpToPostRequestToGetNobilityReward();
+	}
+	else
+	{
+		showPopPage();
+	}
+}
+
+
+void LobbyScene::showGetVipCoins()
+{
+	EventListenerCustom* _listener2 = EventListenerCustom::create("get_vip_coins", [=](EventCustom* event){
+
+		GetVipCoinValue*value = static_cast<GetVipCoinValue*>(event->getUserData());
+		if (value->_errorcode == 0)
+		{
+			auto layer = VipGainCoinSureDialog::create();
+			layer->setPosition(0, 0);
+			layer->setmoney(value->coins);
+			addChild(layer,30);
+		}
+		else
+		{
+			showPopPage();
+		
+		}
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_vip_coins");
+
+	});
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+	HttpMannger::getInstance()->HttpToPostRequestToGetVipCoins();
+	MissionManager::getInstance()->loadConfig();
+}
+void LobbyScene::showSign()
+{
+	EventListenerCustom* _listener2 = EventListenerCustom::create("get_sign_info", [=](EventCustom* event){
+		int result = SignMannger::getInstance()->getresult();
+		if (result==0)
+		{
+			auto rewards = SignMannger::getInstance()->getSignItems();
+			if (rewards.size() > 0)
+			{
+				auto sign = SignInLayer::createLayer(rewards);
+				sign->setPosition(Point::ZERO);
+				addChild(sign, 30);
+			}
+			else
+			{
+				showPopPage();
+			}
+		}
+		else
+		{
+			showPopPage();
+		}
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_sign_info");
+
+	});
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+	SignMannger::getInstance()->sendRequest();
+
+
 }
 
 void LobbyScene::showMarquee(float dt)
@@ -783,38 +904,4 @@ void LobbyScene::feedBackCallback(Ref*psend)
 	
 
 
-}
-
-void LobbyScene::showGuizuGetRewards()
-{
-	int day = NobilityManager::getInstance()->RemainingNobilityday();
-	if (day>0)
-	{
-		EventListenerCustom* _listener2 = EventListenerCustom::create("get_guizu_rewards", [=](EventCustom* event){
-
-		GuizuRewardValue*value = static_cast<GuizuRewardValue*>(event->getUserData());
-			if (value->_errorcode == 0)
-				{
-					NobilityManager::getInstance()->setNobilityRewadItems(value->rewards);
-					auto layer = GuizuGiftDialog::create();
-					layer->setPosition(0, 0);
-					addChild(layer, kZorderDialog);
-				}
-				else
-				{
-					ToolTipMannger::showDioag(value->_errormsg);
-				}
-				Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_guizu_rewards");
-
-			});
-			Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
-			HttpMannger::getInstance()->HttpToPostRequestToGetNobilityReward();
-	
-			
-		
-	}
-	else
-	{
-		guizuCallback(nullptr);
-	}
 }

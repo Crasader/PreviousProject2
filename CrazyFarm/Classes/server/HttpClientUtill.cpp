@@ -41,6 +41,5 @@ void HttpClientUtill::onPostHttp(std::string postData, const char* Url, const cc
 	request->setRequestType(HttpRequest::Type::POST);
 	request->setResponseCallback(callback);
 	HttpClient::getInstance()->send(request);
-	int k =HttpClient::getInstance()->getTimeoutForConnect();
-	int f= HttpClient::getInstance()->getTimeoutForRead();
+
 }

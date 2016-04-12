@@ -195,3 +195,11 @@ struct RoomInfoValue
 	std::vector<RoomItem> _roomitems;
 
 };
+
+
+struct GetVipCoinValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	long coins;
+};

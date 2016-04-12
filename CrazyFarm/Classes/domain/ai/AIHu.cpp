@@ -4,6 +4,7 @@
 PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
 
 	PlayerWork playerWork;
+	playerWork._workeType = Robot_Fire;
 	while (1)
 	{
 		if (!AIManager::getInstance()->allowAiFire() || FishManage::getInstance()->getAllFishInPoolCount() < 5) {
@@ -35,9 +36,9 @@ PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
 				angle = fangle;
 			}
 
-			CCLOG("aihu shoot turrentPostion = (%f,%f) _currentPos = (%f,%f)  angle = %f _currentFishId = %d", currentPostion.x, currentPostion.y, currentPos.x, currentPos.y, angle, _currentFish->getFishID());
-			playerWork.setFire(true);
-			playerWork.setAngle(angle);
+			/*CCLOG("aihu shoot turrentPostion = (%f,%f) _currentPos = (%f,%f)  angle = %f _currentFishId = %d", currentPostion.x, currentPostion.y, currentPos.x, currentPos.y, angle, _currentFish->getFishID());*/
+			playerWork._isFire = true;
+			playerWork._angle = angle;
 			return playerWork;
 		}
 		else
@@ -45,7 +46,7 @@ PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
 			break;
 		}
 	}
-	playerWork.setAngle((float)angle);
-	playerWork.setFire(false);
+	playerWork._isFire = false;
+	playerWork._angle = angle;
 	return playerWork;
 }

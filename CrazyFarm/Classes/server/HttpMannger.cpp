@@ -1616,6 +1616,75 @@ void HttpMannger::onHttpRequestCompletedForToGetRoomInfo(HttpClient *sender, Htt
 }
 
 
+void HttpMannger::HttpToPostRequestToGetVipCoins()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETVIPCOINS);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForToGetVipCoins, this));
+}
+void HttpMannger::onHttpRequestCompletedForToGetVipCoins(HttpClient *sender, HttpResponse *response)
+{
+	GetVipCoinValue* value = new GetVipCoinValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back vipcoins cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			value->coins = doc["coins"].GetInt();
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_vip_coins");
+	}
+	else
+	{
+		EventCustom event("get_vip_coins");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+}
+
+
+
+
+
+
 
 
 

@@ -60,4 +60,6 @@ void GuizuGiftDialog::lingquCallback(Ref*psend)
 	}
 
 	removeFromParentAndCleanup(1);
+	EventCustom event("show_poppage");
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }

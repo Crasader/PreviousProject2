@@ -97,7 +97,7 @@ bool LoadingScene::init(bool isisFirstComingNeedRegister)
 void LoadingScene::update(float dt)
 {
 	loadingBar->setPercent(((float)temp) / 15.0f*100+1);
-	if (temp >= 15 && isRegisterdialog)///TODo:第一次登陆没网
+	if (temp >= 16 && isRegisterdialog)///TODo:第一次登陆没网
 	{
 	
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
@@ -255,7 +255,7 @@ void LoadingScene::loadRes()
 	loadAniWithPng("game/ui/ani/lobbyfish1/TX_YU_%d.png", "aniLobbyFish1", 1.6f, 16);
 	loadAniWithPng("game/ui/ani/lobbyfish2/TX_YU2_%d.png", "aniLobbyFish2", 1.4f, 14);
 	loadAniWithPng("game/ui/ani/lobbyfish3/TX_YU3_%d.png", "aniLobbyFish3", 0.9f, 9);
-	
+	loadAniWithPng("game/ui/ani/gold/goldAni_%d.png", "aniGold", 0.3f, 5);
 	
 }
 

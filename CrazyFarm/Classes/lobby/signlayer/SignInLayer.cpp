@@ -146,8 +146,8 @@ void SignInLayer::gainRewardsCallback(Ref* psend)
 	}
 	SignMannger::getInstance()->clearSignItem();
 
-
-	((LobbyScene*)(this->getParent()))->guizuCallback(nullptr);
+	EventCustom event("show_poppage");
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 
 	this->removeFromParentAndCleanup(1);}), nullptr));
 	

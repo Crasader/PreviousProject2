@@ -63,13 +63,7 @@ public:
 	  float getRarote(){ return m_turret->getRotation(); }
 	  //收割鱼
 	  void getCoinByFish(Fish* fish);
-	  //AI
-	  void setAIinfo(AI* info);
-	  void doAIthing(float dt);
-	  void stopAI();
-	  void addGoldFishForAi();
-	  float robotTempTime = 0;//.AI某种策略的计时时间
-	  const float robotAiLifeTime = 10;// AI某种策略的生存期180秒
+	
 	  //破产
 	  void onBankrupt();
 	  void onAIResurgenceCallBack(Node* sender, void* data);
@@ -112,6 +106,18 @@ public:
 
 	  Vec2 getPaoWorldpos();
 
+
+
+
+	  
+	  //AI
+	  void setAIinfo(AI* info);
+	  void doAIthing(float dt);
+	  void stopAI();
+	  void addGoldFishForAi();
+	  void changeTurret(int lv);
+	  float robotTempTime = 0;//.AI某种策略的计时时间
+	  const float robotAiLifeTime = 180;// AI某种策略的生存期180秒
 private:
 	Vec2 m_coinLabelPos;
 	Turrent  m_turretdata;

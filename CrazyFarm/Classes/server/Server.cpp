@@ -27,6 +27,14 @@ void Server::event_cb(pc_client_t* client, int ev_type, void* ex_data, const cha
     }else if(ev_type == 2) {
         Server::getInstance()->notify_observer("conError", "");
     }
+	else if (ev_type == 5) {
+		Server::getInstance()->notify_observer("conError", "");
+	 }
+	else if (ev_type == 6) {
+		///断线重连
+		Server::getInstance()->notify_observer("conError", "");
+	}
+ // TODO : 处理连接失败和重连的问题，并且要仔细测试下。
     // TODO : 处理连接失败和重连的问题，并且要仔细测试下。
 }
 

@@ -282,26 +282,8 @@ void  PlayerTurret::onLockTheTurrent(int curTurretLv, int rewardsCoin, int costD
 	}
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(curTurretLv);
 	User::getInstance()->setMaxTurrentLevel(m_turretdata.multiple);
-	LogEventTurrentUpgrade::getInstance()->sendDataToServer(m_turretdata.multiple, GlobalSchedule::getInstance()->getGameTime());
 	User::getInstance()->addDiamonds(-costDiamonds);
 	User::getInstance()->addCoins(rewardsCoin);
-	//auto vec = m_turretdata.rewardList;
-	//for (auto var : vec)
-	//{
-	//	if (var.itemId == 1001)
-	//	{
-	//		User::getInstance()->addCoins(var.num);
-	//	}
-	//	else if (var.itemId == 1002)
-	//	{
-	//		User::getInstance()->addDiamonds(var.num);
-	//	}
-	//	else
-	//	{
-	//		BagManager::getInstance()->changeItemCount(var.itemId, var.num);
-	//	}
-
-	//}
 	GameData::getInstance()->setnowLevel(m_turretdata.multiple);
 	//解锁成功字样提示
 	auto layer = Director::getInstance()->getRunningScene()->getChildByTag(777);
@@ -468,13 +450,28 @@ void PlayerTurret::doAIthing(float dt)
 		robotTempTime = 0;
 	}
 	auto walk = m_aiinfo->nextStep(nNowMoney, convertToWorldSpace(m_turret->getPosition()));
-	auto angle = walk.getAngle();
-	m_turret->setRotation(angle);
-	if (walk.getFire())
+	switch (walk._workeType)
 	{
-		runAction(Sequence::create(CallFunc::create([&]{shoot(m_turret->getRotation()); }), nullptr));
-
+	case Robot_Fire:
+	{
+		m_turret->setRotation(walk._angle);
+		if (walk._isFire)
+		{
+			
+			shoot(m_turret->getRotation());
+		}
 	}
+		break;
+	case Robot_UpdateTurrent:
+		break;
+	case Robot_UsingSkill:
+		break;
+
+	default:
+		break;
+	}
+	
+
 }
 void PlayerTurret::stopAI()
 {
@@ -1229,5 +1226,38 @@ bool PlayerTurret::isCanShoot()
 Vec2 PlayerTurret::getPaoWorldpos()
 {
 	return convertToWorldSpace(m_turret->getPosition());
+
+}
+void PlayerTurret::changeTurret(int lv)
+{
+	Turrent nextTurretdata;
+	if (lv == 1)
+	{
+		nextTurretdata = ConfigTurrent::getInstance()->getNextTurrent(m_turretdata.multiple);
+	}
+	else
+	{
+		nextTurretdata = ConfigTurrent::getInstance()->getLastTurrent(m_turretdata.multiple);
+	}
+	
+	if (nextTurretdata.turrentId == -1)
+	{
+		return;
+	}
+	m_turretdata = nextTurretdata;
+	auto vipLevel = m_robotData->getVipLevel();
+	if (vipLevel == 0)
+	{
+		auto var = ConfigNormalTurrent::getInstance()->getNormalTurrent(m_robotData->getMaxTurretLevel());
+		turretdata.init(var.normal_turrent_id, var.turrent_ui_id, var.net_per, var.catch_per, var.ui_type, var.net_type);
+	}
+	else
+	{
+		auto var = ConfigVipTurrent::getInstance()->getVipTurrent(vipLevel);
+		turretdata.init(var.vip_turrent_id, var.turrent_ui_id, var.net_per, var.catch_per, var.ui_type, var.net_type);
+	}
+
+
+	m_turret->changeToNewTurret(turretdata.turrent_ui_id);
 
 }

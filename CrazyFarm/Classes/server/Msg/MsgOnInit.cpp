@@ -26,7 +26,7 @@ void Msg_onInit::setBody(const char* msgBody)
 	User::getInstance()->setUserBoxLevel(my_info["chest_level"].GetInt());
 	User::getInstance()->setChargeMoney(my_info["mo"].GetInt()/100);
 	User::getInstance()->setcatchPer(my_info["catch_per"].GetDouble());
-	roomPos = my_info["r_pos"].GetInt();
+	roomPos = my_info["r_pos"].GetInt()-1;
 	auto &item_lists = my_info["item_lists"];
 	for (unsigned int i = 0; i < item_lists.Size();i++)
 	{
@@ -45,9 +45,10 @@ void Msg_onInit::setBody(const char* msgBody)
 		player->setDiamonds(user["diamonds"].GetInt());
 		player->setMaxTurretLevel(user["turrent_level"].GetInt());
 		player->setLevel(user["vip_level"].GetInt());
-		player->setChestLv(user["box_level"].GetInt());
+		player->setChestLv(user["chest_level"].GetInt());
 		player->setUserName(user["nick_name"].GetString());
-		player->setRoomPosition(user["r_pos"].GetInt());
+		player->setRoomPosition(user["r_pos"].GetInt()-1);
+		player->setVipLevel(user["r_pos"].GetInt());
 		roomplayers.push_back(player);
 	}
 	//”„»∫

@@ -77,7 +77,6 @@ VipLevel ConfigVipLevel::getVipLevel(int level) {
 }
 
 int ConfigVipLevel::getLevel(int chargeMoney) {
-	chargeMoney /= 100;
     if(chargeMoney <= 0) {
         return 0;
     }
