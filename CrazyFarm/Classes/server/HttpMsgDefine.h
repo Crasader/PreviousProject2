@@ -203,3 +203,22 @@ struct GetVipCoinValue
 	std::string _errormsg;
 	long coins;
 };
+
+
+struct changGiftValue
+{
+	int _errorcode;
+	std::string _errormsg;
+}; 
+struct RecordGiftItem
+{
+	int _date;
+	std::string reward_desc;
+	std::string change_state;
+};
+struct RecordGiftValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<RecordGiftItem> _items;
+};

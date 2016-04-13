@@ -22,6 +22,7 @@ public:
 private:
 	
 	void closeButtonCallBack(Ref*psend);
+	void chakanButtonCallBack(Ref*psend);
 	ChangeGiftCell *cell1;
 	ChangeGiftCell *cell2;
 	ChangeGiftCell *cell3;

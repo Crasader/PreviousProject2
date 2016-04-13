@@ -149,3 +149,15 @@ bool JniFunUtill::isWXAppInstalled()
 #endif
 	return true;
 }
+
+void JniFunUtill::WXShare()
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	jboolean r = false;
+	JniMethodInfo t;
+	if (JniHelper::getStaticMethodInfo(t, "org/cocos2dx/cpp/AppActivity", "shareToWx", "()V")) {
+		t.env->CallStaticBooleanMethod(t.classID, t.methodID);
+		t.env->DeleteLocalRef(t.classID);
+	}
+#endif
+}

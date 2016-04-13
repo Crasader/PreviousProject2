@@ -1,7 +1,9 @@
 #include "ChangeGiftCell.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/bag/BagManager.h"
-
+#include "server/HttpMannger.h"
+#include "TwiceSureChangePropDialog.h"
+#include "TwiceSureChangePhoneDialog.h"
 bool ChangeGiftCell::init()
 {
 	bool bRet = false;
@@ -67,17 +69,34 @@ void ChangeGiftCell::update(float delta)
 void ChangeGiftCell::changeButtonCallback(Ref* psend)
 {
 	auto num = BagManager::getInstance()->getItemNum(1013);
-	if (num>=300)
+	if (num>=0)
 	{
-		auto layer = TwiceSureDialog::createDialog(ChineseWord("changeGiftOverMedal").c_str(), nullptr);
+		Layer* layer;
+		
+
+		switch (m_type)
+		{
+		case 1:
+	
+			layer = TwiceSureChangePropDialog::createTwiceChangeGiftTip(1002, 500);
+			break;
+		case 2:
+			layer = TwiceSureChangePhoneDialog::create();
+			break;
+		case 3:
+			layer = TwiceSureChangePropDialog::createTwiceChangeGiftTip(1006, 3);
+			break;
+		default:
+			break;
+		}
 		layer->setPosition(0, 0);
-		getParent()->addChild(layer, 10);
+		getParent()->addChild(layer, 30);
 	}
 	else
 	{
 		auto layer = TwiceSureDialog::createDialog(ChineseWord("changeGiftLackMedal").c_str(), nullptr);
 		layer->setPosition(0, 0);
-		getParent()->addChild(layer, 10);
+		getParent()->addChild(layer, 30);
 	}
 }
 

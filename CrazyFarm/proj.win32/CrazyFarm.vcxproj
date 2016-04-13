@@ -273,6 +273,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\lobby\CDKeyDialog.cpp" />
     <ClCompile Include="..\Classes\lobby\changeGift\ChangeGiftCell.cpp" />
     <ClCompile Include="..\Classes\lobby\changeGift\ChangeGiftLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\changeGift\RecordGiftCell.cpp" />
+    <ClCompile Include="..\Classes\lobby\changeGift\RecordGiftLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\changeGift\TwiceSureChangePhoneDialog.cpp" />
+    <ClCompile Include="..\Classes\lobby\changeGift\TwiceSureChangePropDialog.cpp" />
     <ClCompile Include="..\Classes\lobby\FeedbackLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\FirstPayLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\LobbyScene.cpp" />
@@ -490,6 +494,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\lobby\CDKeyDialog.h" />
     <ClInclude Include="..\Classes\lobby\changeGift\ChangeGiftCell.h" />
     <ClInclude Include="..\Classes\lobby\changeGift\ChangeGiftLayer.h" />
+    <ClInclude Include="..\Classes\lobby\changeGift\RecordGiftCell.h" />
+    <ClInclude Include="..\Classes\lobby\changeGift\RecordGiftLayer.h" />
+    <ClInclude Include="..\Classes\lobby\changeGift\TwiceSureChangePhoneDialog.h" />
+    <ClInclude Include="..\Classes\lobby\changeGift\TwiceSureChangePropDialog.h" />
     <ClInclude Include="..\Classes\lobby\FeedbackLayer.h" />
     <ClInclude Include="..\Classes\lobby\FirstPayLayer.h" />
     <ClInclude Include="..\Classes\lobby\LobbyScene.h" />

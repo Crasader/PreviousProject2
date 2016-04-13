@@ -56,6 +56,7 @@ private:
 	void payDiamondCallback(Ref*psend);
 	void bagButtonCallback(Ref*psend);
 	void changeRewardCallback(Ref*psend);
+	void WxShareCallback(Ref*psend);
 
 	void RankListCallback(Ref*psend);
 	void FirstPayCallback(Ref*psend);

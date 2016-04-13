@@ -1080,8 +1080,6 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 		{
 			break;
 		}
-		var->setMaxTurretLevel(5);
-		uiPos = 1;
 		var->setRoomPosition(uiPos);
 		AI* ai = AIManager::getInstance()->getAI(var->getMaxTurretLevel());
 		var->setAi(ai);
@@ -1093,7 +1091,6 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 		addChild(otherTurret, kZorderMenu, kTagBaseturret + var->getRoomPosition());
 
 		TxtWaitingTurrent[var->getRoomPosition()]->setVisible(false);
-		break;
 	}
 	//初始时间
 	init_creat_time = msg->initCreateTime;
@@ -1268,7 +1265,7 @@ void GameLayer::onUseSkill(Msg_UseSkill*msg)
 			skillManager::getInstance()->useSkillById(skillid, GameManage::getInstance()->getGameLayer()->GetMyTurret());
 		}
 	}
-	else if (msg->errorcode == 302)
+	//else if (/*msg->errorcode == 302*/)
 	{
 		auto dialog = TwiceSureDialog::createDialog(ChineseWord("havanoDmToUseskill").c_str(), CC_CALLBACK_1(GameLayer::ToPayShopCallBack, this));
 		dialog->setPosition(Point::ZERO);

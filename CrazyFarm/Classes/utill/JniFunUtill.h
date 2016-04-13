@@ -22,6 +22,8 @@ public:
 
 	void SKYPay(int price, const char* orderid);
 	void WXPay(const char* prepayId, const char* nonceStr, const char* timeStamp, const char* sign);
+
+	void WXShare();
 private:
 	JniFunUtill();
 	static JniFunUtill* _instance;

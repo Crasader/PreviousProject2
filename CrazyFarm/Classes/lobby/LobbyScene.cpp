@@ -199,6 +199,8 @@ bool LobbyScene::init()
 	bag->setPosition(startX, starY);
 	bag->setName("bag");
 	startX += diffX;
+
+
 	
 	auto MissionBT = MenuItemImage::create("missionicon.png","missionicon.png", [=](Ref* sender){
 		Audio::getInstance()->playSound(CLICKSURE);
@@ -210,7 +212,10 @@ bool LobbyScene::init()
 	startX += diffX;
 
 
-
+	auto wxshare = MenuItemLabel::create(Label::create("wx_share", "arial", 20), CC_CALLBACK_1(LobbyScene::WxShareCallback, this));
+	wxshare->setPosition(startX, starY);
+	wxshare->setName("wxshare");
+	startX += diffX;
 
 
 	auto VIP = MenuItemImage::create("VIP.png", "VIP.png", CC_CALLBACK_1(LobbyScene::showVipCallBack, this));
@@ -336,7 +341,7 @@ bool LobbyScene::init()
 
 	
 
-	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, MissionBT,CDKEYbt, nullptr);
+	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, MissionBT, CDKEYbt, wxshare, nullptr);
 	menu->setPosition(Point::ZERO);
 	menu->setVisible(false);
 	addChild(menu, kZorderMenu-1,"menu");
@@ -721,7 +726,10 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 		LogEventPageChange::getInstance()->addEventItems(1, 3, 1);
 	}
 }
+void LobbyScene::WxShareCallback(Ref*psend)
+{
 
+}
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
 

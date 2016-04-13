@@ -780,6 +780,18 @@
     <ClCompile Include="..\Classes\domain\ai\AILei.cpp">
       <Filter>src\AI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\lobby\changeGift\TwiceSureChangePropDialog.cpp">
+      <Filter>src\lobby\changeGift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\changeGift\TwiceSureChangePhoneDialog.cpp">
+      <Filter>src\lobby\changeGift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\changeGift\RecordGiftCell.cpp">
+      <Filter>src\lobby\changeGift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\changeGift\RecordGiftLayer.cpp">
+      <Filter>src\lobby\changeGift</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1438,6 +1450,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\ai\AILei.h">
       <Filter>src\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\changeGift\TwiceSureChangePropDialog.h">
+      <Filter>src\lobby\changeGift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\changeGift\TwiceSureChangePhoneDialog.h">
+      <Filter>src\lobby\changeGift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\changeGift\RecordGiftCell.h">
+      <Filter>src\lobby\changeGift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\changeGift\RecordGiftLayer.h">
+      <Filter>src\lobby\changeGift</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

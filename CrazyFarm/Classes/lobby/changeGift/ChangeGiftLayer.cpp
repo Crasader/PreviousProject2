@@ -2,9 +2,10 @@
 #include "domain/user/User.h"
 #include "domain/bag/BagManager.h"
 #include "utill/Chinese.h"
-
-
-
+#include "server/HttpMannger.h"
+#include "RecordGiftLayer.h"
+#include "domain/ToolTip/ToolTipMannger.h"
+#include "widget/MyLabelAtlas.h"
 
 bool ChangeGiftLayer::init()
 {
@@ -22,15 +23,15 @@ bool ChangeGiftLayer::init()
 		addChild(bg);
 
 
-		auto label = LabelTTF::create(ChineseWord("ChangeGiftTxt").c_str(), "arial", 20);
-		label->setPosition(bg->getContentSize().width / 2+24, 383);
+		auto label = LabelTTF::create(ChineseWord("ChangeGiftTxt").c_str(), "arial", 18);
+		label->setPosition(bg->getContentSize().width / 2, 383);
 		label->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		bg->addChild(label);
 
 		auto str = Value(BagManager::getInstance()->getItemNum(1013)/10).asString();
-		auto num = LabelAtlas::create(str.c_str(), "medalNum.png", 16, 24, '0');
+		auto num = MyLabelAtlas::create(str.c_str(), "medalNum.png", 16, 24, '0',30);
 		num->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
-		num->setPosition(130, 0);
+		num->setPosition(100, 0);
 		label->addChild(num);
 
 		//»»½±Æ·ÁÐ±í
@@ -50,6 +51,9 @@ bool ChangeGiftLayer::init()
 			cell->setPosition(139+12.5 + cell->getContentSize().width/2+cell->getContentSize().width*0.85*(i-1), 200);
 			addChild(cell, 1, i);
 		}
+		auto chakan = MenuItemImage::create("btn_small_1.png", "btn_small_2.png", CC_CALLBACK_1(ChangeGiftLayer::chakanButtonCallBack, this));
+		chakan->setPosition(575,383);
+
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(ChangeGiftLayer::closeButtonCallBack, this));
 		close->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -57,7 +61,7 @@ bool ChangeGiftLayer::init()
 
 
 
-		auto menu = Menu::create(close, nullptr);
+		auto menu = Menu::create(close, chakan, nullptr);
 		menu->setPosition(0, 0);
 		bg->addChild(menu);
 
@@ -132,3 +136,27 @@ void ChangeGiftLayer::closeButtonCallBack(Ref*psend)
 	removeFromParentAndCleanup(1);
 }
 
+void ChangeGiftLayer::chakanButtonCallBack(Ref*psend)
+{
+	EventListenerCustom* _listener2 = EventListenerCustom::create("record_gift_info", [=](EventCustom* event){
+
+		RecordGiftValue*value = static_cast<RecordGiftValue*>(event->getUserData());
+		if (value->_errorcode == 0)
+		{
+			auto layer = RecordGiftLayer::create(value->_items);
+			layer->setPosition(0, 0);
+			addChild(layer, 30);
+		}
+		else
+		{
+			ToolTipMannger::showDioag(value->_errormsg);
+		}
+
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("record_gift_info");
+		LoadingCircle::RemoveLoadingCircle();
+
+	});
+	LoadingCircle::showLoadingCircle();
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+	HttpMannger::getInstance()->HttpToPostRequestToRecordGift();
+}

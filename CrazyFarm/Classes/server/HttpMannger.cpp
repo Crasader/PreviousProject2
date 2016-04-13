@@ -1685,7 +1685,142 @@ void HttpMannger::onHttpRequestCompletedForToGetVipCoins(HttpClient *sender, Htt
 
 
 
+void HttpMannger::HttpToPostRequestToChangeReward(int change_type,std::string phonenum)
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_CHANGEGFIT);
+	auto requstData = String::createWithFormat("session_id=%s&&phone_nums=%s&change_type=%d", sessionid.c_str(), phonenum.c_str(), change_type);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForToChangeReward, this));
+}
+void HttpMannger::onHttpRequestCompletedForToChangeReward(HttpClient *sender, HttpResponse *response)
+{
+	changGiftValue* value = new changGiftValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back changegift cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
 
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("change_gift");
+	}
+	else
+	{
+		EventCustom event("change_gift");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+}
+
+void HttpMannger::HttpToPostRequestToRecordGift()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETRECORDGFIT);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForToRecordGift, this));
+}
+void HttpMannger::onHttpRequestCompletedForToRecordGift(HttpClient *sender, HttpResponse *response)
+{
+	RecordGiftValue* value = new RecordGiftValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back RecordGiftValue cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto &itemlist = doc["info_lists"];
+			for (unsigned int i = 0; i < itemlist.Size();i++)
+			{
+				RecordGiftItem item;
+				item.change_state = itemlist[i]["change_state"].GetString();
+				item._date = itemlist[i]["date"].GetInt();
+				item.reward_desc = itemlist[i]["reward_desc"].GetString();
+				value->_items.push_back(item);
+			}
+		
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("record_gift_info");
+	}
+	else
+	{
+		EventCustom event("record_gift_info");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+}
 
 
 

@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVAnalytics;
 import com.poixao.crazyfarm.Constants;
 import com.poixao.crazyfarm.R;
+import com.tbu.wx.pay.TbuWxPay;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -108,6 +109,13 @@ public class AppActivity extends Cocos2dxActivity  {
 		return sdDir.toString();
 
 	}
+	
+	public  static void shareToWx(){
+		TbuWxPay.getInstance().shareWebPage("www.baidu.com", "您的好友邀请您一起捞鱼哦", "今天我在赚话费捕鱼，赚到了30话费，你也快来吧", false);
+
+	}
+	
+	
 	
 	protected void onPause() {
 	    super.onPause();

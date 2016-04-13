@@ -41,6 +41,8 @@ using namespace cocos2d;
 #define URL_MARQUEE  "/marquee/config"
 #define URL_GETROOMINFO  "/room/roominfo"
 #define URL_GETVIPCOINS  "/vip/getrewards"
+#define URL_CHANGEGFIT  "/change/getrewards"
+#define URL_GETRECORDGFIT "/change/getrecord"
 struct setNameRequest
 {
 	const char* nickname;
@@ -159,7 +161,11 @@ public:
 	void HttpToPostRequestToGetVipCoins(); //获取VIP补足
 	void onHttpRequestCompletedForToGetVipCoins(HttpClient *sender, HttpResponse *response);
 
+	void HttpToPostRequestToChangeReward(int change_type,std::string phonenum); //兑换奖品  1,话费;2 钻石; 3核弹
+	void onHttpRequestCompletedForToChangeReward(HttpClient *sender, HttpResponse *response);
 
+	void HttpToPostRequestToRecordGift(); 
+	void onHttpRequestCompletedForToRecordGift(HttpClient *sender, HttpResponse *response);
 private:
 	bool checkIsRelogin(int msgId,std::string msg);///会话ID失效，重新登录
 

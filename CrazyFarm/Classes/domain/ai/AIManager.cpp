@@ -79,16 +79,16 @@ void AIManager::addCreateGoldFish()
 		int goldfishneedcounts[5];//±ù¶³Ëø¶¨ÕÙ»½ºËµ¯¼¤¹â
 		if (lv >= 1 && lv <= 10)
 		{
-			/*goldfishneedcounts[0] = maxvalue;
+			goldfishneedcounts[0] = maxvalue;
 			goldfishneedcounts[1] = 6;
 			goldfishneedcounts[2] = maxvalue;
 			goldfishneedcounts[3] = maxvalue;
-			goldfishneedcounts[4] = maxvalue;*/
-			goldfishneedcounts[0] = 10;
-			goldfishneedcounts[1] = 13;
-			goldfishneedcounts[2] = 22;
-			goldfishneedcounts[3] = 4;
-			goldfishneedcounts[4] = 4;
+			goldfishneedcounts[4] = maxvalue;
+			/*	goldfishneedcounts[0] = 10;
+				goldfishneedcounts[1] = 13;
+				goldfishneedcounts[2] = 22;
+				goldfishneedcounts[3] = 4;
+				goldfishneedcounts[4] = 4;*/
 		}
 		else if (lv > 10 && lv <= 30)
 		{
