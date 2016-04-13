@@ -3,6 +3,7 @@
 #include "fish/Fish.h"
 #include "AnimationUtil.h"
 #include "data/GameData.h"
+#include "utill/OBB.h"
 USING_NS_CC;
 
 //获得随机数By随机因子，默认随机时间因子
@@ -32,7 +33,7 @@ Action* getForeverAcByNameAndInterval(const char* name,float interval);
 
 float getTurretRotation(Point start_pos, Point pos);
 unsigned long getCurrentTime();
-
+bool line_rect_intersection(Point start_p, Point end_p, Rect rect);
 template<typename Fwd>
 void upsetVector(std::vector<Fwd> &vec)
 {

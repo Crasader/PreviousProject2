@@ -110,12 +110,12 @@ void PlayerTurret::addGoldFishForAi()
 		//使用冰冻
 		if (goldfishcounts % 5 == 0 && GameData::getInstance()->getRoomID() > 1)
 		{
-			skillManager::getInstance()->robotUseSkillFreeze(this);
+			/*skillManager::getInstance()->robotUseSkillFreeze(this);*/
 		}
 		//使用召唤
 		if (goldfishcounts % 30 == 0 && GameData::getInstance()->getRoomID() > 1)
 		{
-			skillManager::getInstance()->robotUseSkillFreeze(this);
+		/*	skillManager::getInstance()->robotUseSkillFreeze(this);*/
 		}
 	}
 
@@ -439,6 +439,7 @@ void PlayerTurret::setAIinfo(AI*info)
 {
 	robotAiLifeTime = getRand(Server_Seed) % 50 + 155;
 	m_aiinfo = info;
+	m_aiinfo->setMaxTurrentLevel(m_robotData->getMaxTurretLevel());
 	schedule(schedule_selector(PlayerTurret::doAIthing), info->getReqSteps(), CC_REPEAT_FOREVER, 0);
 }
 
@@ -448,6 +449,7 @@ void PlayerTurret::doAIthing(float dt)
 	if (robotTempTime>robotAiLifeTime)
 	{
 		m_aiinfo = AIManager::getInstance()->getAI(nNowMoney);
+		m_aiinfo->setMaxTurrentLevel(m_robotData->getMaxTurretLevel());
 		robotTempTime = 0;
 		robotAiLifeTime = getRand(Server_Seed) % 50 + 155;
 	}

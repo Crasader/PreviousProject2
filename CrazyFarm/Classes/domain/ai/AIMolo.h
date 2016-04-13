@@ -15,11 +15,7 @@ public:
     
 private:
     float angle = 0;
-    bool lastFire = false;
-    int count = 0;
-    int nextCountReset = 60;
-    int baseFireLevel = 40;
-    int fireLevel =40 /*baseFireLevel*/;
+
 };
 
 #endif

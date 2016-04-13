@@ -68,7 +68,7 @@ void skillManager::useSkillSummon(PlayerTurret*turret)
 	fish->setScale(0);
 	 
 	fish->runAction(Sequence::create(ScaleTo::create(0.4, 1), CallFunc::create([=]{fish->move(3); aniNode->removeFromParentAndCleanup(1); }), nullptr));
-	m_gamelayer->addChild(fish, fish->getFishZorder());
+	fish->setZOrder(fish->getFishZorder());
 	}),nullptr));
 }
 void skillManager::useSkillById(int skillid, PlayerTurret*turret)
@@ -115,10 +115,7 @@ void skillManager::useSkillById(int skillid, PlayerTurret*turret)
 		break;
 	}
 }
-void skillManager::robotUseSkillFreeze(PlayerTurret*turret)
-{
-	useSkillFreeze(turret);
-}
+
 void skillManager::useSkillFreeze(PlayerTurret*turret)
 {
 	if (map_skill_isUsingnow[1])
@@ -132,7 +129,7 @@ void skillManager::useSkillFreeze(PlayerTurret*turret)
 	{
 		fish->onFreeze();
 	}
-	m_gamelayer->useFreeze(turret);
+	GameManage::getInstance()->getGameLayer()->useFreeze(turret);
 
 	getButtonByID(1)->runAction(Sequence::create(DelayTime::create(getSkillInfoByID(1).cd_time), CallFunc::create([=]{useSkillFreezeEnd(turret); }), nullptr));
 
@@ -146,7 +143,7 @@ void skillManager::useSkillFreezeEnd(PlayerTurret*turret)
 	{
 		fish->onFreezeResume();
 	}
-	m_gamelayer->onFreezeEnd(turret);
+	GameManage::getInstance()->getGameLayer()->onFreezeEnd(turret);
 }
 
 void skillManager::useSkillLock()
@@ -156,14 +153,14 @@ void skillManager::useSkillLock()
 		return;
 	}
 	map_skill_isUsingnow[2] = true;
-	m_gamelayer->beginLock();
+	GameManage::getInstance()->getGameLayer()->beginLock();
 
 	getButtonByID(2)->runAction(Sequence::create(DelayTime::create(getSkillInfoByID(2).cd_time), CallFunc::create([=]{useSkillLockEnd(); }), nullptr));
 }
 void skillManager::useSkillLockEnd()
 {
 	map_skill_isUsingnow[2] = false;
-	m_gamelayer->endLock();
+	GameManage::getInstance()->getGameLayer()->endLock();
 }
 
 void skillManager::useSkillBoom(PlayerTurret*turret)
@@ -171,12 +168,12 @@ void skillManager::useSkillBoom(PlayerTurret*turret)
 	Audio::getInstance()->playSound(SKILLBOOM);
 	if (turret == GameManage::getInstance()->getGameLayer()->GetMyTurret())
 	{
-		m_gamelayer->beginSkillBoom();
+		GameManage::getInstance()->getGameLayer()->beginSkillBoom();
 	}
 	else
 	{
 		Vec2 pos = Vec2(480+rand()%400-200,270+rand()%200-100);
-		m_gamelayer->doBoom(pos, turret, true);
+		GameManage::getInstance()->getGameLayer()->doBoom(pos, turret, true);
 	}
 }
 
@@ -188,14 +185,14 @@ void skillManager::useSkillLight()
 		return;
 	}
 	map_skill_isUsingnow[5] = true;
-	m_gamelayer->beginLight();
+	GameManage::getInstance()->getGameLayer()->beginLight();
 
 	getButtonByID(5)->runAction(Sequence::create(DelayTime::create(getSkillInfoByID(5).cd_time), CallFunc::create([=]{useSkillLightEnd(); }), nullptr));
 }
 void skillManager::useSkillLightEnd()
 {
 	map_skill_isUsingnow[5] = false;
-	m_gamelayer->endLight();
+	GameManage::getInstance()->getGameLayer()->endLight();
 }
 
 

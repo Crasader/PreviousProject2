@@ -2,72 +2,42 @@
 #include "domain/ai/AIManager.h"
 
 PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion, int AiDoCounts) {
-  PlayerWork playerWork;
-  return playerWork;
-////    int turrentLevel = getRand()%this->getMaxTurrentLevel();
-////    playerWork.setTurrentLevel(turrentLevel);
-//    
-//    if(! AIManager::getInstance()->allowAiFire()) {
-//        playerWork.setAngle((float)angle);
-//        playerWork.setFire(false);
-//        lastFire = false;
-//        return playerWork;
-//    }
-//	bool k = FishManage::getInstance()->getAllFishInPoolCount() < 5;
-//	bool k1 = FishManage::getInstance()->getAllFishInPoolCount() > 1111;
-//	bool k2 = BulletManage::getInstance()->getBulletPoolSize() > 20;
-//	if ( k||k1||k2 ) {
-//        playerWork.setAngle((float)angle);
-//        playerWork.setFire(false);
-//        lastFire = false;
-//        return playerWork;
-//    }
-//    
-//    if(count == 0) {
-//        nextCountReset = 60 + getRand()%100;
-//        fireLevel = baseFireLevel + getRand()%10;
-//    }
-//    
-//    if( count > nextCountReset && count < nextCountReset + 10 ) {
-//        playerWork.setAngle((float)angle);
-//        playerWork.setFire(false);
-//        lastFire = false;
-//        return playerWork;
-//    }
-//    
-//    if( count >  nextCountReset + 10 ) {
-//        count = 0;
-//    }
-//    
-//    playerWork.setTurrentLevel(this->getMaxTurrentLevel());
-//    
-//    int fire = getRand()%100;
-//    
-//    int currentFireLevel = fireLevel;
-//    if(lastFire) {
-//        currentFireLevel = fireLevel+30;
-//    }
-//    
-//    if(fire < currentFireLevel) {
-//		angle = CC_RADIANS_TO_DEGREES(currentPostion.getAngle(FishManage::getInstance()->getBestRewardPostion()));
-//        playerWork.setAngle((float)angle);
-//        playerWork.setFire(true);
-//        lastFire = true;
-//        return playerWork;
-//    }else {
-//        playerWork.setFire(false);
-//        lastFire = false;
-//        
-//        int turn = getRand()%100;
-//        if(turn < 20) {
-//            angle = 60 - getRand()%120;
-//            playerWork.setAngle((float)angle);
-//        }else {
-//            playerWork.setAngle(angle);
-//        }
-//    }
-//    
-//    count++;
-//    return playerWork;
+	PlayerWork playerWork = getUpdataTurrentWork(AiDoCounts);
+	if (playerWork._workeType == Invalid)
+	{
+		playerWork._workeType = Robot_Fire;
+		while (1)
+		{
+			if (!AIManager::getInstance()->allowAiFire() || FishManage::getInstance()->getAllFishInPoolCount() < 5) {
+				break;
+			}
+				_currentFish = FishManage::getInstance()->getLowDistanceCouldcatchHighscoreFishInPool(currentPostion);
+			if (_currentFish&&_currentFish->getTag() != -1)
+			{
+				auto currentPos = _currentFish->convertToWorldSpace(_currentFish->getCentrenPos());
+				float fangle = getTurretRotation(currentPostion, currentPos);
+				if (currentPostion.y > 270)
+				{
+					fangle -= 180;
+				}
+				angle = fangle;
+				/*CCLOG("aimolo shoot turrentPostion = (%f,%f) _currentPos = (%f,%f)  angle = %f _currentFishId = %d", currentPostion.x, currentPostion.y, currentPos.x, currentPos.y, angle, _currentFish->getFishID());*/
+				playerWork._isFire = true;
+				playerWork._angle = angle;
+				return playerWork;
+			}
+			else
+			{
+				break;
+			}
+		}
+		playerWork._isFire = false;
+		playerWork._angle = angle;
+		return playerWork;
+	}
+	else
+	{
+		return playerWork;
+	}
     
 }

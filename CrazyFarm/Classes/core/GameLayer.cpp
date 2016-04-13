@@ -58,7 +58,6 @@ bool GameLayer::init(){
 	}
 	setIsShowYourChairno(false);
 	FishManage::getInstance()->setlayer(this);
-	skillManager::getInstance()->setlayer(this);
 	//add game bg to this layer
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	game_bg = Sprite::create("aniWater1.jpg");
@@ -778,6 +777,7 @@ void GameLayer::onClearFish()
 		unschedule(schedule_selector(GameLayer::onClearFishUpdata)); 
 		getChildByName("yuchaotxt")->removeFromParentAndCleanup(1);
 		loadNewMonent(_fishGroupMonentType);
+		GameData::getInstance()->setisOnGroupComing(false);
 	}), RemoveSelf::create(), nullptr));
 	addChild(lang, kZorderFishXL+1, "lang");
 
@@ -1080,8 +1080,8 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 		{
 			break;
 		}
-
-		
+		var->setMaxTurretLevel(5);
+		uiPos = 1;
 		var->setRoomPosition(uiPos);
 		AI* ai = AIManager::getInstance()->getAI(var->getMaxTurretLevel());
 		var->setAi(ai);
@@ -1093,6 +1093,7 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 		addChild(otherTurret, kZorderMenu, kTagBaseturret + var->getRoomPosition());
 
 		TxtWaitingTurrent[var->getRoomPosition()]->setVisible(false);
+		break;
 	}
 	//初始时间
 	init_creat_time = msg->initCreateTime;

@@ -15,11 +15,6 @@ bool MomentNine::updata(float dt)
 	{
 		GameData::getInstance()->setisOnGroupComing(true);
 	}
-	if (nNowtime>5)
-	{
-		GameData::getInstance()->setisOnGroupComing(false);
-		return true;
-	}
 	return false;
 
 }

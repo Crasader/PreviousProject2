@@ -24,7 +24,6 @@ public:
 
 	void useSkillById(int skillid, PlayerTurret*turret);
 
-	void robotUseSkillFreeze(PlayerTurret*turret);
 	void useSkillFreeze(PlayerTurret*turret);
 	void useSkillFreezeEnd(PlayerTurret*turret);
 
@@ -35,14 +34,12 @@ public:
 	void useSkillLightEnd();
 	void useSkillBoom(PlayerTurret*turret);
 	void init();
-	void setlayer(GameLayer*layer){ m_gamelayer = layer; }
 	void addskillButton(int id, SkillButton* button){ map_id_skillbutton[id] = button; };
 	SkillButton* getButtonByID(int id){ return map_id_skillbutton[id]; };
 	std::map<int, SkillButton*> getSkillButtons(){ return map_id_skillbutton; };
 private:
 	skillManager();
     
-	GameLayer* m_gamelayer = nullptr;
 	static skillManager* _instance;
 	std::map<int, bool> map_skill_isUsingnow;
 	std::map<int, SkillButton*> map_id_skillbutton;

@@ -23,13 +23,13 @@ AIManager* AIManager::getInstance(){
 
 AI* AIManager::getAI( int maxTurrentLevel) {
 
-	AI*jun = new AILei();
-	jun->setMaxTurrentLevel(maxTurrentLevel);
-	jun->setReqSteps(0.2f);
-	return jun;
+	//AI*jun = new AILei();
+	//jun->setMaxTurrentLevel(maxTurrentLevel);
+	//jun->setReqSteps(0.2f);
+	//return jun;
     int who = getRand()%100;
     if(who < 40) {
-		AI* molo = new AIMolo();
+		AI* molo = new AIJun();
         if(maxTurrentLevel > 0) {
             molo->setMaxTurrentLevel(maxTurrentLevel);
         }else {
@@ -48,7 +48,7 @@ AI* AIManager::getAI( int maxTurrentLevel) {
 	}
 	else
     {
-		AI*jun = new AIJun();
+		AI*jun = new AILei();
 		jun->setMaxTurrentLevel(maxTurrentLevel);
 		jun->setReqSteps(0.2f);
 		return jun;
@@ -70,42 +70,93 @@ void  AIManager::MainUpdata(float dt)
 
 void AIManager::addCreateGoldFish()
 {
-	auto turrets = GameManage::getInstance()->getGameLayer()->GetOtherTurret();
-	if (turrets.size()<=0)
-	{
-		return;
-	}
-	auto turret = getRandValueInVector(turrets);
+	const int maxvalue = 99999;
 	nNowCreateGoldFish++;
-	auto roomid = GameData::getInstance()->getRoomID();
-	switch (roomid)
+	auto turrets = GameManage::getInstance()->getGameLayer()->GetOtherTurret();
+	for (auto var:turrets)
 	{
-	case 1:
-		if (nNowCreateGoldFish % 10 ==0)
+		int lv = var->getTurrentMupltData().multiple;
+		int goldfishneedcounts[5];//±ù¶³Ëø¶¨ÕÙ»½ºËµ¯¼¤¹â
+		if (lv >= 1 && lv <= 10)
 		{
-			///some one use lock
+			/*goldfishneedcounts[0] = maxvalue;
+			goldfishneedcounts[1] = 6;
+			goldfishneedcounts[2] = maxvalue;
+			goldfishneedcounts[3] = maxvalue;
+			goldfishneedcounts[4] = maxvalue;*/
+			goldfishneedcounts[0] = 10;
+			goldfishneedcounts[1] = 13;
+			goldfishneedcounts[2] = 22;
+			goldfishneedcounts[3] = 4;
+			goldfishneedcounts[4] = 4;
 		}
-		break;
-	case 2:
-	case 3:
-	case 4:
-		if (nNowCreateGoldFish % 18 == 0)
+		else if (lv > 10 && lv <= 30)
 		{
-			skillManager::getInstance()->robotUseSkillFreeze(turret);
-			break;
+			goldfishneedcounts[0] = 17;
+			goldfishneedcounts[1] = 6;
+			goldfishneedcounts[2] = 30;
+			goldfishneedcounts[3] = maxvalue;
+			goldfishneedcounts[4] = maxvalue;
 		}
-		if (nNowCreateGoldFish % 6 == 0)
+		else if (lv > 30 && lv <= 100)
 		{
-			///some one use lock
-			break;
+			goldfishneedcounts[0] = 13.5;
+			goldfishneedcounts[1] = 6;
+			goldfishneedcounts[2] = 27.5;
+			goldfishneedcounts[3] = 35;
+			goldfishneedcounts[4] = maxvalue;
 		}
-		if (nNowCreateGoldFish % 60 == 0)
+		else if (lv > 100 && lv <= 300)
 		{
-			skillManager::getInstance()->useSkillSummon(turret);
-			break;
+			goldfishneedcounts[0] = 11;
+			goldfishneedcounts[1] = 4;
+			goldfishneedcounts[2] = 23;
+			goldfishneedcounts[3] = 25;
+			goldfishneedcounts[4] = maxvalue;
 		}
-		break;
-	default:
-		break;
+		else if (lv > 300 && lv <= 500)
+		{
+			goldfishneedcounts[0] = 9;
+			goldfishneedcounts[1] = 4;
+			goldfishneedcounts[2] = 13;
+			goldfishneedcounts[3] = 17;
+			goldfishneedcounts[4] = maxvalue;
+		}
+		else if (lv > 500 && lv <= 1000)
+		{
+			goldfishneedcounts[0] = 9;
+			goldfishneedcounts[1] = 3;
+			goldfishneedcounts[2] = 10;
+			goldfishneedcounts[3] = 13;
+			goldfishneedcounts[4] = 45;
+		}
+
+		if (nNowCreateGoldFish % goldfishneedcounts[0] == 0)
+		{
+			skillManager::getInstance()->useSkillFreeze(var);
+			
+		}
+		if (nNowCreateGoldFish % goldfishneedcounts[1] == 0)
+		{
+			/*skillManager::getInstance()->useSkillLock();*/
+			
+		}
+		if (nNowCreateGoldFish % goldfishneedcounts[2] == 0)
+		{
+			skillManager::getInstance()->useSkillSummon(var);
+			
+		}
+		if (nNowCreateGoldFish % goldfishneedcounts[3] == 0)
+		{
+		/*	skillManager::getInstance()->useSkillLight(turret);*/
+			
+		}
+		if (nNowCreateGoldFish % goldfishneedcounts[4] == 0)
+		{
+			skillManager::getInstance()->useSkillBoom(var);
+		
+		}
+
+
 	}
 }

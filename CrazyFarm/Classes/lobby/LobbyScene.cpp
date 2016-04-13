@@ -431,6 +431,11 @@ bool LobbyScene::init()
 	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([=]{aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0)); }), nullptr));
 
 
+	//auto txt11 = LabelTTF::create("test label arial", "arial", 10);
+	//txt11->setPosition(540, 270);
+	//txt11->setFontSize(500);
+	//addChild(txt11, 500);
+
 	return true;
 }
 void LobbyScene::setValue()

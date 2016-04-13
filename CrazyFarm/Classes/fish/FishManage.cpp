@@ -831,6 +831,51 @@ Fish*FishManage::getLowDistanceGoldFishInPool(Point pos)
 	return fish;
 }
 
+
+bool FishManage::isBeKilledFish(Fish*fish, Point turrentpos)
+{
+	bool isBeKilled = true;
+	for (auto var : fishPool)
+	{
+
+		if (line_rect_intersection(fish->getPosition(), turrentpos,Rect(var->getPositionX()-10,var->getPositionY()-10,20,20)))
+		{
+			isBeKilled = false;
+			break;
+		}
+
+	}
+	return isBeKilled;
+}
+Fish*FishManage::getLowDistanceCouldcatchHighscoreFishInPool(Point pos)
+{
+	
+	auto vec = fishPool;
+	if (vec.size() == 0)
+	{
+		return nullptr;
+	}
+	Fish*fish = nullptr;
+	for (auto var:vec)
+	{
+		if (isBeKilledFish(var,pos))
+		{
+			fish = var;
+			break;
+		}
+	}
+	if (fish)
+	{
+		for (auto var : vec)
+		{
+			if (isBeKilledFish(var, pos) && var->getFishGold() > fish->getFishGold())
+			{
+				fish = var;
+			}
+		}
+	}
+	return fish;
+}
 //server 
 void FishManage::addServerItemFishs(MsgFishInfo fishs)
 {

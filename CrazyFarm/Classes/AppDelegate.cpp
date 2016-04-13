@@ -13,6 +13,7 @@
 #include "domain/game/GameManage.h"
 #include "server/Server.h"
 #include "domain/login/LoginMannger.h"
+#include "utill/FunUtil.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -63,6 +64,19 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);
+
+
+	///////////////////////////////////TEST FUN BEGIN////////////////////////////////
+	//CCLOG("%d", line_rect_intersection(Point(0,0), Point(100,100), Rect(10,10,50,50)));
+	//CCLOG("%d", line_rect_intersection(Point(0, 0), Point(100, 100), Rect(110, 110, 50, 50)));
+	//CCLOG("%d", line_rect_intersection(Point(10, 10), Point(10, 100), Rect(10, 10, 50, 50)));
+	//CCLOG("%d", line_rect_intersection(Point(0, 0), Point(100, 100), Rect(10, 10, 50, 50)));
+	//CCLOG("%d", line_rect_intersection(Point(0, 0), Point(100, 100), Rect(10, 10, 50, 50)));
+	//CCLOG("%d", line_rect_intersection(Point(0, 0), Point(100, 100), Rect(10, 10, 50, 50)));
+	///////////////////////////////////TEST FUN END////////////////////////////////
+
+	
+
 
 
 	std::vector<std::string> paths;

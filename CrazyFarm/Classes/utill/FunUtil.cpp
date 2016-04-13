@@ -177,3 +177,41 @@ int getRand(unsigned int _Seed)
 	return rand();
 }
 
+
+
+bool line_rect_intersection(Point start_p, Point end_p, Rect rect)
+{
+	int a = start_p.y - end_p.y;
+	int b = end_p.x - start_p.x;
+	int c = start_p.x* end_p.y - end_p.x* start_p.y;
+
+	int left = rect.getMinX();
+	int top = rect.getMaxY();
+	int right = rect.getMaxX();
+	int bottom = rect.getMinY();
+
+	////思路:先看线段所在直线是否与矩形相交，如果不相交则必为 “Ｆ”，
+	////如果相交，则看线段的两个点是否在矩形的同一边（即两点的 x（y)  坐标都比矩形的小 x(y) 坐标小，或者大）,
+	////若在同一边则为“Ｆ”，否则就是相交的情况。
+	if ((a* left + b*top + c >= 0 && a* right + b* bottom + c <= 0) ||
+		(a* left + b*top + c <= 0 && a* right + b* bottom + c >= 0) ||
+		(a* left + b*bottom + c >= 0 && a* right + b* top + c <= 0) ||
+		(a* left + b*bottom + c >= 0 && a* right + b* top + c <= 0))
+	{
+		if ((start_p.x < left && end_p.x < left) ||
+			(start_p.x > right && end_p.x < left) ||
+			(start_p.y > top && end_p.y > top) ||
+			(start_p.y < bottom && end_p.y < bottom))  ///判断线段是否在矩形一侧
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
