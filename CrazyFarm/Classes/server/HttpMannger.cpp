@@ -329,6 +329,7 @@ void HttpMannger::onHttpRequestCompletedForLogInByName(HttpClient *sender, HttpR
 		}
 		break;
 	}
+	
 	if (checkIsRelogin(value->_errorcode, value->_errormsg))
 	{
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("login");
@@ -768,6 +769,7 @@ void HttpMannger::onHttpRequestCompletedForGetItemInfo(HttpClient *sender, HttpR
 	}
 	if (checkIsRelogin(value->_errorcode, value->_errormsg))
 	{
+		
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_bagitem_info");
 	}
 	else
@@ -1696,6 +1698,7 @@ bool HttpMannger::checkIsRelogin(int msgId, std::string msg)
 	if (msgId == 311||msgId == 304)
 	{
 		ToolTipMannger::ShowReloginTip(msg);
+		LoadingCircle::RemoveLoadingCircle();
 		return true;
 	}
 	return false;

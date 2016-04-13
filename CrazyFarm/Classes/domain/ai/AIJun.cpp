@@ -1,7 +1,7 @@
 #include "domain/ai/AIJun.h"
 #include "domain/ai/AIManager.h"
 
-PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion) {
+PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion, int AiDoCounts) {
 
 	PlayerWork playerWork;
 	playerWork._workeType = Robot_Fire;

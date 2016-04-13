@@ -8,7 +8,9 @@ enum PlayWorktype
 {
 	Robot_UpdateTurrent,
 	Robot_UsingSkill,
-	Robot_Fire
+	Robot_Fire,
+	Invalid = -1
+
 };
 
 

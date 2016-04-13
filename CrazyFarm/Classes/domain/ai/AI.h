@@ -9,12 +9,15 @@ class AI {
 
 public:
 	AI(){ _currentFish = nullptr; }
-    virtual PlayerWork nextStep(int currentCoins, Point currentPostion) = 0;
+    virtual PlayerWork nextStep(int currentCoins, Point currentPostion,int AiDoCounts )= 0;
     
     CC_SYNTHESIZE(int, maxTurrentLevel, MaxTurrentLevel);
     CC_SYNTHESIZE(float, reqSteps, ReqSteps);
 	CC_SYNTHESIZE(Fish*, _currentFish, currentFish);
-private:
+	protected:
+
+	//升级炮塔策略通用
+	PlayerWork getUpdataTurrentWork(int AiDoCounts);
     
 };
 

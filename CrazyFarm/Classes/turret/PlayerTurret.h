@@ -115,9 +115,10 @@ public:
 	  void doAIthing(float dt);
 	  void stopAI();
 	  void addGoldFishForAi();
-	  void changeTurret(int lv);
+	  void AIchangeTurret(int lv);
 	  float robotTempTime = 0;//.AI某种策略的计时时间
-	  const float robotAiLifeTime = 180;// AI某种策略的生存期180秒
+		float robotAiLifeTime ;// AI某种策略的生存期
+		int robotDoThingCount = 0; //AI做事情的次数
 private:
 	Vec2 m_coinLabelPos;
 	Turrent  m_turretdata;

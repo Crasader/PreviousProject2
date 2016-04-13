@@ -1,7 +1,7 @@
 #include "domain/ai/AIHu.h"
 #include "domain/ai/AIManager.h"
 #include "bullet/BulletManage.h"
-PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion) {
+PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion, int AiDoCounts) {
 
 	PlayerWork playerWork;
 	playerWork._workeType = Robot_Fire;

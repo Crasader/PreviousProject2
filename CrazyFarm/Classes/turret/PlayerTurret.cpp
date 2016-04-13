@@ -125,7 +125,7 @@ void PlayerTurret::update(float delta)
 
 	if (isRobot)
 	{
-
+		nCurLevel->setString(Value(m_turretdata.multiple).asString().c_str());
 	}
 	else
 	{
@@ -437,6 +437,7 @@ void PlayerTurret::shoot(float degree){
 
 void PlayerTurret::setAIinfo(AI*info)
 {
+	robotAiLifeTime = getRand(Server_Seed) % 50 + 155;
 	m_aiinfo = info;
 	schedule(schedule_selector(PlayerTurret::doAIthing), info->getReqSteps(), CC_REPEAT_FOREVER, 0);
 }
@@ -448,8 +449,9 @@ void PlayerTurret::doAIthing(float dt)
 	{
 		m_aiinfo = AIManager::getInstance()->getAI(nNowMoney);
 		robotTempTime = 0;
+		robotAiLifeTime = getRand(Server_Seed) % 50 + 155;
 	}
-	auto walk = m_aiinfo->nextStep(nNowMoney, convertToWorldSpace(m_turret->getPosition()));
+	auto walk = m_aiinfo->nextStep(nNowMoney, convertToWorldSpace(m_turret->getPosition()), robotDoThingCount++);
 	switch (walk._workeType)
 	{
 	case Robot_Fire:
@@ -463,10 +465,14 @@ void PlayerTurret::doAIthing(float dt)
 	}
 		break;
 	case Robot_UpdateTurrent:
+	{
+		AIchangeTurret(walk.diffTurretLv);
+	}
 		break;
 	case Robot_UsingSkill:
 		break;
-
+	case Invalid:
+		break;
 	default:
 		break;
 	}
@@ -1228,8 +1234,9 @@ Vec2 PlayerTurret::getPaoWorldpos()
 	return convertToWorldSpace(m_turret->getPosition());
 
 }
-void PlayerTurret::changeTurret(int lv)
+void PlayerTurret::AIchangeTurret(int lv)
 {
+	CCLOG("robot change the turret!");
 	Turrent nextTurretdata;
 	if (lv == 1)
 	{

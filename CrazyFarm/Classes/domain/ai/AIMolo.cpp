@@ -1,7 +1,7 @@
 #include "domain/ai/AIMolo.h"
 #include "domain/ai/AIManager.h"
 
-PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion) {
+PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion, int AiDoCounts) {
   PlayerWork playerWork;
   return playerWork;
 ////    int turrentLevel = getRand()%this->getMaxTurrentLevel();
