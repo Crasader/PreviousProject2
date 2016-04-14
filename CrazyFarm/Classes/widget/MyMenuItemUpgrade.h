@@ -13,6 +13,7 @@ private:
 	void initItem();
 	void showBlinkAni();
 	void removeBlinkAni();
+	virtual void update(float delta);
 	Node* nodeZeng;
 	Node*unfinishedNode;
 	Node* commonNode;

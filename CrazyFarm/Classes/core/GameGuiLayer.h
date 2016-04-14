@@ -20,7 +20,6 @@
 #include "core/GuizuGiftDialog.h"
 #include "widget/MyMenuItemGainMoney.h"
 #include "data/GameData.h"
-#include "core/maridTaskPlane.h"
 #include "domain/skill/skillManager.h"
 #include "server/HttpMannger.h"
 #include "utill/Audio.h"
@@ -51,11 +50,13 @@ private :
 	void createSettingBoard();
 	void createGuizuGiftLayer();
 	
+	virtual void onEnterTransitionDidFinish();
 
 	/////////美人鱼相关///////////////////////////////////////////////
 	float fmaridNowTime = 0;
 	void maridTaskTime(float dt);
-	void createMermaidTaskPlane();
+public:
+	void createMermaidTaskPlane(int lefttime, std::vector<MarriedTaskFishItem> items);
 
 public:
 	void beginMaridTaskTime(float diffTime);

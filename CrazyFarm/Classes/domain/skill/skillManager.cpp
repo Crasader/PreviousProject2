@@ -9,26 +9,26 @@
 skillManager* skillManager::_instance = NULL;
 
 skillManager::skillManager(){
-    this->init();
+	this->init();
 }
 
 
 void skillManager::init(){
-	for (int i = 1; i <= 5;i++)
+	for (int i = 1; i <= 5; i++)
 	{
 		map_skill_isUsingnow[i] = false;
 	}
-	
+
 }
 
 skillManager* skillManager::getInstance(){
-    if(_instance == NULL){
+	if (_instance == NULL){
 		_instance = new skillManager();
-    }
-    return _instance;
+	}
+	return _instance;
 }
 
-SkillConfigInfo skillManager::getSkillInfoByID(int skillid) 
+SkillConfigInfo skillManager::getSkillInfoByID(int skillid)
 {
 	return ConfigSkill::getInstance()->getskillConfigInfoBySkillId(skillid);
 }
@@ -46,14 +46,14 @@ int skillManager::getSKillNumById(int skillid)
 
 void skillManager::useSkillSummon(PlayerTurret*turret)
 {
-	
+
 	auto randPos = Vec2(100, 150 + getRand() % 200);
 
 
 	auto SummonBottle = Sprite::create("SummonBottle.png");
 	SummonBottle->setPosition(turret->getPosition());
 	GameManage::getInstance()->getGuiLayer()->addChild(SummonBottle, 10);
-	SummonBottle->runAction(Sequence::create(Spawn::create(MoveTo::create(1.0f, randPos), RotateBy::create(1.0f, 360),ScaleTo::create(1.0f,0.5), nullptr),RemoveSelf::create(),nullptr));
+	SummonBottle->runAction(Sequence::create(Spawn::create(MoveTo::create(1.0f, randPos), RotateBy::create(1.0f, 360), ScaleTo::create(1.0f, 0.5), nullptr), RemoveSelf::create(), nullptr));
 
 
 	auto aniNode = Sprite::create();
@@ -61,19 +61,19 @@ void skillManager::useSkillSummon(PlayerTurret*turret)
 	GameManage::getInstance()->getGuiLayer()->addChild(aniNode, 10);
 	Audio::getInstance()->playSound(SKILLSUMMON);
 	aniNode->setScale(2);
-	aniNode->runAction(Sequence::create(DelayTime::create(1.0f),Repeat::create(AnimationUtil::getInstance()->getAnimate("aniZhaoHuan"), 2), CallFunc::create([=]{
-	auto fish = FishManage::getInstance()->createFishSingle(40 + getRand() % 5);
-	fish->setPosition(randPos);
-	fish->setMoveAngle(0);
-	fish->setScale(0);
-	 
-	fish->runAction(Sequence::create(ScaleTo::create(0.4, 1), CallFunc::create([=]{fish->move(3); aniNode->removeFromParentAndCleanup(1); }), nullptr));
-	fish->setZOrder(fish->getFishZorder());
-	}),nullptr));
+	aniNode->runAction(Sequence::create(DelayTime::create(1.0f), Repeat::create(AnimationUtil::getInstance()->getAnimate("aniZhaoHuan"), 2), CallFunc::create([=]{
+		auto fish = FishManage::getInstance()->createFishSingle(40 + getRand() % 5);
+		fish->setPosition(randPos);
+		fish->setMoveAngle(0);
+		fish->setScale(0);
+
+		fish->runAction(Sequence::create(ScaleTo::create(0.4, 1), CallFunc::create([=]{fish->move(3); aniNode->removeFromParentAndCleanup(1); }), nullptr));
+		fish->setZOrder(fish->getFishZorder());
+	}), nullptr));
 }
 void skillManager::useSkillById(int skillid, PlayerTurret*turret)
 {
-	
+
 	switch (skillid)
 	{
 	case 1:
@@ -87,7 +87,7 @@ void skillManager::useSkillById(int skillid, PlayerTurret*turret)
 			getButtonByID(skillid)->skillButonUi(getSkillInfoByID(skillid).cd_time);
 			getButtonByID(5)->skillButonUi(getSkillInfoByID(skillid).cd_time);
 		}
-		
+
 		break;
 	case 3:
 		useSkillSummon(turret);
@@ -118,6 +118,10 @@ void skillManager::useSkillById(int skillid, PlayerTurret*turret)
 
 void skillManager::useSkillFreeze(PlayerTurret*turret)
 {
+	if (GameData::getInstance()->getIsOnMaridTask())
+	{
+		return;
+	}
 	if (map_skill_isUsingnow[1])
 	{
 		return;
@@ -164,7 +168,11 @@ void skillManager::useSkillLockEnd()
 }
 
 void skillManager::useSkillBoom(PlayerTurret*turret)
-{
+{/*
+	if (GameData::getInstance()->getIsOnMaridTask())
+	{
+		return;
+	}*/
 	Audio::getInstance()->playSound(SKILLBOOM);
 	if (turret == GameManage::getInstance()->getGameLayer()->GetMyTurret())
 	{
@@ -172,7 +180,7 @@ void skillManager::useSkillBoom(PlayerTurret*turret)
 	}
 	else
 	{
-		Vec2 pos = Vec2(480+rand()%400-200,270+rand()%200-100);
+		Vec2 pos = Vec2(480 + rand() % 400 - 200, 270 + rand() % 200 - 100);
 		GameManage::getInstance()->getGameLayer()->doBoom(pos, turret, true);
 	}
 }
@@ -207,7 +215,7 @@ int skillManager::isSatisfyBuySkill(int skillid) //·µ»ØÖµ1£ºVIPµÈ¼¶²»¹» 2£ºÅÚËþµ
 	auto info = ConfigSkill::getInstance()->getskillConfigInfoBySkillId(skillid);
 	auto maxlv = User::getInstance()->getMaxTurrentLevel();
 	auto viplv = User::getInstance()->getVipLevel();
-	if (info.unlock_buy_vipLv >viplv)
+	if (info.unlock_buy_vipLv > viplv)
 	{
 		return 1;
 	}
@@ -227,7 +235,7 @@ int skillManager::isSatisfyBuySkillInBag(int skillid) //·µ»ØÖµ1£ºVIPµÈ¼¶²»¹» 2£º
 	{
 		return 1;
 	}
-	if (300> maxlv)
+	if (300 > maxlv)
 	{
 		return 2;
 	}

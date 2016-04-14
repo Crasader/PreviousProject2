@@ -324,15 +324,15 @@ void  PlayerTurret::onLockTheTurrent(int curTurretLv, int rewardsCoin, int costD
 	label->runAction(Sequence::create(DelayTime::create(3.0f), RemoveSelf::create(), nullptr));
 	GameManage::getInstance()->getGuiLayer()->addChild(label, 5);
 	GameManage::getInstance()->getGameLayer()->RefreShmyPlayerTurret();
-	//弹出下一级房间提示
-	int maxlv = User::getInstance()->getMaxTurrentLevel();
-	auto nextroom = ConfigRoom::getInstance()->getNextRoombyId(GameData::getInstance()->getRoomID());
-	if (maxlv == nextroom.unlock_turrent_level)
-	{
-		auto dioag = TwiceSureDialog::createDialog(ChineseWord("LockNewRoom").c_str(), CC_CALLBACK_1(PlayerTurret::ChangeNextRoom, this));
-		dioag->setPosition(0, 0);
-		GameManage::getInstance()->getGuiLayer()->addChild(dioag, 20);
-	}
+	////弹出下一级房间提示
+	//int maxlv = User::getInstance()->getMaxTurrentLevel();
+	//auto nextroom = ConfigRoom::getInstance()->getNextRoombyId(GameData::getInstance()->getRoomID());
+	//if (maxlv == nextroom.unlock_turrent_level)
+	//{
+	//	auto dioag = TwiceSureDialog::createDialog(ChineseWord("LockNewRoom").c_str(), CC_CALLBACK_1(PlayerTurret::ChangeNextRoom, this));
+	//	dioag->setPosition(0, 0);
+	//	GameManage::getInstance()->getGuiLayer()->addChild(dioag, 20);
+	//}
 }
 void PlayerTurret::ChangeNextRoom(Ref*psend)
 {
@@ -1193,7 +1193,7 @@ void PlayerTurret::costMoney()
 
 		if (GameData::getInstance()->getIsOnMaridTask())
 		{
-			GameData::getInstance()->getmermaidTask()->addCoins(num);
+		/*	GameData::getInstance()->getmermaidTask()->addCoins(num);*/
 		}
 	}
 }

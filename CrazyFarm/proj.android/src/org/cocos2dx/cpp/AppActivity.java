@@ -21,7 +21,9 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVAnalytics;
 import com.poixao.crazyfarm.Constants;
 import com.poixao.crazyfarm.R;
-import com.tbu.wx.pay.TbuWxPay;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -38,6 +40,7 @@ public class AppActivity extends Cocos2dxActivity  {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AppActivity.activity = this;
+//		TbuWxPay.getInstance().initOnFirstActivity(this);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -111,11 +114,32 @@ public class AppActivity extends Cocos2dxActivity  {
 	}
 	
 	public  static void shareToWx(){
-		TbuWxPay.getInstance().shareWebPage("www.baidu.com", "您的好友邀请您一起捞鱼哦", "今天我在赚话费捕鱼，赚到了30话费，你也快来吧", false);
+		((AppActivity)AppActivity.activity).shareWebPage("www.baidu.com", "您的好友邀请您一起捞鱼哦", "捕鱼咯", true);
 
 	}
 	
-	
+	public void shareWebPage(String webpageUrl, String title,
+			String description, boolean friends) {
+		WXWebpageObject webpage = new WXWebpageObject();
+		webpage.webpageUrl = webpageUrl;
+		WXMediaMessage msg = new WXMediaMessage(webpage);
+		msg.title = title;
+		msg.description = description;
+		SendMessageToWX.Req req = new SendMessageToWX.Req();
+		req.transaction = buildTransaction("webpage");
+		req.message = msg;
+		req.scene = friends ? SendMessageToWX.Req.WXSceneTimeline
+				: SendMessageToWX.Req.WXSceneSession;
+		req.scene = SendMessageToWX.Req.WXSceneSession;
+		msgApi.sendReq(req);
+
+	}
+
+	private String buildTransaction(final String type) {
+		return (type == null) ? String.valueOf(System.currentTimeMillis())
+				: type + System.currentTimeMillis();
+	}
+
 	
 	protected void onPause() {
 	    super.onPause();

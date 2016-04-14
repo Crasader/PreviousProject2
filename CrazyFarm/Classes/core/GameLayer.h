@@ -38,6 +38,7 @@ public:
 	void onGetReward(int itemid, int num);
 	//某条鱼掉落道具或钻石
 	void onGetRewardByfish(PlayerTurret*turrent,Fish*fish,int itemid,int num);
+	void onExitEX();
 private:
 	void createTurret();//按照类型生成炮塔
 	void addTouchEvent();
@@ -51,7 +52,7 @@ private:
 	void showYourChairno();
 
 	void AiUpdata(float dt);
-	void onExit();
+	
 	void onEnter();
 	virtual void onEnterTransitionDidFinish();
 	//Updata
@@ -146,6 +147,7 @@ private:
 ///////强联网相关
 public:
 	virtual void handle_event(const char* msgId, const char* msgBody);
+	bool getIsConnetscuess(){ return isInitMsg; };
 private:
 //消息
 	void onSomeoneLeave(Msg_onLeave* msg);  //玩家离开
@@ -165,7 +167,9 @@ private:
 	void onPayresulet(Msg_Payresult*msg); //支付结果
 	void onBossDead(Msg_OnBossDead*msg); //BOSS鱼死亡
 	void onMarquee(Msg_OnMarquee*msg);  //跑马灯任务完成信息
-
+	void onBeginMarried(Msg_OnBeginMarried*msg);  //美人鱼任务开始
+	void onCathchMarriedFish(Msg_OnCatchMarriedFish*msg);//打到任务鱼
+	void onMarriedTaskSuccess(Msg_OnMarriedSuccess*msg); //美人鱼任务成功
 	void ToPayShopCallBack(Ref*psend);
 	void exitCallback(Ref*psend);
 	void MsgUpdata(float dt);

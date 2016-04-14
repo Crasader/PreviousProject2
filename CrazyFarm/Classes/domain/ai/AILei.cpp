@@ -37,7 +37,7 @@ PlayerWork AILei::nextStep(int currentCoins, Point currentPostion, int AiDoCount
 					break;
 				}
 				angle = fangle;
-				CCLOG("ailei shoot turrentPostion = (%f,%f) _currentPos = (%f,%f)  angle = %f _currentFishId = %d", currentPostion.x, currentPostion.y, currentPos.x, currentPos.y, angle, _currentFish->getFishID());
+			/*	CCLOG("ailei shoot turrentPostion = (%f,%f) _currentPos = (%f,%f)  angle = %f _currentFishId = %d", currentPostion.x, currentPostion.y, currentPos.x, currentPos.y, angle, _currentFish->getFishID());*/
 				playerWork._isFire = true;
 				playerWork._angle = angle;
 				return playerWork;

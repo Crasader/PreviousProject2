@@ -134,5 +134,29 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 		base->setMsgId(MsgOnMarquee);
 
 	}
+	if (strcmp(msgId, "mermaidTask") == 0)
+	{
+		//破产领取
+		base = new Msg_OnBeginMarried();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnBeginMarried);
+
+	}
+	if (strcmp(msgId, "updateMermaid") == 0)
+	{
+		//破产领取
+		base = new Msg_OnCatchMarriedFish();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnCatchMarriedFish);
+
+	}
+	if (strcmp(msgId, "successMermaid") == 0)
+	{
+		//破产领取
+		base = new Msg_OnMarriedSuccess();
+		base->setBody(msgBody);
+		base->setMsgId(MsgOnMarriedSuccess);
+
+	}
 	return base;
 }

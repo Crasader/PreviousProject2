@@ -6,6 +6,7 @@
 #include "domain/Newbie/NewbieMannger.h"
 #include "core/GetRewardNode.h"
 #include "widget/MyLabelAtlas.h"
+#include "domain/mermaid/MermaidTaskMannger.h"
 GameManage* GameManage::_instance = 0;
 
 GameManage* GameManage::getInstance(){
@@ -131,19 +132,9 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 		//}
 		if (!turret->isRobot)
 		{
-			//美人鱼任务相关
-			auto data = GameData::getInstance();
-			if (data->getIsOnMaridTask())
+			if (MermaidTaskMannger::getInstence()->isSendInfoToServer(fish->getFishID()))
 			{
-				auto vec = data->getmermaidTask()->getMermaidTaskOnlineInfo().mermaidTaskItems;
-				for (auto var : vec)
-				{
-					if (fish->getFishID() == var.fishId&&!turret->isRobot)
-					{
-						data->getmermaidTask()->addOneCatchFishById(fish->getFishID());
-						break;
-					}
-				}
+				m_pGameyer->UpdateUserinfo(1);
 			}
 			//锁定技能引导相关
 			if (NewbieMannger::getInstance()->getNBShootCounts() >= 10)

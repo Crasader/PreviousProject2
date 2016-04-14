@@ -71,6 +71,8 @@ public:
 	Fish*getLowDistanceInPool(Point pos);//获得距离某点最近的鱼
 	Fish*getLowDistanceGoldFishInPool(Point pos);//获得距离某点最近的黄金鱼
 	Fish*getLowDistanceCouldcatchHighscoreFishInPool(Point pos);//获得距离某点最近的可以打到的分值最高 的鱼
+	bool isInTheWindow(Point pos);
+
 
 	bool isBeKilledFish(Fish*fish,Point turrentpos); //判断是否可以攻击到某条鱼
 

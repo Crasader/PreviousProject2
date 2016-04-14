@@ -5,6 +5,7 @@
 #include "data/GameData.h"
 #include "domain/logevent/LogEventMannger.h"
 #include "utill/FunUtil.h"
+#include "domain/game/GameManage.h"
 bool NotarizeExitDialog::init()
 {
 	Layer::init();
@@ -67,7 +68,7 @@ void NotarizeExitDialog::querenCallback(Ref*psend)
 	
 	}
 	LogEventPageChange::getInstance()->addEventItems(2, 1, 0);
-	
+	GameManage::getInstance()->getGameLayer()->onExitEX();
 	Director::getInstance()->replaceScene(LobbyScene::createScene());
 	GameData::getInstance()->setisOnGameScene(false);
 }

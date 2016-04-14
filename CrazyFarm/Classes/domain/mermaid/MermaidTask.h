@@ -1,5 +1,6 @@
 #pragma once
 #include "cocos2d.h"
+#include "server/Msg/MsgBase.h"
 
 using namespace cocos2d;
 
@@ -8,16 +9,23 @@ struct MermaidTaskConfigInfo {
     int continue_time;      //获取任务持续时间
 };
 
-struct MermaidTaskItem {
-    int fishId;
-    int goal_num;
-    int current_num;
+//struct MermaidTaskFishItem {
+//    int fishId;
+//    int goal_num;
+//    int current_num;
+//};
+//struct MermaidTaskItem
+//{
+//	//PlayerTurret*_turret;
+//	int fishcouns;
+//	std::vector<MermaidTaskItem> mermaidTaskfishItems;      //任务状态
+//
+//};
+struct MermaidTaskOnlineInfo {
+    //int coins;    // 金币消耗
+    //std::vector<MermaidTaskItem> mermaidTaskItems;      //任务状态
 };
 
-struct MermaidTaskOnlineInfo {
-    int coins;    // 金币消耗
-    std::vector<MermaidTaskItem> mermaidTaskItems;      //任务状态
-};
 
 class MermaidTask {
 
@@ -32,10 +40,14 @@ public:
     MermaidTaskConfigInfo getMermaidTaskConfigInfo();
     MermaidTaskOnlineInfo getMermaidTaskOnlineInfo();
     
+	//void someTurrentCatchFish(PlayerTurret*turrent,int fishid); //在美人鱼期间捕获鱼
+	void beginMermidTask();
 private:
     MermaidTask();
     
     MermaidTaskConfigInfo mermaidTaskConfigInfo;
     MermaidTaskOnlineInfo mermaidTaskOnlineInfo;
+	//CC_SYNTHESIZE(std::vector<MarriedTaskFishItem>, _items, MarriedTaskFishItems);
+	//std::vector<MermaidTaskItem*> MarriedTaskRankInfos;
 };
 

@@ -14,19 +14,24 @@ bool TwiceSureChangePhoneDialog::init()
 	}
 	bool bRet = false;
 	do{
-		auto sp = Sprite::create("lingqujiangliTXT.png");
-		sp->setPosition(480, 415);
+		auto sp = Sprite::create("changeRewardTxt.png");
+		sp->setPosition(480, 412);
 		addChild(sp);
 
+
+		auto txt = Sprite::create("changePhoneTxt.png");
+		txt->setPosition(Vec2(260,339));
+		addChild(txt);
+		txt->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		auto frame = Sprite::create("RegisterInputFrame.png");
-		frame->setPosition(Vec2(480, 230));
+		frame->setPosition(Vec2(544, 339));
 		addChild(frame);
 		_editPhone = ui::EditBox::create(Size(270, 51), ui::Scale9Sprite::create());
-		_editPhone->setPosition(Vec2(480, 230));
+		_editPhone->setPosition(Vec2(544, 339));
 		_editPhone->setFontName("Arial");
 		_editPhone->setFontSize(20);
 		_editPhone->setFontColor(Color3B::YELLOW);
-		_editPhone->setPlaceHolder(ChineseWord("feedbackTip").c_str());
+		_editPhone->setPlaceHolder(ChineseWord("inputphone").c_str());
 		_editPhone->setPlaceholderFontColor(Color3B::GRAY);
 		_editPhone->setPlaceholderFontSize(25);
 		_editPhone->setMaxLength(14);
@@ -34,15 +39,21 @@ bool TwiceSureChangePhoneDialog::init()
 		_editPhone->setDelegate(this);
 		addChild(_editPhone);
 
+
+
+		txt = Sprite::create("repeatInputPhoneTXT.png");
+		txt->setPosition(Vec2(260, 282));
+		addChild(txt);
+		txt->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
 		frame = Sprite::create("RegisterInputFrame.png");
-		frame->setPosition(Vec2(480, 180));
+		frame->setPosition(Vec2(544, 282));
 		addChild(frame);
 		_editRepeatPhone = ui::EditBox::create(Size(270, 51), ui::Scale9Sprite::create());
-		_editRepeatPhone->setPosition(Vec2(480, 230));
+		_editRepeatPhone->setPosition(Vec2(544, 282));
 		_editRepeatPhone->setFontName("Arial");
 		_editRepeatPhone->setFontSize(20);
 		_editRepeatPhone->setFontColor(Color3B::YELLOW);
-		_editRepeatPhone->setPlaceHolder(ChineseWord("feedbackTip").c_str());
+		_editRepeatPhone->setPlaceHolder(ChineseWord("repetinputphone").c_str());
 		_editRepeatPhone->setPlaceholderFontColor(Color3B::GRAY);
 		_editRepeatPhone->setPlaceholderFontSize(25);
 		_editRepeatPhone->setMaxLength(14);
@@ -54,20 +65,27 @@ bool TwiceSureChangePhoneDialog::init()
 
 
 		auto bt = MenuItemImage::create("btn_tijiao_1.png", "btn_tijiao_2.png", CC_CALLBACK_1(TwiceSureChangePhoneDialog::quedingcallback, this));
-		bt->setPosition(480, 60);
+		bt->setPosition(480, 173);
 
 
 
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(TwiceSureChangePhoneDialog::closeButtonCallBack, this));
-		close->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
-		close->setPosition(960,540);
+		close->setPosition(734,418);
 
 
 
 		auto menu = Menu::create(bt, close, nullptr);
 		menu->setPosition(0, 0);
 		addChild(menu);
+
+		auto lable = Label::create(ChineseWord("phoneTotheAccountTip").c_str(), "arial", 17);
+		lable->setColor(Color3B::RED);
+		lable->setPosition(480, 230);
+		addChild(lable);
+		lable->setAnchorPoint(Point::ANCHOR_MIDDLE);
+
+
 
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->setSwallowTouches(true);

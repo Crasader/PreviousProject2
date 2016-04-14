@@ -111,7 +111,7 @@
   
   <key>ChangeGiftTxt</key>
 
-  <string>已拥有话费           元，请选择你要兑换的商品</string>
+  <string>已拥有话费     元，请选择你要兑换的商品</string>
 
   
   <key>paySuccess</key>
@@ -203,10 +203,17 @@
   
     <key>dayMissionTxt</key>
   <string>每日24:00刷新每日任务</string>
-
-  
      <key>cinYourCDkey</key>
   <string>输入您的兑换码</string>
+  
+   <key>inputphone</key>
+  <string>请输入您的手机号码</string>
+   <key>repetinputphone</key>
+  <string>请再次输入</string>
+  <key>phoneTotheAccountTip</key>
+  <string>话费奖品将在3-5个工作日到账，请注意查收！</string>
+  
+   
   </dict> 
 </array>
 </plist>

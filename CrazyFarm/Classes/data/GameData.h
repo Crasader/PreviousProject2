@@ -29,7 +29,7 @@ private:
 	static GameData* _instance;
 	CC_SYNTHESIZE(int, nRoomId, RoomID);	
 	CC_SYNTHESIZE(int, nNowLevel, nowLevel);
-	CC_SYNTHESIZE(MermaidTask*, m_Task, mermaidTask);
+
 	CC_SYNTHESIZE(bool, isOnMaridTask, IsOnMaridTask);
 	CC_SYNTHESIZE(bool, bIsOnBankrupt, isOnBankrupt);
 	CC_SYNTHESIZE(bool, bisPlayerOneGame, isPlayerOneGame);//是否进行过一次游戏
@@ -54,6 +54,7 @@ private:
 	//从哪点击的炮塔升级//0:初始 1：showTurretCell 2: MenuItemUpgrade;
 	CC_SYNTHESIZE(int, _TouchLockTurretType, TouchLockTurretType); 
 
+	
 
 	//游戏中10S金币变化和经验变化
 	CC_SYNTHESIZE(int, _gainCoin, gainCoin);

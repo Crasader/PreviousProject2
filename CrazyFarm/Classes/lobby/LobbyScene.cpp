@@ -728,15 +728,39 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 }
 void LobbyScene::WxShareCallback(Ref*psend)
 {
-
+	JniFunUtill::getInstance()->WXShare();
 }
 void LobbyScene::changeRewardCallback(Ref*psend)
 {
 
 	Audio::getInstance()->playSound(CLICKSURE);
-	auto layer = ChangeGiftLayer::create();
-	layer->setPosition(Point::ZERO);
-	addChild(layer, kZorderDialog);
+	EventListenerCustom* _listener2 = EventListenerCustom::create("get_bagitem_info", [=](EventCustom* event){
+
+		BagItemValue*value = static_cast<BagItemValue*>(event->getUserData());
+		if (value->_errorcode == 0)
+		{
+			for (auto var : value->itemLists)
+			{
+				BagManager::getInstance()->setItemNum(var._itemid, var._num);
+			}
+
+			auto layer = ChangeGiftLayer::create();
+			layer->setPosition(Point::ZERO);
+			addChild(layer, kZorderDialog);
+		}
+		else
+		{
+			ToolTipMannger::showDioag(value->_errormsg);
+		}
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_bagitem_info");
+		LoadingCircle::RemoveLoadingCircle();
+
+	});
+	LoadingCircle::showLoadingCircle();
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
+	HttpMannger::getInstance()->HttpToPostRequestToGetItemInfo();
+
+
 	LogEventPageChange::getInstance()->addEventItems(1, 4, 0);
 }
 void LobbyScene::RankListCallback(Ref*psend)

@@ -62,7 +62,7 @@ void ConfigManager::LoadConfig() {
     ConfigBonuspool::getInstance()->LoadConfig();
     ConfigMomentEight::getInstance()->LoadConfig();
  
-	GameData::getInstance()->setmermaidTask(MermaidTask::getNewMermaidTask());
+
 	GameConfig::getInstance()->loadConfig();
 	FishRouteData::getInstance()->loadConfig();
 	FishGroupData::getInstance()->loadConfig();

@@ -44,9 +44,9 @@ void MissionManager::loadConfig()
 		if (value->_errorcode == 0)
 		{
 			_achieveList.clear();
-			for (auto var:value->AchieveItems)
+			for (auto var : value->AchieveItems)
 			{
-				if (var.mission_id==3||var.mission_id==4||var.mission_id==7||var.mission_id==8||var.mission_id==9)
+				if (var.mission_id>=3&&var.mission_id<=10)
 				{
 					_achieveList.push_back(var);
 				}

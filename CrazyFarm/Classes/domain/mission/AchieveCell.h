@@ -1,10 +1,11 @@
 #pragma once
-
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "ui/CocosGUI.h"
 #include "MissionManager.h"
 #include "AchieveStar.h"
+#include "widget/MyLabelTTF.h"
+#include "widget/MyLabelAtlas.h"
 using namespace cocos2d;
 USING_NS_CC_EXT;
 
@@ -23,10 +24,10 @@ private:
 	Sprite* _rewardProp;
 	LabelAtlas* _rewardPropNum;
 	AchieveStar*_stars;
-	LabelTTF* _missionContant;
+	MyLabelTTF* _missionContant;
 	//½ø¶ÈÌõ
 	Sprite*_txtProgressContant;
-	LabelAtlas* _progressPercent;
+	MyLabelAtlas* _progressPercent;
 	ui::LoadingBar* _progressbar;
 	MenuItemImage*bt;
 	Sprite*_missionBarFrane;

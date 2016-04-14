@@ -745,6 +745,10 @@ void FishManage::onBoomFishDead(Fish*fish, PlayerTurret* pTurret)
 	auto data = GameData::getInstance();
 	for (auto var : fishPool)
 	{
+		if (var == fish)
+		{
+			break;
+		}
 		if (CollisionUtill::isCollisionFishAAndRect(var, Rect(pos.x - 200, pos.y - 200, 400, 400)))
 		{
 			GameManage::getInstance()->CatchTheFishOntheTurrent(var, 1, pTurret);
@@ -769,7 +773,11 @@ void FishManage::addMomentEightItemFishs(MomentEightItemFishs fishs)
 {
 	waitCreateMomentEightFishs.push_back(fishs);
 }
-
+bool FishManage::isInTheWindow(Point pos)
+{
+	auto rect = Rect(0, 0, Director::getInstance()->getWinSize().width, Director::getInstance()->getWinSize().height);
+	return rect.containsPoint(pos);
+}
 Fish*FishManage::getHignSoreInPool()
 {
 	auto vec = fishPool;
@@ -780,12 +788,19 @@ Fish*FishManage::getHignSoreInPool()
 	Fish* fish = vec.at(0);
 	for (auto var:vec)
 	{
-		if (var->getFishGold()>=fish->getFishGold())
+		if (var->getFishGold() >= fish->getFishGold() && isInTheWindow(var->getPosition()))
 		{
 			fish = var;
 		}
 	}
-	return fish;
+	if (isInTheWindow(fish->getPosition()))
+	{
+		return fish;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 Fish*FishManage::getLowDistanceInPool(Point pos)
 {
@@ -798,19 +813,26 @@ Fish*FishManage::getLowDistanceInPool(Point pos)
 	auto distance = pos.distance(fish->getPosition());
 	for (auto var : vec)
 	{
-		if (pos.distance(var->getPosition()) <= pos.distance(fish->getPosition()))
+		if (pos.distance(var->getPosition()) <= pos.distance(fish->getPosition()) && isInTheWindow(var->getPosition()))
 		{
 			fish = var;
 		}
 	}
-	return fish;
+	if (isInTheWindow(fish->getPosition()))
+	{
+		return fish;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 Fish*FishManage::getLowDistanceGoldFishInPool(Point pos)
 {
 	Vector<Fish*> vec;
 	for (auto var:fishPool)
 	{
-		if (var->getFishType() == GoldFish||var->getFishType() == BossFish||var->getFishType() == ArrangeFish)
+		if (var->getFishType() == GoldFish || var->getFishType() == BossFish || var->getFishType() == ArrangeFish&& isInTheWindow(var->getPosition()))
 		{
 			vec.pushBack(var);
 		}
@@ -828,7 +850,14 @@ Fish*FishManage::getLowDistanceGoldFishInPool(Point pos)
 			fish = var;
 		}
 	}
-	return fish;
+	if (isInTheWindow(fish->getPosition()))
+	{
+		return fish;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 
@@ -858,7 +887,7 @@ Fish*FishManage::getLowDistanceCouldcatchHighscoreFishInPool(Point pos)
 	Fish*fish = nullptr;
 	for (auto var:vec)
 	{
-		if (isBeKilledFish(var,pos))
+		if (isBeKilledFish(var, pos) && isInTheWindow(var->getPosition()))
 		{
 			fish = var;
 			break;

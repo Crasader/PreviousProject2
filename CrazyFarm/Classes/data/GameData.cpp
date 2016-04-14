@@ -25,6 +25,7 @@ void GameData::init(){
 	setchangeExp(0);
 	getCatchFishes().clear();
 	setshootCounts(0);
+	
 }
 
 GameData* GameData::getInstance(){
@@ -58,7 +59,7 @@ bool GameData::getMusicState() {
 
 unsigned int GameData::getRandomSeed()
 {
-	_RandomSeed += 10;
+	_RandomSeed--;
 		return _RandomSeed;
 }
 void GameData::setRandomSeed(unsigned int var)

@@ -23,7 +23,10 @@ enum MsgId
 	MsgOnBankrupt,
 	MsgOnBankruptRebirth,
 	MsgOnMarquee,
-	MsgOnBossDead
+	MsgOnBossDead,
+	MsgOnBeginMarried,
+	MsgOnCatchMarriedFish,
+	MsgOnMarriedSuccess
 };
 
 
@@ -54,6 +57,11 @@ struct MsgFishesInfo
 };
 
 
+struct MarriedTaskFishItem
+{
+	int fishid;
+	int nums;
+};
 
 
 

@@ -15,3 +15,6 @@
 #include "MsgPayresult.h"
 #include "MsgOnMarquee.h"
 #include "MsgOnBossDead.h"
+#include "MsgOnBeginMarried.h"
+#include "MsgOnCatchMarriedFish.h"
+#include "MsgOnMarriedSuccess.h"

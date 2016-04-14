@@ -35,6 +35,7 @@
 #include "core/showLockTurretLayer.h"
 #include "domain/bonuspool/BonusPoolManager.h"
 #include "domain/turntable/TurnTableDialog.h"
+#include "domain/mermaid/MermaidTaskMannger.h"
 #define BOOMRADIUS 300
 
 enum
@@ -471,18 +472,17 @@ void GameLayer::onEnter()
 	Layer::onEnter();
 	
 }
-void GameLayer::onExit()
+void GameLayer::onExitEX()
 {
 
 	UpdateUserinfo(0);
     Server::getInstance()->quit();  // TODO : disconnect con
 	Msgs.clear();
-	FishManage::getInstance()->clearServerItemFishs();
-	Layer::onExit();
-	
+	FishManage::getInstance()->clearServerItemFishs();	
 }
 void GameLayer::onEnterTransitionDidFinish()
 {
+	
 	Layer::onEnterTransitionDidFinish();
 	
 }
@@ -1250,6 +1250,7 @@ void GameLayer::onGetBounsPool(Msg_OnGetBounsPool*msg)
 
 void GameLayer::onUseSkill(Msg_UseSkill*msg)
 {
+	MermaidTaskMannger::getInstence()->onSuccessTask(1111);
 	if (msg->errorcode==0)
 	{
 		if (msg->use_type == 0)
@@ -1265,7 +1266,7 @@ void GameLayer::onUseSkill(Msg_UseSkill*msg)
 			skillManager::getInstance()->useSkillById(skillid, GameManage::getInstance()->getGameLayer()->GetMyTurret());
 		}
 	}
-	//else if (/*msg->errorcode == 302*/)
+	else //if (/*msg->errorcode == 302*/)
 	{
 		auto dialog = TwiceSureDialog::createDialog(ChineseWord("havanoDmToUseskill").c_str(), CC_CALLBACK_1(GameLayer::ToPayShopCallBack, this));
 		dialog->setPosition(Point::ZERO);
@@ -1318,7 +1319,7 @@ void GameLayer::onBossDead(Msg_OnBossDead*msg)
 {
 	for (auto var:msg->_items)
 	{
-		BagManager::getInstance()->addreward(var._itemid, var._num);
+		BagManager::getInstance()->addreward(var._itemid, var._num);////TODO:BOSS死亡动画
 	}
 }
 void GameLayer::onMarquee(Msg_OnMarquee*msg)
@@ -1336,9 +1337,26 @@ void GameLayer::onMarquee(Msg_OnMarquee*msg)
 	DisplayBoard->setName("displayboard");
 	GameManage::getInstance()->getGuiLayer()->addChild(DisplayBoard, kZorderMenu);
 }
-
-
-
+void GameLayer::onBeginMarried(Msg_OnBeginMarried*msg)
+{
+	if (!GameData::getInstance()->getIsOnMaridTask())
+	{
+		GameManage::getInstance()->getGuiLayer()->createMermaidTaskPlane(msg->_lefttime, msg->_items);
+	}
+	
+}
+void GameLayer::onMarriedTaskSuccess(Msg_OnMarriedSuccess*msg)
+{
+	MermaidTaskMannger::getInstence()->onSuccessTask(msg->coins);
+}
+void GameLayer::onCathchMarriedFish(Msg_OnCatchMarriedFish*msg)//打到任务鱼
+{
+	for (auto var:msg->fishids)
+	{
+		MermaidTaskMannger::getInstence()->getTaskPlane()->addMaridTaskfish(var);
+	}
+	
+}
 
 
 
@@ -1421,7 +1439,15 @@ void GameLayer::MsgUpdata(float dt)
 		case MsgOnMarquee:
 			onMarquee((Msg_OnMarquee*)var);
 			break;
-
+		case MsgOnBeginMarried:
+			onBeginMarried((Msg_OnBeginMarried*)var);
+			break;
+		case MsgOnCatchMarriedFish:
+			onCathchMarriedFish((Msg_OnCatchMarriedFish*)var);
+			break;
+		case MsgOnMarriedSuccess:
+			onMarriedTaskSuccess((Msg_OnMarriedSuccess*)var);
+			break;
 		default:
 			break;
 		}

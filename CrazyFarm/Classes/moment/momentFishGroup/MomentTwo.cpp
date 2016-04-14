@@ -42,6 +42,7 @@ void MomentTwo::init(float ffonetime)
 {
 	initData();
 	Audio::getInstance()->playBGM(FISHFLOCKBGM);
+	info.clear();
 	//1
 	for (int i = 0; i < 18; i++)
 	{

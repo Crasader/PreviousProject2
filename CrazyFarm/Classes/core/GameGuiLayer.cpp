@@ -6,7 +6,7 @@
 #include "domain/Newbie/NewbieMannger.h"
 #include "domain/game/GameManage.h"
 #include "domain/bag/BagManager.h"
-
+#include "domain/mermaid/MaridTaskPlane.h"
 
 bool GameGuiLayer::init(){
 	if ( !Layer::init() )
@@ -23,7 +23,6 @@ bool GameGuiLayer::init(){
 	menu->setPosition(Point::ZERO);
 	addChild(menu,kZorderMenu);
 	
-	Audio::getInstance()->playBGM(GAMEBGM);
 	
 	
 
@@ -101,7 +100,7 @@ bool GameGuiLayer::init(){
 
 
 	GameData::getInstance()->setisOnGameScene(true);
-	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), getRand() % 4 + 5);
+	
 	scheduleUpdate();
 
 	GameData::getInstance()->setisPlayerOneGame(true);
@@ -116,7 +115,12 @@ void GameGuiLayer::refreshSkillNum()
 {
 
 }
-
+void GameGuiLayer::onEnterTransitionDidFinish()
+{
+	Layer::onEnterTransitionDidFinish();
+	Audio::getInstance()->playBGM(GAMEBGM);
+	scheduleOnce(schedule_selector(GameGuiLayer::playRandVoice), getRand() % 4 + 5);
+}
 
 void GameGuiLayer::createGuizuGiftLayer()
 {
@@ -266,42 +270,58 @@ void GameGuiLayer::showSettingCallback(Ref*pSender)
 void GameGuiLayer::beginMaridTaskTime(float diffTime)
 {
 	fmaridNowTime = diffTime;
-	GameData::getInstance()->setmermaidTask(MermaidTask::getNewMermaidTask());
 	GameData::getInstance()->setIsOnMaridTask(false);
 	schedule(schedule_selector(GameGuiLayer::maridTaskTime), 1.0f);
 }
-void GameGuiLayer::createMermaidTaskPlane()
+void GameGuiLayer::createMermaidTaskPlane(int lefttime, std::vector<MarriedTaskFishItem> items)
 {
-	auto size = Director::getInstance()->getVisibleSize();
-	auto sp = Sprite::create("mermaidFrame.png");
-	sp->setPosition(-300, size.height*0.5);
-	addChild(sp,20);
-	auto txt = Sprite::create("TXTmermaid.png");
-	txt->setPosition(sp->getContentSize().width*0.6,sp->getContentSize().height/2);
-	sp->addChild(txt);
-	sp->runAction(Sequence::create(MoveTo::create(0.3, size / 2), DelayTime::create(1.0f), CallFunc::create([=]{txt->runAction(Sequence::create(MoveBy::create(0.3f, Vec2(-800, 0)), CallFunc::create([=]{txt->setPosition(txt->getPositionX() + 1600, txt->getPositionY()); txt->setTexture("TXTmermaidDec.png"); }), MoveBy::create(0.3f, Vec2(-800, 0)), nullptr)); }), DelayTime::create(3.0f),
-		 CallFunc::create([=]{txt->removeFromParentAndCleanup(1),sp->setTexture("txt_3.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
-		CallFunc::create([sp]{sp->setTexture("txt_2.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
-		 CallFunc::create([sp]{sp->setTexture("txt_1.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
-		 CallFunc::create([sp]{sp->setTexture("txt_GO.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
-		 CallFunc::create([&]{auto plane = maridTaskPlane::create(); plane->setPosition(-100, 395); plane->runAction(MoveBy::create(0.2f, Vec2(205, 0))); addChild(plane); GameData::getInstance()->setIsOnMaridTask(true); }), nullptr
-		)
-		);
+	if (lefttime==300)
+	{
+		auto size = Director::getInstance()->getVisibleSize();
+		auto sp = Sprite::create("mermaidFrame.png");
+		sp->setPosition(-300, size.height*0.5);
+		addChild(sp, 20);
+		auto txt = Sprite::create("TXTmermaid.png");
+		txt->setPosition(sp->getContentSize().width*0.6, sp->getContentSize().height / 2);
+		sp->addChild(txt);
+		sp->runAction(Sequence::create(MoveTo::create(0.3, size / 2), DelayTime::create(1.0f), CallFunc::create([=]{txt->runAction(Sequence::create(MoveBy::create(0.3f, Vec2(-800, 0)), CallFunc::create([=]{txt->setPosition(txt->getPositionX() + 1600, txt->getPositionY()); txt->setTexture("TXTmermaidDec.png"); }), MoveBy::create(0.3f, Vec2(-800, 0)), nullptr)); }), DelayTime::create(3.0f),
+			CallFunc::create([=]{txt->removeFromParentAndCleanup(1), sp->setTexture("txt_3.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
+			CallFunc::create([=]{sp->setTexture("txt_2.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
+			CallFunc::create([=]{sp->setTexture("txt_1.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
+			CallFunc::create([=]{sp->setTexture("txt_GO.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
+			CallFunc::create([=]{
+		auto plane = maridTaskPlane::create(lefttime,items); plane->setPosition(10, 300);  
+		addChild(plane,kZorderMenu);
+		GameData::getInstance()->setIsOnMaridTask(true); 
+		/*skillManager::getInstance()->getButtonByID(1)->skillButonUi(lefttime);
+		skillManager::getInstance()->getButtonByID(4)->skillButonUi(lefttime); */
+		}), nullptr
+			)
+			);
+	}
+	else
+	{
+		auto plane = maridTaskPlane::create(lefttime, items); plane->setPosition(10, 300);  addChild(plane, kZorderMenu);
+		GameData::getInstance()->setIsOnMaridTask(true);
+		//skillManager::getInstance()->getButtonByID(1)->skillButonUi(lefttime);
+		//skillManager::getInstance()->getButtonByID(4)->skillButonUi(lefttime);
+	}
+	
 }
 
 void GameGuiLayer::maridTaskTime(float dt)
 {
-	if (GameData::getInstance()->getIsOnMaridTask())
-	{
-		return;
-	}
-	fmaridNowTime += dt;
-	if (fmaridNowTime > GameData::getInstance()->getmermaidTask()->getMermaidTaskConfigInfo().start_wait_time)
-	{
-		unschedule(schedule_selector(GameGuiLayer::maridTaskTime));
-		createMermaidTaskPlane();
+	//if (GameData::getInstance()->getIsOnMaridTask())
+	//{
+	//	return;
+	//}
+	//fmaridNowTime += dt;
+	//if (fmaridNowTime > GameData::getInstance()->getmermaidTask()->getMermaidTaskConfigInfo().start_wait_time)
+	//{
+	//	unschedule(schedule_selector(GameGuiLayer::maridTaskTime));
+	//	createMermaidTaskPlane();
 
-	}
+	//}
 }
 
 void GameGuiLayer::playRandVoice(float dt)

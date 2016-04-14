@@ -69,7 +69,7 @@ void ChangeGiftCell::update(float delta)
 void ChangeGiftCell::changeButtonCallback(Ref* psend)
 {
 	auto num = BagManager::getInstance()->getItemNum(1013);
-	if (num>=0)
+	if (num>=300)
 	{
 		Layer* layer;
 		

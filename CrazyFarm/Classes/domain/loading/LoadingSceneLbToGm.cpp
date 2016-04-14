@@ -17,8 +17,8 @@
 #include "server/Server.h"
 #include "domain/game/GameManage.h"
 #include "server/HttpMannger.h"
-//#define TCPIDURL "172.23.1.61"  //ÄÚÍø
-#define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
+#define TCPIDURL "172.23.1.35"  //ÄÚÍø
+//#define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
 Scene* LoadingSceneLbToGm::createScene()
 {
 	auto scene = Scene::create();
@@ -72,18 +72,28 @@ bool LoadingSceneLbToGm::init()
 	Server::getInstance()->conConnect(TCPIDURL, HttpMannger::getInstance()->getGamePort(), User::getInstance()->getSessionid().c_str(), GameData::getInstance()->getRoomID());   // TODO  : test init server
 	Server::getInstance()->add_observer(GameManage::getInstance()->getGameLayer());
 
+
 	return true;
 }
-
+void LoadingSceneLbToGm::handle_event(const char* msgId, const char* msgBody)
+{
+	if (strcmp(msgId, "init") == 0)
+	{
+	
+		_isConnetScuess = true;
+	}
+}
 void LoadingSceneLbToGm::update(float dt)
 {
 	loadingBar->setPercent(((float)temp) / 46.0f*100+1);
-	if (temp>=45)
+	if (temp >= 46)
 	{
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, scene));
 		unscheduleUpdate();
+		
 	}
 }
+
 void LoadingSceneLbToGm::load()
 {
 	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
@@ -154,7 +164,10 @@ void LoadingSceneLbToGm::loadRes()
 	loadAniWithPng("game/ui/ani/TX_shandian/shandian_%d.png", "aniShandian", 0.2f, 4);
 	loadAniWithPng("game/ui/ani/TX_huanpao/aniHuanpao_%d.png", "aniHuanpao", 0.3f, 7);
 
+	loadAniWithPng("game/ui/ani/MaridCellLight/TX_HuaGuang_%d.png", "aniMaridLight", 0.3f, 7);
 	loadAniWithPng("game/ui/ani/TX_guangquan/guangqiu_%d.png", "aniGuangqiu", 0.15f, 5);
+
+	loadAniWithPng("game/ui/ani/coinFly/TX_JinBi_%d.png", "aniCoinFly", 0.6f, 20);
 
 	loadAniWithPng("game/ui/ani/shootFire/aniShoot%d.png", "aniShoot", 0.3f, 5);
 	loadAniWithPng("game/ui/ani/net_ice/netIce%d.png", "iceNet", 0.7f, 18);

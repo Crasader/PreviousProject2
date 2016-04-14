@@ -21,7 +21,7 @@ bool AchieveCell::init(){
 	_missionName->setPosition(160, 80);
 	bg->addChild(_missionName);
 
-	_missionContant = LabelTTF::create("0", "arial", 20);
+	_missionContant = MyLabelTTF::create("0", "arial", 20,158);
 	_missionContant->setAnchorPoint(Point::ZERO);
 	_missionContant->setPosition(115, 30);
 	bg->addChild(_missionContant);
@@ -35,7 +35,7 @@ bool AchieveCell::init(){
 	_progressbar->setPosition(_missionBarFrane->getContentSize() / 2 + Size(0, 0));
 	_missionBarFrane->addChild(_progressbar);
 
-	_progressPercent = LabelAtlas::create("0", "VIPexp_num.png", 14, 22,'0');
+	_progressPercent = MyLabelAtlas::create("0", "VIPexp_num.png", 14, 22, '0',112);
 	_progressPercent->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	_progressPercent->setPosition(_progressbar->getContentSize() / 2);
 	_progressbar->addChild(_progressPercent);

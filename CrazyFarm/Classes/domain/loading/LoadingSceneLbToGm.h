@@ -2,14 +2,14 @@
 #include "cocos2d.h"
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
-
+#include "server/MsgObserver.h"
 using namespace cocos2d;
 
 USING_NS_CC_EXT;
 
 
 
-class LoadingSceneLbToGm : public Layer
+class LoadingSceneLbToGm : public Layer, public MsgObserver
 {
 public:
 	CREATE_FUNC(LoadingSceneLbToGm);
@@ -31,10 +31,13 @@ public:
 	void update(float dt);
 
 	void showTip();
+	virtual void handle_event(const char* msgId, const char* msgBody);
 private:
+
 	ui::LoadingBar* loadingBar;
 	int temp = 0;
 	Scene*scene;
+	bool _isConnetScuess = false;
 };
 
 

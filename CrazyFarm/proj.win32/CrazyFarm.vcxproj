@@ -167,7 +167,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\core\GameScene.cpp" />
     <ClCompile Include="..\Classes\core\GetRewardNode.cpp" />
     <ClCompile Include="..\Classes\core\GuizuGiftDialog.cpp" />
-    <ClCompile Include="..\Classes\core\maridTaskPlane.cpp" />
     <ClCompile Include="..\Classes\core\NotarizeExitDialog.cpp" />
     <ClCompile Include="..\Classes\core\ScrollTextEx.cpp" />
     <ClCompile Include="..\Classes\core\SettingDialog.cpp" />
@@ -212,7 +211,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\login\RegisterDialog.cpp" />
     <ClCompile Include="..\Classes\domain\magnate\MagnateManager.cpp" />
     <ClCompile Include="..\Classes\domain\marquee\MarqueeManager.cpp" />
+    <ClCompile Include="..\Classes\domain\mermaid\MaridTaskCell.cpp" />
+    <ClCompile Include="..\Classes\domain\mermaid\MaridTaskPlane.cpp" />
     <ClCompile Include="..\Classes\domain\mermaid\MermaidTask.cpp" />
+    <ClCompile Include="..\Classes\domain\mermaid\MermaidTaskBoxLayer.cpp" />
+    <ClCompile Include="..\Classes\domain\mermaid\MermaidTaskMannger.cpp" />
     <ClCompile Include="..\Classes\domain\mission\AchieveCell.cpp" />
     <ClCompile Include="..\Classes\domain\mission\AchieveStar.cpp" />
     <ClCompile Include="..\Classes\domain\mission\AchieveView.cpp" />
@@ -317,7 +320,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\server\Msg\MsgOnAdd.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnBankrupt.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnBankruptRebirth.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgOnBeginMarried.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnBossDead.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgOnCatchMarriedFish.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnExpUpdate.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnFishes.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnGetBounsPool.cpp" />
@@ -325,6 +330,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\server\Msg\MsgOnLeave.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnMagnate.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnMarquee.cpp" />
+    <ClCompile Include="..\Classes\server\Msg\MsgOnMarriedSuccess.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgOnUpdateTurrent.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgPayresult.cpp" />
     <ClCompile Include="..\Classes\server\Msg\MsgUseSkill.cpp" />
@@ -351,6 +357,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\widget\LoadingCircle.cpp" />
     <ClCompile Include="..\Classes\widget\MyDialog.cpp" />
     <ClCompile Include="..\Classes\widget\MyLabelAtlas.cpp" />
+    <ClCompile Include="..\Classes\widget\MyLabelTTF.cpp" />
     <ClCompile Include="..\Classes\widget\MyMenuItemGainMoney.cpp" />
     <ClCompile Include="..\Classes\widget\MyMenuItemUpgrade.cpp" />
     <ClCompile Include="..\Classes\widget\MyTableView.cpp" />
@@ -388,7 +395,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\core\GameScene.h" />
     <ClInclude Include="..\Classes\core\GetRewardNode.h" />
     <ClInclude Include="..\Classes\core\GuizuGiftDialog.h" />
-    <ClInclude Include="..\Classes\core\maridTaskPlane.h" />
     <ClInclude Include="..\Classes\core\NotarizeExitDialog.h" />
     <ClInclude Include="..\Classes\core\ScrollTextEx.h" />
     <ClInclude Include="..\Classes\core\SettingDialog.h" />
@@ -433,7 +439,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\login\RegisterDialog.h" />
     <ClInclude Include="..\Classes\domain\magnate\MagnateManager.h" />
     <ClInclude Include="..\Classes\domain\marquee\MarqueeManager.h" />
+    <ClInclude Include="..\Classes\domain\mermaid\MaridTaskCell.h" />
+    <ClInclude Include="..\Classes\domain\mermaid\MaridTaskPlane.h" />
     <ClInclude Include="..\Classes\domain\mermaid\MermaidTask.h" />
+    <ClInclude Include="..\Classes\domain\mermaid\MermaidTaskBoxLayer.h" />
+    <ClInclude Include="..\Classes\domain\mermaid\MermaidTaskMannger.h" />
     <ClInclude Include="..\Classes\domain\mission\AchieveCell.h" />
     <ClInclude Include="..\Classes\domain\mission\AchieveStar.h" />
     <ClInclude Include="..\Classes\domain\mission\AchieveView.h" />
@@ -540,7 +550,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\server\Msg\MsgOnAdd.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnBankrupt.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnBankruptRebirth.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgOnBeginMarried.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnBossDead.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgOnCatchMarriedFish.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnExpUpdate.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnFishes.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnGetBounsPool.h" />
@@ -548,6 +560,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\server\Msg\MsgOnLeave.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnMagnate.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnMarquee.h" />
+    <ClInclude Include="..\Classes\server\Msg\MsgOnMarriedSuccess.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgOnUpdateTurrent.h" />
     <ClInclude Include="..\Classes\server\Msg\MsgPayresult.h" />
     <ClInclude Include="..\Classes\server\Msg\MSGstdafx.h" />
@@ -576,6 +589,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\widget\LoadingCircle.h" />
     <ClInclude Include="..\Classes\widget\MyDialog.h" />
     <ClInclude Include="..\Classes\widget\MyLabelAtlas.h" />
+    <ClInclude Include="..\Classes\widget\MyLabelTTF.h" />
     <ClInclude Include="..\Classes\widget\MyMenuItemGainMoney.h" />
     <ClInclude Include="..\Classes\widget\MyMenuItemUpgrade.h" />
     <ClInclude Include="..\Classes\widget\MyTableView.h" />

@@ -154,8 +154,16 @@ void MyMenuItemUpgrade::initItem()
 	commonNode->setVisible(false);
 	unfinishedNode->setVisible(false);
 	nodeZeng->setVisible(false);
-}
 
+	scheduleUpdate();
+}
+void MyMenuItemUpgrade::update(float delta)
+{
+	if (User::getInstance()->getMaxTurrentLevel()>=1000)
+	{
+		setVisible(false);
+	}
+}
 void MyMenuItemUpgrade::setValue()
 {
 
