@@ -7,6 +7,7 @@
 #include "server/HttpMsgDefine.h"
 #include "domain/user/User.h"
 #include "widget/LoadingCircle.h"
+#include "domain/ToolTip/ToolTipMannger.h"
 #include "utill/Audio.h"
 Scene* LoginScene::createScene()
 {
@@ -129,6 +130,11 @@ bool LoginScene::init()
 	addChild(listBox, 2);
 
 
+	auto neice = Label::create(ChineseWord("nei").c_str(), "arial", 15);
+	neice->setColor(Color3B::WHITE);
+	neice->setPosition(900,20);
+	addChild(neice);
+
 	return true;
 }
 void LoginScene::moreIdCallback(Ref*psend)
@@ -146,12 +152,21 @@ void LoginScene::findPasswordCallBack(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
 }
+bool LoginScene::CheickLogin(std::string nickname, std::string password)
+{
+	if (nickname.size()<4||password.size()<6)
+	{
+		return true;
+	}
+	return false;
+}
 void LoginScene::loginCallBack(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
 	log("touch login");
-	if (_editName->getText()=="")
+	if (CheickLogin(_editName->getText(),_editPassword->getText()))
 	{
+		ToolTipMannger::showDioag(ChineseWord("logincheicktip").c_str());
 		return;
 	}
 	((MenuItemImage*)psend)->setEnabled(false);

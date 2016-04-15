@@ -118,7 +118,7 @@ public:
 	  void AIchangeTurret(int lv);
 	  float robotTempTime = 0;//.AI某种策略的计时时间
 		float robotAiLifeTime ;// AI某种策略的生存期
-		int robotDoThingCount = 0; //AI做事情的次数
+		int robotDoThingCount = 1; //AI做事情的次数
 private:
 	Vec2 m_coinLabelPos;
 	Turrent  m_turretdata;

@@ -516,6 +516,15 @@ void PlayerTurret::createPlayerCoin(User* user, int index)
 	m_DiamondLabel->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	spCoinBG->addChild(m_DiamondLabel);
 
+	if (getRoomPos()%2)
+	{
+		createMoveNodeAni(spCoinBG, Vec2(200, 0));
+	}
+	else
+	{
+		createMoveNodeAni(spCoinBG, Vec2(-200, 0));
+	}
+
 }
 
 
@@ -542,6 +551,15 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 	if (user->getRoomPosition() > 1)
 	{
 		spCoinBG->setRotation(180);
+	}
+
+	if (getRoomPos() % 2)
+	{
+		createMoveNodeAni(spCoinBG, Vec2(200, 0));
+	}
+	else
+	{
+		createMoveNodeAni(spCoinBG, Vec2(-200, 0));
 	}
 }
 
@@ -580,13 +598,16 @@ void PlayerTurret::initWithDate(User* user, int index)
 	initTurretWithType();
 	setUpgradeButton();
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
-
+nChairNoIndex = index;
 	createPlayerCoin(user, index);
-	nChairNoIndex = index;
+	
 	if (GameData::getInstance()->getisOnBankrupt() || user->getCoins() <= 0)
 	{
 		GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
 	}
+
+	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([=]{changeNewTurret(); }), nullptr));
+
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
 {
@@ -732,7 +753,6 @@ void PlayerTurret::onBankrupt()
 }
 void PlayerTurret::onAIResurgenceCallBack(Node* sender, void* data)
 {
-
 	setAIinfo(m_aiinfo);
 	auto var = *((int*)data);
 	nNowMoney += var;

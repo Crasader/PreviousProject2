@@ -213,7 +213,11 @@
   <key>phoneTotheAccountTip</key>
   <string>话费奖品将在3-5个工作日到账，请注意查收！</string>
   
-   
+     <key>nei</key>
+  <string>内测版</string>
+  
+      <key>logincheicktip</key>
+  <string>对不起，您输入的账号密码有误，请重新输入</string>
   </dict> 
 </array>
 </plist>

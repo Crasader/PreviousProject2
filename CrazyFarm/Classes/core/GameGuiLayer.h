@@ -32,7 +32,7 @@ USING_NS_CC;
 
 class GameGuiLayer: public cocos2d::Layer{
 public:
-	virtual bool init();
+	
 	CREATE_FUNC(GameGuiLayer);
 	void refreshSkillNum();
 	void ShowUseLockTip(Point dmDropPos);
@@ -40,7 +40,10 @@ public:
 	void setLayerAlpha(int alpha);
 
 	Vec2 getItemPos(int itemid);//展示道具飞入时候需要
+
+	void onEnterInit();
 private :
+	virtual bool init();
 	void showRandonBubbleAni();
 	void exitCallback(Ref *pSender);
 	void settingCallback(Ref *pSender);

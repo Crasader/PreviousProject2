@@ -215,3 +215,9 @@ bool line_rect_intersection(Point start_p, Point end_p, Rect rect)
 		return false;
 	}
 }
+
+void createMoveNodeAni(Node*node, Vec2 pos)
+{
+	node->setPosition(node->getPosition() + pos);
+	node->runAction(MoveBy::create(1.0f, -pos));
+}

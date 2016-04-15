@@ -24,6 +24,7 @@ private:
 	CREATE_FUNC(LoginScene);
 	std::list<std::string> nicknames;
 	//edit box
+	bool CheickLogin(std::string nickname, std::string password);
 public:
 	ui::EditBox *_editName;
 	ui::EditBox *_editPassword;

@@ -82,59 +82,6 @@ bool GameLayer::init(){
 	addChild(anibowennode, -1);
 
 
-
-
-
-
-	addTouchEvent();
-	
-
-	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 40.0f, CC_REPEAT_FOREVER, 0);
-
-	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
-
-	schedule(schedule_selector(GameLayer::UpdateCreateFishByServer), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0.02f);
-
-		initFishAndBulletData();
-
-
-
-
-
-	if (!NewbieMannger::getInstance()->getisOverTeachMode())
-	{
-		auto txtclick = Sprite::create("TXTClickCatch.png");
-		txtclick->setPosition(480, 270);
-		addChild(txtclick, kZorderDialog, "clickcatch");
-		txtclick->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
-	}
-
-	skillManager::getInstance()->init();
-
-
-	auto node = BankruptManager::getInstance()->getgetRewardNode();
-	if (node)
-	{
-		if (node->getParent())
-		{
-			node->removeFromParentAndCleanup(false);
-		}
-		node->setPosition(myTurret->getPosition() + Vec2(0, 150));
-		addChild(node);
-	}
-
-	createFishAcNode = Node::create();
-	createFishAcNode->setPosition(0, 0);
-	addChild(createFishAcNode);
-
-
-
-
-	//初始化完毕，建立连接
-	schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
-		
-
-	_touchtypes.push_back(TouchInNormal);
 	return true;
 }
 
@@ -479,6 +426,58 @@ void GameLayer::onExitEX()
 }
 void GameLayer::onEnterTransitionDidFinish()
 {
+
+
+
+
+	
+
+
+	schedule(schedule_selector(GameLayer::collisionUpdate), 1.0 / 40.0f, CC_REPEAT_FOREVER, 0);
+
+	schedule(schedule_selector(GameLayer::shootUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
+
+	schedule(schedule_selector(GameLayer::UpdateCreateFishByServer), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0.02f);
+
+	initFishAndBulletData();
+
+
+
+
+
+	if (!NewbieMannger::getInstance()->getisOverTeachMode())
+	{
+		auto txtclick = Sprite::create("TXTClickCatch.png");
+		txtclick->setPosition(480, 270);
+		addChild(txtclick, kZorderDialog, "clickcatch");
+		txtclick->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
+	}
+
+	skillManager::getInstance()->init();
+
+
+	auto node = BankruptManager::getInstance()->getgetRewardNode();
+	if (node)
+	{
+		if (node->getParent())
+		{
+			node->removeFromParentAndCleanup(false);
+		}
+		node->setPosition(myTurret->getPosition() + Vec2(0, 150));
+		addChild(node);
+	}
+
+	createFishAcNode = Node::create();
+	createFishAcNode->setPosition(0, 0);
+	addChild(createFishAcNode);
+
+
+
+
+	schedule(schedule_selector(GameLayer::MsgUpdata), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
+
+
+	_touchtypes.push_back(TouchInNormal);
 	
 	Layer::onEnterTransitionDidFinish();
 	
@@ -1128,7 +1127,8 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 	shootdata.shootSpeed = msg->bullet_speed;
 	GameConfig::getInstance()->setShootData(shootdata);
 
-
+	GameManage::getInstance()->getGuiLayer()->onEnterInit();
+	addTouchEvent();
 
 	///TEST
 	//MsgFishInfo aaa;

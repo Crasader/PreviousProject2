@@ -18,97 +18,105 @@ bool GameGuiLayer::init(){
 	colorBg->setOpacity(0);
 	addChild(colorBg, kZorderMenu+1);
 
+	
+
+	showRandonBubbleAni();
+
+	return true;
+
+}
+
+void GameGuiLayer::onEnterInit()
+{
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO);
-	addChild(menu,kZorderMenu);
-	
-	
-	
+	addChild(menu, kZorderMenu);
+
+
+
 
 	sEainCoin = MyMenuItemGainMoney::create();
 	sEainCoin->setPosition(visibleSize.width + 50, visibleSize.height*0.3);
 	menu->addChild(sEainCoin);
 
+	createMoveNodeAni(sEainCoin, Vec2(100,0));
 
-	
 	sUpgradeTurret = MyMenuItemUpgrade::create();
-	sUpgradeTurret->setPosition(visibleSize.width+50, visibleSize.height*0.5);
+	sUpgradeTurret->setPosition(visibleSize.width + 50, visibleSize.height*0.5);
 
-
+	createMoveNodeAni(sUpgradeTurret, Vec2(100, 0));
 	auto sUpgradeTurretMenu = Menu::create(sUpgradeTurret, nullptr);
 	sUpgradeTurretMenu->setPosition(0, 0);
 	addChild(sUpgradeTurretMenu, kZorderMenu, "UpgradeTurretMenu");
-
+	createMoveNodeAni(sUpgradeTurretMenu, Vec2(100, 0));
 
 	auto sprbg = Sprite::create("EarnCoins.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	sprbg->setPosition(visibleSize.width - 5, visibleSize.height*0.305);
 	addChild(sprbg, kZorderMenu);
+	createMoveNodeAni(sprbg, Vec2(100, 0));
 	sprbg = Sprite::create("UpgradeButton.png");
 	sprbg->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	sprbg->setPosition(Vec2(visibleSize.width - 5, visibleSize.height*0.505));
-	addChild(sprbg, kZorderMenu,"sprbg");
-
+	addChild(sprbg, kZorderMenu, "sprbg");
+	createMoveNodeAni(sprbg, Vec2(100, 0));
 	///冻结
 	auto skillbutton = SkillFreezeButton::createSkillFreezeButton();
-	skillbutton->setPosition(visibleSize.width*0.45, visibleSize.height*0.073+7);
+	skillbutton->setPosition(visibleSize.width*0.45, visibleSize.height*0.073 + 7);
 	skillbutton->setScale(0.9);
 	addChild(skillbutton);
+	createMoveNodeAni(skillbutton, Vec2(0, -100));
 	skillManager::getInstance()->addskillButton(1, skillbutton);
 	//核弹
 	auto skillbutton1 = SkillBombButton::createSkillBombButton();
 	skillbutton1->setPosition(visibleSize.width*0.03 + 9, visibleSize.height*0.46 + 21);
 	skillbutton1->setScale(0.7);
 	addChild(skillbutton1);
+	createMoveNodeAni(skillbutton1, Vec2(-100, 0));
 	skillManager::getInstance()->addskillButton(4, skillbutton1);
 	//召唤
 	auto skillbutton2 = SkillSummonButton::createSkillSummonButton();
 	skillbutton2->setPosition(visibleSize.width*0.03 + 9, visibleSize.height*0.20 + 21);
 	skillbutton2->setScale(0.7);
 	addChild(skillbutton2);
+	createMoveNodeAni(skillbutton2, Vec2(-100, 0));
 	skillManager::getInstance()->addskillButton(3, skillbutton2);
 	//雷电	
 	auto skillbutton3 = SkillLightButton::createSkillLightButton();
 	skillbutton3->setPosition(visibleSize.width*0.03 + 9, visibleSize.height*0.33 + 21);
 	skillbutton3->setScale(0.7);
 	addChild(skillbutton3);
+	createMoveNodeAni(skillbutton3, Vec2(-100, 0));
 	skillManager::getInstance()->addskillButton(5, skillbutton3);
 	//锁定
 	auto skillbutton4 = SkillLockButton::createSkillLockButton();
-	skillbutton4->setPosition(visibleSize.width*0.55, visibleSize.height*0.073+7);
+	skillbutton4->setPosition(visibleSize.width*0.55, visibleSize.height*0.073 + 7);
 	skillbutton4->setScale(0.9);
 	addChild(skillbutton4);
+	createMoveNodeAni(skillbutton4, Vec2(0, -100));
 	skillManager::getInstance()->addskillButton(2, skillbutton4);
 
 	auto addcoinButton = MenuItemImage::create("huoquCoinBT.png", "huoquCoinBT.png", CC_CALLBACK_1(GameGuiLayer::addCoinCallBack, this));
 	addcoinButton->setPosition(910, 397);
 	auto addcoinani = Sprite::create("rorateLightCoin.png");
-	addcoinani->setPosition(addcoinButton->getPosition()+Point(0,10));
+	addcoinani->setPosition(addcoinButton->getPosition() + Point(0, 10));
 	addChild(addcoinani);
 	addcoinani->runAction(RepeatForever::create(RotateBy::create(5, 360)));
 	menu->addChild(addcoinButton);
 
+	createMoveNodeAni(addcoinButton, Vec2(100, 0));
 
 	createSettingBoard();
-	showRandonBubbleAni();
-	createGuizuGiftLayer();
-	if (GameData::getInstance()->getRoomID() > 1)
-	{
-		beginMaridTaskTime(getRand()%300);//第一次游戏开始300秒
-	}
-
+	
+	
+	
 
 	GameData::getInstance()->setisOnGameScene(true);
-	
+
 	scheduleUpdate();
 
 	GameData::getInstance()->setisPlayerOneGame(true);
-
-
-
-
-	return true;
 
 }
 void GameGuiLayer::refreshSkillNum()
@@ -211,7 +219,7 @@ void GameGuiLayer::createSettingBoard()
 	menu->addChild(showFishButton);
 
 
-
+	createMoveNodeAni(menu, Vec2(30, 0));
 }
 
 void GameGuiLayer::onExit()

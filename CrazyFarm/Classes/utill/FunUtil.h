@@ -57,3 +57,4 @@ Fkd getRandValueInVector(Vector<Fkd> &vec)
 	return vec.at(getRand() % vec.size());
 }
 
+void createMoveNodeAni(Node*node, Vec2 pos);
