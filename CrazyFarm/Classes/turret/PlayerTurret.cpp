@@ -743,10 +743,10 @@ void PlayerTurret::onBankrupt()
 	}
 	else
 	{
-		if (!BankruptManager::getInstance()->getgetRewardNode())
+		/*if (!BankruptManager::getInstance()->getgetRewardNode())
 		{
 			BankruptManager::getInstance()->RequestServerToBroke(this);
-		}
+		}*/
 		GameData::getInstance()->setisOnBankrupt(true);
 
 	}

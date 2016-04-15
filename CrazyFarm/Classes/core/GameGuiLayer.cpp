@@ -18,7 +18,7 @@ bool GameGuiLayer::init(){
 	colorBg->setOpacity(0);
 	addChild(colorBg, kZorderMenu+1);
 
-	
+	/*GameManage::getInstance()->getGuiLayer()->*/onEnterInit();
 
 	showRandonBubbleAni();
 
@@ -110,7 +110,7 @@ void GameGuiLayer::onEnterInit()
 	createSettingBoard();
 	
 	
-	
+
 
 	GameData::getInstance()->setisOnGameScene(true);
 

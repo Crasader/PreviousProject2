@@ -76,7 +76,7 @@ VipTurrent ConfigVipTurrent::getVipTurrent(int level) {
         return vipTurrent;
     }
     if(level >= vipTurrents.size()) {
-        return vipTurrent;
+		return vipTurrents[vipTurrents.size()-1];
     }
     return vipTurrents[level];
 }

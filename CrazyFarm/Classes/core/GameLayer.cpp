@@ -423,6 +423,7 @@ void GameLayer::onExitEX()
     Server::getInstance()->quit();  // TODO : disconnect con
 	Msgs.clear();
 	FishManage::getInstance()->clearServerItemFishs();	
+	GameData::getInstance()->setIsOnMaridTask(false);
 }
 void GameLayer::onEnterTransitionDidFinish()
 {
@@ -1127,7 +1128,7 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 	shootdata.shootSpeed = msg->bullet_speed;
 	GameConfig::getInstance()->setShootData(shootdata);
 
-	GameManage::getInstance()->getGuiLayer()->onEnterInit();
+	
 	addTouchEvent();
 
 	///TEST

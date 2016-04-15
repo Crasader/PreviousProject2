@@ -3,6 +3,7 @@
 #include "domain/user/User.h"
 #include "domain/logevent/LogEventBankrupt.h"
 #include "data/GameData.h"
+#include "lobby/shop/payLayer.h"
 #include "server/Server.h"
 GetRewardNode* GetRewardNode::create(Bankrupt baknrupt)
 {
@@ -83,8 +84,18 @@ bool GetRewardNode::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	if (isTimeOut)
 	{
+		if (m_baknrupt.time>0)
+		{
+			Server::getInstance()->sendBankruptRebirth();
+		}
+		else
+		{
+			auto layer = payLayer::createLayer(1);
+			layer->setPosition(Point::ZERO);
+			getParent()->addChild(layer, kZorderDialog);
+		}
 		/*BankruptManager::getInstance()->RequestServerToRebirth();*/
-		Server::getInstance()->sendBankruptRebirth();
+		
 		
 	}
 	return true;
