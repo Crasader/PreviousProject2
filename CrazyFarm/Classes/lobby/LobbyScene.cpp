@@ -215,6 +215,10 @@ bool LobbyScene::init()
 	auto wxshare = MenuItemLabel::create(Label::create("wx_share", "arial", 20), CC_CALLBACK_1(LobbyScene::WxShareCallback, this));
 	wxshare->setPosition(startX, starY);
 	wxshare->setName("wxshare");
+
+	//4.15
+	wxshare->setVisible(false);
+	//4.15
 	startX += diffX;
 
 

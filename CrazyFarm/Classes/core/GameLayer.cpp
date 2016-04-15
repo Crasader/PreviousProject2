@@ -1256,7 +1256,6 @@ void GameLayer::onGetBounsPool(Msg_OnGetBounsPool*msg)
 
 void GameLayer::onUseSkill(Msg_UseSkill*msg)
 {
-	MermaidTaskMannger::getInstence()->onSuccessTask(1111);
 	if (msg->errorcode==0)
 	{
 		if (msg->use_type == 0)
@@ -1331,6 +1330,7 @@ void GameLayer::onBossDead(Msg_OnBossDead*msg)
 }
 void GameLayer::onMarquee(Msg_OnMarquee*msg)
 {
+
 	auto node = GameManage::getInstance()->getGuiLayer()->getChildByName("displayboard");
 	if (node)
 	{
@@ -1355,6 +1355,7 @@ void GameLayer::onBeginMarried(Msg_OnBeginMarried*msg)
 void GameLayer::onMarriedTaskSuccess(Msg_OnMarriedSuccess*msg)
 {
 	MermaidTaskMannger::getInstence()->onSuccessTask(msg->coins);
+	
 }
 void GameLayer::onCathchMarriedFish(Msg_OnCatchMarriedFish*msg)//打到任务鱼
 {

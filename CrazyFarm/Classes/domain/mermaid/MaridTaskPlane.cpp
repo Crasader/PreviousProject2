@@ -51,14 +51,14 @@ bool maridTaskPlane::init(int lefttime, std::vector<MarriedTaskFishItem> items)
 			auto cell = MaridTaskCell::create(items[i].fishid, items[i].nums);
 			cell->setPosition(-50, i*40+19);
 			addChild(cell);
-			cell->runAction(Sequence::create(DelayTime::create(0.3f), MoveBy::create(0.2f, Vec2(125, 0)), nullptr));
+			cell->runAction(Sequence::create(DelayTime::create(0.5f), MoveBy::create(0.2f, Vec2(125, 0)), nullptr));
 			_cells.push_back(cell);
 		}
 		auto box = Sprite::create("mermaidbox.png");
-		box->setPosition(70, 129);
+		box->setPosition(70, 135);
 		addChild(box);
 		labelNum = LabelTTF::create("0","Arial",20);
-		labelNum->setPosition(70,box->getContentSize().height/2);
+		labelNum->setPosition(90,box->getContentSize().height/2);
 		labelNum->setAnchorPoint(Point::ANCHOR_MIDDLE);
 		box->addChild(labelNum);
 		labelNum->setVisible(false);

@@ -168,11 +168,11 @@ void skillManager::useSkillLockEnd()
 }
 
 void skillManager::useSkillBoom(PlayerTurret*turret)
-{/*
+{
 	if (GameData::getInstance()->getIsOnMaridTask())
 	{
 		return;
-	}*/
+	}
 	Audio::getInstance()->playSound(SKILLBOOM);
 	if (turret == GameManage::getInstance()->getGameLayer()->GetMyTurret())
 	{

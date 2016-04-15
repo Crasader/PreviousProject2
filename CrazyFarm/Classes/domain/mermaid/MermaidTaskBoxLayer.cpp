@@ -12,7 +12,7 @@ bool MermaidTaskBoxLayer::init()
 		addChild(colorlayer, -1);
 
 		box = Sprite::create("game/ui/ani/firstBox/firstBox_1.png");
-		box->setPosition(480, 254);
+		box->setPosition(480, 300);
 		addChild(box);
 		box->setRotation(-0.3);
 		auto ac = Sequence::create(RotateTo::create(0.05, 3), RotateTo::create(0.05, -3), RotateTo::create(0.05, 3), RotateTo::create(0.05, -3), RotateTo::create(0.025, 0), DelayTime::create(0.5f), nullptr);
@@ -26,8 +26,9 @@ bool MermaidTaskBoxLayer::init()
 		box->addChild(sLight,-1);
 
 		tipTxt = Sprite::create("TXTGetMermaidBox.png");
-		tipTxt->setPosition(box->getContentSize().width/2, -60);
-		box->addChild(tipTxt);
+		tipTxt->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
+		tipTxt->setPosition(box->getPositionX()-box->getContentSize().width/2, box->getPositionY()-box->getContentSize().height/2-60);
+		addChild(tipTxt);
 	
 
 		listenr1 = EventListenerTouchOneByOne::create();
@@ -41,7 +42,7 @@ bool MermaidTaskBoxLayer::init()
 		aninode->setScale(4);
 		aninode->setName("aninode");
 		addChild(aninode);
-		aninode->runAction(Sequence::create(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShengji")),nullptr));
+		aninode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShengji")));
 		bRet = true;
 	} while (0);
 	return bRet;
@@ -65,6 +66,7 @@ bool MermaidTaskBoxLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 	box->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("anifirstBox"), CallFunc::create([&]
 	{
 		auto coinnode = Sprite::create();
+		coinnode->setAnchorPoint(Point::ZERO);
 		coinnode->setPosition(0, 0);
 		addChild(coinnode);
 		coinnode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniCoinFly"), CallFunc::create([=]
@@ -72,7 +74,7 @@ bool MermaidTaskBoxLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 			colorlayer->removeFromParentAndCleanup(1);
 			auto node = Node::create();
 			node->setAnchorPoint(Point::ANCHOR_MIDDLE);
-			node->setPosition(480,270);
+			node->setPosition(480,300);
 			GameManage::getInstance()->getGuiLayer()->addChild(node,getZOrder()+1);
 			auto belongPos = node->convertToNodeSpace(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPosition());
 			Sprite*sp;

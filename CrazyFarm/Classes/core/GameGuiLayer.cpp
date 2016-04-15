@@ -291,11 +291,11 @@ void GameGuiLayer::createMermaidTaskPlane(int lefttime, std::vector<MarriedTaskF
 			CallFunc::create([=]{sp->setTexture("txt_1.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
 			CallFunc::create([=]{sp->setTexture("txt_GO.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
 			CallFunc::create([=]{
-		auto plane = maridTaskPlane::create(lefttime,items); plane->setPosition(10, 300);  
+		auto plane = maridTaskPlane::create(lefttime-7,items); plane->setPosition(10, 300);  
 		addChild(plane,kZorderMenu);
 		GameData::getInstance()->setIsOnMaridTask(true); 
-		/*skillManager::getInstance()->getButtonByID(1)->skillButonUi(lefttime);
-		skillManager::getInstance()->getButtonByID(4)->skillButonUi(lefttime); */
+		skillManager::getInstance()->getButtonByID(1)->skillButonUi(lefttime);
+		skillManager::getInstance()->getButtonByID(4)->skillButonUi(lefttime); 
 		}), nullptr
 			)
 			);
@@ -304,8 +304,8 @@ void GameGuiLayer::createMermaidTaskPlane(int lefttime, std::vector<MarriedTaskF
 	{
 		auto plane = maridTaskPlane::create(lefttime, items); plane->setPosition(10, 300);  addChild(plane, kZorderMenu);
 		GameData::getInstance()->setIsOnMaridTask(true);
-		//skillManager::getInstance()->getButtonByID(1)->skillButonUi(lefttime);
-		//skillManager::getInstance()->getButtonByID(4)->skillButonUi(lefttime);
+		skillManager::getInstance()->getButtonByID(1)->skillButonUi(lefttime);
+		skillManager::getInstance()->getButtonByID(4)->skillButonUi(lefttime);
 	}
 	
 }

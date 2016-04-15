@@ -371,7 +371,7 @@ bool BagLayer::init()
 		chakan1->setPosition(visibleSize.width*0.48-35, visibleSize.height * 0.2303-3);
 		auto setname = MenuItemImage::create("btn_setname_1.png", "btn_setname_2.png", CC_CALLBACK_1(BagLayer::setNameCallBack, this));
 		setname->setPosition(visibleSize.width*0.30, visibleSize.height * 0.125);
-
+		setname->setName("setname");
 		if (User::getInstance()->getIsHaveSetName())
 		{
 			setname->setVisible(false);
@@ -380,6 +380,7 @@ bool BagLayer::init()
 		close->setPosition(sssize.width/2 + bagFram->getPositionX(), sssize.height);
 		auto menu = Menu::create(close, chakan,chakan1,setname,addCoin,adddiamond,nullptr);
 		menu->setPosition(Point::ZERO); 
+		menu->setName("menu");
 		addChild(menu);
 
 

@@ -210,7 +210,7 @@ void SetNameLayer::quedingcallback(Ref*psend)
 			User::getInstance()->setHaveSetName();
 			dialog = TwiceSureDialog::createDialog("set name successful");
 			LoginMannger::getInstance()->addMemoryNickname(_editNickname->getText(), _editPassword->getText());
-
+			Director::getInstance()->getRunningScene()->getChildByTag(888)->getChildByName("menu")->getChildByName("setname");
 			break;
 		case 404:
 			dialog = TwiceSureDialog::createDialog("time out");
@@ -272,39 +272,3 @@ int  SetNameLayer::checkRegister(std::string nickname, std::string password, std
 	}
 }
 
-void SetNameLayer::httpCallback(Ref*psend)
-{
-	LoadingCircle::RemoveLoadingCircle();
-	SetNameValue *value = (SetNameValue*)psend;
-	auto menu = getChildByName("bg")->getChildByName("menu");
-	auto bt = ((MenuItem*)(menu->getChildByName("sureBt")));
-	TwiceSureDialog*dialog;
-	switch (value->_errorcode)
-	{
-	case 0:
-		LoginMannger::getInstance()->removeMemoryNickname(User::getInstance()->getUserName().c_str());
-		User::getInstance()->setUserName(_editNickname->getText());
-		User::getInstance()->setUserGender(sex);
-		User::getInstance()->setHaveSetName();
-		dialog = TwiceSureDialog::createDialog("set name successful");
-		LoginMannger::getInstance()->addMemoryNickname(_editNickname->getText(), _editPassword->getText());
-		
-		break;
-	case 404:
-		dialog = TwiceSureDialog::createDialog("time out");
-		bt->setEnabled(true);
-		break;
-	default:
-		dialog = TwiceSureDialog::createDialog(value->_errormsg.c_str());
-		bt->setEnabled(true);
-		break;
-	}
-	dialog->setPosition(0, 0);
-	getParent()->addChild(dialog, 30);
-	NotificationCenter::getInstance()->removeObserver(this, "setname");
-	if (value->_errorcode==0)
-	{
-		removeFromParentAndCleanup(true);
-	}
-	
-}
