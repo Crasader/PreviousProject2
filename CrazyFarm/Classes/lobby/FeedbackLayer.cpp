@@ -1,7 +1,7 @@
 #include "lobby/FeedbackLayer.h"
 #include "server/HttpMannger.h"
 #include "domain/user/User.h"
-
+#include "utill/Audio.h"
 
 
 
@@ -130,6 +130,7 @@ void FeedbackLayer::quedingcallback(Ref*)
 
 void FeedbackLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 

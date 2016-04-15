@@ -41,7 +41,7 @@ bool MermaidTaskBoxLayer::init()
 		aninode->setScale(4);
 		aninode->setName("aninode");
 		addChild(aninode);
-		aninode->runAction(Sequence::create(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShengji"))));
+		aninode->runAction(Sequence::create(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniShengji")),nullptr));
 		bRet = true;
 	} while (0);
 	return bRet;
@@ -69,10 +69,11 @@ bool MermaidTaskBoxLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 		addChild(coinnode);
 		coinnode->runAction(Sequence::create(AnimationUtil::getInstance()->getAnimate("aniCoinFly"), CallFunc::create([=]
 		{
+			colorlayer->removeFromParentAndCleanup(1);
 			auto node = Node::create();
 			node->setAnchorPoint(Point::ANCHOR_MIDDLE);
-			node->setPosition(getPositionX(), getPositionY() + 50);
-			GameManage::getInstance()->getGuiLayer()->addChild(node);
+			node->setPosition(480,270);
+			GameManage::getInstance()->getGuiLayer()->addChild(node,getZOrder()+1);
 			auto belongPos = node->convertToNodeSpace(GameManage::getInstance()->getGameLayer()->GetMyTurret()->getPosition());
 			Sprite*sp;
 			for (int i = 0; i < 10; i++)
@@ -87,17 +88,6 @@ bool MermaidTaskBoxLayer::onTouchBegan(Touch *pTouch, Event *pEvent)
 				sp->runAction(Sequence::create(DelayTime::create(0.1f*i), MoveBy::create(0.23f, Vec2(0, 86)), MoveBy::create(0.13f, Vec2(0, -86)), MoveBy::create(0.1f, Vec2(0, 27.5)), MoveBy::create(0.1f, Vec2(0, -27.5)), DelayTime::create(0.6f), MoveTo::create(0.16f, belongPos), CallFunc::create([=]{Audio::getInstance()->playSound(GETCOIN); }), RemoveSelf::create(1), nullptr));
 				node->addChild(sp);
 			}
-			/*	auto str = String::createWithFormat("%s%d", ":", 111111);
-				auto labelpath = String::createWithFormat("TTF%s.png", data.aniName.c_str());
-				auto label = LabelAtlas::create(str->getCString(), labelpath->getCString(), 23, 34, '0');
-				label->setAnchorPoint(Point::ZERO);
-				label->setPosition(0, 0);
-				node->addChild(label);
-				label->setScale(0);
-				label->runAction(ScaleTo::create(0.1, 1));
-
-				node->runAction(Sequence::create(DelayTime::create(data.num*0.1f + 1.5f), RemoveSelf::create(), nullptr));*/
-
 			runAction(Sequence::create(DelayTime::create(10 * 0.1f + 1.5f), CallFunc::create([=]{User::getInstance()->addCoins(_coins); }),RemoveSelf::create(), nullptr));
 
 

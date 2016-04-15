@@ -136,6 +136,7 @@ void ShowGiftLayer::quedingcallback(Ref*)
 
 void ShowGiftLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 

@@ -100,4 +100,10 @@ void Msg_onInit::setBody(const char* msgBody)
 	//×Óµ¯Ïà¹Ø
 	bullet_speed = doc["bullet_speed"].GetDouble();
 	bullet_interval = doc["bullet_interval"].GetDouble();
+
+	std::sort(roomplayers.begin(), roomplayers.end(), Msg_onInit::sortFun);
+}
+
+bool Msg_onInit::sortFun(const RoomPlayer * m1, const RoomPlayer * m2) {
+	return m1->getRoomPosition()>m2->getRoomPosition();
 }

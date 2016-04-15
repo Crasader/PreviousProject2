@@ -352,9 +352,6 @@ void GameLayer::rotateTurret(float degree,PlayerTurret* turret){
 
 void GameLayer::update(float dt){
 
-
-
-	FishManage::getInstance()->UpdateWhenController(dt);
 	FishManage::getInstance()->UpdataCreateFish(dt);
 }
 
@@ -594,9 +591,13 @@ void GameLayer::onBoomCatchFish(Point pos,PlayerTurret*turret)
 	{
 		if (CollisionUtill::isCollisionFishAAndRect(fish, Rect(pos.x - 200, pos.y - 200, 400, 400)))
 		{
-			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, turret);
+			GameManage::getInstance()->CatchTheFishOntheTurrent(fish, 1, turret,true);
 		}
 
+	}
+	if (!turret->isRobot)
+	{
+		UpdateUserinfo(0);
 	}
 	endSkillBoom();
 }
@@ -953,10 +954,10 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 
 	if (msg->roomPos == m_curIndex)
 	{
-		MessageBox("玩家加入位置与本人一样","error r_pos");
+		MessageBox("玩家加入位置与本人一样", "error r_pos");
 		return;
 	}
-	
+
 	RoomPlayer* user = new RoomPlayer();
 	user->setCoins(msg->coins);
 	user->setDiamonds(msg->diamonds);
@@ -970,7 +971,7 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 	AI* ai = AIManager::getInstance()->getAI(user->getMaxTurretLevel());
 	user->setAi(ai);
 	int uiPos;
-	if (msg->roomPos==-1)
+	if (msg->roomPos == -1)
 	{
 		for (auto ite = TxtWaitingTurrent.begin(); ite != TxtWaitingTurrent.end(); ite++)
 		{
@@ -1000,12 +1001,12 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 	user->setRoomPosition(uiPos);
 	for (auto var : otherTurrets)
 	{
-		if (var->getTag()==uiPos)
+		if (var->getRoomPos() == uiPos)
 		{
-			TxtWaitingTurrent[var->getRoomPos()]->setVisible(true);
+			TxtWaitingTurrent[uiPos]->setVisible(true);
 			otherTurrets.eraseObject(var);
 			var->removeFromParentAndCleanup(1);
-
+			break;
 		}
 	}
 
@@ -1029,6 +1030,7 @@ void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 		if (var->getcurRoomPos() == msg->roomPos)
 		{
 			TxtWaitingTurrent[var->getRoomPos()]->setVisible(true);
+			BulletManage::getInstance()->removeBulletByTurrent(var);
 			otherTurrets.eraseObject(var);
 			var->removeFromParentAndCleanup(1);
 			return;
@@ -1080,6 +1082,7 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 		{
 			break;
 		}
+		auto curpos = var->getRoomPosition();
 		var->setRoomPosition(uiPos);
 		AI* ai = AIManager::getInstance()->getAI(var->getMaxTurretLevel());
 		var->setAi(ai);
@@ -1087,10 +1090,11 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 		otherTurret->setAnchorPoint(ccp(0.5, 0.5));
 		otherTurret->setPosition(turretPos[var->getRoomPosition()]);
 		otherTurret->initWithDate(var);
+		otherTurret->setcurRoomPos(curpos);
 		otherTurrets.pushBack(otherTurret);
 		addChild(otherTurret, kZorderMenu, kTagBaseturret + var->getRoomPosition());
 
-		TxtWaitingTurrent[var->getRoomPosition()]->setVisible(false);
+		TxtWaitingTurrent[uiPos]->setVisible(false);
 	}
 	//初始时间
 	init_creat_time = msg->initCreateTime;
@@ -1220,6 +1224,7 @@ void GameLayer::onUpdateTurrent(Msg_OnUpdateTurrent*msg)
 }
 void GameLayer::exitCallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto node = BankruptManager::getInstance()->getgetRewardNode();
 	if (node)
 	{
@@ -1228,6 +1233,7 @@ void GameLayer::exitCallback(Ref*psend)
 
 	}
 	LogEventPageChange::getInstance()->addEventItems(2, 1, 0);
+	onExitEX();
 	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
 
 	GameData::getInstance()->setisOnGameScene(false);
@@ -1268,11 +1274,12 @@ void GameLayer::onUseSkill(Msg_UseSkill*msg)
 	}
 	else //if (/*msg->errorcode == 302*/)
 	{
-		auto dialog = TwiceSureDialog::createDialog(ChineseWord("havanoDmToUseskill").c_str(), CC_CALLBACK_1(GameLayer::ToPayShopCallBack, this));
+		auto dialog = TwiceSureDialog::createDialog(msg->errormsg.c_str(), CC_CALLBACK_1(GameLayer::ToPayShopCallBack, this));
 		dialog->setPosition(Point::ZERO);
 		dialog->setName("havanoDmToUseskill");
 		GameManage::getInstance()->getGuiLayer()->addChild(dialog, 20);
 	}
+	
 
 
 }
@@ -1339,7 +1346,7 @@ void GameLayer::onMarquee(Msg_OnMarquee*msg)
 }
 void GameLayer::onBeginMarried(Msg_OnBeginMarried*msg)
 {
-	if (!GameData::getInstance()->getIsOnMaridTask())
+	if (!GameData::getInstance()->getIsOnMaridTask()&&GameData::getInstance()->getRoomID()>1)
 	{
 		GameManage::getInstance()->getGuiLayer()->createMermaidTaskPlane(msg->_lefttime, msg->_items);
 	}
@@ -1362,6 +1369,7 @@ void GameLayer::onCathchMarriedFish(Msg_OnCatchMarriedFish*msg)//打到任务鱼
 
 void GameLayer::ToPayShopCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto layer = payLayer::createLayer(2);
 	layer->setPosition(0, 0);
 	GameManage::getInstance()->getGuiLayer()->addChild(layer, 20);

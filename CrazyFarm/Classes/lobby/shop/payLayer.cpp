@@ -6,6 +6,7 @@
 #include "utill/Chinese.h"
 #include "lobby/viplayer/VipLayer.h"
 #include "utill/FunUtil.h"
+#include "utill/Audio.h"
 enum 
 {
 	kDesignTagCell1,
@@ -327,11 +328,13 @@ void payLayer::update(float delta)
 }
 void payLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 
 void payLayer::showVipCallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto layer = VIPLayer::create();
 	layer->setPosition(0, 0);
 	getParent()->addChild(layer,30);

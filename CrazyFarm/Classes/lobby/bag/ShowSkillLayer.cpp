@@ -182,6 +182,7 @@ void ShowSkillLayer::quedingcallback(Ref*)
 
 void ShowSkillLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 
@@ -189,7 +190,7 @@ void ShowSkillLayer::closeButtonCallBack(Ref*psend)
 
 void ShowSkillLayer::LackVipCallBack(Ref*psend)
 {
-
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeChildByName("tip", 1);
 	auto layer = payLayer::createLayer(2); 
 	layer->setPosition(0, 0); 
@@ -199,11 +200,13 @@ void ShowSkillLayer::LackVipCallBack(Ref*psend)
 }
 void ShowSkillLayer::LackTurrentCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 
 }
 void ShowSkillLayer::satisfyCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeChildByName("tip", 1);
 	auto layer = payLayer::createLayer(2); layer->setPosition(0, 0); addChild(layer);
 	layer->setEventPont(m_itemId - 996);

@@ -96,6 +96,7 @@ bool UpgradeSureDialog::init(std::vector<LevelRewardItem> levelRewardItems)
 
 void UpgradeSureDialog::sureButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	getChildByName("bg")->removeFromParentAndCleanup(1);
 	getChildByName("color")->removeFromParentAndCleanup(1);
 	for (int i = 0; i < cells.size();i++)

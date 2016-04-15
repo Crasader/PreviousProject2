@@ -12,5 +12,6 @@ public:
 	int num;
 	int itemid;
 	int errorcode;
+	std::string errormsg;
 };
 

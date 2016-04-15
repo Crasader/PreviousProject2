@@ -1,6 +1,7 @@
 #include "core/showFishLayer.h"
 #include "fish/Fish.h"
 #include "utill/Chinese.h"
+#include "utill/Audio.h"
 
 showFishCell* showFishCell::createCell()
 {
@@ -112,5 +113,6 @@ bool showFishLayer::init(){
 
 void showFishLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }

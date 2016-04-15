@@ -2,6 +2,7 @@
 #include "domain/nobility/NobilityManager.h"
 #include "domain/pay/Pay.h"
 #include "data/GameData.h"
+#include "utill/Audio.h"
 bool NobilityLayer::init()
 {
 	if (!BaseLayer::init()){
@@ -59,6 +60,7 @@ NobilityLayer * NobilityLayer::createLayer()
 
 void NobilityLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 

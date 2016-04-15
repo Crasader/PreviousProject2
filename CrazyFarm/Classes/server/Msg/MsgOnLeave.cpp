@@ -8,6 +8,6 @@ void Msg_onLeave::setBody(const char* msgBody)
 	{
 		return;
 	}
-	roomPos = doc["r_pos"].GetInt();
+	roomPos = doc["r_pos"].GetInt()-1;
 
 }

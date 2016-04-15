@@ -4,7 +4,7 @@
 #include "domain/user/User.h"
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "widget/LoadingCircle.h"
-
+#include "utill/Audio.h"
 void RanklistView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
@@ -206,11 +206,13 @@ bool RanklistLayer::init()
 
 void RanklistLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 
 void RanklistLayer::changeTypeCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto bt = (MenuItemImage*)(psend);
 	auto btName = bt->getName();
 	if (btName == "coin")

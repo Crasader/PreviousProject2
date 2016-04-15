@@ -85,5 +85,6 @@ void SettingDialog::sliderEvent(Ref *pSender, Slider::EventType type)
 }
 void SettingDialog::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }

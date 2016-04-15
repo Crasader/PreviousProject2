@@ -2,6 +2,7 @@
 #include "server/HttpMannger.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "utill/FunUtil.h"
+#include "utill/Audio.h"
 bool CDKeyDialog::init()
 {
 	if ( !BaseLayer::init() )
@@ -119,6 +120,7 @@ void CDKeyDialog::quedingcallback(Ref*send)
 
 void CDKeyDialog::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(true);
 }
 
@@ -146,6 +148,7 @@ void CDKeyDialog::editBoxReturn(ui::EditBox* editBox)
 }
 void CDKeyDialog::httpCallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	CDkeyValue *value = (CDkeyValue*)psend;
 	TwiceSureDialog*dialog;
 	switch (value->_errorcode)

@@ -147,6 +147,8 @@ protected:
 
 	Vector<Node*> fishes;
 
+
+	CC_SYNTHESIZE(bool, _isDeadByBoom, isDeadByBoom);
 private:
 	std::vector <Bullet*> _lockBullets;
 public:

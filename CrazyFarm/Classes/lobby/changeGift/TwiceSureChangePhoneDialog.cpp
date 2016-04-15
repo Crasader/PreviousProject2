@@ -2,7 +2,7 @@
 #include "server/HttpMannger.h"
 #include "domain/bag/BagManager.h"
 #include "domain/ToolTip/ToolTipMannger.h"
-
+#include "utill/Audio.h"
 
 
 
@@ -163,6 +163,7 @@ void TwiceSureChangePhoneDialog::quedingcallback(Ref*)
 
 void TwiceSureChangePhoneDialog::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 

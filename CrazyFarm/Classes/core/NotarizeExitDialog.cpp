@@ -60,6 +60,7 @@ bool NotarizeExitDialog::init()
 }
 void NotarizeExitDialog::querenCallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto node = BankruptManager::getInstance()->getgetRewardNode();
 	if (node)
 	{
@@ -76,6 +77,7 @@ void NotarizeExitDialog::querenCallback(Ref*psend)
 
 void NotarizeExitDialog::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 

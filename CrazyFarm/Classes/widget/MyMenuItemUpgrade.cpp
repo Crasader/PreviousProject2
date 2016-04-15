@@ -33,6 +33,7 @@ MyMenuItemUpgrade * MyMenuItemUpgrade::create()
 }
 void MyMenuItemUpgrade::ItemCallBack(Ref* psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto node = GameManage::getInstance()->getGuiLayer()->getChildByName("tipUpGradenode");
 	if (node)
 	{

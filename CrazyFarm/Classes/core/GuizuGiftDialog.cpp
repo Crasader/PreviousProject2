@@ -1,4 +1,5 @@
 #include "GuizuGiftDialog.h"
+#include "utill/Audio.h"
 #include "domain/nobility/NobilityManager.h"
 #include "domain/user/User.h"
 #include "domain/bag/BagManager.h"
@@ -52,6 +53,7 @@ bool GuizuGiftDialog::init()
 }
 void GuizuGiftDialog::lingquCallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto vec = NobilityManager::getInstance()->getNobilityRewadItems();
 	for (auto var:vec)
 	{

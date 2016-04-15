@@ -14,6 +14,7 @@ public:
 	int getBulletPoolSize(){ return bulletPool.size(); };
 public:
 	void moveBulletToCacheFromPool(Bullet*bullet);
+	void removeBulletByTurrent(PlayerTurret*turret);
 private:
 	Bullet* getFreeBulletInCache();
 private:

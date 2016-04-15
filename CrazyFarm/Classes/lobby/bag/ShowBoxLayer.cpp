@@ -146,6 +146,7 @@ bool ShowBoxLayer::onTouchBegan(Touch *touch, Event *unused_event)
 
 void ShowBoxLayer::quedingcallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	((MenuItem*)psend)->setEnabled(false);
 	if (m_itemId ==1008)
 	{
@@ -203,6 +204,7 @@ void ShowBoxLayer::quedingcallback(Ref*psend)
 
 void ShowBoxLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 

@@ -273,6 +273,7 @@ void RoomCell::playScaleAni()
 
 void RoomCell::TiPCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto node = getParent()->getChildByName("tip");
 	node->removeFromParentAndCleanup(1);
 }

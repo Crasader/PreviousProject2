@@ -80,6 +80,7 @@ void FirstPayLayer::quedingcallback(Ref*)
 
 void FirstPayLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	if (getParent()==GameManage::getInstance()->getGuiLayer())
 	{
 		auto layer = payLayer::createLayer(1);

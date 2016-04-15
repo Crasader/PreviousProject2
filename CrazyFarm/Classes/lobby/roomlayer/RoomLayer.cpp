@@ -4,6 +4,7 @@
 #include "utill/dayUtil.h"
 #include "widget/LoadingCircle.h"
 #include "domain/ToolTip/ToolTipMannger.h"
+#include "utill/Audio.h"
 RoomLayer * RoomLayer::createLayer()
 {
 	RoomLayer *ret = new  RoomLayer();
@@ -149,6 +150,7 @@ void RoomLayer::onTouchEnded(Touch *touch, Event *unused_event)
 
 void RoomLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 

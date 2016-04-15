@@ -4,12 +4,17 @@
 #include "HttpMsgDefine.h"
 #include "widget/LoadingCircle.h"
 using namespace cocos2d;
-//
-#define URL_HEAD_FIX "http://172.23.1.35:1701" 
-#define URL_HEAD "http://172.23.1.35:1701" 
-//
-//#define URL_HEAD_FIX "http://106.75.135.78:1701" ///外网
-//#define URL_HEAD  HttpMannger::getInstance()->getCurUrl().c_str()
+//内网
+//#define URL_HEAD_FIX "http://172.23.1.35:1701" 
+//#define URL_HEAD "http://172.23.1.35:1701" 
+//#define TCPIDURL "172.23.1.35" 
+//正式
+#define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
+#define URL_HEAD_FIX "http://106.75.135.78:1701"
+#define URL_HEAD  HttpMannger::getInstance()->getCurUrl().c_str()
+
+
+
 
 #define URL_BASECONFIG  "/config/get/base"
 #define URL_REGISTER  "/user/hello"

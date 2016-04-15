@@ -57,6 +57,7 @@ bool MissionCell::init(){
 
 void MissionCell::btCallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	bool isfinish = (_item.current_nums >= _item.require_nums);
 	if (isfinish)
 	{

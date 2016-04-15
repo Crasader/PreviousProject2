@@ -1,6 +1,6 @@
 #include "NewbieSureDialog.h"
 #include "lobby/LobbyScene.h"
-
+#include "utill/Audio.h"
 bool NewbieSureDialog::init()
 {
 
@@ -64,11 +64,13 @@ bool NewbieSureDialog::init()
 
 void NewbieSureDialog::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 
 void NewbieSureDialog::sureButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	((LobbyScene*)getParent())->quickBeginCallback(nullptr);
 	removeFromParentAndCleanup(1);
 }

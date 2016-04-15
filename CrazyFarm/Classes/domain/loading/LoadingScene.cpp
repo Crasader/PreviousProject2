@@ -45,6 +45,11 @@ Scene* LoadingScene::createScene(bool isisFirstComingNeedRegister)
 
 	return scene;
 }
+void LoadingScene::onEnterTransitionDidFinish()
+{
+	Layer::onEnterTransitionDidFinish();
+	
+}
 
 bool LoadingScene::init(bool isisFirstComingNeedRegister)
 {
@@ -52,6 +57,7 @@ bool LoadingScene::init(bool isisFirstComingNeedRegister)
 	{
 		return false;
 	}
+	_isFirstComingNeedRegister = isisFirstComingNeedRegister;
 	auto bg = Sprite::create("loading_new.jpg");
 	bg->setPosition(480, 270);
 	addChild(bg);
@@ -83,14 +89,16 @@ bool LoadingScene::init(bool isisFirstComingNeedRegister)
 	Audio::getInstance()->prepare();
 	scheduleUpdate();
 
-	if (isisFirstComingNeedRegister)
+	runAction(Sequence::create(DelayTime::create(0.5f), CallFunc::create([=]{
+	if (_isFirstComingNeedRegister)
 	{
 		toRegister();
 	}
 	else
 	{
 		load();
-	}
+	}}), nullptr));
+
 	return true;
 }
 

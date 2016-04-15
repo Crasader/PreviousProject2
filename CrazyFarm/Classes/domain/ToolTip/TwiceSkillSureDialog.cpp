@@ -108,10 +108,12 @@ bool TwiceSkillSureDialog::init( )
 
 void TwiceSkillSureDialog::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 void TwiceSkillSureDialog::sureButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto price = skillManager::getInstance()->getSkillPriceById(m_skiilid);
 	auto userdm = User::getInstance()->getDiamonds();
 	if (userdm > price)

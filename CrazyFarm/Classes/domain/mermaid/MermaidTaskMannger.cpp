@@ -33,7 +33,10 @@ bool MermaidTaskMannger::isSendInfoToServer(int fishid)
 
 void MermaidTaskMannger::onSuccessTask(unsigned int coins)
 {
-	_taskPlane->onFinishSecuss();
+	if (_taskPlane)
+	{
+		_taskPlane->onFinishSecuss();
+	}
 	setTaskPlane(nullptr);
 	auto layer = MermaidTaskBoxLayer::create();
 	layer->setcoins(coins);

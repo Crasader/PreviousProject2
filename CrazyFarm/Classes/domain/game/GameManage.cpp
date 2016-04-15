@@ -31,8 +31,9 @@ void GameManage::showGainMoneyTurrent()
 
 
 
-void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret* turret)
+void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret* turret, bool isDeadByBoom )
 {
+	fish->setisDeadByBoom(isDeadByBoom);
 	if (fish->getTargeLightTurret())
 	{
 		fish->getTargeLightTurret()->setLightFish(nullptr);
@@ -132,21 +133,26 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 		//}
 		if (!turret->isRobot)
 		{
+			if (fish->getBounsPoorGold() > 0)
+			{
+				GameData::getInstance()->addGoldCatchFishes(fish->getFishID());
+				if (!fish->getisDeadByBoom())
+				{
+					GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
+				}
+			}
 			if (MermaidTaskMannger::getInstence()->isSendInfoToServer(fish->getFishID()))
 			{
-				m_pGameyer->UpdateUserinfo(1);
+				if (!fish->getisDeadByBoom())
+				{
+					GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
+				}
 			}
 			//锁定技能引导相关
 			if (NewbieMannger::getInstance()->getNBShootCounts() >= 10)
 			{
 				NewbieMannger::getInstance()->setNBShootCounts(-1);
-		/*		m_pGuilayer->ShowUseLockTip(fish->getPosition());*/
 			}
-
-
-
-
-
 		}
 		
 		fish->onDead();

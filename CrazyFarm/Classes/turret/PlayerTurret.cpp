@@ -336,6 +336,7 @@ void  PlayerTurret::onLockTheTurrent(int curTurretLv, int rewardsCoin, int costD
 }
 void PlayerTurret::ChangeNextRoom(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto nextroom = ConfigRoom::getInstance()->getNextRoombyId(GameData::getInstance()->getRoomID());
 
 	auto node = BankruptManager::getInstance()->getgetRewardNode();
@@ -680,12 +681,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 			GameData::getInstance()->addCatchFishes(fish->getFishID(), m_turretdata.multiple);
 		}
 
-		if (fish->getBounsPoorGold()>0)
-		{
-			GameData::getInstance()->addGoldCatchFishes(fish->getFishID());
-			GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
-
-		}
+		
 
 	}
 	fish->createDropOutAniByCoin(getPosition(), num);
@@ -1119,6 +1115,7 @@ void PlayerTurret::removeRobotInfo()
 }
 void PlayerTurret::changeTurrentCallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto node = (Node*)psend;
 	auto layer = showTurretLayer::create(1);
 	layer->setPosition(Point::ZERO);
@@ -1128,6 +1125,7 @@ void PlayerTurret::changeTurrentCallback(Ref*psend)
 }
 void PlayerTurret::autoShootCallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto node = (Node*)psend;
 	node->getParent()->removeFromParentAndCleanup(1);
 

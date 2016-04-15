@@ -36,7 +36,7 @@ private:
 	void load();
 	void loadRes();
 	void toRegister();
-
+	virtual void onEnterTransitionDidFinish();
 
 	///异步加载普通动画
 	void loadAniWithPng(const char *filepath, const char *animatname, float time, int numOfpng, bool isSetRestoreOriginalFrame = true);
@@ -53,6 +53,7 @@ private:
 	ui::LoadingBar* loadingBar;
 	void openUrl(Ref*psend);
 	int temp = 0;
+	bool _isFirstComingNeedRegister;
 	
 
 };

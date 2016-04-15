@@ -133,20 +133,22 @@ bool LoginScene::init()
 }
 void LoginScene::moreIdCallback(Ref*psend)
 {
-
+	Audio::getInstance()->playSound(CLICKSURE);
 }
 void LoginScene::RegisterCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto dialog = RegisterDialog::create();
 	dialog->setPosition(0, 0);
 	addChild(dialog, 20);
 }
 void LoginScene::findPasswordCallBack(Ref*psend)
 {
-	
+	Audio::getInstance()->playSound(CLICKSURE);
 }
 void LoginScene::loginCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	log("touch login");
 	if (_editName->getText()=="")
 	{
@@ -204,7 +206,7 @@ void LoginScene::loginCallBack(Ref*psend)
 			dioag->setPosition(0, 0);
 			addChild(dioag, 30);
 		}
-		break;
+			break;
 		}
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("login");
 
@@ -255,6 +257,7 @@ void LoginScene::setChangeNickName(std::string srt)
 }
 void LoginScene::endGame(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	Director::getInstance()->end();
 }
 void LoginScene::onExitCallback(Ref*psend)
@@ -269,5 +272,6 @@ void LoginScene::onExitCallback(Ref*psend)
 }
 void LoginScene::openUrl(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	Application::getInstance()->openURL(((Node*)psend)->getParent()->getParent()->getParent()->getName());
 }

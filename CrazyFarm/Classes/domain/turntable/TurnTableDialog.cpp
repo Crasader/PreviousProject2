@@ -99,10 +99,12 @@ bool TurnTableDialog::init()
 }
 void TurnTableDialog::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 void TurnTableDialog::choujiangButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto bonus = BonusPoolManager::getInstance()->getNextBonuspool();
 	int nextCoin;
 	if (bonus)
@@ -139,7 +141,7 @@ void TurnTableDialog::BeginTurnTable(int itemID, int num)
 	BonusPoolManager::getInstance()->setBounsCoins(0);
 	BonusPoolManager::getInstance()->setBounsFishCounts(0);
 
-	auto ac = ProgressTo::create(0.5f, 0);
+	auto ac = ProgressTo::create(1.0f, 0);
 	bar->runAction(ac);
 
 	labelNowCoin->setString("0");
@@ -150,6 +152,7 @@ void TurnTableDialog::BeginTurnTable(int itemID, int num)
 
 void TurnTableDialog::beginChoujiangButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	Server::getInstance()->sendBounsPool();
 	auto node = getChildByName("toast");
 	if (node)
@@ -159,6 +162,7 @@ void TurnTableDialog::beginChoujiangButtonCallBack(Ref*psend)
 }
 void TurnTableDialog::showGoldFishButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto layer = showFishLayer::create();
 	layer->setPosition(Point::ZERO);
 	getParent()->addChild(layer, getZOrder()+1);

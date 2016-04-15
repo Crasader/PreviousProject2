@@ -30,17 +30,26 @@ bool ScrollTextEx::init() {
 }
 void ScrollTextEx::setScrollStr(std::string str)
 {
-	m_strs.push_back(str);
+	if (str.size()>0)
+	{
+		m_strs.push_back(str);
+	}
+	
 }
 void ScrollTextEx::setScrollStrs(std::vector<std::string> strs)
 {
 	auto vec = strs;
+	if (vec.size()<0)
+	{
+		return;
+	}
 	std::string str1;
 	for (auto var : vec)
 	{
-		str1 += "            " + var;
+		setScrollStr(var);
+		
 	}
-	m_strs.push_back(str1);
+
 }
 
 void ScrollTextEx::setpMaskString(std::string string) {

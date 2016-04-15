@@ -9,6 +9,7 @@
 #include "lobby/shop/payLayer.h"
 #include "lobby/LobbyScene.h"
 #include "server/HttpMannger.h"
+#include "utill/Audio.h"
 #include "widget/LightEffect.h"
 enum 
 {
@@ -448,6 +449,7 @@ bool BagLayer::onTouchBegan(Touch*touch, Event*event)
 }
 void BagLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));
 	
 }
@@ -475,6 +477,7 @@ void BagLayer::chankanCallBack(Ref*pesend)
 
 void BagLayer::setNameCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto layer = SetNameLayer::create();
 	layer->setPosition(Point::ZERO);
 	addChild(layer,10,"setnamelayer");
@@ -484,6 +487,7 @@ void BagLayer::setNameCallBack(Ref*psend)
 
 void BagLayer::payCoinCallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto paylayer = payLayer::createLayer(1);
 	paylayer->setPosition(Point::ZERO);
 	addChild(paylayer, 20);
@@ -492,6 +496,7 @@ void BagLayer::payCoinCallback(Ref*psend)
 }
 void BagLayer::payDiamondCallback(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto paylayer = payLayer::createLayer(2);
 	paylayer->setPosition(Point::ZERO);
 	addChild(paylayer, 20);

@@ -3,6 +3,7 @@
 #include "utill/Chinese.h"
 #include "domain/login/LoginScene.h"
 #include "ReloginDialog.h"
+#include "utill/Audio.h"
 void ToolTipMannger::ShowPayTimeoutTip()
 {
 	auto dialog = TwiceSureDialog::createDialog(ChineseWord("netTimeOut").c_str());
@@ -36,5 +37,6 @@ void ToolTipMannger::showDioag(std::string str)
 }
 void ToolTipMannger::relogin(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	Director::getInstance()->replaceScene(TransitionFade::create(1.0f,LoginScene::createScene()));
 }

@@ -107,6 +107,7 @@ bool TwiceSureBuySkill::init(int itemid)
 
 void TwiceSureBuySkill::sureButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	if (User::getInstance()->getDiamonds()>=200)
 	{
 		if (User::getInstance()->getMaxTurrentLevel()>300)
@@ -168,5 +169,6 @@ void TwiceSureBuySkill::sureButtonCallBack(Ref*psend)
 
 void TwiceSureBuySkill::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }

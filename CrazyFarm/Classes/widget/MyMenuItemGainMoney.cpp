@@ -29,6 +29,7 @@ MyMenuItemGainMoney * MyMenuItemGainMoney::create()
 }
 void MyMenuItemGainMoney::ItemCallBack(Ref* psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	if (isElongate)
 	{
 		commonNode->setVisible(false);

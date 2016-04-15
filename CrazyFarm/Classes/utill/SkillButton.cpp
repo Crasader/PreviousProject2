@@ -120,7 +120,7 @@ void SkillButton::update(float dt)
 /** 技能按钮点击回调 */
 void SkillButton::skillClickCallBack(Ref* obj)
 {
-
+	Audio::getInstance()->playSound(CLICKSURE);
     // 冷却计时，即时状态技能按钮不可点击
     mItemSkill->setEnabled(false);
 
@@ -298,6 +298,7 @@ int SkillButton::JudgeUseSkill()
 
 void SkillButton::LackVipCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	getParent()->removeChildByName("tip", 1);
 	auto layer = payLayer::createLayer(2);
 	layer->setPosition(0, 0);
@@ -308,6 +309,7 @@ void SkillButton::LackVipCallBack(Ref*psend)
 
 void SkillButton::ToPayShopCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	LogEventUseSkill::getInstance()->addUseSkillData(m_skillID, 2, 0);
 	LogEventPageChange::getInstance()->addEventItems(2, m_skillID - 1, 13);
 	auto layer = payLayer::createLayer(2);

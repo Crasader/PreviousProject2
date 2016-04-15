@@ -6,6 +6,7 @@
 #include "RecordGiftLayer.h"
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "widget/MyLabelAtlas.h"
+#include "utill/Audio.h"
 
 bool ChangeGiftLayer::init()
 {
@@ -133,11 +134,13 @@ void ChangeGiftLayer::onTouchEnded(Touch *touch, Event *unused_event)
 }
 void ChangeGiftLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 
 void ChangeGiftLayer::chakanButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	EventListenerCustom* _listener2 = EventListenerCustom::create("record_gift_info", [=](EventCustom* event){
 
 		RecordGiftValue*value = static_cast<RecordGiftValue*>(event->getUserData());

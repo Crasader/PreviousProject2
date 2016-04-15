@@ -4,6 +4,7 @@
 #include "server/HttpMannger.h"
 #include "widget/LoadingCircle.h"
 #include "domain/bag/BagManager.h"
+#include "utill/Audio.h"
 TwiceSureChangePropDialog*TwiceSureChangePropDialog::createTwiceChangeGiftTip(int itemid,int num)
 {
 	TwiceSureChangePropDialog*ref = new TwiceSureChangePropDialog();
@@ -78,6 +79,7 @@ bool TwiceSureChangePropDialog::init(int itemid, int num)
 
 void TwiceSureChangePropDialog::sureButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	EventListenerCustom* _listener2 = EventListenerCustom::create("change_gift", [=](EventCustom* event){
 		changGiftValue*value = static_cast<changGiftValue*>(event->getUserData());
 		if (value->_errorcode == 0)
@@ -108,6 +110,7 @@ void TwiceSureChangePropDialog::sureButtonCallBack(Ref*psend)
 
 void TwiceSureChangePropDialog::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 void TwiceSureChangePropDialog::showRandonBubbleAni()

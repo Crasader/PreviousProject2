@@ -7,6 +7,7 @@
 #include "domain/user/User.h"
 #include "domain/Newbie/NewbieMannger.h"
 #include "widget/LoadingCircle.h"
+#include "utill/Audio.h"
 bool RegisterDialog::init()
 {
 	if (!Layer::init())
@@ -132,6 +133,7 @@ bool RegisterDialog::init()
 }
 void RegisterDialog::closeCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 
@@ -152,6 +154,7 @@ int  RegisterDialog::checkRegister(std::string nickname, std::string password, s
 }
 void RegisterDialog::loginCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	std::string nickname = _editNickname->getText();
 	std::string password = _editPassword->getText();
 	std::string repeatPassword = _editRepeatword->getText();
@@ -270,5 +273,6 @@ void RegisterDialog::editBoxReturn(ui::EditBox* editBox)
 
 void RegisterDialog::openUrl(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	Application::getInstance()->openURL(((Node*)psend)->getParent()->getParent()->getParent()->getName());
 }

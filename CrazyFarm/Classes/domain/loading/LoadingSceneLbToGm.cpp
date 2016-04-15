@@ -17,8 +17,7 @@
 #include "server/Server.h"
 #include "domain/game/GameManage.h"
 #include "server/HttpMannger.h"
-#define TCPIDURL "172.23.1.35"  //ÄÚÍø
-//#define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
+
 Scene* LoadingSceneLbToGm::createScene()
 {
 	auto scene = Scene::create();

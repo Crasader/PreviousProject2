@@ -1,6 +1,7 @@
 #include "TwiceSureDialog.h"
 #include "utill/AnimationUtil.h"
 #include "utill/FunUtil.h"
+#include "utill/Audio.h"
 TwiceSureDialog* TwiceSureDialog::createDialog(const char* tipStr, const ccMenuCallback& callback)
 {
 	TwiceSureDialog* ref = new TwiceSureDialog();
@@ -82,6 +83,7 @@ bool TwiceSureDialog::init(const  char* tipStr, const ccMenuCallback& callback)
 
 void TwiceSureDialog::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 

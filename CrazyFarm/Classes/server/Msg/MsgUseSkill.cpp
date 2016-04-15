@@ -23,6 +23,10 @@ void Msg_UseSkill::setBody(const char* msgBody)
 		}
 		itemid = doc["item_id"].GetInt();
 	}
+	else
+	{
+		errormsg = doc["errormsg"].GetString();
+	}
 
 
 }

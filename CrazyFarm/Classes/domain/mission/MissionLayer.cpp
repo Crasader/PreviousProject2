@@ -2,8 +2,8 @@
 #include "MissionManager.h"
 #include "utill/Chinese.h"
 #include "domain/user/User.h"
-
-
+#include "utill/Audio.h"
+#include "utill/Audio.h"
 
 
 Scene* MissionLayer::createScene()
@@ -109,11 +109,13 @@ bool MissionLayer::init()
 
 void MissionLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 
 void MissionLayer::changeTypeCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto bt = (MenuItemImage*)(psend);
 	auto btName = bt->getName();
 	if (btName == "mission")

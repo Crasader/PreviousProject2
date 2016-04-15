@@ -20,6 +20,7 @@ bool Fish::init(){
 
 void Fish::initFish(int fishID){
 
+	setisDeadByBoom(false);
 	scheduleUpdate();
 	setScale(1);
 	setisAutoRemove(true);

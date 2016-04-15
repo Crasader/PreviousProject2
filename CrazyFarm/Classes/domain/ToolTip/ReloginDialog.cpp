@@ -2,6 +2,7 @@
 #include "utill/AnimationUtil.h"
 #include "utill/FunUtil.h"
 #include "domain/login/LoginScene.h"
+#include "utill/Audio.h"
 ReloginDialog* ReloginDialog::createDialog(const char* tipStr)
 {
 	ReloginDialog* ref = new ReloginDialog();
@@ -18,6 +19,7 @@ ReloginDialog* ReloginDialog::createDialog(const char* tipStr)
 
 void ReloginDialog::reloginCB(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	Director::getInstance()->replaceScene(LoginScene::createScene());
 
 }

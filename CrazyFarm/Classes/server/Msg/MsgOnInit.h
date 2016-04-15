@@ -14,7 +14,7 @@ public:
 	std::vector<MsgFishesInfo> _FishesInfos;
 	unsigned long initCreateTime;
 	float _catchper;
-
+	static bool sortFun(const RoomPlayer * m1, const RoomPlayer * m2);
 
 	float bullet_speed;
 	float bullet_interval;

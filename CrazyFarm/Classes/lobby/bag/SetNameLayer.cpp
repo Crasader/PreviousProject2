@@ -5,6 +5,7 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "domain/login/LoginMannger.h"
 #include "widget/LoadingCircle.h"
+#include "utill/Audio.h"
 bool SetNameLayer::init()
 {
 	if ( !Layer::init() )
@@ -181,7 +182,7 @@ void SetNameLayer::editBoxReturn(ui::EditBox* editBox)
 
 void SetNameLayer::quedingcallback(Ref*psend)
 {
-
+	Audio::getInstance()->playSound(CLICKSURE);
 	auto item = (MenuItem*)psend;
 	item->setEnabled(false);
 	std::string nickname = _editNickname->getText();
@@ -245,6 +246,7 @@ void SetNameLayer::quedingcallback(Ref*psend)
 
 void SetNameLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
 

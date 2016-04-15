@@ -26,6 +26,21 @@ void BulletManage::initBulletManage()
 		bullet->setVisible(false);	
 	}
 }
+void BulletManage::removeBulletByTurrent(PlayerTurret*turret)
+{
+	std::vector<Bullet*> vec;
+	for (auto var:bulletPool)
+	{
+		if (var->getPlayerTurret()==turret)
+		{
+			vec.push_back(var);
+		}
+	}
+	for (auto var:vec)
+	{
+		moveBulletToCacheFromPool(var);
+	}
+}
 void BulletManage::moveBulletToCacheFromPool(Bullet*bullet)
 {
 	bulletPool.eraseObject(bullet);

@@ -70,6 +70,7 @@ bool VipGainCoinSureDialog::init()
 
 void VipGainCoinSureDialog::sureButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	getChildByName("bg")->removeFromParentAndCleanup(1);
 	Vec2 pos = Vec2(480, 290);
 	for (int i = 0; i < 15; i++)

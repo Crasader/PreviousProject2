@@ -135,6 +135,7 @@ void GameGuiLayer::createGuizuGiftLayer()
 }
 void GameGuiLayer::addCoinCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	if (!User::getInstance()->getIsHaveFirstPay())
 	{
 		auto layer = FirstPayLayer::create();

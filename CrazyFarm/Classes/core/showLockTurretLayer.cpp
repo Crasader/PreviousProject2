@@ -208,6 +208,7 @@ bool showLockTurretLayer::init()
 
 void showLockTurretLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	GameManage::getInstance()->getGameLayer()->GetMyTurret()->changeDataByBtnType();
 	removeFromParentAndCleanup(1);
 }

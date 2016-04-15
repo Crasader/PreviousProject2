@@ -3,7 +3,7 @@
 #include "domain/user/User.h"
 #include "domain/ToolTip/ToolTipMannger.h"
 #include "widget/LoadingCircle.h"
-
+#include "utill/Audio.h"
 void RecordGiftView::tableCellTouched(TableView* table, TableViewCell* cell){
 
 }
@@ -99,5 +99,6 @@ bool RecordGiftLayer::init(std::vector<RecordGiftItem> items)
 
 void RecordGiftLayer::closeButtonCallBack(Ref*psend)
 {
+	Audio::getInstance()->playSound(CLICKSURE);
 	removeFromParentAndCleanup(1);
 }
