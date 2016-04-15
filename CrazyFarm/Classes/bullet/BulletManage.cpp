@@ -58,6 +58,9 @@ Bullet* BulletManage::getFreeBulletInCache()
 	{
 		return nullptr;
 	}
+
+
+
 	auto bullet = _cacheBullet.back();
 	_cacheBullet.pop_back(); 
 	if (bullet->getParent())

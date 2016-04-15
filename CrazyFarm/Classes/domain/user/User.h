@@ -89,7 +89,9 @@ private:
 	const char* KEY_ISHAVEBYCOIN = "KEY_ISHAVEBYCOIN";
 	CC_SYNTHESIZE(std::string, session_id, Sessionid);
 	CC_SYNTHESIZE(std::string, _username, UserName);
-	CC_SYNTHESIZE(int, _userGenderd, UserGender);
+
+	CC_SYNTHESIZELOCALINT(KEY_USER_GENDER, UserGender,1 );
+
 	CC_SYNTHESIZE(int, _nobilityDay, NobilityDay);
 	CC_SYNTHESIZE(float, _catchPer, catchPer);
 

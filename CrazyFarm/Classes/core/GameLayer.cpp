@@ -1129,7 +1129,17 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 	GameConfig::getInstance()->setShootData(shootdata);
 
 
-	
+
+	///TEST
+	//MsgFishInfo aaa;
+	//aaa.time = 10;
+	//aaa.fish_ids = 202;
+	//aaa.fish_route = -1;
+	//FishManage::getInstance()->addServerItemFishs(aaa);
+	//FishManage::getInstance()->addServerItemFishs(aaa);
+	//FishManage::getInstance()->addServerItemFishs(aaa);
+	//FishManage::getInstance()->addServerItemFishs(aaa);
+	//FishManage::getInstance()->addServerItemFishs(aaa);
 }
 void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 {

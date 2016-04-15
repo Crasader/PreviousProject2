@@ -678,7 +678,7 @@ void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 {
 	Node* allKillAninode = Node::create();
 	allKillAninode->setPosition(0, 0);
-	fish->setZOrder(fish->getFishZorder());
+	m_layer->addChild(allKillAninode, kZorderFishXL + 1);
 
 	Vector<Fish*> needDeadFishs;
 	for (auto var:fishPool)
@@ -730,8 +730,9 @@ void FishManage::onAllKilledFishDead(Fish*fish, PlayerTurret* pTurret)
 			shandian->setTextureRect(Rect(0, 0, distans, 70));
 			/*shandian->setScaleX(distans / 933.0f);*/
 			allKillAninode->addChild(shandian, 1);
-			GameManage::getInstance()->CatchTheFishOntheTurrent(var, 1, pTurret);
+			
 		}
+		GameManage::getInstance()->CatchTheFishOntheTurrent(var, 1, pTurret);
 		
 	}
 	allKillAninode->runAction(Sequence::create(DelayTime::create(1.0f), RemoveSelf::create(), nullptr));
