@@ -131,8 +131,14 @@ void GameLayer::createTurret(){
 	showYourChairno();
 
 
-
-
+	for (int i = 0; i < 3;i++)
+	{
+		auto otherTurret = PlayerTurret::create();
+		otherTurret->setVisible(false);
+		otherTurret->setTag(-1);
+		otherTurrets.pushBack(otherTurret);
+		addChild(otherTurret, kZorderMenu);
+	}
 
 
 
@@ -161,12 +167,7 @@ void GameLayer::createTurret(){
 	//}
 	//usera->setRoomPosition(uiPos);
 
-	//auto otherTurret = PlayerTurret::create();
-	//otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-	//otherTurret->setPosition(turretPos[usera->getRoomPosition()]);
-	//otherTurret->initWithDate(usera);
-	//otherTurrets.pushBack(otherTurret);
-	//addChild(otherTurret, kZorderMenu, kTagBaseturret + usera->getRoomPosition());
+	
 
 	//TxtWaitingTurrent[usera->getRoomPosition()]->setVisible(false);
 }
@@ -760,6 +761,10 @@ void GameLayer::onFreezeEnd(PlayerTurret*turret)
 	createFishAcNode->resume();
 	getChildByTag(kTagFrezzebg)->removeFromParentAndCleanup(1);
 	getChildByName("kTagFrezzebg")->removeFromParentAndCleanup(1);
+	if (turret->getTag()==-1)
+	{
+		return;
+	}
 	turret->getChildByName("freezetxt")->removeFromParentAndCleanup(1);
 }
 
@@ -1001,28 +1006,32 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 	user->setRoomPosition(uiPos);
 	for (auto var : otherTurrets)
 	{
-		if (var->getRoomPos() == uiPos)
+		if (var->getTag()!=-1&&var->getRoomPos() == uiPos)
 		{
-			TxtWaitingTurrent[uiPos]->setVisible(true);
-			BulletManage::getInstance()->removeBulletByTurrent(var);
-			otherTurrets.eraseObject(var);
-			var->removeFromParentAndCleanup(1);
+			onTurretLeave(var);
 			break;
 		}
 	}
 
 
+	for (auto var:otherTurrets)
+	{
+		if (var->getTag()==-1)
+		{
+			var->removeAllChildrenWithCleanup(1);
+			var->setRotation(0);
+			var->setVisible(true);
+			var->setcurRoomPos(msg->roomPos);
+			var->setAnchorPoint(ccp(0.5, 0.5));
+			var->setPosition(turretPos[user->getRoomPosition()]);
+			var->setTag(uiPos);
+			var->initWithDate(user);
+			TxtWaitingTurrent[user->getRoomPosition()]->setVisible(false);
+			break;
+		}
+	}
 
-	auto otherTurret = PlayerTurret::create();
-	otherTurret->setcurRoomPos(msg->roomPos);
-	otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-	otherTurret->setPosition(turretPos[user->getRoomPosition()]);
-	otherTurret->setTag(uiPos);
-	otherTurret->initWithDate(user);
-	otherTurrets.pushBack(otherTurret);
-	addChild(otherTurret, kZorderMenu, kTagBaseturret + user->getRoomPosition());
-
-	TxtWaitingTurrent[user->getRoomPosition()]->setVisible(false);
+	
 }
 void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 {
@@ -1030,13 +1039,31 @@ void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 	{
 		if (var->getcurRoomPos() == msg->roomPos)
 		{
-			TxtWaitingTurrent[var->getRoomPos()]->setVisible(true);
-			BulletManage::getInstance()->removeBulletByTurrent(var);
-			otherTurrets.eraseObject(var);
-			var->removeFromParentAndCleanup(1);
+			onTurretLeave(var);
 			return;
 		}
 	}
+}
+void GameLayer::onTurretLeave(PlayerTurret*turret)
+{
+	for (auto var:otherTurrets)
+	{
+		if (var == turret)
+		{
+			TxtWaitingTurrent[turret->getRoomPos()]->setVisible(true);
+
+			var->setTag(-1);
+			var->setVisible(false);
+			BulletManage::getInstance()->removeBulletByTurrent(turret);
+			var->unscheduleAllCallbacks();
+			var->stopAllActions();
+			var->removeAllChildrenWithCleanup(1);
+			var->setRotation(0);
+
+		}
+		
+	}
+
 }
 void GameLayer::onClientInit(Msg_onInit* msg)
 {
@@ -1087,15 +1114,24 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 		var->setRoomPosition(uiPos);
 		AI* ai = AIManager::getInstance()->getAI(var->getMaxTurretLevel());
 		var->setAi(ai);
-		auto otherTurret = PlayerTurret::create();
-		otherTurret->setAnchorPoint(ccp(0.5, 0.5));
-		otherTurret->setPosition(turretPos[var->getRoomPosition()]);
-		otherTurret->initWithDate(var);
-		otherTurret->setcurRoomPos(curpos);
-		otherTurrets.pushBack(otherTurret);
-		addChild(otherTurret, kZorderMenu, kTagBaseturret + var->getRoomPosition());
 
-		TxtWaitingTurrent[uiPos]->setVisible(false);
+		for (auto otherTurret : otherTurrets)
+		{
+			if (otherTurret->getTag() == -1)
+			{
+				otherTurret->removeAllChildrenWithCleanup(1);
+				otherTurret->setRotation(0);
+				otherTurret->setTag(uiPos);
+				otherTurret->setVisible(true);
+				otherTurret->setAnchorPoint(ccp(0.5, 0.5));
+				otherTurret->setPosition(turretPos[var->getRoomPosition()]);
+				otherTurret->initWithDate(var);
+				otherTurret->setcurRoomPos(curpos);
+				TxtWaitingTurrent[uiPos]->setVisible(false);
+				break;
+			}
+		}
+		
 	}
 	//初始时间
 	init_creat_time = msg->initCreateTime;
@@ -1391,7 +1427,7 @@ void GameLayer::ToPayShopCallBack(Ref*psend)
 }
 bool GameLayer::sortMsg(const Msg_Base * m1, const Msg_Base * m2)
 {
-	return m1->getMsgId() <= m2->getMsgId();
+	return m1->getMsgId() < m2->getMsgId();
 }
 void GameLayer::MsgUpdata(float dt)
 {

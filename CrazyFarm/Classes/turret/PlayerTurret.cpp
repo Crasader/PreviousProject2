@@ -44,11 +44,6 @@ bool PlayerTurret::init(){
 
 	setContentSize(Size(155, 71));
 
-
-	m_turret = Turret::create();
-
-	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
-	addChild(m_turret, 1);
 	setfireType(Fire_Normal);
 	scheduleUpdate();
 	return true;
@@ -102,29 +97,12 @@ void PlayerTurret::changeNewTurret()
 	
 }
 
-
-
-void PlayerTurret::addGoldFishForAi()
-{
-	if (isRobot)
-	{
-		goldfishcounts++;
-		//使用冰冻
-		if (goldfishcounts % 5 == 0 && GameData::getInstance()->getRoomID() > 1)
-		{
-			/*skillManager::getInstance()->robotUseSkillFreeze(this);*/
-		}
-		//使用召唤
-		if (goldfishcounts % 30 == 0 && GameData::getInstance()->getRoomID() > 1)
-		{
-		/*	skillManager::getInstance()->robotUseSkillFreeze(this);*/
-		}
-	}
-
-}
 void PlayerTurret::update(float delta)
 {
-
+	if (getTag()==-1)
+	{
+		return;
+	}
 	if (isRobot)
 	{
 		nCurLevel->setString(Value(m_turretdata.multiple).asString().c_str());
@@ -592,6 +570,12 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 
 void PlayerTurret::initWithDate(User* user, int index)
 {
+
+
+	m_turret = Turret::create();
+
+	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
+	addChild(m_turret, 1);
 	m_turret->setIsRobot(false);
 	_chestPer = user->getcatchPer();
 
@@ -636,6 +620,10 @@ nChairNoIndex = index;
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
 {
+	m_turret = Turret::create();
+
+	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
+	addChild(m_turret, 1);
 
 	int boxlv = user->getChestLv();
 	_chestPer = user->getchestper();
@@ -686,10 +674,7 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 
 	if (isRobot)
 	{
-		if (fish->getFishType() == GoldFish)
-		{
-			addGoldFishForAi();
-		}
+	
 
 		num = fish->getFishGold() * m_turretdata.multiple;
 		auto nowNum = Value(m_CoinLabel->getString()).asInt();
@@ -742,10 +727,6 @@ void PlayerTurret::getCoinByFish(Fish* fish)
 void PlayerTurret::onExit()
 {
 	Sprite::onExit();
-	m_CoinLabel->removeFromParentAndCleanup(true);
-	m_DiamondLabel->removeFromParentAndCleanup(true);
-	m_turret->removeFromParentAndCleanup(true);
-
 }
 
 
@@ -866,7 +847,15 @@ void PlayerTurret::rorateAndShootOnlight(float dt)
 
 	auto pos = lightFish->getPosition();
 	float degree = getTurretRotation(getPosition(), pos);
+
+	if (nChairNoIndex > 1)
+	{
+		degree = 180 + degree;
+	}
+
 	rorateTurret(degree);
+	
+
 	lightFish->onHeart();
 	LogEventFish::getInstance()->addFishUserCostCoin(lightFish->getFishID(), 2 * getTurrentMupltData().multiple);
 	LogEventFish::getInstance()->addFishHitTimes(lightFish->getFishID());
@@ -1010,6 +999,11 @@ void PlayerTurret::rorateAndShootOnlock(float dt)
 	{
 		auto pos = lockFish->convertToWorldSpace(lockFish->getCentrenPos());
 		float degree = getTurretRotation(getPosition(), pos);
+
+		if (nChairNoIndex > 1)
+		{
+			degree = 180 + degree;
+		}
 		rorateTurret(degree);
 		shootOnLock(0);
 	}

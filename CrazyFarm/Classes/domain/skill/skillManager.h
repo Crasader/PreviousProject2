@@ -31,8 +31,8 @@ public:
 
 	void useSkillLock(PlayerTurret*turret);
 	void useSkillLockEnd(PlayerTurret*turret);
-	void useSkillLight();
-	void useSkillLightEnd();
+	void useSkillLight(PlayerTurret*turret);
+	void useSkillLightEnd(PlayerTurret*turret);
 	void useSkillBoom(PlayerTurret*turret);
 	void init();
 	void addskillButton(int id, SkillButton* button){ map_id_skillbutton[id] = button; };

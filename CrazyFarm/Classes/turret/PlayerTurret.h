@@ -122,7 +122,6 @@ public:
 	  void setAIinfo(AI* info);
 	  void doAIthing(float dt);
 	  void stopAI();
-	  void addGoldFishForAi();
 	  void AIchangeTurret(int lv);
 	  float robotTempTime = 0;//.AI某种策略的计时时间
 		float robotAiLifeTime ;// AI某种策略的生存期

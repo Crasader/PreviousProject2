@@ -70,19 +70,23 @@ void  AIManager::MainUpdata(float dt)
 
 void AIManager::addCreateGoldFish()
 {
-	const int maxvalue = 99999;
+	const int maxvalue = 99999999;
 	nNowCreateGoldFish++;
 	auto turrets = GameManage::getInstance()->getGameLayer()->GetOtherTurret();
 	for (auto var:turrets)
 	{
+		if (var->getTag()==-1)
+		{
+			break;
+		}
 		int lv = var->getTurrentMupltData().multiple;
 		int goldfishneedcounts[5];//±ù¶³Ëø¶¨ÕÙ»½ºËµ¯¼¤¹â
 		if (lv >= 1 && lv <= 10)
 		{
-			goldfishneedcounts[0] = maxvalue;
-			goldfishneedcounts[1] = 6;
+			goldfishneedcounts[0] = 3;
+			goldfishneedcounts[1] = 7;
 			goldfishneedcounts[2] = maxvalue;
-			goldfishneedcounts[3] = maxvalue;
+			goldfishneedcounts[3] =maxvalue;
 			goldfishneedcounts[4] = maxvalue;
 			/*	goldfishneedcounts[0] = 10;
 				goldfishneedcounts[1] = 13;
@@ -130,11 +134,16 @@ void AIManager::addCreateGoldFish()
 			goldfishneedcounts[3] = 13;
 			goldfishneedcounts[4] = 45;
 		}
-
+		for (int i = 0; i < 5;i++)
+		{
+			if (nNowCreateGoldFish % goldfishneedcounts[i] == 0)
+			{
+				skillManager::getInstance()->useSkillById(i + 1, var);
+			}
+		}/*
 		if (nNowCreateGoldFish % goldfishneedcounts[0] == 0)
 		{
 			skillManager::getInstance()->useSkillFreeze(var);
-			
 		}
 		if (nNowCreateGoldFish % goldfishneedcounts[1] == 0)
 		{
@@ -148,15 +157,13 @@ void AIManager::addCreateGoldFish()
 		}
 		if (nNowCreateGoldFish % goldfishneedcounts[3] == 0)
 		{
-		/*	skillManager::getInstance()->useSkillLight(turret);*/
+			skillManager::getInstance()->useSkillLight(var);
 			
 		}
 		if (nNowCreateGoldFish % goldfishneedcounts[4] == 0)
 		{
 			skillManager::getInstance()->useSkillBoom(var);
 		
-		}
-
-
+		}*/
 	}
 }

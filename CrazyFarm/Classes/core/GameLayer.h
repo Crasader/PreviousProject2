@@ -143,13 +143,16 @@ private:
 
 	std::map<int, Sprite*> TxtWaitingTurrent;
 
-
+	public:
+	void onTurretLeave(PlayerTurret*turret);
 ///////强联网相关
 public:
 	virtual void handle_event(const char* msgId, const char* msgBody);
 private:
 //消息
 	static bool sortMsg(const Msg_Base * m1, const Msg_Base * m2);
+
+	
 
 	void onSomeoneLeave(Msg_onLeave* msg);  //玩家离开
 	void onSomeoneComing(Msg_onAdd* msg);  //玩家进入
