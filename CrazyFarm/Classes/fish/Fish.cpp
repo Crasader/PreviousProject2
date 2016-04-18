@@ -26,8 +26,7 @@ void Fish::initFish(int fishID){
 	setisAutoRemove(true);
 	aniEmptyNode = Node::create();
 	addChild(aniEmptyNode);
-	setTargeLightTurret(nullptr);
-	setTargeLockTurret(nullptr);
+	
 	schedule(schedule_selector(Fish::moveUpdata), 0, CC_REPEAT_FOREVER, 0);
 	m_movetype = 0;
 	setFishType(getFishTypeByID(fishID));
@@ -546,11 +545,13 @@ Point Fish::getNextPostion(Point pos, float speed, float degree){
 
 void Fish::onLockShoot(PlayerTurret*turret)
 {
-	auto aniFishLockNode = Sprite::create();
-	aniFishLockNode->setPosition(centerPos);
-	addChild(aniFishLockNode,10,"lockani");
-	aniFishLockNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniFishLock")));
-	setTargeLockTurret(turret);
+	if (!turret->isRobot)
+	{
+		auto aniFishLockNode = Sprite::create();
+		aniFishLockNode->setPosition(centerPos);
+		addChild(aniFishLockNode, 10, "lockani");
+		aniFishLockNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniFishLock")));
+	}
 }
 void Fish::stopLockShoot()
 {
@@ -559,18 +560,18 @@ void Fish::stopLockShoot()
 	{
 		node->removeFromParentAndCleanup(1);
 	}
-	setTargeLockTurret(nullptr);
-
 }
 
 void Fish::onLightShoot(PlayerTurret*turret)
 {
-	auto aniFishLightNode = Sprite::create();
-	aniFishLightNode->setPosition(centerPos);
-	addChild(aniFishLightNode,10,"lightani");
-	aniFishLightNode->setGlobalZOrder(10);
-	aniFishLightNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniDianQiu")));
-	setTargeLightTurret(turret);
+	if (!turret->isRobot)
+	{/*
+		auto aniFishLightNode = Sprite::create();
+		aniFishLightNode->setPosition(centerPos);
+		addChild(aniFishLightNode, 10, "lightani");
+		aniFishLightNode->setGlobalZOrder(10);
+		aniFishLightNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniDianQiu")));*/
+	}
 
 }
 void Fish::stopLightShoot()
@@ -580,7 +581,6 @@ void Fish::stopLightShoot()
 	{
 		node->removeFromParentAndCleanup(1);
 	}
-	setTargeLightTurret(nullptr);
 }
 
 
@@ -1044,34 +1044,6 @@ FishZorder Fish::getFishZorder()
 
 }
 
-void Fish::addLockBullet(Bullet*lockbullet)
-{
-	_lockBullets.push_back(lockbullet);
-}
-void Fish::removeAllBullet()
-{
-	for (auto var:_lockBullets)
-	{
-
-		if (var->getTag()!=-1)
-		{
-			var->stopLock();
-		}
-	}
-}
-
-void Fish::removeSingleBullet(Bullet *lockbullet)
-{
-	for (auto ite = _lockBullets.begin(); ite != _lockBullets.end();ite++)
-	{
-		if (*ite == lockbullet)
-		{
-			_lockBullets.erase(ite);
-			return;
-
-		}
-	}
-}
 
 Vec2 Fish::getCentrenPos()
 {

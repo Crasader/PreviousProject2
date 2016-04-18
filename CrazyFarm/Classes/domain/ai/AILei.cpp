@@ -1,7 +1,23 @@
 #include "domain/ai/AILei.h"
 #include "domain/ai/AIManager.h"
 #include "bullet/BulletManage.h"
-PlayerWork AILei::nextStep(int currentCoins, Point currentPostion, int AiDoCounts) {
+PlayerWork AILei::nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLigh) {
+	if (isUsingSkillLockOrLigh)
+	{
+		if (_currentFish&&_currentFish->getTag() != -1)
+		{
+			_currentFish = FishManage::getInstance()->getLowDistanceGoldFishInPool(currentPostion);
+		}
+		PlayerWork playerwork;
+		playerwork._workeType = Robot_UsingSkill;
+		playerwork._lockFish = _currentFish;
+		return playerwork;
+	}
+
+
+
+
+
 	PlayerWork playerWork = getUpdataTurrentWork(AiDoCounts);
 	if (playerWork._workeType==Invalid)
 	{

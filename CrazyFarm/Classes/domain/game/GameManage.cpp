@@ -34,15 +34,7 @@ void GameManage::showGainMoneyTurrent()
 void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret* turret, bool isDeadByBoom )
 {
 	fish->setisDeadByBoom(isDeadByBoom);
-	if (fish->getTargeLightTurret())
-	{
-		fish->getTargeLightTurret()->setLightFish(nullptr);
-	}
-	if (fish->getTargeLockTurret())
-	{
-		fish->getTargeLockTurret()->setLockFish(nullptr);
-	}
-	fish->removeAllBullet();
+
 	fish->setTag(-1);
 	if (isDead)
 	{

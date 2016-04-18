@@ -10,6 +10,11 @@ bool Laster::init(){
 	
 
 
+		auto aniFishLightNode = Sprite::create();
+		aniFishLightNode->setPosition(Point(0,0));
+		addChild(aniFishLightNode, 1, "lightani");
+		aniFishLightNode->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniDianQiu")));
+
 		runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("aniJiGuangBar")));
 
 		scheduleUpdate();
@@ -26,12 +31,12 @@ void Laster::update(float delta)
 	{
 		removeFromParentAndCleanup(1);
 	}
-	if (pPlayerTurret->getisUsingLight()==false)
-	{
-		removeFromParentAndCleanup(1);
-	}
+	//if (pPlayerTurret->getisUsingLight()==false)
+	//{
+	//	removeFromParentAndCleanup(1);
+	//}
 	auto fish = pPlayerTurret->getLightFish();
-	if (fish)
+	if (fish&&fish->getTag()!=-1)
 	{
 		setPosition(pPlayerTurret->getLasterOrginPos());
 		Vec2 m_pos = pPlayerTurret->getLasterOrginPos();
@@ -40,6 +45,10 @@ void Laster::update(float delta)
 		setTextureRect(Rect(0, 0, distance, getContentSize().height));
 		auto angle = getTurretRotation(m_pos,targetPos);
 		setRotation(-90+angle);
+
+		auto node = getChildByName("lightani");
+		node->setPosition(distance, getContentSize().height / 2);
+
 	}
 	else
 	{

@@ -35,7 +35,6 @@ string Bullet::getSrcByType(int ui_type, int net_type){
 void Bullet::moveToLockfish(float time, Fish*fish)
 {
 	target = fish;
-	target->addLockBullet(this);
 	schedule(schedule_selector(Bullet::moveTolockFishUpadate), 1.0 / 60.0f, CC_REPEAT_FOREVER, 0);
 }
 
@@ -111,14 +110,13 @@ void Bullet::moveTolockFishUpadate(float dt)
 	Rect rect = Rect(-getContentSize().width / 2, -getContentSize().height / 2, getContentSize().width + 960, getContentSize().height + 540);
 	if (checkWidthBorder(getPositionX())||checkHeightBorder(getPositionY()))
 	{
-		target->removeSingleBullet(this);
 		unschedule(schedule_selector(Bullet::moveTolockFishUpadate));
 	
 		BulletManage::getInstance()->moveBulletToCacheFromPool(this);
 		return;
 	}
 
-	if (target != nullptr)
+	if (target != nullptr&&target->getTag()!=-1)
 	{
 		
 		auto pos = target->convertToWorldSpace(target->getCentrenPos());
@@ -131,7 +129,7 @@ void Bullet::moveTolockFishUpadate(float dt)
 
 			unschedule(schedule_selector(Bullet::moveTolockFishUpadate));
 			BulletManage::getInstance()->moveBulletToCacheFromPool(this);
-			target->removeSingleBullet(this);
+	
 			auto turretdata = getTurretdata();
 			auto curryFish = target;
 			if (curryFish == nullptr)
@@ -161,9 +159,7 @@ void Bullet::moveTolockFishUpadate(float dt)
 	}
 	else
 	{
-		BulletManage::getInstance()->getAllBullets().pushBack(this);
-		scheduleUpdate();
-		unschedule(schedule_selector(Bullet::moveTolockFishUpadate));
+		stopLock();
 	}
 }
 

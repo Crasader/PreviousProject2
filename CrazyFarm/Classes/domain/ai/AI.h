@@ -9,7 +9,7 @@ class AI {
 
 public:
 	AI(){ _currentFish = nullptr; }
-    virtual PlayerWork nextStep(int currentCoins, Point currentPostion,int AiDoCounts )= 0;
+    virtual PlayerWork nextStep(int currentCoins, Point currentPostion,int AiDoCounts ,bool isUsingSkillLockOrLight = false)= 0;
     
     CC_SYNTHESIZE(int, maxTurrentLevel, MaxTurrentLevel);
     CC_SYNTHESIZE(float, reqSteps, ReqSteps);

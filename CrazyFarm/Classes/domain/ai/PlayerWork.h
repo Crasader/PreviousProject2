@@ -24,12 +24,9 @@ public:
 	//开火
 	bool _isFire;
 	float _angle;
-	//使用技能
-	int skillid;  ///1-5
-		//锁定激光
-		Fish* _lockFish;
-		//核弹
-		Vec2 _boomPos;
+	//锁定激光
+	Fish* _lockFish = nullptr;
+
 
 private:
     

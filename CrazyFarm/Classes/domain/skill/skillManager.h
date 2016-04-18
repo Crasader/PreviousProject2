@@ -28,8 +28,9 @@ public:
 	void useSkillFreezeEnd(PlayerTurret*turret);
 
 	void useSkillSummon(PlayerTurret*turret);
-	void useSkillLock();
-	void useSkillLockEnd();
+
+	void useSkillLock(PlayerTurret*turret);
+	void useSkillLockEnd(PlayerTurret*turret);
 	void useSkillLight();
 	void useSkillLightEnd();
 	void useSkillBoom(PlayerTurret*turret);

@@ -5,9 +5,9 @@
 #include "widget/LoadingCircle.h"
 using namespace cocos2d;
 //ÄÚÍø
-//#define URL_HEAD_FIX "http://172.23.1.35:1701" 
-//#define URL_HEAD "http://172.23.1.35:1701" 
-//#define TCPIDURL "172.23.1.35" 
+//#define URL_HEAD_FIX "http://172.23.1.54:1701" 
+//#define URL_HEAD "http://172.23.1.54:1701" 
+//#define TCPIDURL "172.23.1.54" 
 //ÕýÊ½
 #define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
 #define URL_HEAD_FIX "http://106.75.135.78:1701"

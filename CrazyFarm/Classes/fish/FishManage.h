@@ -90,7 +90,7 @@ public:
 private:
 	Fish* getFreeFishInCache();
 	Vector<Fish*> fishPool;//屏幕中的鱼
-	std::vector<Fish*> cacheFishPool; //没有用到的普通鱼
+	std::list<Fish*> cacheFishPool; //没有用到的普通鱼
 private :
 	FishManage();
 	static FishManage* _instance;

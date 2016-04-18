@@ -10,7 +10,7 @@ using namespace cocos2d;
 class AIMolo : public AI {
 
 public:
-	virtual PlayerWork nextStep(int currentCoins, Point currentPostion, int AiDoCounts);
+	virtual PlayerWork nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLight = false);
     
     
 private:

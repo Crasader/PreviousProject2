@@ -81,7 +81,7 @@ void skillManager::useSkillById(int skillid, PlayerTurret*turret)
 		getButtonByID(skillid)->skillButonUi(getSkillInfoByID(skillid).cd_time);
 		break;
 	case 2:
-		useSkillLock();
+		useSkillLock(turret);
 		if (turret == GameManage::getInstance()->getGameLayer()->GetMyTurret())
 		{
 			getButtonByID(skillid)->skillButonUi(getSkillInfoByID(skillid).cd_time);
@@ -150,21 +150,42 @@ void skillManager::useSkillFreezeEnd(PlayerTurret*turret)
 	GameManage::getInstance()->getGameLayer()->onFreezeEnd(turret);
 }
 
-void skillManager::useSkillLock()
+void skillManager::useSkillLock(PlayerTurret*turret)
 {
-	if (map_skill_isUsingnow[2])
+	if (turret == GameManage::getInstance()->getGameLayer()->GetMyTurret())
 	{
-		return;
-	}
-	map_skill_isUsingnow[2] = true;
-	GameManage::getInstance()->getGameLayer()->beginLock();
+		if (map_skill_isUsingnow[2])
+		{
+			return;
+		}
+		map_skill_isUsingnow[2] = true;
+		GameManage::getInstance()->getGameLayer()->beginLock();
 
-	getButtonByID(2)->runAction(Sequence::create(DelayTime::create(getSkillInfoByID(2).cd_time), CallFunc::create([=]{useSkillLockEnd(); }), nullptr));
+		getButtonByID(2)->runAction(Sequence::create(DelayTime::create(getSkillInfoByID(2).cd_time), CallFunc::create([=]{useSkillLockEnd(turret); }), nullptr));
+	}
+	else
+	{
+		if (turret->getfireType()==Fire_Lock)
+		{
+			return;
+		}
+		turret->beginLockShoot();
+		turret->runAction(Sequence::create(DelayTime::create(getSkillInfoByID(2).cd_time), CallFunc::create([=]{useSkillLockEnd(turret); }), nullptr));
+	}
+	
 }
-void skillManager::useSkillLockEnd()
+void skillManager::useSkillLockEnd(PlayerTurret*turret)
 {
-	map_skill_isUsingnow[2] = false;
-	GameManage::getInstance()->getGameLayer()->endLock();
+	if (turret == GameManage::getInstance()->getGameLayer()->GetMyTurret())
+	{
+		map_skill_isUsingnow[2] = false;
+		GameManage::getInstance()->getGameLayer()->endLock();
+	}
+	else
+	{
+		turret->endLockShoot();
+	}
+
 }
 
 void skillManager::useSkillBoom(PlayerTurret*turret)

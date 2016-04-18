@@ -128,8 +128,9 @@ protected:
 	CC_SYNTHESIZE(int, nUiID, uiId);
 	CC_SYNTHESIZE(bool, bIsAutoRemove, isAutoRemove);
 
-	CC_SYNTHESIZE(PlayerTurret*, m_targeLightTurret, TargeLightTurret);
-	CC_SYNTHESIZE(PlayerTurret*, m_targeLockTurret, TargeLockTurret);
+
+
+	
 
 	CC_SYNTHESIZE(FISHTYPE, m_FishType, FishType);
 	//Â·¾¶
@@ -149,12 +150,7 @@ protected:
 
 
 	CC_SYNTHESIZE(bool, _isDeadByBoom, isDeadByBoom);
-private:
-	std::vector <Bullet*> _lockBullets;
-public:
-	void addLockBullet(Bullet*lockbullet);
-	void removeAllBullet();
-	void removeSingleBullet(Bullet *lockbullet);
+
 };
 
 #endif

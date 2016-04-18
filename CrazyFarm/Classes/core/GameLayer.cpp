@@ -1004,6 +1004,7 @@ void GameLayer::onSomeoneComing(Msg_onAdd* msg)
 		if (var->getRoomPos() == uiPos)
 		{
 			TxtWaitingTurrent[uiPos]->setVisible(true);
+			BulletManage::getInstance()->removeBulletByTurrent(var);
 			otherTurrets.eraseObject(var);
 			var->removeFromParentAndCleanup(1);
 			break;
@@ -1039,7 +1040,7 @@ void GameLayer::onSomeoneLeave(Msg_onLeave* msg)
 }
 void GameLayer::onClientInit(Msg_onInit* msg)
 {
-	isInitMsg = true;
+
 	calculateFreeChair();
 	m_curIndex = msg->roomPos;
 	//初始座位
@@ -1388,24 +1389,16 @@ void GameLayer::ToPayShopCallBack(Ref*psend)
 	auto node = GameManage::getInstance()->getGuiLayer()->getChildByName("havanoDmToUseskill");
 	node->removeFromParentAndCleanup(1);
 }
+bool GameLayer::sortMsg(const Msg_Base * m1, const Msg_Base * m2)
+{
+	return m1->getMsgId() <= m2->getMsgId();
+}
 void GameLayer::MsgUpdata(float dt)
 {
-	auto msg = Msgs;
 
-	///确保首先执行init方法
-	bool isHavaInitOrConError = false;
-	for (auto var:msg)
-	{
-		if (var->getMsgId() == MsgInit||var->getMsgId()==MsgConError)
-		{
-			isHavaInitOrConError = true;
-			break;
-		}
-	}
-	if (isInitMsg==false&&isHavaInitOrConError==false)
-	{
-		return;
-	}
+	auto msg = Msgs;
+	msg.sort(GameLayer::sortMsg);
+
 	//防止异步线程加入时，Msgs越界处理
 	for (auto var : msg)
 	{

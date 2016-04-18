@@ -147,13 +147,13 @@ private:
 ///////强联网相关
 public:
 	virtual void handle_event(const char* msgId, const char* msgBody);
-	bool getIsConnetscuess(){ return isInitMsg; };
 private:
 //消息
+	static bool sortMsg(const Msg_Base * m1, const Msg_Base * m2);
+
 	void onSomeoneLeave(Msg_onLeave* msg);  //玩家离开
 	void onSomeoneComing(Msg_onAdd* msg);  //玩家进入
 	void onClientInit(Msg_onInit* msg);   //init
-	bool isInitMsg = false;
 	void onFishesMsg(Msg_OnFishes*msg);  //鱼群信息
 	void onConError(Msg_ConError*msg);  //断开连接
 	void onUpdateTurrent(Msg_OnUpdateTurrent*msg); //升级炮塔

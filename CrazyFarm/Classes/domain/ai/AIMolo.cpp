@@ -1,7 +1,17 @@
 #include "domain/ai/AIMolo.h"
 #include "domain/ai/AIManager.h"
 
-PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion, int AiDoCounts) {
+PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLigh) {
+
+
+
+
+
+
+
+
+
+
 	PlayerWork playerWork = getUpdataTurrentWork(AiDoCounts);
 	if (playerWork._workeType == Invalid)
 	{

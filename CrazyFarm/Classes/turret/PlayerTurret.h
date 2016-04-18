@@ -21,6 +21,14 @@ struct TurretData
 	void init(int id, int uiid, double netPer, double catchper, int uiType, int netType){ turrent_id = id, turrent_ui_id = uiid, net_per = netPer, catch_per = catchper; ui_type = uiType, net_type = netType; }
 };
 
+enum FireType
+{
+	Fire_Lock,
+	Fire_Normal,
+	Fire_Light,
+	Fire_Auto
+};
+
 
 
 class PlayerTurret : public Sprite{
@@ -138,7 +146,7 @@ private:
 	  int nNowMoney;
 	  RoomPlayer* m_robotData;
 
-	  CC_SYNTHESIZE(bool, m_isUsingLight, isUsingLight);
+
 	  CC_SYNTHESIZE(bool, m_isShowInfo, IsShowInfo);
 	  CC_SYNTHESIZE(Point, targetPos, TargetPos);
 	  Sprite* aniFishLockNode = NULL;
@@ -149,4 +157,5 @@ private:
 
 	  CC_SYNTHESIZE(float, _chestPer, chestper);
 	  CC_SYNTHESIZE(int, _curRoomPos, curRoomPos);
+	  CC_SYNTHESIZE(FireType, _firetype, fireType);
 };

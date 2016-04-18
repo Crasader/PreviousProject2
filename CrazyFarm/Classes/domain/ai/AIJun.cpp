@@ -1,7 +1,21 @@
 #include "domain/ai/AIJun.h"
 #include "domain/ai/AIManager.h"
 
-PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion, int AiDoCounts) {
+PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion, int AiDoCounts,bool isUsingSkillLockOrLigh) {
+	if (isUsingSkillLockOrLigh)
+	{
+		if (_currentFish&&_currentFish->getTag() != -1)
+		{
+			_currentFish = FishManage::getInstance()->getLowDistanceInPool(currentPostion);
+		}
+		PlayerWork playerwork;
+		playerwork._workeType = Robot_UsingSkill;
+		playerwork._lockFish = _currentFish;
+		return playerwork;
+	}
+
+
+
 
 	PlayerWork playerWork = getUpdataTurrentWork(AiDoCounts);
 	if (playerWork._workeType==Invalid)

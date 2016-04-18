@@ -138,7 +138,7 @@ void AIManager::addCreateGoldFish()
 		}
 		if (nNowCreateGoldFish % goldfishneedcounts[1] == 0)
 		{
-			/*skillManager::getInstance()->useSkillLock();*/
+			skillManager::getInstance()->useSkillLock(var);
 			
 		}
 		if (nNowCreateGoldFish % goldfishneedcounts[2] == 0)

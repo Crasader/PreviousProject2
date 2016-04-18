@@ -113,8 +113,8 @@ Fish* FishManage::getFreeFishInCache()
 		return nullptr;
 	}
 
-	auto fish = cacheFishPool.back();
-	cacheFishPool.pop_back();
+	auto fish = cacheFishPool.front();
+	cacheFishPool.pop_front();
 	fish->setTag(1);
 	return fish;
 }

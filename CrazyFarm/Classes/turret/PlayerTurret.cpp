@@ -49,8 +49,7 @@ bool PlayerTurret::init(){
 
 	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
 	addChild(m_turret, 1);
-
-	setisUsingLight(false);
+	setfireType(Fire_Normal);
 	scheduleUpdate();
 	return true;
 }
@@ -95,9 +94,12 @@ void PlayerTurret::changeNewTurret()
 		auto var = ConfigVipTurrent::getInstance()->getVipTurrent(User::getInstance()->getVipLevel());
 		turretdata.init(var.vip_turrent_id, var.turrent_ui_id, var.net_per, var.catch_per, var.ui_type, var.net_type);
 	}
+	if (getfireType()!=Fire_Light)
+	{
+		m_turret->changeToNewTurret(turretdata.turrent_ui_id);
+	}
 
-
-	m_turret->changeToNewTurret(turretdata.turrent_ui_id);
+	
 }
 
 
@@ -454,7 +456,12 @@ void PlayerTurret::doAIthing(float dt)
 		robotTempTime = 0;
 		robotAiLifeTime = getRand(Server_Seed) % 50 + 155;
 	}
-	auto walk = m_aiinfo->nextStep(nNowMoney, convertToWorldSpace(m_turret->getPosition()), robotDoThingCount++);
+	bool isUsingLockOrLight = false;
+	if (getfireType()==Fire_Lock||getfireType()==Fire_Light)
+	{
+		isUsingLockOrLight = true;
+	}
+	auto walk = m_aiinfo->nextStep(nNowMoney, convertToWorldSpace(m_turret->getPosition()), robotDoThingCount++, isUsingLockOrLight);
 	switch (walk._workeType)
 	{
 	case Robot_Fire:
@@ -473,6 +480,24 @@ void PlayerTurret::doAIthing(float dt)
 	}
 		break;
 	case Robot_UsingSkill:
+	{
+		if (getfireType()==Fire_Lock)
+		{
+			if (walk._lockFish)
+			{
+				setLockFish(walk._lockFish);
+			}
+			
+		}
+		else if (getfireType()==Fire_Light)
+		{
+			if (walk._lockFish)
+			{
+				setLightFish(walk._lockFish);
+			}
+			
+		}
+	}
 		break;
 	case Invalid:
 		break;
@@ -778,11 +803,17 @@ void PlayerTurret::refreshTurretInfo()
 	changeNewTurret();
 }
 void PlayerTurret::setLightFish(Fish* fish)
-{
-	if (fish == nullptr)
+{	
+	auto lastername = String::createWithFormat("Laster_%d", getRoomPos());
+	if (fish==nullptr)
+	{
+		return;
+	}
+
+	if (fish&&fish->getTag()==-1)
 	{
 		lightFish = nullptr;
-		auto node = getParent()->getChildByName("Laster");
+		auto node = getParent()->getChildByName(lastername->getCString());
 		if (node)
 		{
 			node->removeFromParentAndCleanup(1);
@@ -793,37 +824,33 @@ void PlayerTurret::setLightFish(Fish* fish)
 	}
 	else
 	{
-		if (lightFish)
+		if (lightFish&&lightFish->getTag()!=-1)
 		{
-			if (lightFish->getTargeLightTurret() == this)
-			{
-				lightFish->stopLightShoot();
-			}
+			lightFish->stopLightShoot();
 		}
-
-
+		
 		fish->onLightShoot(this);
 	}
 	lightFish = fish;
 
 
-	auto node = getParent()->getChildByName("Laster");
+
+	auto node = getParent()->getChildByName(lastername->getCString());
 	if (node)
 	{
 		node->removeFromParentAndCleanup(1);
 
-		node = nullptr;
 	}
 	auto spLaster = Laster::create();
 	spLaster->setPlayerTurret(this);
-	getParent()->addChild(spLaster, 9, "Laster");
+	getParent()->addChild(spLaster, 9, lastername->getCString());
 
 
 }
 
 void PlayerTurret::rorateAndShootOnlight(float dt)
 {
-	if (lightFish == nullptr)
+	if (lightFish == nullptr || lightFish->getTag()==-1)
 	{
 		return;
 	}
@@ -870,8 +897,13 @@ void PlayerTurret::shootOnLight(float dt)
 
 void PlayerTurret::beginLightShoot()
 {
-	setisUsingLight(true);
-	getChildByName("menuUpDe")->setVisible(false);
+	setfireType(Fire_Light);
+	auto menuUpde = getChildByName("menuUpDe");
+	if (menuUpde)
+	{
+		menuUpde->setVisible(false);
+	}
+	
 	m_turret->changeToLightTurret();
 
 	auto aniNode = Sprite::create();
@@ -884,24 +916,25 @@ void PlayerTurret::beginLightShoot()
 }
 void PlayerTurret::endLightShoot()
 {
-	setisUsingLight(false);
+	setfireType(Fire_Normal);
 	getChildByName("aniTurretLight")->removeFromParentAndCleanup(1);
-	getChildByName("menuUpDe")->setVisible(true);
-	auto node = getParent()->getChildByName("Laster");
+	auto menuUpde = getChildByName("menuUpDe");
+	if (menuUpde)
+	{
+		menuUpde->setVisible(true);
+	}
+	auto lastername = String::createWithFormat("Laster_%d", getRoomPos());
+	auto node = getParent()->getChildByName(lastername->getCString());
 	if (node)
 	{
 		node->unscheduleUpdate();
 		node->removeFromParentAndCleanup(1);
-		node = nullptr;
 	}
 	m_turret->changeToNormalTurret();
-	if (lightFish)
+	if (lightFish&&lightFish->getTag()!=-1)
 	{
 		lightFish->stopLightShoot();
-		setLightFish(nullptr);
 	}
-	stopActionByTag(123);
-
 
 	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlight));
 }
@@ -909,34 +942,37 @@ void PlayerTurret::endLightShoot()
 
 void PlayerTurret::setLockFish(Fish* fish)
 {
-	if (fish == nullptr)
+	if (fish&&fish->getTag()==-1)
 	{
-		auto node = getParent()->getChildByName("TXTTip");
-		if (!node)
+		if (!isRobot)
 		{
-			auto txt = Sprite::create("TXTUseLock.png");
-			txt->setPosition(getPosition() + Vec2(0, 100));
-			txt->runAction(RepeatForever::create(Sequence::create(FadeIn::create(0.8f), FadeOut::create(0.8f), nullptr)));
-			getParent()->addChild(txt, kZorderDialog, "TXTTip");
+			auto node = getParent()->getChildByName("TXTTip");
+			if (!node)
+			{
+				auto txt = Sprite::create("TXTUseLock.png");
+				txt->setPosition(getPosition() + Vec2(0, 100));
+				txt->runAction(RepeatForever::create(Sequence::create(FadeIn::create(0.8f), FadeOut::create(0.8f), nullptr)));
+				getParent()->addChild(txt, kZorderDialog, "TXTTip");
+			}
 		}
+		
 		
 	}
 	else
 	{
-		auto node = getParent()->getChildByName("TXTTip");
-		if (node)
+		if (!isRobot)
 		{
-			node->removeFromParentAndCleanup(1);
-		}
-		if (lockFish)
-		{
-			if (lockFish->getTargeLockTurret() == this)
+			auto node = getParent()->getChildByName("TXTTip");
+			if (node)
+			{
+				node->removeFromParentAndCleanup(1);
+			}	
+			if (lockFish&&lockFish->getTag() != -1)
 			{
 				lockFish->stopLockShoot();
 			}
+
 		}
-
-
 		fish->onLockShoot(this);
 	}
 	lockFish = fish;
@@ -945,6 +981,7 @@ void PlayerTurret::setLockFish(Fish* fish)
 
 void PlayerTurret::beginLockShoot()
 {
+	setfireType(Fire_Lock);
 	auto aniNode = Sprite::create();
 	aniNode->setPosition(m_turret->getPosition());
 	addChild(aniNode, 5, "aniTurretLock");
@@ -953,34 +990,36 @@ void PlayerTurret::beginLockShoot()
 }
 void PlayerTurret::endLockShoot()
 {
+	setfireType(Fire_Normal);
 	getChildByName("aniTurretLock")->removeFromParentAndCleanup(1);
-	if (lockFish)
+	if (lockFish&&lockFish->getTag()!=-1)
 	{
 		lockFish->stopLockShoot();
-		setLockFish(nullptr);
+	/*	setLockFish(nullptr);*/
 	}
 	unschedule(schedule_selector(PlayerTurret::rorateAndShootOnlock));
 }
 
 void PlayerTurret::rorateAndShootOnlock(float dt)
 {
-	if (lockFish == nullptr)
+	if (GameData::getInstance()->getisOnBankrupt())
 	{
 		return;
 	}
-	if (!isRobot&&GameData::getInstance()->getisOnBankrupt())
+	if (lockFish&&lockFish->getTag() != -1)
 	{
-		return;
+		auto pos = lockFish->convertToWorldSpace(lockFish->getCentrenPos());
+		float degree = getTurretRotation(getPosition(), pos);
+		rorateTurret(degree);
+		shootOnLock(0);
 	}
-	auto pos = lockFish->convertToWorldSpace(lockFish->getCentrenPos());
-	float degree = getTurretRotation(getPosition(), pos);
-	rorateTurret(degree);
-	shootOnLock(0);
+	
+	
 	//scheduleOnce(schedule_selector(PlayerTurret::shootOnLock), GameConfig::getInstance()->getShootData().shootInterval);
 }
 void PlayerTurret::shootOnLock(float dt){
 
-	if (lockFish == nullptr)
+	if (lockFish->getTag()==-1)
 	{
 		return;
 	}
@@ -1013,12 +1052,12 @@ void PlayerTurret::shootOnLock(float dt){
 void PlayerTurret::beginAutoShoot()
 {
 	setTargetPos(Vec2(-1, -1));
-
+	setfireType(Fire_Auto);
 	schedule(CC_CALLBACK_1(PlayerTurret::rorateAndShootOnAuto, this), GameConfig::getInstance()->getShootData().shootInterval, "AutoShoot"); //TODO:�ӵ������ٶȡ���Ҫ����
 }
 void PlayerTurret::endAutoShoot()
 {
-
+	setfireType(Fire_Normal);
 	unschedule("AutoShoot");
 }
 
@@ -1200,7 +1239,7 @@ void PlayerTurret::costMoney()
 			GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
 		}
 
-		auto num = Value(m_turretdata.multiple).asInt();
+		auto num = Value(m_turretdata.multiple).asInt()*10;
 		GameData::getInstance()->setcostCoin(GameData::getInstance()->getcostCoin() + num);
 		auto nowCoin = User::getInstance()->addCoins(-num);
 		if (nowCoin <= 0)
