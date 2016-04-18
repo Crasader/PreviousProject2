@@ -83,7 +83,7 @@ void AIManager::addCreateGoldFish()
 		int goldfishneedcounts[5];//±ù¶³Ëø¶¨ÕÙ»½ºËµ¯¼¤¹â
 		if (lv >= 1 && lv <= 10)
 		{
-			goldfishneedcounts[0] = 3;
+			goldfishneedcounts[0] = maxvalue;
 			goldfishneedcounts[1] = 7;
 			goldfishneedcounts[2] = maxvalue;
 			goldfishneedcounts[3] =maxvalue;

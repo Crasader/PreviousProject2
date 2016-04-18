@@ -148,12 +148,13 @@ private:
 ///////强联网相关
 public:
 	virtual void handle_event(const char* msgId, const char* msgBody);
+	void pushBackMsg(Msg_Base*msg);
 private:
 //消息
 	static bool sortMsg(const Msg_Base * m1, const Msg_Base * m2);
 
 	
-
+	
 	void onSomeoneLeave(Msg_onLeave* msg);  //玩家离开
 	void onSomeoneComing(Msg_onAdd* msg);  //玩家进入
 	void onClientInit(Msg_onInit* msg);   //init

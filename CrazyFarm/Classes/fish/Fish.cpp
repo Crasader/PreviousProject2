@@ -216,7 +216,7 @@ void Fish::initFishAnim(int fishID){
 			maggiceff->setPosition(-15 + 132, -15);
 			addChild(maggiceff, 0);
 			sp->setPosition(maggiceff->getPosition());
-			sp->runAction(ac3);
+			sp->runAction(ac4);
 			addChild(sp, 1);
 			fishes.pushBack(sp);
 			fishes.pushBack(maggiceff);

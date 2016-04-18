@@ -76,7 +76,7 @@ public:
 	  void onBankrupt();
 	  void onAIResurgenceCallBack(Node* sender, void* data);
 	  void update(float delta); 
-	 
+	  bool getIsBankrupt();
 	  ///更新炮塔信息
 	  void refreshTurretInfo();
 	  //显示玩家信息

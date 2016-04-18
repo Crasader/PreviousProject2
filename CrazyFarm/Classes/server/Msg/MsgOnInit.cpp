@@ -49,6 +49,7 @@ void Msg_onInit::setBody(const char* msgBody)
 		player->setUserName(user["nick_name"].GetString());
 		player->setRoomPosition(user["r_pos"].GetInt()-1);
 		player->setVipLevel(user["r_pos"].GetInt());
+		player->setchestper(user["catch_per"].GetDouble());
 		roomplayers.push_back(player);
 	}
 	//ÓãÈº

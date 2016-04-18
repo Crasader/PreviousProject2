@@ -30,6 +30,7 @@
 #include "core/showLockTurretLayer.h"
 #include "domain/ai/AIManager.h"
 #include "widget/MyLabelAtlas.h"
+#include "server/Msg/MsgOnAdd.h"
 enum
 {
 	kTagBankrupt = 20
@@ -427,6 +428,14 @@ void PlayerTurret::setAIinfo(AI*info)
 void PlayerTurret::doAIthing(float dt)
 {
 	robotTempTime += dt;
+	//if (robotTempTime>100)
+	//{
+	//	int a = -1;
+	//	onAIResurgenceCallBack(nullptr, &(a));
+	//	robotTempTime = 0;
+	//	return;
+	//	CCLOG("fuck the change robot tttttttttttttttttttttttttttttttttttttttttttttttttttttt!");
+	//}
 	if (robotTempTime>robotAiLifeTime)
 	{
 		m_aiinfo = AIManager::getInstance()->getAI(nNowMoney);
@@ -728,7 +737,18 @@ void PlayerTurret::onExit()
 {
 	Sprite::onExit();
 }
-
+bool PlayerTurret::getIsBankrupt()
+{
+	auto node = getChildByTag(kTagBankrupt);
+	if (node)
+	{
+		return true; 
+	}
+	else
+	{
+		return false;
+	}
+}
 
 void PlayerTurret::onBankrupt()
 {
@@ -740,9 +760,9 @@ void PlayerTurret::onBankrupt()
 
 	if (isRobot)
 	{
-		auto bankrupt = BankruptManager::getInstance()->getRobotBankrupt();
+		auto bankrupt = BankruptManager::getInstance()->getRobotBankrupt(m_turretdata.multiple);
 		stopAI();
-
+		
 		int *k = new int();
 		*k = bankrupt.coins;
 		runAction(Sequence::create(DelayTime::create(bankrupt.wait_time), CallFunc::create(CC_CALLBACK_0(PlayerTurret::onAIResurgenceCallBack, this, this, k)), nullptr));
@@ -759,11 +779,33 @@ void PlayerTurret::onBankrupt()
 }
 void PlayerTurret::onAIResurgenceCallBack(Node* sender, void* data)
 {
-	setAIinfo(m_aiinfo);
+	
 	auto var = *((int*)data);
-	nNowMoney += var;
-	m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
-	getChildByTag(kTagBankrupt)->removeFromParentAndCleanup(1);
+	if (var==-1)
+	{
+		GameManage::getInstance()->getGameLayer()->onTurretLeave(this);
+		auto roomMinlv = ConfigRoom::getInstance()->getRoombyId(GameData::getInstance()->getRoomID()).unlock_turrent_level;
+		Msg_Base*msg = new Msg_onAdd();
+		((Msg_onAdd*)msg)->box_level = m_robotData->getChestLv();
+		((Msg_onAdd*)msg)->catch_per = m_robotData->getchestper();
+		((Msg_onAdd*)msg)->coins = m_robotData->getCoins()*(rand_0_1()*0.5 + 0.8);
+		((Msg_onAdd*)msg)->diamonds = m_robotData->getDiamonds()*(rand_0_1()*0.5+0.8);
+		((Msg_onAdd*)msg)->turrent_level = m_robotData->getMaxTurretLevel();
+		((Msg_onAdd*)msg)->vip_level = m_robotData->getVipLevel();
+		((Msg_onAdd*)msg)->roomPos = -1;
+		((Msg_onAdd*)msg)->username = m_robotData->getUserName();
+		((Msg_onAdd*)msg)->setMsgId(MsgOnAdd);
+	
+		GameManage::getInstance()->getGameLayer()->pushBackMsg(msg);
+	}
+	else
+	{
+		setAIinfo(m_aiinfo);
+		nNowMoney += var;
+		m_CoinLabel->setString(Value(nNowMoney).asString().c_str());
+		getChildByTag(kTagBankrupt)->removeFromParentAndCleanup(1);
+	}
+	
 }
 
 void PlayerTurret::refreshTurretInfo()

@@ -80,7 +80,7 @@ void skillManager::useSkillSummon(PlayerTurret*turret)
 }
 void skillManager::useSkillById(int skillid, PlayerTurret*turret)
 {
-	if (turret == nullptr||turret->getTag()==-1)
+	if (turret == nullptr || turret->getTag() == -1 || turret->getIsBankrupt())
 	{
 		return;
 	}

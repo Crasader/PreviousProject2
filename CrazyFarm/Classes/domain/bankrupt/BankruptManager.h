@@ -19,7 +19,7 @@ public:
 	
 
     Bankrupt getBankrupt();
-	Bankrupt getRobotBankrupt();
+	Bankrupt getRobotBankrupt(int maxlv);
     void addTodayRequestTime();
 private:
     BankruptManager();

@@ -943,13 +943,16 @@ void GameLayer::onGetRewardByfish(PlayerTurret*turrent, Fish*fish, int itemid, i
 	}), RemoveSelf::create(1), nullptr));
 
 }
-
+void GameLayer::pushBackMsg(Msg_Base*msg)
+{
+	Msgs.push_back(msg);
+}
 void GameLayer::handle_event(const char* msgId, const char* msgBody)
 {
 	Msg_Base*msg = MsgHelp::getInfoByMsg(msgId, msgBody);
 	if (msg)
 	{
-		Msgs.push_back(msg);
+		pushBackMsg(msg);
 	}
 	
 }

@@ -29,11 +29,134 @@ Bankrupt BankruptManager::getBankrupt() {
 		return bankrupt;
     }
 }
-Bankrupt BankruptManager::getRobotBankrupt() {
+Bankrupt BankruptManager::getRobotBankrupt(int maxlv) {
+	Bankrupt bankrupt;
+	int lv = maxlv;
+	bankrupt.wait_time = getRand() % 30;
+	int randnum = rand() % 100;
+	
+	if (lv >= 1 && lv <= 10)
+	{
+		if (randnum < 15)
+		{
+			bankrupt.coins = 2000;
+		}
+		else if (randnum < 20)
+		{
+			bankrupt.coins =180000;
+		}
+		else if (randnum<25)
+		{
+			bankrupt.wait_time = 1000;
+			bankrupt.coins = 2000;
+		}
+		else
+		{
+			bankrupt.coins = -1;
+		}
+	}
+	else if (lv > 10 && lv <= 30)
+	{
+		if (randnum < 15)
+		{
+			bankrupt.coins = 2000;
+		}
+		else if (randnum < 20)
+		{
+			bankrupt.coins = 180000;
+		}
+		else if (randnum < 25)
+		{
+			bankrupt.wait_time = 1000;
+			bankrupt.coins = 2000;
+		}
+		else
+		{
+			bankrupt.coins = -1;
+		}
+	}
+	else if (lv > 30 && lv <= 100)
+	{
+		if (randnum < 15)
+		{
+			bankrupt.coins = 2000;
+		}
+		else if (randnum < 20)
+		{
+			bankrupt.coins = 380000;
+		}
+		else if (randnum < 25)
+		{
+			bankrupt.wait_time = 1000;
+			bankrupt.coins = 2000;
+		}
+		else
+		{
+			bankrupt.coins = -1;
+		}
+	}
+	else if (lv > 100 && lv <= 300)
+	{
+		if (randnum < 15)
+		{
+			bankrupt.coins = 2000;
+		}
+		else if (randnum < 20)
+		{
+			bankrupt.coins = 380000;
+		}
+		else if (randnum < 30)
+		{
+			bankrupt.wait_time = 1000;
+			bankrupt.coins = 2000;
+		}
+		else
+		{
+			bankrupt.coins = -1;
+		}
+	}
+	else if (lv > 300 && lv <= 500)
+	{
+		if (randnum < 15)
+		{
+			bankrupt.coins = 2000;
+		}
+		else if (randnum < 20)
+		{
+			bankrupt.coins = 680000;
+		}
+		else if (randnum < 30)
+		{
+			bankrupt.wait_time = 1000;
+			bankrupt.coins = 2000;
+		}
+		else
+		{
+			bankrupt.coins = -1;
+		}
+	}
+	else if (lv > 500 && lv <= 1000)
+	{
+		if (randnum < 15)
+		{
+			bankrupt.coins = 2000;
+		}
+		else if (randnum < 20)
+		{
+			bankrupt.coins = 680000;
+		}
+		else if (randnum < 30)
+		{
+			bankrupt.wait_time = 1000;
+			bankrupt.coins = 2000;
+		}
+		else
+		{
+			bankrupt.coins = -1;
+		}
+	}
 
-		Bankrupt bankrupt;
-		bankrupt.coins = getRand()%20000;
-		bankrupt.wait_time = getRand()%60;
+
 		return bankrupt;
 }
 
