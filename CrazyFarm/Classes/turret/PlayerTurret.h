@@ -41,7 +41,6 @@ public:
 	  void createPlayerCoin(RoomPlayer* user);
 
 	  void initTurretWithType();
-	  void initTurretWithTypeForRobot();
 	  void setUpgradeButton();
 	  void rorateTurret(float angle);
 	  void shoot(float);

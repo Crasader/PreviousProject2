@@ -60,7 +60,15 @@ void PlayerTurret::setUpgradeButton()
 	addChild(menu, 10, "menuUpDe");
 }
 void PlayerTurret::initTurretWithType(){
-	auto vipLevel = User::getInstance()->getVipLevel();
+	int vipLevel;
+	if (isRobot)
+	{
+		vipLevel = m_robotData->getVipLevel();
+	}
+	else
+	{
+		vipLevel = User::getInstance()->getVipLevel();
+	}
 	if (vipLevel == 0)
 	{
 		auto var = ConfigNormalTurrent::getInstance()->getNormalTurrent(User::getInstance()->getMaxTurrentLevel());
@@ -68,7 +76,7 @@ void PlayerTurret::initTurretWithType(){
 	}
 	else
 	{
-		auto var = ConfigVipTurrent::getInstance()->getVipTurrent(User::getInstance()->getVipLevel());
+		auto var = ConfigVipTurrent::getInstance()->getVipTurrent(vipLevel);
 		turretdata.init(var.vip_turrent_id, var.turrent_ui_id, var.net_per, var.catch_per, var.ui_type, var.net_type);
 	}
 
@@ -79,7 +87,15 @@ void PlayerTurret::initTurretWithType(){
 
 void PlayerTurret::changeNewTurret()
 {
-	auto vipLevel = User::getInstance()->getVipLevel();
+	int vipLevel;
+	if (isRobot)
+	{
+		vipLevel = m_robotData->getVipLevel();
+	}
+	else
+	{
+		vipLevel = User::getInstance()->getVipLevel();
+	}
 	if (vipLevel == 0)
 	{
 		auto var = ConfigNormalTurrent::getInstance()->getNormalTurrent(User::getInstance()->getMaxTurrentLevel());
@@ -136,12 +152,7 @@ void PlayerTurret::update(float delta)
 
 
 }
-void PlayerTurret::initTurretWithTypeForRobot(){
-	auto var = ConfigNormalTurrent::getInstance()->getNormalTurrent(m_robotData->getMaxTurretLevel());
-	turretdata.init(var.normal_turrent_id, var.turrent_ui_id, var.catch_per, var.net_per, var.ui_type, var.net_type);
 
-	m_turret->initWithType(turretdata.turrent_ui_id);
-}
 
 void PlayerTurret::upgradeTurret(Ref* psend)
 {
@@ -509,7 +520,7 @@ Point coinPos[4] =
 };
 void PlayerTurret::createPlayerCoin(User* user, int index)
 {
-	isRobot = false;
+
 	auto spCoinBG = Sprite::create("coinAnddiamondBG.png");
 	spCoinBG->setPosition(coinPos[index]);
 	addChild(spCoinBG, 10, index);
@@ -580,7 +591,7 @@ void PlayerTurret::createPlayerCoin(RoomPlayer* user)
 void PlayerTurret::initWithDate(User* user, int index)
 {
 
-
+	isRobot = false;
 	m_turret = Turret::create();
 
 	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
@@ -616,7 +627,7 @@ void PlayerTurret::initWithDate(User* user, int index)
 	initTurretWithType();
 	setUpgradeButton();
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
-nChairNoIndex = index;
+	nChairNoIndex = index;
 	createPlayerCoin(user, index);
 	
 	if (GameData::getInstance()->getisOnBankrupt() || user->getCoins() <= 0)
@@ -629,6 +640,7 @@ nChairNoIndex = index;
 }
 void PlayerTurret::initWithDate(RoomPlayer* user)
 {
+	isRobot = true;
 	m_turret = Turret::create();
 
 	m_turret->setPosition(getContentSize().width / 2, getContentSize().height*0.6);
@@ -662,7 +674,7 @@ void PlayerTurret::initWithDate(RoomPlayer* user)
 	m_robotData = user;
 	m_turretdata = ConfigTurrent::getInstance()->getTurrent(user->getMaxTurretLevel());
 	nChairNoIndex = user->getRoomPosition();
-	initTurretWithTypeForRobot();
+	initTurretWithType();
 	nCurLevel->setString(Value(m_turretdata.turrentId).asString().c_str());
 
 	createPlayerCoin(user);

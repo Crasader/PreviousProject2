@@ -116,6 +116,7 @@ void GameLayer::createTurret(){
 	myTurret->initWithDate(user, m_index);
 	myTurret->setAnchorPoint(ccp(0.5, 0.5));
 	myTurret->setPosition(turretPos[m_index]);
+	myTurret->setTag(m_index);
 	addChild(myTurret, kZorderTurrent);
 	
 

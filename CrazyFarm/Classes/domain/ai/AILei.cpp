@@ -4,7 +4,11 @@
 PlayerWork AILei::nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLigh) {
 	if (isUsingSkillLockOrLigh)
 	{
-		if (_currentFish&&_currentFish->getTag() != -1)
+		if (_currentFish&&_currentFish->getTag() == -1)
+		{
+			_currentFish = FishManage::getInstance()->getLowDistanceGoldFishInPool(currentPostion);
+		}
+		else if (!_currentFish)
 		{
 			_currentFish = FishManage::getInstance()->getLowDistanceGoldFishInPool(currentPostion);
 		}
