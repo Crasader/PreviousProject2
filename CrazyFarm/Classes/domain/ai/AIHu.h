@@ -11,7 +11,7 @@ using namespace cocos2d;
 class AIHu : public AI {
 
 public:
-	virtual PlayerWork nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLight = false);
+	virtual PlayerWork nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLight = false, float bulletWidth = 0);
     
     
 private:

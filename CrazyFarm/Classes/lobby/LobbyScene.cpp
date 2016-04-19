@@ -445,6 +445,21 @@ bool LobbyScene::init()
 	//txt11->setFontSize(500);
 	//addChild(txt11, 500);
 
+
+	//auto start_pos = Vec2(100,100);
+	//auto end_pos = Vec2(500, 500);
+	//float angle = (start_pos-end_pos).getAngle();
+	//float cosValue = 100*cos(angle);
+	//float sinValue = 100*sin(angle);
+
+	//OBBEX obb(Vec2(start_pos.x+sinValue, start_pos.y - cosValue), Vec2(end_pos.x+sinValue, end_pos.y - cosValue), Vec2(end_pos.x- sinValue, end_pos.y + cosValue), Vec2(start_pos.x -sinValue, start_pos.y + cosValue));
+
+	//obb.draw(this);
+
+	//auto drawnode = DrawNode::create();
+	//drawnode->drawPoint(start_pos, 5, Color4F::RED);
+	//drawnode->drawPoint(end_pos, 5, Color4F::RED);
+	//addChild(drawnode, 100);
 	return true;
 }
 void LobbyScene::setValue()

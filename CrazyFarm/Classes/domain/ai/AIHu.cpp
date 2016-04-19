@@ -1,7 +1,7 @@
 #include "domain/ai/AIHu.h"
 #include "domain/ai/AIManager.h"
 #include "bullet/BulletManage.h"
-PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLigh) {
+PlayerWork AIHu::nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLigh, float bulletWidth) {
 	if (isUsingSkillLockOrLigh)
 	{
 		if (_currentFish&&_currentFish->getTag()== -1)

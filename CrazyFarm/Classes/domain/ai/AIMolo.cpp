@@ -1,13 +1,23 @@
 #include "domain/ai/AIMolo.h"
 #include "domain/ai/AIManager.h"
 
-PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLigh) {
+PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLigh, float bulletWidth) {
 
-
-
-
-
-
+	if (isUsingSkillLockOrLigh)
+	{
+		if (_currentFish&&_currentFish->getTag() == -1)
+		{
+			_currentFish = FishManage::getInstance()->getLowDistanceInPool(currentPostion);
+		}
+		else if (!_currentFish)
+		{
+			_currentFish = FishManage::getInstance()->getLowDistanceInPool(currentPostion);
+		}
+		PlayerWork playerwork;
+		playerwork._workeType = Robot_UsingSkill;
+		playerwork._lockFish = _currentFish;
+		return playerwork;
+	}
 
 
 
@@ -21,7 +31,24 @@ PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion, int AiDoCoun
 			if (!AIManager::getInstance()->allowAiFire() || FishManage::getInstance()->getAllFishInPoolCount() < 5) {
 				break;
 			}
-				_currentFish = FishManage::getInstance()->getLowDistanceCouldcatchHighscoreFishInPool(currentPostion);
+
+			if (_currentFish&&_currentFish->getTag() != -1)
+			{
+
+			}
+			else
+			{
+				//增加保护，防止帧数严重降低
+				if (FishManage::getInstance()->getAllFishInPoolCount() > 20)
+				{
+					_currentFish = FishManage::getInstance()->getLowDistanceInPool(currentPostion);
+				}
+			else
+			{
+					_currentFish = FishManage::getInstance()->getLowDistanceCouldcatchHighscoreFishInPool(currentPostion,bulletWidth);
+			}
+				
+			}
 			if (_currentFish&&_currentFish->getTag() != -1)
 			{
 				auto currentPos = _currentFish->convertToWorldSpace(_currentFish->getCentrenPos());
@@ -30,8 +57,17 @@ PlayerWork AIMolo::nextStep(int currentCoins, Point currentPostion, int AiDoCoun
 				{
 					fangle -= 180;
 				}
+				else
+				{
+					fangle -= 360;
+				}
+				if (fangle > 85 || fangle < -85)
+				{
+					break;
+				}
 				angle = fangle;
-				/*CCLOG("aimolo shoot turrentPostion = (%f,%f) _currentPos = (%f,%f)  angle = %f _currentFishId = %d", currentPostion.x, currentPostion.y, currentPos.x, currentPos.y, angle, _currentFish->getFishID());*/
+
+				/*CCLOG("AiJun shoot turrentPostion = (%f,%f) _currentPos = (%f,%f)  angle = %f _currentFishId = %d",currentPostion.x,currentPostion.y,currentPos.x, currentPos.y, angle,_currentFish->getFishID());*/
 				playerWork._isFire = true;
 				playerWork._angle = angle;
 				return playerWork;

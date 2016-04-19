@@ -51,6 +51,7 @@ public:
 public:
 	bool isCollidWithOBB(OBBEX obb);
 	bool isCollidWithPoint(Vec2 pos);
+
 private:
 	Vec2 vertex[4];
 };

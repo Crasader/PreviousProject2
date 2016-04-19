@@ -123,6 +123,11 @@ void Pay::OverbookingActual(int paypoint, int eventPoint)
 
 void Pay::pay(payRequest*data)
 {
+	if (GameManage::getInstance()->getGameLayer())
+	{
+		log("onPayExit");
+		GameManage::getInstance()->getGameLayer()->onExitEX();
+	}
 	prepayid_To_orderid[data->wx_prepayid] = data->orderID;
 	log("pushback data wx_prepayid = %s", data->wx_prepayid.c_str());
 	nowPayOrderId = data->orderID;
@@ -185,6 +190,7 @@ std::string Pay::getPrepayIdByOrderid(std::string orderid)
 }
 void Pay::jniCallBack(int code, const char*msg, const char*wx_prepayid)
 {
+	
 	if (code == 0)
 	{
 		if (!(prepayid_To_orderid.find(wx_prepayid) != prepayid_To_orderid.end()))
@@ -253,7 +259,11 @@ void Pay::DemandEntry(int reqNum, std::string prePayid)
 }
 void Pay::payCallBack(int code, const char* msg, std::vector<RewardValue> rewards, int releprice,std::string prepayid)
 {
-	
+	if (GameManage::getInstance()->getGameLayer())
+	{
+		log("onPayResume");
+		GameManage::getInstance()->getGameLayer()->onPayResum();
+	}
 	PayingDialog::RemovePayDialog();
 	m_state = UnDoing;
 	prepayid_To_orderid.erase(prepayid);

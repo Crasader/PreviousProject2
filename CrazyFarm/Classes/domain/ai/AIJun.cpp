@@ -1,7 +1,7 @@
 #include "domain/ai/AIJun.h"
 #include "domain/ai/AIManager.h"
 
-PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion, int AiDoCounts,bool isUsingSkillLockOrLigh) {
+PlayerWork AIJun::nextStep(int currentCoins, Point currentPostion, int AiDoCounts, bool isUsingSkillLockOrLigh, float bulletWidth) {
 	if (isUsingSkillLockOrLigh)
 	{
 		if (_currentFish&&_currentFish->getTag() == -1)

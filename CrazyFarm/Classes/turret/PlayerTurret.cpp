@@ -438,15 +438,8 @@ void PlayerTurret::setAIinfo(AI*info)
 
 void PlayerTurret::doAIthing(float dt)
 {
+	
 	robotTempTime += dt;
-	//if (robotTempTime>100)
-	//{
-	//	int a = -1;
-	//	onAIResurgenceCallBack(nullptr, &(a));
-	//	robotTempTime = 0;
-	//	return;
-	//	CCLOG("fuck the change robot tttttttttttttttttttttttttttttttttttttttttttttttttttttt!");
-	//}
 	if (robotTempTime>robotAiLifeTime)
 	{
 		m_aiinfo = AIManager::getInstance()->getAI(nNowMoney);
@@ -459,7 +452,9 @@ void PlayerTurret::doAIthing(float dt)
 	{
 		isUsingLockOrLight = true;
 	}
-	auto walk = m_aiinfo->nextStep(nNowMoney, convertToWorldSpace(m_turret->getPosition()), robotDoThingCount++, isUsingLockOrLight);
+	auto bullet = Bullet::create();
+	bullet->initBullet(turretdata,0);
+	auto walk = m_aiinfo->nextStep(nNowMoney, convertToWorldSpace(m_turret->getPosition()), robotDoThingCount++, isUsingLockOrLight, bullet->getContentSize().width);
 	switch (walk._workeType)
 	{
 	case Robot_Fire:
@@ -806,7 +801,7 @@ void PlayerTurret::onAIResurgenceCallBack(Node* sender, void* data)
 		((Msg_onAdd*)msg)->vip_level = m_robotData->getVipLevel();
 		((Msg_onAdd*)msg)->roomPos = -1;
 		((Msg_onAdd*)msg)->username = m_robotData->getUserName();
-		((Msg_onAdd*)msg)->setMsgId(MsgOnAdd);
+		((Msg_Base*)msg)->setMsgId(MsgOnAdd);
 	
 		GameManage::getInstance()->getGameLayer()->pushBackMsg(msg);
 	}
@@ -1287,7 +1282,7 @@ void PlayerTurret::costMoney()
 			GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
 		}
 
-		auto num = Value(m_turretdata.multiple).asInt()*10;
+		auto num = Value(m_turretdata.multiple).asInt();
 		GameData::getInstance()->setcostCoin(GameData::getInstance()->getcostCoin() + num);
 		auto nowCoin = User::getInstance()->addCoins(-num);
 		if (nowCoin <= 0)

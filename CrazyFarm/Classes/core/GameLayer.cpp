@@ -105,11 +105,15 @@ void GameLayer::showYourChairno()
 
 
 void GameLayer::createTurret(){
-	CCLOG("init turret!");
+	CCLOG("init turret!"); 
+	if (myTurret)
+	{
+		return;
+	}
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto vec = players;
 	auto user = User::getInstance();
-
+	
 	myTurret = PlayerTurret::create();
 	
 	
@@ -382,7 +386,7 @@ void GameLayer::collisionUpdate(float dt)
 						per = perForLevel;
 					}
 				}
-				if (k < (per*turretdata.catch_per*bullet->getPlayerTurret()->getchestper()))
+				if (k < (per*turretdata.catch_per*bullet->getPlayerTurret()->getchestper())&&!bullet->getPlayerTurret()->getIsBankrupt())
 				{
 					GameManage::getInstance()->CatchTheFishOntheTurrent(curryFish, 1, bullet->getPlayerTurret());
 				}
@@ -444,7 +448,7 @@ void GameLayer::onEnterTransitionDidFinish()
 
 	initFishAndBulletData();
 
-
+skillManager::getInstance()->init();
 
 
 
@@ -456,7 +460,7 @@ void GameLayer::onEnterTransitionDidFinish()
 		txtclick->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.5f), FadeIn::create(0.5f), DelayTime::create(0.2f), nullptr)));
 	}
 
-	skillManager::getInstance()->init();
+	
 
 
 	auto node = BankruptManager::getInstance()->getgetRewardNode();
@@ -1172,16 +1176,39 @@ void GameLayer::onClientInit(Msg_onInit* msg)
 	
 	addTouchEvent();
 
-	///TEST
-	//MsgFishInfo aaa;
-	//aaa.time = 10;
-	//aaa.fish_ids = 202;
-	//aaa.fish_route = -1;
-	//FishManage::getInstance()->addServerItemFishs(aaa);
-	//FishManage::getInstance()->addServerItemFishs(aaa);
-	//FishManage::getInstance()->addServerItemFishs(aaa);
-	//FishManage::getInstance()->addServerItemFishs(aaa);
-	//FishManage::getInstance()->addServerItemFishs(aaa);
+
+	//auto fish = FishManage::getInstance()->createFishSingle(3);
+	//	fish->setVisible(false);
+	//fish->setisAutoRemove(false);
+	//fish->setMonentEightRoute(1);
+	//fish->setZOrder(fish->getFishZorder());
+	//auto size = fish->getContentSize();
+	//fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(1).startPos + Vec2(-(size.width / 2 + 10), 20 + size.height / 2));
+
+	//fish = FishManage::getInstance()->createFishSingle(3);
+	//fish->setVisible(false);
+	//fish->setisAutoRemove(false);
+	//fish->setMonentEightRoute(2);
+	//fish->setZOrder(fish->getFishZorder());
+	//size = fish->getContentSize();
+	//fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(2).startPos + Vec2(-(size.width / 2 + 10), 20 + size.height / 2));
+
+	//fish = FishManage::getInstance()->createFishSingle(3);
+	//fish->setVisible(false);
+	//fish->setisAutoRemove(false);
+	//fish->setMonentEightRoute(3);
+	//fish->setZOrder(fish->getFishZorder());
+	//size = fish->getContentSize();
+	//fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(3).startPos + Vec2(-(size.width / 2 + 10), 20 + size.height / 2));
+
+	//fish = FishManage::getInstance()->createFishSingle(3);
+	//fish->setVisible(false);
+	//fish->setisAutoRemove(false);
+	//fish->setMonentEightRoute(4);
+	//fish->setZOrder(fish->getFishZorder());
+	//size = fish->getContentSize();
+	//fish->setPosition(MonmetEightRoutedata::getInstance()->getRouteBytag(4).startPos + Vec2(-(size.width / 2 + 10), 20 + size.height / 2));
+	
 }
 void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 {
@@ -1224,6 +1251,19 @@ void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 	GameManage::getInstance()->getGuiLayer()->addChild(DisplayBoard, kZorderMenu);
 
 }
+void GameLayer::onPayResum()
+{
+	Server::getInstance()->conConnect(TCPIDURL, HttpMannger::getInstance()->getGamePort(), User::getInstance()->getSessionid().c_str(), GameData::getInstance()->getRoomID());   // TODO  : test init server
+	Server::getInstance()->add_observer(GameManage::getInstance()->getGameLayer());
+	
+	FishManage::getInstance()->initFishPool();
+
+	auto node = GameManage::getInstance()->getGuiLayer()->getChildByName("ConError");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+	}
+}
 void GameLayer::onConError(Msg_ConError*msg)
 {
 	createFishAcNode->pause();
@@ -1244,6 +1284,7 @@ void GameLayer::onConError(Msg_ConError*msg)
 
 	auto dioag = TwiceSureDialog::createDialog(ChineseWord("ConError").c_str(), CC_CALLBACK_1(GameLayer::exitCallback, this));
 	dioag->setPosition(0, 0);
+	dioag->setName("ConError");
 	dioag->setCloseButtonCallback(CC_CALLBACK_1(GameLayer::exitCallback, this));
 	GameManage::getInstance()->getGuiLayer()->addChild(dioag, 30);
 }

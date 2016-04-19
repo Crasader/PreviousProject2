@@ -862,22 +862,34 @@ Fish*FishManage::getLowDistanceGoldFishInPool(Point pos)
 }
 
 
-bool FishManage::isBeKilledFish(Fish*fish, Point turrentpos)
+bool FishManage::isBeKilledFish(Fish*fish, Point turrentpos, float bulletWidth)
 {
 	bool isBeKilled = true;
+	auto start_pos =  turrentpos;
+	auto end_pos = fish->getPosition();
+	float angle = (start_pos-end_pos).getAngle(end_pos);
+	float cosValue = bulletWidth*cos(angle);
+	float sinValue = bulletWidth*sin(angle);
+
+	OBBEX obbBullet(Vec2(start_pos.x + sinValue, start_pos.y - cosValue), Vec2(end_pos.x + sinValue, end_pos.y - cosValue), Vec2(end_pos.x - sinValue, end_pos.y + cosValue), Vec2(start_pos.x - sinValue, start_pos.y + cosValue));
+
 	for (auto var : fishPool)
 	{
-
-		if (line_rect_intersection(fish->getPosition(), turrentpos,Rect(var->getPositionX()-10,var->getPositionY()-10,20,20)))
+		if (var == fish)
 		{
-			isBeKilled = false;
-			break;
+			continue;
 		}
-
+		for (auto obb:var->getOBBs())
+		{
+			if (obb.isCollidWithOBB(obbBullet))
+			{
+				return false;
+			}
+		}
 	}
 	return isBeKilled;
 }
-Fish*FishManage::getLowDistanceCouldcatchHighscoreFishInPool(Point pos)
+Fish*FishManage::getLowDistanceCouldcatchHighscoreFishInPool(Point pos, float bulletWidth)
 {
 	
 	auto vec = fishPool;
@@ -888,7 +900,7 @@ Fish*FishManage::getLowDistanceCouldcatchHighscoreFishInPool(Point pos)
 	Fish*fish = nullptr;
 	for (auto var:vec)
 	{
-		if (isBeKilledFish(var, pos) && isInTheWindow(var->getPosition()))
+		if (isBeKilledFish(var, pos, bulletWidth) && isInTheWindow(var->getPosition()))
 		{
 			fish = var;
 			break;
@@ -898,7 +910,7 @@ Fish*FishManage::getLowDistanceCouldcatchHighscoreFishInPool(Point pos)
 	{
 		for (auto var : vec)
 		{
-			if (isBeKilledFish(var, pos) && var->getFishGold() > fish->getFishGold())
+			if (isBeKilledFish(var, pos,bulletWidth) && var->getFishGold() > fish->getFishGold())
 			{
 				fish = var;
 			}

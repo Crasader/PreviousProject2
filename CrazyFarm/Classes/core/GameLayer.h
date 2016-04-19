@@ -39,6 +39,7 @@ public:
 	//某条鱼掉落道具或钻石
 	void onGetRewardByfish(PlayerTurret*turrent,Fish*fish,int itemid,int num);
 	void onExitEX();
+	void onPayResum();
 private:
 	void createTurret();//按照类型生成炮塔
 	void addTouchEvent();

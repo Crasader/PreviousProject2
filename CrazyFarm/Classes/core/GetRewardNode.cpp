@@ -24,7 +24,7 @@ GetRewardNode* GetRewardNode::create(Bankrupt baknrupt)
 
 bool GetRewardNode::init(Bankrupt baknrupt)
 {
-	initWithFile("getRewardsNormal.png");
+	initWithFile("BankruptFrame.png");
 	bool bRet = false;
 	do 
 	{	
