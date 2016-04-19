@@ -816,6 +816,9 @@
     <ClCompile Include="..\Classes\domain\mermaid\MermaidTaskBoxLayer.cpp">
       <Filter>src\core\mermaid</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\core\GetRewardDialog.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -1507,6 +1510,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\domain\mermaid\MermaidTaskBoxLayer.h">
       <Filter>src\core\mermaid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\core\GetRewardDialog.h">
+      <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

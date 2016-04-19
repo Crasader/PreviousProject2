@@ -196,7 +196,7 @@ void GameGuiLayer::createSettingBoard()
 {
 	auto menuset = Menu::create();
 	menuset->setPosition(Point::ZERO);
-	addChild(menuset,kZorderMenu);
+	addChild(menuset,kZorderMenu+10);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	setttingBoard = MenuItemImage::create("settingBG.png", "settingBG.png", CC_CALLBACK_1(GameGuiLayer::showSettingCallback, this));
 	setttingBoard->setPosition(visibleSize.width / 2, visibleSize.height + 15);

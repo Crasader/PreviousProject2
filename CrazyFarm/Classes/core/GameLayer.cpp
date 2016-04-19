@@ -463,7 +463,7 @@ skillManager::getInstance()->init();
 	
 
 
-	auto node = BankruptManager::getInstance()->getgetRewardNode();
+	/*auto node = BankruptManager::getInstance()->getgetRewardNode();
 	if (node)
 	{
 		if (node->getParent())
@@ -473,7 +473,7 @@ skillManager::getInstance()->init();
 		node->setPosition(myTurret->getPosition() + Vec2(0, 150));
 		addChild(node);
 	}
-
+*/
 	createFishAcNode = Node::create();
 	createFishAcNode->setPosition(0, 0);
 	addChild(createFishAcNode);
@@ -770,7 +770,12 @@ void GameLayer::onFreezeEnd(PlayerTurret*turret)
 	{
 		return;
 	}
-	turret->getChildByName("freezetxt")->removeFromParentAndCleanup(1);
+	auto node = turret->getChildByName("freezetxt");
+	if (node)
+	{
+		node->removeFromParentAndCleanup(1);
+	}
+
 }
 
 void GameLayer::onClearFish()
@@ -1390,7 +1395,7 @@ void GameLayer::onbankruptRebirth(Msg_OnBankruptRebirth* msg)
 void GameLayer::onBankrupt(Msg_OnBankrupt* msg)
 {
 	myTurret->onBankrupt();
-	GameManage::getInstance()->onBrokeBySomeTurret(myTurret, msg->left_times, msg->wait_time);
+	GameManage::getInstance()->onBrokeBySomeTurret(myTurret, msg->left_times, msg->wait_time,msg->coins);
 }
 void GameLayer::onLuckDraw(Msg_LuckDraw* msg)
 {

@@ -10,7 +10,7 @@ using namespace cocos2d;
 //#define TCPIDURL "172.23.1.54" 
 //ÕýÊ½
 #define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
-#define URL_HEAD_FIX "http://106.75.135.78:1701"
+#define URL_HEAD_FIX "http://106.75.141.82:1701"
 #define URL_HEAD  HttpMannger::getInstance()->getCurUrl().c_str()
 
 

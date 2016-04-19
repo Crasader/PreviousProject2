@@ -8,8 +8,8 @@ class  Msg_OnBankrupt :public Msg_Base
 {
 public:
 	virtual void setBody(const char* msgBody);	
-	int times;
 	int wait_time; 
 	int left_times;
+	int coins;
 };
 

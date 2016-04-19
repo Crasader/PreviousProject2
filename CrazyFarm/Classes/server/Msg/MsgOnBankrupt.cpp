@@ -8,7 +8,11 @@ void Msg_OnBankrupt::setBody(const char* msgBody)
 	{
 		return;
 	}
-	times = doc["times"].GetInt();
 	wait_time = doc["wait_time"].GetInt();
 	left_times = doc["left_times"].GetInt();
+	if (left_times>0)
+	{
+		coins = doc["coins"].GetInt();
+	}
+	
 }

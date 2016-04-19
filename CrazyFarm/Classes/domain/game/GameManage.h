@@ -31,7 +31,7 @@ public:
 	//某塔捕获某鱼
 	void CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret* turret,bool isDeadByBoom = false); 
 	//某塔破产生成破产宝箱
-	void onBrokeBySomeTurret(PlayerTurret*turret,int lefttime,float waittime);
+	void onBrokeBySomeTurret(PlayerTurret*turret, int lefttime, float waittime, int coins);
 	//领取破产宝箱
 	void onRebirthBySomeTurret(int reward_coins);
 

@@ -165,6 +165,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\core\GameGuiLayer.cpp" />
     <ClCompile Include="..\Classes\core\GameLayer.cpp" />
     <ClCompile Include="..\Classes\core\GameScene.cpp" />
+    <ClCompile Include="..\Classes\core\GetRewardDialog.cpp" />
     <ClCompile Include="..\Classes\core\GetRewardNode.cpp" />
     <ClCompile Include="..\Classes\core\GuizuGiftDialog.cpp" />
     <ClCompile Include="..\Classes\core\NotarizeExitDialog.cpp" />
@@ -393,6 +394,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\core\GameGuiLayer.h" />
     <ClInclude Include="..\Classes\core\GameLayer.h" />
     <ClInclude Include="..\Classes\core\GameScene.h" />
+    <ClInclude Include="..\Classes\core\GetRewardDialog.h" />
     <ClInclude Include="..\Classes\core\GetRewardNode.h" />
     <ClInclude Include="..\Classes\core\GuizuGiftDialog.h" />
     <ClInclude Include="..\Classes\core\NotarizeExitDialog.h" />

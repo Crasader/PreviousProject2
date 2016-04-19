@@ -334,13 +334,13 @@ bool LobbyScene::init()
 
 
 
-	//ÆÆ²ú
-	auto node = BankruptManager::getInstance()->getgetRewardNode();
-	if (node&&User::getInstance()->getCoins() <= 0)
-	{
-		node->setPosition(824, 480);
-		addChild(node);
-	}
+	////ÆÆ²ú
+	//auto node = BankruptManager::getInstance()->getgetRewardNode();
+	//if (node&&User::getInstance()->getCoins() <= 0)
+	//{
+	//	node->setPosition(824, 480);
+	//	addChild(node);
+	//}
 
 
 	

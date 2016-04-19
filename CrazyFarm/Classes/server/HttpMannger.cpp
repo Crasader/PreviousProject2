@@ -56,7 +56,7 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 		// dump data
 		std::vector<char> *buffer = response->getResponseData();
 		auto temp = std::string(buffer->begin(), buffer->end());
-		log("http back get cdkey info: %s", temp.c_str());
+		log("http back get login info: %s", temp.c_str());
 		rapidjson::Document doc;
 		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 		if (doc.HasParseError())
@@ -66,7 +66,7 @@ void HttpMannger::onHttpRequestCompletedForRegisterInfo(HttpClient *sender, Http
 			break;
 		}
 
-		int result = doc["error_code"].GetInt();
+		int result = doc["errorcode"].GetInt();
 		value->_errorcode = result;
 		if (result == 0)
 		{

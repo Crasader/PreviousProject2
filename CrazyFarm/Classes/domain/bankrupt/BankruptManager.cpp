@@ -251,7 +251,7 @@ void BankruptManager::onHttpRequestCompletedForBroke(HttpClient *sender, HttpRes
 	if (code == 0)
 	{
 		PlayerTurret* turret = (PlayerTurret*)(response->getHttpRequest()->getUserData());
-		GameManage::getInstance()->onBrokeBySomeTurret(turret, doc["left_times"].GetInt(), 0/*doc["wait_time"].GetInt()*/);
+		GameManage::getInstance()->onBrokeBySomeTurret(turret, doc["left_times"].GetInt(), 0,0/*doc["wait_time"].GetInt()*/);
 	}
 }
 

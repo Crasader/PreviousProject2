@@ -90,6 +90,10 @@ void FishManage::moveFishToCacheFromPool(Fish*fish)
 }
 bool FishManage::initFishPool()
 {
+	for (auto var:fishPool)
+	{
+		var->removeFromParentAndCleanup(1);
+	}
 	fishPool.clear();
 	cacheFishPool.clear();
 	for (int i = 0; i < 500; i++)

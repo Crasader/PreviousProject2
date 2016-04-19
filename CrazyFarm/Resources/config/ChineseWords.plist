@@ -218,6 +218,13 @@
   
       <key>logincheicktip</key>
   <string>对不起，您输入的账号密码有误，请重新输入</string>
+  
+     <key>jiujijin</key>
+  <string>免费救济金</string>
+
+  
+      <key>bankruptCoinGainTime</key>
+  <string>%d秒后可领取</string>
   </dict> 
 </array>
 </plist>

@@ -34,7 +34,7 @@ public:
     CC_SYNTHESIZE(int, coins, Coins);
     CC_SYNTHESIZE(int, diamonds, Diamonds);
     
-    CC_SYNTHESIZE(const char*, userName, UserName);
+    CC_SYNTHESIZE(std::string, userName, UserName);
     CC_SYNTHESIZE(int, level, Level);
 	CC_SYNTHESIZE(int, viplevel, VipLevel);
     CC_SYNTHESIZE(int, maxturretLevel, MaxTurretLevel);

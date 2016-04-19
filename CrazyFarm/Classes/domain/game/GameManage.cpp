@@ -7,6 +7,7 @@
 #include "core/GetRewardNode.h"
 #include "widget/MyLabelAtlas.h"
 #include "domain/mermaid/MermaidTaskMannger.h"
+#include "core/GetRewardDialog.h"
 GameManage* GameManage::_instance = 0;
 
 GameManage* GameManage::getInstance(){
@@ -157,18 +158,24 @@ void  GameManage::CatchTheFishOntheTurrent(Fish*fish, bool isDead, PlayerTurret*
 
 }
 
-void GameManage::onBrokeBySomeTurret(PlayerTurret*turret, int lefttime, float waittime)
+void GameManage::onBrokeBySomeTurret(PlayerTurret*turret, int lefttime, float waittime,int coins)
 {
 	if (lefttime > 0)
 	{
 		Bankrupt baknrupt;
 		baknrupt.time = lefttime;
 		baknrupt.wait_time = waittime;
+		baknrupt.coins = coins;
 		auto layer = m_pGuilayer;
 		auto node = GetRewardNode::create(baknrupt);
 		node->setPosition(turret->getPosition() + Vec2(0, 150));
-		layer->addChild(node, 100);
+		layer->addChild(node, 28);
 		BankruptManager::getInstance()->setgetRewardNode(node);
+
+		auto dialog = GetRewardDialog::create(baknrupt);
+		dialog->setPosition(0,0);
+		layer->addChild(dialog, 40);
+
 	}
 	else if (lefttime == 0)
 	{
