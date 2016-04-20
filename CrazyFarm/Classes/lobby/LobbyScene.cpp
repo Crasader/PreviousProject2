@@ -871,13 +871,13 @@ void LobbyScene::quickBeginCallback(Ref*psend)
 		}
 	}
 
-	auto node = BankruptManager::getInstance()->getgetRewardNode();
-	if (node&&User::getInstance()->getCoins() <= 0)
-	{
-		node->retain();
-		node->removeFromParentAndCleanup(false);
+	//auto node = BankruptManager::getInstance()->getgetRewardNode();
+	//if (node&&User::getInstance()->getCoins() <= 0)
+	//{
+	//	node->retain();
+	//	node->removeFromParentAndCleanup(false);
 
-	}
+	//}
 	GameData::getInstance()->setRoomID(roomDatas.at(i).room_id);
 
 	Director::getInstance()->replaceScene(LoadingSceneLbToGm::createScene());

@@ -234,7 +234,7 @@ bool GameLayer::onTouchBegan(Touch *touch, Event  *event)
 	{
 		return true;
 	}
-	if (GameData::getInstance()->getisOnBankrupt()&&!BankruptManager::getInstance()->getgetRewardNode())
+	if (GameData::getInstance()->getisOnBankrupt()/*&&!BankruptManager::getInstance()->getgetRewardNode()*/)
 	{
 		auto pay = payLayer::createLayer(1);
 		pay->setPosition(0, 0);
@@ -1323,13 +1323,13 @@ void GameLayer::onUpdateTurrent(Msg_OnUpdateTurrent*msg)
 void GameLayer::exitCallback(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
-	auto node = BankruptManager::getInstance()->getgetRewardNode();
-	if (node)
-	{
-		node->retain();
-		node->removeFromParentAndCleanup(false);
+	//auto node = BankruptManager::getInstance()->getgetRewardNode();
+	//if (node)
+	//{
+	//	node->retain();
+	//	node->removeFromParentAndCleanup(false);
 
-	}
+	//}
 	LogEventPageChange::getInstance()->addEventItems(2, 1, 0);
 	onExitEX();
 	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, LobbyScene::createScene()));

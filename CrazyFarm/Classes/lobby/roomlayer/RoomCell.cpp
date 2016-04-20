@@ -57,14 +57,14 @@ void RoomCell::isBeClicked()
 		Director::getInstance()->getRunningScene()->addChild(layer, 100, "tip");
 	}
 	else
-	{
+	{/*
 		auto node = BankruptManager::getInstance()->getgetRewardNode();
 		if (node)
 		{
 			node->retain();
 			node->removeFromParentAndCleanup(false);
 
-		}
+		}*/
 		GameData::getInstance()->setRoomID(m_room.roomid);
 
 			Director::getInstance()->replaceScene( LoadingSceneLbToGm::createScene());

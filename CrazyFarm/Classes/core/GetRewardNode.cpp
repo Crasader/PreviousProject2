@@ -51,7 +51,7 @@ bool GetRewardNode::init(Bankrupt baknrupt)
 
 		///今日很能领取几次救济金
 		auto txt = Sprite::create("TXTBankruptCount.png");
-		txt->setPosition(getContentSize().width / 2, -15);
+		txt->setPosition(getContentSize().width / 2-30, -15);
 		addChild(txt);
 		auto countlabel = LabelAtlas::create(Value(baknrupt.time).asString(), "multipleNum.png", 15, 21, '0');
 		countlabel->setAnchorPoint(Point::ANCHOR_MIDDLE);

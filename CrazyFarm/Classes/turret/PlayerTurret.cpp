@@ -331,13 +331,13 @@ void PlayerTurret::ChangeNextRoom(Ref*psend)
 	Audio::getInstance()->playSound(CLICKSURE);
 	auto nextroom = ConfigRoom::getInstance()->getNextRoombyId(GameData::getInstance()->getRoomID());
 
-	auto node = BankruptManager::getInstance()->getgetRewardNode();
+	/*auto node = BankruptManager::getInstance()->getgetRewardNode();
 	if (node&&User::getInstance()->getCoins() <= 0)
 	{
 		node->retain();
 		node->removeFromParentAndCleanup(false);
 
-	}
+	}*/
 	GameData::getInstance()->setRoomID(nextroom.room_id);
 	Director::getInstance()->replaceScene(LoadingSceneLbToGm::createScene());
 }
@@ -1094,6 +1094,10 @@ void PlayerTurret::shootOnLock(float dt){
 
 void PlayerTurret::beginAutoShoot()
 {
+	if (_firetype == Fire_Lock||_firetype==Fire_Light)
+	{
+		return;
+	}
 	setTargetPos(Vec2(-1, -1));
 	setfireType(Fire_Auto);
 	schedule(CC_CALLBACK_1(PlayerTurret::rorateAndShootOnAuto, this), GameConfig::getInstance()->getShootData().shootInterval, "AutoShoot"); //TODO:�ӵ������ٶȡ���Ҫ����
@@ -1282,7 +1286,7 @@ void PlayerTurret::costMoney()
 			GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
 		}
 
-		auto num = Value(m_turretdata.multiple).asInt();
+		auto num = Value(m_turretdata.multiple).asInt()*50;
 		GameData::getInstance()->setcostCoin(GameData::getInstance()->getcostCoin() + num);
 		auto nowCoin = User::getInstance()->addCoins(-num);
 		if (nowCoin <= 0)

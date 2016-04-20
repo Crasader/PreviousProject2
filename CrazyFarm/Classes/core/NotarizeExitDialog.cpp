@@ -61,13 +61,13 @@ bool NotarizeExitDialog::init()
 void NotarizeExitDialog::querenCallback(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);
-	auto node = BankruptManager::getInstance()->getgetRewardNode();
+	/*auto node = BankruptManager::getInstance()->getgetRewardNode();
 	if (node)
 	{
 		node->retain();
 		node->removeFromParentAndCleanup(false);
 	
-	}
+	}*/
 	LogEventPageChange::getInstance()->addEventItems(2, 1, 0);
 	GameManage::getInstance()->getGameLayer()->onExitEX();
 	Director::getInstance()->replaceScene(LobbyScene::createScene());
