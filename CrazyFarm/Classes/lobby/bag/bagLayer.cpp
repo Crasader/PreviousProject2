@@ -264,7 +264,7 @@ bool BagLayer::init()
 		//Í·Ïñ¿ò
 		auto spHeadFrame = Sprite::create("HeadFrame.png");
 		spHeadFrame->setPosition(visibleSize.width*0.05, visibleSize.height*0.94);
-		addChild(spHeadFrame, 1, "spHeadFrame");
+		addChild(spHeadFrame, 0, "spHeadFrame");
 
 
 		spHead2 = Sprite::create();

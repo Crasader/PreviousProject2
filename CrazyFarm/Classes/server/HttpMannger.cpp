@@ -1838,3 +1838,302 @@ bool HttpMannger::checkIsRelogin(int msgId, std::string msg)
 	}
 	return false;
 }
+
+
+void HttpMannger::HttpToPostRequestGetEmailList()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETEMAILLIST);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetEmailList, this));
+}
+void HttpMannger::onHttpRequestCompletedForGetEmailList(HttpClient *sender, HttpResponse *response)
+{
+	EmailListValue* value = new EmailListValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back email cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+
+			auto &mail_lists = doc["mail_lists"];
+			for (unsigned int i = 0; i < mail_lists.Size(); i++)
+			{
+				auto &temp = mail_lists[i];
+				EmailListItem item;
+				item.mailbox_id = temp["mailbox_id"].GetInt();
+				item.email_title = temp["title"].GetString();
+				item.email_content = temp["content_desc"].GetString();
+				item.email_create_time = temp["create_time"].GetInt();
+				item.isRead = false;
+				auto &rewards = temp["reward_lists"];
+				for (unsigned int j = 0; j < rewards.Size(); j++)
+				{
+					item.email_rewards.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+				}
+				value->_emailListItems.push_back(item);
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_email_info");
+	}
+	else
+	{
+		EventCustom event("get_email_info");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
+}
+
+void HttpMannger::HttpToPostRequestGetEmailReward(int emailId)
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETEMAILREWARDSINGLE);
+	auto requstData = String::createWithFormat("session_id=%s&mailbox_id=%d", sessionid.c_str(), emailId);
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetEmailReward, this));
+	
+}
+void HttpMannger::onHttpRequestCompletedForGetEmailReward(HttpClient *sender, HttpResponse *response)
+{
+
+	EmailRewardValue* value = new EmailRewardValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back emailReward cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto &rewards = doc["reward_lists"];
+			for (unsigned int j = 0; j < rewards.Size(); j++)
+			{
+				value->rewards.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_email_rewards");
+	}
+	else
+	{
+		EventCustom event("get_email_rewards");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
+}
+
+
+
+
+void HttpMannger::HttpToPostRequestGetEmailRewardByAll()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETEMAILREWARDALL);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetEmailRewardByAll, this));
+
+}
+void HttpMannger::onHttpRequestCompletedForGetEmailRewardByAll(HttpClient *sender, HttpResponse *response)
+{
+
+	EmailRewardValue* value = new EmailRewardValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back emailReward cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto &rewards = doc["reward_lists"];
+			for (unsigned int j = 0; j < rewards.Size(); j++)
+			{
+				value->rewards.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_email_rewardsAll");
+	}
+	else
+	{
+		EventCustom event("get_email_rewardsAll");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
+}
+
+
+
+
+void HttpMannger::HttpToPostRequestSendPresent(int item_id, std::string nickname)
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETSENDPRESENT);
+	auto requstData = String::createWithFormat("session_id=%s&item_id=%d&nick_name=%s", sessionid.c_str(),item_id,nickname.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForSendPresent, this));
+
+}
+void HttpMannger::onHttpRequestCompletedForSendPresent(HttpClient *sender, HttpResponse *response)
+{
+
+	SendPresentValue* value = new SendPresentValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back SendPresentValue cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			value->rewards._itemid = doc["item_id"].GetInt();
+			value->rewards._num = doc["nums"].GetInt();
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_sendPresent");
+	}
+	else
+	{
+		EventCustom event("get_sendPresent");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+
+}

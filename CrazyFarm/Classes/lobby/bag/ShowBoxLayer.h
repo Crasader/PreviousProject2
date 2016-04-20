@@ -22,6 +22,7 @@ private:
 	void quedingcallback(Ref*);
 	void closeButtonCallBack(Ref*psend);
 	void httpCallback(Ref*psend);
+	void zengsongCallBack(Ref*psend);
 	Item Iitem;
 	int m_itemId;
 };

@@ -222,3 +222,36 @@ struct RecordGiftValue
 	std::string _errormsg;
 	std::vector<RecordGiftItem> _items;
 };
+
+
+struct EmailListItem
+{
+	int mailbox_id;
+	std::string email_title;
+	std::string email_content;
+	std::vector<RewardValue> email_rewards;
+	int email_create_time;
+	bool isRead ;
+};
+
+
+struct EmailListValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<EmailListItem> _emailListItems;
+};
+
+struct EmailRewardValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<RewardValue> rewards;
+};
+
+struct SendPresentValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	RewardValue rewards;
+};

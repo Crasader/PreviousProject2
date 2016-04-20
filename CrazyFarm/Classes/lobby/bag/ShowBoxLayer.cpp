@@ -9,6 +9,7 @@
 #include "lobby/bag/bagLayer.h"
 #include "config/ConfigChest.h"
 #include "domain/ToolTip/TwiceSureDialog.h"
+#include "TwiceSendDioag.h"
 #include "server/HttpMannger.h"
 ShowBoxLayer*ShowBoxLayer::create(int itemid)
 {
@@ -97,9 +98,9 @@ bool ShowBoxLayer::init(int itemid)
 		}
 		
 			auto BtBuy = MenuItemImage::create("btn_shiyong_1.png", "btn_shiyong_2.png", CC_CALLBACK_1(ShowBoxLayer::quedingcallback, this));
-		BtBuy->setPosition(480,80);
+		BtBuy->setPosition(480+90,80);
 		BtBuy->setName("surebt");
-		auto BtSend = MenuItemImage::create("btn_zengsong_1.png", "btn_zengsong_2.png", CC_CALLBACK_1(ShowBoxLayer::quedingcallback, this));
+		auto BtSend = MenuItemImage::create("btn_zengsong_1.png", "btn_zengsong_2.png", CC_CALLBACK_1(ShowBoxLayer::zengsongCallBack, this));
 		BtSend->setPosition(480-90, 80);
 
 
@@ -108,7 +109,7 @@ bool ShowBoxLayer::init(int itemid)
 
 
 
-		auto menu = Menu::create(BtBuy, close, nullptr);
+		auto menu = Menu::create(BtBuy, BtSend, close, nullptr);
 		menu->setPosition(0, 0);
 		addChild(menu,0,"menu");
 
@@ -143,7 +144,13 @@ bool ShowBoxLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	return true;
 }
-
+void ShowBoxLayer::zengsongCallBack(Ref*psend)
+{
+	auto price = skillManager::getInstance()->getSkillPriceById(skillManager::getInstance()->getSkillInfoByitemId(m_itemId).skill_id);
+	auto dog = TwiceSendDioag::createTwiceSendDioag(m_itemId, 1);
+	dog->setPosition(0, 0);
+	addChild(dog, 30);
+}
 void ShowBoxLayer::quedingcallback(Ref*psend)
 {
 	Audio::getInstance()->playSound(CLICKSURE);

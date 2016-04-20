@@ -28,7 +28,7 @@ bool MissionCell::init(){
 	_progressbar->setPosition(sp->getContentSize() / 2 + Size(0, 0));
 	sp->addChild(_progressbar);
 
-	_progressPercent = LabelAtlas::create("0", "VIPexp_num.png", 14, 22,'0');
+	_progressPercent = MyLabelAtlas::create("0", "nextPoolNum.png", 14, 22, '0',112);
 	_progressPercent->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	_progressPercent->setPosition(_progressbar->getContentSize() / 2);
 	_progressbar->addChild(_progressPercent);

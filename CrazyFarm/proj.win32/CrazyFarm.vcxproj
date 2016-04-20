@@ -190,6 +190,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\bankrupt\BankruptManager.cpp" />
     <ClCompile Include="..\Classes\domain\bonuspool\BonusPoolManager.cpp" />
     <ClCompile Include="..\Classes\domain\coinBox\CoinBox.cpp" />
+    <ClCompile Include="..\Classes\domain\Email\EmailCell.cpp" />
+    <ClCompile Include="..\Classes\domain\Email\EmailContent.cpp" />
+    <ClCompile Include="..\Classes\domain\Email\EmailLayer.cpp" />
+    <ClCompile Include="..\Classes\domain\Email\EmailManager.cpp" />
+    <ClCompile Include="..\Classes\domain\Email\EmailView.cpp" />
     <ClCompile Include="..\Classes\domain\gameConfig\gameConfig.cpp" />
     <ClCompile Include="..\Classes\domain\game\GameManage.cpp" />
     <ClCompile Include="..\Classes\domain\globalschedule\GlobalSchedule.cpp" />
@@ -273,6 +278,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\lobby\bag\ShowBoxLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\ShowGiftLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\ShowSkillLayer.cpp" />
+    <ClCompile Include="..\Classes\lobby\bag\TwiceSendDioag.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\TwiceSureBuySkill.cpp" />
     <ClCompile Include="..\Classes\lobby\CDKeyDialog.cpp" />
     <ClCompile Include="..\Classes\lobby\changeGift\ChangeGiftCell.cpp" />
@@ -356,6 +362,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\widget\GiftCell.cpp" />
     <ClCompile Include="..\Classes\widget\LightEffect.cpp" />
     <ClCompile Include="..\Classes\widget\LoadingCircle.cpp" />
+    <ClCompile Include="..\Classes\widget\MyCustomLabelTTF.cpp" />
     <ClCompile Include="..\Classes\widget\MyDialog.cpp" />
     <ClCompile Include="..\Classes\widget\MyLabelAtlas.cpp" />
     <ClCompile Include="..\Classes\widget\MyLabelTTF.cpp" />
@@ -419,6 +426,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\bankrupt\BankruptManager.h" />
     <ClInclude Include="..\Classes\domain\bonuspool\BonusPoolManager.h" />
     <ClInclude Include="..\Classes\domain\coinBox\CoinBox.h" />
+    <ClInclude Include="..\Classes\domain\Email\EmailCell.h" />
+    <ClInclude Include="..\Classes\domain\Email\EmailContent.h" />
+    <ClInclude Include="..\Classes\domain\Email\EmailLayer.h" />
+    <ClInclude Include="..\Classes\domain\Email\EmailManager.h" />
+    <ClInclude Include="..\Classes\domain\Email\EmailView.h" />
     <ClInclude Include="..\Classes\domain\gameConfig\gameConfig.h" />
     <ClInclude Include="..\Classes\domain\game\GameManage.h" />
     <ClInclude Include="..\Classes\domain\globalschedule\GlobalSchedule.h" />
@@ -502,6 +514,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\lobby\bag\ShowBoxLayer.h" />
     <ClInclude Include="..\Classes\lobby\bag\ShowGiftLayer.h" />
     <ClInclude Include="..\Classes\lobby\bag\ShowSkillLayer.h" />
+    <ClInclude Include="..\Classes\lobby\bag\TwiceSendDioag.h" />
     <ClInclude Include="..\Classes\lobby\bag\TwiceSureBuySkill.h" />
     <ClInclude Include="..\Classes\lobby\CDKeyDialog.h" />
     <ClInclude Include="..\Classes\lobby\changeGift\ChangeGiftCell.h" />
@@ -589,6 +602,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\widget\GiftCell.h" />
     <ClInclude Include="..\Classes\widget\LightEffect.h" />
     <ClInclude Include="..\Classes\widget\LoadingCircle.h" />
+    <ClInclude Include="..\Classes\widget\MyCustomLabelTTF.h" />
     <ClInclude Include="..\Classes\widget\MyDialog.h" />
     <ClInclude Include="..\Classes\widget\MyLabelAtlas.h" />
     <ClInclude Include="..\Classes\widget\MyLabelTTF.h" />

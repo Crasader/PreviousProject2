@@ -15,6 +15,7 @@ public:
 	void loadConfig();
 	std::vector<MissionListItem> &getMissionListData(){ return _missionList; };
 	std::vector<AchieveListItem> &getAchieveListData(){ return _achieveList; };
+	int getCouldReiveNum();
 private:
 	MissionManager();
 	std::vector<MissionListItem> _missionList;

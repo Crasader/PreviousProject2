@@ -60,3 +60,24 @@ void MissionManager::loadConfig()
 	HttpMannger::getInstance()->HttpToPostRequestToGetAchieveInfo();
 }
 
+
+
+int MissionManager::getCouldReiveNum()
+{
+	int i = 0;
+	for (auto var : _missionList)
+	{
+		if (!var.isReceive&&var.current_nums >= var.require_nums)
+		{
+			i++;
+		}
+	}
+	for (auto var : _achieveList)
+	{
+		if (!var.isReceive&&var.current_nums >= var.require_nums)
+		{
+			i++;
+		}
+	}
+	return i;
+}

@@ -51,6 +51,9 @@
 #include "widget/MyLabelAtlas.h"
 #include "domain/bag/BagManager.h"
 #include "domain/login/LoginScene.h"
+#include "domain/Email/EmailManager.h"
+#include "domain/Email/EmailLayer.h"
+#include "widget/MyCustomLabelTTF.h"
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
 
@@ -210,6 +213,15 @@ bool LobbyScene::init()
 	});
 	MissionBT->setPosition(startX, starY);
 	startX += diffX;
+	auto tipCycleNum = Sprite::create("Roundel.png");
+	tipCycleNum->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
+	tipCycleNum->setPosition(MissionBT->getContentSize() + Size(10, 5));
+	MissionBT->addChild(tipCycleNum);
+	tipMissionNumlabel = LabelAtlas::create("0", "RoundelNum.png", 11, 12, '0');
+	tipMissionNumlabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	tipMissionNumlabel->setPosition(tipCycleNum->getContentSize() / 2);
+	tipCycleNum->addChild(tipMissionNumlabel);
+
 
 
 	auto wxshare = MenuItemLabel::create(Label::create("wx_share", "arial", 20), CC_CALLBACK_1(LobbyScene::WxShareCallback, this));
@@ -220,6 +232,23 @@ bool LobbyScene::init()
 	wxshare->setVisible(false);
 	//4.15
 	startX += diffX;
+
+	auto email = MenuItemImage::create("EmailIcon.png","EmailIcon.png", [=](Ref* sender){
+		Audio::getInstance()->playSound(CLICKSURE);
+		auto layer = EmailLayer::create();
+		layer->setPosition(Point::ZERO);
+		addChild(layer, kZorderDialog);
+	});
+	email->setPosition(821, 507);
+	email->setName("email");
+	tipCycleNum = Sprite::create("Roundel.png");
+	tipCycleNum->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
+	tipCycleNum->setPosition(email->getContentSize()+Size(10,5));
+	email->addChild(tipCycleNum);
+	tipEmailNumlabel = LabelAtlas::create("0", "RoundelNum.png", 11, 12, '0');
+	tipEmailNumlabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	tipEmailNumlabel->setPosition(tipCycleNum->getContentSize() / 2);
+	tipCycleNum->addChild(tipEmailNumlabel);
 
 
 	auto VIP = MenuItemImage::create("VIP.png", "VIP.png", CC_CALLBACK_1(LobbyScene::showVipCallBack, this));
@@ -345,7 +374,7 @@ bool LobbyScene::init()
 
 	
 
-	auto menu = Menu::create(addCoin, adddiamond, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, MissionBT, CDKEYbt, wxshare, nullptr);
+	auto menu = Menu::create(addCoin, adddiamond, email, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, MissionBT, CDKEYbt, wxshare, nullptr);
 	menu->setPosition(Point::ZERO);
 	menu->setVisible(false);
 	addChild(menu, kZorderMenu-1,"menu");
@@ -440,26 +469,7 @@ bool LobbyScene::init()
 	runAction(Sequence::create(DelayTime::create(0.1f), CallFunc::create([=]{aniNode->runAction(getForeverAcByNameAndInterval("aniBubble", 0)); }), nullptr));
 
 
-	//auto txt11 = LabelTTF::create("test label arial", "arial", 10);
-	//txt11->setPosition(540, 270);
-	//txt11->setFontSize(500);
-	//addChild(txt11, 500);
-
-
-	//auto start_pos = Vec2(100,100);
-	//auto end_pos = Vec2(500, 500);
-	//float angle = (start_pos-end_pos).getAngle();
-	//float cosValue = 100*cos(angle);
-	//float sinValue = 100*sin(angle);
-
-	//OBBEX obb(Vec2(start_pos.x+sinValue, start_pos.y - cosValue), Vec2(end_pos.x+sinValue, end_pos.y - cosValue), Vec2(end_pos.x- sinValue, end_pos.y + cosValue), Vec2(start_pos.x -sinValue, start_pos.y + cosValue));
-
-	//obb.draw(this);
-
-	//auto drawnode = DrawNode::create();
-	//drawnode->drawPoint(start_pos, 5, Color4F::RED);
-	//drawnode->drawPoint(end_pos, 5, Color4F::RED);
-	//addChild(drawnode, 100);
+	
 	return true;
 }
 void LobbyScene::setValue()
@@ -543,6 +553,8 @@ void LobbyScene::onEnterTransitionDidFinish()
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
 	HttpMannger::getInstance()->HttpToPostRequestToGetUserInfo();
 	MissionManager::getInstance()->loadConfig();
+	EmailManager::getInstance()->loadConfig();
+
 	
 }
 
@@ -680,6 +692,38 @@ void LobbyScene::update(float delta)
 	userName->setString(User::getInstance()->getUserName());
 	viplevel->setString(Value(User::getInstance()->getVipLevel()).asString().c_str());
 	refreshCoinLabel();
+
+
+	int noReadNum = EmailManager::getInstance()->getNoReadNum();
+	if (noReadNum==0)
+	{
+		tipEmailNumlabel->getParent()->getParent()->setVisible(false);
+	}
+	else
+	{
+		tipEmailNumlabel->getParent()->getParent()->setVisible(true);
+		if (noReadNum>9)
+		{
+			tipEmailNumlabel->setString("£º");
+		}
+		else
+		{
+			tipEmailNumlabel->setString(Value(noReadNum).asString().c_str());
+		}
+	}
+
+	int missionNum = MissionManager::getInstance()->getCouldReiveNum();
+
+		if (noReadNum > 9)
+		{
+			tipMissionNumlabel->setString("£º");
+		}
+		else
+		{
+			tipMissionNumlabel->setString(Value(missionNum).asString().c_str());
+		}
+	
+	
 }
 
 void LobbyScene::createRoomLayer()

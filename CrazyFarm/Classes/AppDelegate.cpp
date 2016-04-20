@@ -88,6 +88,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	paths.push_back("game/ui/num");
 	paths.push_back("game/config");
 	paths.push_back("game/ui/lobbylayer");
+	paths.push_back("game/ui/lobbylayer/Email");
 	paths.push_back("game/ui/bagLayer");
 	paths.push_back("game/ui/fish");
 	paths.push_back("game/ui/showfish");

@@ -24,6 +24,8 @@ private:
 	void LackTurrentCallBack(Ref*psend);
 	void satisfyCallBack(Ref*psend);
 	void closeButtonCallBack(Ref*psend);
+
+	void zengsongCallBack(Ref*psend);
 	Item Iitem;
 	int m_itemId;
 };

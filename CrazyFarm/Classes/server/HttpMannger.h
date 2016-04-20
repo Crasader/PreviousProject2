@@ -5,13 +5,13 @@
 #include "widget/LoadingCircle.h"
 using namespace cocos2d;
 //内网
-//#define URL_HEAD_FIX "http://172.23.1.54:1701" 
-//#define URL_HEAD "http://172.23.1.54:1701" 
-//#define TCPIDURL "172.23.1.54" 
+#define URL_HEAD_FIX "http://172.23.1.54:1701" 
+#define URL_HEAD "http://172.23.1.54:1701" 
+#define TCPIDURL "172.23.1.54" 
 //正式
-#define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
-#define URL_HEAD_FIX "http://106.75.141.82:1701"
-#define URL_HEAD  HttpMannger::getInstance()->getCurUrl().c_str()
+//#define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
+//#define URL_HEAD_FIX "http://106.75.141.82:1701"
+//#define URL_HEAD  HttpMannger::getInstance()->getCurUrl().c_str()
 
 
 
@@ -48,6 +48,12 @@ using namespace cocos2d;
 #define URL_GETVIPCOINS  "/vip/getrewards"
 #define URL_CHANGEGFIT  "/change/getrewards"
 #define URL_GETRECORDGFIT "/change/getrecord"
+#define URL_GETEMAILLIST "/mailbox/info/list/get"
+#define URL_GETEMAILREWARDSINGLE "/mailbox/info/reward/get"
+#define URL_GETEMAILREWARDALL "/mailbox/info/reward/get/all"
+#define URL_GETEMAILREWARDPLURAL "/mailbox/info/list/get"
+#define URL_GETSENDPRESENT "/present/give"
+
 struct setNameRequest
 {
 	const char* nickname;
@@ -171,6 +177,19 @@ public:
 
 	void HttpToPostRequestToRecordGift(); 
 	void onHttpRequestCompletedForToRecordGift(HttpClient *sender, HttpResponse *response);
+
+
+	void HttpToPostRequestGetEmailList(); //获取邮箱列表
+	void onHttpRequestCompletedForGetEmailList(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestGetEmailReward(int emailId); //阅读邮箱信
+	void onHttpRequestCompletedForGetEmailReward(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestGetEmailRewardByAll(); //一键领取
+	void onHttpRequestCompletedForGetEmailRewardByAll(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestSendPresent(int item_id,std::string nickname); //赠送礼物
+	void onHttpRequestCompletedForSendPresent(HttpClient *sender, HttpResponse *response);
 private:
 	bool checkIsRelogin(int msgId,std::string msg);///会话ID失效，重新登录
 

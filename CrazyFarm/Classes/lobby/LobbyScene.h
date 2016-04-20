@@ -76,7 +76,8 @@ private:
 	Sprite*langspEmpty;
 	LabelTTF* userName;
 	LabelAtlas *viplevel;
-
+	LabelAtlas*tipEmailNumlabel;
+	LabelAtlas*tipMissionNumlabel;
 	std::list<AudioPopPage> _pages;
 
 

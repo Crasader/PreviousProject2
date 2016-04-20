@@ -10,6 +10,7 @@
 #include "lobby/shop/payLayer.h"
 #include "lobby/bag/TwiceSureBuySkill.h"
 #include "domain/logevent/LogEventPageChange.h"
+#include "TwiceSendDioag.h"
 ShowSkillLayer*ShowSkillLayer::create(int itemid)
 {
 	ShowSkillLayer *pRet = new ShowSkillLayer();
@@ -95,14 +96,15 @@ bool ShowSkillLayer::init(int itemid)
 
 
 		auto BtBuy = MenuItemImage::create("btn_goumai_1.png", "btn_goumai_2.png", CC_CALLBACK_1(ShowSkillLayer::quedingcallback, this));
-		BtBuy->setPosition(480, 80);
+		BtBuy->setPosition(400, 80);
 
 		auto close = MenuItemImage::create("X_1.png", "X_2.png", CC_CALLBACK_1(ShowSkillLayer::closeButtonCallBack, this));
 		close->setPosition(644, 470);
 
+		auto BtSendOther = MenuItemImage::create("btn_zengsong_1.png", "btn_zengsong_2.png", CC_CALLBACK_1(ShowSkillLayer::zengsongCallBack, this));
+		BtSendOther->setPosition(560, 80);
 
-
-		auto menu = Menu::create(BtBuy, close, nullptr);
+		auto menu = Menu::create(BtBuy, close,BtSendOther,nullptr);
 		menu->setPosition(0, 0);
 		addChild(menu);
 
@@ -137,7 +139,13 @@ bool ShowSkillLayer::onTouchBegan(Touch *touch, Event *unused_event)
 {
 	return true;
 }
-
+void ShowSkillLayer::zengsongCallBack(Ref*psend)
+{
+	auto price = skillManager::getInstance()->getSkillPriceById(skillManager::getInstance()->getSkillInfoByitemId(m_itemId).skill_id);
+	auto dog = TwiceSendDioag::createTwiceSendDioag(m_itemId, 200 / price);
+	dog->setPosition(0, 0);
+	addChild(dog, 30);
+}
 void ShowSkillLayer::quedingcallback(Ref*)
 {
 
