@@ -65,21 +65,7 @@ bool FeedbackLayer::init()
 		touchListener->onTouchMoved = CC_CALLBACK_2(FeedbackLayer::onTouchMoved, this);
 		touchListener->onTouchEnded = CC_CALLBACK_2(FeedbackLayer::onTouchEnded, this);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-	//添加系统返回键监听
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyReleased = [=](EventKeyboard::KeyCode code, Event * e){
-		switch (code)
-		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-		
-			break;
-		default:
-			break;
-		}
-	};
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+	
 		bRet = true;
 	} while (0);
 	

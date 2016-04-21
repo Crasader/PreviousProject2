@@ -5,6 +5,7 @@
 #include "domain/bag/BagManager.h"
 #include "domain/game/GameManage.h"
 #include "domain/ToolTip/ToolTipMannger.h"
+#include "widget/MyLabelAtlas.h"
 bool MissionCell::init(){
 
 	auto bg = Sprite::create("missionBg.png");
@@ -28,7 +29,7 @@ bool MissionCell::init(){
 	_progressbar->setPosition(sp->getContentSize() / 2 + Size(0, 0));
 	sp->addChild(_progressbar);
 
-	_progressPercent = MyLabelAtlas::create("0", "nextPoolNum.png", 14, 22, '0',112);
+	_progressPercent = MyLabelAtlas::create("0", "nextPoolNum.png", 12, 19, '0',112);
 	_progressPercent->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	_progressPercent->setPosition(_progressbar->getContentSize() / 2);
 	_progressbar->addChild(_progressPercent);

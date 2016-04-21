@@ -251,6 +251,16 @@
   
        <key>cinYourSendName</key>
   <string>输入你要赠与玩家的昵称</string>
+  
+         <key>redpacktip_1</key>
+  <string>输入口令红包啦</string>
+      <key>redpacktip_2</key>
+  <string>分享越多，好友越多！</string>
+      <key>redpacktip_3</key>
+  <string>好友越多，奖励越多！</string>
+  
+      <key>cinYourRedPackCDkey</key>
+  <string>请输入你的红包兑换码！</string>
   </dict> 
 </array>
 </plist>

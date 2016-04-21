@@ -142,6 +142,12 @@
     <Filter Include="src\lobby\email">
       <UniqueIdentifier>{80862c4d-9055-4df5-b634-56a08d7bb8e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\lobby\RedPack">
+      <UniqueIdentifier>{acc3d78d-b1d2-4f61-b77f-ef8dbdf27acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\lobby\active">
+      <UniqueIdentifier>{e3a9d3e1-3e5f-43d8-a878-43c876673960}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -842,6 +848,21 @@
     </ClCompile>
     <ClCompile Include="..\Classes\lobby\bag\TwiceSendDioag.cpp">
       <Filter>src\lobby\bag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\RedPack\RedPackCell.cpp">
+      <Filter>src\lobby\RedPack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\RedPack\RedPackLayer.cpp">
+      <Filter>src\lobby\RedPack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\domain\RedPack\RedPackChangeCDkey.cpp">
+      <Filter>src\lobby\RedPack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\active\ActiveCell.cpp">
+      <Filter>src\lobby\active</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\lobby\active\ActiveLayer.cpp">
+      <Filter>src\lobby\active</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1558,6 +1579,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\lobby\bag\TwiceSendDioag.h">
       <Filter>src\lobby\bag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\RedPack\RedPackCell.h">
+      <Filter>src\lobby\RedPack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\RedPack\RedPackLayer.h">
+      <Filter>src\lobby\RedPack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\domain\RedPack\RedPackChangeCDkey.h">
+      <Filter>src\lobby\RedPack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\active\ActiveCell.h">
+      <Filter>src\lobby\active</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\lobby\active\ActiveLayer.h">
+      <Filter>src\lobby\active</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

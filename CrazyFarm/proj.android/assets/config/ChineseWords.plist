@@ -71,13 +71,21 @@
   <string>道具名称：核弹</string>
   <key>propName_1007</key>
   <string>道具名称：激光炮</string>
+     <key>propName_1009</key>
+  <string>道具名称：青铜宝箱</string>
+    <key>propName_1010</key>
+  <string>道具名称：白银宝箱</string>
+    <key>propName_1011</key>
+  <string>道具名称：黄金宝箱</string>
+
   <key>buyPropNum</key>
   <string>道具数量：%d个</string>
   
   <key>propPrice</key>
   <string>道具价格：%d钻石</string>
   
-  
+   <key>sendPropNum</key>
+  <string>赠送数量：%d个</string>
   <key>TXTBox_1009</key>
   <string>青铜圣衣加身,捕鱼概率提升%f％</string>
   <key>TXTBox_1010</key>
@@ -225,6 +233,34 @@
   
       <key>bankruptCoinGainTime</key>
   <string>%d秒后可领取</string>
+  
+  <key>EmailCreatTime</key>
+  <string>收件日期：%d-%d-%d</string>
+  
+   <key>EmailContent</key>
+  <string>内容: %s</string>
+  
+   <key>Accessory</key>
+  <string>附件:</string>
+  
+   <key>ItemPutYourBag</key>
+  <string>物品已放入您的背包</string>
+  
+     <key>EmailSave30</key>
+  <string>信箱最多可为您保存30封邮件</string>
+  
+       <key>cinYourSendName</key>
+  <string>输入你要赠与玩家的昵称</string>
+  
+         <key>redpacktip_1</key>
+  <string>输入口令红包啦</string>
+      <key>redpacktip_2</key>
+  <string>分享越多，好友越多！</string>
+      <key>redpacktip_3</key>
+  <string>好友越多，奖励越多！</string>
+  
+      <key>cinYourRedPackCDkey</key>
+  <string>请输入你的红包兑换码！</string>
   </dict> 
 </array>
 </plist>

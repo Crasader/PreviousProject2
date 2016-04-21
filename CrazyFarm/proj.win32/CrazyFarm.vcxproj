@@ -241,6 +241,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\domain\ranklist\RanklistCell.cpp" />
     <ClCompile Include="..\Classes\domain\ranklist\RanklistLayer.cpp" />
     <ClCompile Include="..\Classes\domain\ranklist\RanklistManager.cpp" />
+    <ClCompile Include="..\Classes\domain\RedPack\RedPackCell.cpp" />
+    <ClCompile Include="..\Classes\domain\RedPack\RedPackChangeCDkey.cpp" />
+    <ClCompile Include="..\Classes\domain\RedPack\RedPackLayer.cpp" />
     <ClCompile Include="..\Classes\domain\room\RoomManager.cpp" />
     <ClCompile Include="..\Classes\domain\room\RoomPlayer.cpp" />
     <ClCompile Include="..\Classes\domain\skill\SkillBombButton.cpp" />
@@ -271,6 +274,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\fish\FishOfAllKilled.cpp" />
     <ClCompile Include="..\Classes\fish\FishRouteData.cpp" />
     <ClCompile Include="..\Classes\fish\FishShader.cpp" />
+    <ClCompile Include="..\Classes\lobby\active\ActiveCell.cpp" />
+    <ClCompile Include="..\Classes\lobby\active\ActiveLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\BagCell.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\bagLayer.cpp" />
     <ClCompile Include="..\Classes\lobby\bag\SetNameLayer.cpp" />
@@ -477,6 +482,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\domain\ranklist\RanklistCell.h" />
     <ClInclude Include="..\Classes\domain\ranklist\RanklistLayer.h" />
     <ClInclude Include="..\Classes\domain\ranklist\RanklistManager.h" />
+    <ClInclude Include="..\Classes\domain\RedPack\RedPackCell.h" />
+    <ClInclude Include="..\Classes\domain\RedPack\RedPackChangeCDkey.h" />
+    <ClInclude Include="..\Classes\domain\RedPack\RedPackLayer.h" />
     <ClInclude Include="..\Classes\domain\room\RoomManager.h" />
     <ClInclude Include="..\Classes\domain\room\RoomPlayer.h" />
     <ClInclude Include="..\Classes\domain\skill\SkillBombButton.h" />
@@ -507,6 +515,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\fish\FishOfAllKilled.h" />
     <ClInclude Include="..\Classes\fish\FishRouteData.h" />
     <ClInclude Include="..\Classes\fish\FishShader.h" />
+    <ClInclude Include="..\Classes\lobby\active\ActiveCell.h" />
+    <ClInclude Include="..\Classes\lobby\active\ActiveLayer.h" />
     <ClInclude Include="..\Classes\lobby\bag\BagCell.h" />
     <ClInclude Include="..\Classes\lobby\bag\bagLayer.h" />
     <ClInclude Include="..\Classes\lobby\bag\SetNameLayer.h" />

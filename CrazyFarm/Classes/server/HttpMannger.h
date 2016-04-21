@@ -5,13 +5,13 @@
 #include "widget/LoadingCircle.h"
 using namespace cocos2d;
 //内网
-#define URL_HEAD_FIX "http://172.23.1.54:1701" 
-#define URL_HEAD "http://172.23.1.54:1701" 
-#define TCPIDURL "172.23.1.54" 
+//#define URL_HEAD_FIX "http://172.23.1.54:1701" 
+//#define URL_HEAD "http://172.23.1.54:1701" 
+//#define TCPIDURL "172.23.1.54" 
 //正式
-//#define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
-//#define URL_HEAD_FIX "http://106.75.141.82:1701"
-//#define URL_HEAD  HttpMannger::getInstance()->getCurUrl().c_str()
+#define TCPIDURL HttpMannger::getInstance()->getGameUrl().c_str()
+#define URL_HEAD_FIX "http://106.75.141.82:1701"
+#define URL_HEAD  HttpMannger::getInstance()->getCurUrl().c_str()
 
 
 
@@ -53,6 +53,8 @@ using namespace cocos2d;
 #define URL_GETEMAILREWARDALL "/mailbox/info/reward/get/all"
 #define URL_GETEMAILREWARDPLURAL "/mailbox/info/list/get"
 #define URL_GETSENDPRESENT "/present/give"
+#define URL_GETREDBAGKEY "/hongbao/get"
+#define URL_GETWXSHAREDINFO "/hongbao/shareinfo/get"
 
 struct setNameRequest
 {
@@ -136,6 +138,9 @@ public:
 	void HttpToPostRequestCDKey(std::string cdkey); //兑换码
 	void onHttpRequestCompletedForCDKey(HttpClient *sender, HttpResponse *response);
 
+	void HttpToPostRequestRedpackKey(std::string redPackKey); //红包口令
+	void onHttpRequestCompletedForRedpackKey(HttpClient *sender, HttpResponse *response);
+
 	void HttpToPostRequestOpenBox(int itemid); //开宝箱
 	void onHttpRequestCompletedForOpenBox(HttpClient *sender, HttpResponse *response);
 
@@ -190,6 +195,9 @@ public:
 
 	void HttpToPostRequestSendPresent(int item_id,std::string nickname); //赠送礼物
 	void onHttpRequestCompletedForSendPresent(HttpClient *sender, HttpResponse *response);
+
+	void HttpToPostRequestGetWxSharedInfo(); //获得微信分享信息
+	void onHttpRequestCompletedForGetWxSharedInfo(HttpClient *sender, HttpResponse *response);
 private:
 	bool checkIsRelogin(int msgId,std::string msg);///会话ID失效，重新登录
 

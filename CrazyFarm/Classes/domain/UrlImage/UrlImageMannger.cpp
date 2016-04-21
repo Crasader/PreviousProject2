@@ -20,6 +20,7 @@ void UrlImageMannger::LoadImgByUrl(std::string url)
 	std::string path = getImgNameByUrl(url);
 	if (FileUtils::getInstance()->isFileExist(path))
 	{
+
 		return;
 	}
 
@@ -30,12 +31,10 @@ void UrlImageMannger::LoadImgByUrl(std::string url)
 
 		FILE *fp = fopen(path.c_str(), "wb+");
 		fwrite(buff.c_str(), 1, buffer->size(), fp);
-		fclose(fp);
-
+		fclose(fp);	
 		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(url);
 
 	});
-	LoadingCircle::showLoadingCircle();
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
 	HttpMannger::getInstance()->HttpToPostRequestToGetUrlImg(url);
 }
@@ -48,6 +47,6 @@ std::string UrlImageMannger::getImgNameByUrl(std::string url)
 	{
 		temp.push_back(url.at(i));
 	}
-	temp = FileUtils::sharedFileUtils()->getWritablePath() + temp + ".png";
+	temp = FileUtils::sharedFileUtils()->getWritablePath() + temp;
 	return temp;
 }

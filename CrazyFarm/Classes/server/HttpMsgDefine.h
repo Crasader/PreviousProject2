@@ -115,6 +115,13 @@ struct AchieveListValue
 };
 
 
+struct ActivedValue
+{
+	int _errorcode;
+	std::string _errormsg;
+	std::vector<std::string> imgUrls;
+
+};
 
 
 
@@ -252,6 +259,16 @@ struct EmailRewardValue
 struct SendPresentValue
 {
 	int _errorcode;
+	std::string _errormsg;
+	RewardValue rewards;
+};
+struct WXShareInfoValue
+{
+	int _errorcode;
+	int hongbao_key;
+	std::string shareTitle;
+	std::string shareContent;
+	std::string shareUrl;
 	std::string _errormsg;
 	RewardValue rewards;
 };

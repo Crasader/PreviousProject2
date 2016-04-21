@@ -23,6 +23,7 @@ import com.poixao.crazyfarm.Constants;
 import com.poixao.crazyfarm.R;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXTextObject;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -47,6 +48,7 @@ public class AppActivity extends Cocos2dxActivity  {
 		// 将该app注册到微信
 		msgApi = WXAPIFactory.createWXAPI(this,Constants.APP_ID, false);
 		msgApi.registerApp(Constants.APP_ID);//写死
+		
 	}
 	
 	public static void SKYpay(final int price, final String orderId) {
@@ -114,8 +116,8 @@ public class AppActivity extends Cocos2dxActivity  {
 	}
 	
 	public  static void shareToWx(){
-		((AppActivity)AppActivity.activity).shareWebPage("www.baidu.com", "您的好友邀请您一起捞鱼哦", "捕鱼咯", true);
-
+		((AppActivity)AppActivity.activity).shareWebPage("192.168.1.1", "您的好友邀请您一起捞鱼哦", "捕呀捕,捕到一个大逗比", true);
+		
 	}
 	
 	public void shareWebPage(String webpageUrl, String title,
@@ -132,6 +134,21 @@ public class AppActivity extends Cocos2dxActivity  {
 				: SendMessageToWX.Req.WXSceneSession;
 		req.scene = SendMessageToWX.Req.WXSceneSession;
 		msgApi.sendReq(req);
+
+//		WXTextObject textObj = new WXTextObject();
+//		textObj.text = title;
+//		
+//		WXMediaMessage msg = new WXMediaMessage();
+//		msg.mediaObject = textObj;
+//		msg.description = title;
+//		
+//		SendMessageToWX.Req req = new SendMessageToWX.Req();
+//		req.transaction = buildTransaction("text");
+//		req.message = msg;
+//		req.scene = friends ? SendMessageToWX.Req.WXSceneTimeline
+//				: SendMessageToWX.Req.WXSceneSession;
+//		req.scene = SendMessageToWX.Req.WXSceneSession;
+//		msgApi.sendReq(req);
 
 	}
 

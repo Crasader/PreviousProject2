@@ -3,6 +3,7 @@
 #include "domain/ToolTip/TwiceSureDialog.h"
 #include "utill/FunUtil.h"
 #include "utill/Audio.h"
+#include "domain/bag/BagManager.h"
 bool CDKeyDialog::init()
 {
 	if ( !BaseLayer::init() )
@@ -99,6 +100,11 @@ void CDKeyDialog::quedingcallback(Ref*send)
 		{
 		case 0:
 			dialog = TwiceSureDialog::createDialog("get cdkey successful");
+			for (auto var : value->_rewards)
+			{
+				BagManager::getInstance()->addreward(var._itemid, var._num);
+			}
+
 			break;
 		case 404:
 			dialog = TwiceSureDialog::createDialog("time out");

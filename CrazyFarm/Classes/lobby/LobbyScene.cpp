@@ -54,6 +54,8 @@
 #include "domain/Email/EmailManager.h"
 #include "domain/Email/EmailLayer.h"
 #include "widget/MyCustomLabelTTF.h"
+#include "lobby/active/ActiveLayer.h"
+#include "domain/RedPack/RedPackLayer.h"
 const Vec2 roomPos[5] = { Vec2(-300, 300), Vec2(212, 300), Vec2(500, 300), Vec2(788, 300), Vec2(960 + 300, 300) };
 
 
@@ -224,13 +226,22 @@ bool LobbyScene::init()
 
 
 
-	auto wxshare = MenuItemLabel::create(Label::create("wx_share", "arial", 20), CC_CALLBACK_1(LobbyScene::WxShareCallback, this));
+	auto wxshare = MenuItemImage::create("redPack.png","redPack.png", CC_CALLBACK_1(LobbyScene::WxShareCallback, this));
 	wxshare->setPosition(startX, starY);
 	wxshare->setName("wxshare");
 
-	//4.15
-	wxshare->setVisible(false);
-	//4.15
+	startX += diffX;
+
+
+
+	auto active = MenuItemImage::create("activeIcon.png", "activeIcon.png", [=](Ref*)
+	{
+		Audio::getInstance()->playSound(CLICKSURE);
+		auto layer = ActiveLayer::create();
+		layer->setPosition(Point::ZERO);
+		addChild(layer, kZorderDialog);
+	});
+	active->setPosition(startX, starY);
 	startX += diffX;
 
 	auto email = MenuItemImage::create("EmailIcon.png","EmailIcon.png", [=](Ref* sender){
@@ -249,6 +260,9 @@ bool LobbyScene::init()
 	tipEmailNumlabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	tipEmailNumlabel->setPosition(tipCycleNum->getContentSize() / 2);
 	tipCycleNum->addChild(tipEmailNumlabel);
+
+
+	
 
 
 	auto VIP = MenuItemImage::create("VIP.png", "VIP.png", CC_CALLBACK_1(LobbyScene::showVipCallBack, this));
@@ -374,7 +388,7 @@ bool LobbyScene::init()
 
 	
 
-	auto menu = Menu::create(addCoin, adddiamond, email, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, MissionBT, CDKEYbt, wxshare, nullptr);
+	auto menu = Menu::create(addCoin, adddiamond, email, bag, guizu, changeReward, quickBegin, rankList, VIP, fistPay, exitBt, close1, feedbackbt, MissionBT, CDKEYbt, wxshare,active, nullptr);
 	menu->setPosition(Point::ZERO);
 	menu->setVisible(false);
 	addChild(menu, kZorderMenu-1,"menu");
@@ -714,12 +728,18 @@ void LobbyScene::update(float delta)
 
 	int missionNum = MissionManager::getInstance()->getCouldReiveNum();
 
-		if (noReadNum > 9)
+		if (missionNum > 9)
 		{
+			tipMissionNumlabel->getParent()->setVisible(true);
 			tipMissionNumlabel->setString("£º");
 		}
-		else
+		else if (missionNum==0)
 		{
+			tipMissionNumlabel->getParent()->setVisible(false);
+		}
+		else 
+		{
+			tipMissionNumlabel->getParent()->setVisible(true);
 			tipMissionNumlabel->setString(Value(missionNum).asString().c_str());
 		}
 	
@@ -791,7 +811,9 @@ void LobbyScene::bagButtonCallback(Ref*psend)
 }
 void LobbyScene::WxShareCallback(Ref*psend)
 {
-	JniFunUtill::getInstance()->WXShare();
+	auto dog = RedPackLayer::create();
+	dog->setPosition(0, 0);
+	addChild(dog, 30);
 }
 void LobbyScene::changeRewardCallback(Ref*psend)
 {

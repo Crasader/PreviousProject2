@@ -917,6 +917,76 @@ void HttpMannger::onHttpRequestCompletedForCDKey(HttpClient *sender, HttpRespons
 	}
 }
 
+
+
+void HttpMannger::HttpToPostRequestRedpackKey(std::string cdkey)
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETREDBAGKEY);
+	auto requstData = String::createWithFormat("session_id=%s&hongbao_id=%s", sessionid.c_str(), cdkey.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForRedpackKey, this));
+}
+void HttpMannger::onHttpRequestCompletedForRedpackKey(HttpClient *sender, HttpResponse *response)
+{
+	CDkeyValue* value = new CDkeyValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back get cdkey info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			auto& rewards = doc["reward_lists"];
+			for (unsigned int i = 0; i < rewards.Size(); i++)
+			{
+				value->_rewards.push_back(RewardValue(rewards[i]["item_id"].GetInt(), rewards[i]["nums"].GetInt()));
+			}
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("RedPackCDkey");
+	}
+	else
+	{
+		EventCustom event("RedPackCDkey");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
+}
+
 void HttpMannger::HttpToPostRequestOpenBox(int itemid) //±³°ü¹ºÂòµÀ¾ß
 {
 	auto sessionid = User::getInstance()->getSessionid();
@@ -1267,7 +1337,7 @@ void HttpMannger::HttpToPostRequestToGetActiveInfo()
 }
 void HttpMannger::onHttpRequestCompletedForGetActiveInfo(HttpClient *sender, HttpResponse *response)
 {
-	GuizuRewardValue* value = new GuizuRewardValue();
+	ActivedValue* value = new ActivedValue();
 	while (1)
 	{
 		if (!response)
@@ -1284,7 +1354,7 @@ void HttpMannger::onHttpRequestCompletedForGetActiveInfo(HttpClient *sender, Htt
 		// dump data
 		std::vector<char> *buffer = response->getResponseData();
 		auto temp = std::string(buffer->begin(), buffer->end());
-		log("http back openbox cb  info: %s", temp.c_str());
+		log("http back active cb  info: %s", temp.c_str());
 		rapidjson::Document doc;
 		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
 		if (doc.HasParseError())
@@ -1298,10 +1368,10 @@ void HttpMannger::onHttpRequestCompletedForGetActiveInfo(HttpClient *sender, Htt
 		value->_errorcode = result;
 		if (result == 0)
 		{
-			auto &rewards = doc["reward_lists"];
-			for (unsigned int j = 0; j < rewards.Size(); j++)
+			auto &item_lists = doc["item_lists"];
+			for (unsigned int i = 0; i < item_lists.Size();i++)
 			{
-				value->rewards.push_back(RewardValue(rewards[j]["item_id"].GetInt(), rewards[j]["nums"].GetInt()));
+				value->imgUrls.push_back(item_lists[i]["pic_url"].GetString());
 			}
 		}
 		else
@@ -1312,11 +1382,11 @@ void HttpMannger::onHttpRequestCompletedForGetActiveInfo(HttpClient *sender, Htt
 	}
 	if (checkIsRelogin(value->_errorcode, value->_errormsg))
 	{
-		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("active");
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("getactiveinfo");
 	}
 	else
 	{
-		EventCustom event("active");
+		EventCustom event("get_active_info");
 		event.setUserData(value);
 		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 	}
@@ -2136,4 +2206,72 @@ void HttpMannger::onHttpRequestCompletedForSendPresent(HttpClient *sender, HttpR
 		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 	}
 
+}
+
+
+void HttpMannger::HttpToPostRequestGetWxSharedInfo()
+{
+	auto sessionid = User::getInstance()->getSessionid();
+	if (sessionid == "")
+	{
+		return;
+	}
+	auto url = String::createWithFormat("%s%s", URL_HEAD, URL_GETWXSHAREDINFO);
+	auto requstData = String::createWithFormat("session_id=%s", sessionid.c_str());
+	HttpClientUtill::getInstance()->onPostHttp(requstData->getCString(), url->getCString(), CC_CALLBACK_2(HttpMannger::onHttpRequestCompletedForGetWxSharedInfo, this));
+}
+void HttpMannger::onHttpRequestCompletedForGetWxSharedInfo(HttpClient *sender, HttpResponse *response)
+{
+	WXShareInfoValue* value = new WXShareInfoValue();
+	while (1)
+	{
+		if (!response)
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		if (!response->isSucceed())
+		{
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+		long statusCode = response->getResponseCode();
+		// dump data
+		std::vector<char> *buffer = response->getResponseData();
+		auto temp = std::string(buffer->begin(), buffer->end());
+		log("http back wxshare cb  info: %s", temp.c_str());
+		rapidjson::Document doc;
+		doc.Parse<rapidjson::kParseDefaultFlags>(temp.c_str());
+		if (doc.HasParseError())
+		{
+			log("get json data err!");
+			value->_errorcode = TIMEOUT;
+			break;
+		}
+
+		int result = doc["errorcode"].GetInt();
+		value->_errorcode = result;
+		if (result == 0)
+		{
+			value->hongbao_key= doc["hongbao_key"].GetInt();
+			value->shareContent = doc["content"].GetString();
+			value->shareTitle = doc["title"].GetString();
+			value->shareUrl = doc["share_url"].GetString();
+		}
+		else
+		{
+			value->_errormsg = doc["errormsg"].GetString();
+		}
+		break;
+	}
+	if (checkIsRelogin(value->_errorcode, value->_errormsg))
+	{
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("get_wxshareinfo");
+	}
+	else
+	{
+		EventCustom event("get_wxshareinfo");
+		event.setUserData(value);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	}
 }
