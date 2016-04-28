@@ -1,0 +1,58 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>-><a href="/map/data/event" role="button">游戏分析</a>->鱼群统计</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>day[YYYYMMDD]</p>
+	<input type="text" value={{key_day}} name="day" class="search-query">
+	<select id="room_id" name="room_id" class="search-query" data-size="5" >
+	        <option value='0'>所有房间</option>
+					<option value='1'>1倍房间</option>
+					<option value='2'>30倍房间</option>
+					<option value='3'>100倍房间</option>
+					<option value='4'>300倍房间</option>
+	 </select>
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>房间号</th>
+				<th>鱼序号</th>
+				<th>创建/次</th>
+				<th>击中/次</th>
+				<th>捕获/次</th>
+				<th>捕获占比</th>
+				<th>消耗/金币</th>
+				<th>获得/金币</th>
+				<th>系统回收/金币</th>
+				<th>用户捕获/次</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each fishinfo}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{room_id}}</td>
+					<td>{{fish_id}}</td>
+					<td>{{create_times}}</td>
+					<td>{{hit_times}}</td>
+					<td>{{catch_times}}</td>
+					<td>{{catch_per}}</td>
+					<td>{{hit_moneys}}</td>
+					<td>{{catch_moneys}}</td>
+					<td>{{recovery_moneys}}</td>
+					<td>{{catch_times_user}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<div class="alert alert-info" role="alert">
+				<p>目前查询还没有分房间查看，后续还会补全原始数据分析后的结果。</p>
+				<p><strong>消耗</strong> 统计的所有用户（含机器人）的消耗。</p>
+	</div>
+</div>

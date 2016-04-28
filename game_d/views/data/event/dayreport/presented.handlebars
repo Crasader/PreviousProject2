@@ -1,0 +1,39 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>-><a href="/map/data/event" role="button">游戏分析</a>->赠送统计</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>day[YYYYMMDD]</p><input type="text" value={{key_day}} name="day" class="search-query">
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>赠送道具</th>
+				<th>赠送次数</th>
+				<th>赠送用户数</th>
+				<th>人均赠送/个</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each presentedinfo}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{prop_id}}</td>
+					<td>{{nums}}</td>
+					<td>{{user_nums}}</td>
+						<td>{{user_nums_per}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<div class="alert alert-info" role="alert">
+				<p>client统计时机为：进入大厅或者切换后台(2016-02-29)。</p>
+				<p>只统计游戏中鱼掉落物品。</p>
+  			<p>掉落规则：50-120炮赠送1钻石，200-300炮赠送随机道具1个.</p>
+	</div>
+</div>

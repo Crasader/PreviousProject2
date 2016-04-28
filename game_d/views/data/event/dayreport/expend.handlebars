@@ -1,0 +1,54 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>-><a href="/map/data/event" role="button">游戏分析</a>->消耗统计</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>day[YYYYMMDD]</p><input type="text" value={{key_day}} name="day" class="search-query">
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>金币获得用户</th>
+				<th>金币获得</th>
+				<th>人均获得</th>
+				<th>金币消耗用户</th>
+				<th>金币消耗</th>
+				<th>人均消耗</th>
+				<th>钻石获得用户</th>
+				<th>钻石获得</th>
+				<th>人均获得</th>
+				<th>钻石消耗用户</th>
+				<th>钻石消耗</th>
+				<th>人均消耗</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each expendInfo}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{coin_get_user}}</td>
+					<td>{{coin_gets}}</td>
+					<td>{{coin_get_per}}</td>
+					<td>{{coin_use_user}}</td>
+					<td>{{coin_uses}}</td>
+					<td>{{coin_use_per}}</td>
+					<td>{{diamond_get_user}}</td>
+					<td>{{diamond_gets}}</td>
+					<td>{{diamond_get_per}}</td>
+					<td>{{diamond_use_user}}</td>
+					<td>{{diamond_uses}}</td>
+					<td>{{diamond_use_per}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<div class="alert alert-info" role="alert">
+				<p>进入大厅的时候同步一次。</p>
+				<p>"我觉得以上数据不可信。"-By康俊@20160229</p>
+	</div>
+</div>

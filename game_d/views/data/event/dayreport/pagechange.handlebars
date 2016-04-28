@@ -1,0 +1,42 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>-><a href="/map/data/event" role="button">游戏分析</a>->页面跳转</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>day[YYYYMMDD]</p><input type="text" value={{key_day}} name="day" class="search-query">
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>进入页面</th>
+				<th>来自页面</th>
+				<th>活跃用户次数</th>
+				<th>活跃用户数</th>
+				<th>新增使用次数</th>
+				<th>新增使用用户数</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each pagechangeinfo}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{to_page}}</td>
+					<td>{{from_page}}</td>
+					<td>{{nums}}</td>
+					<td>{{user_nums}}</td>
+					<td>{{new_nums}}</td>
+					<td>{{new_user_nums}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<div class="alert alert-info" role="alert">
+				<p>2016-3-16 增加当天新增用户和页面使用新增用户统计，目的是为了统计新手玩家从大厅到游戏界面时损失有多少</p>
+				<p>数据埋点记录了从A页面进入B页面的通道类型，当前版本定时任务没有细分。下个版本添加。</p>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>-><a href="/map/data/event" role="button">游戏分析</a>->美人鱼任务</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>day[YYYYMMDD]</p><input type="text" value={{key_day}} name="day" class="search-query">
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>产生次数</th>
+				<th>用户数</th>
+				<th>完成次数</th>
+				<th>完成用户数</th>
+				<th>成功平均用时/秒</th>
+				<th>成功平均奖励/金币</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each mermaidtaskinfo}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{nums}}</td>
+					<td>{{user_nums}}</td>
+					<td>{{success_nums}}</td>
+					<td>{{success_user_nums}}</td>
+					<td>{{success_user_times}}</td>
+					<td>{{success_rewards}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<!-- <div class="alert alert-info" role="alert">
+				<p>破产没有单列用户数，因为每个用户在每个破产序列上只能出现1次。因此次数和用户数一致。</p>
+				<p><strong>第几次破产</strong> 可能的取值范围为[1,2,3]。</p>
+	</div> -->
+</div>

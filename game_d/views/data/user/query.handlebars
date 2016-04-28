@@ -1,0 +1,174 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>->用户数据查询</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>用户id[数字]</p><input type="text" value={{key_user_id}} name="user_id" class="search-query">
+	<select id="q_type" name="q_type" class="q_type" data-size="5" >
+	        <option value='mo'>mo</option>
+					<option value='mr'>mr</option>
+					<option value='gameinfo'>玩家信息</option>
+					<option value='pagechange'>用户路径</option>
+					<option value='register'>注册信息</option>
+	 </select>
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+
+<div class="page-header">
+	<p>类型:{{key_q_type}}</p>
+	{{#if userMo}}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>版本</th>
+				<th>事件点</th>
+				<th>计费点</th>
+				<th>价格</th>
+				<th>类型</th>
+				<th>订单号</th>
+				<th>结果</th>
+				<th>渠道号</th>
+				<th>创建时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each userMo}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{pay_and_event_version}}</td>
+					<td>{{pay_event_id}}</td>
+					<td>{{pay_point_id}}</td>
+					<td>{{price}}</td>
+					<td>{{type}}</td>
+					<td>{{order_id}}</td>
+					<td>{{result}}</td>
+					<td>{{channel_id}}</td>
+					<td>{{create_time}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	{{/if}}
+	{{#if userMr}}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>版本</th>
+				<th>事件点</th>
+				<th>计费点</th>
+				<th>价格</th>
+				<th>实际价格</th>
+				<th>支付类型</th>
+				<th>游戏订单号</th>
+				<th>支付订单号</th>
+				<th>渠道号</th>
+				<th>创建时间</th>
+				<th>支付记录时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each userMr}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{pay_and_event_version}}</td>
+					<td>{{pay_event_id}}</td>
+					<td>{{pay_point_id}}</td>
+					<td>{{price}}</td>
+					<td>{{real_price}}</td>
+					<td>{{third_type}}</td>
+					<td>{{order_id}}</td>
+					<td>{{third_order_id}}</td>
+					<td>{{channel_id}}</td>
+					<td>{{create_time}}</td>
+					<td>{{third_time}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	{{/if}}
+
+	{{#if userPagechange}}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>用户id</th>
+				<th>进入页面</th>
+				<th>来自页面</th>
+				<th>通道</th>
+				<th>数量</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each userPagechange}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{user_id}}</td>
+					<td>{{to_page}}</td>
+					<td>{{from_page}}</td>
+					<td>{{channel}}</td>
+					<td>{{nums}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	{{/if}}
+	{{#if gameinfo}}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>用户id</th>
+				<th>金币</th>
+				<th>钻石</th>
+				<th>最大炮台等级</th>
+				<th>mo</th>
+				<th>贵族天数</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each gameinfo}}
+				<tr>
+					<td>{{user_id}}</td>
+					<td>{{coins}}</td>
+					<td>{{diamonds}}</td>
+					<td>{{turrent_level}}</td>
+					<td>{{mo}}</td>
+					<td>{{nobility_time}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	{{/if}}
+	{{#if registerinfo}}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>用户id</th>
+				<th>注册时间</th>
+				<th>imei</th>
+				<th>渠道号</th>
+				<th>机型</th>
+				<th>厂商</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each registerinfo}}
+				<tr>
+					<td>{{user_id}}</td>
+					<td>{{create_time}}</td>
+					<td>{{imei}}</td>
+					<td>{{channel_id}}</td>
+					<td>{{hd_type}}</td>
+					<td>{{hd_factory}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	{{/if}}
+	<div class="alert alert-info" role="alert">
+				<p>目前支持mo、mr、用户信息、用户路径、角色注册和设备信息查询。</p>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">帮助系统</a>->用户反馈</p>
+
+<div class="page-header">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>时间</th>
+				<th>用户ID</th>
+				<th>内容</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each lastinfos}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{create_time}}</td>
+					<td>{{user_id}}</td>
+					<td>{{info}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<div class="alert alert-info" role="alert">
+				<strong>提醒！</strong>显示用户最新的反馈信息。
+	</div>
+</div>

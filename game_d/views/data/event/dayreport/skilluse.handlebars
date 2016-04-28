@@ -1,0 +1,53 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>-><a href="/map/data/event" role="button">游戏分析</a>->技能分析</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>day[YYYYMMDD]</p><input type="text" value={{key_day}} name="day" class="search-query">
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>技能</th>
+				<th>使用次数</th>
+				<th>使用用户</th>
+				<th>金币次数</th>
+				<th>金币用户</th>
+				<th>钻石次数</th>
+				<th>钻石用户</th>
+				<th>触发计费次数</th>
+				<th>触发计费用户</th>
+				<th>新增使用次数</th>
+				<th>新增使用用户</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each skilluseinfo}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{skill_id}}</td>
+					<td>{{use_nums}}</td>
+					<td>{{use_users}}</td>
+					<td>{{use_coin_nums}}</td>
+					<td>{{use_coin_users}}</td>
+					<td>{{use_diamond_nums}}</td>
+					<td>{{use_diamond_users}}</td>
+					<td>{{use_payreq_nums}}</td>
+					<td>{{use_payreq_users}}</td>
+					<td>{{new_use_nums}}</td>
+					<td>{{new_use_users}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<div class="alert alert-info" role="alert">
+				<p>2016-3-16 增加新增用户使用技能的次数和人数统计，目的是要知道新手引导使用技能效果</p>
+				<p>技能id还没有转换为名称，下个版本转换。</p>
+				<p>技能使用有三种状况：金币、钻石或者触发计费。因此统计了三种子类情况的数据。</p>
+	</div>
+</div>
