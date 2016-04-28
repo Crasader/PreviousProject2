@@ -1,0 +1,15 @@
+{
+	"name": "chatofpomelo",
+	"version": "0.0.1",
+	"private": false,
+	"dependencies": {
+		"pomelo": "1.2.0",
+		"crc": "0.2.0",
+		"body-parser": "^1.13.0",
+		"express": "^4.12.4",
+		"request": "2.62.0",
+		"mysql": "^2.7.0",
+		"redis" : "0.12.1",
+		"noderice" : "1.0.7"
+	}
+}
