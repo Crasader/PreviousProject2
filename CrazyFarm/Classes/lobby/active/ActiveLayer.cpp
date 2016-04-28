@@ -100,10 +100,8 @@ bool ActiveLayer::init()
 		LoadingCircle::showLoadingCircle();
 		HttpMannger::getInstance()->HttpToPostRequestToGetActiveInfo();
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_listener2, 1);
-		//tableview
-		
 
-
+		//暂且这样处理
 		scheduleOnce([=](float dt){
 			LoadingCircle::RemoveLoadingCircle();
 			for (auto var:imgs)
@@ -114,7 +112,7 @@ bool ActiveLayer::init()
 			tableView = MyTableView::create(tableviewDelegate, Size(894, 450));
 			tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
 			tableView->setDirection(ScrollView::Direction::VERTICAL);
-			tableView->setPosition(35, 80);
+			tableView->setPosition(35, 40);
 			tableView->setDelegate(tableviewDelegate);
 			addChild(tableView);
 			tableView->reloadData();
