@@ -293,17 +293,22 @@ void GameGuiLayer::createMermaidTaskPlane(int lefttime, std::vector<MarriedTaskF
 		auto txt = Sprite::create("TXTmermaid.png");
 		txt->setPosition(sp->getContentSize().width*0.6, sp->getContentSize().height / 2);
 		sp->addChild(txt);
+
+		auto plane = maridTaskPlane::create(lefttime - 7, items);
+		plane->setPosition(10, 300);
+		addChild(plane, kZorderMenu);
+		GameData::getInstance()->setIsOnMaridTask(true);
+		skillManager::getInstance()->getButtonByID(1)->skillButonUi(lefttime);
+		skillManager::getInstance()->getButtonByID(4)->skillButonUi(lefttime);
+
 		sp->runAction(Sequence::create(MoveTo::create(0.3, size / 2), DelayTime::create(1.0f), CallFunc::create([=]{txt->runAction(Sequence::create(MoveBy::create(0.3f, Vec2(-800, 0)), CallFunc::create([=]{txt->setPosition(txt->getPositionX() + 1600, txt->getPositionY()); txt->setTexture("TXTmermaidDec.png"); }), MoveBy::create(0.3f, Vec2(-800, 0)), nullptr)); }), DelayTime::create(3.0f),
 			CallFunc::create([=]{txt->removeFromParentAndCleanup(1), sp->setTexture("txt_3.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
 			CallFunc::create([=]{sp->setTexture("txt_2.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
 			CallFunc::create([=]{sp->setTexture("txt_1.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
 			CallFunc::create([=]{sp->setTexture("txt_GO.png"); sp->setScale(2); sp->setOpacity(255); }), Spawn::create(ScaleTo::create(0.7, 0.8), FadeOut::create(1), nullptr),
 			CallFunc::create([=]{
-		auto plane = maridTaskPlane::create(lefttime-7,items); plane->setPosition(10, 300);  
-		addChild(plane,kZorderMenu);
-		GameData::getInstance()->setIsOnMaridTask(true); 
-		skillManager::getInstance()->getButtonByID(1)->skillButonUi(lefttime);
-		skillManager::getInstance()->getButtonByID(4)->skillButonUi(lefttime); 
+		
+	
 		}), nullptr
 			)
 			);
