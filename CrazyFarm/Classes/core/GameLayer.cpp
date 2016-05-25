@@ -491,6 +491,7 @@ skillManager::getInstance()->init();
 }
 void GameLayer::loadNewMonent(int monmentType)
 {
+	CCLOG("fishgroup coming");
 	FishManage::getInstance()->LoadOnement(MomentManager::getInstance()->getNewMomentByType(monmentType,0));
 }
 
@@ -1226,6 +1227,7 @@ void GameLayer::onFishesMsg(Msg_OnFishes*msg)
 	_fishGroupType = _fishGroupsItem.group_type;
 	if (_fishGroupsItem.group_type == 0)//鱼群
 	{
+		CCLOG("add fish's size = %d", _fishGroupsItem.fishItems.size());
 		for (auto var : _fishGroupsItem.fishItems)
 		{
 			FishManage::getInstance()->addServerItemFishs(var);

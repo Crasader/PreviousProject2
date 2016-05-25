@@ -894,6 +894,7 @@ void Fish::onDead()
 		{
 		case GoldFish:
 			setScale(1.5f);
+			setZOrder(kZorderFishXL + 1);
 			runAction(RotateBy::create(1.2f, 120));
 			Audio::getInstance()->playSound(CATCHGOLD);
 			break;

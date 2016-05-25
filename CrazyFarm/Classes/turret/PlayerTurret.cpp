@@ -1286,7 +1286,7 @@ void PlayerTurret::costMoney()
 			GameManage::getInstance()->getGameLayer()->UpdateUserinfo(0);
 		}
 
-		auto num = Value(m_turretdata.multiple).asInt()*50;
+		auto num = Value(m_turretdata.multiple).asInt();
 		GameData::getInstance()->setcostCoin(GameData::getInstance()->getcostCoin() + num);
 		auto nowCoin = User::getInstance()->addCoins(-num);
 		if (nowCoin <= 0)

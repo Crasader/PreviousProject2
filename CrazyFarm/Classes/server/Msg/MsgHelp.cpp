@@ -112,7 +112,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "payresult") == 0)
 	{
-		//破产领取
+		//支付结果
 		base = new Msg_Payresult();
 		base->setBody(msgBody);
 		base->setMsgId(MsgPayresult);
@@ -120,7 +120,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "boss") == 0)
 	{
-		//破产领取
+		//boss鱼死掉落
 		base = new Msg_OnBossDead();
 		base->setBody(msgBody);
 		base->setMsgId(MsgOnBossDead);
@@ -128,7 +128,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "marquee") == 0)
 	{
-		//破产领取
+		//跑马灯
 		base = new Msg_OnMarquee();
 		base->setBody(msgBody);
 		base->setMsgId(MsgOnMarquee);
@@ -136,7 +136,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "mermaidTask") == 0)
 	{
-		//破产领取
+		//美人鱼开始
 		base = new Msg_OnBeginMarried();
 		base->setBody(msgBody);
 		base->setMsgId(MsgOnBeginMarried);
@@ -144,7 +144,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "updateMermaid") == 0)
 	{
-		//破产领取
+		//美人鱼任务更新
 		base = new Msg_OnCatchMarriedFish();
 		base->setBody(msgBody);
 		base->setMsgId(MsgOnCatchMarriedFish);
@@ -152,7 +152,7 @@ Msg_Base*MsgHelp::getInfoByMsg(const char* msgId, const char* msgBody)
 	}
 	if (strcmp(msgId, "successMermaid") == 0)
 	{
-		//破产领取
+		//美人鱼任务成功
 		base = new Msg_OnMarriedSuccess();
 		base->setBody(msgBody);
 		base->setMsgId(MsgOnMarriedSuccess);
