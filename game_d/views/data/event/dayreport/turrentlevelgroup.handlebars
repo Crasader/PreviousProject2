@@ -1,0 +1,44 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>-><a href="/map/data/event" role="button">游戏分析</a>->炮台分布统计</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>day[YYYYMMDD]</p><input type="text" value={{key_day}} name="day" class="search-query">
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>炮台等级</th>
+				<th>活跃用户数</th>
+				<th>活跃占比</th>
+				<th>活跃累计占比</th>
+				<th>新增用户数</th>
+				<th>新增占比</th>
+				<th>新增累计</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each turrentlevelgroupInfo}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{turrent_level}}</td>
+					<td>{{active_user}}</td>
+					<td>{{active_user_per}}</td>
+					<td>{{active_user_all_per}}</td>
+					<td>{{new_user}}</td>
+					<td>{{new_user_per}}</td>
+					<td>{{new_user_all_per}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<div class="alert alert-info" role="alert">
+				<p>炮台分布使用的玩家基础信息表来计算。目前是退出游戏的时候同步一次。</p>
+				<p>2016-02-27增加了游戏切换到后台同步。将进出游戏场景同步改为进入大厅同步。</p>
+	</div>
+</div>

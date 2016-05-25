@@ -1,0 +1,43 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>-><a href="/map/data/event" role="button">游戏分析</a>->炮台统计</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>day[YYYYMMDD]</p><input type="text" value={{key_day}} name="day" class="search-query">
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>炮台等级</th>
+				<th>升级用户数</th>
+				<th>升级用时/秒</th>
+				<th>升级用时/分钟</th>
+				<th>单级升级/分钟</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each turrentlevelinfo}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{turrent_level}}</td>
+					<td>{{user_nums}}</td>
+					<td>{{avg_update_times}}</td>
+					<td>{{avg_update_times_mins}}</td>
+					<td>{{current_level_update_times}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<div class="alert alert-info" role="alert">
+				<p>炮台升级立即同步。</p>
+				<p>统计最终炮台等级，炮台升级后同步更新一次。</p>
+				<p>炮台升级显示的时间为用户累计时间，如第3级的时间为从第1级升级到第3级的累计时间。</p>
+				<p>client的统计时间为1分钟更新一次，所有小于1分钟的数据没有意义。</p>
+				<p>同时保留了秒和分钟的累计升级用时。因为大家有的喜欢看分钟有的喜欢看秒。</p>
+	</div>
+</div>

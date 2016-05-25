@@ -1,0 +1,54 @@
+{
+	"describe": "黄金鱼数值列表" ,
+	"version" : 1,
+	"item_lists": [
+		{
+			"fish_id"			:	40,
+			"bonus_pool_reward" :   100
+		},
+		{
+			"fish_id"			:	41,
+			"bonus_pool_reward" :   150
+		},
+		{
+			"fish_id"			:	42,
+			"bonus_pool_reward" :   200
+		},
+		{
+			"fish_id"			:	43,
+			"bonus_pool_reward" :   250
+		},
+		{
+			"fish_id"			:	44,
+			"bonus_pool_reward"	:   250
+		},
+		{
+			"fish_id"			:	50,
+			"bonus_pool_reward" :   300
+		},
+		{
+			"fish_id"			:	51,
+			"bonus_pool_reward" :   500
+		},
+		{
+			"fish_id"			:	52,
+			"bonus_pool_reward" :   1
+		},
+		{
+			"fish_id"	        :   101,
+			"bonus_pool_reward" :   50
+		},
+		{
+			"fish_id"	        :   102,
+			"bonus_pool_reward" :   80
+		},
+		{
+			"fish_id"	        :   103,
+			"bonus_pool_reward" :   120
+		},
+		{
+			"fish_id"	        :   104,
+			"bonus_pool_reward" :   160
+		}
+	]
+}

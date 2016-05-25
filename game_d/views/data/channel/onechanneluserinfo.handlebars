@@ -1,0 +1,62 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>->单渠道用户信息</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>渠道号</p><input type="text" value={{key_channel_id}} name="channel_id" class="search-query">
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>渠道</th>
+				<th>新增</th>
+				<th>活跃</th>
+				<th>次日</th>
+				<th>次日留存</th>
+				<th>前2日注册</th>
+				<th>前3日注册</th>
+				<th>前4日注册</th>
+				<th>前5日注册</th>
+				<th>前6日注册</th>
+				<th>前7日注册</th>
+				<th>7日</th>
+				<th>30日</th>
+				<th>30日后</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each channel_dayreport}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{channel_id}}</td>
+					<td>{{user_new}}</td>
+					<td>{{user_active}}</td>
+					<td>{{r_second_u}}</td>
+					<td>{{r_second_u_per}}</td>
+					<td>{{r_2_u}}</td>
+					<td>{{r_3_u}}</td>
+					<td>{{r_4_u}}</td>
+					<td>{{r_5_u}}</td>
+					<td>{{r_6_u}}</td>
+					<td>{{r_7_u}}</td>
+					<td>{{r_seven_2}}</td>
+					<td>{{r_thirty_2}}</td>
+					<td>{{r_thirty_m}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<div class="alert alert-info" role="alert">
+				<p>目前单渠道查询的信息条目限制为10条。默认查询最近有数据的10天记录。</p>
+				<p><strong>次日</strong>指前1天注册第2天又登陆的用户数。即普通的次日留存用户。</p>
+				<p><strong>前2日注册</strong>指前2天注册当日登陆的用户数(未计算是否连续登陆)。</p>
+				<p><strong>7日</strong>指前7天内登陆超过2次的用户(除今天外超过1次就算)。往前7天不含今天。</p>
+				<p><strong>30日</strong>指前30天内登陆超过2次的用户(除今天外超过1次就算)。往前30天不含今天。</p>
+				<p><strong>30日后</strong>当日登陆用户中注册天数超过30天的用户。</p>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+{
+        "app": 1701,
+        "debug" : false,
+        "mysql_catchfish": {
+                "host": "10.13.47.227",
+                "port": 3306,
+                "user": "root",
+                "password": "Tbu2020Foo",
+                "database": "catch_fish"
+        },
+        "mysql_catchfish_s": {
+                "host": "10.13.30.223",
+                "port": 3306,
+                "user": "root",
+                "password": "Tbu2020Foo",
+                "database": "catch_fish"
+        },
+        "redis" : {
+                "username" : "root",
+                "password" :  "Tbu2020Foo",
+                "redis_host" : "10.13.53.159",
+                "redis_port" : 6379,
+                "redis_db_name" : "GameRedis",
+                "no_ready_check" : true
+        },
+        "mysql_catchfish_debug": {
+                "host": "106.75.141.82",
+                "port": 2901,
+                "user": "root",
+                "password": "Tbu2020Foo",
+                "database": "catch_fish"
+        },
+        "mysql_catchfish_s_debug": {
+                "host": "106.75.141.82",
+                "port": 2902,
+                "user": "root",
+                "password": "Tbu2020Foo",
+                "database": "catch_fish"
+        },
+        "redis_debug" : {
+                "username" : "root",
+                "password" :  "Tbu2020Foo",
+                "redis_host" : "106.75.141.82",
+                "redis_port" : 3101,
+                "redis_db_name" : "GameRedis",
+                "no_ready_check" : true
+        }
+}

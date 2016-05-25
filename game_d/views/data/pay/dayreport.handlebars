@@ -1,0 +1,53 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>->计费分布</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>day[YYYYMMDD]</p><input type="text" value={{key_day}} name="day" class="search-query">
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>计费点</th>
+				<th>事件点</th>
+				<th>mo用户</th>
+				<th>mo次数</th>
+				<th>请求次数占比</th>
+				<th>mo金额</th>
+				<th>mo成功用户</th>
+				<th>mo成功次数</th>
+				<th>mo成功金额</th>
+				<th>mr用户</th>
+				<th>mr次数</th>
+				<th>mr金额</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each pay_dayreport}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{pay_point_id}}</td>
+					<td>{{pay_event_id}}</td>
+					<td>{{mo_req_users}}</td>
+					<td>{{mo_req_nums}}</td>
+					<td>{{mo_req_per}}</td>
+					<td>{{mo_req_moneys}}</td>
+					<td>{{mo_success_users}}</td>
+					<td>{{mo_success_nums}}</td>
+					<td>{{mo_success_moneys}}</td>
+					<td>{{mr_users}}</td>
+					<td>{{mr_nums}}</td>
+					<td>{{mr_moneys}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<div class="alert alert-info" role="alert">
+				<p>数据按照mo请求金额排序。</p>
+	</div>
+</div>

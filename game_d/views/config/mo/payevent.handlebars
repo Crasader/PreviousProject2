@@ -1,0 +1,28 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/config" role="button">运营配置</a>-><a href="/map/config/mo" role="button">计费配置</a>->事件点</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>序号</th>
+			<th>版本</th>
+			<th>事件点</th>
+			<th>描述</th>
+			<th>入库时间</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each payevents}}
+			<tr>
+				<td>{{id}}</td>
+				<td>{{pay_event_version}}</td>
+				<td>{{event_id}}</td>
+				<td>{{event_desc}}</td>
+				<td>{{create_time}}</td>
+			<tr>
+		{{/each}}
+	</tbody>
+</table>
+<div class="page-header">
+	<div class="alert alert-info" role="alert">
+        <strong>提醒！</strong> 默认查看最新的版本。
+    </div>
+</div>

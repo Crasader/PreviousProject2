@@ -1,0 +1,12 @@
+{
+   "development":{
+        "game":[
+             {"id":1, "serverId":"game-server-1", "time": "0/20 * * * * *", "action": "gameCron.updatePer20Sec"}
+        ]
+    },
+    "production":{
+        "game":[
+             {"id":1, "serverId":"game-server-1", "time": "0/20 * * * * *", "action": "gameCron.updatePer20Sec"}
+        ]
+  }
+}

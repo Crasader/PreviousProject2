@@ -1,0 +1,31 @@
+{
+	"app": 1703,
+    "mysql_game_bg" : {
+        "host" : "10.13.47.227",
+        "port" : 3306,
+        "user" : "root",
+        "password" : "Tbu2020Foo",
+        "database" : "game_bg"
+    },
+		"mysql_game_bg_s" : {
+        "host" : "10.13.30.223",
+        "port" : 3306,
+        "user" : "root",
+        "password" : "Tbu2020Foo",
+        "database" : "game_bg"
+    },
+    "mysql_catchfish" : {
+        "host" : "10.13.47.227",
+        "port" : 3306,
+        "user" : "root",
+        "password" : "Tbu2020Foo",
+        "database" : "catch_fish"
+    },
+	"mysql_catchfish_s" : {
+        "host" : "10.13.30.223",
+        "port" : 3306,
+        "user" : "root",
+        "password" : "Tbu2020Foo",
+        "database" : "catch_fish"
+    }
+}

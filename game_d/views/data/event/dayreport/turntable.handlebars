@@ -1,0 +1,50 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/data" role="button">数据报表</a>-><a href="/map/data/event" role="button">游戏分析</a>->抽奖统计</p>
+<div class="page-header">
+	<form class="form-search">
+	<p>day[YYYYMMDD]</p><input type="text" value={{key_day}} name="day" class="search-query">
+	<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
+<div class="page-header">
+	<table class="table" id="datatable">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>日期</th>
+				<th>抽奖类型</th>
+				<th>统计用户</th>
+				<th>总次数</th>
+				<th>总用户数</th>
+				<th>奖励1</th>
+				<th>奖励2</th>
+				<th>奖励3</th>
+				<th>奖励4</th>
+				<th>奖励5</th>
+				<th>奖励6</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each turntableInfo}}
+				<tr>
+					<td>{{id}}</td>
+					<td>{{day}}</td>
+					<td>{{t_type}}</td>
+					<td>{{statistics_type}}</td>
+					<td>{{times}}</td>
+					<td>{{user_times}}</td>
+					<td>{{p_type_1_counts}}</td>
+					<td>{{p_type_2_counts}}</td>
+					<td>{{p_type_3_counts}}</td>
+					<td>{{p_type_4_counts}}</td>
+					<td>{{p_type_5_counts}}</td>
+					<td>{{p_type_6_counts}}</td>
+				<tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<a download="fk.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable');">导出为:CSV</a>
+	<div class="alert alert-info" role="alert">
+				<p>2016-03-14 增加新增用户数和新增用户抽奖次数统计</p>
+				<p>每种抽奖类型均包含六种奖励配置。表格显示为总共发送奖励的数量。</p>
+	</div>
+</div>

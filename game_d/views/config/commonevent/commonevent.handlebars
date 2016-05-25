@@ -1,0 +1,26 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/config" role="button">运营配置</a>->普通事件点</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>序号</th>
+			<th>事件点</th>
+			<th>扩展字段</th>
+			<th>说明</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each commonevents}}
+			<tr>
+				<td>{{id}}</td>
+				<td>{{event_id}}</td>
+				<td>{{event_desc}}</td>
+				<td>{{user_desc}}</td>
+			<tr>
+		{{/each}}
+	</tbody>
+</table>
+<div class="page-header">
+	<div class="alert alert-info" role="alert">
+        <strong>提醒！</strong> 事件点和扩展字段标示唯一主键。
+    </div>
+</div>

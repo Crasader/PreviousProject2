@@ -1,0 +1,27 @@
+<p><a href="/" role="button">首页</a>-><a href="/map/config" role="button">运营配置</a>-><a href="/map/config/sign" role="button">签到配置</a>->当前配置</p>
+<p>{{version}}</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>条目</th>
+			<th>赠送道具</th>
+			<th>数量</th>
+			<th>概率</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each sign_info}}
+			<tr>
+				<td>{{id}}</td>
+				<td>{{item_id}}</td>
+				<td>{{num}}</td>
+				<td>{{probability}}</td>
+			<tr>
+		{{/each}}
+	</tbody>
+</table>
+<div class="page-header">
+	<div class="alert alert-info" role="alert">
+        <strong>提醒！</strong> 配置文件要确保一周七天均配置，否则会导致客户端未知异常。
+    </div>
+</div>
