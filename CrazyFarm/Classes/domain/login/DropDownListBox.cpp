@@ -77,6 +77,7 @@ bool DropDownList::onTouchBegan(CCTouch *touch, CCEvent *event)
 		{
 			_loginscene->setChangeNickName(selectLabels.at(0));
 			onClose(); 
+			return true;
 		}
 			
 		
