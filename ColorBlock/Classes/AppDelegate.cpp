@@ -66,8 +66,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	searchPath.push_back("game/MainScene");
 	searchPath.push_back("game/fonts");
-	searchPath.push_back("game/MainScene");
-
+	searchPath.push_back("game/GameScane");
+	searchPath.push_back("game");
 	FileUtils::getInstance()->setSearchPaths(searchPath);
 
     // turn on display FPS

@@ -154,7 +154,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Block\BlockGroupDSix.cpp" />
     <ClCompile Include="..\Classes\Block\BlockGroupDThree.cpp" />
     <ClCompile Include="..\Classes\Block\BlockGroupDTwo.cpp" />
-    <ClCompile Include="..\Classes\Block\BlockGroupFour.cpp" />
     <ClCompile Include="..\Classes\Block\BlockGroupI.cpp" />
     <ClCompile Include="..\Classes\Block\BlockGroupJ.cpp" />
     <ClCompile Include="..\Classes\Block\BlockGroupL.cpp" />
@@ -177,8 +176,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Sqlite\DBUtil.cpp" />
     <ClCompile Include="..\Classes\Sqlite\sqlite3.c" />
     <ClCompile Include="..\Classes\TestMainScene.cpp" />
+    <ClCompile Include="..\Classes\tools\BaseLayer.cpp" />
     <ClCompile Include="..\Classes\tools\ExitLayer.cpp" />
     <ClCompile Include="..\Classes\tools\GameOverLayer.cpp" />
+    <ClCompile Include="..\Classes\tools\PauseLayer.cpp" />
     <ClCompile Include="..\Classes\tools\PopupLayer.cpp" />
     <ClCompile Include="..\Classes\tools\RankingScene.cpp" />
     <ClCompile Include="..\Classes\tools\StringManager.cpp" />
@@ -200,7 +201,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Block\BlockGroupDSix.h" />
     <ClInclude Include="..\Classes\Block\BlockGroupDThree.h" />
     <ClInclude Include="..\Classes\Block\BlockGroupDTwo.h" />
-    <ClInclude Include="..\Classes\Block\BlockGroupFour.h" />
     <ClInclude Include="..\Classes\Block\BlockGroupI.h" />
     <ClInclude Include="..\Classes\Block\BlockGroupJ.h" />
     <ClInclude Include="..\Classes\Block\BlockGroupL.h" />
@@ -217,14 +217,17 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\GameWidget.h" />
     <ClInclude Include="..\Classes\LogoScene.h" />
     <ClInclude Include="..\Classes\MainScene.h" />
+    <ClInclude Include="..\Classes\MsgDefine.h" />
     <ClInclude Include="..\Classes\SetupScene.h" />
     <ClInclude Include="..\Classes\SkillButton.h" />
     <ClInclude Include="..\Classes\Sqlite\DBManager.h" />
     <ClInclude Include="..\Classes\Sqlite\DBUtil.h" />
     <ClInclude Include="..\Classes\Sqlite\sqlite3.h" />
     <ClInclude Include="..\Classes\TestMainScene.h" />
+    <ClInclude Include="..\Classes\tools\BaseLayer.h" />
     <ClInclude Include="..\Classes\tools\ExitLayer.h" />
     <ClInclude Include="..\Classes\tools\GameOverLayer.h" />
+    <ClInclude Include="..\Classes\tools\PauseLayer.h" />
     <ClInclude Include="..\Classes\tools\PopupLayer.h" />
     <ClInclude Include="..\Classes\tools\RankingScene.h" />
     <ClInclude Include="..\Classes\tools\StringManager.h" />

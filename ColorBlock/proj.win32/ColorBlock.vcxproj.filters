@@ -48,9 +48,6 @@
     <ClCompile Include="..\Classes\Block\BlockGroupDTwo.cpp">
       <Filter>src\Block</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Block\BlockGroupFour.cpp">
-      <Filter>src\Block</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Block\BlockGroupI.cpp">
       <Filter>src\Block</Filter>
     </ClCompile>
@@ -153,6 +150,12 @@
     <ClCompile Include="..\Classes\TestMainScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\tools\PauseLayer.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tools\BaseLayer.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -180,9 +183,6 @@
       <Filter>src\Block</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Block\BlockGroupDTwo.h">
-      <Filter>src\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Block\BlockGroupFour.h">
       <Filter>src\Block</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Block\BlockGroupI.h">
@@ -286,6 +286,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\TestMainScene.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\tools\PauseLayer.h">
+      <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MsgDefine.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\tools\BaseLayer.h">
+      <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

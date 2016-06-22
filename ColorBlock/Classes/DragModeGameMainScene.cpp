@@ -676,10 +676,7 @@ void DragModeGameMainScene::GameOver()
 
 	//µ¯³öÓÎÏ·½áÊø²ã
 	auto popup = GameOverLayer::create();
- 	popup->SetTitle(score);
- 	popup->SetContent(strScore);
-	popup->SetCallBackFunc(CC_CALLBACK_2(DragModeGameMainScene::buttonPopupCallback, this));
-	popup->SetButtonType(ButtonType::BUTTONTYPE_OKCANCEL);
+	popup->setPosition(0, 0);
 	this->addChild(popup);
 }
 

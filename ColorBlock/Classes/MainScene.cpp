@@ -7,7 +7,9 @@
 #include "tools/VolumeScene.h"
 #include "DragModeGameMainScene.h"
 #include "utill/Audio.h"
+#include "utill/AnimationUtil.h"
 #include "utill/MyMenuItemButton.h"
+#include "MsgDefine.h"
 USING_NS_CC;
 
 Scene* MainScene::createScene()
@@ -55,16 +57,16 @@ bool MainScene::init()
 	addChild(title, -1);
     /////////////////////////////
     // 3. 添加菜单
-	auto FallDownModeBt = MenuItemImage::create(
-		"FallDownModeBt_1.png",
-		"FallDownModeBt_2.png",
+	auto FallDownModeBt = MenuItemSprite::create(
+		SPRITE("FallDownModeBt_1.png"),
+		SPRITE("FallDownModeBt_2.png"),
 		CC_CALLBACK_1(MainScene::menuStartCallback, this));
 	FallDownModeBt->setPosition(240,393);
 	FallDownModeBt->setTag(1);
 
-	auto DragModeBt = MenuItemImage::create(
-		"DragModeBt_1.png",
-		"DragModeBt_2.png",
+	auto DragModeBt = MenuItemSprite::create(
+		SPRITE("DragModeBt_1.png"),
+		SPRITE("DragModeBt_2.png"),
 		CC_CALLBACK_1(MainScene::menuStartCallback, this));
 	DragModeBt->setPosition(240,249);
 	DragModeBt->setTag(2);
@@ -99,7 +101,7 @@ bool MainScene::init()
 	auto sp1 = Sprite::createWithSpriteFrameName("menuItemFrame_2.png");
 	auto open1 = Sprite::createWithSpriteFrameName("open.png");
 	open1->setPosition(sp1->getContentSize() / 2);
-	sp1->addChild(open);
+	sp1->addChild(open1);
 	auto  openItem = MenuItemSprite::create(sp,sp1);
 
 	sp = Sprite::createWithSpriteFrameName("menuItemFrame_1.png");
@@ -146,8 +148,18 @@ bool MainScene::init()
 
 	//没有弹出层
 	m_bPopupLayerWorking = false;
-
+	loadRes();
     return true;
+}
+void MainScene::loadRes()
+{
+	static bool isLoad = false;
+	if (!isLoad)
+	{
+		isLoad = true;
+		AnimationUtil::getInstance()->addAnimationBySpriteFrameName("TX_xiaochu.plist", "TX_xiaochu_%.4d.png", "ani_xiaochu", 0.2f, 25);
+		SpriteManager::GetInstance()->InitSpriteFramesWithFile("otherScene.plist");
+	}
 }
 void MainScene::menuMusicCallback(Ref*psend)
 {
@@ -270,15 +282,15 @@ void MainScene::menuMoreGameCallback(cocos2d::Ref* pSender)
 
 void MainScene::menuGiftCallback(cocos2d::Ref* pSender)
 {
-	Director::getInstance()->replaceScene(SetupScene::createScene());
+	
 }
 
 void MainScene::menuAboutCallback(cocos2d::Ref* pSender)
 {
-	Director::getInstance()->replaceScene(DragModeGameMainScene::createScene());
+
 }
 
 void MainScene::menuDragModeGameCallback(Ref*psend)
 {
-	Director::getInstance();
+	
 }

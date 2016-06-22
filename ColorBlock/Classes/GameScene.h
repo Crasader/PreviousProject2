@@ -82,7 +82,14 @@ private:
 	void GameOver();							//游戏结束
 	void ExitGame();							//退出游戏
 	void DoExitGame();							//确认退出游戏
-
+	void InitNotifications();                   //创建广播通知
+	void removeNotifications();                 //移除广播通知
+private:
+	void onPause();
+	void onResum();
+	void onBackMainScene();
+	void onRebegin();
+	void onUseSkill(int skillid);
 private:
 	cocos2d::Size	m_winSize;		//窗口大小
 	cocos2d::Size	m_visibleSize;	//可视区域大小

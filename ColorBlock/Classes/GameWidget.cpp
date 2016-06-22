@@ -39,15 +39,15 @@ bool GameWidget::init()
 	
 
 	//添加游戏区域
-	field->setPosition(240,450);
+	field->setPosition(240,460);
 	m_posBlock = Vec2(field->getPositionX() - field->getContentSize().width/2, field->getPositionY() + field->getContentSize().height/2);
 	this->addChild(field, nZOrderField);
 
 
-	m_posScore = Vec2(240, 758);
+	m_posScore = Vec2(240, 770);
 
 
-	m_rectNext = Rect(387,534,70,110);
+	m_rectNext = Rect(393,650,70,110);
 
 
 	//初始化分数
@@ -56,6 +56,7 @@ bool GameWidget::init()
 	m_scoreLabel = LabelAtlas::create(Value(m_nScore).asString(),"scoreNum.png",16,25,'0');	//2376500
 	m_scoreLabel->setPosition(m_posScore);
 	this->addChild(m_scoreLabel, nZOrderScoreLabel);
+	m_scoreLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 
 	
 

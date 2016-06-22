@@ -37,6 +37,7 @@ public:
 	void DelayContinue(float dt);				//延时进入主界面
 
 private:
+	void loadRes();
 	void ExitGame();							//退出游戏
 	void DoExitGame();							//确认退出游戏
 

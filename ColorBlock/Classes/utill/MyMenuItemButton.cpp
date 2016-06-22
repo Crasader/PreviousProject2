@@ -3,7 +3,7 @@
 MyMenuItemButton* MyMenuItemButton::create(const std::string&normalImage, const std::string&selectedImage, Node* overNode, const ccMenuCallback& callback)
 {
 	MyMenuItemButton* ret = new (std::nothrow) MyMenuItemButton();
-	if (ret && ret->initWithNormalImage(normalImage, selectedImage,"",callback))
+	if (ret && ret->initWithNormalSprite(Sprite::createWithSpriteFrameName(normalImage), Sprite::createWithSpriteFrameName(selectedImage),nullptr,callback))
     {
         ret->autorelease();
 		overNode->setPosition(ret->getContentSize() / 2);

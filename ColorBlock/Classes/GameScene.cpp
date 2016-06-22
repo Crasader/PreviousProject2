@@ -11,8 +11,10 @@
 #include "ui/UIButton.h"
 #include "cocostudio/CocoStudio.h"
 #include "CommonFunction.h"
-
+#include "utill/AnimationUtil.h"
 #include <map>
+#include "MsgDefine.h"
+#include "tools/PauseLayer.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -98,6 +100,7 @@ bool GameScene::init()
 	addChild(girdboxFrame, nZOrderBackground);
 
 
+	
 
 	//////////////////////////////////////////////////////////////////////////
 
@@ -105,7 +108,10 @@ bool GameScene::init()
 	float cy = 110;
 	float dx = 95;
 	//添加方向按钮
-	
+	auto operateFrame = Sprite::createWithSpriteFrameName("operateFrame.png");
+	operateFrame->setPosition(240, cy);
+	addChild(operateFrame, nZOrderBackground + 1);
+
 	auto leftButton = Button::create("btLeft_1.png", "btLeft_2.png", "", Widget::TextureResType::PLIST);
 	leftButton->setPosition(Vec2(cx, cy));
 	leftButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonLeftCallback, this));
@@ -135,12 +141,21 @@ bool GameScene::init()
 	//////////////////////////////////////////////////////////////////////////
 	//添加标签
 	m_labelLine = LabelAtlas::create(Value(m_line).asString(),"scoreNum.png",16,25,'0');
-	m_labelLine->setPosition(70,611);
+	m_labelLine->setPosition(70,615);
 	m_labelLine->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	this->addChild(m_labelLine);
 
-
-
+	///添加 功能按键
+	auto pauseButton = Button::create("btPause_1.png", "btPause_2.png", "", Widget::TextureResType::PLIST);
+	pauseButton->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+	pauseButton->setPosition(Vec2(0, 800));
+	pauseButton->addTouchEventListener([=](Ref* sender, cocos2d::ui::Widget::TouchEventType event){
+		if (event == Widget::TouchEventType::ENDED)
+		{
+			onPause();
+		}
+	});
+	this->addChild(pauseButton);
 
 	//获取当前图形
 	m_widget->GetNextBlockGroup(m_curGroup, this);
@@ -153,7 +168,6 @@ bool GameScene::init()
 
 	//触摸屏事件监听
 	m_touchListener = EventListenerTouchOneByOne::create();
-	//m_touchListener->onTouchBegan = [&](Touch* touch, Event* unused_event)->bool { return true; };
 	m_touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	m_touchListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
 	m_touchListener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
@@ -180,9 +194,12 @@ bool GameScene::init()
 	//设置音效音量
 	float fVolumeBgm = DBManager::GetInstance()->GetBgmVolume();
 	float fVolumeEffects = DBManager::GetInstance()->GetEffectsVolume();
-	//GameDifficulty diff = DBManager::GetInstance()->GetGameDifficulty();
 	SimpleAudioEngine::getInstance()->setEffectsVolume(fVolumeBgm);
 	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(fVolumeEffects);
+
+
+	//初始化广播
+	InitNotifications();
 
     return true;
 }
@@ -476,69 +493,91 @@ bool GameScene::ReleaseBlocksOnFullLine()
 	{
 		return false;
 	}
-
-	//获得连续消去的行数
-	int nSeriesNumber = 1;
-	switch (m_vecFullRow.size())
+	for (auto row:m_vecFullRow)
 	{
-	case 2:
-		nSeriesNumber = (m_vecFullRow.at(0) + 1 == m_vecFullRow.at(1)) ? 2 : 1;
-		break;
-	case 3:
-		nSeriesNumber = (m_vecFullRow.at(0) + 1 == m_vecFullRow.at(1) && m_vecFullRow.at(1) + 1 == m_vecFullRow.at(2)) ? 3 : 2;
-		break;
-	case 4:
-		nSeriesNumber = 4;
-		break;
-	default:
-		break;
-	}
-
-	//加分数
-	int score = m_vecFullRow.size() * 5;				//消去一行得5分
-	int scoresExtra[] = {3, 5, 8};						//连续消去2,3,4行额外得3,5,8分
-	if (nSeriesNumber >= 2 && nSeriesNumber <= 4)
-	{
-		score += scoresExtra[nSeriesNumber - 2];		//额外加分
-	}
-	m_score += score;
-
-	//加分
-	m_widget->AddScore(m_vecFullRow);
-
-	//增加行数
-	m_line += nSeriesNumber;
-	if (m_line / 25 >= m_level)
-	{
-		//修改移动当前图形的速度
-		this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
-		this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / ++m_level);
-		RefreshLevel();
-	}
-	RefreshLine();
-
-	//消去方块
-	vector<BlockObject>::iterator it;
-	vector<int>::const_iterator citFullRow;
-	for (citFullRow=m_vecFullRow.begin(); citFullRow!=m_vecFullRow.end(); ++citFullRow)
-	{
-		for (it=m_vecBlocks.begin(); it!=m_vecBlocks.end();)
+		float cy = 0.0f;
+		for (auto block:m_vecBlocks)
 		{
-			if (*citFullRow == it->row)
+			if (row == block.row)
 			{
-				//消去满行的方块
-				this->removeChild(it->sprite);
-				it = m_vecBlocks.erase(it);
-			}
-			else
-			{
-				++it;
+				auto ani = Sprite::create();
+				ani->setPosition(240, block.sprite->getPositionY());
+				addChild(ani, 5 + 1);
+				ani->runAction(Sequence::createWithTwoActions(AnimationUtil::getInstance()->getAnimate("ani_xiaochu"),RemoveSelf::create(true)));
+				break;
 			}
 		}
 	}
+	float dealy = AnimationUtil::getInstance()->getAnimate("ani_xiaochu")->getAnimation()->getDuration();
+	runAction(Sequence::create(DelayTime::create(dealy), CallFunc::create([=]
+	{
 
-	//定时消去满行的方块
-	this->scheduleOnce(schedule_selector(GameScene::RemoveFullRowBlocks), 0.3f);
+		//获得连续消去的行数
+		int nSeriesNumber = 1;
+		switch (m_vecFullRow.size())
+		{
+		case 2:
+			nSeriesNumber = (m_vecFullRow.at(0) + 1 == m_vecFullRow.at(1)) ? 2 : 1;
+			break;
+		case 3:
+			nSeriesNumber = (m_vecFullRow.at(0) + 1 == m_vecFullRow.at(1) && m_vecFullRow.at(1) + 1 == m_vecFullRow.at(2)) ? 3 : 2;
+			break;
+		case 4:
+			nSeriesNumber = 4;
+			break;
+		default:
+			break;
+		}
+
+		//加分数
+		int score = m_vecFullRow.size() * 5;				//消去一行得5分
+		int scoresExtra[] = { 3, 5, 8 };						//连续消去2,3,4行额外得3,5,8分
+		if (nSeriesNumber >= 2 && nSeriesNumber <= 4)
+		{
+			score += scoresExtra[nSeriesNumber - 2];		//额外加分
+		}
+		m_score += score;
+
+		//加分
+		m_widget->AddScore(m_vecFullRow);
+
+		//增加行数
+		m_line += nSeriesNumber;
+		if (m_line / 25 >= m_level)
+		{
+			//修改移动当前图形的速度
+			this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
+			this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / ++m_level);
+			RefreshLevel();
+		}
+		RefreshLine();
+
+		//消去方块
+		vector<BlockObject>::iterator it;
+		vector<int>::const_iterator citFullRow;
+		for (citFullRow = m_vecFullRow.begin(); citFullRow != m_vecFullRow.end(); ++citFullRow)
+		{
+			for (it = m_vecBlocks.begin(); it != m_vecBlocks.end();)
+			{
+				if (*citFullRow == it->row)
+				{
+					//消去满行的方块
+					this->removeChild(it->sprite);
+					it = m_vecBlocks.erase(it);
+				}
+				else
+				{
+					++it;
+				}
+			}
+		}
+
+		//定时消去满行的方块
+		this->scheduleOnce(schedule_selector(GameScene::RemoveFullRowBlocks), 0.3f);
+
+	}), nullptr));
+
+
 
 	//播放消去音效
 	return true;
@@ -667,20 +706,7 @@ void GameScene::GameOver()
 	SimpleAudioEngine::getInstance()->playEffect(AUDIO_FAILED);
 	this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
 
-// 	auto logo = LogoScene::createScene();
-// 	Director::getInstance()->replaceScene(logo);
-// 	return;
-	//this->unscheduleAllCallbacks();
 
-	//触摸屏事件监听
-// 	auto listener = EventListenerTouchOneByOne::create();
-// 	listener->onTouchBegan = [&](Touch* touch, Event* unused_event)->bool { return true; };
-// 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-// 	listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
-// 	listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
-// 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-
-	//this->getEventDispatcher()->removeAllEventListeners();
 
 	//添加分数到sqlite数据库
 	DBManager::GameScore gameScore;
@@ -700,10 +726,7 @@ void GameScene::GameOver()
 
 	//弹出游戏结束层
 	auto popup = GameOverLayer::create();
- 	popup->SetTitle(score);
- 	popup->SetContent(strScore);
-	popup->SetCallBackFunc(CC_CALLBACK_2(GameScene::buttonPopupCallback, this));
-	popup->SetButtonType(ButtonType::BUTTONTYPE_OKCANCEL);
+	popup->setPosition(0, 0);
 	this->addChild(popup);
 }
 
@@ -819,12 +842,8 @@ void GameScene::MoveDownSpeedup(float dt)
 //刷新标签
 void GameScene::RefreshLine()
 {
-	std::stringstream ss;
-	ss << "Line: " << m_line;
 
-	std::string text;
-	text = ss.str();
-	m_labelLine->setString(text);
+	m_labelLine->setString(Value(m_line).asString());
 }
 
 void GameScene::RefreshLevel()
@@ -835,4 +854,55 @@ void GameScene::RefreshLevel()
 	//std::string text;
 	//text = ss.str();
 	//m_labelLevel->setString(text);
+}
+
+void GameScene::InitNotifications()
+{
+	//游戏暂停
+	EventListenerCustom* listener = EventListenerCustom::create(MSG_PAUSE, [=](EventCustom* event){onPause(); });
+	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
+	//游戏恢复
+	listener = EventListenerCustom::create(MSG_RESUME, [=](EventCustom* event){onResum(); CCLOG("onResume"); });
+	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
+	//重新开始
+	listener = EventListenerCustom::create(MSG_REBEGIN, [=](EventCustom* event){onRebegin(); });
+	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
+	//返回大厅
+	listener = EventListenerCustom::create(MSG_BACKMAINSCENE, [=](EventCustom* event){onBackMainScene(); });
+	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
+	//使用技能
+	listener = EventListenerCustom::create(MSG_USESKILL, [=](EventCustom* event){int *skillid =((int*)event->getUserData()); onUseSkill(*skillid); });
+	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
+}
+void GameScene::removeNotifications()
+{
+	getEventDispatcher()->removeCustomEventListeners(MSG_PAUSE);
+	getEventDispatcher()->removeCustomEventListeners(MSG_RESUME);
+	getEventDispatcher()->removeCustomEventListeners(MSG_REBEGIN);
+	getEventDispatcher()->removeCustomEventListeners(MSG_BACKMAINSCENE);
+	getEventDispatcher()->removeCustomEventListeners(MSG_USESKILL);
+}
+void GameScene::onRebegin()
+{
+	Restart();
+}
+void GameScene::onPause()
+{
+	pause();
+	auto layer = PauseLayer::create();
+	layer->setPosition(0, 0);
+	addChild(layer);
+	
+}
+void GameScene::onResum()
+{
+	resume();
+}
+void GameScene::onBackMainScene()
+{
+	Director::getInstance()->replaceScene(MainScene::createScene());
+}
+void GameScene::onUseSkill(int skillid)
+{
+
 }
