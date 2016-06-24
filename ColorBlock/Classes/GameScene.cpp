@@ -13,7 +13,6 @@
 #include "CommonFunction.h"
 #include "utill/AnimationUtil.h"
 #include <map>
-#include "MsgDefine.h"
 #include "tools/PauseLayer.h"
 
 USING_NS_CC;
@@ -157,8 +156,7 @@ bool GameScene::init()
 	});
 	this->addChild(pauseButton);
 
-	//获取当前图形
-	m_widget->GetNextBlockGroup(m_curGroup, this);
+	getNextGroup();
 
 	//利用plist文件卸载打包图片
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
@@ -166,12 +164,6 @@ bool GameScene::init()
 	//定时移动当前图形
 	this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / m_level);
 
-	//触摸屏事件监听
-	m_touchListener = EventListenerTouchOneByOne::create();
-	m_touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-	m_touchListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
-	m_touchListener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_touchListener, this);
 
 	//Android按键监听
 	m_keyboardListener = EventListenerKeyboard::create();
@@ -198,25 +190,21 @@ bool GameScene::init()
 	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(fVolumeEffects);
 
 
-	//初始化广播
-	InitNotifications();
-
     return true;
 }
+void GameScene::getNextGroup()
+{
+	//获取当前图形
+	m_widget->GetNextBlockGroup(m_curGroup, this);
+	showShadeInBottom(m_curGroup->GetBlocks());
 
+}
 void GameScene::update(float delta)
 {
 
 }
 
-bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
-{
-	auto touchLocation = touch->getLocation();
-	//log("point(%f, %f)\n", touchLocation.x, touchLocation.y);
 
-
-	return true;
-}
 
 //按键按下
 void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
@@ -325,27 +313,14 @@ void GameScene::DoExitGame()
 #endif
 }
 
-void GameScene::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
-{
-	//触摸点坐标
-	auto touchLocation = touch->getLocation();
 
-}
-
-void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
-{
-	//停止左右移动
-	//m_moveState = BlockMove::BLOCKMOVE_NONE;
-
-}
 
 void GameScene::onExit()
 {
-	Node::onExit();
+	BaseGame::onExit();
 
 	//释放方块资源
 	SpriteManager::GetInstance()->UnInit();
-
 	//释放音频资源
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	SimpleAudioEngine::getInstance()->stopAllEffects();
@@ -364,7 +339,7 @@ void GameScene::MoveDownCurBlockGroup(float dt)
 	}
 
 	const Size& size = SpriteManager::GetInstance()->GetBlockSize();
-	if (/*m_curGroup->MoveDown(m_vecBlocks)*/IsCurBlockGroupCanMoveDown())
+	if (IsCurBlockGroupCanMoveDown())
 	{
 		//向下移动
 		for (int i=0; i<4; i++)
@@ -470,7 +445,7 @@ void GameScene::AddCurBlockGroupToBlocks()
 	//重置当前图形
 	delete m_curGroup;
 	m_curGroup = NULL;
-	m_widget->GetNextBlockGroup(m_curGroup, this);
+	getNextGroup();
 }
 
 //消去同行的方块
@@ -543,11 +518,11 @@ bool GameScene::ReleaseBlocksOnFullLine()
 
 		//增加行数
 		m_line += nSeriesNumber;
-		if (m_line / 25 >= m_level)
+		if (m_line / 10 >= m_level)
 		{
 			//修改移动当前图形的速度
 			this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
-			this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / ++m_level);
+			this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / ++	m_level);
 			RefreshLevel();
 		}
 		RefreshLine();
@@ -618,6 +593,7 @@ void GameScene::MoveLeftrightCurBlockGroup(float dt)
 	default:
 		break;
 	}
+	showShadeInBottom(m_curGroup->GetBlocks());
 }
 
 //弹出框按钮事件
@@ -652,19 +628,6 @@ void GameScene::buttonPopupCallback(Ref* sender, ButtonResult result)
 //重新开始游戏
 void GameScene::Restart()
 {
-	//触摸屏事件监听
-	m_touchListener = EventListenerTouchOneByOne::create();
-	//m_touchListener->onTouchBegan = [&](Touch* touch, Event* unused_event)->bool { return true; };
-	m_touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-	m_touchListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
-	m_touchListener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_touchListener, this);
-
-	//Android按键监听
-	m_keyboardListener = EventListenerKeyboard::create();
-	m_keyboardListener->onKeyPressed = CC_CALLBACK_2(GameScene::onKeyPressed, this);
-	m_keyboardListener->onKeyReleased = CC_CALLBACK_2(GameScene::onKeyReleased, this);
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_keyboardListener, this);
 
 	//弹出层标记
 	m_bPopupLayerWorking = false;
@@ -687,9 +650,10 @@ void GameScene::Restart()
 	m_vecBlocks.clear();
 
 	//获取下一个方块
+	m_curGroup->removeFromeParent();
 	delete m_curGroup;
 	m_curGroup = NULL;
-	m_widget->GetNextBlockGroup(m_curGroup, this);
+	getNextGroup();
 
 	//定时移动当前图形
 	this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
@@ -811,9 +775,67 @@ void GameScene::buttonRotateCallback(Ref* sender, cocos2d::ui::Widget::TouchEven
 	if (cocos2d::ui::Widget::TouchEventType::BEGAN == event)
 	{
 		m_curGroup->Rotate(m_vecBlocks);
+		showShadeInBottom(m_curGroup->GetBlocks());
 	}
 }
+void GameScene::showShadeInBottom(const vector<BlockObject>& blocks)
+{
+	for (auto var : m_shadeblocks)
+	{
+		var.sprite->removeFromParentAndCleanup(1);
+	}
+	m_shadeblocks.clear();
+	for (auto var : blocks)
+	{
+		BlockObject ob;
+		ob.index = -1;
+		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(SHADESPRITEBLOCK);
+		ob.col = var.col;
+		ob.row = var.row;
+		addChild(ob.sprite);
+		m_shadeblocks.push_back(ob);
+	}
+	vector<BlockObject>::const_iterator cit;
+	int nMoveRowCount = 0;
+	bool bIntersect = false;
+	for (int row = m_shadeblocks[3].row + 1; row < GameField::GetInstance()->GetBlockRowCount(); row++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			//当前方块是否可以移动(row - m_blocks[3].row)行
+			for (cit = m_vecBlocks.begin(); cit != m_vecBlocks.end(); ++cit)
+			{
+				if (cit->col == m_shadeblocks[i].col && cit->row == m_shadeblocks[i].row + (row - m_shadeblocks[3].row))
+				{
+					bIntersect = true;
+					break;
+				}
+			}
 
+			if (bIntersect)
+			{
+				break;
+			}
+		}
+
+		if (bIntersect)
+		{
+			break;
+		}
+		else
+		{
+			nMoveRowCount++;
+		}
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		m_shadeblocks[i].row += (nMoveRowCount > 0 ? (nMoveRowCount - 0) : 0);
+		Vec2 posBlock = Vec2::ZERO;
+		GameField::GetInstance()->GetBlockPosition(m_shadeblocks[i].row, m_shadeblocks[i].col, posBlock);
+		m_shadeblocks[i].sprite->setPosition(posBlock);
+	}
+}
 //立即下降
 void GameScene::buttonDirectDownCallback(Ref* sender, cocos2d::ui::Widget::TouchEventType event)
 {
@@ -856,32 +878,6 @@ void GameScene::RefreshLevel()
 	//m_labelLevel->setString(text);
 }
 
-void GameScene::InitNotifications()
-{
-	//游戏暂停
-	EventListenerCustom* listener = EventListenerCustom::create(MSG_PAUSE, [=](EventCustom* event){onPause(); });
-	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
-	//游戏恢复
-	listener = EventListenerCustom::create(MSG_RESUME, [=](EventCustom* event){onResum(); CCLOG("onResume"); });
-	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
-	//重新开始
-	listener = EventListenerCustom::create(MSG_REBEGIN, [=](EventCustom* event){onRebegin(); });
-	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
-	//返回大厅
-	listener = EventListenerCustom::create(MSG_BACKMAINSCENE, [=](EventCustom* event){onBackMainScene(); });
-	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
-	//使用技能
-	listener = EventListenerCustom::create(MSG_USESKILL, [=](EventCustom* event){int *skillid =((int*)event->getUserData()); onUseSkill(*skillid); });
-	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
-}
-void GameScene::removeNotifications()
-{
-	getEventDispatcher()->removeCustomEventListeners(MSG_PAUSE);
-	getEventDispatcher()->removeCustomEventListeners(MSG_RESUME);
-	getEventDispatcher()->removeCustomEventListeners(MSG_REBEGIN);
-	getEventDispatcher()->removeCustomEventListeners(MSG_BACKMAINSCENE);
-	getEventDispatcher()->removeCustomEventListeners(MSG_USESKILL);
-}
 void GameScene::onRebegin()
 {
 	Restart();

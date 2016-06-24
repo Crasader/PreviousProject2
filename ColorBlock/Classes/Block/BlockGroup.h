@@ -92,6 +92,9 @@ public:
 	virtual void initBlockGroupInDropMode(int colorIndex){};
 
 
+
+
+	void removeFromeParent();
 protected:
 	/************************************************************************/
 	/* 设置图形类型                                                         */
@@ -128,6 +131,7 @@ private:
 	enum { GROUP_TYPE_NUMBER = 7 };
 
 protected:
+	
 	std::vector<BlockObject> m_blocks;
 	//BlockObject			m_blocks[BLOCK_GROUP_NUMBER];	//4个方块
 	BlockGroupType		m_type;							//图形类型

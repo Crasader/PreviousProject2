@@ -11,3 +11,9 @@
 #define MSG_USESKILL			"msg_useSkill"				//使用技能XX
 
 
+enum 
+{
+	Skill_Knock = 1,
+	Skill_Fill = 2,
+	Skill_Revivi = 3
+};

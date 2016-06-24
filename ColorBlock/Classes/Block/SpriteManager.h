@@ -4,7 +4,7 @@
 /************************************************************************/
 /* 精灵管理单例类                                                       */
 /************************************************************************/
-
+#define SHADESPRITEBLOCK 7
 class SpriteManager
 {
 public:
@@ -22,7 +22,7 @@ public:
 	const cocos2d::Size& GetBlockSize();
 
 	//初始化精灵
-	cocos2d::Sprite* GetBlockSprite(int block_type_index);
+	cocos2d::Sprite* GetBlockSprite(int block_type_index,bool isBig = false);
 
 public:
 	//初始化
@@ -49,7 +49,7 @@ private:
 
 private:
 	//方块种类数
-	enum { BLOCK_TYPE_NUMBER = 5 };
+	enum { BLOCK_TYPE_NUMBER = 7};
 
 	//初始化标记
 	bool m_bInitialized;

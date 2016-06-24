@@ -157,7 +157,7 @@ void MainScene::loadRes()
 	if (!isLoad)
 	{
 		isLoad = true;
-		AnimationUtil::getInstance()->addAnimationBySpriteFrameName("TX_xiaochu.plist", "TX_xiaochu_%.4d.png", "ani_xiaochu", 0.2f, 25);
+		AnimationUtil::getInstance()->addAnimationBySpriteFrameName("TX_xiaochu.plist", "TX_xiaochu_%.4d.png", "ani_xiaochu", 0.15f, 25);
 		SpriteManager::GetInstance()->InitSpriteFramesWithFile("otherScene.plist");
 	}
 }

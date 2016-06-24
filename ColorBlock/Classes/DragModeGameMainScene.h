@@ -3,11 +3,12 @@
 #include "DragModeGameWidget.h"
 #include "Block/BlockGroup.h"
 #include "tools/PopupLayer.h"
+#include "BaseGame.h"
 
 #include "ui/UIWidget.h"
 
 
-class DragModeGameMainScene : public cocos2d::Layer
+class DragModeGameMainScene : public BaseGame
 {
 public:
 	DragModeGameMainScene();
@@ -41,32 +42,15 @@ public:
     // implement the "static create()" method manually
 	CREATE_FUNC(DragModeGameMainScene);
 
-public:
-	//自定义按钮事件
-	void buttonSpeedupCallback(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType event);
-	void buttonDirectDownCallback(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType event);
-	void buttonLeftCallback(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType event);
-	void buttonRightCallback(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType event);
-	void buttonRotateCallback(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType event);
-
-	//弹出框按钮事件
-	void buttonPopupCallback(cocos2d::Ref* sender, ButtonResult result);
-
-	//定时器回调函数
-	void MoveDownSpeedup(float dt);				//加速下落函数
-	void MoveDownCurBlockGroup(float dt);		//向下移动当前图形
-	void MoveLeftrightCurBlockGroup(float dt);	//左右移动当前图形
-	void RemoveFullRowBlocks(float dt);			//消去方块
+private:
+	virtual void onPause();
+	virtual void onResum();
+	virtual void onBackMainScene();
+	virtual void onRebegin();
+	virtual void onUseSkill(int skillid);
 
 private:
-	bool IsCurBlockGroupCanMoveDown();			//判断当前图形是否可以下落
-	void AddCurBlockGroupToBlocks();			//添加当前图形中的方块到方块集合中
 
-	//刷新标签
-	void RefreshLine();
-	void RefreshLevel();
-
-	bool ReleaseBlocksOnFullLine();				//消去同行的方块
 	void Restart();								//重新开始游戏
 	void GameOver();							//游戏结束
 	void ExitGame();							//退出游戏

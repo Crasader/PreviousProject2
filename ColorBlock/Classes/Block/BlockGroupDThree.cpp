@@ -36,21 +36,21 @@ void BlockGroupDThree::initBlockGroupInDropMode(int colorIndex)
 		ob.col = 1;
 		ob.row = 0;
 		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex);
+		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
 		m_blocks.push_back(ob);
 
 
 		ob.col = 2;
 		ob.row = 0;
 		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex);
+		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
 		m_blocks.push_back(ob);
 
 
 		ob.col = -1;
 		ob.row = 0;
 		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex);
+		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
 		m_blocks.push_back(ob);
 	}
 	break;
@@ -60,20 +60,20 @@ void BlockGroupDThree::initBlockGroupInDropMode(int colorIndex)
 		ob.col = 0;
 		ob.row = 1;
 		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex);
+		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
 		m_blocks.push_back(ob);
 
 
 		ob.col = 0;
 		ob.row = 2;
 		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex);
+		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
 		m_blocks.push_back(ob);
 
 		ob.col = 0;
 		ob.row = -1;
 		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex);
+		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
 		m_blocks.push_back(ob);
 	}
 	break;

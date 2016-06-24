@@ -1,4 +1,5 @@
 #include "SkillButton.h"
+#include "MsgDefine.h"
 USING_NS_CC;
 
 SkillButton::SkillButton() 
@@ -53,5 +54,6 @@ bool SkillButton::init(int skillID, int skillNum)
 
 void SkillButton::skillClickCallBack(Ref*psend)
 {
-
+	EventCustom event(MSG_REBEGIN);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }

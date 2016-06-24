@@ -270,3 +270,10 @@ bool BlockGroup::MoveDownDirect(const vector<BlockObject>& blocks, int nReserved
 	return true;
 }
 
+void BlockGroup::removeFromeParent()
+{
+	for (auto var:m_blocks)
+	{
+		var.sprite->removeFromParentAndCleanup(1);
+	}
+}

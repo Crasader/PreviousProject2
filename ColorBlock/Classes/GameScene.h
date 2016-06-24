@@ -5,7 +5,7 @@
 #include "GameWidget.h"
 #include "Block/BlockGroup.h"
 #include "tools/PopupLayer.h"
-
+#include "BaseGame.h"
 #include "ui/UIWidget.h"
 
 #include <vector>
@@ -18,7 +18,7 @@ typedef enum
 	BLOCKMOVE_RIGHT		//向右移动
 } BlockMove;
 
-class GameScene : public cocos2d::Layer
+class GameScene : public BaseGame
 {
 public:
 	GameScene();
@@ -32,14 +32,6 @@ public:
 	// Update method will be called automatically every frame if "scheduleUpdate" is called, and the node is "live"
 	virtual void update(float delta);
 
-	// 触摸开始事件
-	virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event);
-
-	// 触摸滑动
-	virtual void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event);
-
-	// 触摸结束事件
-	virtual void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event);
 
 	//监听Android平台下的按键按下
 	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
@@ -49,6 +41,7 @@ public:
 
 	virtual void onExit();
     
+
     // implement the "static create()" method manually
     CREATE_FUNC(GameScene);
 
@@ -70,6 +63,9 @@ public:
 	void RemoveFullRowBlocks(float dt);			//消去方块
 
 private:
+
+	void getNextGroup();
+	void showShadeInBottom(const vector<BlockObject>& blocks);
 	bool IsCurBlockGroupCanMoveDown();			//判断当前图形是否可以下落
 	void AddCurBlockGroupToBlocks();			//添加当前图形中的方块到方块集合中
 
@@ -82,20 +78,19 @@ private:
 	void GameOver();							//游戏结束
 	void ExitGame();							//退出游戏
 	void DoExitGame();							//确认退出游戏
-	void InitNotifications();                   //创建广播通知
-	void removeNotifications();                 //移除广播通知
+
 private:
 	void onPause();
 	void onResum();
 	void onBackMainScene();
 	void onRebegin();
 	void onUseSkill(int skillid);
+
 private:
 	cocos2d::Size	m_winSize;		//窗口大小
 	cocos2d::Size	m_visibleSize;	//可视区域大小
 	cocos2d::Vec2	m_origin;		//绘图原点
 
-	cocos2d::EventListenerTouchOneByOne*	m_touchListener;	//触屏事件监听器
 	cocos2d::EventListenerKeyboard*			m_keyboardListener;	//键盘事件监听器
 
 	bool			m_bPopupLayerWorking;	//弹出层是否启用
@@ -107,6 +102,7 @@ private:
 	cocos2d::LabelAtlas* m_labelLine;
 	cocos2d::Label* m_labelLevel;
 
+	std::vector<BlockObject> m_shadeblocks;
 	//当前图形
 	BlockGroup*		m_curGroup;
 

@@ -7,7 +7,7 @@ using namespace ui;
 // on "init" you need to initialize your instance
 bool PauseLayer::init()
 {
-	if ( !Layer::init() )
+	if ( !BaseLayer::init() )
 	{
 		return false;
 	}
@@ -28,7 +28,7 @@ bool PauseLayer::init()
 	exitBt->setPosition(84, 312);
 	auto continueBt = MenuItemSprite::create(SPRITE("btContinueOnPause_1.png"), SPRITE("btContinueOnPause_2.png"), CC_CALLBACK_1(BaseLayer::menuContinueCallback, this));
 	continueBt->setPosition(240, 415);
-	auto reStartBt = MenuItemSprite::create(SPRITE("btRestartOnPause_1.png"), SPRITE("btRestartOnPause_2.png"), CC_CALLBACK_1(BaseLayer::menuContinueCallback, this));
+	auto reStartBt = MenuItemSprite::create(SPRITE("btRestartOnPause_1.png"), SPRITE("btRestartOnPause_2.png"), CC_CALLBACK_1(BaseLayer::menuReStartCallback, this));
 	reStartBt->setPosition(480-84, 312);
 
 

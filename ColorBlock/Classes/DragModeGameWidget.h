@@ -9,15 +9,19 @@ typedef struct _tagBlockGroupEntity
 	cocos2d::Sprite*	sprite;	//集合精灵
 } BlockGroupEntity;
 
+struct BlockCutData
+{
+	int cutType;  //1: ROW  2: COL
+	int index;
+};
 
 //方格大小
-#define GridSide   100
+#define GridSide   43
 //总行数
 #define RowCount   10
 //总列数
 #define ColCount   10
-//网格原点坐标
-#define GridZeroPos   Vec2(200, 100)
+
 
 class DragModeGameWidget : public cocos2d::Layer
 {
@@ -30,14 +34,9 @@ public:
     // implement the "static create()" method manually
 	CREATE_FUNC(DragModeGameWidget);
 
-	//获取下一个图形
-	void GetNextBlockGroup(BlockGroup*& curGroup, cocos2d::Node* parent);
-
-	//图形接触下面的方块(加10分)
-	void BlockGroupLanding();
 
 	//消去方块获取分数
-	void AddScore(const vector<int>& vecFullRow);
+	void AddScore( int cutLine);
 
 	//获取分数
 	int GetScore() const { return m_nScore; }
@@ -63,16 +62,17 @@ public:
 	virtual void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event);
 
 private:
-	//重置图形
-	void ResetNextGroup();
+
 
 	//刷新分数
 	void RefreshScore();
+	//刷新行数
+	void RefreshLine();
 
 	//重置准备的方块
 	void RestReadGroup();
 
-
+	void CheckIsFailed();
 	//网格函数
 	//根据屏幕坐标获取网格行列
 	void  getGridxy(Vec2 in_Pos,int &out_Row,int &out_Col);
@@ -88,8 +88,10 @@ private:
 	bool isCouldPutTheBlockgroup(BlockGroup*group);
 private:
 	//分数
-	cocos2d::Label*	m_scoreLabel;	//分数标签
+	cocos2d::LabelAtlas*	m_scoreLabel;	//分数标签
 	int				m_nScore;		//分数
+	cocos2d::LabelAtlas* m_labelLine;  //行数标签
+	int m_nLine;  //行数
 
 	//下一个图形
 	BlockGroup*		m_nextGroup;	//下一个图形组合
@@ -101,6 +103,7 @@ private:
 	cocos2d::Size	m_sizeScore;	//分数区域图片大小
 	cocos2d::Rect	m_rectNext;		//下一个区域图片的坐标区域
 	
+	cocos2d::Vec2 GridZeroPos;
 	//正在滑动的方块集合
 	BlockGroupEntity* m_nowTouchBlock = nullptr;
 	cocos2d::Vec2              m_nowTouchBlockStartPos;

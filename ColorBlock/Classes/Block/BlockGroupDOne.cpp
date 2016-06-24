@@ -36,7 +36,7 @@ void BlockGroupDOne::initBlockGroupInDropMode(int colorIndex)
 	ob.col = 0;
 	ob.row = 0;
 	ob.index = colorIndex;
-	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex);
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
 	m_blocks.push_back(ob);
 
 }

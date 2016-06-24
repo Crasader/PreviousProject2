@@ -62,7 +62,7 @@ const cocos2d::Size& SpriteManager::GetBlockSize()
 }
 
 //初始化精灵
-cocos2d::Sprite* SpriteManager::GetBlockSprite(int block_type_index)
+cocos2d::Sprite* SpriteManager::GetBlockSprite(int block_type_index, bool isBig)
 {
 	if (!Init())
 	{
@@ -70,19 +70,27 @@ cocos2d::Sprite* SpriteManager::GetBlockSprite(int block_type_index)
 	}
 
 	//检测索引是否越界
-	if (block_type_index < 0 || block_type_index >= SpriteManager::GetBlockTypeNumber())
+	if (block_type_index < 0)
 	{
 		return NULL;
 	}
 
 	//获取精灵文件名
-	std::string filename = StringUtils::format("block%02d.png", block_type_index + 1);
+	std::string filename;
+	if (isBig)
+	{
+		filename = StringUtils::format("block%02d_big.png", block_type_index + 1);
+	}
+	else
+	{
+		filename = StringUtils::format("block%02d.png", block_type_index + 1);
+	}
+	
 
 	//获取精灵
 	auto block = Sprite::createWithSpriteFrameName(filename);
 	return block;
 }
-
 //初始化
 bool SpriteManager::InitSpriteFramesWithFile(const std::string& plist)
 {

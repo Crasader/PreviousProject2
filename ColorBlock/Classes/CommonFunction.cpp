@@ -103,7 +103,7 @@ BlockGroup*  CommonFunction::GetDropModeNewBlockGroup()
 	}
 	if (group)
 	{
-		group->initBlockGroupInDropMode(2);
+		group->initBlockGroupInDropMode(rand() % SpriteManager::GetInstance()->GetBlockTypeNumber());
 	}
 	return group;
 
@@ -133,10 +133,10 @@ BlockGroupType CommonFunction::GetRandonNormalModeType()
 	{
 		if (random <= addVecNum(ivector,i+1))
 		{
-			CCLOG("Normal node type = %d",i);
 			return blocktype[i];
 		}
 	}
+	return blocktype[0];
 
 }
 
@@ -150,10 +150,10 @@ BlockGroupType CommonFunction::GetRandonDropModeType()
 	{
 		if (random <= addVecNum(ivector, i+1))
 		{
-			CCLOG("Drop mode type = %d", i);
 			return blocktype[i];
 		}
 	}
+	return blocktype[0];
 }
 
 

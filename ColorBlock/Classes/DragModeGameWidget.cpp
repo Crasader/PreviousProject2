@@ -1,8 +1,8 @@
 #include "DragModeGameWidget.h"
 #include "CommonFunction.h"
 #include "Block/SpriteManager.h"
+#include "utill/AnimationUtil.h"
 
-USING_NS_CC;
 
 
 enum
@@ -27,133 +27,68 @@ bool DragModeGameWidget::init()
 	}
 	RestReadGroup();
 
+	auto girdBox = Sprite::createWithSpriteFrameName("dropModeBox.png");
+	girdBox->setPosition(240, 800 - 77 - girdBox->getContentSize().height / 2);
+	addChild(girdBox);
 
-	auto sp = Sprite::create();
-	sp->setPosition(0, 0);
-	addChild(sp);
+	//网格边缘24*21
+	GridZeroPos = Vec2(girdBox->getPositionX() - girdBox->getContentSize().width / 2 + 24, girdBox->getPositionY() - girdBox->getContentSize().height / 2 + 21);
 
-	auto pos = sp->getPosition();
+	///test 网格
+	//auto draw = DrawNode::create();
+	//addChild(draw,100);
 
-	auto draw = DrawNode::create();
-	addChild(draw);
-	for (int i = 0; i < 11; i++)
-	{
-		draw->drawLine(Vec2(0, i * GridSide) + GridZeroPos, Vec2(RowCount*GridSide, i * GridSide) + GridZeroPos, Color4F::WHITE);
-	}
-	for (int i = 0; i < 11; i++)
-	{
-		draw->drawLine(Vec2(i * GridSide, 0) + GridZeroPos, Vec2(0 + i * GridSide, ColCount*GridSide) + GridZeroPos, Color4F::WHITE);
-	}
 
-	//	Size visibleSize = Director::getInstance()->getVisibleSize();
-	//	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	//
-	//	//坐标参数
-	//	float cx = 0.0f;
-	//	float cy = 0.0f;
-	//
-	//	//层
-	//	int nZOrderField = 0;
-	//	int nZOrderScore = 0;
-	//	int nZOrderNext = 0;
-	//	int nZOrderScoreLabel = 1;
-	//
-	//	//创建图片精灵
-	//	auto field = SpriteManager::GetInstance()->GetGameFieldSprite();	//Sprite::create("field.png");
-	//	auto score = SpriteManager::GetInstance()->GetScoreSprite();		//Sprite::create("score.png");
-	//	auto next = SpriteManager::GetInstance()->GetNextSprite();			//Sprite::create("next.png");
-	//	int sprite_interval = (visibleSize.width - field->getContentSize().width
-	//		- score->getContentSize().width - next->getContentSize().width)/4;
-	//
-	//	//添加游戏区域
-	//	field->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + visibleSize.height/2));
-	//	//图片顶部距离游戏区域30px，左边距离游戏区域35px
-	//	m_posBlock = Vec2(field->getPositionX() - field->getContentSize().width/2 + 35, field->getPositionY() + field->getContentSize().height/2 - 30);
-	//	this->addChild(field, nZOrderField);
-	//
-	//	//添加分数区域
-	//	cx = origin.x + sprite_interval + score->getContentSize().width/2;
-	//	cy = origin.y + visibleSize.height/10*9 - score->getContentSize().height/2;
-	//	m_posScore = Vec2(cx, cy);
-	//	m_sizeScore = score->getContentSize();
-	//	score->setPosition(m_posScore);
-	//	this->addChild(score, nZOrderScore);
-	//
-	//	//添加下一个区域
-	//	float height_inetrval = 50.0f;
-	//	cx = origin.x + score->getContentSize().width + field->getContentSize().width + sprite_interval*3 + next->getContentSize().width/2;
-	//	m_rectNext = Rect(cx - next->getContentSize().width/2, cy + next->getContentSize().height/2 - height_inetrval,
-	//		next->getContentSize().width, next->getContentSize().height - height_inetrval);
-	//	next->setPosition(Vec2(cx, cy));
-	//	this->addChild(next, nZOrderNext);
-	//
-	//	//通过字符图片创建字体：需要设置字体宽、高、起始字符
-	//// 	Label* label = Label::createWithCharMap("fonts/number.png", 38, 38, '0');
-	//// 	label->setString("0");	//设置字符串内容
-	//// 	m_score->setPosition(Vec2(origin.x + 127, origin.y + 900 + 20));
-	//
-	//	//创建分数字体
-	//	m_scoreLabel = Label::createWithTTF("0", "fonts/Marker Felt.ttf", 80);	//2376500
-	//	m_scoreLabel->setPosition(Vec2(m_posScore.x, m_posScore.y - height_inetrval/2));
-	//	this->addChild(m_scoreLabel, nZOrderScoreLabel);
-	//
-	//	//初始化分数
-	//	m_nScore = 0;
-	//
-	//	//设置下一个图形
-	//	ResetNextGroup();
-	//    
+	//for (int i = 0; i < 11; i++)
+	//{
+	//	draw->drawLine(Vec2(0, i * GridSide) + GridZeroPos, Vec2(RowCount*GridSide, i * GridSide) + GridZeroPos, Color4F::RED);
+	//}
+	//for (int i = 0; i < 11; i++)
+	//{
+	//	draw->drawLine(Vec2(i * GridSide, 0) + GridZeroPos, Vec2(0 + i * GridSide, ColCount*GridSide) + GridZeroPos, Color4F::RED);
+	//}
+
+	//创建分数
+	auto scoreFrame = Sprite::createWithSpriteFrameName("scoreFrame.png");
+	scoreFrame->setPosition(240, 800);
+	scoreFrame->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
+	addChild(scoreFrame, 5);
+
+	//初始化分数
+	m_nScore = 0;
+	m_scoreLabel = LabelAtlas::create("0", "scoreNum.png", 16, 25, '0');
+	m_scoreLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	m_scoreLabel->setPosition(scoreFrame->getContentSize() / 2+Size(0,5));
+	scoreFrame->addChild(m_scoreLabel);
+
+
+	//添加已经消除多少行
+	m_nLine = 0;
+	auto cutLineFrame = Sprite::createWithSpriteFrameName("cutLineFrame.png");
+	cutLineFrame->setPosition(480, 800);
+	cutLineFrame->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
+	addChild(cutLineFrame, 5);
+
+	//添加标签
+	m_labelLine = LabelAtlas::create(Value(m_nLine).asString(), "scoreNum.png", 16, 25, '0');
+	m_labelLine->setPosition(cutLineFrame->getContentSize() / 2 + Size(0, 10));
+	m_labelLine->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	cutLineFrame->addChild(m_labelLine);
+
 	return true;
 }
 
-//获取下一个图形
-void DragModeGameWidget::GetNextBlockGroup(BlockGroup*& curGroup, cocos2d::Node* parent)
-{
-	//获取下一个图形
-	CommonFunction::GetNewBlockGroup(curGroup, m_nextGroup->GetBlockGroupType());
-	if (curGroup != NULL)
-	{
-		curGroup->SetBlockGroupDirection(m_nextGroup->GetBlockGroupDirection());
-		curGroup->ResetBlockGroup(parent, m_nextGroup->GetBlocks()[0].index);
-	}
-
-	//重置下一个图形
-	ResetNextGroup();
-}
-
-//重置图形
-void DragModeGameWidget::ResetNextGroup()
-{
-	//销毁图形
-	if (m_nextGroup != NULL)
-	{
-		for (int i = 0; i < BlockGroup::GetBlockGroupNumber(); i++)
-		{
-			this->removeChild(m_nextGroup->GetBlocks()[i].sprite);
-		}
-		delete m_nextGroup;
-		m_nextGroup = NULL;
-	}
-
-	//设置下一个图形
-	BlockGroupType type = BlockGroupType(rand() % BlockGroup::GetGroupTypeNumber());
-	CommonFunction::GetNewBlockGroup(m_nextGroup, type);
-
-	//重置方块
-	if (m_nextGroup != NULL)
-	{
-		m_nextGroup->ResetNextBlockGroup(this, m_rectNext);
-	}
-}
 
 //刷新分数
 void DragModeGameWidget::RefreshScore()
 {
-	std::stringstream ss;
-	ss << m_nScore;
+	m_scoreLabel->setString(Value(m_nScore).asString());
+}
+//刷新标签
+void DragModeGameWidget::RefreshLine()
+{
 
-	std::string strScore = ss.str();
-	m_scoreLabel->setString(strScore);
+	m_labelLine->setString(Value(m_nLine).asString());
 }
 
 //重设分数
@@ -163,36 +98,40 @@ void DragModeGameWidget::ResetScore()
 	RefreshScore();
 }
 
-//图形接触下面的方块(加10分)
-void DragModeGameWidget::BlockGroupLanding()
-{
-	m_nScore += 10;
-	RefreshScore();
-}
 
 //消去方块获取分数
-void DragModeGameWidget::AddScore(const vector<int>& vecFullRow)
+void DragModeGameWidget::AddScore(int cutLine)
 {
-	switch (vecFullRow.size())
+	switch (cutLine)
 	{
 	case 1:
-		m_nScore += 100;
+		m_nScore += 10;
 		break;
 	case 2:
-		//消去的两行连续与否有关？
-		m_nScore += (vecFullRow.at(0) + 1 == vecFullRow.at(1) ? 200 : 200);
+		m_nScore +=  30;
 		break;
 	case 3:
 		//同上的疑问
-		m_nScore += (vecFullRow.at(0) + 1 == vecFullRow.at(1) && vecFullRow.at(1) + 1 == vecFullRow.at(2)) ? 400 : 400;
+		m_nScore += 60;
 		break;
 	case 4:
-		m_nScore += 800;
+		m_nScore += 100;
+		break;
+	case 5:
+		m_nScore += 150;
+		break;
+	case 6:
+		m_nScore += 210;
+		break;
+	case 7:
+		m_nScore += 280;
 		break;
 	default:
 		break;
 	}
+	m_nLine +=cutLine;
 	RefreshScore();
+	RefreshLine();
 }
 
 void DragModeGameWidget::RestReadGroup()
@@ -213,16 +152,18 @@ void DragModeGameWidget::RestReadGroup()
 	for (int i = 0; i < m_vecReadBlocks.size(); i++)
 	{
 		auto group = m_vecReadBlocks[i];
-		group->sprite->setPosition(Vec2(300 + i * 300, 100));
+		group->sprite->setPosition(Vec2((i + 1) * 120, 130));
 		group->sprite->setAnchorPoint(Point::ZERO);
 		for (auto var : group->data->GetBlocks())
 		{
-			auto size = SpriteManager::GetInstance()->GetBlockSize();
+			auto size = SpriteManager::GetInstance()->GetBlockSprite(1, true)->getContentSize();
 			int rowSign = var.row == 0 ? 0 : var.row / abs(var.row);
 			int colSign = var.col == 0 ? 0 : var.col / abs(var.col);
 			var.sprite->setPosition(Vec2((var.row - 0.5*(rowSign))*size.width, (var.col - 0.5*(colSign))*size.height));
 			group->sprite->addChild(var.sprite);
+
 		}
+		group->sprite->setScale(0.5);
 	}
 }
 
@@ -245,7 +186,7 @@ bool DragModeGameWidget::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unu
 			{
 				m_nowTouchBlock = var;
 				m_nowTouchBlockStartPos = m_nowTouchBlock->sprite->getPosition();
-				m_nowTouchBlock->sprite->runAction(Spawn::create(MoveBy::create(0.2f, Vec2(0, 50)), ScaleTo::create(0.2f, 2.0f), nullptr));
+				m_nowTouchBlock->sprite->runAction(Spawn::create(MoveBy::create(0.2f, Vec2(0, 50)), ScaleTo::create(0.2f, 1.0f), nullptr));
 
 				return true;
 			}
@@ -279,7 +220,7 @@ void DragModeGameWidget::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unu
 		getGridxy(m_nowTouchBlock->sprite->convertToWorldSpace(var.sprite->getPosition()), row, col);
 		if (isExistBlock(row, col) || isOutofGrid(row, col))
 		{
-			m_nowTouchBlock->sprite->setScale(1.0f);
+			m_nowTouchBlock->sprite->setScale(0.5f);
 			m_nowTouchBlock->sprite->stopAllActions();
 			m_nowTouchBlock->sprite->setPosition(m_nowTouchBlockStartPos);
 			m_nowTouchBlock = nullptr;
@@ -312,47 +253,110 @@ void DragModeGameWidget::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unu
 
 
 	//计算消除整行可消除方块
-	std::vector<int>			m_vecFullRow;
-	std::map<int/*行号*/, int/*当前行的方块数*/> mapRow;
+	std::vector<BlockCutData>			m_vecFullLine;
+	std::map<int, int> mapRow;
+
+	std::vector<BlockCutData>            m_vecFullCol;
+	std::map<int, int> mapCol;
+
 	std::vector<BlockObject>::const_iterator cit;
 	for (cit = m_vecBlocks.begin(); cit != m_vecBlocks.end(); ++cit)
 	{
 		if (++mapRow[cit->col] == RowCount)
 		{
-			m_vecFullRow.push_back(cit->col);
+			BlockCutData data;
+			data.index = cit->col;
+			data.cutType = 2;
+			m_vecFullLine.push_back(data);
+		}
+		if (++mapCol [cit->row] == ColCount)
+		{
+			BlockCutData data;
+			data.index = cit->row;
+			data.cutType = 1;
+			m_vecFullLine.push_back(data);
 		}
 	}
-
-	for (auto var:m_vecFullRow)
+	if (m_vecFullLine.size() > 0)
 	{
-		for (auto it = m_vecBlocks.begin(); it != m_vecBlocks.end();)
+		for (auto var : m_vecFullLine)
 		{
-			if (var== it->col)
-			{	
-				removeBlock(it->row, it->col);
-				it = m_vecBlocks.erase(it);
+			if (var.cutType == 2)
+			{
+				for (auto block : m_vecBlocks)
+				{
+					if (var.index == block.col)
+					{
+						float cy = block.sprite->getParent()->convertToWorldSpace(block.sprite->getPosition()).y;
+						auto ani = Sprite::create();
+						ani->setPosition(240, cy);
+						addChild(ani, 5 + 1);
+						ani->runAction(Sequence::createWithTwoActions(AnimationUtil::getInstance()->getAnimate("ani_xiaochu"), RemoveSelf::create(true)));
+						break;
+					}
+				}
 			}
 			else
 			{
-				++it;
+				for (auto block : m_vecBlocks)
+				{
+					if (var.index == block.row)
+					{
+						float cx = block.sprite->getParent()->convertToWorldSpace(block.sprite->getPosition()).x;
+						auto ani = Sprite::create();
+						ani->setPosition(cx, 489);
+						ani->setRotation(90);
+						addChild(ani, 5 + 1);
+						ani->runAction(Sequence::createWithTwoActions(AnimationUtil::getInstance()->getAnimate("ani_xiaochu"), RemoveSelf::create(true)));
+						break;
+					}
+				}
 			}
+			
 		}
+		float dealy = AnimationUtil::getInstance()->getAnimate("ani_xiaochu")->getAnimation()->getDuration();
+		runAction(Sequence::createWithTwoActions(DelayTime::create(dealy), CallFunc::create([=]
+		{
+			AddScore(m_vecFullLine.size());
+			for (auto var : m_vecFullLine)
+			{
+				for (auto it = m_vecBlocks.begin(); it != m_vecBlocks.end();)
+				{
+					if ((var.index == it->col&&var.cutType == 2) || (var.index == it->row&&var.cutType == 1))
+					{
+						removeBlock(it->row, it->col);
+						it = m_vecBlocks.erase(it);
+					}
+					else
+					{
+						++it;
+					}
+				}
+			}
+			CheckIsFailed();
+		})));
 	}
-	//计算
+	else
+	{
+		CheckIsFailed();
+	}
+
+}
+void DragModeGameWidget::CheckIsFailed()
+{
 	int size = m_vecReadBlocks.size();
-	for (int i = 0; i < size;i++)
+	for (int i = 0; i < size; i++)
 	{
 		if (!isCouldPutTheBlockgroup(m_vecReadBlocks.at(i)->data))
 		{
 			size--;
 		}
 	}
-if (size<=0)
-{
-	CCLOG("you are failed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	if (size <= 0)
+	{
+		CCLOG("you are failed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	}
 }
-}
-
 bool DragModeGameWidget::isExistBlock(int row, int col)
 {
 	for (auto var : m_vecBlocks)
@@ -377,7 +381,7 @@ bool DragModeGameWidget::isOutofGrid(int row, int col)
 void DragModeGameWidget::getGridxy(Vec2 in_Pos, int &out_Row, int &out_Col)
 {
 	Vec2 p = in_Pos - GridZeroPos;
-	if (p.x<0||p.y<0)
+	if (p.x < 0 || p.y < 0)
 	{
 		out_Row = -1;
 		out_Col = -1;
@@ -394,16 +398,16 @@ void DragModeGameWidget::getGridxy(Vec2 in_Pos, int &out_Row, int &out_Col)
 bool DragModeGameWidget::isCouldPutTheBlockgroup(BlockGroup*group)
 {
 	bool isCould = false;
-	for (int i = 0; i < RowCount;i++)
+	for (int i = 0; i < RowCount; i++)
 	{
-		for (int j = 0; j < ColCount;j++)
+		for (int j = 0; j < ColCount; j++)
 		{
 			int size = group->GetBlocks().size();
-			for (auto var:group->GetBlocks())
+			for (auto var : group->GetBlocks())
 			{
 				int col = var.col + j;
 				int row = var.row + i;
-				if (isExistBlock(row,col)||isOutofGrid(row,col))
+				if (isExistBlock(row, col) || isOutofGrid(row, col))
 				{
 					break;
 				}
@@ -412,7 +416,7 @@ bool DragModeGameWidget::isCouldPutTheBlockgroup(BlockGroup*group)
 					size--;
 				}
 			}
-			if (size==0)
+			if (size == 0)
 			{
 				return true;
 			}

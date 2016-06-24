@@ -7,7 +7,7 @@ using namespace ui;
 // on "init" you need to initialize your instance
 bool GameOverLayer::init()
 {
-	if ( !Layer::init() )
+	if (!BaseLayer::init())
 	{
 		return false;
 	}
