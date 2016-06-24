@@ -414,7 +414,7 @@ void DragModeGameMainScene::onBackMainScene()
 {
 	Director::getInstance()->replaceScene(MainScene::createScene());
 }
-void DragModeGameMainScene::onUseSkill(int skillid)
+void DragModeGameMainScene::onUseSkill(SkillInfo*skill)
 {
 
 }

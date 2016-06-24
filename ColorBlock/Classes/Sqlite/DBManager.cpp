@@ -8,7 +8,7 @@ USING_NS_CC;
 const string DB_NAME = "para.db";
 const string GAME_PARA = "GamePara";
 const string GAME_SCORE = "GameScore";
-
+const string SKILL_INFO = "SKill_Info_%d";
 DBManager::DBManager(void)
 	: m_fVolumeBgm(0.5f)
 	, m_fVolumeEffects(0.5f)
@@ -239,4 +239,18 @@ bool DBManager::GetFirst10Ranking(vector<GameScore>& ranking)
 	}
 
 	return true;
+}
+
+
+void DBManager::SetSkillNum(int id,int num)
+{
+	auto SaveKey = String::createWithFormat(SKILL_INFO.c_str(), id);
+	UserDefault::getInstance()->setIntegerForKey(SaveKey->getCString(), num);
+}
+
+
+int DBManager::GetSkillNum(int id)
+{
+	auto SaveKey = String::createWithFormat(SKILL_INFO.c_str(), id);
+	return UserDefault::getInstance()->getIntegerForKey(SaveKey->getCString(), 0);
 }

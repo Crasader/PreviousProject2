@@ -17,7 +17,12 @@ typedef enum
 	BLOCKMOVE_LEFT,		//向左移动
 	BLOCKMOVE_RIGHT		//向右移动
 } BlockMove;
-
+enum GameTouchType
+{
+	Touch_Normal,
+	Touch_SkillKnock,
+	Touch_SkillFill
+};
 class GameScene : public BaseGame
 {
 public:
@@ -40,7 +45,14 @@ public:
 	virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 
 	virtual void onExit();
-    
+	// 触摸开始事件
+	virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event);
+
+	// 触摸滑动
+	virtual void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event);
+
+	// 触摸结束事件
+	virtual void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event);
 
     // implement the "static create()" method manually
     CREATE_FUNC(GameScene);
@@ -63,7 +75,7 @@ public:
 	void RemoveFullRowBlocks(float dt);			//消去方块
 
 private:
-
+	//使用技能
 	void getNextGroup();
 	void showShadeInBottom(const vector<BlockObject>& blocks);
 	bool IsCurBlockGroupCanMoveDown();			//判断当前图形是否可以下落
@@ -78,13 +90,15 @@ private:
 	void GameOver();							//游戏结束
 	void ExitGame();							//退出游戏
 	void DoExitGame();							//确认退出游戏
-
+	//消除和填补技能
+	void FillBlock(Vec2 pos);
+	void KnockBlock(Vec2 pos);
 private:
 	void onPause();
 	void onResum();
 	void onBackMainScene();
 	void onRebegin();
-	void onUseSkill(int skillid);
+	void onUseSkill(SkillInfo*skill);
 
 private:
 	cocos2d::Size	m_winSize;		//窗口大小
@@ -120,6 +134,7 @@ private:
 	int				m_level;		//级别
 	int				m_score;		//分数
 	int				m_line;			//消去的行数
+	GameTouchType   m_gameTouchType;
 };
 
 #endif // __GAME_SCENE_H__

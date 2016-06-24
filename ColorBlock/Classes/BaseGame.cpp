@@ -29,7 +29,7 @@ void BaseGame::InitNotifications()
 	listener = EventListenerCustom::create(MSG_BACKMAINSCENE, [=](EventCustom* event){onBackMainScene(); });
 	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
 	//使用技能
-	listener = EventListenerCustom::create(MSG_USESKILL, [=](EventCustom* event){int *skillid =((int*)event->getUserData()); onUseSkill(*skillid); });
+	listener = EventListenerCustom::create(MSG_USESKILL, [=](EventCustom* event){SkillInfo *skillid = ((SkillInfo*)event->getUserData()); onUseSkill(skillid); });
 	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
 }
 void BaseGame::removeNotifications()

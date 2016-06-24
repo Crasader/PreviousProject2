@@ -11,9 +11,14 @@
 #define MSG_USESKILL			"msg_useSkill"				//使用技能XX
 
 
-enum 
+enum SkillType
 {
 	Skill_Knock = 1,
 	Skill_Fill = 2,
 	Skill_Revivi = 3
+};
+struct SkillInfo
+{
+	SkillType Id;
+	int num;
 };

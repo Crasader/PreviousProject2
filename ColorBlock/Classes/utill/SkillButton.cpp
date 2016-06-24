@@ -40,11 +40,11 @@ bool SkillButton::init(int skillID, int skillNum)
 	circle->setPosition(getContentSize());
 	addChild(circle);
 
-	std::string num = _skillNum >= 10 ? ":" : Value(num).asString().c_str();
-	auto label = LabelAtlas::create(num, "cornerNum.png", 11, 14, '0');
-	label->setPosition(circle->getContentSize() / 2);
-	label->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	circle->addChild(label);
+	std::string num = _skillNum >= 10 ? ":" : Value(_skillNum).asString().c_str();
+	skillLabel = LabelAtlas::create(num, "cornerNum.png", 11, 14, '0');
+	skillLabel->setPosition(circle->getContentSize() / 2);
+	skillLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	circle->addChild(skillLabel);
 
     
 
@@ -54,6 +54,16 @@ bool SkillButton::init(int skillID, int skillNum)
 
 void SkillButton::skillClickCallBack(Ref*psend)
 {
-	EventCustom event(MSG_REBEGIN);
+	EventCustom event(MSG_USESKILL);
+	SkillInfo*skilli = new SkillInfo();
+	skilli->Id = ((SkillType)_skillID);
+	skilli->num = _skillNum;
+	event.setUserData(skilli);
 	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	CC_SAFE_DELETE(skilli);
+}
+void SkillButton::ChangeSkillNum(int diff)
+{
+	_skillNum += diff;
+	skillLabel->setString(Value(_skillNum).asString());
 }

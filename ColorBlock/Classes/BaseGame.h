@@ -20,6 +20,6 @@ private:
 	virtual void onResum() = 0;
 	virtual void onBackMainScene() = 0;
 	virtual void onRebegin() = 0;
-	virtual void onUseSkill(int skillid) = 0;
+	virtual void onUseSkill(SkillInfo*skill) = 0;
 };
 

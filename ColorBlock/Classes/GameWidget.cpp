@@ -53,7 +53,7 @@ bool GameWidget::init()
 	//初始化分数
 	m_nScore = 0;
 	//创建分数字体
-	m_scoreLabel = LabelAtlas::create(Value(m_nScore).asString(),"scoreNum.png",16,25,'0');	//2376500
+	m_scoreLabel = LabelAtlas::create(Value(m_nScore).asString(),"scoreNum.png",16,25,'0');	
 	m_scoreLabel->setPosition(m_posScore);
 	this->addChild(m_scoreLabel, nZOrderScoreLabel);
 	m_scoreLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
@@ -66,6 +66,14 @@ bool GameWidget::init()
     return true;
 }
 
+void GameWidget::GetRowAndColByPos(cocos2d::Vec2 pos,int &row,int &col)
+{
+	Vec2 start = GetFirstBlockPosition();
+	pos -= start;
+	int size = SpriteManager::GetInstance()->GetBlockSize().width;
+	row = -pos.y / size;
+	col = pos.x / size;
+}
 //获取下一个图形
 void GameWidget::GetNextBlockGroup(BlockGroup*& curGroup, cocos2d::Node* parent)
 {

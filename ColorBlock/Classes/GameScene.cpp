@@ -14,6 +14,7 @@
 #include "utill/AnimationUtil.h"
 #include <map>
 #include "tools/PauseLayer.h"
+#include "utill/SkillButton.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -27,6 +28,7 @@ using std::map;
 
 GameScene::GameScene()
 	: m_curGroup(NULL)
+	,m_gameTouchType(Touch_Normal)
 {
 
 }
@@ -55,6 +57,7 @@ bool GameScene::init()
     {
         return false;
     }
+	auto db = DBManager::GetInstance();
 	//设置随机数种子
 	srand((unsigned)time(NULL));
 
@@ -158,6 +161,17 @@ bool GameScene::init()
 
 	getNextGroup();
 
+	auto skillmenu = Menu::create();
+	skillmenu->setPosition(0, 0);
+	addChild(skillmenu, 5);
+	for (int i = 1; i <= 2; i++)
+	{
+		auto skillbutton = SkillButton::createSkillButton(i, db->GetSkillNum(i));
+		skillbutton->setPosition(432, 424 - i * 100);
+		skillmenu->addChild(skillbutton);
+	}
+
+
 	//利用plist文件卸载打包图片
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("game.plist");
@@ -190,6 +204,12 @@ bool GameScene::init()
 	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(fVolumeEffects);
 
 
+	 auto listener = EventListenerTouchOneByOne::create();
+	 listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+	 listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
+	 listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
+	 this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
     return true;
 }
 void GameScene::getNextGroup()
@@ -203,7 +223,42 @@ void GameScene::update(float delta)
 {
 
 }
+bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+	if (m_gameTouchType == Touch_Normal)
+	{
+		return false;
+	}
+}
 
+void GameScene::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+}
+
+void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+	//判断玩家是否滑动取消点击
+	auto startPos = touch->getPreviousLocation();
+	auto endPos = touch->getLocation();
+	if (startPos.distance(endPos)>50)
+	{
+		return;
+	}
+	else
+	{
+		switch (m_gameTouchType)
+		{
+		case Touch_SkillKnock:
+			KnockBlock(endPos);
+			break;
+		case Touch_SkillFill:
+			FillBlock(endPos);
+			break;
+		default:
+			break;
+		}
+	}
+}
 
 
 //按键按下
@@ -898,7 +953,69 @@ void GameScene::onBackMainScene()
 {
 	Director::getInstance()->replaceScene(MainScene::createScene());
 }
-void GameScene::onUseSkill(int skillid)
+void GameScene::onUseSkill(SkillInfo*skill)
 {
-
+	if (skill->num>-1)
+	{	
+		switch (skill->Id)
+		{
+		case Skill_Knock:
+			m_gameTouchType = Touch_SkillKnock;
+			break;
+		case Skill_Fill:
+			m_gameTouchType = Touch_SkillFill;
+			break;
+		case Skill_Revivi:
+			//TODO:  复活;
+			break;
+		default:
+			break;
+		}
+		DBManager::GetInstance()->SetSkillNum(skill->Id, DBManager::GetInstance()->GetSkillNum(skill->Id));
+	}
+	else
+	{
+		//起计费
+	}
+}
+void GameScene::FillBlock(Vec2 pos)
+{
+	int row = -1;
+	int col = -1;
+	m_widget->GetRowAndColByPos(pos, row, col);
+	for (auto iter = m_vecBlocks.begin(); iter != m_vecBlocks.end(); iter++)
+	{
+		if (iter->col == col&&iter->row == row)
+		{
+			return;
+		}
+	}
+	BlockObject ob;
+	ob.index = -1;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(8);
+	ob.col = col;
+	ob.row = row;
+	addChild(ob.sprite);
+	Vec2 posBlock = Vec2::ZERO;
+	GameField::GetInstance()->GetBlockPosition(ob.row, ob.col, posBlock);
+	ob.sprite->setPosition(posBlock);
+	m_vecBlocks.push_back(posBlock);
+	//检查是否消除
+	ReleaseBlocksOnFullLine();
+}
+void GameScene::KnockBlock(Vec2 pos)
+{
+	int row = -1;
+	int col = -1;
+	m_widget->GetRowAndColByPos(pos, row, col);
+	for (auto iter = m_vecBlocks.begin(); iter != m_vecBlocks.end();iter++)
+	{
+		if (iter->col == col&&iter->row == row)
+		{
+			iter->sprite->removeFromParentAndCleanup(1);
+			m_vecBlocks.erase(iter);
+			m_gameTouchType = Touch_Normal;
+			break;
+		}
+	}
 }

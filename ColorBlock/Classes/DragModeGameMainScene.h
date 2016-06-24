@@ -47,7 +47,7 @@ private:
 	virtual void onResum();
 	virtual void onBackMainScene();
 	virtual void onRebegin();
-	virtual void onUseSkill(int skillid);
+	virtual void onUseSkill(SkillInfo*skill);
 
 private:
 

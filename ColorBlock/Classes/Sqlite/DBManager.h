@@ -66,6 +66,14 @@ public:	//游戏分数
 	//获取前十名分数
 	bool GetFirst10Ranking(vector<GameScore>& ranking);
 
+public:	//道具个数
+
+	//设置道具个数
+	void SetSkillNum(int id,int num);
+
+	//获取道具个数
+	int GetSkillNum(int id);
+
 private:
 	DBManager(void);
 

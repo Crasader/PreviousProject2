@@ -172,7 +172,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\LogoScene.cpp" />
     <ClCompile Include="..\Classes\MainScene.cpp" />
     <ClCompile Include="..\Classes\SetupScene.cpp" />
-    <ClCompile Include="..\Classes\SkillButton.cpp" />
     <ClCompile Include="..\Classes\Sqlite\DBManager.cpp" />
     <ClCompile Include="..\Classes\Sqlite\DBUtil.cpp" />
     <ClCompile Include="..\Classes\Sqlite\sqlite3.c" />
@@ -188,6 +187,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\utill\AnimationUtil.cpp" />
     <ClCompile Include="..\Classes\utill\Audio.cpp" />
     <ClCompile Include="..\Classes\utill\MyMenuItemButton.cpp" />
+    <ClCompile Include="..\Classes\utill\SkillButton.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -221,7 +221,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\MainScene.h" />
     <ClInclude Include="..\Classes\MsgDefine.h" />
     <ClInclude Include="..\Classes\SetupScene.h" />
-    <ClInclude Include="..\Classes\SkillButton.h" />
     <ClInclude Include="..\Classes\Sqlite\DBManager.h" />
     <ClInclude Include="..\Classes\Sqlite\DBUtil.h" />
     <ClInclude Include="..\Classes\Sqlite\sqlite3.h" />
@@ -237,6 +236,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\utill\AnimationUtil.h" />
     <ClInclude Include="..\Classes\utill\Audio.h" />
     <ClInclude Include="..\Classes\utill\MyMenuItemButton.h" />
+    <ClInclude Include="..\Classes\utill\SkillButton.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
