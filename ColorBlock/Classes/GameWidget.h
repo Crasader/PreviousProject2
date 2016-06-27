@@ -37,7 +37,7 @@ public:
 	const cocos2d::Rect& GetNextRect() const { return m_rectNext; }
 	//根据坐标获取网格位置
 	void GetRowAndColByPos(cocos2d::Vec2 pos,int &row,int &col);
-
+	bool isOutofGrid(int row, int col);
 private:
 	//重置图形
 	void ResetNextGroup();

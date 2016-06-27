@@ -4,7 +4,7 @@
 #include <cocos2d.h>
 USING_NS_CC;
 
-class SkillButton : public ui::Button
+class SkillButton : public /*ui::Button*/Sprite
 {
 public:
     SkillButton();

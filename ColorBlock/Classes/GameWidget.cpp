@@ -1,7 +1,7 @@
 #include "GameWidget.h"
 #include "CommonFunction.h"
 #include "Block/SpriteManager.h"
-
+#include "Block/GameField.h"
 USING_NS_CC;
 
 GameWidget::GameWidget()
@@ -37,7 +37,9 @@ bool GameWidget::init()
 	auto field = SpriteManager::GetInstance()->GetGameFieldSprite();	//Sprite::create("field.png");
 	
 	
-
+	auto girdboxFrame = Sprite::createWithSpriteFrameName("girdBoxesFrame.png");
+	girdboxFrame->setPosition(240,400);
+	addChild(girdboxFrame);
 	//Ìí¼ÓÓÎÏ·ÇøÓò
 	field->setPosition(240,460);
 	m_posBlock = Vec2(field->getPositionX() - field->getContentSize().width/2, field->getPositionY() + field->getContentSize().height/2);
@@ -160,4 +162,12 @@ void GameWidget::AddScore(const vector<int>& vecFullRow)
 		break;
 	}
 	RefreshScore();
+}
+bool GameWidget::isOutofGrid(int row, int col)
+{
+	if (row < 0 || row>=GameField::GetInstance()->GetBlockRowCount()|| col < 0 || col>=GameField::GetInstance()->GetBlockColCount())
+	{
+		return true;
+	}
+	return false;
 }

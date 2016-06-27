@@ -102,9 +102,7 @@ bool GameScene::init()
 	this->addChild(background, nZOrderBackground);
 
 
-	auto girdboxFrame = Sprite::createWithSpriteFrameName("girdBoxesFrame.png");
-	girdboxFrame->setPosition(m_visibleSize / 2);
-	addChild(girdboxFrame, nZOrderBackground);
+
 
 
 	
@@ -117,7 +115,7 @@ bool GameScene::init()
 	//添加方向按钮
 	auto operateFrame = Sprite::createWithSpriteFrameName("operateFrame.png");
 	operateFrame->setPosition(240, cy);
-	addChild(operateFrame, nZOrderBackground + 1);
+	addChild(operateFrame, nZOrderBackground + 3);
 
 	auto leftButton = Button::create("btLeft_1.png", "btLeft_2.png", "", Widget::TextureResType::PLIST);
 	leftButton->setPosition(Vec2(cx, cy));
@@ -170,18 +168,16 @@ bool GameScene::init()
 	getNextGroup();
 
 
-	for (int i = 1; i <= 2; i++)
+	for (int i = kTagBaseSkillButton + 1; i <= kTagBaseSkillButton+ 2; i++)
 	{
 		auto skillbutton = SkillButton::createSkillButton(i, db->GetSkillNum(i));
-		skillbutton->setPosition(Vec2(432, 424 - i * 100));
-		skillbutton->setTag(kTagBaseSkillButton+i);
-		addChild(skillbutton, 5);
+		skillbutton->setPosition(Vec2(432, 424 - (i-kTagBaseSkillButton) * 100));
+		skillbutton->setTag(i);
+		addChild(skillbutton, 1005);
 	}
 
 
-	//利用plist文件卸载打包图片
-	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
-	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("game.plist");
+
 	//定时移动当前图形
 	this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / m_level);
 
@@ -229,26 +225,126 @@ void GameScene::getNextGroup()
 }
 void GameScene::update(float delta)
 {
-	auto bt = (SkillButton*)getChildByTag(kTagBaseSkillButton+1);
-	if (m_vecBlocks.size()>0)
+	//auto bt = (SkillButton*)getChildByTag(kTagBaseSkillButton+1);
+	//if (m_vecBlocks.size()>0)
+	//{
+	//	bt->setEnabled(true);
+	//}
+	//else
+	//{
+	//	bt->setEnabled(false);
+	//}
+}
+void GameScene::beginUsingSkill(int skillid)
+{
+	auto bt = getChildByTag(skillid);
+	if (skillid==81)
 	{
-		bt->setEnabled(true);
+		GamePause();
+		skillSp = Sprite::createWithSpriteFrameName("hammer.png");
+		skillSp->setPosition(bt->getPosition());
+		addChild(skillSp, 10);
+		rangeSp = Sprite::createWithSpriteFrameName("blockRange.png");
+	addChild(rangeSp, 9);
+		m_gameTouchType = Touch_SkillKnock;
 	}
 	else
 	{
-		bt->setEnabled(false);
+		GamePause();
+		skillSp = Sprite::createWithSpriteFrameName("skill_2.png");
+		skillSp->setPosition(bt->getPosition());
+		addChild(skillSp, 10);
+		rangeSp = Sprite::createWithSpriteFrameName("fillRange.png");
+		addChild(rangeSp, 9);
+		m_gameTouchType = Touch_SkillFill;
 	}
+
+
+	auto skillframe = Sprite::createWithSpriteFrameName("skillingShade.png");
+	skillframe->setPosition(240, 400);
+	addChild(skillframe, 20, "skillframe");
+
+
+
+}
+void GameScene::endUsingSkill(bool isUsingsecuess)
+{
+	switch (m_gameTouchType)
+	{
+	case Touch_SkillKnock:
+		ChangeNumOfSkillButoon(kTagBaseSkillButton+1, -1);
+		DBManager::GetInstance()->SetSkillNum(kTagBaseSkillButton + 1, DBManager::GetInstance()->GetSkillNum(kTagBaseSkillButton+1) - 1);
+		break;
+	case Touch_SkillFill:
+		ChangeNumOfSkillButoon(kTagBaseSkillButton+2, -1);
+		DBManager::GetInstance()->SetSkillNum(kTagBaseSkillButton + 2, DBManager::GetInstance()->GetSkillNum(kTagBaseSkillButton+2) - 1);
+		break;
+	default:
+		break;
+	}
+	m_gameTouchType = Touch_Normal;
+	GameResume();
+	rangeSp->removeFromParentAndCleanup(true);
+	if (!isUsingsecuess)
+	{
+		skillSp->removeFromParentAndCleanup(1);
+	}
+
+
+	getChildByName("skillframe")->removeFromParentAndCleanup(1);
+
 }
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	if (m_gameTouchType == Touch_Normal)
+	for (int i = kTagBaseSkillButton + 1; i <= kTagBaseSkillButton + 2;i++)
 	{
-		return false;
+		auto bt = getChildByTag(i);
+		if (bt->getBoundingBox().containsPoint(touch->getLocation()))
+		{
+			beginUsingSkill(i);
+			return true;
+		}
 	}
+	return false;
+
 }
 
 void GameScene::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
+	if (m_gameTouchType != Touch_Normal)
+	{
+		auto diffpos = touch->getLocation() - touch->getPreviousLocation();
+		skillSp->setPosition(skillSp->getPosition() + diffpos);
+		int row = -1;
+		int col = -1;
+		auto size = SpriteManager::GetInstance()->GetBlockSize();
+		m_widget->GetRowAndColByPos(touch->getLocation(), row, col);
+		if (m_gameTouchType == Touch_SkillKnock)
+		{
+			if (row < 1 || row > 19 || col <= 0 || col > 10)
+			{
+				rangeSp->setVisible(false);	
+			}
+			else
+			{
+				rangeSp->setVisible(true);
+				rangeSp->setPosition(m_widget->GetFirstBlockPosition() + Vec2((col-1)*size.width, -(row)*size.height));
+			}
+		}
+		else if (m_gameTouchType==Touch_SkillFill)
+		{
+			if ( col < 0 || col > 9)
+			{
+				rangeSp->setVisible(false);
+			}
+			else
+			{
+				rangeSp->setVisible(true);
+				rangeSp->setPosition(Vec2(240,m_widget->GetFirstBlockPosition().y + -(row+0.5)*size.height));
+			}
+		}
+	}
+	
 }
 
 void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
@@ -256,7 +352,7 @@ void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event
 	//判断玩家是否滑动取消点击
 	auto startPos = touch->getPreviousLocation();
 	auto endPos = touch->getLocation();
-	if (startPos.distance(endPos)>50)
+	if (/*startPos.distance(endPos)>50*/0)
 	{
 		return;
 	}
@@ -266,19 +362,15 @@ void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event
 		switch (m_gameTouchType)
 		{
 		case Touch_SkillKnock:
-			isUseScuess = KnockBlock(endPos);
+			isUseScuess = KnockBlock(endPos, skillSp);
 			break;
 		case Touch_SkillFill:
-			isUseScuess =FillBlock(endPos);
+			isUseScuess = FillBlock(endPos, skillSp);
 			break;
 		default:
 			break;
 		}
-		if (isUseScuess)
-		{
-			m_gameTouchType = Touch_Normal;
-			GameResume();
-		}
+		endUsingSkill(isUseScuess);
 	}
 }
 
@@ -398,6 +490,9 @@ void GameScene::onExit()
 
 	//释放方块资源
 	SpriteManager::GetInstance()->UnInit();
+	//利用plist文件卸载打包图片
+	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
+	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("game.plist");
 	//释放音频资源
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	SimpleAudioEngine::getInstance()->stopAllEffects();
@@ -626,6 +721,7 @@ bool GameScene::ReleaseBlocksOnFullLine()
 
 		//定时消去满行的方块
 		this->scheduleOnce(schedule_selector(GameScene::RemoveFullRowBlocks), 0.3f);
+		showShadeInBottom(m_curGroup->GetBlocks());
 
 	}), nullptr));
 
@@ -705,7 +801,7 @@ void GameScene::buttonPopupCallback(Ref* sender, ButtonResult result)
 //重新开始游戏
 void GameScene::Restart()
 {
-
+	
 	//弹出层标记
 	m_bPopupLayerWorking = false;
 
@@ -868,7 +964,7 @@ void GameScene::showShadeInBottom(const vector<BlockObject>& blocks)
 		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(SHADESPRITEBLOCK);
 		ob.col = var.col;
 		ob.row = var.row;
-		addChild(ob.sprite);
+		m_widget->addChild(ob.sprite);
 		m_shadeblocks.push_back(ob);
 	}
 	vector<BlockObject>::const_iterator cit;
@@ -957,6 +1053,9 @@ void GameScene::RefreshLevel()
 void GameScene::onRebegin()
 {
 	m_curGroup->removeFromeParent();
+	onResum();
+	GameResume();
+	m_gameTouchType=Touch_Normal;
 	Restart();
 }
 void GameScene::onPause()
@@ -983,10 +1082,14 @@ void GameScene::onUseSkill(SkillInfo*skill)
 		{
 		case Skill_Knock:
 			GamePause();
+			skillSp = Sprite::createWithSpriteFrameName("hammer.png");
+			addChild(skillSp, 10);
 			m_gameTouchType = Touch_SkillKnock;
 			break;
 		case Skill_Fill:
 			GamePause();
+			skillSp = Sprite::createWithSpriteFrameName("skill_2.png");
+			addChild(skillSp, 10);
 			m_gameTouchType = Touch_SkillFill;
 			break;
 		case Skill_Revivi:
@@ -1003,52 +1106,115 @@ void GameScene::onUseSkill(SkillInfo*skill)
 		//起计费
 	}
 }
-bool GameScene::FillBlock(Vec2 pos)
+bool GameScene::isExitBlock(int row, int col)
 {
-	int row = -1;
-	int col = -1;
-	m_widget->GetRowAndColByPos(pos, row, col);
-	for (auto iter = m_vecBlocks.begin(); iter != m_vecBlocks.end(); iter++)
+	for (auto var:m_vecBlocks)
 	{
-		if (iter->col == col&&iter->row == row)
+		if (var.col == col&&var.row==row)
 		{
-			return false;
-		}
-	}
-	BlockObject ob;
-	ob.index = -1;
-	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(8);
-	ob.col = col;
-	ob.row = row;
-	addChild(ob.sprite);
-	Vec2 posBlock = Vec2::ZERO;
-	GameField::GetInstance()->GetBlockPosition(ob.row, ob.col, posBlock);
-	ob.sprite->setPosition(posBlock);
-	m_vecBlocks.push_back(ob);
-	//检查是否消除
-	ReleaseBlocksOnFullLine();
-	return true;
-}
-bool GameScene::KnockBlock(Vec2 pos)
-{
-	int row = -1;
-	int col = -1;
-	m_widget->GetRowAndColByPos(pos, row, col);
-	for (auto iter = m_vecBlocks.begin(); iter != m_vecBlocks.end();iter++)
-	{
-		if (iter->col == col&&iter->row == row)
-		{
-			iter->sprite->removeFromParentAndCleanup(1);
-			m_vecBlocks.erase(iter);
-			m_gameTouchType = Touch_Normal;
 			return true;
 		}
 	}
 	return false;
 }
+bool GameScene::FillBlock(Vec2 pos,Sprite*sp)
+{
+	int row = -1;
+	int col = -1;
+	m_widget->GetRowAndColByPos(pos, row, col);
+	
+	std::vector<BlockObject> obs;
+	for (int i = 0; i < GameField::GetInstance()->GetBlockColCount();i++)
+	{
+
+		if (!isExitBlock(row,i))
+		{
+			BlockObject ob;
+			ob.index = -1;
+			ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(8);
+			ob.col = i;
+			ob.row = row;
+			addChild(ob.sprite);
+			obs.push_back(ob);
+			Vec2 posBlock = Vec2::ZERO;
+			GameField::GetInstance()->GetBlockPosition(ob.row, ob.col, posBlock);
+			ob.sprite->setPosition(posBlock);
+			ob.sprite->setVisible(false);
+			m_vecBlocks.push_back(ob);
+		}
+	}
+//action 
+	for (int i = 0; i < obs.size(); i++)
+	{
+		auto flowerBlock = obs.at(i);
+		flowerBlock.sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(flowerBlock.col*0.1f+0.05f), CallFunc::create([=]{
+			flowerBlock.sprite->setVisible(true);
+			auto ani = Sprite::create();
+			ani->setPosition(flowerBlock.sprite->getContentSize() / 2);
+			flowerBlock.sprite->addChild(ani);
+			ani->runAction(Sequence::createWithTwoActions(AnimationUtil::getInstance()->getAnimate("ani_flower"), RemoveSelf::create()));
+
+		})));
+	}
+	Vec2 startpos; 
+	GameField::GetInstance()->GetBlockPosition(row, 0, startpos);
+	Vec2 endPos;
+	GameField::GetInstance()->GetBlockPosition(row, GameField::GetInstance()->GetBlockColCount()-1, endPos);
+	auto magicClub = sp;
+	magicClub->setPosition(startpos);
+	magicClub->runAction(Sequence::create(MoveTo::create(1.0f, endPos),FadeOut::create(0.1f), DelayTime::create(0.3f),CallFunc::create([=]{
+		magicClub->removeFromParentAndCleanup(1);
+		ReleaseBlocksOnFullLine();
+		
+	}),nullptr));
+	return true;
+}
+bool GameScene::KnockBlock(Vec2 pos,Sprite*sp)
+{
+	///4*4
+	int row = -1;
+	int col = -1;
+	m_widget->GetRowAndColByPos(pos, row, col);
+	std::vector<BlockObject> obs;
+	for (int i = row; i >= row - 1;i--)
+	{
+		for (int j = col-1; j >= col - 2; j--)
+		{
+			for (auto iter = m_vecBlocks.begin(); iter != m_vecBlocks.end(); iter++)
+			{
+				if (iter->col == j&&iter->row == i)
+				{
+					obs.push_back(*iter);
+					m_vecBlocks.erase(iter);
+					break;
+				}
+			}
+		}
+	}
+	if (obs.size()<=0)
+	{
+		return false;
+	}
+	//do action
+	sp->runAction(Sequence::create(Spawn::createWithTwoActions(ScaleTo::create(0.25f, 1.5f), RotateTo::create(0.25f, 30)), Spawn::createWithTwoActions(ScaleTo::create(0.5f, 1.0f), RotateTo::create(0.5f, 0)),
+		CallFunc::create([=]{
+		for (auto var : obs)
+		{
+			auto ani = Sprite::create();
+			ani->runAction(AnimationUtil::getInstance()->getAnimate("ani_scrap"));
+			ani->setPosition(var.sprite->getContentSize() / 2);
+			var.sprite->addChild(ani);
+			var.sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(AnimationUtil::getInstance()->getAnimate("ani_scrap")->getDuration()), RemoveSelf::create(1)));
+		}
+
+		showShadeInBottom(m_curGroup->GetBlocks());
+	}),RemoveSelf::create(1),nullptr
+));
+	return true;
+}
 void GameScene::ChangeNumOfSkillButoon(int skillid, int diffnum)
 {
-	auto bt = (SkillButton*)(getChildByTag(kTagBaseSkillButton + skillid));
+	auto bt = (SkillButton*)(getChildByTag(skillid));
 	bt->ChangeSkillNum(diffnum);
 }
 void GameScene::GamePause()
@@ -1069,3 +1235,4 @@ void GameScene::GameResume()
 	((Button*)getChildByName("rotate"))->setEnabled(true);
 	((Button*)getChildByName("bottom"))->setEnabled(true);
 }
+

@@ -13,9 +13,9 @@
 
 enum SkillType
 {
-	Skill_Knock = 1,
-	Skill_Fill = 2,
-	Skill_Revivi = 3
+	Skill_Knock = 81,
+	Skill_Fill = 82,
+	Skill_Revivi = 83
 };
 struct SkillInfo
 {

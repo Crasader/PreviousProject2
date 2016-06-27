@@ -104,12 +104,12 @@ bool DragModeGameMainScene::init()
 
 
 
-	auto skillbutton = SkillButton::createSkillButton(1, db->GetSkillNum(1));
+	auto skillbutton = SkillButton::createSkillButton(81, db->GetSkillNum(1));
 	skillbutton->setPosition(Vec2(240-100,213));
 	skillbutton->setTag(kTagBaseSkillButton+1);
 	addChild(skillbutton, 5);
 
-	skillbutton = SkillButton::createSkillButton(2, db->GetSkillNum(2));
+	skillbutton = SkillButton::createSkillButton(82, db->GetSkillNum(2));
 	skillbutton->setPosition(Vec2(240 + 100, 213));
 	addChild(skillbutton,5);
 	skillbutton->setTag(kTagBaseSkillButton + 1);
@@ -142,7 +142,7 @@ bool DragModeGameMainScene::init()
 
 void DragModeGameMainScene::update(float delta)
 {
-	auto bt = (SkillButton*)getChildByTag(kTagBaseSkillButton + 1);
+	/*auto bt = (SkillButton*)getChildByTag(kTagBaseSkillButton + 1);
 	if (m_widget->getBlocks().size() > 0)
 	{
 		bt->setEnabled(true);
@@ -150,13 +150,12 @@ void DragModeGameMainScene::update(float delta)
 	else
 	{
 		bt->setEnabled(false);
-	}
+	}*/
 }
 
 bool DragModeGameMainScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	auto touchLocation = touch->getLocation();
-	//log("point(%f, %f)\n", touchLocation.x, touchLocation.y);
+
 	m_widget->onTouchBegan(touch, unused_event);
 	return true;
 }
@@ -270,7 +269,7 @@ void DragModeGameMainScene::GameOver()
 	//µ¯³öÓÎÏ·½áÊø²ã
 	auto popup = GameOverLayer::create();
 	popup->setPosition(0, 0);
-	this->addChild(popup);
+	this->addChild(popup,30);
 }
 
 
@@ -280,6 +279,7 @@ void DragModeGameMainScene::GameOver()
 
 void DragModeGameMainScene::onRebegin()
 {
+	onResum();
 	Restart();
 }
 void DragModeGameMainScene::onPause()

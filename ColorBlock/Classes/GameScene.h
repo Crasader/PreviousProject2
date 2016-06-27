@@ -71,6 +71,11 @@ public:
 
 private:
 	//使用技能
+	void beginUsingSkill(int skillid);
+	void endUsingSkill(bool isUsingsecuess);
+
+
+
 	void getNextGroup();
 	void showShadeInBottom(const vector<BlockObject>& blocks);
 	bool IsCurBlockGroupCanMoveDown();			//判断当前图形是否可以下落
@@ -86,9 +91,10 @@ private:
 	void ExitGame();							//退出游戏
 	void DoExitGame();							//确认退出游戏
 	//技能
-	bool FillBlock(Vec2 pos);	//填补	  //返回是否使用成功
-	bool KnockBlock(Vec2 pos);  //消除
+	bool FillBlock(Vec2 pos,Sprite*sp);	//填补	  //返回是否使用成功
+	bool KnockBlock(Vec2 pos,Sprite*sp);  //消除
 	void ChangeNumOfSkillButoon(int skillid,int diffnum);
+	bool isExitBlock(int row, int col);
 private:
 	void GamePause();
 	void GameResume();
@@ -109,6 +115,9 @@ private:
 
 	//游戏部件
 	GameWidget*		m_widget;
+
+	Sprite* skillSp = nullptr;
+	Sprite*rangeSp = nullptr;
 
 	//标签
 	cocos2d::LabelAtlas* m_labelLine;

@@ -158,6 +158,8 @@ void MainScene::loadRes()
 	{
 		isLoad = true;
 		AnimationUtil::getInstance()->addAnimationBySpriteFrameName("TX_xiaochu.plist", "TX_xiaochu_%.4d.png", "ani_xiaochu", 0.15f, 25);
+		AnimationUtil::getInstance()->addAnimationBySpriteFrameName("Tx_Flower.plist", "treasure_chest_%.4d@2x.png", "ani_flower", 0.5f, 12);
+		AnimationUtil::getInstance()->addAnimationBySpriteFrameName("Tx_Scrap.plist", "scrap%.2d.png", "ani_scrap", 0.5f, 7);
 		SpriteManager::GetInstance()->InitSpriteFramesWithFile("otherScene.plist");
 	}
 }

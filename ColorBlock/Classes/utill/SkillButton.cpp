@@ -33,12 +33,12 @@ bool SkillButton::init(int skillID, int skillNum)
 {
 	_skillID = skillID;
 	_skillNum = skillNum;
-	auto path = String::createWithFormat("skill_%d.png", _skillID);
-	if (!Button::init(path->getCString(), path->getCString(), "", ui::Widget::TextureResType::PLIST))
+	auto path = String::createWithFormat("skill_%d.png", _skillID-80);
+	if (!Sprite::initWithSpriteFrameName(path->getCString()))
 	{
 		return false;
 	}
-	addTouchEventListener(CC_CALLBACK_2(SkillButton::skillClickCallBack, this));
+	//addTouchEventListener(CC_CALLBACK_2(SkillButton::skillClickCallBack, this));
 	
 	auto circle = Sprite::create("circle.png");
 	circle->setPosition(getContentSize() + Size(-10, -10));
