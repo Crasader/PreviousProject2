@@ -49,6 +49,8 @@ private:
 	virtual void onRebegin();
 	virtual void onUseSkill(SkillInfo*skill);
 
+
+	void ChangeNumOfSkillButoon(int skillid, int diffnum);
 private:
 
 	void Restart();								//重新开始游戏
@@ -66,7 +68,6 @@ private:
 	cocos2d::EventListenerTouchOneByOne*	m_touchListener;	//触屏事件监听器
 	cocos2d::EventListenerKeyboard*			m_keyboardListener;	//键盘事件监听器
 
-	bool			m_bPopupLayerWorking;	//弹出层是否启用
 
 	//游戏部件
 	DragModeGameWidget*		m_widget;
@@ -74,16 +75,6 @@ private:
 	//标签
 	cocos2d::Label* m_labelLine;
 	cocos2d::Label* m_labelLevel;
-
-	//当前图形
-	BlockGroup*		m_curGroup;
-
-
-	//方块集合
-	vector<BlockObject>	m_vecBlocks;
-
-	//满行的行号集合
-	vector<int>			m_vecFullRow;
 
 private:
 	//游戏参数

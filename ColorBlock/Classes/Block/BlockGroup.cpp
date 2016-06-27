@@ -274,6 +274,10 @@ void BlockGroup::removeFromeParent()
 {
 	for (auto var:m_blocks)
 	{
-		var.sprite->removeFromParentAndCleanup(1);
+		if (var.sprite)
+		{
+			var.sprite->removeFromParentAndCleanup(1);
+		}
+		
 	}
 }

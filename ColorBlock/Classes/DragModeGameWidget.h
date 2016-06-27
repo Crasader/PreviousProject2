@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "Block/BlockGroup.h"
+#include "MsgDefine.h"
 USING_NS_CC;
 typedef struct _tagBlockGroupEntity
 {
@@ -44,13 +45,15 @@ public:
 	//重设分数
 	void ResetScore();
 
+	void Restart();
+
 	//获取区域坐标、大小
 	const cocos2d::Vec2& GetScorePosition() const { return m_posScore; }
 	const cocos2d::Vec2& GetFirstBlockPosition() const { return m_posBlock; }
 	const cocos2d::Size& GetScoreSize() const { return m_sizeScore; }
 	const cocos2d::Rect& GetNextRect() const { return m_rectNext; }
 
-
+	vector<BlockObject> getBlocks(){ return m_vecBlocks; };
 
 	// 触摸开始事件
 	virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event);
@@ -61,6 +64,7 @@ public:
 	// 触摸结束事件
 	virtual void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event);
 
+	CC_SYNTHESIZE(GameTouchType, m_gameTouchType, gameTouchType);
 private:
 
 
@@ -73,6 +77,14 @@ private:
 	void RestReadGroup();
 
 	void CheckIsFailed();
+	//消除同行方块
+	bool ReleaseBlocksOnFullLine();
+
+	//技能
+	bool FillBlock(Vec2 pos);	//填补	  //返回是否使用成功
+	bool KnockBlock(Vec2 pos);  //消除
+
+
 	//网格函数
 	//根据屏幕坐标获取网格行列
 	void  getGridxy(Vec2 in_Pos,int &out_Row,int &out_Col);

@@ -12,6 +12,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "CommonFunction.h"
 #include "tools/PauseLayer.h"
+#include "utill/SkillButton.h"
 #include <map>
 
 USING_NS_CC;
@@ -24,8 +25,9 @@ using std::map;
 #define AUDIO_EXPLODE		"sound/explode.mp3"
 #define AUDIO_FAILED		"sound/failed.mp3"
 
+
+const int kTagBaseSkillButton = 80;
 DragModeGameMainScene::DragModeGameMainScene()
-	: m_curGroup(NULL)
 {
 
 }
@@ -54,7 +56,7 @@ bool DragModeGameMainScene::init()
     {
         return false;
     }
-
+	auto db = DBManager::GetInstance();
 	//获取游戏区域
 	m_visibleSize = Director::getInstance()->getVisibleSize();
 	m_origin = Director::getInstance()->getVisibleOrigin();
@@ -74,7 +76,7 @@ bool DragModeGameMainScene::init()
 
 	//添加ready方块背景图
 	auto readyBoxFrame = Sprite::createWithSpriteFrameName("operateFrame.png");
-	readyBoxFrame->setPosition(240, 130);
+	readyBoxFrame->setPosition(240, 100);
 	addChild(readyBoxFrame, nZOrderBackground + 1);
 
 	//添加小部件层
@@ -96,81 +98,23 @@ bool DragModeGameMainScene::init()
 	});
 	this->addChild(pauseButton);
 
-	//const Vec2& posScore = m_widget->GetScorePosition();
-	//const Vec2& posFirstBlock = m_widget->GetFirstBlockPosition();
-	//const Size& sizeScore = m_widget->GetScoreSize();
-	//const Rect& rectNext = m_widget->GetNextRect();
 
-	////初始化GameField
-	//GameField::GetInstance()->Init(posFirstBlock);
-
-	////////////////////////////////////////////////////////////////////////////
-	////添加背景图
-	//auto background = Sprite::create("background.png");
-	//background->setPosition(Vec2(m_origin.x + m_visibleSize.width/2, m_origin.y + m_visibleSize.height/2));
-	//this->addChild(background, nZOrderBackground);
-
-	////////////////////////////////////////////////////////////////////////////
-	////添加方向按钮
-	//auto bottomButton = Button::create("direction_bottom.png", "direction_bottom_pressed.png", "", Widget::TextureResType::PLIST);
-	//bottomButton->setPosition(Vec2(posScore.x, m_origin.y + m_visibleSize.height/10 + bottomButton->getContentSize().height/2));
-	//bottomButton->addTouchEventListener(CC_CALLBACK_2(DragModeGameMainScene::buttonSpeedupCallback, this));
-	//this->addChild(bottomButton);
-
-	//auto topButton = Button::create("direction_top.png", "direction_top_pressed.png", "", Widget::TextureResType::PLIST);
-	//topButton->setPosition(Vec2(posScore.x, bottomButton->getPositionY() + bottomButton->getContentSize().height/2*3));
-	//topButton->addTouchEventListener(CC_CALLBACK_2(DragModeGameMainScene::buttonDirectDownCallback, this));
-	//this->addChild(topButton);
-
-	//auto leftButton = Button::create("direction_left.png", "direction_left_pressed.png", "", Widget::TextureResType::PLIST);
-	//leftButton->setPosition(Vec2(posScore.x - bottomButton->getContentSize().height/4 - leftButton->getContentSize().width/2,
-	//	bottomButton->getPositionY() + bottomButton->getContentSize().height/4*3));
-	//leftButton->addTouchEventListener(CC_CALLBACK_2(DragModeGameMainScene::buttonLeftCallback, this));
-	//this->addChild(leftButton);
-
-	//auto rightButton = Button::create("direction_right.png", "direction_right_pressed.png", "", Widget::TextureResType::PLIST);
-	//rightButton->setPosition(Vec2(posScore.x + bottomButton->getContentSize().height/4 + rightButton->getContentSize().width/2,
-	//	bottomButton->getPositionY() + bottomButton->getContentSize().height/4*3));
-	//rightButton->addTouchEventListener(CC_CALLBACK_2(DragModeGameMainScene::buttonRightCallback, this));
-	//this->addChild(rightButton);
-
-	////添加旋转按钮
-	//auto rotateButton = Button::create("rotate.png", "rotate_pressed.png", "", Widget::TextureResType::PLIST);
-	//rotateButton->setPosition(Vec2(rectNext.origin.x + rectNext.size.width/2, bottomButton->getPositionY() + bottomButton->getContentSize().height/4*3));
-	//rotateButton->addTouchEventListener(CC_CALLBACK_2(DragModeGameMainScene::buttonRotateCallback, this));
-	//this->addChild(rotateButton);
-
-	////////////////////////////////////////////////////////////////////////////
-	////添加标签
-	//m_labelLine = Label::createWithTTF("Line: 0", "fonts/Marker Felt.ttf", 40);
-	//float nInterval = ((posScore.y - sizeScore.height/2) - (topButton->getPositionY() + topButton->getContentSize().height/2)) / 2;
-	//m_labelLine->setPosition(Vec2(posScore.x, topButton->getPositionY() + topButton->getContentSize().height/2 + nInterval));
-	//this->addChild(m_labelLine);
-	//m_labelLevel = Label::createWithTTF("Level: 1", "fonts/Marker Felt.ttf", 40);
-	//m_labelLevel->setPosition(Vec2(rotateButton->getPositionX(), m_labelLine->getPositionY()));
-	//this->addChild(m_labelLevel);
-
-	////设置随机数种子
-	//srand((unsigned)time(NULL));
-
-	////设置游戏参数
-	//m_level = 1;		//级别
-	//m_score = 0;		//分数
-	//m_line = 0;			//消去的行数
+	//技能按钮
 
 
-	////获取当前图形
-	//m_widget->GetNextBlockGroup(m_curGroup, this);
 
-	////利用plist文件卸载打包图片
-	//SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
 
-	////定时移动当前图形
-	//this->schedule(schedule_selector(DragModeGameMainScene::MoveDownCurBlockGroup), 1.0f / m_level);
+	auto skillbutton = SkillButton::createSkillButton(1, db->GetSkillNum(1));
+	skillbutton->setPosition(Vec2(240-100,213));
+	skillbutton->setTag(kTagBaseSkillButton+1);
+	addChild(skillbutton, 5);
 
+	skillbutton = SkillButton::createSkillButton(2, db->GetSkillNum(2));
+	skillbutton->setPosition(Vec2(240 + 100, 213));
+	addChild(skillbutton,5);
+	skillbutton->setTag(kTagBaseSkillButton + 1);
 	//触摸屏事件监听
 	m_touchListener = EventListenerTouchOneByOne::create();
-	//m_touchListener->onTouchBegan = [&](Touch* touch, Event* unused_event)->bool { return true; };
 	m_touchListener->onTouchBegan = CC_CALLBACK_2(DragModeGameMainScene::onTouchBegan, this);
 	m_touchListener->onTouchMoved = CC_CALLBACK_2(DragModeGameMainScene::onTouchMoved, this);
 	m_touchListener->onTouchEnded = CC_CALLBACK_2(DragModeGameMainScene::onTouchEnded, this);
@@ -178,20 +122,10 @@ bool DragModeGameMainScene::init()
 	//利用plist文件卸载打包图片
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("game.plist");
-	////Android按键监听
-	//m_keyboardListener = EventListenerKeyboard::create();
-	//m_keyboardListener->onKeyPressed = CC_CALLBACK_2(DragModeGameMainScene::onKeyPressed, this);
-	//m_keyboardListener->onKeyReleased = CC_CALLBACK_2(DragModeGameMainScene::onKeyReleased, this);
-	//this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_keyboardListener, this);
 
-	////弹出层不启用
-	//m_bPopupLayerWorking = false;
 
-	////添加音效
-	//SimpleAudioEngine::getInstance()->preloadEffect(AUDIO_DOWN);
-	//SimpleAudioEngine::getInstance()->preloadEffect(AUDIO_EXPLODE);
-	//SimpleAudioEngine::getInstance()->preloadEffect(AUDIO_FAILED);
-	//SimpleAudioEngine::getInstance()->preloadBackgroundMusic(AUDIO_BACKGROUND);
+
+
 
 	////播放背景音乐
 	//SimpleAudioEngine::getInstance()->playBackgroundMusic(AUDIO_BACKGROUND, true);
@@ -202,13 +136,21 @@ bool DragModeGameMainScene::init()
 	////GameDifficulty diff = DBManager::GetInstance()->GetGameDifficulty();
 	//SimpleAudioEngine::getInstance()->setEffectsVolume(fVolumeBgm);
 	//SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(fVolumeEffects);
-
+	scheduleUpdate();
     return true;
 }
 
 void DragModeGameMainScene::update(float delta)
 {
-
+	auto bt = (SkillButton*)getChildByTag(kTagBaseSkillButton + 1);
+	if (m_widget->getBlocks().size() > 0)
+	{
+		bt->setEnabled(true);
+	}
+	else
+	{
+		bt->setEnabled(false);
+	}
 }
 
 bool DragModeGameMainScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
@@ -240,8 +182,6 @@ void DragModeGameMainScene::ExitGame()
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
 
-	//弹出层标记
-	m_bPopupLayerWorking = true;
 
 	////弹出对话框层
 	//auto exit = ExitLayer::create();
@@ -266,15 +206,11 @@ void DragModeGameMainScene::DoExitGame()
 
 void DragModeGameMainScene::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	//触摸点坐标
-	auto touchLocation = touch->getLocation();
 	m_widget->onTouchMoved(touch, unused_event);
 }
 
 void DragModeGameMainScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	//停止左右移动
-	//m_moveState = BlockMove::BLOCKMOVE_NONE;
 	m_widget->onTouchEnded(touch, unused_event);
 }
 
@@ -299,48 +235,12 @@ void DragModeGameMainScene::onExit()
 //重新开始游戏
 void DragModeGameMainScene::Restart()
 {
-	//触摸屏事件监听
-	m_touchListener = EventListenerTouchOneByOne::create();
-	//m_touchListener->onTouchBegan = [&](Touch* touch, Event* unused_event)->bool { return true; };
-	m_touchListener->onTouchBegan = CC_CALLBACK_2(DragModeGameMainScene::onTouchBegan, this);
-	m_touchListener->onTouchMoved = CC_CALLBACK_2(DragModeGameMainScene::onTouchMoved, this);
-	m_touchListener->onTouchEnded = CC_CALLBACK_2(DragModeGameMainScene::onTouchEnded, this);
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_touchListener, this);
-
-	//Android按键监听
-	m_keyboardListener = EventListenerKeyboard::create();
-	m_keyboardListener->onKeyPressed = CC_CALLBACK_2(DragModeGameMainScene::onKeyPressed, this);
-	m_keyboardListener->onKeyReleased = CC_CALLBACK_2(DragModeGameMainScene::onKeyReleased, this);
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_keyboardListener, this);
-
-	//弹出层标记
-	m_bPopupLayerWorking = false;
-
 	//行数、级数
 	m_line = 0;
 	m_level = 1;
-
-
 	//分数清0
 	m_widget->ResetScore();
-
-	//重置所有方块
-	vector<BlockObject>::iterator itBlock;
-	for (itBlock=m_vecBlocks.begin(); itBlock!=m_vecBlocks.end(); ++itBlock)
-	{
-		removeChild(itBlock->sprite);
-	}
-	m_vecBlocks.clear();
-
-	//获取下一个方块
-	delete m_curGroup;
-	m_curGroup = NULL;
-
-
-	////定时移动当前图形
-	//this->unschedule(schedule_selector(DragModeGameMainScene::MoveDownCurBlockGroup));
-	//this->schedule(schedule_selector(DragModeGameMainScene::MoveDownCurBlockGroup), 1.0f / m_level);
-
+	m_widget->Restart();
 	//播放背景音乐
 	SimpleAudioEngine::getInstance()->playBackgroundMusic(AUDIO_BACKGROUND, true);
 }
@@ -350,22 +250,7 @@ void DragModeGameMainScene::GameOver()
 	//播放失败音效
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	SimpleAudioEngine::getInstance()->playEffect(AUDIO_FAILED);
-	//this->unschedule(schedule_selector(DragModeGameMainScene::MoveDownCurBlockGroup));
 
-// 	auto logo = LogoScene::createScene();
-// 	Director::getInstance()->replaceScene(logo);
-// 	return;
-	//this->unscheduleAllCallbacks();
-
-	//触摸屏事件监听
-// 	auto listener = EventListenerTouchOneByOne::create();
-// 	listener->onTouchBegan = [&](Touch* touch, Event* unused_event)->bool { return true; };
-// 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-// 	listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
-// 	listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
-// 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-
-	//this->getEventDispatcher()->removeAllEventListeners();
 
 	//添加分数到sqlite数据库
 	DBManager::GameScore gameScore;
@@ -380,8 +265,7 @@ void DragModeGameMainScene::GameOver()
 	std::string strScore = ss.str();
 	auto score = StringManager::GetInstance()->GetString("score");
 
-	//弹出层标记
-	m_bPopupLayerWorking = true;
+
 
 	//弹出游戏结束层
 	auto popup = GameOverLayer::create();
@@ -417,4 +301,32 @@ void DragModeGameMainScene::onBackMainScene()
 void DragModeGameMainScene::onUseSkill(SkillInfo*skill)
 {
 
+	if (skill->num >= 0)
+	{
+		switch (skill->Id)
+		{
+		case Skill_Knock:
+			m_widget->setgameTouchType(Touch_SkillKnock);
+			break;
+		case Skill_Fill:
+			m_widget->setgameTouchType(Touch_SkillFill);
+			break;
+		case Skill_Revivi:
+			//TODO:  复活;
+			break;
+		default:
+			break;
+		}
+		ChangeNumOfSkillButoon((int)skill->Id, -1);
+		DBManager::GetInstance()->SetSkillNum(skill->Id, DBManager::GetInstance()->GetSkillNum(skill->Id));
+	}
+	else
+	{
+		//起计费
+	}
+}
+void DragModeGameMainScene::ChangeNumOfSkillButoon(int skillid, int diffnum)
+{
+	auto bt = (SkillButton*)(getChildByTag(kTagBaseSkillButton+skillid));
+	bt->ChangeSkillNum(diffnum);
 }

@@ -17,12 +17,7 @@ typedef enum
 	BLOCKMOVE_LEFT,		//向左移动
 	BLOCKMOVE_RIGHT		//向右移动
 } BlockMove;
-enum GameTouchType
-{
-	Touch_Normal,
-	Touch_SkillKnock,
-	Touch_SkillFill
-};
+
 class GameScene : public BaseGame
 {
 public:
@@ -90,10 +85,13 @@ private:
 	void GameOver();							//游戏结束
 	void ExitGame();							//退出游戏
 	void DoExitGame();							//确认退出游戏
-	//消除和填补技能
-	void FillBlock(Vec2 pos);
-	void KnockBlock(Vec2 pos);
+	//技能
+	bool FillBlock(Vec2 pos);	//填补	  //返回是否使用成功
+	bool KnockBlock(Vec2 pos);  //消除
+	void ChangeNumOfSkillButoon(int skillid,int diffnum);
 private:
+	void GamePause();
+	void GameResume();
 	void onPause();
 	void onResum();
 	void onBackMainScene();
@@ -129,6 +127,7 @@ private:
 	//满行的行号集合
 	vector<int>			m_vecFullRow;
 
+	
 private:
 	//游戏参数
 	int				m_level;		//级别

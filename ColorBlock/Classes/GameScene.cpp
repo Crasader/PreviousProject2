@@ -26,6 +26,11 @@ using std::map;
 #define AUDIO_EXPLODE		"sound/explode.mp3"
 #define AUDIO_FAILED		"sound/failed.mp3"
 
+
+
+const int kTagBaseSkillButton =80;
+
+
 GameScene::GameScene()
 	: m_curGroup(NULL)
 	,m_gameTouchType(Touch_Normal)
@@ -118,25 +123,28 @@ bool GameScene::init()
 	leftButton->setPosition(Vec2(cx, cy));
 	leftButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonLeftCallback, this));
 	this->addChild(leftButton);
+	leftButton->setName("left");
 	cx += dx;
 
 	auto bottomButton = Button::create("btBottom.png", "btBottom.png", "", Widget::TextureResType::PLIST);
 	bottomButton->setPosition(Vec2(cx, cy));
 	bottomButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonSpeedupCallback, this));
 	this->addChild(bottomButton);
+	bottomButton->setName("bottom");
 	cx += dx;
 
-	//添加旋转按钮
 	auto rotateButton = Button::create("btRotate_1.png", "btRotate_2.png", "", Widget::TextureResType::PLIST);
 	rotateButton->setPosition(Vec2(cx, cy));
 	rotateButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonRotateCallback, this));
 	this->addChild(rotateButton);
+	rotateButton->setName("rotate");
 	cx += dx;
 
 	auto rightButton = Button::create("btRight_1.png", "btRight_2.png", "", Widget::TextureResType::PLIST);
 	rightButton->setPosition(Vec2(cx, cy));
 	rightButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonRightCallback, this));
 	this->addChild(rightButton);
+	rightButton->setName("right");
 	cx += dx;
 
 
@@ -161,14 +169,13 @@ bool GameScene::init()
 
 	getNextGroup();
 
-	auto skillmenu = Menu::create();
-	skillmenu->setPosition(0, 0);
-	addChild(skillmenu, 5);
+
 	for (int i = 1; i <= 2; i++)
 	{
 		auto skillbutton = SkillButton::createSkillButton(i, db->GetSkillNum(i));
-		skillbutton->setPosition(432, 424 - i * 100);
-		skillmenu->addChild(skillbutton);
+		skillbutton->setPosition(Vec2(432, 424 - i * 100));
+		skillbutton->setTag(kTagBaseSkillButton+i);
+		addChild(skillbutton, 5);
 	}
 
 
@@ -210,6 +217,7 @@ bool GameScene::init()
 	 listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 	 this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
+	 scheduleUpdate();
     return true;
 }
 void GameScene::getNextGroup()
@@ -221,7 +229,15 @@ void GameScene::getNextGroup()
 }
 void GameScene::update(float delta)
 {
-
+	auto bt = (SkillButton*)getChildByTag(kTagBaseSkillButton+1);
+	if (m_vecBlocks.size()>0)
+	{
+		bt->setEnabled(true);
+	}
+	else
+	{
+		bt->setEnabled(false);
+	}
 }
 bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
@@ -246,16 +262,22 @@ void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event
 	}
 	else
 	{
+		bool isUseScuess = false;
 		switch (m_gameTouchType)
 		{
 		case Touch_SkillKnock:
-			KnockBlock(endPos);
+			isUseScuess = KnockBlock(endPos);
 			break;
 		case Touch_SkillFill:
-			FillBlock(endPos);
+			isUseScuess =FillBlock(endPos);
 			break;
 		default:
 			break;
+		}
+		if (isUseScuess)
+		{
+			m_gameTouchType = Touch_Normal;
+			GameResume();
 		}
 	}
 }
@@ -705,7 +727,6 @@ void GameScene::Restart()
 	m_vecBlocks.clear();
 
 	//获取下一个方块
-	m_curGroup->removeFromeParent();
 	delete m_curGroup;
 	m_curGroup = NULL;
 	getNextGroup();
@@ -746,7 +767,7 @@ void GameScene::GameOver()
 	//弹出游戏结束层
 	auto popup = GameOverLayer::create();
 	popup->setPosition(0, 0);
-	this->addChild(popup);
+	this->addChild(popup,30);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -935,6 +956,7 @@ void GameScene::RefreshLevel()
 
 void GameScene::onRebegin()
 {
+	m_curGroup->removeFromeParent();
 	Restart();
 }
 void GameScene::onPause()
@@ -942,7 +964,7 @@ void GameScene::onPause()
 	pause();
 	auto layer = PauseLayer::create();
 	layer->setPosition(0, 0);
-	addChild(layer);
+	addChild(layer,30);
 	
 }
 void GameScene::onResum()
@@ -956,13 +978,15 @@ void GameScene::onBackMainScene()
 void GameScene::onUseSkill(SkillInfo*skill)
 {
 	if (skill->num>-1)
-	{	
+	{		
 		switch (skill->Id)
 		{
 		case Skill_Knock:
+			GamePause();
 			m_gameTouchType = Touch_SkillKnock;
 			break;
 		case Skill_Fill:
+			GamePause();
 			m_gameTouchType = Touch_SkillFill;
 			break;
 		case Skill_Revivi:
@@ -971,6 +995,7 @@ void GameScene::onUseSkill(SkillInfo*skill)
 		default:
 			break;
 		}
+		ChangeNumOfSkillButoon((int)skill->Id, -1);
 		DBManager::GetInstance()->SetSkillNum(skill->Id, DBManager::GetInstance()->GetSkillNum(skill->Id));
 	}
 	else
@@ -978,7 +1003,7 @@ void GameScene::onUseSkill(SkillInfo*skill)
 		//起计费
 	}
 }
-void GameScene::FillBlock(Vec2 pos)
+bool GameScene::FillBlock(Vec2 pos)
 {
 	int row = -1;
 	int col = -1;
@@ -987,7 +1012,7 @@ void GameScene::FillBlock(Vec2 pos)
 	{
 		if (iter->col == col&&iter->row == row)
 		{
-			return;
+			return false;
 		}
 	}
 	BlockObject ob;
@@ -999,11 +1024,12 @@ void GameScene::FillBlock(Vec2 pos)
 	Vec2 posBlock = Vec2::ZERO;
 	GameField::GetInstance()->GetBlockPosition(ob.row, ob.col, posBlock);
 	ob.sprite->setPosition(posBlock);
-	m_vecBlocks.push_back(posBlock);
+	m_vecBlocks.push_back(ob);
 	//检查是否消除
 	ReleaseBlocksOnFullLine();
+	return true;
 }
-void GameScene::KnockBlock(Vec2 pos)
+bool GameScene::KnockBlock(Vec2 pos)
 {
 	int row = -1;
 	int col = -1;
@@ -1015,7 +1041,31 @@ void GameScene::KnockBlock(Vec2 pos)
 			iter->sprite->removeFromParentAndCleanup(1);
 			m_vecBlocks.erase(iter);
 			m_gameTouchType = Touch_Normal;
-			break;
+			return true;
 		}
 	}
+	return false;
+}
+void GameScene::ChangeNumOfSkillButoon(int skillid, int diffnum)
+{
+	auto bt = (SkillButton*)(getChildByTag(kTagBaseSkillButton + skillid));
+	bt->ChangeSkillNum(diffnum);
+}
+void GameScene::GamePause()
+{
+	//按键失效
+	((Button*)getChildByName("right"))->setEnabled(false);
+	((Button*)getChildByName("left"))->setEnabled(false);
+	((Button*)getChildByName("rotate"))->setEnabled(false);
+	((Button*)getChildByName("bottom"))->setEnabled(false);
+	//停止下落
+	this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
+}
+void GameScene::GameResume()
+{
+	this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup),1.0f/m_level);
+	((Button*)getChildByName("right"))->setEnabled(true);
+	((Button*)getChildByName("left"))->setEnabled(true);
+	((Button*)getChildByName("rotate"))->setEnabled(true);
+	((Button*)getChildByName("bottom"))->setEnabled(true);
 }

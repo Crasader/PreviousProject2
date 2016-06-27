@@ -12,6 +12,7 @@ enum
 
 DragModeGameWidget::DragModeGameWidget()
 	: m_nextGroup(NULL)
+	,m_gameTouchType(Touch_Normal)
 {
 
 }
@@ -58,7 +59,7 @@ bool DragModeGameWidget::init()
 	m_nScore = 0;
 	m_scoreLabel = LabelAtlas::create("0", "scoreNum.png", 16, 25, '0');
 	m_scoreLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
-	m_scoreLabel->setPosition(scoreFrame->getContentSize() / 2+Size(0,5));
+	m_scoreLabel->setPosition(scoreFrame->getContentSize() / 2 + Size(0, 5));
 	scoreFrame->addChild(m_scoreLabel);
 
 
@@ -108,7 +109,7 @@ void DragModeGameWidget::AddScore(int cutLine)
 		m_nScore += 10;
 		break;
 	case 2:
-		m_nScore +=  30;
+		m_nScore += 30;
 		break;
 	case 3:
 		//同上的疑问
@@ -129,7 +130,7 @@ void DragModeGameWidget::AddScore(int cutLine)
 	default:
 		break;
 	}
-	m_nLine +=cutLine;
+	m_nLine += cutLine;
 	RefreshScore();
 	RefreshLine();
 }
@@ -152,7 +153,7 @@ void DragModeGameWidget::RestReadGroup()
 	for (int i = 0; i < m_vecReadBlocks.size(); i++)
 	{
 		auto group = m_vecReadBlocks[i];
-		group->sprite->setPosition(Vec2((i + 1) * 120, 130));
+		group->sprite->setPosition(Vec2((i + 1) * 120, 100));
 		group->sprite->setAnchorPoint(Point::ZERO);
 		for (auto var : group->data->GetBlocks())
 		{
@@ -172,84 +173,147 @@ void DragModeGameWidget::RestReadGroup()
 // 触摸开始事件
 bool DragModeGameWidget::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	if (m_nowTouchBlock)
-	{
-		return false;
-	}
 	auto pos = touch->getLocation();
-	for (auto var : m_vecReadBlocks)
+	switch (m_gameTouchType)
 	{
-		for (auto ob : var->data->GetBlocks())
+	case Touch_Normal:
+	{
+		if (m_nowTouchBlock)
 		{
-			auto nodePos = var->sprite->convertToNodeSpace(pos);
-			if (ob.sprite->getBoundingBox().containsPoint(nodePos))
-			{
-				m_nowTouchBlock = var;
-				m_nowTouchBlockStartPos = m_nowTouchBlock->sprite->getPosition();
-				m_nowTouchBlock->sprite->runAction(Spawn::create(MoveBy::create(0.2f, Vec2(0, 50)), ScaleTo::create(0.2f, 1.0f), nullptr));
+			return false;
+		}
 
-				return true;
+		for (auto var : m_vecReadBlocks)
+		{
+			for (auto ob : var->data->GetBlocks())
+			{
+				auto nodePos = var->sprite->convertToNodeSpace(pos);
+				if (ob.sprite->getBoundingBox().containsPoint(nodePos))
+				{
+					m_nowTouchBlock = var;
+					m_nowTouchBlockStartPos = m_nowTouchBlock->sprite->getPosition();
+					m_nowTouchBlock->sprite->runAction(Spawn::create(MoveBy::create(0.2f, Vec2(0, 50)), ScaleTo::create(0.2f, 1.0f), nullptr));
+
+					return true;
+				}
 			}
 		}
+		return false;
 	}
-	return false;
+	break;
+	case Touch_SkillKnock:
+		break;
+	case Touch_SkillFill:
+		break;
+	default:
+		break;
+	}
+
 }
 
 // 触摸滑动
 void DragModeGameWidget::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	if (!m_nowTouchBlock)
+	if (m_gameTouchType == Touch_Normal)
 	{
-		return;
+		if (!m_nowTouchBlock)
+		{
+			return;
+		}
+		auto diffpos = touch->getLocation() - touch->getPreviousLocation();
+		m_nowTouchBlock->sprite->setPosition(m_nowTouchBlock->sprite->getPosition() + diffpos);
 	}
-	auto diffpos = touch->getLocation() - touch->getPreviousLocation();
-	m_nowTouchBlock->sprite->setPosition(m_nowTouchBlock->sprite->getPosition() + diffpos);
+
 }
 
 // 触摸结束事件
 void DragModeGameWidget::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	if (!m_nowTouchBlock)
+	switch (m_gameTouchType)
 	{
-		return;
-	}
-	for (auto var : m_nowTouchBlock->data->GetBlocks())
+	case Touch_Normal:
 	{
-		int row;
-		int col;
-		getGridxy(m_nowTouchBlock->sprite->convertToWorldSpace(var.sprite->getPosition()), row, col);
-		if (isExistBlock(row, col) || isOutofGrid(row, col))
+		if (!m_nowTouchBlock)
 		{
-			m_nowTouchBlock->sprite->setScale(0.5f);
-			m_nowTouchBlock->sprite->stopAllActions();
-			m_nowTouchBlock->sprite->setPosition(m_nowTouchBlockStartPos);
-			m_nowTouchBlock = nullptr;
 			return;
 		}
-	}
-	for (auto var : m_nowTouchBlock->data->GetBlocks())
-	{
-		int row;
-		int col;
-		getGridxy(m_nowTouchBlock->sprite->convertToWorldSpace(var.sprite->getPosition()), row, col);
-		addBlock(row, col, var);
-	}
-	for (auto iter = m_vecReadBlocks.begin(); iter != m_vecReadBlocks.end(); iter++)
-	{
-		if (*iter == m_nowTouchBlock)
+		for (auto var : m_nowTouchBlock->data->GetBlocks())
 		{
-			m_vecReadBlocks.erase(iter);
-			break;
+			int row;
+			int col;
+			getGridxy(m_nowTouchBlock->sprite->convertToWorldSpace(var.sprite->getPosition()), row, col);
+			if (isExistBlock(row, col) || isOutofGrid(row, col))
+			{
+				m_nowTouchBlock->sprite->setScale(0.5f);
+				m_nowTouchBlock->sprite->stopAllActions();
+				m_nowTouchBlock->sprite->setPosition(m_nowTouchBlockStartPos);
+				m_nowTouchBlock = nullptr;
+				return;
+			}
+		}
+		for (auto var : m_nowTouchBlock->data->GetBlocks())
+		{
+			int row;
+			int col;
+			getGridxy(m_nowTouchBlock->sprite->convertToWorldSpace(var.sprite->getPosition()), row, col);
+			addBlock(row, col, var);
+		}
+		for (auto iter = m_vecReadBlocks.begin(); iter != m_vecReadBlocks.end(); iter++)
+		{
+			if (*iter == m_nowTouchBlock)
+			{
+				m_vecReadBlocks.erase(iter);
+				break;
+			}
+		}
+		delete m_nowTouchBlock;
+		m_nowTouchBlock = nullptr;
+
+		//重置等待区方块
+		if (m_vecReadBlocks.size() <= 0)
+		{
+			RestReadGroup();
+		}
+		ReleaseBlocksOnFullLine();
+
+	}
+	break;
+	case Touch_SkillKnock:
+	case Touch_SkillFill:
+	{
+		auto startPos = touch->getPreviousLocation();
+		auto endPos = touch->getLocation();
+		if (startPos.distance(endPos) > 50)
+		{
+			return;
+		}
+		else
+		{
+			bool isUseScuess = false;
+			if (m_gameTouchType == Touch_SkillFill)
+			{
+				isUseScuess =FillBlock(endPos);
+			}
+			else if (m_gameTouchType == Touch_SkillKnock)
+			{
+				isUseScuess =KnockBlock(endPos);
+			}
+
+			if (isUseScuess)
+			{
+				m_gameTouchType = Touch_Normal;
+			}
 		}
 	}
-	delete m_nowTouchBlock;
-	m_nowTouchBlock = nullptr;
-
-	//重置等待区方块
-	if (m_vecReadBlocks.size() <= 0)
-	{
-		RestReadGroup();
+	break;
+	default:
+		break;
 	}
+
+
+}
+bool DragModeGameWidget::ReleaseBlocksOnFullLine()
+{
 
 
 	//计算消除整行可消除方块
@@ -269,7 +333,7 @@ void DragModeGameWidget::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unu
 			data.cutType = 2;
 			m_vecFullLine.push_back(data);
 		}
-		if (++mapCol [cit->row] == ColCount)
+		if (++mapCol[cit->row] == ColCount)
 		{
 			BlockCutData data;
 			data.index = cit->row;
@@ -312,7 +376,7 @@ void DragModeGameWidget::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unu
 					}
 				}
 			}
-			
+
 		}
 		float dealy = AnimationUtil::getInstance()->getAnimate("ani_xiaochu")->getAnimation()->getDuration();
 		runAction(Sequence::createWithTwoActions(DelayTime::create(dealy), CallFunc::create([=]
@@ -335,12 +399,13 @@ void DragModeGameWidget::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unu
 			}
 			CheckIsFailed();
 		})));
+		return true;
 	}
 	else
 	{
 		CheckIsFailed();
+		return false;
 	}
-
 }
 void DragModeGameWidget::CheckIsFailed()
 {
@@ -457,7 +522,10 @@ void DragModeGameWidget::addBlock(int row, int col, BlockObject &block)
 	block.row = row;
 	block.col = col;
 	block.sprite->retain();
-	block.sprite->removeFromParentAndCleanup(false);
+	if (block.sprite->getParent())
+	{
+		block.sprite->removeFromParentAndCleanup(false);
+	}
 	m_vecBlocks.push_back(block);
 	refreshBlocks();
 }
@@ -472,4 +540,60 @@ void DragModeGameWidget::refreshBlocks()
 			addChild(var.sprite, kTagZordePutedBlock);
 		}
 	}
+}
+void DragModeGameWidget::Restart()
+{
+	for (auto var : m_vecBlocks)
+	{
+		var.sprite->removeFromParentAndCleanup(1);
+	}
+	m_vecBlocks.clear();
+
+	for (auto var : m_vecReadBlocks)
+	{
+		var->sprite->removeFromParentAndCleanup(1);
+	}
+	m_vecReadBlocks.clear();
+
+	m_gameTouchType = Touch_Normal;
+	RestReadGroup();
+}
+
+//技能
+bool DragModeGameWidget::FillBlock(Vec2 pos)
+{
+	int row = -1;
+	int col = -1;
+	getGridxy(pos, row, col);
+	if (isExistBlock(row, col))
+	{
+		return false;
+	}
+
+	BlockObject ob;
+	ob.index = -1;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(8);
+	ob.col = col;
+	ob.row = row;
+	addBlock(ob.row, ob.col, ob);
+	//检查是否消除
+	ReleaseBlocksOnFullLine();
+	return true;
+}
+bool DragModeGameWidget::KnockBlock(Vec2 pos)
+{
+	int row = -1;
+	int col = -1;
+	getGridxy(pos, row, col);
+	for (auto iter = m_vecBlocks.begin(); iter != m_vecBlocks.end(); iter++)
+	{
+		if (iter->col == col&&iter->row == row)
+		{
+			iter->sprite->removeFromParentAndCleanup(1);
+			m_vecBlocks.erase(iter);
+			m_gameTouchType = Touch_Normal;
+			return true;
+		}
+	}
+	return false;
 }

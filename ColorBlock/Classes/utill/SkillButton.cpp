@@ -34,10 +34,14 @@ bool SkillButton::init(int skillID, int skillNum)
 	_skillID = skillID;
 	_skillNum = skillNum;
 	auto path = String::createWithFormat("skill_%d.png", _skillID);
-	initWithNormalImage(path->getCString(), path->getCString(), "", CC_CALLBACK_1(SkillButton::skillClickCallBack,this));
-  
+	if (!Button::init(path->getCString(), path->getCString(), "", ui::Widget::TextureResType::PLIST))
+	{
+		return false;
+	}
+	addTouchEventListener(CC_CALLBACK_2(SkillButton::skillClickCallBack, this));
+	
 	auto circle = Sprite::create("circle.png");
-	circle->setPosition(getContentSize());
+	circle->setPosition(getContentSize() + Size(-10, -10));
 	addChild(circle);
 
 	std::string num = _skillNum >= 10 ? ":" : Value(_skillNum).asString().c_str();
@@ -46,24 +50,28 @@ bool SkillButton::init(int skillID, int skillNum)
 	skillLabel->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	circle->addChild(skillLabel);
 
+	auto box = Sprite::createWithSpriteFrameName("skillFrame.png");
+	box->setPosition(getContentSize() / 2);
+	addChild(box, -1);
     
 
     return true;
 }
 
 
-void SkillButton::skillClickCallBack(Ref*psend)
+void SkillButton::skillClickCallBack(Ref*psend, cocos2d::ui::Widget::TouchEventType event)
 {
-	EventCustom event(MSG_USESKILL);
+	EventCustom _event(MSG_USESKILL);
 	SkillInfo*skilli = new SkillInfo();
 	skilli->Id = ((SkillType)_skillID);
 	skilli->num = _skillNum;
-	event.setUserData(skilli);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
+	_event.setUserData(skilli);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&_event);
 	CC_SAFE_DELETE(skilli);
 }
 void SkillButton::ChangeSkillNum(int diff)
 {
 	_skillNum += diff;
-	skillLabel->setString(Value(_skillNum).asString());
+	std::string num = _skillNum >= 10 ? ":" : Value(_skillNum).asString().c_str();
+	skillLabel->setString(num);
 }

@@ -22,3 +22,11 @@ struct SkillInfo
 	SkillType Id;
 	int num;
 };
+
+
+enum GameTouchType
+{
+	Touch_Normal,
+	Touch_SkillKnock,
+	Touch_SkillFill
+};
