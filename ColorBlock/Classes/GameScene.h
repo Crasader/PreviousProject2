@@ -71,7 +71,7 @@ public:
 
 private:
 	//使用技能
-	void beginUsingSkill(int skillid);
+	bool beginUsingSkill(int skillid);
 	void endUsingSkill(bool isUsingsecuess);
 
 

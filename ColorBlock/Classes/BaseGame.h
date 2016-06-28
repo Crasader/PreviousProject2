@@ -13,7 +13,7 @@ protected:
 	virtual void onExit();
 	virtual void onEnter();
 	
-private:
+protected:
 	virtual void InitNotifications();                   //创建广播通知
 	virtual void removeNotifications();                 //移除广播通知
 	virtual void onPause() = 0;

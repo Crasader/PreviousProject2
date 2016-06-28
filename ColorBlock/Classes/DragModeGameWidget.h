@@ -66,7 +66,7 @@ public:
 
 	CC_SYNTHESIZE(GameTouchType, m_gameTouchType, gameTouchType);
 private:
-
+	void gameOver();
 
 	//刷新分数
 	void RefreshScore();
@@ -81,14 +81,17 @@ private:
 	bool ReleaseBlocksOnFullLine();
 
 	//技能
-	bool FillBlock(Vec2 pos);	//填补	  //返回是否使用成功
-	bool KnockBlock(Vec2 pos);  //消除
-
-
+	bool FillBlock(Vec2 pos, Sprite*sp);	//填补	  //返回是否使用成功
+	bool KnockBlock(Vec2 pos, Sprite*sp);  //消除
+	void ChangeNumOfSkillButoon(int skillid, int diffnum);
+public:
+	bool beginUsingSkill(int skillid);
+	void endUsingSkill(bool isUsingsecuess);
+private:
 	//网格函数
 	//根据屏幕坐标获取网格行列
 	void  getGridxy(Vec2 in_Pos,int &out_Row,int &out_Col);
-
+	Vec2 getPosByRowAndCol(int row, int col);
 	bool isExistBlock(int row, int col);
 	bool isOutofGrid(int row, int col);
 
@@ -126,4 +129,8 @@ private:
 	//网格尺寸大小
 	const int _boxMaxRow = 10;
 	const int _boxMaxCol = 10;
+
+	//技能效果精灵
+	Sprite* skillSp = nullptr;
+	Sprite*rangeSp = nullptr;
 };

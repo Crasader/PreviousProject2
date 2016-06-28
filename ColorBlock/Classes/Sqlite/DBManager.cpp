@@ -252,5 +252,5 @@ void DBManager::SetSkillNum(int id,int num)
 int DBManager::GetSkillNum(int id)
 {
 	auto SaveKey = String::createWithFormat(SKILL_INFO.c_str(), id);
-	return UserDefault::getInstance()->getIntegerForKey(SaveKey->getCString(), 0);
+	return UserDefault::getInstance()->getIntegerForKey(SaveKey->getCString(), 10);
 }

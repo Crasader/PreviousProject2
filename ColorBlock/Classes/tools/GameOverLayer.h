@@ -6,11 +6,14 @@
 class GameOverLayer : public BaseLayer
 {
 public:	
-    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();
-
-	// implement the "static create()" method manually
-	CREATE_FUNC(GameOverLayer);
+	static GameOverLayer*create(int score);
+private:
+	void update(float delta);
+	virtual bool init(int score);
+private:
+	int _score;
+	float _totalTime = 0;
+	LabelAtlas*label;
 
 };
 

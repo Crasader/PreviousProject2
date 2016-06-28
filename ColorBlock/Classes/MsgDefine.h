@@ -9,7 +9,7 @@
 #define MSG_REBEGIN				"msg_rebegin"				//重新开始	
 #define MSG_BACKMAINSCENE		"msg_backMainScene"			//返回大厅	
 #define MSG_USESKILL			"msg_useSkill"				//使用技能XX
-
+#define MSG_GAMEOVER            "msg_gameover"              //游戏结束
 
 enum SkillType
 {

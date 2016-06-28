@@ -49,12 +49,13 @@ private:
 	virtual void onRebegin();
 	virtual void onUseSkill(SkillInfo*skill);
 
+	virtual void InitNotifications();
 
 	void ChangeNumOfSkillButoon(int skillid, int diffnum);
 private:
 
 	void Restart();								//重新开始游戏
-	void GameOver();							//游戏结束
+	void GameOver(int score);							//游戏结束
 	void ExitGame();							//退出游戏
 	void DoExitGame();							//确认退出游戏
 

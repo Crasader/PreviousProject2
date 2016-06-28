@@ -81,7 +81,7 @@ bool DragModeGameMainScene::init()
 
 	//添加小部件层
 	m_widget = DragModeGameWidget::create();
-	this->addChild(m_widget, nZOrderWidget);
+	this->addChild(m_widget, 5+1);
 
 
 
@@ -104,24 +104,22 @@ bool DragModeGameMainScene::init()
 
 
 
-	auto skillbutton = SkillButton::createSkillButton(81, db->GetSkillNum(1));
+	auto skillbutton = SkillButton::createSkillButton(81, db->GetSkillNum(81));
 	skillbutton->setPosition(Vec2(240-100,213));
 	skillbutton->setTag(kTagBaseSkillButton+1);
 	addChild(skillbutton, 5);
 
-	skillbutton = SkillButton::createSkillButton(82, db->GetSkillNum(2));
+	skillbutton = SkillButton::createSkillButton(82, db->GetSkillNum(82));
 	skillbutton->setPosition(Vec2(240 + 100, 213));
 	addChild(skillbutton,5);
-	skillbutton->setTag(kTagBaseSkillButton + 1);
+	skillbutton->setTag(kTagBaseSkillButton + 2);
 	//触摸屏事件监听
 	m_touchListener = EventListenerTouchOneByOne::create();
 	m_touchListener->onTouchBegan = CC_CALLBACK_2(DragModeGameMainScene::onTouchBegan, this);
 	m_touchListener->onTouchMoved = CC_CALLBACK_2(DragModeGameMainScene::onTouchMoved, this);
 	m_touchListener->onTouchEnded = CC_CALLBACK_2(DragModeGameMainScene::onTouchEnded, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_touchListener, this);
-	//利用plist文件卸载打包图片
-	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
-	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("game.plist");
+	
 
 
 
@@ -155,7 +153,14 @@ void DragModeGameMainScene::update(float delta)
 
 bool DragModeGameMainScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-
+	for (int i = kTagBaseSkillButton + 1; i <= kTagBaseSkillButton + 2; i++)
+	{
+		auto bt = getChildByTag(i);
+		if (bt->getBoundingBox().containsPoint(touch->getLocation()))
+		{
+			return m_widget->beginUsingSkill(i);
+		}
+	}
 	m_widget->onTouchBegan(touch, unused_event);
 	return true;
 }
@@ -226,6 +231,9 @@ void DragModeGameMainScene::onExit()
 	SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_DOWN);
 	SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_EXPLODE);
 	SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_FAILED);
+	//利用plist文件卸载打包图片
+	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
+	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("game.plist");
 }
 
 
@@ -244,7 +252,7 @@ void DragModeGameMainScene::Restart()
 	SimpleAudioEngine::getInstance()->playBackgroundMusic(AUDIO_BACKGROUND, true);
 }
 
-void DragModeGameMainScene::GameOver()
+void DragModeGameMainScene::GameOver(int score)
 {
 	//播放失败音效
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
@@ -255,19 +263,15 @@ void DragModeGameMainScene::GameOver()
 	DBManager::GameScore gameScore;
 	gameScore.name = "Unknown";
 	gameScore.time = CommonFunction::GetCurrentTime();
-	gameScore.score = m_widget->GetScore();
+	gameScore.score = score;
 	DBManager::GetInstance()->AddScore(gameScore);
 
-	//显示分数
-	std::stringstream ss;
-	ss << m_widget->GetScore();
-	std::string strScore = ss.str();
-	auto score = StringManager::GetInstance()->GetString("score");
+
 
 
 
 	//弹出游戏结束层
-	auto popup = GameOverLayer::create();
+	auto popup = GameOverLayer::create(score);
 	popup->setPosition(0, 0);
 	this->addChild(popup,30);
 }
@@ -324,6 +328,17 @@ void DragModeGameMainScene::onUseSkill(SkillInfo*skill)
 	{
 		//起计费
 	}
+}
+void DragModeGameMainScene::InitNotifications()
+{
+	BaseGame::InitNotifications();
+	//游戏结束
+	EventListenerCustom* listener = EventListenerCustom::create(MSG_GAMEOVER, [=](EventCustom* event){
+		int score = *((int*)(event->getUserData()));
+		GameOver(score);
+	});
+	getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
+
 }
 void DragModeGameMainScene::ChangeNumOfSkillButoon(int skillid, int diffnum)
 {

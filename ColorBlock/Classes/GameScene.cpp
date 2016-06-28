@@ -173,7 +173,7 @@ bool GameScene::init()
 		auto skillbutton = SkillButton::createSkillButton(i, db->GetSkillNum(i));
 		skillbutton->setPosition(Vec2(432, 424 - (i-kTagBaseSkillButton) * 100));
 		skillbutton->setTag(i);
-		addChild(skillbutton, 1005);
+		addChild(skillbutton, 10);
 	}
 
 
@@ -235,9 +235,14 @@ void GameScene::update(float delta)
 	//	bt->setEnabled(false);
 	//}
 }
-void GameScene::beginUsingSkill(int skillid)
+bool GameScene::beginUsingSkill(int skillid)
 {
 	auto bt = getChildByTag(skillid);
+	auto db = DBManager::GetInstance();
+	if (db->GetSkillNum(skillid)<=0)
+	{
+		return false;
+	}
 	if (skillid==81)
 	{
 		GamePause();
@@ -245,7 +250,7 @@ void GameScene::beginUsingSkill(int skillid)
 		skillSp->setPosition(bt->getPosition());
 		addChild(skillSp, 10);
 		rangeSp = Sprite::createWithSpriteFrameName("blockRange.png");
-	addChild(rangeSp, 9);
+		addChild(rangeSp, 9);
 		m_gameTouchType = Touch_SkillKnock;
 	}
 	else
@@ -264,23 +269,26 @@ void GameScene::beginUsingSkill(int skillid)
 	skillframe->setPosition(240, 400);
 	addChild(skillframe, 20, "skillframe");
 
-
+	return true;
 
 }
 void GameScene::endUsingSkill(bool isUsingsecuess)
 {
-	switch (m_gameTouchType)
+	if (isUsingsecuess)
 	{
-	case Touch_SkillKnock:
-		ChangeNumOfSkillButoon(kTagBaseSkillButton+1, -1);
-		DBManager::GetInstance()->SetSkillNum(kTagBaseSkillButton + 1, DBManager::GetInstance()->GetSkillNum(kTagBaseSkillButton+1) - 1);
-		break;
-	case Touch_SkillFill:
-		ChangeNumOfSkillButoon(kTagBaseSkillButton+2, -1);
-		DBManager::GetInstance()->SetSkillNum(kTagBaseSkillButton + 2, DBManager::GetInstance()->GetSkillNum(kTagBaseSkillButton+2) - 1);
-		break;
-	default:
-		break;
+		switch (m_gameTouchType)
+		{
+		case Touch_SkillKnock:
+			ChangeNumOfSkillButoon(kTagBaseSkillButton + 1, -1);
+			DBManager::GetInstance()->SetSkillNum(kTagBaseSkillButton + 1, DBManager::GetInstance()->GetSkillNum(kTagBaseSkillButton + 1) - 1);
+			break;
+		case Touch_SkillFill:
+			ChangeNumOfSkillButoon(kTagBaseSkillButton + 2, -1);
+			DBManager::GetInstance()->SetSkillNum(kTagBaseSkillButton + 2, DBManager::GetInstance()->GetSkillNum(kTagBaseSkillButton + 2) - 1);
+			break;
+		default:
+			break;
+		}
 	}
 	m_gameTouchType = Touch_Normal;
 	GameResume();
@@ -301,8 +309,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event
 		auto bt = getChildByTag(i);
 		if (bt->getBoundingBox().containsPoint(touch->getLocation()))
 		{
-			beginUsingSkill(i);
-			return true;
+			return beginUsingSkill(i);
 		}
 	}
 	return false;
@@ -321,7 +328,7 @@ void GameScene::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event
 		m_widget->GetRowAndColByPos(touch->getLocation(), row, col);
 		if (m_gameTouchType == Touch_SkillKnock)
 		{
-			if (row < 1 || row > 19 || col <= 0 || col > 10)
+			if (row < 1 || row > 19 || col < 1 || col > 10)
 			{
 				rangeSp->setVisible(false);	
 			}
@@ -861,7 +868,7 @@ void GameScene::GameOver()
 	m_bPopupLayerWorking = true;
 
 	//弹出游戏结束层
-	auto popup = GameOverLayer::create();
+	auto popup = GameOverLayer::create(m_widget->GetScore());
 	popup->setPosition(0, 0);
 	this->addChild(popup,30);
 }
@@ -1122,7 +1129,10 @@ bool GameScene::FillBlock(Vec2 pos,Sprite*sp)
 	int row = -1;
 	int col = -1;
 	m_widget->GetRowAndColByPos(pos, row, col);
-	
+	if (col < 0 || col > 9)
+	{
+		return false;
+	}
 	std::vector<BlockObject> obs;
 	for (int i = 0; i < GameField::GetInstance()->GetBlockColCount();i++)
 	{
@@ -1196,6 +1206,8 @@ bool GameScene::KnockBlock(Vec2 pos,Sprite*sp)
 		return false;
 	}
 	//do action
+	//设置旋转点
+	sp->setAnchorPoint(Point(0.5,0.1));
 	sp->runAction(Sequence::create(Spawn::createWithTwoActions(ScaleTo::create(0.25f, 1.5f), RotateTo::create(0.25f, 30)), Spawn::createWithTwoActions(ScaleTo::create(0.5f, 1.0f), RotateTo::create(0.5f, 0)),
 		CallFunc::create([=]{
 		for (auto var : obs)

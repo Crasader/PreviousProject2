@@ -2,9 +2,10 @@
 #include "CommonFunction.h"
 #include "Block/SpriteManager.h"
 #include "utill/AnimationUtil.h"
+#include "Sqlite/DBManager.h"
+#include "utill/SkillButton.h"
 
-
-
+#define kTagBaseSkillButton 80
 enum
 {
 	kTagZordePutedBlock = 5
@@ -200,13 +201,11 @@ bool DragModeGameWidget::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unu
 		}
 		return false;
 	}
-	break;
 	case Touch_SkillKnock:
-		break;
 	case Touch_SkillFill:
-		break;
+		return true;
 	default:
-		break;
+		return false;
 	}
 
 }
@@ -214,7 +213,9 @@ bool DragModeGameWidget::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unu
 // 触摸滑动
 void DragModeGameWidget::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	if (m_gameTouchType == Touch_Normal)
+	switch (m_gameTouchType)
+	{
+	case Touch_Normal:
 	{
 		if (!m_nowTouchBlock)
 		{
@@ -223,6 +224,46 @@ void DragModeGameWidget::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unu
 		auto diffpos = touch->getLocation() - touch->getPreviousLocation();
 		m_nowTouchBlock->sprite->setPosition(m_nowTouchBlock->sprite->getPosition() + diffpos);
 	}
+		break;
+	case Touch_SkillKnock:
+	case Touch_SkillFill:
+	{
+		auto diffpos = touch->getLocation() - touch->getPreviousLocation();
+		skillSp->setPosition(skillSp->getPosition() + diffpos);
+		int row = -1;
+		int col = -1;
+		auto size = SpriteManager::GetInstance()->GetBlockSprite(1,true)->getContentSize();
+		getGridxy(touch->getLocation(), row, col);
+		if (m_gameTouchType == Touch_SkillKnock)
+		{
+			if (row < 2 || row >10 || col < 0 || col > 8)
+			{
+				rangeSp->setVisible(false);
+			}
+			else
+			{
+				rangeSp->setVisible(true);
+				rangeSp->setPosition(GridZeroPos + Vec2((row - 1)*size.width, (col+1)*size.height));
+			}
+		}
+		else if (m_gameTouchType == Touch_SkillFill)
+		{
+			if (col < 0 || col >9)
+			{
+				rangeSp->setVisible(false);
+			}
+			else
+			{
+				rangeSp->setVisible(true);
+				rangeSp->setPosition(Vec2(240, GridZeroPos.y +(col + 0.5)*size.height));
+			}
+		}
+	}
+		break;
+	default:
+		break;
+	}
+	
 
 }
 
@@ -290,19 +331,18 @@ void DragModeGameWidget::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unu
 		else
 		{
 			bool isUseScuess = false;
-			if (m_gameTouchType == Touch_SkillFill)
+			switch (m_gameTouchType)
 			{
-				isUseScuess =FillBlock(endPos);
+			case Touch_SkillKnock:
+				isUseScuess = KnockBlock(endPos, skillSp);
+				break;
+			case Touch_SkillFill:
+				isUseScuess = FillBlock(endPos, skillSp);
+				break;
+			default:
+				break;
 			}
-			else if (m_gameTouchType == Touch_SkillKnock)
-			{
-				isUseScuess =KnockBlock(endPos);
-			}
-
-			if (isUseScuess)
-			{
-				m_gameTouchType = Touch_Normal;
-			}
+			endUsingSkill(isUseScuess);
 		}
 	}
 	break;
@@ -419,7 +459,7 @@ void DragModeGameWidget::CheckIsFailed()
 	}
 	if (size <= 0)
 	{
-		CCLOG("you are failed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		gameOver();
 	}
 }
 bool DragModeGameWidget::isExistBlock(int row, int col)
@@ -456,6 +496,10 @@ void DragModeGameWidget::getGridxy(Vec2 in_Pos, int &out_Row, int &out_Col)
 	out_Col = p.y / GridSide;
 }
 
+Vec2 DragModeGameWidget::getPosByRowAndCol(int row, int col)
+{
+	return GridZeroPos + Vec2((row + 0.5)*GridSide, (col + 0.5)*GridSide);
+}
 
 
 
@@ -560,40 +604,217 @@ void DragModeGameWidget::Restart()
 }
 
 //技能
-bool DragModeGameWidget::FillBlock(Vec2 pos)
+bool DragModeGameWidget::FillBlock(Vec2 pos, Sprite*sp)
 {
+	//int row = -1;
+	//int col = -1;
+	//getGridxy(pos, row, col);
+	//if (isExistBlock(row, col))
+	//{
+	//	return false;
+	//}
+
+	//BlockObject ob;
+	//ob.index = -1;
+	//ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(8);
+	//ob.col = col;
+	//ob.row = row;
+	//addBlock(ob.row, ob.col, ob);
+	////检查是否消除
+	//ReleaseBlocksOnFullLine();
+	//return true;
+
+
+
 	int row = -1;
 	int col = -1;
 	getGridxy(pos, row, col);
-	if (isExistBlock(row, col))
+	if (col < 0 || col > 9)
 	{
 		return false;
 	}
+	std::vector<BlockObject> obs;
+	for (int i = 0; i < _boxMaxCol; i++)
+	{
 
-	BlockObject ob;
-	ob.index = -1;
-	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(8);
-	ob.col = col;
-	ob.row = row;
-	addBlock(ob.row, ob.col, ob);
-	//检查是否消除
-	ReleaseBlocksOnFullLine();
+		if (!isExistBlock(i, col))
+		{
+			BlockObject ob;
+			ob.index = -1;
+			ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(8,true);
+			ob.col = col;
+			ob.row = i;
+			addChild(ob.sprite);
+			obs.push_back(ob);
+			addBlock(ob.row, ob.col, ob);
+			ob.sprite->setVisible(false);
+			m_vecBlocks.push_back(ob);
+		}
+	}
+	//action 
+	for (int i = 0; i < obs.size(); i++)
+	{
+		auto flowerBlock = obs.at(i);
+		flowerBlock.sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(flowerBlock.row*0.1f + 0.05f), CallFunc::create([=]{
+			flowerBlock.sprite->setVisible(true);
+			auto ani = Sprite::create();
+			ani->setPosition(flowerBlock.sprite->getContentSize() / 2);
+			flowerBlock.sprite->addChild(ani);
+			ani->runAction(Sequence::createWithTwoActions(AnimationUtil::getInstance()->getAnimate("ani_flower"), RemoveSelf::create()));
+
+		})));
+	}
+	Vec2 startpos = getPosByRowAndCol(0, col);
+	Vec2 endPos = getPosByRowAndCol(_boxMaxCol, col);
+	auto magicClub = sp;
+	magicClub->setPosition(startpos);
+	magicClub->runAction(Sequence::create(MoveTo::create(1.0f, endPos), FadeOut::create(0.1f), DelayTime::create(0.3f), CallFunc::create([=]{
+		magicClub->removeFromParentAndCleanup(1);
+		ReleaseBlocksOnFullLine();
+
+	}), nullptr));
 	return true;
 }
-bool DragModeGameWidget::KnockBlock(Vec2 pos)
+bool DragModeGameWidget::KnockBlock(Vec2 pos, Sprite*sp)
 {
+	//int row = -1;
+	//int col = -1;
+	//getGridxy(pos, row, col);
+	//for (auto iter = m_vecBlocks.begin(); iter != m_vecBlocks.end(); iter++)
+	//{
+	//	if (iter->col == col&&iter->row == row)
+	//	{
+	//		iter->sprite->removeFromParentAndCleanup(1);
+	//		m_vecBlocks.erase(iter);
+	//		m_gameTouchType = Touch_Normal;
+	//		return true;
+	//	}
+	//}
+	//return false;
+
+	///4*4
 	int row = -1;
 	int col = -1;
 	getGridxy(pos, row, col);
-	for (auto iter = m_vecBlocks.begin(); iter != m_vecBlocks.end(); iter++)
+	std::vector<BlockObject> obs;
+	for (int i = row-1; i >= row - 2; i--)
 	{
-		if (iter->col == col&&iter->row == row)
+		for (int j = col+1; j >= col; j--)
 		{
-			iter->sprite->removeFromParentAndCleanup(1);
-			m_vecBlocks.erase(iter);
-			m_gameTouchType = Touch_Normal;
-			return true;
+			for (auto iter = m_vecBlocks.begin(); iter != m_vecBlocks.end(); iter++)
+			{
+				if (iter->col == j&&iter->row == i)
+				{
+					obs.push_back(*iter);
+					m_vecBlocks.erase(iter);
+					break;
+				}
+			}
 		}
 	}
-	return false;
+	if (obs.size() <= 0)
+	{
+		return false;
+	}
+	//do action
+	//设置旋转点
+	sp->setAnchorPoint(Point(0.5, 0.1));
+	sp->runAction(Sequence::create(Spawn::createWithTwoActions(ScaleTo::create(0.25f, 1.5f), RotateTo::create(0.25f, 30)), Spawn::createWithTwoActions(ScaleTo::create(0.5f, 1.0f), RotateTo::create(0.5f, 0)),
+		CallFunc::create([=]{
+		for (auto var : obs)
+		{
+			auto ani = Sprite::create();
+			ani->runAction(AnimationUtil::getInstance()->getAnimate("ani_scrap"));
+			ani->setPosition(var.sprite->getContentSize() / 2);
+			var.sprite->addChild(ani);
+			var.sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(AnimationUtil::getInstance()->getAnimate("ani_scrap")->getDuration()), RemoveSelf::create(1)));
+		}
+
+	}), RemoveSelf::create(1), nullptr
+		));
+	return true;
+}
+
+
+bool DragModeGameWidget::beginUsingSkill(int skillid)
+{
+	auto bt = getParent()->getChildByTag(skillid);
+	auto db = DBManager::GetInstance();
+	if (db->GetSkillNum(skillid) <= 0)
+	{
+		return false;
+	}
+	if (skillid == 81)
+	{
+		skillSp = Sprite::createWithSpriteFrameName("hammer.png");
+		skillSp->setPosition(bt->getPosition());
+		addChild(skillSp, 10);
+		rangeSp = Sprite::createWithSpriteFrameName("blockRange.png");
+		rangeSp->setScale(2);
+		addChild(rangeSp, 9);
+		m_gameTouchType = Touch_SkillKnock;
+	}
+	else
+	{
+		skillSp = Sprite::createWithSpriteFrameName("skill_2.png");
+		skillSp->setPosition(bt->getPosition());
+		addChild(skillSp, 10);
+		rangeSp = Sprite::createWithSpriteFrameName("fillRange.png");
+		rangeSp->setScale(2);
+		addChild(rangeSp, 9);
+		m_gameTouchType = Touch_SkillFill;
+	}
+
+
+	auto skillframe = Sprite::createWithSpriteFrameName("skillingShade.png");
+	skillframe->setPosition(240, 400);
+	addChild(skillframe, 20, "skillframe");
+
+	return true;
+
+}
+
+void DragModeGameWidget::endUsingSkill(bool isUsingsecuess)
+{
+	if (isUsingsecuess)
+	{
+		switch (m_gameTouchType)
+		{
+		case Touch_SkillKnock:
+			ChangeNumOfSkillButoon(kTagBaseSkillButton + 1, -1);
+			DBManager::GetInstance()->SetSkillNum(kTagBaseSkillButton + 1, DBManager::GetInstance()->GetSkillNum(kTagBaseSkillButton + 1) - 1);
+			break;
+		case Touch_SkillFill:
+			ChangeNumOfSkillButoon(kTagBaseSkillButton + 2, -1);
+			DBManager::GetInstance()->SetSkillNum(kTagBaseSkillButton + 2, DBManager::GetInstance()->GetSkillNum(kTagBaseSkillButton + 2) - 1);
+			break;
+		default:
+			break;
+		}
+	}
+	m_gameTouchType = Touch_Normal;
+	rangeSp->removeFromParentAndCleanup(true);
+	if (!isUsingsecuess)
+	{
+		skillSp->removeFromParentAndCleanup(1);
+	}
+
+
+	getChildByName("skillframe")->removeFromParentAndCleanup(1);
+
+}
+
+void DragModeGameWidget::ChangeNumOfSkillButoon(int skillid, int diffnum)
+{
+	auto bt = (SkillButton*)(getParent()->getChildByTag(skillid));
+	bt->ChangeSkillNum(diffnum);
+}
+
+void DragModeGameWidget::gameOver()
+{
+	EventCustom _event(MSG_GAMEOVER);
+	int*pScore = new int(m_nScore);
+	_event.setUserData(pScore);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&_event);
+	CC_SAFE_DELETE(pScore);
 }
