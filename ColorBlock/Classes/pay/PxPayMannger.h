@@ -6,6 +6,7 @@ class PxPayMannger{
 public:
 	static PxPayMannger* getInstance();
 	void requestEvent(int eventId);	
+	void cancelEvent(int eventId);
 	void initConfig();
 	void LaughPayLayer(int eventId, Node* parents, const std::function<void(EventCustom*)>& callback);
 private:

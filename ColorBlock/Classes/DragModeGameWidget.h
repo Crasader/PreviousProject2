@@ -103,6 +103,7 @@ private:
 
 	//判断当前网格是否可以容纳参数图形
 	bool isCouldPutTheBlockgroup(BlockGroup*group);
+	void refreshBt();
 private:
 	//分数
 	cocos2d::LabelAtlas*	m_scoreLabel;	//分数标签

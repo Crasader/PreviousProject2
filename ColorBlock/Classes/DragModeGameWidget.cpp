@@ -461,12 +461,13 @@ void DragModeGameWidget::CheckIsFailed()
 	}
 	if (size <= 0)
 	{
-	
+		int revivinum = DBManager::GetInstance()->GetSkillNum(83);
+		int eventid = revivinum>0 ? 5 : 4;
 		std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
 		{
 			bool *ispaysucess = (bool*)(event->getUserData());
 			CCLOG("pay test event point result = %d", *ispaysucess);
-			if (!ispaysucess)
+			if (!(*ispaysucess))
 			{
 				gameOver();
 			}
@@ -475,17 +476,16 @@ void DragModeGameWidget::CheckIsFailed()
 
 				Revivi();
 			}
+
+			auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventid);
+			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(msg->getCString());
 		};
 
-		int revivinum = DBManager::GetInstance()->GetSkillNum(83);
-		if (revivinum > 0)
-		{
-			PxPayMannger::getInstance()->LaughPayLayer(5, this, fun);
-		}
-		else
-		{
-			PxPayMannger::getInstance()->LaughPayLayer(4, this, fun);
-		}
+		
+	
+			PxPayMannger::getInstance()->LaughPayLayer(eventid, this, fun);
+		
+	
 	}
 }
 bool DragModeGameWidget::isExistBlock(int row, int col)
@@ -794,6 +794,10 @@ bool DragModeGameWidget::beginUsingSkill(int skillid)
 		{
 			bool *ispaysucess = (bool*)(event->getUserData());
 			CCLOG("pay test event point result = %d", *ispaysucess);
+
+			auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventid);
+			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(msg->getCString());
+			refreshBt();
 		};
 		PxPayMannger::getInstance()->LaughPayLayer(eventid, this, fun);
 		return false;
@@ -873,4 +877,14 @@ void DragModeGameWidget::gameOver()
 	_event.setUserData(pScore);
 	Director::getInstance()->getEventDispatcher()->dispatchEvent(&_event);
 	CC_SAFE_DELETE(pScore);
+}
+
+void DragModeGameWidget::refreshBt()
+{
+	for (int i = 81; i <= 82; i++)
+	{
+		int num = DBManager::GetInstance()->GetSkillNum(i);
+		auto bt = (SkillButton*)(getChildByTag(i));
+		bt->ChangeSkillNum(num - bt->getSkillNum());
+	}
 }

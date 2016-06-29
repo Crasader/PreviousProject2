@@ -161,6 +161,9 @@ bool MainScene::init()
 		{
 			bool *ispaysucess = (bool*)(event->getUserData());
 			CCLOG("pay test event point result = %d", *ispaysucess);
+
+			auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, 1);
+			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(msg->getCString());
 		};
 		PxPayMannger::getInstance()->LaughPayLayer(1, this, fun);
 	}
@@ -169,7 +172,7 @@ bool MainScene::init()
 void MainScene::loadRes()
 {
 	
-	AnimationUtil::getInstance()->addAnimationBySpriteFrameName("TX_xiaochu.plist", "TX_xiaochu_%.4d.png", "ani_xiaochu", 0.15f, 25);
+	AnimationUtil::getInstance()->addAnimationBySpriteFrameName("TX_xiaochu.plist", "TX_xiaochu_%.4d.png", "ani_xiaochu", 0.3f, 25);
 	AnimationUtil::getInstance()->addAnimationBySpriteFrameName("Tx_Flower.plist", "treasure_chest_%.4d@2x.png", "ani_flower", 0.5f, 12);
 	AnimationUtil::getInstance()->addAnimationBySpriteFrameName("Tx_Scrap.plist", "scrap%.2d.png", "ani_scrap", 0.5f, 7);
 	SpriteManager::GetInstance()->InitSpriteFramesWithFile("otherScene.plist");
@@ -252,6 +255,9 @@ void MainScene::menuGiftCallback(cocos2d::Ref* pSender)
 	{
 		bool *ispaysucess = (bool*)(event->getUserData());
 		CCLOG("pay test event point result = %d", *ispaysucess);
+
+		auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, 2);
+		Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(msg->getCString());
 	};
 	PxPayMannger::getInstance()->LaughPayLayer(2, this, fun);
 }

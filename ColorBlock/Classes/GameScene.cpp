@@ -246,6 +246,9 @@ bool GameScene::beginUsingSkill(int skillid)
 			bool *ispaysucess = (bool*)(event->getUserData());
 			CCLOG("pay test event point result = %d", *ispaysucess);
 			GameResume();
+			refreshBt();
+			auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventid);
+			Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(msg->getCString());
 		};
 		PxPayMannger::getInstance()->LaughPayLayer(eventid, this, fun);
 		return false;
@@ -626,6 +629,9 @@ void GameScene::AddCurBlockGroupToBlocks()
 
 		if (lowest < 0)
 		{
+
+			int revivinum = DBManager::GetInstance()->GetSkillNum(83);
+			int eventid = revivinum > 0 ? 5 : 4;
 			pause();
 			GamePause();
 			m_bIsInPaying = true;
@@ -633,7 +639,7 @@ void GameScene::AddCurBlockGroupToBlocks()
 			{
 				bool *ispaysucess = (bool*)(event->getUserData());
 				CCLOG("pay test event point result = %d", *ispaysucess);
-				if (!ispaysucess)
+				if (!(*ispaysucess))
 				{
 					GameOver();
 				}
@@ -645,17 +651,11 @@ void GameScene::AddCurBlockGroupToBlocks()
 				resume();
 				GameResume();
 				m_bIsInPaying = false;
+				refreshBt();
+				auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventid);
+				Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(msg->getCString());
 			};
-
-			int revivinum = DBManager::GetInstance()->GetSkillNum(83);
-			if (revivinum>0)
-			{
-				PxPayMannger::getInstance()->LaughPayLayer(5, this, fun);
-			}
-			else
-			{
-				PxPayMannger::getInstance()->LaughPayLayer(4, this, fun);
-			}
+			PxPayMannger::getInstance()->LaughPayLayer(eventid, this, fun);
 			return;
 		}
 	}
@@ -759,6 +759,9 @@ bool GameScene::ReleaseBlocksOnFullLine()
 						this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / (m_level + m_difSpeed));
 					}
 					GameResume();
+					refreshBt();
+					auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventid);
+					Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(msg->getCString());
 				};
 				PxPayMannger::getInstance()->LaughPayLayer(eventid, this, fun);
 			}
@@ -1347,3 +1350,12 @@ void GameScene::GameResume()
 	((Button*)getChildByName("bottom"))->setEnabled(true);
 }
 
+void GameScene::refreshBt()
+{
+	for (int i = 81;  i <= 82;i++)
+	{
+		int num = DBManager::GetInstance()->GetSkillNum(i);
+		auto bt = (SkillButton*)(getChildByTag(i));
+		bt->ChangeSkillNum(num - bt->getSkillNum());
+	}
+}

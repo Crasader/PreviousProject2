@@ -43,3 +43,27 @@ void PxPayMannger::LaughPayLayer(int eventId, Node*parents, const std::function<
 
 	log("laugh pay layer eventid = %d", eventId);
 }
+
+void PxPayMannger::cancelEvent(int eventId)
+{
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+//	JniMethodInfo methodInfo;
+//	auto path = String::createWithFormat("%s%s", JAVA_SRC, "/PayService");
+//	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, path->getCString(), "pay", "(I)V");
+//	jint pay_point = eventId;
+//	//jint reviveNum = GAMEDATA::getInstance()->getReviveNum();
+//	if (isHave){
+//		jobject jobj;
+//		JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, pay_point);
+//	}
+//#endif	
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventId);
+	EventCustom pevent(msg->getCString());
+	bool *isPaySucess = new bool(false);
+	pevent.setUserData(isPaySucess);
+	Director::getInstance()->getEventDispatcher()->dispatchEvent(&pevent);
+	CC_SAFE_DELETE(isPaySucess);
+#endif	
+}

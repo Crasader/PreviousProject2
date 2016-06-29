@@ -94,7 +94,7 @@ void BasePayLayer::quxiaoButton(Ref* psender, Widget::TouchEventType type)
 {
 	if (type == Widget::TouchEventType::ENDED)
 	{
-	/*	PxPayMannger::getInstance()->requestEvent(_eventid);*/
+		PxPayMannger::getInstance()->cancelEvent(_eventid);
 		removeFromParentAndCleanup(1);
 	}
 	

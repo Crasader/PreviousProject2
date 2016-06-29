@@ -35,10 +35,10 @@ bool GameOverLayer::init(int score)
 	addChild(title);
 	title->runAction(EaseBackOut::create(MoveTo::create(0.5f, Vec2(240, 510))));
 	auto btBack = MenuItemSprite::create(SPRITE("btBack_1.png"), SPRITE("btBack_2.png"), nullptr, CC_CALLBACK_1(BaseLayer::menuExitCallback, this));
-	btBack->setPosition(140, 150);
+	btBack->setPosition(170, 130);
 
 	auto btRestart = MenuItemSprite::create(SPRITE("btPlayAgain_1.png"), SPRITE("btPlayAgain_2.png"), nullptr, CC_CALLBACK_1(BaseLayer::menuReStartCallback, this));
-	btRestart->setPosition(480 - 140, 150);
+	btRestart->setPosition(480 - 170, 130);
 
 	auto menu = Menu::create(btBack, btRestart, nullptr);
 	addChild(menu);
@@ -52,6 +52,11 @@ bool GameOverLayer::init(int score)
 
 	menu->runAction(MoveTo::create(0.5f, Vec2(0, 0)));
 	
+
+	auto light = Sprite::createWithSpriteFrameName("rorateLight.png");
+	light->runAction(RepeatForever::create(RotateBy::create(2.0f, 360)));
+	light->setPosition(240, 400);
+	addChild(light, -1);
 
 	scheduleUpdate();
 

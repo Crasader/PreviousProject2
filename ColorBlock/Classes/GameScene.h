@@ -85,6 +85,8 @@ private:
 	void RefreshLine();
 	void RefreshLevel();
 
+	void refreshBt();
+
 	bool ReleaseBlocksOnFullLine();				//消去同行的方块
 	void Restart();								//重新开始游戏
 	void GameOver();							//游戏结束
