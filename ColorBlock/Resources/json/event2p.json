@@ -1,0 +1,15 @@
+{
+    "event2p": [
+        { "eventid": 1, "pid": 1, "state": true, "isprotected": "false" ,"desc":"首次进入游戏"},
+        { "eventid": 2, "pid": 1, "state": true, "isprotected": "false","desc":"玩家主动点击大厅抽奖图标" },
+        { "eventid": 3, "pid": 2, "state": true, "isprotected": "false" ,"desc":"玩家主动点击大厅红包图标"},
+        { "eventid": 4, "pid": 3, "state": true, "isprotected": "false","desc":"无复活数量死亡" },
+        { "eventid": 5, "pid": 8, "state": true, "isprotected": "false","desc":"有复活数量死亡" },
+        { "eventid": 6, "pid": 4, "state": true, "isprotected": "false" ,"desc":"游戏中点击锤子购买"},
+        { "eventid": 7, "pid": 5, "state": true, "isprotected": "false" ,"desc":"游戏中点击魔法棒购买"},
+        { "eventid": 8, "pid": 6, "state": true, "isprotected": "false","desc":"等级达到三级" },
+        { "eventid": 9, "pid": 7, "state": true, "isprotected": "false" ,"desc":"当长条形状下落到达屏幕最上方一格地方时"}
+    ],
+    "protected_p_point": 7,
+    "event_version": 100
+}

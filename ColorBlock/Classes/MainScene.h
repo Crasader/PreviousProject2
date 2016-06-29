@@ -28,10 +28,8 @@ public:
 	void menuMoreGameCallback(cocos2d::Ref* pSender);
 	void menuGiftCallback(cocos2d::Ref* pSender);
 	void menuAboutCallback(cocos2d::Ref* pSender);
-	void menuDragModeGameCallback(Ref*psend);
 	void menuMusicCallback(Ref*psend);
-	//弹出框按钮事件
-	void buttonPopupCallback(cocos2d::Ref* sender, ButtonResult result);
+
 
 	//定时器回调函数
 	void DelayContinue(float dt);				//延时进入主界面
@@ -39,11 +37,9 @@ public:
 private:
 	void loadRes();
 	void ExitGame();							//退出游戏
-	void DoExitGame();							//确认退出游戏
 
 private:
 	cocos2d::Menu*		m_menu;
-	bool				m_bPopupLayerWorking;	//弹出层是否启用
 };
 
 #endif // __MAIN_SCENE_H__

@@ -171,6 +171,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\GameWidget.cpp" />
     <ClCompile Include="..\Classes\LogoScene.cpp" />
     <ClCompile Include="..\Classes\MainScene.cpp" />
+    <ClCompile Include="..\Classes\pay\BasePayLayer.cpp" />
+    <ClCompile Include="..\Classes\pay\PayUiConfig.cpp" />
+    <ClCompile Include="..\Classes\pay\PxPayMannger.cpp" />
+    <ClCompile Include="..\Classes\pay\UiToPayConfig.cpp" />
     <ClCompile Include="..\Classes\SetupScene.cpp" />
     <ClCompile Include="..\Classes\Sqlite\DBManager.cpp" />
     <ClCompile Include="..\Classes\Sqlite\DBUtil.cpp" />
@@ -186,6 +190,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\tools\VolumeScene.cpp" />
     <ClCompile Include="..\Classes\utill\AnimationUtil.cpp" />
     <ClCompile Include="..\Classes\utill\Audio.cpp" />
+    <ClCompile Include="..\Classes\utill\Jniutill.cpp" />
     <ClCompile Include="..\Classes\utill\MyMenuItemButton.cpp" />
     <ClCompile Include="..\Classes\utill\SkillButton.cpp" />
     <ClCompile Include="main.cpp" />
@@ -220,6 +225,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\LogoScene.h" />
     <ClInclude Include="..\Classes\MainScene.h" />
     <ClInclude Include="..\Classes\MsgDefine.h" />
+    <ClInclude Include="..\Classes\pay\BasePayLayer.h" />
+    <ClInclude Include="..\Classes\pay\PayUiConfig.h" />
+    <ClInclude Include="..\Classes\pay\PxPayMannger.h" />
+    <ClInclude Include="..\Classes\pay\UiToPayConfig.h" />
     <ClInclude Include="..\Classes\SetupScene.h" />
     <ClInclude Include="..\Classes\Sqlite\DBManager.h" />
     <ClInclude Include="..\Classes\Sqlite\DBUtil.h" />
@@ -235,6 +244,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\tools\VolumeScene.h" />
     <ClInclude Include="..\Classes\utill\AnimationUtil.h" />
     <ClInclude Include="..\Classes\utill\Audio.h" />
+    <ClInclude Include="..\Classes\utill\Jniutill.h" />
     <ClInclude Include="..\Classes\utill\MyMenuItemButton.h" />
     <ClInclude Include="..\Classes\utill\SkillButton.h" />
     <ClInclude Include="main.h" />

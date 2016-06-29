@@ -80,9 +80,11 @@ private:
 	//消除同行方块
 	bool ReleaseBlocksOnFullLine();
 
+	
 	//技能
 	bool FillBlock(Vec2 pos, Sprite*sp);	//填补	  //返回是否使用成功
 	bool KnockBlock(Vec2 pos, Sprite*sp);  //消除
+	void Revivi();                     //复活
 	void ChangeNumOfSkillButoon(int skillid, int diffnum);
 public:
 	bool beginUsingSkill(int skillid);

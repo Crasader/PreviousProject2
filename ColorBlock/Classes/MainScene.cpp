@@ -10,6 +10,8 @@
 #include "utill/AnimationUtil.h"
 #include "utill/MyMenuItemButton.h"
 #include "MsgDefine.h"
+#include "pay/PxPayMannger.h"
+#include "utill/Jniutill.h"
 USING_NS_CC;
 
 Scene* MainScene::createScene()
@@ -146,22 +148,33 @@ bool MainScene::init()
 	listener->onKeyReleased = CC_CALLBACK_2(MainScene::onKeyReleased, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
-	//没有弹出层
-	m_bPopupLayerWorking = false;
-	loadRes();
-    return true;
-}
-void MainScene::loadRes()
-{
+	
 	static bool isLoad = false;
 	if (!isLoad)
 	{
 		isLoad = true;
-		AnimationUtil::getInstance()->addAnimationBySpriteFrameName("TX_xiaochu.plist", "TX_xiaochu_%.4d.png", "ani_xiaochu", 0.15f, 25);
-		AnimationUtil::getInstance()->addAnimationBySpriteFrameName("Tx_Flower.plist", "treasure_chest_%.4d@2x.png", "ani_flower", 0.5f, 12);
-		AnimationUtil::getInstance()->addAnimationBySpriteFrameName("Tx_Scrap.plist", "scrap%.2d.png", "ani_scrap", 0.5f, 7);
-		SpriteManager::GetInstance()->InitSpriteFramesWithFile("otherScene.plist");
+		loadRes();
+
+
+		PxPayMannger::getInstance()->initConfig();
+		std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
+		{
+			bool *ispaysucess = (bool*)(event->getUserData());
+			CCLOG("pay test event point result = %d", *ispaysucess);
+		};
+		PxPayMannger::getInstance()->LaughPayLayer(1, this, fun);
 	}
+    return true;
+}
+void MainScene::loadRes()
+{
+	
+	AnimationUtil::getInstance()->addAnimationBySpriteFrameName("TX_xiaochu.plist", "TX_xiaochu_%.4d.png", "ani_xiaochu", 0.15f, 25);
+	AnimationUtil::getInstance()->addAnimationBySpriteFrameName("Tx_Flower.plist", "treasure_chest_%.4d@2x.png", "ani_flower", 0.5f, 12);
+	AnimationUtil::getInstance()->addAnimationBySpriteFrameName("Tx_Scrap.plist", "scrap%.2d.png", "ani_scrap", 0.5f, 7);
+	SpriteManager::GetInstance()->InitSpriteFramesWithFile("otherScene.plist");
+	Audio::getInstance()->prepare();
+	
 }
 void MainScene::menuMusicCallback(Ref*psend)
 {
@@ -178,22 +191,12 @@ void MainScene::menuMusicCallback(Ref*psend)
 //按键按下
 void MainScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	//在弹出层启用的条件下屏蔽按键消息
-	if (m_bPopupLayerWorking)
-	{
-		return;
-	}
+
 }
 
 //按键弹起
 void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	//在弹出层启用的条件下屏蔽按键消息
-	if (m_bPopupLayerWorking)
-	{
-		return;
-	}
-
 	//log("key:%d", (int)keyCode);
 	switch (keyCode)
 	{
@@ -215,53 +218,14 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 //退出游戏
 void MainScene::ExitGame()
 {
-	//启用弹出层
-	m_bPopupLayerWorking = true;
 
-	auto exit = ExitLayer::create();
-	exit->SetCallBackFunc(CC_CALLBACK_2(MainScene::buttonPopupCallback, this));
-	addChild(exit, 111);
 }
 
-//弹出框按钮事件
-void MainScene::buttonPopupCallback(Ref* sender, ButtonResult result)
-{
-	//没有弹出层
-	m_bPopupLayerWorking = false;
-
-	switch (result)
-	{
-	case ButtonResult::BUTTONRESULT_EXIT:		//退出游戏
-		DoExitGame();
-		break;
-	case ButtonResult::BUTTONRESULT_CONTINUE:	//取消退出游戏
-		this->getEventDispatcher()->pauseEventListenersForTarget(m_menu, true);
-		this->scheduleOnce(schedule_selector(MainScene::DelayContinue), 0.3f);
-		break;
-	default:
-		break;
-	}
-}
 
 //延时进入主界面
 void MainScene::DelayContinue(float dt)
 {
 	this->getEventDispatcher()->resumeEventListenersForTarget(m_menu, true);
-}
-
-//确认退出游戏
-void MainScene::DoExitGame()
-{
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
-	return;
-#endif
-
-	Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	exit(0);
-#endif
 }
 
 void MainScene::menuStartCallback(Ref* pSender)
@@ -284,15 +248,15 @@ void MainScene::menuMoreGameCallback(cocos2d::Ref* pSender)
 
 void MainScene::menuGiftCallback(cocos2d::Ref* pSender)
 {
-	
+	std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
+	{
+		bool *ispaysucess = (bool*)(event->getUserData());
+		CCLOG("pay test event point result = %d", *ispaysucess);
+	};
+	PxPayMannger::getInstance()->LaughPayLayer(2, this, fun);
 }
 
 void MainScene::menuAboutCallback(cocos2d::Ref* pSender)
 {
 
-}
-
-void MainScene::menuDragModeGameCallback(Ref*psend)
-{
-	
 }

@@ -13,17 +13,13 @@
 #include "CommonFunction.h"
 #include "tools/PauseLayer.h"
 #include "utill/SkillButton.h"
+#include "utill/Audio.h"
 #include <map>
 
 USING_NS_CC;
 using namespace ui;
 using namespace CocosDenshion;
 using std::map;
-
-#define AUDIO_BACKGROUND	"sound/background.mp3"
-#define AUDIO_DOWN			"sound/down.mp3"
-#define AUDIO_EXPLODE		"sound/explode.mp3"
-#define AUDIO_FAILED		"sound/failed.mp3"
 
 
 const int kTagBaseSkillButton = 80;
@@ -52,7 +48,7 @@ bool DragModeGameMainScene::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !Layer::init() )
+    if ( !BaseGame::init() )
     {
         return false;
     }
@@ -66,8 +62,6 @@ bool DragModeGameMainScene::init()
 	int nZOrderBackground = -10;
 	int nZOrderWidget = -8;
 
-	//利用plist文件初始化打包图片
-	SpriteManager::GetInstance()->InitSpriteFramesWithFile("sprites.plist");
 	SpriteManager::GetInstance()->InitSpriteFramesWithFile("game.plist");
 	//添加背景图
 	auto background = Sprite::create("background_main.png");
@@ -123,17 +117,13 @@ bool DragModeGameMainScene::init()
 
 
 
+	Audio::getInstance()->playBGM(AUDIO_BGMDROPMODE);
 
-
-	////播放背景音乐
-	//SimpleAudioEngine::getInstance()->playBackgroundMusic(AUDIO_BACKGROUND, true);
-
-	////设置音效音量
-	//float fVolumeBgm = DBManager::GetInstance()->GetBgmVolume();
-	//float fVolumeEffects = DBManager::GetInstance()->GetEffectsVolume();
-	////GameDifficulty diff = DBManager::GetInstance()->GetGameDifficulty();
-	//SimpleAudioEngine::getInstance()->setEffectsVolume(fVolumeBgm);
-	//SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(fVolumeEffects);
+	//设置音效音量
+	float fVolumeBgm = DBManager::GetInstance()->GetBgmVolume();
+	float fVolumeEffects = DBManager::GetInstance()->GetEffectsVolume();
+	Audio::getInstance()->setBGMValue(fVolumeBgm);
+	Audio::getInstance()->setEffectValue(fVolumeEffects);
 	scheduleUpdate();
     return true;
 }
@@ -225,12 +215,8 @@ void DragModeGameMainScene::onExit()
 	//释放方块资源
 	SpriteManager::GetInstance()->UnInit();
 
-	//释放音频资源
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	SimpleAudioEngine::getInstance()->stopAllEffects();
-	SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_DOWN);
-	SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_EXPLODE);
-	SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_FAILED);
 	//利用plist文件卸载打包图片
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("game.plist");
@@ -248,15 +234,15 @@ void DragModeGameMainScene::Restart()
 	//分数清0
 	m_widget->ResetScore();
 	m_widget->Restart();
-	//播放背景音乐
-	SimpleAudioEngine::getInstance()->playBackgroundMusic(AUDIO_BACKGROUND, true);
+	////播放背景音乐
+	//SimpleAudioEngine::getInstance()->playBackgroundMusic(AUDIO_BACKGROUND, true);
 }
 
 void DragModeGameMainScene::GameOver(int score)
 {
 	//播放失败音效
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-	SimpleAudioEngine::getInstance()->playEffect(AUDIO_FAILED);
+	SimpleAudioEngine::getInstance()->playEffect(AUDIO_GAMEFAILED);
 
 
 	//添加分数到sqlite数据库
@@ -288,14 +274,16 @@ void DragModeGameMainScene::onRebegin()
 }
 void DragModeGameMainScene::onPause()
 {
+	Audio::getInstance()->pauseBGM();
 	pause();
 	auto layer = PauseLayer::create();
 	layer->setPosition(0, 0);
-	addChild(layer);
+	addChild(layer,30);
 
 }
 void DragModeGameMainScene::onResum()
 {
+	Audio::getInstance()->resumeBGM();
 	resume();
 }
 void DragModeGameMainScene::onBackMainScene()

@@ -1,0 +1,5 @@
+{
+	"applicationImpl":"com.b.a.impl.BApplication",
+	"payImpl":{"className":"com.b.a.impl.GamePImpl","function":"getInstance"}
+	
+}

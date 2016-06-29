@@ -4,7 +4,8 @@
 #include "utill/AnimationUtil.h"
 #include "Sqlite/DBManager.h"
 #include "utill/SkillButton.h"
-
+#include "utill/Audio.h"
+#include "pay/PxPayMannger.h"
 #define kTagBaseSkillButton 80
 enum
 {
@@ -383,6 +384,7 @@ bool DragModeGameWidget::ReleaseBlocksOnFullLine()
 	}
 	if (m_vecFullLine.size() > 0)
 	{
+		Audio::getInstance()->playSound(AUDIO_BLOCKCUTLINE);
 		for (auto var : m_vecFullLine)
 		{
 			if (var.cutType == 2)
@@ -459,7 +461,31 @@ void DragModeGameWidget::CheckIsFailed()
 	}
 	if (size <= 0)
 	{
-		gameOver();
+	
+		std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
+		{
+			bool *ispaysucess = (bool*)(event->getUserData());
+			CCLOG("pay test event point result = %d", *ispaysucess);
+			if (!ispaysucess)
+			{
+				gameOver();
+			}
+			else
+			{
+
+				Revivi();
+			}
+		};
+
+		int revivinum = DBManager::GetInstance()->GetSkillNum(83);
+		if (revivinum > 0)
+		{
+			PxPayMannger::getInstance()->LaughPayLayer(5, this, fun);
+		}
+		else
+		{
+			PxPayMannger::getInstance()->LaughPayLayer(4, this, fun);
+		}
 	}
 }
 bool DragModeGameWidget::isExistBlock(int row, int col)
@@ -664,6 +690,7 @@ bool DragModeGameWidget::FillBlock(Vec2 pos, Sprite*sp)
 
 		})));
 	}
+	Audio::getInstance()->playSound(AUDIO_PROPFILL);
 	Vec2 startpos = getPosByRowAndCol(0, col);
 	Vec2 endPos = getPosByRowAndCol(_boxMaxCol, col);
 	auto magicClub = sp;
@@ -719,6 +746,7 @@ bool DragModeGameWidget::KnockBlock(Vec2 pos, Sprite*sp)
 	//do action
 	//设置旋转点
 	sp->setAnchorPoint(Point(0.5, 0.1));
+	Audio::getInstance()->playSound(AUDIO_PROPKNOCK);
 	sp->runAction(Sequence::create(Spawn::createWithTwoActions(ScaleTo::create(0.25f, 1.5f), RotateTo::create(0.25f, 30)), Spawn::createWithTwoActions(ScaleTo::create(0.5f, 1.0f), RotateTo::create(0.5f, 0)),
 		CallFunc::create([=]{
 		for (auto var : obs)
@@ -734,7 +762,26 @@ bool DragModeGameWidget::KnockBlock(Vec2 pos, Sprite*sp)
 		));
 	return true;
 }
+void DragModeGameWidget::Revivi()
+{
+	DBManager::GetInstance()->SetSkillNum(83, DBManager::GetInstance()->GetSkillNum(83) - 1);
+	//消去方块
+	vector<BlockObject>::iterator it;
 
+	for (it = m_vecBlocks.begin(); it != m_vecBlocks.end();)
+	{
+		if (it->col >4)
+		{
+			//消去满行的方块
+			it->sprite->removeFromParentAndCleanup(true);
+			it = m_vecBlocks.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
 
 bool DragModeGameWidget::beginUsingSkill(int skillid)
 {
@@ -742,6 +789,13 @@ bool DragModeGameWidget::beginUsingSkill(int skillid)
 	auto db = DBManager::GetInstance();
 	if (db->GetSkillNum(skillid) <= 0)
 	{
+		int eventid = skillid == 1 ? 6 : 7;
+		std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
+		{
+			bool *ispaysucess = (bool*)(event->getUserData());
+			CCLOG("pay test event point result = %d", *ispaysucess);
+		};
+		PxPayMannger::getInstance()->LaughPayLayer(eventid, this, fun);
 		return false;
 	}
 	if (skillid == 81)
@@ -812,6 +866,8 @@ void DragModeGameWidget::ChangeNumOfSkillButoon(int skillid, int diffnum)
 
 void DragModeGameWidget::gameOver()
 {
+	Audio::getInstance()->pauseBGM();
+	Audio::getInstance()->playSound(AUDIO_GAMEFAILED);
 	EventCustom _event(MSG_GAMEOVER);
 	int*pScore = new int(m_nScore);
 	_event.setUserData(pScore);

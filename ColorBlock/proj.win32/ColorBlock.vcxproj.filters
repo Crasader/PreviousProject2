@@ -22,6 +22,9 @@
     <Filter Include="src\utill">
       <UniqueIdentifier>{1b812391-a5f9-492b-99bd-6d7cda266bd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\pay">
+      <UniqueIdentifier>{cf304a23-9965-4ad7-a4fa-0615dd6d0189}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -158,6 +161,21 @@
     </ClCompile>
     <ClCompile Include="..\Classes\utill\SkillButton.cpp">
       <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utill\Jniutill.cpp">
+      <Filter>src\utill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\pay\PxPayMannger.cpp">
+      <Filter>src\pay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\pay\PayUiConfig.cpp">
+      <Filter>src\pay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\pay\UiToPayConfig.cpp">
+      <Filter>src\pay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\pay\BasePayLayer.cpp">
+      <Filter>src\pay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +319,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utill\SkillButton.h">
       <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utill\Jniutill.h">
+      <Filter>src\utill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\pay\PxPayMannger.h">
+      <Filter>src\pay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\pay\PayUiConfig.h">
+      <Filter>src\pay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\pay\UiToPayConfig.h">
+      <Filter>src\pay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\pay\BasePayLayer.h">
+      <Filter>src\pay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

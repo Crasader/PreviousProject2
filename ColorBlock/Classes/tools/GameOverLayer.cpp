@@ -33,7 +33,7 @@ bool GameOverLayer::init(int score)
 	auto title = SPRITE("txtGameOver.png");
 	title->setPosition(240, 510+800);
 	addChild(title);
-	title->runAction(MoveTo::create(0.5f, Vec2(240, 510)));
+	title->runAction(EaseBackOut::create(MoveTo::create(0.5f, Vec2(240, 510))));
 	auto btBack = MenuItemSprite::create(SPRITE("btBack_1.png"), SPRITE("btBack_2.png"), nullptr, CC_CALLBACK_1(BaseLayer::menuExitCallback, this));
 	btBack->setPosition(140, 150);
 
@@ -41,7 +41,6 @@ bool GameOverLayer::init(int score)
 	btRestart->setPosition(480 - 140, 150);
 
 	auto menu = Menu::create(btBack, btRestart, nullptr);
-	menu->setPosition(0, 0);
 	addChild(menu);
 
 	label = LabelAtlas::create("0", "resultNum.png", 29, 44, '0');
@@ -49,6 +48,10 @@ bool GameOverLayer::init(int score)
 	label->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
 	title->addChild(label, 0, 10);
 
+	menu->setPosition(0, - 800);
+
+	menu->runAction(MoveTo::create(0.5f, Vec2(0, 0)));
+	
 
 	scheduleUpdate();
 

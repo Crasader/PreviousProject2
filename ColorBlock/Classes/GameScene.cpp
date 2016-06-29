@@ -15,16 +15,14 @@
 #include <map>
 #include "tools/PauseLayer.h"
 #include "utill/SkillButton.h"
-
+#include "utill/Audio.h"
+#include "pay/PxPayMannger.h"
 USING_NS_CC;
 using namespace ui;
 using namespace CocosDenshion;
 using std::map;
 
-#define AUDIO_BACKGROUND	"sound/background.mp3"
-#define AUDIO_DOWN			"sound/down.mp3"
-#define AUDIO_EXPLODE		"sound/explode.mp3"
-#define AUDIO_FAILED		"sound/failed.mp3"
+
 
 
 
@@ -33,7 +31,9 @@ const int kTagBaseSkillButton =80;
 
 GameScene::GameScene()
 	: m_curGroup(NULL)
-	,m_gameTouchType(Touch_Normal)
+	, m_gameTouchType(Touch_Normal)
+	, m_bIsInPaying(false)
+	, m_difSpeed(0)
 {
 
 }
@@ -58,7 +58,7 @@ bool GameScene::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !Layer::init() )
+    if ( !BaseGame::init() )
     {
         return false;
     }
@@ -80,8 +80,7 @@ bool GameScene::init()
 	int nZOrderBackground = -10;
 	int nZOrderWidget = -8;
 
-	//利用plist文件初始化打包图片
-	SpriteManager::GetInstance()->InitSpriteFramesWithFile("sprites.plist");
+
 	SpriteManager::GetInstance()->InitSpriteFramesWithFile("game.plist");
 
 	//添加小部件层
@@ -124,18 +123,18 @@ bool GameScene::init()
 	leftButton->setName("left");
 	cx += dx;
 
-	auto bottomButton = Button::create("btBottom.png", "btBottom.png", "", Widget::TextureResType::PLIST);
-	bottomButton->setPosition(Vec2(cx, cy));
-	bottomButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonSpeedupCallback, this));
-	this->addChild(bottomButton);
-	bottomButton->setName("bottom");
-	cx += dx;
-
 	auto rotateButton = Button::create("btRotate_1.png", "btRotate_2.png", "", Widget::TextureResType::PLIST);
 	rotateButton->setPosition(Vec2(cx, cy));
 	rotateButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonRotateCallback, this));
 	this->addChild(rotateButton);
 	rotateButton->setName("rotate");
+	cx += dx;
+
+	auto bottomButton = Button::create("btBottom.png", "btBottom.png", "", Widget::TextureResType::PLIST);
+	bottomButton->setPosition(Vec2(cx, cy));
+	bottomButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonSpeedupCallback, this));
+	this->addChild(bottomButton);
+	bottomButton->setName("bottom");
 	cx += dx;
 
 	auto rightButton = Button::create("btRight_1.png", "btRight_2.png", "", Widget::TextureResType::PLIST);
@@ -171,7 +170,7 @@ bool GameScene::init()
 	for (int i = kTagBaseSkillButton + 1; i <= kTagBaseSkillButton+ 2; i++)
 	{
 		auto skillbutton = SkillButton::createSkillButton(i, db->GetSkillNum(i));
-		skillbutton->setPosition(Vec2(432, 424 - (i-kTagBaseSkillButton) * 100));
+		skillbutton->setPosition(Vec2(440, 424 - (i-kTagBaseSkillButton-1) * 100));
 		skillbutton->setTag(i);
 		addChild(skillbutton, 10);
 	}
@@ -179,7 +178,10 @@ bool GameScene::init()
 
 
 	//定时移动当前图形
-	this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / m_level);
+	this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / (m_level + m_difSpeed));
+
+
+	CreateEffect();
 
 
 	//Android按键监听
@@ -191,20 +193,13 @@ bool GameScene::init()
 	//弹出层不启用
 	m_bPopupLayerWorking = false;
 
-	//添加音效
-	SimpleAudioEngine::getInstance()->preloadEffect(AUDIO_DOWN);
-	SimpleAudioEngine::getInstance()->preloadEffect(AUDIO_EXPLODE);
-	SimpleAudioEngine::getInstance()->preloadEffect(AUDIO_FAILED);
-	SimpleAudioEngine::getInstance()->preloadBackgroundMusic(AUDIO_BACKGROUND);
-
-	//播放背景音乐
-	SimpleAudioEngine::getInstance()->playBackgroundMusic(AUDIO_BACKGROUND, true);
 
 	//设置音效音量
 	float fVolumeBgm = DBManager::GetInstance()->GetBgmVolume();
 	float fVolumeEffects = DBManager::GetInstance()->GetEffectsVolume();
-	SimpleAudioEngine::getInstance()->setEffectsVolume(fVolumeBgm);
-	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(fVolumeEffects);
+	Audio::getInstance()->setBGMValue(fVolumeBgm);
+	Audio::getInstance()->setEffectValue(fVolumeEffects);
+
 
 
 	 auto listener = EventListenerTouchOneByOne::create();
@@ -213,7 +208,10 @@ bool GameScene::init()
 	 listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 	 this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
+	 
 	 scheduleUpdate();
+
+	 Audio::getInstance()->playBGMByLevel(m_level);
     return true;
 }
 void GameScene::getNextGroup()
@@ -241,6 +239,15 @@ bool GameScene::beginUsingSkill(int skillid)
 	auto db = DBManager::GetInstance();
 	if (db->GetSkillNum(skillid)<=0)
 	{
+		GamePause();
+		int eventid = skillid == 1 ? 6 : 7;
+		std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
+		{
+			bool *ispaysucess = (bool*)(event->getUserData());
+			CCLOG("pay test event point result = %d", *ispaysucess);
+			GameResume();
+		};
+		PxPayMannger::getInstance()->LaughPayLayer(eventid, this, fun);
 		return false;
 	}
 	if (skillid==81)
@@ -501,11 +508,11 @@ void GameScene::onExit()
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("game.plist");
 	//释放音频资源
-	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-	SimpleAudioEngine::getInstance()->stopAllEffects();
-	SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_DOWN);
-	SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_EXPLODE);
-	SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_FAILED);
+	//SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+	//SimpleAudioEngine::getInstance()->stopAllEffects();
+	//SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_DOWN);
+	//SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_EXPLODE);
+	//SimpleAudioEngine::getInstance()->unloadEffect(AUDIO_FAILED);
 }
 
 //向下移动当前图形
@@ -516,7 +523,10 @@ void GameScene::MoveDownCurBlockGroup(float dt)
 	{
 		return;
 	}
-
+	if (m_bIsInPaying)
+	{
+		return;
+	}
 	const Size& size = SpriteManager::GetInstance()->GetBlockSize();
 	if (IsCurBlockGroupCanMoveDown())
 	{
@@ -531,7 +541,7 @@ void GameScene::MoveDownCurBlockGroup(float dt)
 		if (!IsCurBlockGroupCanMoveDown())
 		{
 			//播放方块落地的音效
-			SimpleAudioEngine::getInstance()->playEffect(AUDIO_DOWN);
+			//SimpleAudioEngine::getInstance()->playEffect(AUDIO_DOWN);
 
 			//添加当前图形中的方块到方块集合中
 			//AddCurBlockGroupToBlocks();
@@ -601,7 +611,7 @@ void GameScene::AddCurBlockGroupToBlocks()
 	else
 	{
 		//播放消去行的音效
-		SimpleAudioEngine::getInstance()->playEffect(AUDIO_EXPLODE);
+		//SimpleAudioEngine::getInstance()->playEffect(AUDIO_EXPLODE);
 	}
 
 	//方块是否到顶
@@ -616,7 +626,36 @@ void GameScene::AddCurBlockGroupToBlocks()
 
 		if (lowest < 0)
 		{
-			GameOver();	//游戏结束
+			pause();
+			GamePause();
+			m_bIsInPaying = true;
+			std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
+			{
+				bool *ispaysucess = (bool*)(event->getUserData());
+				CCLOG("pay test event point result = %d", *ispaysucess);
+				if (!ispaysucess)
+				{
+					GameOver();
+				}
+				else
+				{
+					
+					Revivi();
+				}
+				resume();
+				GameResume();
+				m_bIsInPaying = false;
+			};
+
+			int revivinum = DBManager::GetInstance()->GetSkillNum(83);
+			if (revivinum>0)
+			{
+				PxPayMannger::getInstance()->LaughPayLayer(5, this, fun);
+			}
+			else
+			{
+				PxPayMannger::getInstance()->LaughPayLayer(4, this, fun);
+			}
 			return;
 		}
 	}
@@ -662,6 +701,7 @@ bool GameScene::ReleaseBlocksOnFullLine()
 			}
 		}
 	}
+	Audio::getInstance()->playSound(AUDIO_BLOCKCUTLINE);
 	float dealy = AnimationUtil::getInstance()->getAnimate("ani_xiaochu")->getAnimation()->getDuration();
 	runAction(Sequence::create(DelayTime::create(dealy), CallFunc::create([=]
 	{
@@ -701,8 +741,28 @@ bool GameScene::ReleaseBlocksOnFullLine()
 		{
 			//修改移动当前图形的速度
 			this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
-			this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / ++	m_level);
+			m_level++;
+			this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / (m_level + m_difSpeed));
 			RefreshLevel();
+			if (m_level>1)
+			{
+				int eventid = 8;
+				GamePause();
+				std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
+				{
+					bool *ispaysucess = (bool*)(event->getUserData());
+					CCLOG("pay test event point result = %d", *ispaysucess);
+					if (ispaysucess)
+					{
+						m_difSpeed--;
+						this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
+						this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / (m_level + m_difSpeed));
+					}
+					GameResume();
+				};
+				PxPayMannger::getInstance()->LaughPayLayer(eventid, this, fun);
+			}
+			
 		}
 		RefreshLine();
 
@@ -794,8 +854,7 @@ void GameScene::buttonPopupCallback(Ref* sender, ButtonResult result)
 		DoExitGame();
 		break;
 	case ButtonResult::BUTTONRESULT_CONTINUE:	//取消退出游戏
-		SimpleAudioEngine::getInstance()->playBackgroundMusic(AUDIO_BACKGROUND, true);
-		this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / m_level);
+		this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f /( m_level + m_difSpeed));
 		break;
 	case ButtonResult::BUTTONRESULT_NONE:
 		NULL;
@@ -813,6 +872,7 @@ void GameScene::Restart()
 	m_bPopupLayerWorking = false;
 
 	//行数、级数
+	m_difSpeed = 0;
 	m_line = 0;
 	m_level = 1;
 	RefreshLine();
@@ -836,17 +896,14 @@ void GameScene::Restart()
 
 	//定时移动当前图形
 	this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
-	this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / m_level);
+	this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / (m_level + m_difSpeed));
+	Audio::getInstance()->playBGMByLevel((m_level + m_difSpeed));
 
-	//播放背景音乐
-	SimpleAudioEngine::getInstance()->playBackgroundMusic(AUDIO_BACKGROUND, true);
 }
 
 void GameScene::GameOver()
 {
-	//播放失败音效
-	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-	SimpleAudioEngine::getInstance()->playEffect(AUDIO_FAILED);
+
 	this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
 
 
@@ -871,6 +928,10 @@ void GameScene::GameOver()
 	auto popup = GameOverLayer::create(m_widget->GetScore());
 	popup->setPosition(0, 0);
 	this->addChild(popup,30);
+
+	//播放失败音效
+	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+	Audio::getInstance()->playSound(AUDIO_GAMEFAILED);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -881,6 +942,7 @@ void GameScene::buttonSpeedupCallback(Ref* sender, cocos2d::ui::Widget::TouchEve
 	{
 	case cocos2d::ui::Widget::TouchEventType::BEGAN:
 		//定时加速移动当前图形（每秒20次）
+		Audio::getInstance()->playSound(AUDIO_BLOCKFALLDOWN);
 		this->unschedule(schedule_selector(GameScene::MoveDownCurBlockGroup));
 		this->schedule(schedule_selector(GameScene::MoveDownSpeedup), 1.0f/20);
 		break;
@@ -891,7 +953,7 @@ void GameScene::buttonSpeedupCallback(Ref* sender, cocos2d::ui::Widget::TouchEve
 	case cocos2d::ui::Widget::TouchEventType::CANCELED:
 		//取消定时加速移动当前图形
 		this->unschedule(schedule_selector(GameScene::MoveDownSpeedup));
-		this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f/m_level);
+		this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / (m_level + m_difSpeed));
 		break;
 	default:
 		break;
@@ -905,11 +967,9 @@ void GameScene::buttonLeftCallback(Ref* sender, cocos2d::ui::Widget::TouchEventT
 	{
 	case cocos2d::ui::Widget::TouchEventType::BEGAN:
 		//定时向左移动(每帧移动一次)
-		//float fps = Director::getInstance()->getFrameRate();
-		//fps = 10;
 		m_curGroup->MoveLeft(m_vecBlocks);
 		m_moveState = BlockMove::BLOCKMOVE_LEFT;
-		this->schedule(schedule_selector(GameScene::MoveLeftrightCurBlockGroup), 1.0f/(6*m_level >= 30 ? 30 : 6*m_level));
+		this->schedule(schedule_selector(GameScene::MoveLeftrightCurBlockGroup), 1.0f / 10);
 		break;
 	case cocos2d::ui::Widget::TouchEventType::MOVED:
 		NULL;
@@ -930,11 +990,9 @@ void GameScene::buttonRightCallback(Ref* sender, cocos2d::ui::Widget::TouchEvent
 	{
 	case cocos2d::ui::Widget::TouchEventType::BEGAN:
 		//定时向右移动(每帧移动一次)
-		//float fps = Director::getInstance()->getFrameRate();
-		//fps = 10;
 		m_curGroup->MoveRight(m_vecBlocks);
 		m_moveState = BlockMove::BLOCKMOVE_RIGHT;
-		this->schedule(schedule_selector(GameScene::MoveLeftrightCurBlockGroup), 1.0f/(6*m_level >= 30 ? 30 : 6*m_level));
+		this->schedule(schedule_selector(GameScene::MoveLeftrightCurBlockGroup), 1.0f / 10);
 		break;
 	case cocos2d::ui::Widget::TouchEventType::MOVED:
 		NULL;
@@ -954,6 +1012,7 @@ void GameScene::buttonRotateCallback(Ref* sender, cocos2d::ui::Widget::TouchEven
 	if (cocos2d::ui::Widget::TouchEventType::BEGAN == event)
 	{
 		m_curGroup->Rotate(m_vecBlocks);
+		Audio::getInstance()->playSound(AUDIO_BLOCKROTATE);
 		showShadeInBottom(m_curGroup->GetBlocks());
 	}
 }
@@ -1068,6 +1127,7 @@ void GameScene::onRebegin()
 void GameScene::onPause()
 {
 	pause();
+	Audio::getInstance()->pauseBGM();
 	auto layer = PauseLayer::create();
 	layer->setPosition(0, 0);
 	addChild(layer,30);
@@ -1075,10 +1135,12 @@ void GameScene::onPause()
 }
 void GameScene::onResum()
 {
+	Audio::getInstance()->resumeBGM();
 	resume();
 }
 void GameScene::onBackMainScene()
 {
+	Audio::getInstance()->pauseBGM();
 	Director::getInstance()->replaceScene(MainScene::createScene());
 }
 void GameScene::onUseSkill(SkillInfo*skill)
@@ -1166,6 +1228,7 @@ bool GameScene::FillBlock(Vec2 pos,Sprite*sp)
 
 		})));
 	}
+	Audio::getInstance()->playSound(AUDIO_PROPFILL);
 	Vec2 startpos; 
 	GameField::GetInstance()->GetBlockPosition(row, 0, startpos);
 	Vec2 endPos;
@@ -1208,6 +1271,7 @@ bool GameScene::KnockBlock(Vec2 pos,Sprite*sp)
 	//do action
 	//设置旋转点
 	sp->setAnchorPoint(Point(0.5,0.1));
+	Audio::getInstance()->playSound(AUDIO_PROPKNOCK);
 	sp->runAction(Sequence::create(Spawn::createWithTwoActions(ScaleTo::create(0.25f, 1.5f), RotateTo::create(0.25f, 30)), Spawn::createWithTwoActions(ScaleTo::create(0.5f, 1.0f), RotateTo::create(0.5f, 0)),
 		CallFunc::create([=]{
 		for (auto var : obs)
@@ -1224,6 +1288,39 @@ bool GameScene::KnockBlock(Vec2 pos,Sprite*sp)
 ));
 	return true;
 }
+
+void GameScene::Revivi()
+{
+	DBManager::GetInstance()->SetSkillNum(83, DBManager::GetInstance()->GetSkillNum(83) - 1);
+	//消去方块
+	vector<BlockObject>::iterator it;
+
+		for (it = m_vecBlocks.begin(); it != m_vecBlocks.end();)
+		{
+			if (it->row<(GameField::GetInstance()->GetBlockRowCount()/2))
+			{
+				//消去满行的方块
+				this->removeChild(it->sprite);
+				it = m_vecBlocks.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+	
+
+	//定时消去满行的方块
+	this->scheduleOnce(schedule_selector(GameScene::RemoveFullRowBlocks), 0.3f);
+	showShadeInBottom(m_curGroup->GetBlocks());
+
+	//重置当前图形
+	delete m_curGroup;
+	m_curGroup = NULL;
+	getNextGroup();
+}
+
+
 void GameScene::ChangeNumOfSkillButoon(int skillid, int diffnum)
 {
 	auto bt = (SkillButton*)(getChildByTag(skillid));
@@ -1231,6 +1328,7 @@ void GameScene::ChangeNumOfSkillButoon(int skillid, int diffnum)
 }
 void GameScene::GamePause()
 {
+	Audio::getInstance()->pauseBGM();
 	//按键失效
 	((Button*)getChildByName("right"))->setEnabled(false);
 	((Button*)getChildByName("left"))->setEnabled(false);
@@ -1241,7 +1339,8 @@ void GameScene::GamePause()
 }
 void GameScene::GameResume()
 {
-	this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup),1.0f/m_level);
+	Audio::getInstance()->resumeBGM();
+	this->schedule(schedule_selector(GameScene::MoveDownCurBlockGroup), 1.0f / (m_level + m_difSpeed));
 	((Button*)getChildByName("right"))->setEnabled(true);
 	((Button*)getChildByName("left"))->setEnabled(true);
 	((Button*)getChildByName("rotate"))->setEnabled(true);

@@ -93,6 +93,7 @@ private:
 	//技能
 	bool FillBlock(Vec2 pos,Sprite*sp);	//填补	  //返回是否使用成功
 	bool KnockBlock(Vec2 pos,Sprite*sp);  //消除
+	void Revivi();						//复活
 	void ChangeNumOfSkillButoon(int skillid,int diffnum);
 	bool isExitBlock(int row, int col);
 private:
@@ -112,7 +113,7 @@ private:
 	cocos2d::EventListenerKeyboard*			m_keyboardListener;	//键盘事件监听器
 
 	bool			m_bPopupLayerWorking;	//弹出层是否启用
-
+	bool			m_bIsInPaying;	//是否支付中
 	//游戏部件
 	GameWidget*		m_widget;
 
@@ -142,6 +143,7 @@ private:
 	int				m_level;		//级别
 	int				m_score;		//分数
 	int				m_line;			//消去的行数
+	int             m_difSpeed;
 	GameTouchType   m_gameTouchType;
 };
 
