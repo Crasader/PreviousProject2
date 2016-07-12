@@ -10,8 +10,8 @@ const string GAME_PARA = "GamePara";
 const string GAME_SCORE = "GameScore";
 const string SKILL_INFO = "SKill_Info_%d";
 DBManager::DBManager(void)
-	: m_fVolumeBgm(0.5f)
-	, m_fVolumeEffects(0.5f)
+	: m_fVolumeBgm(100.0f)
+	, m_fVolumeEffects(100.0f)
 	, m_eGameDifficulty(GameDifficulty::GAMEDIFFICULTY_EASY)
 {
 	//设置数据库名称
@@ -252,5 +252,16 @@ void DBManager::SetSkillNum(int id,int num)
 int DBManager::GetSkillNum(int id)
 {
 	auto SaveKey = String::createWithFormat(SKILL_INFO.c_str(), id);
-	return UserDefault::getInstance()->getIntegerForKey(SaveKey->getCString(), 10);
+	return UserDefault::getInstance()->getIntegerForKey(SaveKey->getCString(), 0);
+}
+
+void DBManager::ChangeSkillNum(int id, int difnum)
+{
+	if (id==1)
+	{
+		id = 81 + rand() % 3;
+	}
+	int curnum = GetSkillNum(id) + difnum;
+	SetSkillNum(id, curnum);
+	CCLOG("ID=%d curnum=%d", id,curnum);
 }

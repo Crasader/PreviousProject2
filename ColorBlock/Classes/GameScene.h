@@ -87,7 +87,7 @@ private:
 
 	void refreshBt();
 
-	bool ReleaseBlocksOnFullLine();				//消去同行的方块
+	bool ReleaseBlocksOnFullLine(bool isResume=false);				//消去同行的方块
 	void Restart();								//重新开始游戏
 	void GameOver();							//游戏结束
 	void ExitGame();							//退出游戏
@@ -145,7 +145,7 @@ private:
 	int				m_level;		//级别
 	int				m_score;		//分数
 	int				m_line;			//消去的行数
-	int             m_difSpeed;
+	int             m_difSpeed;  //下落速度
 	GameTouchType   m_gameTouchType;
 };
 

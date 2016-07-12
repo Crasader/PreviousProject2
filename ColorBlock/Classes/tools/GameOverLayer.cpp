@@ -33,12 +33,12 @@ bool GameOverLayer::init(int score)
 	auto title = SPRITE("txtGameOver.png");
 	title->setPosition(240, 510+800);
 	addChild(title);
-	title->runAction(EaseBackOut::create(MoveTo::create(0.5f, Vec2(240, 510))));
+	title->runAction(EaseElasticOut::create(MoveTo::create(0.5f, Vec2(240, 510))));
 	auto btBack = MenuItemSprite::create(SPRITE("btBack_1.png"), SPRITE("btBack_2.png"), nullptr, CC_CALLBACK_1(BaseLayer::menuExitCallback, this));
-	btBack->setPosition(170, 130);
+	btBack->setPosition(140, 120);
 
 	auto btRestart = MenuItemSprite::create(SPRITE("btPlayAgain_1.png"), SPRITE("btPlayAgain_2.png"), nullptr, CC_CALLBACK_1(BaseLayer::menuReStartCallback, this));
-	btRestart->setPosition(480 - 170, 130);
+	btRestart->setPosition(480 - 140, 120);
 
 	auto menu = Menu::create(btBack, btRestart, nullptr);
 	addChild(menu);
@@ -50,8 +50,12 @@ bool GameOverLayer::init(int score)
 
 	menu->setPosition(0, - 800);
 
-	menu->runAction(MoveTo::create(0.5f, Vec2(0, 0)));
+	menu->runAction(EaseElasticOut::create(MoveTo::create(0.5f, Vec2(0, 0))));
 	
+	auto sp = Sprite::create("resultNum.png");
+	sp->setPosition(480, 240);
+	addChild(sp);
+
 
 	auto light = Sprite::createWithSpriteFrameName("rorateLight.png");
 	light->runAction(RepeatForever::create(RotateBy::create(2.0f, 360)));
@@ -70,12 +74,12 @@ int getCurrencyRankByRange(int startRank, int endRank, float startValue, float e
 	return currrRank;
 }
 void GameOverLayer::update(float delta){
-	if (_totalTime>aniTime)
-	{
-		return; 
-	}
-	_totalTime += delta;
-	int scoreNum = getCurrencyRankByRange(_score,0, 0.0f, aniTime, _totalTime);
-	label->setString(cocos2d::String::createWithFormat("%d", scoreNum)->getCString());
+	//if (_totalTime>aniTime)
+	//{
+	//	return; 
+	//}
+	//_totalTime += delta;
+	//int scoreNum = getCurrencyRankByRange(_score,0, 0.0f, aniTime, _totalTime);
+	//label->setString(String::createWithFormat("%d", scoreNum)->getCString());
 	
 }

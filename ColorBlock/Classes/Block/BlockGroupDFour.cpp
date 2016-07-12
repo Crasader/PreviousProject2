@@ -53,7 +53,7 @@ void BlockGroupDFour::initBlockGroupInDropMode(int colorIndex)
 		m_blocks.push_back(ob);
 
 
-		;
+		
 	}
 	break;
 	case BGD_1:

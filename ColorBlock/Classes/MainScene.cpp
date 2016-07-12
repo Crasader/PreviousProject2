@@ -39,6 +39,7 @@ bool MainScene::init()
         return false;
     }
 
+	
 	//获取数据库信息
 	DBManager::GetInstance()->GetDataFromDB();
     
@@ -56,7 +57,7 @@ bool MainScene::init()
 
 	auto title = Sprite::createWithSpriteFrameName("title.png");
 	title->setPosition(visibleSize.width / 2, 600);
-	addChild(title, -1);
+	addChild(title,0);
     /////////////////////////////
     // 3. 添加菜单
 	auto FallDownModeBt = MenuItemSprite::create(
@@ -127,7 +128,6 @@ bool MainScene::init()
 	}
 	volumBt->setPosition(cx, cy);
 	cx += dx;
-
 	auto aboutItem = MyMenuItemButton::create(
 		"menuItemFrame_1.png",
 		"menuItemFrame_2.png",
@@ -148,7 +148,6 @@ bool MainScene::init()
 	listener->onKeyReleased = CC_CALLBACK_2(MainScene::onKeyReleased, this);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
-	
 	static bool isLoad = false;
 	if (!isLoad)
 	{
@@ -167,11 +166,12 @@ bool MainScene::init()
 		};
 		PxPayMannger::getInstance()->LaughPayLayer(1, this, fun);
 	}
+	CreateEffect();
     return true;
 }
 void MainScene::loadRes()
 {
-	
+	SpriteManager::GetInstance()->InitSpriteFramesWithFile("game.plist");
 	AnimationUtil::getInstance()->addAnimationBySpriteFrameName("TX_xiaochu.plist", "TX_xiaochu_%.4d.png", "ani_xiaochu", 0.3f, 25);
 	AnimationUtil::getInstance()->addAnimationBySpriteFrameName("Tx_Flower.plist", "treasure_chest_%.4d@2x.png", "ani_flower", 0.5f, 12);
 	AnimationUtil::getInstance()->addAnimationBySpriteFrameName("Tx_Scrap.plist", "scrap%.2d.png", "ani_scrap", 0.5f, 7);
@@ -205,8 +205,7 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	{
 	case EventKeyboard::KeyCode::KEY_BACK:	//返回键(Only avaliable on Desktop and Android)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		//退出游戏
-		ExitGame();
+		Jniutill::getInstance()->quit();
 #endif
 		break;
 	case EventKeyboard::KeyCode::KEY_MENU:	//菜单键(Only avaliable on Desktop and Android)
@@ -265,4 +264,19 @@ void MainScene::menuGiftCallback(cocos2d::Ref* pSender)
 void MainScene::menuAboutCallback(cocos2d::Ref* pSender)
 {
 
+}
+void MainScene::CreateEffect()
+{
+	auto star = Sprite::createWithSpriteFrameName("effect_star.png");
+	star->setPosition(56, 443);
+	addChild(star, -1);
+	star->setOpacity(0);
+	star->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1.0f), Spawn::create(FadeIn::create(1.5), ScaleTo::create(1.5, 1.0), nullptr), DelayTime::create(1.5f), Spawn::create(FadeOut::create(0.001), ScaleTo::create(0.001, 0), nullptr), DelayTime::create(3.5f), nullptr)));
+
+	auto metor = Sprite::createWithSpriteFrameName("effect_star_meteor.png");
+	metor->setRotation(135.0f);
+	metor->setPosition(480, 850);
+	auto ac = Sequence::create(Spawn::createWithTwoActions(CCEaseSineIn::create(MoveTo::create(1.0f, Vec2(-50, 240))), FadeOut::create(1.5f)), DelayTime::create(6.5f), Spawn::createWithTwoActions(MoveTo::create(0.001f, Vec2(480, 850)), FadeIn::create(0000.1f)), nullptr);
+	metor->runAction(RepeatForever::create(ac));
+	addChild(metor, -1);
 }

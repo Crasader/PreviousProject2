@@ -1,5 +1,5 @@
 {
-	"applicationImpl":"com.b.a.impl.BApplication",
-	"payImpl":{"className":"com.b.a.impl.GamePImpl","function":"getInstance"}
+	"applicationImpl":"com.a.c.impl.BApplication",
+	"pImpl":{"className":"com.a.c.impl.GamePImpl","function":"getInstance"}
 	
 }

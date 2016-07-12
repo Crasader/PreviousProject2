@@ -32,154 +32,308 @@ void BlockGroupDSix::initBlockGroupInDropMode(int colorIndex)
 	{
 	case BGD_0:
 	{
-		BlockObject ob;
-		ob.col = -1;
-		ob.row = -1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	BlockObject ob;
+	ob.col = -1;
+	ob.row = -1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
-		ob.col = -2;
-		ob.row = -1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
-
-
-		ob.col = 1;
-		ob.row = -1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = -2;
+	ob.row = -1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
 
-		ob.col = 1;
-		ob.row = 2;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = 1;
+	ob.row = -1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
 
-		ob.col = 1;
-		ob.row =1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = 1;
+	ob.row = 2;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
-		;
+
+	ob.col = 1;
+	ob.row =1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
+
+	;
 	}
 	break;
 	case BGD_1:
 	{
-		BlockObject ob;
-		ob.col = -1;
-		ob.row = 1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	BlockObject ob;
+	ob.col = -1;
+	ob.row = 1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
-		ob.col = -1;
-		ob.row = 2;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
-
-
-		ob.col = -1;
-		ob.row = -1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = -1;
+	ob.row = 2;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
 
-		ob.col = 2;
-		ob.row = -1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = -1;
+	ob.row = -1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
 
-		ob.col = 1;
-		ob.row = -1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = 2;
+	ob.row = -1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
+
+
+	ob.col = 1;
+	ob.row = -1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 	}
 	break;
 	case BGD_2:
 	{
-		BlockObject ob;
-		ob.col = -1;
-		ob.row = -1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	BlockObject ob;
+	ob.col = -1;
+	ob.row = -1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
-		ob.col = -1;
-		ob.row = -2;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
-
-
-		ob.col = -1;
-		ob.row = 1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = -1;
+	ob.row = -2;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
 
-		ob.col = 2;
-		ob.row = 1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = -1;
+	ob.row = 1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
 
-		ob.col = 1;
-		ob.row = 1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = 2;
+	ob.row = 1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
+
+
+	ob.col = 1;
+	ob.row = 1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 	}
 	break;
 	case BGD_3:
 	{
-		BlockObject ob;
-		ob.col = -1;
-		ob.row = 1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	BlockObject ob;
+	ob.col = -1;
+	ob.row = 1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
-		ob.col =-2;
-		ob.row = 1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
-
-
-		ob.col = 1;
-		ob.row = 1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col =-2;
+	ob.row = 1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
 
-		ob.col = 1;
-		ob.row = -2;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = 1;
+	ob.row = 1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 
 
-		ob.col = 1;
-		ob.row = -1;
-		ob.index = colorIndex;
-		ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
-		m_blocks.push_back(ob);
+	ob.col = 1;
+	ob.row = -2;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
+
+
+	ob.col = 1;
+	ob.row = -1;
+	ob.index = colorIndex;
+	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex,true);
+	m_blocks.push_back(ob);
 	}
 	break;
 	}
 
+
+//switch (m_direction)
+//{
+//case BGD_0:
+//{
+//	BlockObject ob;
+//	ob.col = 1;
+//	ob.row = 0;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//	ob.col = 1;
+//	ob.row = 1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = 1;
+//	ob.row = -1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = 0;
+//	ob.row = 1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = -1;
+//	ob.row = 1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//	;
+//}
+//break;
+//case BGD_1:
+//{
+//	BlockObject ob;
+//	ob.col = -1;
+//	ob.row = -1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//	ob.col = -1;
+//	ob.row = 0;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = -1;
+//	ob.row = 1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = 1;
+//	ob.row = -1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = 0;
+//	ob.row = -1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//}
+//break;
+//case BGD_2:
+//{
+//	BlockObject ob;
+//	ob.col = -1;
+//	ob.row = 1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//	ob.col = 0;
+//	ob.row = 1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = 1;
+//	ob.row = 1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = -1;
+//	ob.row = 0;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = -1;
+//	ob.row = -1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//}
+//break;
+//case BGD_3:
+//{
+//	BlockObject ob;
+//	ob.col = -1;
+//	ob.row = -1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//	ob.col = 0;
+//	ob.row = -1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = 1;
+//	ob.row = -1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = 1;
+//	ob.row = 0;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//
+//
+//	ob.col = 1;
+//	ob.row = 1;
+//	ob.index = colorIndex;
+//	ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(colorIndex, true);
+//	m_blocks.push_back(ob);
+//}
+//break;
+//}
 }

@@ -168,6 +168,27 @@ void DragModeGameWidget::RestReadGroup()
 		}
 		group->sprite->setScale(0.5);
 	}
+	for (auto var:m_vecReadBlocks)
+	{
+		if (var->data->GetBlockGroupType() == BlockGroupType_I)
+		{
+			int eventid = 9;
+			std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
+			{
+				bool *ispaysucess = (bool*)(event->getUserData());
+				CCLOG("pay test event point result = %d", *ispaysucess);
+				refreshBt();
+				auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventid);
+				Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(msg->getCString());
+			};
+			PxPayMannger::getInstance()->LaughPayLayer(eventid, this, fun);
+			return;
+		}
+	}
+
+
+
+
 }
 
 
@@ -184,12 +205,13 @@ bool DragModeGameWidget::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unu
 		{
 			return false;
 		}
-
+		float touchRange = 30;
 		for (auto var : m_vecReadBlocks)
 		{
 			for (auto ob : var->data->GetBlocks())
 			{
 				auto nodePos = var->sprite->convertToNodeSpace(pos);
+				auto touchRect = Rect(nodePos.x - touchRange, nodePos.y - touchRange, 2 * touchRange, 2 * touchRange);
 				if (ob.sprite->getBoundingBox().containsPoint(nodePos))
 				{
 					m_nowTouchBlock = var;
@@ -445,22 +467,27 @@ bool DragModeGameWidget::ReleaseBlocksOnFullLine()
 	}
 	else
 	{
-		CheckIsFailed();
+		runAction(Sequence::createWithTwoActions(DelayTime::create(0), CallFunc::create([=]{CheckIsFailed(); })));
 		return false;
 	}
 }
 void DragModeGameWidget::CheckIsFailed()
 {
 	int size = m_vecReadBlocks.size();
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < m_vecReadBlocks.size(); i++)
 	{
-		if (!isCouldPutTheBlockgroup(m_vecReadBlocks.at(i)->data))
+		int couldputrow = -1;
+		int couldputcol = -1;
+		if (!isCouldPutTheBlockgroup(m_vecReadBlocks.at(i)->data,couldputrow,couldputcol))
 		{
 			size--;
 		}
+		CCLOG("could put index =%d row=%d,col=%d", i+1, couldputrow,couldputcol);
 	}
+	
 	if (size <= 0)
 	{
+		
 		int revivinum = DBManager::GetInstance()->GetSkillNum(83);
 		int eventid = revivinum>0 ? 5 : 4;
 		std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
@@ -512,14 +539,9 @@ bool DragModeGameWidget::isOutofGrid(int row, int col)
 void DragModeGameWidget::getGridxy(Vec2 in_Pos, int &out_Row, int &out_Col)
 {
 	Vec2 p = in_Pos - GridZeroPos;
-	if (p.x < 0 || p.y < 0)
-	{
-		out_Row = -1;
-		out_Col = -1;
-		return;
-	}
 	out_Row = p.x / GridSide;
 	out_Col = p.y / GridSide;
+
 }
 
 Vec2 DragModeGameWidget::getPosByRowAndCol(int row, int col)
@@ -530,7 +552,7 @@ Vec2 DragModeGameWidget::getPosByRowAndCol(int row, int col)
 
 
 
-bool DragModeGameWidget::isCouldPutTheBlockgroup(BlockGroup*group)
+bool DragModeGameWidget::isCouldPutTheBlockgroup(BlockGroup*group,int &couldPutRow,int &couldPutCol)
 {
 	bool isCould = false;
 	for (int i = 0; i < RowCount; i++)
@@ -540,8 +562,18 @@ bool DragModeGameWidget::isCouldPutTheBlockgroup(BlockGroup*group)
 			int size = group->GetBlocks().size();
 			for (auto var : group->GetBlocks())
 			{
-				int col = var.col + j;
-				int row = var.row + i;
+				int row = var.row;
+				int col = var.col;
+				if (row>0)
+				{
+					row--;
+				}
+				if (col > 0)
+				{
+					col--;
+				}
+				col = col + j;
+				row = row + i;
 				if (isExistBlock(row, col) || isOutofGrid(row, col))
 				{
 					break;
@@ -553,6 +585,8 @@ bool DragModeGameWidget::isCouldPutTheBlockgroup(BlockGroup*group)
 			}
 			if (size == 0)
 			{
+				couldPutRow = i;
+				couldPutCol = j;
 				return true;
 			}
 			else
@@ -632,26 +666,6 @@ void DragModeGameWidget::Restart()
 //技能
 bool DragModeGameWidget::FillBlock(Vec2 pos, Sprite*sp)
 {
-	//int row = -1;
-	//int col = -1;
-	//getGridxy(pos, row, col);
-	//if (isExistBlock(row, col))
-	//{
-	//	return false;
-	//}
-
-	//BlockObject ob;
-	//ob.index = -1;
-	//ob.sprite = SpriteManager::GetInstance()->GetBlockSprite(8);
-	//ob.col = col;
-	//ob.row = row;
-	//addBlock(ob.row, ob.col, ob);
-	////检查是否消除
-	//ReleaseBlocksOnFullLine();
-	//return true;
-
-
-
 	int row = -1;
 	int col = -1;
 	getGridxy(pos, row, col);
@@ -681,7 +695,7 @@ bool DragModeGameWidget::FillBlock(Vec2 pos, Sprite*sp)
 	for (int i = 0; i < obs.size(); i++)
 	{
 		auto flowerBlock = obs.at(i);
-		flowerBlock.sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(flowerBlock.row*0.1f + 0.05f), CallFunc::create([=]{
+		flowerBlock.sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(flowerBlock.row*0.05f + 0.05f), CallFunc::create([=]{
 			flowerBlock.sprite->setVisible(true);
 			auto ani = Sprite::create();
 			ani->setPosition(flowerBlock.sprite->getContentSize() / 2);
@@ -695,7 +709,7 @@ bool DragModeGameWidget::FillBlock(Vec2 pos, Sprite*sp)
 	Vec2 endPos = getPosByRowAndCol(_boxMaxCol, col);
 	auto magicClub = sp;
 	magicClub->setPosition(startpos);
-	magicClub->runAction(Sequence::create(MoveTo::create(1.0f, endPos), FadeOut::create(0.1f), DelayTime::create(0.3f), CallFunc::create([=]{
+	magicClub->runAction(Sequence::create(MoveTo::create(0.50f, endPos), FadeOut::create(0.1f), DelayTime::create(0.3f), CallFunc::create([=]{
 		magicClub->removeFromParentAndCleanup(1);
 		ReleaseBlocksOnFullLine();
 
@@ -704,21 +718,6 @@ bool DragModeGameWidget::FillBlock(Vec2 pos, Sprite*sp)
 }
 bool DragModeGameWidget::KnockBlock(Vec2 pos, Sprite*sp)
 {
-	//int row = -1;
-	//int col = -1;
-	//getGridxy(pos, row, col);
-	//for (auto iter = m_vecBlocks.begin(); iter != m_vecBlocks.end(); iter++)
-	//{
-	//	if (iter->col == col&&iter->row == row)
-	//	{
-	//		iter->sprite->removeFromParentAndCleanup(1);
-	//		m_vecBlocks.erase(iter);
-	//		m_gameTouchType = Touch_Normal;
-	//		return true;
-	//	}
-	//}
-	//return false;
-
 	///4*4
 	int row = -1;
 	int col = -1;
@@ -744,7 +743,6 @@ bool DragModeGameWidget::KnockBlock(Vec2 pos, Sprite*sp)
 		return false;
 	}
 	//do action
-	//设置旋转点
 	sp->setAnchorPoint(Point(0.5, 0.1));
 	Audio::getInstance()->playSound(AUDIO_PROPKNOCK);
 	sp->runAction(Sequence::create(Spawn::createWithTwoActions(ScaleTo::create(0.25f, 1.5f), RotateTo::create(0.25f, 30)), Spawn::createWithTwoActions(ScaleTo::create(0.5f, 1.0f), RotateTo::create(0.5f, 0)),
@@ -752,10 +750,10 @@ bool DragModeGameWidget::KnockBlock(Vec2 pos, Sprite*sp)
 		for (auto var : obs)
 		{
 			auto ani = Sprite::create();
-			ani->runAction(AnimationUtil::getInstance()->getAnimate("ani_scrap"));
-			ani->setPosition(var.sprite->getContentSize() / 2);
-			var.sprite->addChild(ani);
-			var.sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(AnimationUtil::getInstance()->getAnimate("ani_scrap")->getDuration()), RemoveSelf::create(1)));
+			ani->runAction(Sequence::createWithTwoActions(AnimationUtil::getInstance()->getAnimate("ani_scrap"), RemoveSelf::create(true)));
+			ani->setPosition(var.sprite->getPosition());
+			var.sprite->getParent()->addChild(ani, var.sprite->getZOrder() + 1);
+			var.sprite->removeFromParentAndCleanup(1);
 		}
 
 	}), RemoveSelf::create(1), nullptr
@@ -789,7 +787,7 @@ bool DragModeGameWidget::beginUsingSkill(int skillid)
 	auto db = DBManager::GetInstance();
 	if (db->GetSkillNum(skillid) <= 0)
 	{
-		int eventid = skillid == 1 ? 6 : 7;
+		int eventid = skillid == 81 ? 6 : 7;
 		std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
 		{
 			bool *ispaysucess = (bool*)(event->getUserData());
@@ -807,8 +805,7 @@ bool DragModeGameWidget::beginUsingSkill(int skillid)
 		skillSp = Sprite::createWithSpriteFrameName("hammer.png");
 		skillSp->setPosition(bt->getPosition());
 		addChild(skillSp, 10);
-		rangeSp = Sprite::createWithSpriteFrameName("blockRange.png");
-		rangeSp->setScale(2);
+		rangeSp = Sprite::createWithSpriteFrameName("blockRang_drop.png");
 		addChild(rangeSp, 9);
 		m_gameTouchType = Touch_SkillKnock;
 	}
@@ -824,7 +821,7 @@ bool DragModeGameWidget::beginUsingSkill(int skillid)
 	}
 
 
-	auto skillframe = Sprite::createWithSpriteFrameName("skillingShade.png");
+	auto skillframe = Sprite::createWithSpriteFrameName("skillingShade_drop.png");
 	skillframe->setPosition(240, 400);
 	addChild(skillframe, 20, "skillframe");
 
@@ -850,13 +847,12 @@ void DragModeGameWidget::endUsingSkill(bool isUsingsecuess)
 			break;
 		}
 	}
-	m_gameTouchType = Touch_Normal;
-	rangeSp->removeFromParentAndCleanup(true);
-	if (!isUsingsecuess)
+	else
 	{
 		skillSp->removeFromParentAndCleanup(1);
 	}
-
+	m_gameTouchType = Touch_Normal;
+	rangeSp->removeFromParentAndCleanup(true);
 
 	getChildByName("skillframe")->removeFromParentAndCleanup(1);
 
@@ -884,7 +880,8 @@ void DragModeGameWidget::refreshBt()
 	for (int i = 81; i <= 82; i++)
 	{
 		int num = DBManager::GetInstance()->GetSkillNum(i);
-		auto bt = (SkillButton*)(getChildByTag(i));
+		auto parent = getParent();
+		auto bt = (SkillButton*)(parent->getChildByTag(i));
 		bt->ChangeSkillNum(num - bt->getSkillNum());
 	}
 }

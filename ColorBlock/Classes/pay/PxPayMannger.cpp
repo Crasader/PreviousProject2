@@ -19,8 +19,8 @@ void PxPayMannger::requestEvent(int eventId){
 }
 void PxPayMannger::initConfig()
 {
-	UiToPayConfig::getInstance()->LoadConfig();
-	PayUiConfig::getInstance()->LoadConfig();
+	/*UiToPayConfig::getInstance()->LoadConfig();
+	PayUiConfig::getInstance()->LoadConfig();*/
 }
 
 int PxPayMannger::getUipointByEvent(int eventId)
@@ -29,7 +29,25 @@ int PxPayMannger::getUipointByEvent(int eventId)
 }
 void PxPayMannger::LaughPayLayer(int eventId, Node*parents, const std::function<void(EventCustom*)>& callback)
 {
-	int uipoint = getUipointByEvent(eventId);
+	auto keyMsg = String::createWithFormat("%s%d", MSG_PAYBASE, eventId);
+	Director::getInstance()->getEventDispatcher()->addCustomEventListener(keyMsg->getCString(), callback);
+	Jniutill::getInstance()->requestEvent(eventId);
+
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	parents->runAction(Sequence::createWithTwoActions(DelayTime::create(0.000001), CallFunc::create([=]{
+		auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventId);
+		EventCustom pevent(msg->getCString());
+		bool *isPaySucess = new bool(false);
+		pevent.setUserData(isPaySucess);
+		Director::getInstance()->getEventDispatcher()->dispatchEvent(&pevent);
+		CC_SAFE_DELETE(isPaySucess);
+	})));
+
+#endif	
+
+
+	/*int uipoint = getUipointByEvent(eventId);
 	auto ui = PayUiConfig::getInstance()->getPayUiConfigByPoint(uipoint);
 	auto layer = BasePayLayer::create(ui);
 	layer->setEventId(eventId);
@@ -38,7 +56,7 @@ void PxPayMannger::LaughPayLayer(int eventId, Node*parents, const std::function<
 
 	auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventId);
 	EventListenerCustom* listener = EventListenerCustom::create(msg->getCString(), callback);
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);*/
 
 
 	log("laugh pay layer eventid = %d", eventId);

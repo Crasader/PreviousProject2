@@ -74,6 +74,8 @@ public:	//道具个数
 	//获取道具个数
 	int GetSkillNum(int id);
 
+	void ChangeSkillNum(int id, int difnum);
+
 private:
 	DBManager(void);
 

@@ -84,8 +84,9 @@ BlockGroup*  CommonFunction::GetDropModeNewBlockGroup()
 		group = new BlockGroupDFour();
 		group->SetBlockGroupDirection(BlockGroupDirection(rand() % 4));
 		break;
-	case BlockGroupType_5:
-		group = new BlockGroupDFive();
+	case BlockGroupType_5:///取消5个 改成4个
+		return GetDropModeNewBlockGroup();
+		group = new BlockGroupI();
 		group->SetBlockGroupDirection(BlockGroupDirection(rand() % 2));
 		break;
 	case BlockGroupType_6:

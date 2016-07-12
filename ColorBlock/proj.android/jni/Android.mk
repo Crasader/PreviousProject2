@@ -16,7 +16,8 @@ endef
 
 
 ALLFILES = $(call walk, $(LOCAL_PATH)/../../Classes)
-FILE_LIST := hellocpp/main.cpp
+FILE_LIST := hellocpp/main.cpp \
+					hellocpp/payproxy.cpp \
 
 FILE_LIST += $(filter %.cpp, $(ALLFILES))
 FILE_LIST += $(filter %.c, $(ALLFILES))

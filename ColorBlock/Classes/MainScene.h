@@ -37,7 +37,7 @@ public:
 private:
 	void loadRes();
 	void ExitGame();							//ÍË³öÓÎÏ·
-
+	void CreateEffect();
 private:
 	cocos2d::Menu*		m_menu;
 };

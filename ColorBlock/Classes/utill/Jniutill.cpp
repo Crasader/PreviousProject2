@@ -26,7 +26,7 @@ const char*  Jniutill::getJniPath()
 void Jniutill::showMoreGame(){
 	CCLOG(">>>>>>>>>>>>>>showMoreGame");
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
-	    CCLOG("android platform");
+	    log("android platform");
 		JniMethodInfo methodInfo;
 		auto path  = String::createWithFormat("%s%s",JAVA_SRC,"/NetWorkService");
 		bool isHave = JniHelper::getStaticMethodInfo(methodInfo,path->getCString(),"showMoreGame","()V");
@@ -38,7 +38,7 @@ void Jniutill::showMoreGame(){
 
 void Jniutill::quit(){
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		CCLOG("android platform");
+	log("android platform");
 		JniMethodInfo methodInfo;
 		auto path  = String::createWithFormat("%s%s",JAVA_SRC,"/NetWorkService");
 		bool isHave = JniHelper::getStaticMethodInfo(methodInfo,path->getCString(),"quit","()V");
@@ -63,13 +63,5 @@ void  Jniutill::requestEvent(int eventId){
 		}
 #endif	
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-		auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventId);
-		EventCustom pevent(msg->getCString());
-		bool *isPaySucess = new bool(true);
-		pevent.setUserData(isPaySucess);
-		Director::getInstance()->getEventDispatcher()->dispatchEvent(&pevent);
-		CC_SAFE_DELETE(isPaySucess);
-#endif	
 }
 

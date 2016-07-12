@@ -1,32 +1,35 @@
 {
-    "applicationImpl":"com.b.a.impl.BApplication",
-    "pImpl":{"className":"com.b.a.impl.GamePImpl","function":"getInstance"},
+    "applicationImpl":"com.a.c.base.BApplication",
+    "pImpl":{"className":"com.a.c.base.GamePImpl","function":"getInstance"},
     "setPPlginByTypeName":[
     {"pluginName":"letu","className":"com.a.b.c.d.LtPImpl"},
     {"pluginName":"tbusms","className":"com.a.b.c.d.PSPImpl"},
     {"pluginName":"sky","className":"com.a.b.c.d.SPImpl"},
-    {"pluginName":"iapcmcc","className":"com.a.b.c.d.IapMMPayImpl"},
+    {"pluginName":"iapcmcc","className":"com.poxiao.pay.xbll.plugin.IapMMPayImpl"},
     {"pluginName":"zP","className":"com.a.b.c.d.ZPImpl"},
-    {"pluginName":"uucpay","className":"com.a.b.c.d.UUCunPayPluginImpl"},
+    {"pluginName":"uucpay","className":"com.poxiao.pay.xbll.plugin.UUCunPayPluginImpl"},
     {"pluginName":"free","className":"com.poxiao.pay.xbll.plugin.GamePayDebugImpl"},
-    {"pluginName":"wechat","className":"com.a.b.c.d.GamePayWxImpl"}
+    {"pluginName":"wechat","className":"com.poxiao.pay.xbll.plugin.GamePayWxImpl"},
+    {"pluginName":"taiku","className":"com.poxiao.pay.xbll.plugin.TaikuPayImpl"},
+    {"pluginName":"gbxc","className":"com.a.b.c.d.GBXCPImpl"}
     ],
     "initPPlginIfNeedOnApplication":[
     {"className":"com.a.b.c.d.LtPImpl","function":"init"},
-    {"className":"com.a.b.c.d.PSPImpl","function":"init"},
+    {"className":"com.a.b.c.d.SPImpl","function":"init"},
     {"className":"com.a.b.c.d.SPImpl","function":"init"},
     {"className":"com.a.b.c.d.ZPImpl","function":"init"},
-    {"className":"com.a.b.c.d.GamePayDebugImpl","function":"init"},
-    {"className":"com.poxiao.pay.xbll.plugin.GamePayWxImpl","function":"init"}
+    {"className":"com.poxiao.pay.xbll.plugin.GamePayDebugImpl","function":"init"},
+    {"className":"com.poxiao.pay.xbll.plugin.GamePayWxImpl","function":"init"},
+    {"className":"com.poxiao.pay.xbll.plugin.TaikuPayImpl","function":"init"}
     ],
     "defaultPluginName":"com.a.b.c.d.SPImpl",
     "initPPlginIfNeedOnActivity":[
-     {"className":"com.a.b.c.d.IapMMPayImpl","function":"init"} 
+     {"className":"com.poxiao.pay.xbll.plugin.IapMMPayImpl","function":"init"} 
     ],
     "quitPluginIfNeedOnApplicaton":[
      {"className":"com.a.b.c.d.SPImpl","function":"quitOnActivity"},
-{"className":"com.a.b.c.d.SmsPayImpl","function":"quitOnApplication"} 
+{"className":"com.a.b.c.d.PSPImpll","function":"quitOnApplication"} 
     ],
-    "debugModelName":"com.a.b.c.d.GamePayDebugImpl",
-    "youtouAd":{"className":"com.a.b.c.d.YoutouAdInit","function":"init"} 
+    "debugModelName":"com.poxiao.pay.xbll.plugin.GamePayDebugImpl",
+    "youtouAd":{"className":"com.poxiao.pay.xbll.plugin.YoutouAdInit","function":"init"} 
 }

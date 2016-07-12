@@ -67,7 +67,7 @@ bool GameScene::init()
 	srand((unsigned)time(NULL));
 
 	//设置游戏参数
-	m_level = 1;		//级别
+	m_level = 2;		//级别
 	m_score = 0;		//分数
 	m_line = 0;			//消去的行数
 	m_moveState = BlockMove::BLOCKMOVE_NONE;
@@ -109,7 +109,7 @@ bool GameScene::init()
 	//////////////////////////////////////////////////////////////////////////
 
 	float cx = 100;
-	float cy = 110;
+	float cy = 115;
 	float dx = 95;
 	//添加方向按钮
 	auto operateFrame = Sprite::createWithSpriteFrameName("operateFrame.png");
@@ -123,18 +123,18 @@ bool GameScene::init()
 	leftButton->setName("left");
 	cx += dx;
 
-	auto rotateButton = Button::create("btRotate_1.png", "btRotate_2.png", "", Widget::TextureResType::PLIST);
-	rotateButton->setPosition(Vec2(cx, cy));
-	rotateButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonRotateCallback, this));
-	this->addChild(rotateButton);
-	rotateButton->setName("rotate");
-	cx += dx;
-
 	auto bottomButton = Button::create("btBottom.png", "btBottom.png", "", Widget::TextureResType::PLIST);
 	bottomButton->setPosition(Vec2(cx, cy));
 	bottomButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonSpeedupCallback, this));
 	this->addChild(bottomButton);
 	bottomButton->setName("bottom");
+	cx += dx;
+
+	auto rotateButton = Button::create("btRotate_1.png", "btRotate_2.png", "", Widget::TextureResType::PLIST);
+	rotateButton->setPosition(Vec2(cx, cy));
+	rotateButton->addTouchEventListener(CC_CALLBACK_2(GameScene::buttonRotateCallback, this));
+	this->addChild(rotateButton);
+	rotateButton->setName("rotate");
 	cx += dx;
 
 	auto rightButton = Button::create("btRight_1.png", "btRight_2.png", "", Widget::TextureResType::PLIST);
@@ -207,7 +207,6 @@ bool GameScene::init()
 	 listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
 	 listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 	 this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-
 	 
 	 scheduleUpdate();
 
@@ -219,6 +218,23 @@ void GameScene::getNextGroup()
 	//获取当前图形
 	m_widget->GetNextBlockGroup(m_curGroup, this);
 	showShadeInBottom(m_curGroup->GetBlocks());
+	if (m_curGroup->GetBlockGroupType() == BlockGroupType_I)
+	{
+			GamePause();
+			m_bIsInPaying = true;
+			int eventid = 9;
+			std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
+			{
+				bool *ispaysucess = (bool*)(event->getUserData());
+				CCLOG("pay test event point result = %d", *ispaysucess);
+				GameResume();
+				refreshBt();
+				auto msg = String::createWithFormat("%s%d", MSG_PAYBASE, eventid);
+				Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(msg->getCString());
+				m_bIsInPaying = false;
+			};
+			PxPayMannger::getInstance()->LaughPayLayer(eventid, this, fun);
+	}
 
 }
 void GameScene::update(float delta)
@@ -240,7 +256,7 @@ bool GameScene::beginUsingSkill(int skillid)
 	if (db->GetSkillNum(skillid)<=0)
 	{
 		GamePause();
-		int eventid = skillid == 1 ? 6 : 7;
+		int eventid = skillid == 81 ? 6 : 7;
 		std::function<void(EventCustom* event)> fun = [=](EventCustom*event)
 		{
 			bool *ispaysucess = (bool*)(event->getUserData());
@@ -300,13 +316,15 @@ void GameScene::endUsingSkill(bool isUsingsecuess)
 			break;
 		}
 	}
-	m_gameTouchType = Touch_Normal;
-	GameResume();
-	rangeSp->removeFromParentAndCleanup(true);
-	if (!isUsingsecuess)
+	else
 	{
+		GameResume();
 		skillSp->removeFromParentAndCleanup(1);
 	}
+	m_gameTouchType = Touch_Normal;
+	
+	rangeSp->removeFromParentAndCleanup(true);
+	
 
 
 	getChildByName("skillframe")->removeFromParentAndCleanup(1);
@@ -350,7 +368,7 @@ void GameScene::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event
 		}
 		else if (m_gameTouchType==Touch_SkillFill)
 		{
-			if ( col < 0 || col > 9)
+			if ( row < 0 || row > 19)
 			{
 				rangeSp->setVisible(false);
 			}
@@ -395,36 +413,6 @@ void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event
 //按键按下
 void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	//log("key:%d", (int)keyCode);
-	if (m_bPopupLayerWorking)
-	{
-		return;
-	}
-	
-	switch (keyCode)
-	{
-	case EventKeyboard::KeyCode::KEY_SPACE:
-		buttonRotateCallback(this, Widget::TouchEventType::BEGAN);
-		break;
-	case EventKeyboard::KeyCode::KEY_W:
-	case EventKeyboard::KeyCode::KEY_UP_ARROW:
-		buttonDirectDownCallback(this, ui::Widget::TouchEventType::BEGAN);
-		break;
-	case EventKeyboard::KeyCode::KEY_S:
-	case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-		buttonSpeedupCallback(this, ui::Widget::TouchEventType::BEGAN);
-		break;
-	case EventKeyboard::KeyCode::KEY_A:
-	case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-		buttonLeftCallback(this, ui::Widget::TouchEventType::BEGAN);
-		break;
-	case EventKeyboard::KeyCode::KEY_D:
-	case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-		buttonRightCallback(this, ui::Widget::TouchEventType::BEGAN);
-		break;
-	default:
-		break;
-	}
 }
 
 //按键弹起
@@ -441,29 +429,8 @@ void GameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	case EventKeyboard::KeyCode::KEY_BACK:	//返回键(Only avaliable on Desktop and Android)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 		//退出游戏
-		ExitGame();
+		onPause();
 #endif
-		break;
-	case EventKeyboard::KeyCode::KEY_SPACE:
-		buttonRotateCallback(this, Widget::TouchEventType::ENDED);
-		break;
-	case EventKeyboard::KeyCode::KEY_W:
-	case EventKeyboard::KeyCode::KEY_UP_ARROW:
-		buttonDirectDownCallback(this, ui::Widget::TouchEventType::ENDED);
-		break;
-	case EventKeyboard::KeyCode::KEY_S:
-	case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-		buttonSpeedupCallback(this, ui::Widget::TouchEventType::ENDED);
-		break;
-	case EventKeyboard::KeyCode::KEY_A:
-	case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-		buttonLeftCallback(this, ui::Widget::TouchEventType::ENDED);
-		break;
-	case EventKeyboard::KeyCode::KEY_D:
-	case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-		buttonRightCallback(this, ui::Widget::TouchEventType::ENDED);
-		break;
-	default:
 		break;
 	}
 }
@@ -509,7 +476,7 @@ void GameScene::onExit()
 	SpriteManager::GetInstance()->UnInit();
 	//利用plist文件卸载打包图片
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
-	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("game.plist");
+
 	//释放音频资源
 	//SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	//SimpleAudioEngine::getInstance()->stopAllEffects();
@@ -667,7 +634,7 @@ void GameScene::AddCurBlockGroupToBlocks()
 }
 
 //消去同行的方块
-bool GameScene::ReleaseBlocksOnFullLine()
+bool GameScene::ReleaseBlocksOnFullLine(bool isResume)
 {
 	//获取所有行数（已经从小到大排好序）
 	map<int/*行号*/, int/*当前行的方块数*/> mapRow;
@@ -792,6 +759,10 @@ bool GameScene::ReleaseBlocksOnFullLine()
 		//定时消去满行的方块
 		this->scheduleOnce(schedule_selector(GameScene::RemoveFullRowBlocks), 0.3f);
 		showShadeInBottom(m_curGroup->GetBlocks());
+		if (isResume)
+		{
+			GameResume();
+		}
 
 	}), nullptr));
 
@@ -877,7 +848,7 @@ void GameScene::Restart()
 	//行数、级数
 	m_difSpeed = 0;
 	m_line = 0;
-	m_level = 1;
+	m_level = 2;
 	RefreshLine();
 	RefreshLevel();
 
@@ -971,8 +942,9 @@ void GameScene::buttonLeftCallback(Ref* sender, cocos2d::ui::Widget::TouchEventT
 	case cocos2d::ui::Widget::TouchEventType::BEGAN:
 		//定时向左移动(每帧移动一次)
 		m_curGroup->MoveLeft(m_vecBlocks);
+		showShadeInBottom(m_curGroup->GetBlocks());
 		m_moveState = BlockMove::BLOCKMOVE_LEFT;
-		this->schedule(schedule_selector(GameScene::MoveLeftrightCurBlockGroup), 1.0f / 10);
+		this->schedule(schedule_selector(GameScene::MoveLeftrightCurBlockGroup), 1.0f / 10, CC_REPEAT_FOREVER, 0.5f);
 		break;
 	case cocos2d::ui::Widget::TouchEventType::MOVED:
 		NULL;
@@ -994,8 +966,9 @@ void GameScene::buttonRightCallback(Ref* sender, cocos2d::ui::Widget::TouchEvent
 	case cocos2d::ui::Widget::TouchEventType::BEGAN:
 		//定时向右移动(每帧移动一次)
 		m_curGroup->MoveRight(m_vecBlocks);
+		showShadeInBottom(m_curGroup->GetBlocks());
 		m_moveState = BlockMove::BLOCKMOVE_RIGHT;
-		this->schedule(schedule_selector(GameScene::MoveLeftrightCurBlockGroup), 1.0f / 10);
+		this->schedule(schedule_selector(GameScene::MoveLeftrightCurBlockGroup), 1.0f / 10, CC_REPEAT_FOREVER,0.5f );
 		break;
 	case cocos2d::ui::Widget::TouchEventType::MOVED:
 		NULL;
@@ -1222,7 +1195,7 @@ bool GameScene::FillBlock(Vec2 pos,Sprite*sp)
 	for (int i = 0; i < obs.size(); i++)
 	{
 		auto flowerBlock = obs.at(i);
-		flowerBlock.sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(flowerBlock.col*0.1f+0.05f), CallFunc::create([=]{
+		flowerBlock.sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(flowerBlock.col*0.05f+0.05f), CallFunc::create([=]{
 			flowerBlock.sprite->setVisible(true);
 			auto ani = Sprite::create();
 			ani->setPosition(flowerBlock.sprite->getContentSize() / 2);
@@ -1238,9 +1211,9 @@ bool GameScene::FillBlock(Vec2 pos,Sprite*sp)
 	GameField::GetInstance()->GetBlockPosition(row, GameField::GetInstance()->GetBlockColCount()-1, endPos);
 	auto magicClub = sp;
 	magicClub->setPosition(startpos);
-	magicClub->runAction(Sequence::create(MoveTo::create(1.0f, endPos),FadeOut::create(0.1f), DelayTime::create(0.3f),CallFunc::create([=]{
+	magicClub->runAction(Sequence::create(MoveTo::create(0.5f, endPos),FadeOut::create(0.1f), DelayTime::create(0.3f),CallFunc::create([=]{
 		magicClub->removeFromParentAndCleanup(1);
-		ReleaseBlocksOnFullLine();
+		ReleaseBlocksOnFullLine(true);
 		
 	}),nullptr));
 	return true;
@@ -1280,13 +1253,14 @@ bool GameScene::KnockBlock(Vec2 pos,Sprite*sp)
 		for (auto var : obs)
 		{
 			auto ani = Sprite::create();
-			ani->runAction(AnimationUtil::getInstance()->getAnimate("ani_scrap"));
-			ani->setPosition(var.sprite->getContentSize() / 2);
-			var.sprite->addChild(ani);
-			var.sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(AnimationUtil::getInstance()->getAnimate("ani_scrap")->getDuration()), RemoveSelf::create(1)));
+			ani->runAction(Sequence::createWithTwoActions(AnimationUtil::getInstance()->getAnimate("ani_scrap"),RemoveSelf::create(true)));
+			ani->setPosition(var.sprite->getPosition());
+			var.sprite->getParent()->addChild(ani, var.sprite->getZOrder() + 1);
+			var.sprite->removeFromParentAndCleanup(1);
 		}
 
 		showShadeInBottom(m_curGroup->GetBlocks());
+		GameResume();
 	}),RemoveSelf::create(1),nullptr
 ));
 	return true;

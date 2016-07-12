@@ -20,8 +20,10 @@ bool PauseLayer::init()
 
 	//±êÌâ
 	auto title = Sprite::createWithSpriteFrameName("titlePause.png");
-	title->setPosition(238, 616);
+	title->setPosition(238, 616+600);
 	addChild(title);
+
+	title->runAction(EaseElasticOut::create(MoveBy::create(0.3f, Vec2(0, -600))));
 
 	//°´¼ü
 	auto exitBt = MenuItemSprite::create(SPRITE("btBackOnPause_1.png"),SPRITE("btBackOnPause_2.png"), CC_CALLBACK_1(BaseLayer::menuExitCallback, this));
@@ -36,6 +38,11 @@ bool PauseLayer::init()
 	menu->setPosition(0, 0);
 	addChild(menu);
 
+	for (auto item:menu->getChildren())
+	{
+		item->setScale(0.1);
+		item->runAction(EaseElasticOut::create(ScaleTo::create(0.3f, 1.0)));
+	}
 
 	return true;
 }

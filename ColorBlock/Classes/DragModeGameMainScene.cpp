@@ -62,7 +62,7 @@ bool DragModeGameMainScene::init()
 	int nZOrderBackground = -10;
 	int nZOrderWidget = -8;
 
-	SpriteManager::GetInstance()->InitSpriteFramesWithFile("game.plist");
+
 	//添加背景图
 	auto background = Sprite::create("background_main.png");
 	background->setPosition(Vec2(m_origin.x + m_visibleSize.width / 2, m_origin.y + m_visibleSize.height / 2));
@@ -210,7 +210,7 @@ void DragModeGameMainScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *
 
 void DragModeGameMainScene::onExit()
 {
-	Node::onExit();
+	BaseGame::onExit();
 
 	//释放方块资源
 	SpriteManager::GetInstance()->UnInit();
@@ -219,7 +219,7 @@ void DragModeGameMainScene::onExit()
 	SimpleAudioEngine::getInstance()->stopAllEffects();
 	//利用plist文件卸载打包图片
 	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("sprites.plist");
-	SpriteManager::GetInstance()->UnInitSpriteFramesWithFile("game.plist");
+
 }
 
 
@@ -230,7 +230,7 @@ void DragModeGameMainScene::Restart()
 {
 	//行数、级数
 	m_line = 0;
-	m_level = 1;
+	m_level = 2;
 	//分数清0
 	m_widget->ResetScore();
 	m_widget->Restart();

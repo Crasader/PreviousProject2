@@ -102,7 +102,7 @@ private:
 	void refreshBlocks();
 
 	//判断当前网格是否可以容纳参数图形
-	bool isCouldPutTheBlockgroup(BlockGroup*group);
+	bool isCouldPutTheBlockgroup(BlockGroup*group, int &couldPutRow, int &couldPutCol);
 	void refreshBt();
 private:
 	//分数
