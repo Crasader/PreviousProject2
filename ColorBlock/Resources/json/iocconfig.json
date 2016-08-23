@@ -1,5 +1,0 @@
-{
-	"applicationImpl":"com.a.c.impl.BApplication",
-	"pImpl":{"className":"com.a.c.impl.GamePImpl","function":"getInstance"}
-	
-}
