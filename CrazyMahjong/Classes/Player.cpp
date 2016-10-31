@@ -8,7 +8,7 @@
 #include "Room.h"
 #include "AIRules.h"
 
-Vec2 Player::lightPos = Vec2(40.0f, 30.0f);
+Vec2 Player::lightPos = Vec2(64.0f, 48.0f);
 
 //-----------------------------------------  Íæ¼ÒÀà  --------------------------------------------
 
@@ -65,7 +65,7 @@ bool Player::initLogo()
 	this->addChild(dirSpr);
 
 	Size size = _director->getWinSize();
-	Vec2 center = Vec2(size.width / 2, size.height / 2 + 33.0f);
+	Vec2 center = Vec2(size.width / 2, size.height / 2 +50);
 	light = Sprite::create("light_" + String::createWithFormat("%d", (dir%2))->_string + ".png");
 	switch (dir)
 	{

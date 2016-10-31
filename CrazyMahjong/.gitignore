@@ -24,6 +24,7 @@ proj.win8.1-universal/
 proj.linux/
 imgResource/
 proj.ios_mac/
+Imgresources/
 cocos2d/
 bin/
 gen/

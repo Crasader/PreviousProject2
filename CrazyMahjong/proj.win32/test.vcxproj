@@ -74,7 +74,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)cocos2d\external\win32-specific\icon\include;$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)cocos2d\external\win32-specific\icon\include;$(EngineRoot)cocos\audio\include;..\extend\server_sdk\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -87,9 +87,9 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END);libpomelo2.lib;libuv.lib;ws2_32.lib;Iphlpapi.lib;Psapi.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END);..\extend\server_sdk\lib\win</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -175,6 +175,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Rules.cpp" />
     <ClCompile Include="..\Classes\ScrollTextEx.cpp" />
     <ClCompile Include="..\Classes\ScrollTextMannger.cpp" />
+    <ClCompile Include="..\Classes\server\HttpClientUtill.cpp" />
+    <ClCompile Include="..\Classes\server\HttpMannger.cpp" />
+    <ClCompile Include="..\Classes\server\Server.cpp" />
     <ClCompile Include="..\Classes\SetNameLayer.cpp" />
     <ClCompile Include="..\Classes\SetPanel.cpp" />
     <ClCompile Include="..\Classes\ShopCell.cpp" />
@@ -229,6 +232,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Rules.h" />
     <ClInclude Include="..\Classes\ScrollTextEx.h" />
     <ClInclude Include="..\Classes\ScrollTextMannger.h" />
+    <ClInclude Include="..\Classes\server\HttpClientUtill.h" />
+    <ClInclude Include="..\Classes\server\HttpMannger.h" />
+    <ClInclude Include="..\Classes\server\HttpMsgDefine.h" />
+    <ClInclude Include="..\Classes\server\MsgObserver.h" />
+    <ClInclude Include="..\Classes\server\Server.h" />
     <ClInclude Include="..\Classes\SetNameLayer.h" />
     <ClInclude Include="..\Classes\SetPanel.h" />
     <ClInclude Include="..\Classes\ShopCell.h" />

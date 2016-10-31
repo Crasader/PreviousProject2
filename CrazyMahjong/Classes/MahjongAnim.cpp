@@ -588,6 +588,7 @@ void MahjongAnim::hideWinBanner()
 //------------------------发牌筛子
 bool MahjongAnim::initDealAnim()
 {//ShaiZiAnim_10, ShaiZi_5
+	Vec2 size = Director::getInstance()->getVisibleSize();
 	nodeDeal = Node::create();
 	nodeDeal->setVisible(false);
 	this->addChild(nodeDeal);
@@ -595,17 +596,17 @@ bool MahjongAnim::initDealAnim()
 	std::string path = "MJAnim/DealCard/";
 
 	dealShaiZi = addAnimWithAnimate(*nodeDeal, animShaiZi, path, "ShaiZiAnim", 11, timeShaiZi);
-	dealShaiZi->setPosition(400.0f, 240.0f);
+	dealShaiZi->setPosition(size/2);
 
 	addToTextureCache(path, "ShaiZi", 6);
 	
 	dealShaiZiL = Sprite::create();
-	dealShaiZiL->setPosition(365.0f, 180.0f);
+	dealShaiZiL->setPosition(365.0f/800*1280, 180.0/400*720.0f);
 	dealShaiZiL->setOpacity(.0f);
 	nodeDeal->addChild(dealShaiZiL);
 
 	dealShaiZiR = Sprite::create();
-	dealShaiZiR->setPosition(435.0f, 180.0f);
+	dealShaiZiR->setPosition(435.0f/800*1280, 180.0f/400*720.0f);
 	dealShaiZiR->setOpacity(.0f);
 	nodeDeal->addChild(dealShaiZiR);
 

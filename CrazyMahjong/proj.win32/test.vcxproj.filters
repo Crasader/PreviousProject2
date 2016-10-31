@@ -28,6 +28,9 @@
     <Filter Include="src\Hall">
       <UniqueIdentifier>{3421faf4-9823-49b6-83ac-b888bd50cf11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\server">
+      <UniqueIdentifier>{9c6c8c2a-1246-4393-ac45-3e1f9857529a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -182,6 +185,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\TipScene.cpp">
       <Filter>src\Hall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\HttpMannger.cpp">
+      <Filter>src\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\Server.cpp">
+      <Filter>src\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\server\HttpClientUtill.cpp">
+      <Filter>src\server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +352,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\TipScene.h">
       <Filter>src\Hall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\HttpClientUtill.h">
+      <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\HttpMannger.h">
+      <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\HttpMsgDefine.h">
+      <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\MsgObserver.h">
+      <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\server\Server.h">
+      <Filter>src\server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

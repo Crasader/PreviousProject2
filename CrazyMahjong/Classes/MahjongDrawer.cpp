@@ -8,34 +8,34 @@
 //------------------------------------ ≥ı ºŒª÷√ --------------------------------------
 Vec2 MahjongDrawer::cardTablePos[4] = 
 {
-	Vec2(340, 180),
-	Vec2(500, 220),
-	Vec2(455, 360),
-	Vec2(300, 310),
+	Vec2(340*1.6, 180*1.5),
+	Vec2(500 * 1.6, 220 *1.5),
+	Vec2(455 * 1.6, 360 *1.5),
+	Vec2(300 * 1.6, 310 *1.5),
 };
 
 Vec2 MahjongDrawer::cardSidePos[4] = 
 {
-	Vec2(150, 100),
-	Vec2(750, 120),
-	Vec2(320, 400),
-	Vec2(150, 320),
+	Vec2(150 * 1.6, 100 *1.5),
+	Vec2(750 * 1.6, 120 *1.5),
+	Vec2(320 * 1.6, 400 *1.5),
+	Vec2(150 * 1.6, 320 *1.5),
 };
 
 Vec2 MahjongDrawer::cardOutHandDis[4] =
 {
-	Vec2(27, -30),
-	Vec2(38, 26),
-	Vec2(-27, 30),
-	Vec2(-38, -26),
+	Vec2(23.5 * 1.6, -26 *1.3),
+	Vec2(28 * 1.6, 25 *1.3),
+	Vec2(-23.5 * 1.6, 26 *1.3),
+	Vec2(-28 * 1.6, -25*1.3),
 };
 
 Vec2 MahjongDrawer::cardPickDis[4] =
 {
-	Vec2(20, 0),
-	Vec2(0, 20),
-	Vec2(-20, 0),
-	Vec2(0, -20),
+	Vec2(20 * 1.6, 0 *1.5),
+	Vec2(0 * 1.6, 20 *1.5),
+	Vec2(-20 * 1.6, 0 *1.5),
+	Vec2(0 * 1.6, -20 *1.5),
 };
 
 float MahjongDrawer::timePickCard = 0.1f;
@@ -70,9 +70,9 @@ void MahjongDrawer::setDrawer(PLAYER dir)
 	case PLAYER_0:
 		for (int i = 0; i < 5; i++)
 		{
-			cardHandPos[i] = Vec2(300 + i * 63, 50);
+			cardHandPos[i] = Vec2(300*1.6 + i * 47*1.6,65);
 		}
-		cardBigCard[dir] = cardHandPos[2] + Vec2(.0f, 30.0f);
+		cardBigCard[dir] = cardHandPos[2] + Vec2(.0f, 54.0f);
 		cardSidePos[dir] = cardHandPos[2] + Vec2(0.0f, 0.0f);
 
 		break;
@@ -80,9 +80,9 @@ void MahjongDrawer::setDrawer(PLAYER dir)
 	case PLAYER_2:
 		for (int i = 0; i < 5; i++)
 		{
-			cardHandPos[i] = Vec2(460 - i * 34, 450);
+			cardHandPos[i] = Vec2(460*1.6 - i * 28*1.6, 10+450*1.5);
 		}
-		cardBigCard[dir] = cardHandPos[2] + Vec2(.0f, -30.0f);
+		cardBigCard[dir] = cardHandPos[2] + Vec2(.0f, -54.0f);
 		cardSidePos[dir] = cardHandPos[2] + Vec2(0.0f, 0.0f);;
 
 		break;
@@ -90,20 +90,20 @@ void MahjongDrawer::setDrawer(PLAYER dir)
 	case PLAYER_1:
 		for (int i = 0; i < 5; i++)
 		{
-			cardHandPos[i] = Vec2(698, 162 + i * 35);
+			cardHandPos[i] = Vec2(698*1.6, 162*1.5 + i * 24*1.5);
 		}
-		cardBigCard[dir] = cardHandPos[2] + Vec2(-30.0f, .0f);
-		cardSidePos[dir] = cardHandPos[0] + Vec2(.0f, 40.0f);
+		cardBigCard[dir] = cardHandPos[2] + Vec2(-48.0f, .0f);
+		cardSidePos[dir] = cardHandPos[0] + Vec2(.0f, 720.0f);
 
 		break;
 
 	case PLAYER_3:
 		for (int i = 0; i < 5; i++)
 		{
-			cardHandPos[i] = Vec2(100, 350 - i * 35);
+			cardHandPos[i] = Vec2(100*1.6, 350*1.5 - i * 24*1.5);
 		}
-		cardBigCard[dir] = cardHandPos[2] + Vec2(30.0f, .0f);
-		cardSidePos[dir] = cardHandPos[2] + Vec2(.0f, 10.0f);
+		cardBigCard[dir] = cardHandPos[2] + Vec2(48.0f, .0f);
+		cardSidePos[dir] = cardHandPos[2] + Vec2(.0f, 18.0f);
 		break;
 	}
 
@@ -256,7 +256,7 @@ void MahjongDrawer::drawSideCard(int type, int sideNum, CARD_SIDE side)
 	switch (dir)
 	{
 	case PLAYER_0:
-		dis = Vec2(43.0f, .0f);
+		dis = Vec2(43*1.6f, .0f);
 		break;
 	case PLAYER_1:
 		dis = Vec2(.0f, cardOutHandDis[dir].y);
@@ -311,24 +311,24 @@ void MahjongDrawer::drawPengCard(int type, int pickDir)
 	switch (dir)
 	{
 	case PLAYER_0:
-		dis2[0] = Vec2(43, .0f);
-		dis2[1] = Vec2(47, .0f);
-		dis2[2] = Vec2(20, -40);
+		dis2[0] = Vec2(43*1.6, .0f);
+		dis2[1] = Vec2(47*1.6, .0f);
+		dis2[2] = Vec2(20*1.5, -40*1.5);
 		break;
 	case PLAYER_1:
 		dis2[0] = Vec2(.0f, cardOutHandDis[dir].y);
 		dis2[1] = Vec2(.0f, cardOutHandDis[dir].y*1.1);
-		dis2[2] = Vec2(30, 14);
+		dis2[2] = Vec2(30*1.6, 14*1.5);
 		break;
 	case PLAYER_2:
-		dis2[0] = Vec2(cardOutHandDis[dir].x - 3, .0f);
-		dis2[1] = Vec2(cardOutHandDis[dir].x*1.1 - 1.1*3, .0f);
-		dis2[2] = Vec2((cardOutHandDis[dir].x - 3)/2.0, 30);
+		dis2[0] = Vec2(cardOutHandDis[dir].x - 4.8, .0f);
+		dis2[1] = Vec2(cardOutHandDis[dir].x*1.1 - 1.1*3*1.6, .0f);
+		dis2[2] = Vec2((cardOutHandDis[dir].x - 3)/2.0, 30*1.5);
 		break;
 	case PLAYER_3:
 		dis2[0] = Vec2(.0f, cardOutHandDis[dir].y);
 		dis2[1] = Vec2(.0f, cardOutHandDis[dir].y*1.1f);
-		dis2[2] = Vec2(-30, -14);
+		dis2[2] = Vec2(-30*1.6, -14*1.5);
 		break;
 	case PLAYER_NULL:
 		break;
@@ -631,16 +631,16 @@ void MahjongDrawer::showCards()
 	switch (get_dir())
 	{
 	case PLAYER_0:
-		dis = Vec2(32, .0f);
+		dis = Vec2(32*1.6, .0f);
 		break;
 	case PLAYER_1:
-		dis = Vec2(.0f, 32);
+		dis = Vec2(.0f, 32*1.5);
 		break;
 	case PLAYER_2:
-		dis = Vec2(-32, .0f);
+		dis = Vec2(-32*1.6, .0f);
 		break;
 	case PLAYER_3:
-		dis = Vec2(.0f, -32);
+		dis = Vec2(.0f, -32*1.5);
 		break;
 	case PLAYER_NULL:
 		break;

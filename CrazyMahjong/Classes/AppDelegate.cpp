@@ -38,23 +38,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		director->setOpenGLView(glview);
 	}
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32||CC_TARGET_PLATFORM==CC_PLATFORM_MAC)
-	glview->setFrameSize(800, 480);
-	glview->setDesignResolutionSize(800, 480, ResolutionPolicy::EXACT_FIT);
-#endif
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	if (visibleSize.width / visibleSize.height > 800.0 / 480.0){
-		glview->setDesignResolutionSize(800, 480, ResolutionPolicy::EXACT_FIT);
-	}
-	else{
-		glview->setDesignResolutionSize(800, 480, ResolutionPolicy::EXACT_FIT);
-	}
-#endif
 
 
+
+	glview->setFrameSize(1280, 720);
+	glview->setDesignResolutionSize(1280, 720, ResolutionPolicy::EXACT_FIT);
 	// turn on display FPS
-	//director->setDisplayStats(true);
+	director->setDisplayStats(true);
 
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);

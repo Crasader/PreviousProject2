@@ -12,44 +12,45 @@ void HeadPortrait::setHeadProtrait(int dir, std::string name, int photo, int coi
 	switch (dir)
 	{
 	case 0://43
-		this->setPosition(43, 60);		// 下
+		this->setPosition(65, 75);		// 下
 		break;
 	case 1:
-		this->setPosition(755, 280);		// 右
+		this->setPosition(1180, 443);		// 右
 		break;
 	case 2:
-		this->setPosition(575, 420);		// 上
+		this->setPosition(920, 650);		// 上
 		break;
 	case 3:
-		this->setPosition(43, 280);		// 左
+		this->setPosition(65, 443);		// 左
 		break;
 	}
 	
 	// 头像
 	string str = "head_" + String::createWithFormat("%d", Room::getInstance()->getPlayerHead(dir))->_string + ".png";
-	Sprite* headPhoto = Sprite::create(str);
+	Sprite* headPhoto = Sprite::create("head_image_1.png");
 	Vec2 center = headPhoto->getContentSize() / 2;
 	this->addChild(headPhoto);
 
 	// 姓名
 	string strN = Room::getInstance()->getName(dir);
-	nameLabel = LabelTTF::create(strN, "arial", 12.0f);
+	nameLabel = LabelTTF::create(strN, "arial", 18.0f);
 	nameLabel->setHorizontalAlignment(TextHAlignment::CENTER);
-	nameLabel->setPosition(center.x, center.y + 42.0f);
+	nameLabel->setPosition(center.x, center.y + 60.0f);
 	headPhoto->addChild(nameLabel);
 
 	// 金币数
 	string coinStr = String::createWithFormat("%d", coins)->_string;
 	coinsLabel = Label::createWithCharMap("coins_num.png", 11, 14, '0');
 	coinsLabel->setString(coinStr);
+	coinsLabel->setScale(1.5);
 	coinsLabel->setAdditionalKerning(-3.0f);
 	coinsLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
-	coinsLabel->setPosition(center.x + 3.0f, center.y - 40.0f);
+	coinsLabel->setPosition(center.x + 3.0f, center.y - 60.0f);
 	headPhoto->addChild(coinsLabel);
 
 	auto sp = (Sprite*)getChildByName("headPortrait_bkg_vip");
 	bool isVip = Room::getInstance()->isVip(dir);
-	if (isVip)
+	if (0)
 	{
 		sp->setVisible(true);
 	}

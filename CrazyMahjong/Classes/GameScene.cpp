@@ -20,6 +20,10 @@ bool GameScene::init()
 	bkg->setPosition(centerPoint);
 	this->addChild(bkg);
 
+	auto playerframe = Sprite::create("ori_bg.png");
+	playerframe->setPosition(centerPoint + Vec2(0, 50));
+	addChild(playerframe);
+
 	Sprite* phoneNumberSpr = Sprite::create("phoneNumber.png");
 
 	phoneNumberSpr->setPosition(700.0f, 20.0f);
