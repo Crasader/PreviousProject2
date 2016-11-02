@@ -6,9 +6,12 @@
 #include "MenuScenePayHandler.h"
 #include "PxPayMannger.h"
 #include "User.h"
+#include "server/Server.h"
 #include "TipScene.h"
+
 USING_NS_CC;
 using namespace experimental;
+
 AppDelegate::AppDelegate() {
 
 }
@@ -28,6 +31,7 @@ void AppDelegate::initGLContextAttrs()
 
 	GLView::setGLContextAttrs(glContextAttrs);
 }
+
 
 bool AppDelegate::applicationDidFinishLaunching() {
 	// initialize director
@@ -59,9 +63,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	AnimationUtil::getInstance()->init();
 
 	srand(time(NULL));
-	//auto scene = HallScene::createScene();
-	auto scene = TipScene::createScene();
+	
 
+	//Server::getInstance()->conConnect("127.0.0.1", 3014);
+	
+
+
+
+
+
+
+	auto scene = TipScene::createScene();
 	// run
 	if (nullptr == director->getRunningScene())
 	{
@@ -98,4 +110,7 @@ void AppDelegate::applicationWillEnterForeground() {
 	{
 		Jniutill::getInstance()->queryOrder();
 	}
+
+
+
 }

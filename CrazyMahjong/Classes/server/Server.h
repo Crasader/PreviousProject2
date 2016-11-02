@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 #include "pomelo.h"
 #include "pomelo_trans.h"
-#include "pc_JSON.h"
 #include "server/MsgObserver.h"
 USING_NS_CC;
 #define EV_HANDLER_EX ((void*)0x44)
@@ -23,7 +22,7 @@ USING_NS_CC;
 #define REQ_ROUTE_LEVELUPDATE "game.gameHandler.levelchange"
 #define REQ_LEVELUPDATE_EX ((void*)0x66)
 
-#define REQ_ROUTE_USESKILL "game.gameHandler.useskill"
+#define REQ_ROUTE_USESKILL "gate.gateHandler.queryEntry"
 #define REQ_USESKILL_EX ((void*)0x77)
 #define REQ_ROUTE_BOUNSPOOL "game.gameHandler.bonuspool"
 #define REQ_BOUNSPOOL_EX ((void*)0x88)
@@ -34,20 +33,22 @@ USING_NS_CC;
 #define REQ_ROUTE_PAYRESULT "game.gameHandler.payresult"
 #define REQ_PAYRESULT_EX ((void*)0x98)
 
+
 class Server{
 public:
 	static Server* getInstance();
-	void conConnect(const char* host, int port, const char* session_id, int room_id);
+	void conConnect(const char* host, int port);
 	void quit();
 
 	void add_observer(MsgObserver *o);
 	void remove_observer(MsgObserver *o);
-	void notify_observer(const char* msgId, const char* msgBody);
-
+	
+	void sendRequest(EnumRequestID request,char* msgBody);
 
 private:
 	static void notify_cb(const pc_notify_t* noti, int rc);
-
+	void notify_observer(EnumRequestID request, const char* msgBody);
+	void notify_observer(const char* request, const char* msgBody);
 	//test example
 public:
 	void sendNewEvents(const char* params);
@@ -98,7 +99,7 @@ private:
 
 	void doConnect();
 
-	void disconnect();
+
 
 	static void event_cb(pc_client_t* client, int ev_type, void* ex_data, const char* arg1, const char* arg2);
 

@@ -189,10 +189,10 @@
     <ClCompile Include="..\Classes\server\HttpMannger.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\server\Server.cpp">
+    <ClCompile Include="..\Classes\server\HttpClientUtill.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\server\HttpClientUtill.cpp">
+    <ClCompile Include="..\Classes\server\Server.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
   </ItemGroup>

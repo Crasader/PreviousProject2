@@ -243,6 +243,9 @@ void Card::setSideCardAn(PLAYER dir, int type)
 void Card::setLieCardMing(PLAYER dir, int type)
 {
 	string bodyName;
+
+	
+	
 	// 牌底
 	if (PLAYER::PLAYER_0 == dir )
 	{
@@ -251,23 +254,29 @@ void Card::setLieCardMing(PLAYER dir, int type)
 	else if ( PLAYER::PLAYER_2 == dir)
 	{
 		bodyName = getBodyName(CARD_BODY::UP_S_HENG);
+		
 	}
 	else
 	{
 		bodyName = getBodyName(CARD_BODY::UP_S_SHU);
+	
 	}
 	addBody(bodyName);
-
-	// 桌牌都有花色
 	addType(getTypeName(type));
+	
 
 	// 调整位置
-	typeSpr->setPositionY(10.0f);
+	
 	typeSpr->setRotation(-90.0f*(dir+1));
 	typeSpr->setScale(0.4f);
 	if (PLAYER::PLAYER_0 == dir)
 	{
 		typeSpr->setScale(0.58f);
+		typeSpr->setPositionY(11.0f);
+	}
+	else
+	{
+		typeSpr->setPositionY(8.0f);
 	}
 }
 void Card::setSideCardMing(PLAYER dir, int type)
@@ -279,7 +288,8 @@ void Card::setSideCardMing(PLAYER dir, int type)
 		// 牌面
 		addType(getTypeName(type));
 		typeSpr->setPositionY(10.0f);
-		typeSpr->setScale(0.6f);
+		setScale(0.8);
+		typeSpr->setScale(0.8);
 		return;
 	}
 

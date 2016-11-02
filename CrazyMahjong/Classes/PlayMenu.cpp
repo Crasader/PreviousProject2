@@ -14,19 +14,19 @@ bool PlayMenu::init()
 	Size size = Director::getInstance()->getWinSize();
 
 	peng = MenuItemImage::create("menu_peng.png", "menu_peng.png", CC_CALLBACK_1(PlayMenu::pengCallback, this));
-	peng->setPosition(130, -75);
+	peng->setPosition(130, -150);
 	peng->setVisible(false);
 	
 	gang = MenuItemImage::create("menu_gang.png", "menu_gang.png", CC_CALLBACK_1(PlayMenu::gangCallback, this));
-	gang->setPosition(130, -75);
+	gang->setPosition(130, -150);
 	gang->setVisible(false);
 
 	hu = MenuItemImage::create("menu_hu.png", "menu_hu.png", CC_CALLBACK_1(PlayMenu::ziMoCallback, this));
-	hu->setPosition(130, -75);
+	hu->setPosition(130, -150);
 	hu->setVisible(false);
 
 	qi = MenuItemImage::create("menu_qi.png", "menu_qi.png", CC_CALLBACK_1(PlayMenu::qiPengCallback, this));
-	qi->setPosition(230, -75);
+	qi->setPosition(330, -150);
 	qi->setVisible(false);
 	
 	menu->addChild(peng);
@@ -141,7 +141,7 @@ void PlayMenu::ShowPengAndGang()
 {
 	//controler->currentPlayer = player;
 	peng->setVisible(true);
-	peng->setPositionX(30);
+	peng->setPositionX(-70);
 
 	gang->setCallback(CC_CALLBACK_1(PlayMenu::gangCallback, this));
 	gang->setVisible(true);
@@ -170,7 +170,7 @@ void PlayMenu::ShowDianPaoButton()
 void PlayMenu::ShowDianPaoAndPengButton()
 {
 	peng->setVisible(true);
-	peng->setPositionX(30);
+	peng->setPositionX(-70);
 	peng->setCallback([=](Ref*psend){
 	
 		player->set_canHu(false);

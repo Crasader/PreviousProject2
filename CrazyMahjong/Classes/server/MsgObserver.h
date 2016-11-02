@@ -9,20 +9,15 @@
 #ifndef MsgObserver_h
 #define MsgObserver_h
 #include "cocos2d.h"
+enum EnumRequestID
+{
+	MJ_Request_TEST,
+};
 
 class MsgObserver
 {
 public:
-    virtual void handle_event(const char* msgId, const char* msgBody)=0;
-};
-
-class MsgUserOne : public MsgObserver {
-public:
-	void handle_event(const char* msgId, const char* msgBody) {
-        CCLOG("[MsgUserOne]handle_event: msgId %d\n", msgId);
-        CCLOG("[MsgUserOne]handle_event: msgBody %s\n", msgBody);
-        // TODO : 演示简单的消息监听
-    }
+	virtual void handle_event(EnumRequestID request, const char* msgBody) = 0;
 };
 
 #endif /* MsgObserver_h */

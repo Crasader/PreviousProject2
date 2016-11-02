@@ -20,6 +20,7 @@ void Server::event_cb(pc_client_t* client, int ev_type, void* ex_data, const cha
     CCLOG("[server]event_cb: get eventtype %d\n", ev_type);
     CCLOG("[server]event_cb: get event %s, arg1: %s, arg2: %s\n", pc_client_ev_str(ev_type),
            arg1 ? arg1 : "", arg2 ? arg2 : "");
+	Server::getInstance()->sendRequest(MJ_Request_TEST, "{\"uid:kkkkkk\"}");
     if(ev_type == 1) {
         Server::getInstance()->doConnect(); 
     }else if(ev_type == 0) {
@@ -38,7 +39,16 @@ void Server::event_cb(pc_client_t* client, int ev_type, void* ex_data, const cha
     // TODO : 处理连接失败和重连的问题，并且要仔细测试下。
 }
 
-
+void Server::sendRequest(EnumRequestID request,char*msgBody)
+{
+	std::string reqParams = msgBody;
+	CCLOG("pomelo client sendRequest %s", reqParams.c_str());
+	pc_request_cb_t cb = [](const pc_request_t* req, int rc, const char* resp)->void{
+		CCLOG("pomelo client sendRequest %s", resp);
+		/*Server::getInstance()->notify_observer(request, resp)*/;
+	};
+	pc_request_with_timeout(workingClient, REQ_ROUTE_USESKILL, reqParams.c_str(), REQ_USESKILL_EX, REQ_TIMEOUT, cb);
+}
 
 void Server::quit() {
     if(workingClient != NULL) {
@@ -79,7 +89,7 @@ void Server::sendUseSkill(int itemid) {
 }
 void Server::sendBounsPool()
 {
-	char* Params = "{}";
+	char* Params = "{client send msg}";
 	pc_request_with_timeout(workingClient, REQ_ROUTE_BOUNSPOOL, Params, REQ_BOUNSPOOL_EX, REQ_TIMEOUT, bounsPool_cb);
 }
 void Server::sendBankruptRebirth()
@@ -95,9 +105,7 @@ void Server::reqTurrentLevelUpdate() {
 
 
 
-void Server::conConnect(const char* host, int port, const char* session_id,int room_id) {
-    username = session_id;
-	_room_id = room_id;
+void Server::conConnect(const char* host, int port) {
     pc_lib_init(NULL, NULL, NULL, NULL);
     workingClient = (pc_client_t*)malloc(pc_client_size());
     pc_client_init(workingClient, (void*)0x11, NULL);
@@ -167,36 +175,6 @@ void Server::sendCheckPayresult(std::string order_id,int paythirdtype)
 void Server::Paysult_cb(const pc_request_t* req, int rc, const char* resp)
 {
 	log("payresult: get resp %s\n", resp);
-	/*DemandOrderValue* value = new DemandOrderValue();
-	while (1)
-	{
-	rapidjson::Document doc;
-	doc.Parse<rapidjson::kParseDefaultFlags>(resp);
-	if (doc.HasParseError())
-	{
-	return;
-	}
-	int result = doc["errorcode"].GetInt();
-	value->_errorcode = result;
-	value->_errormsg = doc["errormsg"].GetString();
-	if (result == 0)
-	{
-	value->realprice = doc["realprice"].GetInt();
-	auto &temp = doc["reward_lists"];
-	for (unsigned int i = 0; i < temp.Size(); i++)
-	{
-	value->rewards.push_back(RewardValue(temp[i]["item_id"].GetInt(), temp[i]["nums"].GetInt()));
-	}
-	}
-	else
-	{
-
-	}
-	break;
-	}
-	EventCustom event("DemandEntry");
-	event.setUserData(value);
-	Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);*/
 	Server::getInstance()->notify_observer("payresult", resp);
 	
 }
@@ -212,7 +190,7 @@ void Server::remove_observer(MsgObserver *o) {
     }
 }
 
-void Server::notify_observer(const char* msgId, const char* msgBody) {
+void Server::notify_observer(EnumRequestID request, const char* msgBody) {
     // TODO : MsgId
     // 0 : 'conError' - connect error
     // 1 : 'init' - client defined info ...
@@ -223,8 +201,11 @@ void Server::notify_observer(const char* msgId, const char* msgBody) {
     // 6 : 'expUpdate' - user exp update
 	// 7 : 'useSkill' - user skill
     for(std::vector<MsgObserver*>::const_iterator it=msgObserver.begin(); it!=msgObserver.end(); it++) {
-        (*it)->handle_event(msgId, msgBody);
+		(*it)->handle_event(request, msgBody);
     }
 }
 
+void Server::notify_observer(const char* request, const char* msgBody) {
+	
+}
 

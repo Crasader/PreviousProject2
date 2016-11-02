@@ -17,17 +17,17 @@ Vec2 MahjongDrawer::cardTablePos[4] =
 Vec2 MahjongDrawer::cardSidePos[4] = 
 {
 	Vec2(150 * 1.6, 100 *1.5),
-	Vec2(750 * 1.6, 120 *1.5),
+	Vec2(1000, 120 *1.5),
 	Vec2(320 * 1.6, 400 *1.5),
 	Vec2(150 * 1.6, 320 *1.5),
 };
 
 Vec2 MahjongDrawer::cardOutHandDis[4] =
 {
-	Vec2(23.5 * 1.6, -26 *1.3),
-	Vec2(28 * 1.6, 25 *1.3),
-	Vec2(-23.5 * 1.6, 26 *1.3),
-	Vec2(-28 * 1.6, -25*1.3),
+	Vec2(21 * 1.6, -26 *1.3),
+	Vec2(27 * 1.6, 25 *1.3),
+	Vec2(-21 * 1.6, 26 *1.3),
+	Vec2(-27 * 1.6, -25*1.3),
 };
 
 Vec2 MahjongDrawer::cardPickDis[4] =
@@ -93,7 +93,7 @@ void MahjongDrawer::setDrawer(PLAYER dir)
 			cardHandPos[i] = Vec2(698*1.6, 162*1.5 + i * 24*1.5);
 		}
 		cardBigCard[dir] = cardHandPos[2] + Vec2(-48.0f, .0f);
-		cardSidePos[dir] = cardHandPos[0] + Vec2(.0f, 720.0f);
+		cardSidePos[dir] = cardHandPos[0] + Vec2(.0f, 72.0f);
 
 		break;
 
@@ -305,15 +305,14 @@ void MahjongDrawer::drawPengCard(int type, int pickDir)
 	int difDir = dir - pickDir;
 	difDir = difDir < 0 ?  difDir + 4: difDir;
 	difDir = difDir >3 ? difDir - 4 : difDir;
-
 	//difDir  1:left  2:mid 3:right
 	Vec2 dis2[3];
 	switch (dir)
 	{
 	case PLAYER_0:
-		dis2[0] = Vec2(43*1.6, .0f);
-		dis2[1] = Vec2(47*1.6, .0f);
-		dis2[2] = Vec2(20*1.5, -40*1.5);
+		dis2[0] = Vec2(50, .0f);
+		dis2[1] = Vec2(57, .0f);
+		dis2[2] = Vec2(30, -42);
 		break;
 	case PLAYER_1:
 		dis2[0] = Vec2(.0f, cardOutHandDis[dir].y);
@@ -321,9 +320,9 @@ void MahjongDrawer::drawPengCard(int type, int pickDir)
 		dis2[2] = Vec2(30*1.6, 14*1.5);
 		break;
 	case PLAYER_2:
-		dis2[0] = Vec2(cardOutHandDis[dir].x - 4.8, .0f);
-		dis2[1] = Vec2(cardOutHandDis[dir].x*1.1 - 1.1*3*1.6, .0f);
-		dis2[2] = Vec2((cardOutHandDis[dir].x - 3)/2.0, 30*1.5);
+		dis2[0] = Vec2(cardOutHandDis[dir].x , .0f);
+		dis2[1] = Vec2(cardOutHandDis[dir].x*1.1 - 1.1*4, .0f);
+		dis2[2] = Vec2((cardOutHandDis[dir].x - 3)/2.0, 36);
 		break;
 	case PLAYER_3:
 		dis2[0] = Vec2(.0f, cardOutHandDis[dir].y);
@@ -631,16 +630,16 @@ void MahjongDrawer::showCards()
 	switch (get_dir())
 	{
 	case PLAYER_0:
-		dis = Vec2(32*1.6, .0f);
+		dis = Vec2(46, .0f);
 		break;
 	case PLAYER_1:
-		dis = Vec2(.0f, 32*1.5);
+		dis = Vec2(.0f, 42);
 		break;
 	case PLAYER_2:
-		dis = Vec2(-32*1.6, .0f);
+		dis = Vec2(-46, .0f);
 		break;
 	case PLAYER_3:
-		dis = Vec2(.0f, -32*1.5);
+		dis = Vec2(.0f, -42);
 		break;
 	case PLAYER_NULL:
 		break;
