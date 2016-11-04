@@ -74,7 +74,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\extend\server_sdk\include\uv\include;..\extend\server_sdk\include\openssl\openssl\include;..\extend\server_sdk\include;$(SolutionDir)cocos2d\external\win32-specific\icon\include;$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes\server\pomelo\src\tr\uv;..\Classes\server\pomelo\include;..\Classes\server\pomelo\src;..\Classes;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\extend\server_sdk\include\uv\include;..\extend\server_sdk\include\openssl\openssl\include;..\extend\server_sdk\include;$(SolutionDir)cocos2d\external\win32-specific\icon\include;$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;..\Classes\server\pomelo\src\tr\uv;..\Classes\server\pomelo\include;..\Classes\server\pomelo\src;..\Classes;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END);$(EngineRoot)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -190,6 +190,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\Toast.cpp" />
     <ClCompile Include="..\Classes\ToolTipMannger.cpp" />
     <ClCompile Include="..\Classes\TwiceSureDialog.cpp" />
+    <ClCompile Include="..\Classes\ui\base\BaseDialog.cpp" />
+    <ClCompile Include="..\Classes\ui\setting\GameFeedDialog.cpp" />
+    <ClCompile Include="..\Classes\ui\setting\GameRuleDialog.cpp" />
+    <ClCompile Include="..\Classes\ui\setting\UserSetting.cpp" />
     <ClCompile Include="..\Classes\User.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -249,6 +253,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Toast.h" />
     <ClInclude Include="..\Classes\ToolTipMannger.h" />
     <ClInclude Include="..\Classes\TwiceSureDialog.h" />
+    <ClInclude Include="..\Classes\ui\base\BaseDialog.h" />
+    <ClInclude Include="..\Classes\ui\setting\GameFeedDialog.hpp" />
+    <ClInclude Include="..\Classes\ui\setting\GameRuleDialog.hpp" />
+    <ClInclude Include="..\Classes\ui\setting\UserSetting.h" />
     <ClInclude Include="..\Classes\User.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

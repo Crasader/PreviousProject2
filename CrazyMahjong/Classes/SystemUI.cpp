@@ -112,7 +112,7 @@ void SystemUI::onGameBtnCallBack(Ref* pSender)
 void SystemUI::onSetBtnCallBack(Ref* pSender)
 {
 	MahjongAnim::getInstance()->playSound(SOUND::BUTTONDOWN);
-	setPanel = SetPanel::create();
+	setPanel = UserSetting::create();
 	getParent()->addChild(setPanel,50);
 	CCLOG("Set!");
 }

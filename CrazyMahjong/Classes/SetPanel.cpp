@@ -41,6 +41,7 @@ bool SetPanel::init()
 	slider->loadSlidBallTextures("SetSound/Block_0.png", "SetSound/Block_1.png");
 	slider->addEventListenerSlider(this, sliderpercentchangedselector(SetPanel::slderEvent));
 
+
 	this->addChild(slider);
 	slider->setPosition(Vec2(45.0f, 30));
 

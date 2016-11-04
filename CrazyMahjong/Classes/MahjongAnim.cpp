@@ -267,7 +267,7 @@ bool MahjongAnim::initPlayPengGangFrames()
 	framePengGang->setVisible(false);
 	this->addChild(framePengGang);
 	// debug
-	//playGangAnim (1, Vec2(300.0f, 300.0f));
+	/*playPengAnim (1, Vec2(300.0f, 300.0f));*/
 	return true;
 }
 bool MahjongAnim::initWordPengGangAnim()
@@ -317,7 +317,7 @@ void MahjongAnim::playPlayAnim(int type, Vec2 pos)
 //--------------碰
 void MahjongAnim::playPengAnim(int type, Vec2 pos)
 {
-	framePengGang->setScale(1.5f);
+	
 	framePengGang->setTexture("MJAnim/PlayCard/CardFrame_1.png");
 	framePengGang->getChildByTag(3)->setVisible(false);
 	for (int index = 0; index < 3; ++index)
@@ -326,9 +326,10 @@ void MahjongAnim::playPengAnim(int type, Vec2 pos)
 		/*pengGangCard->setPositionX( (index-0.5) * framePengGang->getContentSize().width/3);
 		pengGangCard->setPositionY(framePengGang->getContentSize().height / 2);*/
 		/*pengGangCard->setPosition(30 + (index + 0.5) * 147.0f / 3, 85);*/
-		pengGangCard->setPositionX(38.0f +30+ index * 33.0f);
+		pengGangCard->setPositionX(38.0f+index * 28.0f);
 		pengGangCard->changeCard(type);
 	}
+	framePengGang->setScale(1.5f);
 	framePengGang->setPosition(pos);
 	framePengGang->setVisible(true);
 	framePengGang->runAction(Sequence::create(DelayTime::create(1.0f), ScaleTo::create(.15f, .0f), Hide::create(), NULL));
@@ -375,7 +376,7 @@ void MahjongAnim::playWordPengAnim(Vec2 pos)
 //--------------杠
 void MahjongAnim::playGangAnim(int type, Vec2 pos)
 {
-	framePengGang->setScale(1.5f);
+	
 	framePengGang->setTexture("MJAnim/PlayCard/CardFrame_2.png");
 	framePengGang->getChildByTag(3)->setVisible(true);
 	for (int index = 0; index < 4; ++index)
@@ -384,6 +385,7 @@ void MahjongAnim::playGangAnim(int type, Vec2 pos)
 		card->setPositionX(41.0f + index * 29.0f);
 		card->changeCard(type);
 	}
+	framePengGang->setScale(1.5f);
 	framePengGang->setPosition(pos);
 	framePengGang->setVisible(true);
 	framePengGang->runAction(Sequence::create(DelayTime::create(3.0f), ScaleTo::create(.15f, .0f), Hide::create(), NULL));

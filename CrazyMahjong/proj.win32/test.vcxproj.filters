@@ -31,6 +31,12 @@
     <Filter Include="src\server">
       <UniqueIdentifier>{9c6c8c2a-1246-4393-ac45-3e1f9857529a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameScene\UI\setting">
+      <UniqueIdentifier>{96ff936d-ee9a-4a33-a564-666b994a99a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GameScene\UI\base">
+      <UniqueIdentifier>{6463d3f6-3d76-4cee-94a2-7b5d86b060ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -194,6 +200,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\server\Server.cpp">
       <Filter>src\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui\setting\UserSetting.cpp">
+      <Filter>src\GameScene\UI\setting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui\base\BaseDialog.cpp">
+      <Filter>src\GameScene\UI\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui\setting\GameRuleDialog.cpp">
+      <Filter>src\GameScene\UI\setting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui\setting\GameFeedDialog.cpp">
+      <Filter>src\GameScene\UI\setting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +385,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\server\Server.h">
       <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\setting\UserSetting.h">
+      <Filter>src\GameScene\UI\setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\base\BaseDialog.h">
+      <Filter>src\GameScene\UI\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\setting\GameRuleDialog.hpp">
+      <Filter>src\GameScene\UI\setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\setting\GameFeedDialog.hpp">
+      <Filter>src\GameScene\UI\setting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@
 USING_NS_CC;
 
 #include "SetPanel.h"
-
+#include "ui/setting/UserSetting.h"
 class SystemUI : public Node
 {
 public:
@@ -37,6 +37,6 @@ private:
 	void OnActive();
 	void showdiog(float dt);
 
-	SetPanel* setPanel = nullptr;
+	UserSetting* setPanel = nullptr;
 };
 #endif

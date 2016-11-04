@@ -8,11 +8,11 @@ bool RulePanel::init()
 	this->setVisible(false);
 	
 
-	LayerColor* layerColor = CCLayerColor::create();
-	layerColor->setColor(ccc3(0, 0, 0));
-	layerColor->setOpacity(180);
-	layerColor->setContentSize(CCSizeMake(800, 480));
-	this->addChild(layerColor,-2);
+	//LayerColor* layerColor = CCLayerColor::create();
+	//layerColor->setColor(ccc3(0, 0, 0));
+	//layerColor->setOpacity(180);
+	//layerColor->setContentSize(CCSizeMake(800, 480));
+	//this->addChild(layerColor,-2);
 	auto visibisize = Director::getInstance()->getVisibleSize();
 	Sprite* frame = Sprite::create("Rule/Rule_Bottom.png");
 	frame->setPosition(visibisize / 2);

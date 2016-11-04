@@ -16,7 +16,7 @@ Vec2 MahjongDrawer::cardTablePos[4] =
 
 Vec2 MahjongDrawer::cardSidePos[4] = 
 {
-	Vec2(150 * 1.6, 100 *1.5),
+	Vec2(150 * 1.6, 100),
 	Vec2(1000, 120 *1.5),
 	Vec2(320 * 1.6, 400 *1.5),
 	Vec2(150 * 1.6, 320 *1.5),
@@ -312,7 +312,7 @@ void MahjongDrawer::drawPengCard(int type, int pickDir)
 	case PLAYER_0:
 		dis2[0] = Vec2(50, .0f);
 		dis2[1] = Vec2(57, .0f);
-		dis2[2] = Vec2(30, -42);
+		dis2[2] = Vec2(25, -50);
 		break;
 	case PLAYER_1:
 		dis2[0] = Vec2(.0f, cardOutHandDis[dir].y);
@@ -357,6 +357,7 @@ void MahjongDrawer::drawPengCard(int type, int pickDir)
 			}
 			else
 			{
+
 				startPos -= (dis2[0]);
 			}
 			break;

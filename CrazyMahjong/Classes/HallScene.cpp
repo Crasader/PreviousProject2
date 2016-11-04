@@ -18,6 +18,7 @@
 #include "ToolTipMannger.h"
 #include "RedpackPanel.h"
 #include "Audio.h"
+#include "ui/setting/UserSetting.h"
 Scene* HallScene::createScene()
 {
 	Scene* scene = Scene::create();
@@ -323,7 +324,7 @@ void HallScene::BtnCallback(Ref*psend, TouchEventType type)
 		{
 		
 			CCLOG("BtnSetting is Click!");
-			auto panel = SetPanel::create();
+			auto panel = UserSetting::create();
 			addChild(panel, 30);
 		}
 		if (btName == "BtnHelp")
