@@ -1,0 +1,11 @@
+# ignore bin folder
+bin/
+
+#ignore debug folder
+debug/
+
+#ignore .DS_Store file
+.DS_Store
+out/buffett-0.jar
+
+out/buffett-1.jar

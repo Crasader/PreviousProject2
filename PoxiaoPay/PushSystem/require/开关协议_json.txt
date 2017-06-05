@@ -1,0 +1,29 @@
+﻿完整的协议如下：
+{
+	"switch":"0",          --开关状态。0表示允许push，1表示不允许。
+	"download_list_version":"5",
+    "download_list": [
+    	{
+            "gameid"		: "74",					-- 游戏id，每个游戏唯一
+            "gameversion"	: "12",					-- 游戏版本号
+		    "url"			:"http://211.154.",   	-- 直接下载地址
+		    "url_web" 		: "http:www.www.ww.",	-- 浏览器下载地址
+		    "packagename" 	: "com.xx.xx",			-- 游戏包名
+		    "n_title" 		: "通知栏标题",			-- 通知栏标题
+		    "n_content" 	: "通知栏内容"				-- 通知栏内容
+        },
+		{
+            "gameid"		: "74",					-- 游戏id，每个游戏唯一
+            "gameversion"	: "12",					-- 游戏版本号
+		    "url"			:"http://211.154.",   	-- 直接下载地址
+		    "url_web" 		: "http:www.www.ww.",	-- 浏览器下载地址
+		    "packagename" 	: "com.xx.xx",			-- 游戏包名
+		    "n_title" 		: "通知栏标题",			-- 通知栏标题
+		    "n_content" 	: "通知栏内容"				-- 通知栏内容
+        }	
+	]	
+}
+如果本地push列表版本号大于或者等于当前推送版本号，则返回：
+{
+	"switch":"0"        --开关状态。0表示允许push，1表示不允许。
+}

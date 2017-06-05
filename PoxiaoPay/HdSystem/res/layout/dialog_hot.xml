@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/hot_dialog_bg" />
+
+<!--     <ImageButton -->
+<!--         android:id="@+id/dialog_phone" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_alignRight="@+id/hotdialog_commit" -->
+<!--         android:layout_centerVertical="true" -->
+<!--         android:background="@drawable/hot_dialog_phone" /> -->
+
+    <ImageButton
+        android:id="@+id/hotdialog_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/hotdialog_text"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_marginBottom="19dp"
+        android:background="@drawable/hot_dialog_cancel" />
+
+    <EditText
+        android:id="@+id/hotdialog_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/imageView2"
+        android:background="@drawable/hot_dialog_text"
+        android:ems="10"
+        android:text="请输入手机号码"
+        android:textColor="@color/black"
+        android:textSize="10sp" />
+
+    <ImageButton
+        android:id="@+id/hotdialog_commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp"
+        android:background="@drawable/hot_dialog_commit" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/hotdialog_text"
+        android:layout_toLeftOf="@+id/hotdialog_commit"
+        android:src="@drawable/hot_dialog_number" />
+
+</RelativeLayout>

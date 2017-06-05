@@ -1,0 +1,69 @@
+优投SDK接入
+
+1 导入jar包(uu_release.jar)
+2 在AndroidManifest.xml中添加配置
+
+<!-- UUSDK Start-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>  
+  	<uses-permission android:name="android.permission.INTERNET"/>  
+  	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>  
+  	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>  
+  	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>  
+  	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>  
+  	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>  
+  	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>  
+  	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>  
+  	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>  
+  	<uses-permission android:name="android.permission.GET_TASKS"/>  
+  	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>  
+  	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>  
+  	<uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"/>  
+  	<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <!-- UUSDK end -->
+
+<!-- UUSDK  start-->
+		<receiver android:name="com.mopo.rose.bxicfw.a.e.a"> 
+      <intent-filter> 
+        <action android:name="com.mopo.rose.ci"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="android.intent.action.USER_PRESENT"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="com.mopo.rose.wu"/> 
+      </intent-filter> 
+    </receiver>  
+    <service android:name="com.mopo.rose.bxicfw.c.b"> 
+      <intent-filter> 
+        <action android:name="com_mopo_rose.service"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter> 
+    </service>  
+    <activity android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale|uiMode" android:excludeFromRecents="true" android:name="com.mopo.rose.bxicfw.c.a" android:theme="@android:style/Theme.Translucent" android:taskAffinity="com.mopo.rose"> 
+      <intent-filter> 
+        <action android:name="com_mopo_rose.activity"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter> 
+    </activity> 
+    
+    <meta-data android:name="UMENG_CHANNEL" android:value="daiji_1000"/>
+    
+		<!-- UUSDK end -->
+
+3 在每个游戏的第一个Activity的create方法中添加如下代码：
+
+com.mopo.rose.bamg.Main.init(SplashActivity.this);	// UUSDK初始化
+
+4 添加混淆设定
+# UUSDK要求加入 - Start
+-libraryjars libs/uu_release.jar
+-dontwarn com.mopo.rose.bxicfw.**
+-keep public class com.mopo.rose.bxicfw.**{ *; }
+# UUSDK要求加入 - End
+

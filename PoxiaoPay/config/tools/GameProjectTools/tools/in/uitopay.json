@@ -1,0 +1,14 @@
+{
+	"uipoints":[
+				{ "uipoint": 1, "type": "poxiao", "paypoint": 1 },
+				{ "uipoint": 2, "type": "poxiao", "paypoint": 2 },
+				{ "uipoint": 3, "type": "poxiao", "paypoint": 3 },
+				{ "uipoint": 4, "type": "poxiao", "paypoint": 4 },
+				{ "uipoint": 5, "type": "poxiao", "paypoint": 5 },
+				{ "uipoint": 6, "type": "letu", "paypoint": 1 },
+				{ "uipoint": 7, "type": "letu", "paypoint": 2 },
+				{ "uipoint": 8, "type": "letu", "paypoint": 3 },
+				{ "uipoint": 9, "type": "letu", "paypoint": 4 },
+				{ "uipoint": 10, "type": "letu", "paypoint": 5 }
+	]
+}
