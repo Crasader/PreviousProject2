@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<config>
+
+   <!--  config 1
+   <defineID id="custom.channelid.get" type="text" valtype="var"> 
+       	 <location action="get">    
+       	        <file>./assets/ZYF_ChannelID</file>
+                <type>line</type>
+       	 </location>   
+    </defineID>
+   -->
+    
+    <defineID id="custom.channelid.get" type="xml" valtype="var"> 
+
+       	 <location action="get-value">    
+       	    <file>AndroidManifest.xml</file>
+       	    <elm>/manifest/application/meta-data</elm>
+       	    <attr>android:value</attr>
+       	    <cond_attr value="UMENG_CHANNEL">android:name</cond_attr>      
+       	 </location>   
+    </defineID>
+
+      
+
+    <modify id="modify-sign">
+    </modify>
+
+    <modify id="modify-sign-auto">
+        <item id="custom.channelid.get" error="ignore">$sys.var.sign.custom.info$</item>
+    </modify>
+
+
+    
+
+
+    <var name="sys.var.sign.custom.info">0</var>
+
+    
+    <def>modify-sign</def>
+
+
+
+    
+    
+</config>

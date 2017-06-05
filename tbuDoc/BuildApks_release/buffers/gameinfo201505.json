@@ -1,0 +1,8 @@
+{
+	"gameinfo":[{"avos_app_id": "xv6o1oiBI80XzOWItlt77wz8", "avos_app_key": "o39tDjqrD3f7Mucj9MCWNNBc", "output_name": "kxxx", "game_show_version": "1.1.0", "package_name_no_push": "com.no.kxxx", "screen_orientation": 0, "success_setting": 1, "avos_master_key": "ON5TkNUVKa8pgaSj93fvN3Rr", "show_app_name": "\u5f00\u5fc3\u6d88\u6d882015", "tbu_id": 201505, "package_name_push": "com.yeskx.xx", "id": 5, "game_version": 1}],
+	"poxiao":[{"game_id": 9958, "id": 6, "tbu_id": 201505}],
+	"zhimeng":[{"app_id": 7011461, "id": 7, "tbu_id": 201505}],
+	"letu":[{"show_ui_key": "8efadacd613663193cefc5b6040b4586", "app_id": 3030020, "id": 11, "package_name": "com.yeskx.xx", "tbu_id": 201505}, {"show_ui_key": "0318a4cd5510ce613165d3c372273b8e", "app_id": 3030020, "id": 12, "package_name": "com.no.kxxx", "tbu_id": 201505}, {"show_ui_key": "93fa883dcddcbef0a07f24fa8e6f2b61", "app_id": 3030020, "id": 41, "package_name": "com.ymkx.xx", "tbu_id": 201505}, {"show_ui_key": "1e975313385f43d9b2c66b84f62e515f", "app_id": 3030020, "id": 42, "package_name": "com.cb.kxxx", "tbu_id": 201505}, {"show_ui_key": "418f835ab7ad9f49835d9c3ede8b7e91", "app_id": 3030020, "id": 43, "package_name": "com.kxxx.doboc", "tbu_id": 201505}, {"show_ui_key": "42448311008652c2541509ec95274863", "app_id": 3030020, "id": 44, "package_name": "com.gskxx.x", "tbu_id": 201505}, {"show_ui_key": "03b88d15c745811343e3a4c038c3c25b", "app_id": 3030020, "id": 45, "package_name": "com.ali.yunkxxx", "tbu_id": 201505}],
+	"zhang":[],
+	"uucpay":[]
+}

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<config>
+    
+    <tool>
+        <vm_xmx>1024</vm_xmx>
+    </tool>
+    
+    <defineID id="sys.app.pkg" type="xml" valtype="string">
+       	 <location action="modify-value">
+       	    <file>AndroidManifest.xml</file>
+       	    <elm>/manifest</elm>
+       	    <attr>package</attr>
+       	 </location>  
+    </defineID>
+    
+    <defineID id="sys.app.comp.pkg" type="xml" valtype="pairs">  
+       	 <location action="modify-value">
+       	    <file>AndroidManifest.xml</file>
+       	    <elm>/manifest/application</elm>
+       	    <attr>android:name</attr>
+       	 </location>  
+       	 <location action="modify-value">
+       	    <file>AndroidManifest.xml</file>
+       	    <elm>/manifest/application/activity</elm>
+       	    <attr>android:name</attr>
+       	 </location> 
+       	 <location action="modify-value">
+       	    <file>AndroidManifest.xml</file>
+       	    <elm>/manifest/application/receiver</elm>
+       	    <attr>android:name</attr>
+       	 </location> 
+       	 <location action="modify-value">
+       	    <file>AndroidManifest.xml</file>
+       	    <elm>/manifest/application/service</elm>
+       	    <attr>android:name</attr>
+       	 </location> 
+    </defineID>
+        
+    <defineID id="sys.app.name" type="xml" valtype="string">
+       	 <location action="modify-value">
+       	    <file>res/values/strings.xml</file>
+       	    <elm>/resources/string[@name='app_name']</elm>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.app.ver.name" type="yaml" valtype="version">
+        <location action="modify-value">
+            <file>apktool.yml</file>
+       	    <elm type="map">versionInfo:versionName</elm>
+        </location>
+    </defineID>
+    
+    <defineID id="sys.app.ver.code" type="yaml" valtype="int">
+        <location action="modify-value">
+            <file>apktool.yml</file>
+       	    <elm type="map">versionInfo:versionCode</elm>
+        </location>
+    </defineID>
+    
+        
+    <defineID id="sys.res.pic" type="dir" valtype="string">
+       	 <location action="add">
+ 			<path>res/drawable</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.res.pic.mdpi" type="dir" valtype="string">
+       	 <location action="add">
+ 			<path>res/drawable-mdpi</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.res.pic.hdpi" type="dir" valtype="string">
+       	 <location action="add">
+ 			<path>res/drawable-hdpi</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.res.pic.ldpi" type="dir" valtype="string">
+       	 <location action="add">
+ 			<path>res/drawable-ldpi</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.res.pic.xdpi" type="dir" valtype="string">
+       	 <location action="add">
+ 			<path>res/drawable-xdpi</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.res.pic.del" type="dir" valtype="list">
+       	 <location action="del">
+ 			<path>res/drawable</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.res.pic.del.mdpi" type="dir" valtype="list">
+       	 <location action="del">
+ 			<path>res/drawable-mdpi</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.res.pic.del.hdpi" type="dir" valtype="list">
+       	 <location action="del">
+ 			<path>res/drawable-hdpi</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.res.pic.del.ldpi" type="dir" valtype="list">
+       	 <location action="del">
+ 			<path>res/drawable-ldpi</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.res.pic.del.xdpi" type="dir" valtype="list">
+       	 <location action="del">
+ 			<path>res/drawable-xdpi</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.res.item.anim.clean" type="resitem"  valtype="string">
+        <location action="clean">
+            <restype>anim</restype>
+        </location>
+    </defineID>
+    
+     <defineID id="sys.res.item.pic.clean" type="resitem"  valtype="string">
+        <location action="clean">
+            <restype>drawable</restype>
+        </location>
+    </defineID>
+    
+     <defineID id="sys.res.item.layout.clean" type="resitem"  valtype="string">
+        <location action="clean">
+            <restype>layout</restype>
+        </location>
+    </defineID>
+    
+    <defineID id="sys.data.assets" type="dir" valtype="string">
+       	 <location action="add">
+ 			<path>assets</path>
+       	 </location>   
+    </defineID>
+    
+    <defineID id="sys.jar.add" type="jar" valtype="string">
+        <location action="add-jar" /> 
+    </defineID>
+
+    <defineID id="sys.jar.remove.pkg" type="jar" valtype="list">
+        <location action="remove-pkg" /> 
+    </defineID>
+    
+    <defineID id="sys.jar.remove.cls" type="jar" valtype="list">
+        <location action="remove-cls" /> 
+    </defineID>
+    
+    <defineID id="sys.class.pkg" type="jar" valtype="pairs">
+        <location action="modify-pkg" /> 
+    </defineID>
+    
+    <defineID id="sys.class.super" type="jar"  valtype="pairs">
+        <location action="modify-super" /> 
+    </defineID>
+    
+   	<defineID id="sys.class.cp.pkg" type="jar" valtype="pairs">
+   	    <location action="modify-cp-pkg" />
+   	</defineID>
+
+    <defineID id="sys.class.cp.str" type="jar" valtype="pairs">
+        <location action="modify-cp-str" />
+    </defineID>
+
+    <defineID id="sys.class.cp.name" type="jar" valtype="pairs">
+        <location action="modify-cp-class" />
+    </defineID>
+        
+   
+</config>

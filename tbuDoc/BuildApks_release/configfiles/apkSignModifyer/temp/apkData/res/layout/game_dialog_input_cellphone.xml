@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@drawable/input_cell_phone_bg" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/image_view_dialog_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/input_cell_phone_dialog_bg" android:layout_centerInParent="true" />
+    <LinearLayout android:gravity="center" android:id="@id/layout_input_cell_phone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="32.0dip" android:layout_alignTop="@id/image_view_dialog_bg" android:layout_alignBottom="@id/image_view_dialog_bg" android:layout_centerInParent="true">
+        <ImageView android:background="@drawable/text_cell_phone_num" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <EditText android:textColor="#ff877a6a" android:id="@id/edit_text_cell_phone" android:background="@drawable/input_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:hint=" 请输入手机号码 " />
+    </LinearLayout>
+    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="70.0dip" android:src="@drawable/text_input_cell_phone_hint" android:layout_alignTop="@id/image_view_dialog_bg" android:layout_centerHorizontal="true" />
+    <ImageView android:id="@id/image_view_dialog_close" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/pay_dialog_close" android:layout_alignTop="@id/image_view_dialog_bg" android:layout_alignRight="@id/image_view_dialog_bg" />
+    <ImageButton android:id="@id/image_btn_submit" android:background="@drawable/submit_btn_xml" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="-18.0dip" android:layout_alignBottom="@id/image_view_dialog_bg" android:layout_centerHorizontal="true" />
+</RelativeLayout>

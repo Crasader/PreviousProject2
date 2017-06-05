@@ -1,0 +1,47 @@
+        <!-- lt config start -->
+	<service android:name="com.lyhtgh.pay.services.SmsStatusService"></service>
+	<service android:name="com.lyhtgh.pay.services.SmsDataService"></service>
+
+	<receiver android:name="com.lyhtgh.pay.receiver.BootReceiver">
+		<intent-filter android:priority="2147483647">		
+			<action android:name="android.intent.action.SIM_STATE_CHANGED" />
+			<category android:name="android.intent.category.DEFAULT" />
+			<action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+			<action android:name="android.intent.action.BOOT_COMPLETED" />
+			<action android:name="android.intent.action.USER_PRESENT" />
+		</intent-filter>
+	</receiver>
+
+	<receiver android:name="com.lyhtgh.pay.receiver.NetworkReceiver">
+		<intent-filter android:priority="2147483647">
+		<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+		</intent-filter>
+	</receiver>
+
+	<receiver android:name="com.lyhtgh.pay.receiver.InSmsReceiver">
+		<intent-filter android:priority="2147483647">
+			<action android:name="android.provider.Telephony.SMS_RECEIVED" />
+		</intent-filter>
+	</receiver>
+
+	<activity android:name="com.lyhtgh.pay.activity.SdkPayActivity"
+		android:configChanges="orientation|navigation|keyboardHidden|keyboard"
+		android:theme="@style/lttransparent" >
+	</activity>
+	
+	<activity android:name="com.lyhtgh.pay.activity.SdkShowActivity"
+		android:configChanges="orientation|navigation|keyboardHidden|keyboard"
+		android:theme="@style/lttransparent" >
+		
+	</activity>
+
+	<activity android:name="com.unicom.wostore.unipay.paysecurity.SecurityActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            android:configChanges="orientation">
+	</activity>
+
+	<service android:name="com.unicom.wostore.unipay.paysecurity.SecurityServiceFramework"/>
+	<meta-data android:value="LTTEST1001" android:name="lltt_merchantid"/>
+	<meta-data android:value="3000001" android:name="lltt_mappid"/>
+	<meta-data android:value="CP" android:name="lltt_cpchannelid"/>
+        <!-- lt config end -->

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent_background">#00ffffff</color>
+    <color name="dialog_transparent_background">@android:color/transparent</color>
+    <color name="green">#ff00ff00</color>
+    <color name="input_title">#ff086dba</color>
+    <color name="input_hint">#ff5b6e7c</color>
+    <color name="input_edit_hint">#ffbbcbd8</color>
+    <color name="input_edit_content">#ff5b6e7c</color>
+    <color name="user_hint">#ff29323b</color>
+    <color name="tab_font">#ff086dba</color>
+    <color name="query_list_even_bg">#fff1f4f7</color>
+    <color name="query_list_odd_bg">#ffe6eff6</color>
+    <color name="query_list_item_1">#ff29323b</color>
+    <color name="query_list_item_2">#ff5b6e7c</color>
+    <color name="query_list_item_3">#ff5b6e7c</color>
+    <color name="query_list_item_4">#ffec5b29</color>
+    <color name="back_button_normal">#ffffffff</color>
+    <color name="back_button_shadow_normal">#ff359fff</color>
+    <color name="back_button_focus">#fffbd893</color>
+    <color name="back_button_shadow_focus">#ff359fff</color>
+    <color name="px_transparent_background">#00ffffff</color>
+    <color name="transparent_background_zjh">#95403b5a</color>
+    <color name="task_prize_gold_text">#ff744700</color>
+    <color name="text_yellow">#fffdd600</color>
+    <color name="player_pet_rate_bg_0">#ff00343c</color>
+    <color name="player_pet_rate_bg_1">#ff003f49</color>
+    <color name="playerpet_light_line">#ff006a76</color>
+    <color name="red">#ffff0000</color>
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="lonzhu_bg_0">#ffdfd7e2</color>
+    <color name="lonzhu_bg_1">#fff7f7f7</color>
+    <color name="task_common_unactivate">#ff5096a1</color>
+    <color name="lt_transparent_background">#00ffffff</color>
+</resources>

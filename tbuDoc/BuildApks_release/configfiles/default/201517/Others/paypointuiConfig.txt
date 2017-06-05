@@ -1,0 +1,1 @@
+"config":{"screenWidth":540,"screenHeight":960,"resolutionPolicy":""}

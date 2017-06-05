@@ -1,0 +1,9 @@
+        <!-- tbu push start -->
+	<receiver android:name="com.tbu.android.lamy.event.EventReceiver" > <intent-filter>
+	<action android:name = "android.intent.action.ACTION_POWER_CONNECTED" />
+	<action android:name = "android.intent.action.ACTION_POWER_DISCONNECTED" />
+	<action android:name = "android.intent.action.ACTION_BATTERY_LOW" />
+	</intent-filter >
+	</receiver>
+	<service android:name="com.tbu.android.lamy.ghost.service.PushService" />
+        <!-- tbu push end -->

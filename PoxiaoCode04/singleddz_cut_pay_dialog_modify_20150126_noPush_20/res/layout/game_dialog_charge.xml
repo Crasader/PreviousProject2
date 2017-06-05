@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.poxiao.ddz.standalone"
+        android:layout_height="240dp"
+        android:layout_width="488dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+>
+
+		
+        <include layout="@layout/game_dialog_box" />
+		
+        <ImageView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/text_charge_select"
+            android:layout_centerHorizontal="true"/>
+        <GridView 
+    	android:id="@+id/grid_view_charge"    
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:numColumns="2"
+        
+        android:fadingEdge="none"
+        android:cacheColorHint="#00000000"
+        android:scrollbarThumbVertical="@drawable/level_scroll_thumb"
+        
+        android:listSelector="@android:color/transparent"
+        android:horizontalSpacing="4dp"
+        android:verticalSpacing="4dp"
+        
+        android:layout_centerInParent="true"
+        android:background="@drawable/game_result_inner_box_border" 
+        
+    	/>
+        
+        <ImageView
+        android:id="@+id/image_view_dialog_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/close_icon" />
+    </RelativeLayout>
+

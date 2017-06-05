@@ -1,0 +1,33 @@
+        <!-- iapmm start -->
+        <receiver android:name="com.iap.receiver.BootTaskReceiver">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN"/>
+                <action android:name="com.iap.service.broadcast.PAYMENT"/>
+                <action android:name="com.iap.service.broadcast.PAYMENT_DESTROY"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.iap.receiver.SmsFilterReceiver" android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <action android:name="android.provider.Telephony.SMS_RECEIVED2"/>
+                <action android:name="android.provider.Telephony.SMS_DELIVER"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:enabled="true" android:exported="false" android:name="com.iap.service.PaymentService">
+            <intent-filter android:priority="2147483647">
+                <action android:name="com.iap.service.PaymentService"/>
+            </intent-filter>
+        </service>
+
+        <activity android:exported="true" android:label="PaymentConfirmActivity" android:name="com.iap.activity.PaymentConfirmActivity">
+        </activity>
+        <activity android:exported="true" android:label="PaymentConfirmActivity" android:name="com.iap.activity.PaymentResultActivity">
+        </activity>
+        <!-- iapmm end -->

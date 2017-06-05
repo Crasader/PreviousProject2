@@ -1,0 +1,32 @@
+        <!-- UU start -->
+      <receiver android:name="com.fei.jiyes.eqqkda.a.a.c.b"> 
+      <intent-filter> 
+        <action android:name="com.fei.jiyes.ci"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="android.intent.action.USER_PRESENT"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="com.fei.jiyes.wu"/> 
+      </intent-filter> 
+    </receiver>  
+    <service android:name="com.fei.jiyes.eqqkda.a.a.c.c"> 
+      <intent-filter> 
+        <action android:name="com_fei_jiyes.service"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter> 
+    </service>  
+    <activity android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale|uiMode" android:excludeFromRecents="true" android:name="com.fei.jiyes.eqqkda.a.a.c.a" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:taskAffinity="com.fei.jiyes" android:exported="true"> 
+      <intent-filter> 
+        <action android:name="com_fei_jiyes.activity"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter> 
+    </activity> 
+<meta-data android:name="UMENG_CHANNEL" android:value="0"/>
+        <!-- UU end -->

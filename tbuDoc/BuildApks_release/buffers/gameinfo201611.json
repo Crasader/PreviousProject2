@@ -1,0 +1,8 @@
+{
+	"gameinfo":[{"avos_app_id": "h13BQ1uKqr3GT6QkwUHAHAKD-gzGzoHsz", "avos_app_key": "lbL5MQoPPqu6uiGHLwYwEMxt", "output_name": "xfkllk", "game_show_version": "1.0.0", "package_name_no_push": "com.zx.fkllk", "screen_orientation": 1, "success_setting": 1, "avos_master_key": "PpoqODvu7U0rgE9bOz5RDNwP", "show_app_name": "\u661f\u7a7a\u8fde\u8fde\u770b", "tbu_id": 201611, "package_name_push": "com.zx.fkllk", "id": 26, "game_version": 1}],
+	"poxiao":[{"game_id": 9937, "id": 22, "tbu_id": 201611}],
+	"zhimeng":[{"app_id": 7012351, "id": 23, "tbu_id": 201611}],
+	"letu":[{"show_ui_key": "", "app_id": 3030050, "id": 136, "package_name": "com.zx.fkllk", "tbu_id": 201611}, {"show_ui_key": "", "app_id": 3030050, "id": 140, "package_name": "com.zanshibubaodu.llk", "tbu_id": 201611}],
+	"zhang":[],
+	"uucpay":[]
+}

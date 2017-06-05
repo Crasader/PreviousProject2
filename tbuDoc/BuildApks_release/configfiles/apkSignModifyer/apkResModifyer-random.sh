@@ -1,0 +1,1 @@
+./apkResModifyerCMD --smode random -i in/ -o out/

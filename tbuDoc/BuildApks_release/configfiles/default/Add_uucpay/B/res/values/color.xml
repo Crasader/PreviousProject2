@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <color name="translucent">#00000000</color>
+	<drawable name="translucent">#00000000</drawable>
+    
+    <drawable name="payment_uucun_darkgray">#dadada</drawable>
+    <drawable name="payment_uucun_white">#FFFFFFFF</drawable>
+
+    <color name="paymentSDKButtonColor">#ff6a06</color>
+    <color name="payment_uucun_transparent">#9000</color>
+    <color name="payment_uucun_ok_btn_color">#315675</color>
+    <color name="payment_uucun_dialog_border_color">#1B66AB</color>
+    <color name="payment_uucun_back">#3D5265</color>
+    <color name="payment_uucun_cancel">#7D363C</color>
+    <color name="payment_uucun_paytype">#FFFFFF</color>
+    <color name="payment_uucun_paymoney">#FF9900</color>
+    <color name="payment_uucun_SDKButtonColor">#ff6a06</color>
+    
+    <!--短代三方-->
+    <color name="payment_uucun_bluecolor">#0080FF</color>
+    <color name="payment_uucun_whitecolor">#FFFFFF</color>
+    <color name="payment_uucun_blackcolor">#000000</color>
+    <color name="payment_uucun_dazhecolor">#FF7F00</color>
+
+</resources>

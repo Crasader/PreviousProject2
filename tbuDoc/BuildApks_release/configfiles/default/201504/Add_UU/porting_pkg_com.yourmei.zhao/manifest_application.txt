@@ -1,0 +1,44 @@
+        <!-- UU start -->
+        <receiver android:name="com.yourmei.zhao.dqabhw.a.e.a" >
+            <intent-filter>
+                <action android:name="com.yourmei.zhao.ci" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.yourmei.zhao.wu" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.yourmei.zhao.dqabhw.c.b" >
+            <intent-filter>
+                <action android:name="com_yourmei_zhao.service" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="com.yourmei.zhao.dqabhw.c.a"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale|uiMode"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:taskAffinity="com.yourmei.zhao"
+            android:theme="@android:style/Theme.Translucent" >
+            <intent-filter>
+                <action android:name="com_yourmei_zhao.activity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- UU end -->

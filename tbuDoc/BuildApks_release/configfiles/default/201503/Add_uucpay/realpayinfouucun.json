@@ -1,0 +1,7 @@
+{
+	"payinfouuc":[
+      {"payid":1,"price":1200,"uucid":1},
+      {"payid":2,"price":1200,"uucid":2},
+      {"payid":3,"price":1000,"uucid":3}
+	]
+}

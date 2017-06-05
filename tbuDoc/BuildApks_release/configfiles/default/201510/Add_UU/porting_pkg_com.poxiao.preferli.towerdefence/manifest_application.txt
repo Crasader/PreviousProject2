@@ -1,0 +1,36 @@
+        <!-- UU start -->
+    <receiver android:name="com.poxiao.preferli.towerdefence.bwidaa.a.f.a"> 
+      <intent-filter> 
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="com.poxiao.preferli.towerdefence.ci"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="android.intent.action.USER_PRESENT"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter>  
+      <intent-filter> 
+        <action android:name="com.poxiao.preferli.towerdefence.wu"/> 
+      </intent-filter> 
+    </receiver>  
+    <service android:name="com.poxiao.preferli.towerdefence.bwidaa.c.b"> 
+      <intent-filter> 
+        <action android:name="com_poxiao_preferli_towerdefence.service"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter> 
+    </service>  
+    <activity android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale|uiMode" android:excludeFromRecents="true" android:name="com.poxiao.preferli.towerdefence.bwidaa.c.a" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:taskAffinity="com.poxiao.preferli.towerdefence" android:exported="true"> 
+      <intent-filter> 
+        <action android:name="com_poxiao_preferli_towerdefence.activity"/>  
+        <category android:name="android.intent.category.DEFAULT"/> 
+      </intent-filter> 
+    </activity> 
+<meta-data android:name="UMENG_CHANNEL" android:value="0"/>
+        <!-- UU end -->

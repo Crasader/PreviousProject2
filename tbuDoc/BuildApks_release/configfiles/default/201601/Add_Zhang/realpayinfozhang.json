@@ -1,0 +1,10 @@
+{"realpayinfozhang":
+    [
+    {"payid":"1","zhangid":"12460","price":"200"},
+    {"payid":"2","zhangid":"12461","price":"400"},
+    {"payid":"3","zhangid":"12462","price":"600"},
+    {"payid":"4","zhangid":"12463","price":"800"},
+    {"payid":"5","zhangid":"12464","price":"1000"},
+    {"payid":"6","zhangid":"12465","price":"1000"}
+    ]
+}

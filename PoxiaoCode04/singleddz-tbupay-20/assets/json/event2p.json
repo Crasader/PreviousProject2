@@ -1,0 +1,21 @@
+{
+    "event2p": [
+        { "eventid": 1, "pid": 22, "state": true, "isprotected": "false" },
+        { "eventid": 2, "pid": 23, "state": true, "isprotected": "false" },
+        { "eventid": 3, "pid": 3, "state": false, "isprotected": "false" },
+        { "eventid": 4, "pid": 4, "state": false, "isprotected": "false" },
+        { "eventid": 6, "pid": 25, "state": true, "isprotected": "false" },
+        { "eventid": 7, "pid": 27, "state": true, "isprotected": "false"},
+        { "eventid": 8, "pid": 27, "state": true, "isprotected": "false" },
+        { "eventid": 9, "pid": 27, "state": true, "isprotected": "false" },
+		{ "eventid": 10, "pid": 26, "state": true, "isprotected": "false" },
+		 { "eventid": 11, "pid": 27, "state": true, "isprotected": "false"},
+		 { "eventid": 12, "pid": 27, "state": true, "isprotected": "false"},
+		  { "eventid": 13, "pid": 27, "state": true, "isprotected": "false"},
+		  { "eventid": 14, "pid": 14, "state": true, "isprotected": "false"},
+		  { "eventid": 15, "pid": 15, "state": true, "isprotected": "false"},
+		  { "eventid": 16, "pid": 24, "state": true, "isprotected": "false"}
+    ],
+    "protected_p_point": 7,
+    "event_version": 100
+}

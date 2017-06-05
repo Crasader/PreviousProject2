@@ -1,0 +1,7 @@
+        <!-- px p start -->
+        <activity
+            android:name="com.poxiao.smspay.activity.activity_pxpaymain"
+            android:screenOrientation="behind"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/pxtransparent"/>
+        <!-- px p end -->

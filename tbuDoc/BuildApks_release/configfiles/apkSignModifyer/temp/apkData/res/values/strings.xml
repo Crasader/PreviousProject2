@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">开心斗地主</string>
+    <string name="quit_text">亲爱的玩家，您确定要离开渔场了么?</string>
+    <string name="hello_world">Breaking Dawn NetWork</string>
+    <string name="menu_settings">Settings</string>
+    <string name="noraml_game">美人关</string>
+    <string name="get_prize_game">赢奖品</string>
+    <string name="lobby_hint">"带上你的3000银币，
+来夺宝救美陪我玩嘛！"</string>
+    <string name="normal_game_first_time_hint">公子，冰蝶在此等候多时，我们春宵院的规矩是打牌脱衣，公子只要每赢一局，小女子就甘愿受罚脱一件衣服，春宵一刻值千金，我们开始吧</string>
+    <string name="ninehurdles_rule">若兰逃出了妖怪石窟，步履蹒跚往家跑着，路上遇到斩妖除魔的你，若兰将城里发生的一切全都告诉了你，希望你能解救全城的姑娘脱离苦海。“眼前的这座城被一群妖怪将公主在内的很多姑娘抓了起来，关在城外的一座石窟内，正需要你去救她们，大王一定重重有赏。”</string>
+    <string name="buy_card_remainder_hint">天降神器打牌必备记牌器6元终身使用</string>
+    <string name="hurdle_revive_hint">大侠闯过第%1$d关，离终极大奖还差%2$d关，公主和宝箱还在等着你！是否复活？（复活=%3$d元短信）</string>
+    <string name="no_money_hint">亲，银币不够了，短信获取银币我们继续激情四射！</string>
+    <string name="normal_game_finish_hint">公子牌技高超，一举拿下我们三姐妹，现在开始我们三姐妹随时陪你一起玩，共享春宵院的良辰美景！</string>
+    <string name="hurdle_five_hint_before_undress">感谢大侠救命之恩，本姑娘愿服侍大侠共度良宵</string>
+    <string name="hurdle_nine_hint_before_undress">小女子愿以身相许，大侠快点来</string>
+    <string name="hurdle_lose_hint">大侠站起来，给你一座城堡，给你一群MM，公主和宝箱还在等着你！</string>
+    <string name="hurdle_prepare_for_final_hurdle">只差一步就能美人入怀拥有宝箱，敢挑战吗？</string>
+    <string name="nude_girl_bingdie_poem">"碧玉破瓜时
+郎为情颠倒
+感郎不羞郎
+回身就郎抱"</string>
+    <string name="nude_girl_zixuan_poem">"宿夕不梳头
+丝发披两肩
+婉转郎膝上
+何处不可怜"</string>
+    <string name="nude_girl_yashuang_poem">"无力慵移腕
+多娇爱敛躬
+汗流珠点点
+发乱绿葱葱"</string>
+    <string name="nude_girl_caidie_poem">"梦笑开娇靥
+眼鬟压落花
+簟纹生玉腕
+香汗浸红纱"</string>
+    <string name="nude_girl_qingcheng_poem">"开窗秋月光
+灭烛解罗裙
+含笑帷幌里
+举体兰蕙香"</string>
+    <string name="final_prize_init_hint">公主：宝箱！来试试运气看你拿到什么</string>
+    <string name="final_prize_open_hint">点击心仪的宝箱开启你要获得的礼物</string>
+    <string name="hurdle_nine_start_hint">闯过9关有机会获得话费手机等好礼，并抱得美人归</string>
+    <string name="hurdle_nine_finish_hint">能获得美人金钱荣誉的人不多，恭喜你闯过九关，成为我们的英雄。如果你能再一次闯过九关，您将成为众人敬仰的豪杰！</string>
+    <string name="charge_confirm_hint">通过短信方式付费%1$d元即可获得%2$d银币！</string>
+    <string name="pay_while_first_lose">获得4万银币需要信息费10元（不含通讯费）赠1万银币</string>
+    <string name="game_room_upgrade_tip">恭喜！房间升级：底分%1$d升至%2$d</string>
+    <string name="game_room_downgrade_tip">好悲剧！房间从底分%1$d降至%2$d</string>
+    <string name="promote_confirm_download">下载%1$s,有话费好礼相送</string>
+    <string name="promote_cancel_download">确定要取消下载%1$s吗</string>
+    <string name="promote_confirm_install">%1$s已经下载好了，要现在安装吗</string>
+    <string name="beg_for_pay">为了您能更好的游戏，让我们的屌丝程序猿不再饿着肚子为你服务？请支付10元给程序猿买个盒饭，解决温饱，我们会送你5万金豆的！给程序猿买个盒饭！</string>
+    <string name="beg_for_pay_again">你真要饿死程序猿？你真狠，求你了，点击确定支付10元给程序猿买盒饭，程序猿会很感谢你的！点击X，饿死程序猿，但是您仍然可以继续游戏！</string>
+    <string name="buy_card_remainder_desc">    还有几张王？还有几张9？记牌器帮你记的清清楚楚，助你打牌如有神助！付费10元永久使用!</string>
+    <string name="buy_good_start_desc">    我要双王！我要四个2！我要炸弹！点击确定统统满足你！“发好牌”付费10元马上赠送牌50盘。</string>
+    <string name="freee_good_start_desc">    恭喜你获得发好牌1次的使用机会，信息费0元（不含通信费）</string>
+    <string name="prize_1k_desc">    恭喜你成为10000人中的幸运儿，系统免费赠送你1000银币</string>
+    <string name="buy_prize_5w_desc">    恭喜你成为10000人中的幸运儿，你将获得买4送1的礼包，购买40000银币需要信息费10元</string>
+    <string name="your_turn_to_play">轮到自己出牌</string>
+    <string name="poker_num_more_than_self_auto_pass">出牌大于手牌数量，系统自动过</string>
+    <string name="no_bigger_poker">无更大牌型</string>
+    <string name="your_turn_to_call_lord">轮到自己叫分</string>
+    <string name="honney">帅哥</string>
+    <string name="must_quit_lose">，强制退出扣</string>
+    <string name="coin">银币</string>
+    <string name="you_turn_to_play_2">轮到你出牌，请出牌</string>
+    <string name="select_poker_to_play">请选择你要出的牌</string>
+    <string name="select_poker_can_not_play">你选择的牌不符合规则，请重选</string>
+    <string name="g_class_name" />
+</resources>

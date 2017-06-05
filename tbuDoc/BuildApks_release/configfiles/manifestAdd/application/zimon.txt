@@ -1,0 +1,59 @@
+        <!-- zm config start -->
+	<activity
+            android:name="com.unicom.wostore.unipay.paysecurity.SecurityActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            android:configChanges="screenSize|orientation">
+        </activity>
+
+        <service  android:name="com.unicom.wostore.unipay.paysecurity.SecurityServiceFramework"/> 
+        <activity
+            android:name="com.skymobi.pay.sdk.normal.zimon.EpsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+        <service android:name="com.skymobi.pay.sdk.normal.zimon.EpsService" />
+        <service android:name="com.skymobi.pay.sdk.normal.zimon.sms.PayCtrlService" />
+        <service android:name="com.skymobi.pay.sdk.normal.zimon.sms.SkyPayRemoteService" />
+
+        <receiver
+            android:name="com.skymobi.pay.sdk.normal.zimon.EpsReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.skymobi.pay.plugin.advert" />
+                <action android:name="com.skymobi.pay.plugin.recordupload" />
+                <action android:name="com.skymobi.pay.plugin.push" />
+                <action android:name="com.skymobi.pay.action.plugin" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+	<activity
+		android:name="com.alipay.sdk.app.H5PayActivity"
+		android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+		android:exported="false"
+		android:screenOrientation="behind"
+		android:windowSoftInputMode="adjustResize|stateHidden" >
+	</activity>
+
+	<activity
+		android:name="com.unicom.wostore.unipay.paysecurity.SecurityActivity"
+		android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+		android:configChanges="screenSize|orientation">
+	</activity>
+
+        <meta-data
+            android:name="ZMMerchantId"
+            android:value="10642" />
+        <meta-data
+            android:name="ZMAppId"
+            android:value="" />
+        <meta-data
+            android:name="ZMOtherEnv"
+            android:value="false" />
+        <!-- zm config end -->

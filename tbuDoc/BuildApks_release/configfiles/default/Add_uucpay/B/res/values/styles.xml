@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 背景透明的全屏style -->
+	<style name="payment_sdk_uucun_theme_FullScreen_translucent" parent="android:Theme.Translucent">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">?android:windowNoTitle</item>    
+    </style>
+    
+	<style name="payment_sdk_uucun_ResourcesLoadingProgress" parent="@android:style/Widget.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/payment_uucun_resource_progress_medium</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:maxHeight">20dp</item>
+        <item name="android:minWidth">20dp</item>
+        <item name="android:maxWidth">20dp</item>  
+    </style>
+    
+   <style name="payment_uucun_ResourcesLoadingProgress" parent="@android:style/Widget.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/payment_uucun_resource_progress_medium</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:maxHeight">20dp</item>
+        <item name="android:minWidth">20dp</item>
+        <item name="android:maxWidth">20dp</item>  
+    </style>
+    
+	<style name="payment_uucun_HeaderTextTitle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">47dp</item>
+  		<item name="android:textSize">18sp</item>
+  		<item name="android:textColor">#FFFFFF</item>
+		<item name="android:gravity">center_horizontal</item>
+  		<item name="android:layout_alignParentTop">true</item>
+  		<item name="android:shadowColor">#373535</item>
+  		<item name="android:shadowDx">0.4</item>
+		<item name="android:shadowDy">0.4</item>
+		<item name="android:shadowRadius">3</item>
+		<item name="android:background">@drawable/payment_uucun_header</item>
+		<item name="android:layout_centerHorizontal">true</item>
+		<item name="android:layout_marginTop">0dp</item>
+		<item name="android:paddingTop">6dp</item>
+ 	</style>
+ 		<style name="payment_uucun_HeaderTextTitleNew">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">47dp</item>
+  		<item name="android:textSize">18sp</item>
+  		<item name="android:textColor">#000000</item>
+		<item name="android:gravity">center_horizontal</item>
+  		<item name="android:layout_alignParentTop">true</item>
+  		<item name="android:shadowColor">#FFFFFF</item>
+  		<item name="android:shadowDx">0.4</item>
+		<item name="android:shadowDy">0.4</item>
+		<item name="android:shadowRadius">3</item>
+	
+		<item name="android:layout_centerHorizontal">true</item>
+		<item name="android:layout_marginTop">0dp</item>
+		<item name="android:paddingTop">6dp</item>
+ 	</style>
+	
+ 	
+	<!-- 背景透明的全屏style -->
+	<style name="payment_uucun_theme_FullScreen_translucent" parent="android:Theme.Translucent">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">?android:windowNoTitle</item>    
+    </style>
+	 <style name="notitle"><item name="android:windowNoTitle">true</item>    </style> 
+	<!-- theme_FullScreen 是样式的名字，后面是父类样子 -->
+    <style name="payment_uucun_theme_FullScreen" parent="android:Theme.Black">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">?android:windowNoTitle</item>
+ 	
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@color/payment_uucun_transparent</item> 
+        <item name="android:windowIsTranslucent">true</item>    
+        <item name="android:windowAnimationStyle">@+android:style/Animation.Translucent</item>
+        
+    </style>
+	
+    <style name="payment_uucun_NoTitleDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <!-- 背景透明 -->
+         <item name="android:windowBackground">@color/payment_uucun_transparent</item>
+        <item name="android:windowIsTranslucent">true</item>    
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+    <!-- 盈华迅方 -->
+     <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="transcutestyle_vsofo" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@android:color/transparent</item>
+ <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+ <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item>
+ <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+ <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+ <!-- 背景透明 -->
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="Transparent" parent="android:Theme">
+        <item name="android:theme">@android:style/Theme.Translucent.NoTitleBar.Fullscreen</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    
+    <style name="Dialog" parent="@android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/translucent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/translucent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+     <!-- 盈华迅方 -->
+</resources>

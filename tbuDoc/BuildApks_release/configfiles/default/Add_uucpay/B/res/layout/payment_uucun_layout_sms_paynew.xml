@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="312dip"
+        android:layout_height="250dip"
+        android:layout_centerInParent="true" >
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="288dip"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="3dip"
+            android:layout_marginRight="3dip"
+            android:background="@drawable/backgroundpay" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="250dip"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="3dip"
+            android:layout_marginRight="3dip" >
+
+            <RelativeLayout
+                android:id="@+id/layout_header"
+                android:layout_width="fill_parent"
+                android:layout_height="47dip"
+             >
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/payment_uucun_HeaderTextTitleNew"
+                    android:paddingTop="12dip"
+                    android:text="支付平台" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" >
+
+                <Button
+                    android:id="@+id/payment_uucun_ok"
+                    android:layout_width="120dip"
+                    android:layout_height="50dip"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="21dp"
+                    android:layout_marginRight="24dp"
+                    android:background="@drawable/ok_up"
+                    android:text="确定"
+                    android:textColor="@android:color/white"
+                    android:textSize="21sp" />
+
+                <Button
+                    android:id="@+id/payment_uucun_cancel"
+                    android:layout_width="120dip"
+                    android:layout_height="50dip"
+                    android:layout_below="@+id/TextView_phone"
+                    android:layout_marginRight="19dp"
+                    android:layout_toLeftOf="@+id/payment_uucun_ok"
+                    android:background="@drawable/cancel_up"
+                    android:text="取消"
+                    android:textColor="@android:color/white"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/TextView_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/payment_uucun_ok"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="19dp"
+                    android:text="本次费用将会从您的话费中扣除，信息费由运营商代收，充值成功后运营商会发短信到您的收件箱。客服热线：400-684-0755"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/payment_uucun_stagemoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/TextView_stagename"
+                    android:layout_alignBottom="@+id/TextView_stagename"
+                    android:layout_alignRight="@+id/payment_uucun_ok"
+                    android:text="￥ 2元"
+                    android:textColor="@color/payment_uucun_paymoney"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/payment_uucun_tv_server_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/TextView_stagename"
+                    android:layout_alignParentLeft="true"
+                    android:text="123"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/TextView_stagename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/TextView_phone"
+                    android:layout_toLeftOf="@+id/payment_uucun_stagemoney"
+                    android:text="豪华大礼包 X1  "
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,110 @@
+        <!-- uuc config start -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="DhNxS47YIr3CNdocGoAcy1ts" />
+         <!-- add by  part2 -->
+        <activity
+            android:name="com.snowfish.cn.ganga.offline.helper.SFGameSplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            
+        </activity>
+        <service
+            android:name="com.snowfish.a.a.s.ABGSvc"
+            android:enabled="true" 
+            android:process="com.snowfish.a.a.bg">
+            <intent-filter>
+                <action android:name="com.snowfish.a.a.s.ABGSvc" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.snowfish.appid"
+            android:value="{ABC73F7A-EF728901}" >
+        </meta-data>
+        <meta-data
+            android:name="com.snowfish.customer"
+            android:value="snowfish" >
+        </meta-data>
+        <meta-data
+            android:name="com.snowfish.channel"
+            android:value="snowfish" >
+        </meta-data>
+        <meta-data
+            android:name="com.snowfish.sdk.version"
+            android:value="1" >
+        </meta-data>
+        <!-- end by  part2 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" >
+                </action>
+            </intent-filter>
+        </service>
+        <service android:name="com.loft.single.plugin.service.LoftService" />
+        <service
+            android:name="com.loft.single.sdk.aidl.PayService"
+            android:exported="true" />
+       
+        <activity
+            android:name="com.loft.single.plugin.activity.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:excludeFromRecents="true"
+            android:theme="@style/payment_uucun_theme_FullScreen_translucent" >
+        </activity>
+        <activity
+            android:name="com.loft.single.plugin.activity.PayTypeSelectActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:excludeFromRecents="true"
+            android:theme="@style/payment_uucun_NoTitleDialog" >
+        </activity>
+        <activity
+            android:name="com.loft.single.plugin.activity.WAPAliPayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/payment_uucun_theme_FullScreen_translucent" >
+        </activity>
+        <activity
+            android:name="com.loft.single.plugin.activity.SMSPayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:theme="@style/payment_uucun_theme_FullScreen_translucent" >
+        </activity>
+        <activity
+            android:name="com.loft.single.plugin.activity.SMSPayMakeSureActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:theme="@style/payment_uucun_theme_FullScreen_translucent" >
+        </activity>
+        <activity
+            android:name="com.loft.single.plugin.activity.LocalSMSPayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:theme="@style/payment_uucun_theme_FullScreen_translucent" >
+        </activity>
+        <activity
+            android:name="com.loft.single.plugin.activity.PayResultActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:theme="@style/payment_uucun_theme_FullScreen_translucent" >
+        </activity>
+        <activity
+            android:name="com.loft.single.plugin.activity.StartActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:theme="@style/payment_uucun_theme_FullScreen_translucent" >
+        </activity>
+      
+        <activity
+            android:name="com.ipaynow.plugin.inner_plugin.wechat_plugin.activity.WeChatNotifyActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:theme="@android:style/Theme.NoDisplay" />
+         <activity
+            android:name="com.vsofo.vsofopay.VsofoPayActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name_vsofo"
+            android:theme="@style/transcutestyle_vsofo" >
+        </activity>
+        <!-- uuc config end -->

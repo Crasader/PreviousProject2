@@ -1,0 +1,11 @@
+{
+    "pinfolt":[
+      {"ltpid":1,"pid":1,"pri":200,"ltid":1},
+      {"ltpid":2,"pid":2,"pri":400,"ltid":2},
+      {"ltpid":3,"pid":3,"pri":600,"ltid":3},
+      {"ltpid":4,"pid":4,"pri":800,"ltid":4},
+      {"ltpid":11,"pid":11,"pri":1200,"ltid":11},
+      {"ltpid":12,"pid":12,"pri":1200,"ltid":12},
+      {"ltpid":13,"pid":13,"pri":1200,"ltid":13}
+    ]
+}

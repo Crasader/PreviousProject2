@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="312dip"
+        android:layout_height="260dip"
+        android:layout_centerInParent="true" >
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="200dip"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="3dip"
+            android:layout_marginRight="3dip"
+            android:background="@drawable/backgroundpaymakesure" />
+
+       
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" >
+
+                <TextView
+                    android:id="@+id/TextView_message"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/payment_uucun_makeok"
+                    android:layout_alignRight="@+id/payment_uucun_makecancel"
+                    android:layout_centerVertical="true"
+                    android:text="若不进行付费，您将无法获得更多的应用体验，是否确认？"
+                    android:textColor="@android:color/black"
+                    android:textSize="21sp" />
+
+                <Button
+                    android:id="@+id/payment_uucun_makeok"
+                    android:layout_width="120dip"
+                    android:layout_height="50dip"
+                    android:layout_alignBaseline="@+id/payment_uucun_makecancel"
+                    android:layout_alignBottom="@+id/payment_uucun_makecancel"
+                    android:layout_marginRight="18dp"
+                    android:layout_toLeftOf="@+id/payment_uucun_makecancel"
+                    android:background="@drawable/ok_up"
+                    android:text="确定"
+                    android:textSize="21sp" 
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/payment_uucun_makecancel"
+                    android:layout_width="120dip"
+                    android:layout_height="50dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/TextView_message"
+                    android:layout_marginRight="28dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/cancel_up"
+                    android:text="取消"
+                    android:textSize="21sp" 
+                    android:textColor="@android:color/white" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

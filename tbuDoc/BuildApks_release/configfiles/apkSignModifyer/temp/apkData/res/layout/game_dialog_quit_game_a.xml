@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="380.0dip" android:layout_height="200.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res/com.poxiao.ddz.standalone">
+    <include layout="@layout/game_dialog_box" />
+    <TextView android:textColor="@android:color/white" android:gravity="center" android:id="@id/text_view_quit_game_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="36.0dip" android:text="亲，确定要退出游戏吗！" android:layout_centerHorizontal="true" />
+    <LinearLayout android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="62.0dip">
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <ImageView android:id="@id/image_view_ddz_btn_big" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ddz_btn_big" />
+            <ImageView android:id="@id/image_view_ddz_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:src="@drawable/text_ddz" android:layout_toRightOf="@id/image_view_ddz_btn_big" />
+            <ProgressBar android:id="@id/progress_bar_download_ddz" android:layout_width="96.0dip" android:layout_height="wrap_content" android:layout_marginBottom="8.0dip" android:progressDrawable="@drawable/promote_download_progress" android:layout_alignLeft="@id/image_view_ddz_text" android:layout_alignBottom="@id/image_view_ddz_btn_big" style="?android:attr/progressBarStyleHorizontal" />
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dip">
+            <ImageView android:id="@id/image_view_qbsk_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:layout_toRightOf="@id/image_view_qbsk_btn_big" />
+            <ProgressBar android:id="@id/progress_bar_download_qbsk" android:layout_width="96.0dip" android:layout_height="wrap_content" android:layout_marginBottom="8.0dip" android:progress="50" android:progressDrawable="@drawable/promote_download_progress" android:layout_alignLeft="@id/image_view_qbsk_text" android:layout_alignBottom="@id/image_view_qbsk_btn_big" style="?android:attr/progressBarStyleHorizontal" />
+            <ImageView android:id="@id/image_view_qbsk_btn_big" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/qbsk_btn_big" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout android:gravity="center" android:id="@id/layout_quit_and_Lose_money" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="24.0dip" android:layout_alignParentBottom="true">
+        <ImageButton android:id="@id/image_btn_must_quit" android:background="@drawable/long_btn_xml" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/text_must_quit" />
+        <ImageButton android:id="@id/image_btn_cancel_quit" android:background="@drawable/long_btn_xml" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:src="@drawable/text_cancel_quit" />
+    </LinearLayout>
+    <ImageButton android:id="@id/image_btn_normal_quit" android:background="@drawable/btn_xml" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="24.0dip" android:src="@drawable/text_quit" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
+    <ImageButton android:id="@id/image_close_dialog" android:background="@android:color/transparent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/close_icon" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+</RelativeLayout>

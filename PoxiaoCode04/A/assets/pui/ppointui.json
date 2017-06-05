@@ -1,0 +1,807 @@
+{
+	"config":{ "screenWidth": 480, "screenHeight": 800, "resolutionPolicy": "EXACT_FIT"},
+	"ppoints":[
+		{ 
+			"id": 1,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg1.png", "specialname": "p_bg1.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_1.png", "specialname": "p_tip_goods_1.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_1.png", "specialname": "p_heading_1.png" },
+				{ "type": "image", "x": 134, "y": 485, "width": 219, "height": 32, "defaultname": "p_title_1.png", "specialname": "p_title_1.png" },
+				{ "type": "image", "x": 78, "y": 305, "width": 65, "height": 21, "defaultname": "p_tip_info_1w.png", "specialname": "p_tip_info_1w.png" },
+				{ "type": "image", "x": 354, "y": 572, "width": 32, "height": 20, "defaultname": "p_zi_1.png", "specialname": "p_zi_1.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" },
+				{ "type": "image", "x": 266, "y": 608, "width": 50, "height": 55, "defaultname": "p_shou.png", "specialname": "p_shou.png" }
+			]
+		},
+		{ 
+			"id": 2,
+			"elements": [
+				{ "type": "image", "x": 11, "y": 343, "width": 459, "height": 241, "defaultname": "p_bg2.png", "specialname": "p_bg2.png" },
+				{ "type": "image", "x": 399, "y": 554, "width": 61, "height": 20, "defaultname": "p_tip_info_2w.png", "specialname": "p_tip_info_2w.png" },
+				{ "type": "image", "x": 430, "y": 520, "width": 32, "height": 20, "defaultname": "p_zi_2.png", "specialname": "p_zi_1.png" },
+				{ "type": "confirmbutton", "x": 162, "y": 482, "width": 275, "height": 56, "defaultname": "p_kown_up.png", "specialname": "p_kown_up.png" },
+				{ "type": "cancelbutton", "x": 20, "y": 350, "width": 16, "height": 18, "defaultname": "p_cancel_up_2.png", "specialname": "p_cancel_down_2.png" }
+			]
+		},
+		{ 
+			"id": 3,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_2.png", "specialname": "p_tip_goods_2.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_2.png", "specialname": "p_heading_2.png" },
+				{ "type": "image", "x": 74, "y": 305, "width": 65, "height": 28, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 80, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 4,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_3.png", "specialname": "p_tip_goods_3.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_3.png", "specialname": "p_heading_3.png" },
+				{ "type": "image", "x": 74, "y": 305, "width": 65, "height": 28, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 380, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 60, "y": 298, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 5,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_4.png", "specialname": "p_tip_goods_4.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 74, "y": 305, "width": 65, "height": 28, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 352, "y": 574, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 6,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg4.png", "specialname": "p_bg4.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 110, "y": 397, "width": 65, "height": 21, "defaultname": "p_tip_info_4w.png", "specialname": "p_tip_info_4w.png" },
+				{ "type": "image", "x": 350, "y": 571, "width": 32, "height": 20, "defaultname": "p_zi_4.png", "specialname": "p_zi_4.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 7,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg5.png", "specialname": "p_bg5.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 306, "y": 505, "width": 65, "height": 21, "defaultname": "p_tip_info_5w.png", "specialname": "p_tip_info_5w.png" },
+				{ "type": "image", "x": 97, "y": 569, "width": 32, "height": 20, "defaultname": "p_zi_5.png", "specialname": "p_zi_5.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 8,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg1.png", "specialname": "p_bg1.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_1.png", "specialname": "p_tip_goods_1.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_1.png", "specialname": "p_heading_1.png" },
+				{ "type": "image", "x": 134, "y": 485, "width": 219, "height": 32, "defaultname": "p_title_1.png", "specialname": "p_title_1.png" },
+				{ "type": "image", "x": 78, "y": 305, "width": 65, "height": 21, "defaultname": "p_tip_info_1w.png", "specialname": "p_tip_info_1w.png" },
+				{ "type": "image", "x": 354, "y": 572, "width": 32, "height": 20, "defaultname": "p_zi_1.png", "specialname": "p_zi_1.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" },
+				{ "type": "image", "x": 266, "y": 608, "width": 50, "height": 55, "defaultname": "p_shou.png", "specialname": "p_shou.png" }
+			]
+		},
+		{ 
+			"id": 9,
+			"elements": [
+				{ "type": "image", "x": 11, "y": 343, "width": 459, "height": 241, "defaultname": "p_bg2.png", "specialname": "p_bg2.png" },
+				{ "type": "image", "x": 399, "y": 554, "width": 61, "height": 20, "defaultname": "p_tip_info_2w.png", "specialname": "p_tip_info_2w.png" },
+				{ "type": "image", "x": 430, "y": 520, "width": 32, "height": 20, "defaultname": "p_zi_2.png", "specialname": "p_zi_1.png" },
+				{ "type": "confirmbutton", "x": 162, "y": 482, "width": 275, "height": 56, "defaultname": "p_kown_up.png", "specialname": "p_kown_up.png" },
+				{ "type": "cancelbutton", "x": 20, "y": 350, "width": 16, "height": 18, "defaultname": "p_cancel_up_2.png", "specialname": "p_cancel_down_2.png" }
+			]
+		},
+		{ 
+			"id": 10,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_2.png", "specialname": "p_tip_goods_2.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_2.png", "specialname": "p_heading_2.png" },
+				{ "type": "image", "x": 74, "y": 305, "width": 65, "height": 28, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 80, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 60, "y": 298, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 11,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_3.png", "specialname": "p_tip_goods_3.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_3.png", "specialname": "p_heading_3.png" },
+				{ "type": "image", "x": 74, "y": 305, "width": 65, "height": 28, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 380, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 60, "y": 298, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 12,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_4.png", "specialname": "p_tip_goods_4.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 74, "y": 305, "width": 65, "height": 28, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 352, "y": 574, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 13,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg4.png", "specialname": "p_bg4.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 110, "y": 397, "width": 65, "height": 21,  "height": 39,  "defaultname": "p_tip_info_4w.png", "specialname": "p_tip_info_4w.png" },
+				{ "type": "image", "x": 350, "y": 571, "width": 32, "height": 20, "defaultname": "p_zi_4.png", "specialname": "p_zi_4.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 14,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg5.png", "specialname": "p_bg5.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 306, "y": 505, "width": 65, "height": 21, "defaultname": "p_tip_info_5w.png", "specialname": "p_tip_info_5w.png" },
+				{ "type": "image", "x": 97, "y": 569, "width": 32, "height": 20, "defaultname": "p_zi_5.png", "specialname": "p_zi_5.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 15,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg1.png", "specialname": "p_bg1.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_1.png", "specialname": "p_tip_goods_1.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_1.png", "specialname": "p_heading_1.png" },
+				{ "type": "image", "x": 134, "y": 485, "width": 219, "height": 32, "defaultname": "p_title_1.png", "specialname": "p_title_1.png" },
+				{ "type": "image", "x": 78, "y": 305, "width": 65, "height": 21, "defaultname": "p_tip_info_1w.png", "specialname": "p_tip_info_1w.png" },
+				{ "type": "image", "x": 354, "y": 572, "width": 32, "height": 20, "defaultname": "p_zi_1.png", "specialname": "p_zi_1.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" },
+				{ "type": "image", "x": 266, "y": 608, "width": 50, "height": 55, "defaultname": "p_shou.png", "specialname": "p_shou.png" }
+			]
+		},
+		{ 
+			"id": 16,
+			"elements": [
+				{ "type": "image", "x": 11, "y": 343, "width": 459, "height": 241, "defaultname": "p_bg2.png", "specialname": "p_bg2.png" },
+				{ "type": "image", "x": 399, "y": 554, "width": 61, "height": 20, "defaultname": "p_tip_info_2w.png", "specialname": "p_tip_info_2w.png" },
+				{ "type": "image", "x": 430, "y": 520, "width": 32, "height": 20, "defaultname": "p_zi_2.png", "specialname": "p_zi_1.png" },
+				{ "type": "confirmbutton", "x": 162, "y": 482, "width": 275, "height": 56, "defaultname": "p_kown_up.png", "specialname": "p_kown_up.png" },
+				{ "type": "cancelbutton", "x": 20, "y": 350, "width": 16, "height": 18, "defaultname": "p_cancel_up_2.png", "specialname": "p_cancel_down_2.png" }
+			]
+		},
+		{ 
+			"id": 17,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_2.png", "specialname": "p_tip_goods_2.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_2.png", "specialname": "p_heading_2.png" },
+				{ "type": "image", "x": 74, "y": 305, "width": 65, "height": 28, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 80, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 60, "y": 298, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 18,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_3.png", "specialname": "p_tip_goods_3.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_3.png", "specialname": "p_heading_3.png" },
+				{ "type": "image", "x": 74, "y": 305, "width": 65, "height": 28, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 380, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 60, "y": 298, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 19,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_4.png", "specialname": "p_tip_goods_4.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 74, "y": 305, "width": 65, "height": 28, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 352, "y": 574, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 20,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg4.png", "specialname": "p_bg4.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 110, "y": 397, "width": 65, "height": 21,  "height": 39,  "defaultname": "p_tip_info_4w.png", "specialname": "p_tip_info_4w.png" },
+				{ "type": "image", "x": 350, "y": 571, "width": 32, "height": 20, "defaultname": "p_zi_4.png", "specialname": "p_zi_4.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 21,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg5.png", "specialname": "p_bg5.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 306, "y": 505, "width": 65, "height": 21, "defaultname": "p_tip_info_5w.png", "specialname": "p_tip_info_5w.png" },
+				{ "type": "image", "x": 97, "y": 569, "width": 32, "height": 20, "defaultname": "p_zi_5.png", "specialname": "p_zi_5.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 22,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg1.png", "specialname": "p_bg1.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_1.png", "specialname": "p_tip_goods_1.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_1.png", "specialname": "p_heading_1.png" },
+				{ "type": "image", "x": 134, "y": 485, "width": 219, "height": 32, "defaultname": "p_title_1.png", "specialname": "p_title_1.png" },
+				{ "type": "image", "x": 78, "y": 305, "width": 65, "height": 21, "defaultname": "p_tip_info_1w.png", "specialname": "p_tip_info_1w.png" },
+				{ "type": "image", "x": 354, "y": 572, "width": 32, "height": 20, "defaultname": "p_zi_1.png", "specialname": "p_zi_1.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" },
+				{ "type": "image", "x": 266, "y": 608, "width": 50, "height": 55, "defaultname": "p_shou.png", "specialname": "p_shou.png" }
+			]
+		},
+		{ 
+			"id": 23,
+			"elements": [
+				{ "type": "image", "x": 11, "y": 343, "width": 459, "height": 241, "defaultname": "p_bg2.png", "specialname": "p_bg2.png" },
+				{ "type": "image", "x": 399, "y": 554, "width": 61, "height": 20, "defaultname": "p_tip_info_2w.png", "specialname": "p_tip_info_2w.png" },
+				{ "type": "image", "x": 430, "y": 520, "width": 32, "height": 20, "defaultname": "p_zi_2.png", "specialname": "p_zi_1.png" },
+				{ "type": "confirmbutton", "x": 162, "y": 482, "width": 275, "height": 56, "defaultname": "p_kown_up.png", "specialname": "p_kown_up.png" },
+				{ "type": "cancelbutton", "x": 20, "y": 350, "width": 16, "height": 18, "defaultname": "p_cancel_up_2.png", "specialname": "p_cancel_down_2.png" }
+			]
+		},
+		{ 
+			"id": 24,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_2.png", "specialname": "p_tip_goods_2.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_2.png", "specialname": "p_heading_2.png" },
+		        { "type": "image", "x": 62, "y": 334, "width": 61, "height": 27, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 80, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 60, "y": 298, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 25,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_3.png", "specialname": "p_tip_goods_3.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_3.png", "specialname": "p_heading_3.png" },
+			        { "type": "image", "x": 62, "y": 334, "width": 61, "height": 27, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 380, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 26,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_4.png", "specialname": "p_tip_goods_4.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+			        { "type": "image", "x": 62, "y": 334, "width": 61, "height": 27, "defaultname": "p_tip_info_3w.png", "specialname": "p_tip_info_3w.png" },
+				{ "type": "image", "x": 352, "y": 574, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 27,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg4.png", "specialname": "p_bg4.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 112, "y": 397, "width": 61, "height": 20, "defaultname": "p_tip_info_4w.png", "specialname": "p_tip_info_4w.png" },
+				{ "type": "image", "x": 350, "y": 571, "width": 32, "height": 20, "defaultname": "p_zi_4.png", "specialname": "p_zi_4.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 28,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg5.png", "specialname": "p_bg5.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 110, "y": 397, "width": 65, "height": 21,  "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 306, "y": 505, "width": 65, "height": 21, "defaultname": "p_tip_info_5w.png", "specialname": "p_tip_info_5w.png" },
+				{ "type": "image", "x": 97, "y": 569, "width": 32, "height": 20, "defaultname": "p_zi_5.png", "specialname": "p_zi_5.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 29,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg1.png", "specialname": "p_bg1.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_1.png", "specialname": "p_tip_goods_1.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_1.png", "specialname": "p_heading_1.png" },
+				{ "type": "image", "x": 134, "y": 485, "width": 219, "height": 32, "defaultname": "p_title_1.png", "specialname": "p_title_1.png" },
+				{ "type": "image", "x": 212, "y": 444, "width": 61, "height": 20, "defaultname": "p_tip_info_1.png", "specialname": "p_tip_info_1.png" },
+				{ "type": "image", "x": 354, "y": 572, "width": 32, "height": 20, "defaultname": "p_zi_1.png", "specialname": "p_zi_1.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" },
+				{ "type": "image", "x": 266, "y": 608, "width": 50, "height": 55, "defaultname": "p_shou.png", "specialname": "p_shou.png" }
+			]
+		},
+		{ 
+			"id": 30,
+			"elements": [
+				{ "type": "image", "x": 11, "y": 343, "width": 459, "height": 241, "defaultname": "p_bg2.png", "specialname": "p_bg2.png" },
+				{ "type": "image", "x": 401, "y": 556, "width": 57, "height": 19, "defaultname": "p_tip_info_2.png", "specialname": "p_tip_info_2.png" },
+				{ "type": "image", "x": 430, "y": 520, "width": 32, "height": 20, "defaultname": "p_zi_2.png", "specialname": "p_zi_1.png" },
+				{ "type": "confirmbutton", "x": 162, "y": 482, "width": 275, "height": 56, "defaultname": "p_kown_up.png", "specialname": "p_kown_up.png" },
+				{ "type": "cancelbutton", "x": 20, "y": 350, "width": 16, "height": 18, "defaultname": "p_cancel_up_2.png", "specialname": "p_cancel_down_2.png" }
+			]
+		},
+		{ 
+			"id": 31,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_2.png", "specialname": "p_tip_goods_2.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_2.png", "specialname": "p_heading_2.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 80, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 32,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_3.png", "specialname": "p_tip_goods_3.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_3.png", "specialname": "p_heading_3.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 380, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 33,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_4.png", "specialname": "p_tip_goods_4.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 352, "y": 574, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 34,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg4.png", "specialname": "p_bg4.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 334, "y": 311, "width": 61, "height": 20, "defaultname": "p_tip_info_4.png", "specialname": "p_tip_info_4.png" },
+				{ "type": "image", "x": 350, "y": 571, "width": 32, "height": 20, "defaultname": "p_zi_4.png", "specialname": "p_zi_4.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 35,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg5.png", "specialname": "p_bg5.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 78, "y": 306, "width": 61, "height": 20, "defaultname": "p_tip_info_5w.png", "specialname": "p_tip_info_5.png" },
+				{ "type": "image", "x": 97, "y": 569, "width": 32, "height": 20, "defaultname": "p_zi_5.png", "specialname": "p_zi_5.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 36,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg1.png", "specialname": "p_bg1.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_1.png", "specialname": "p_tip_goods_1.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_1.png", "specialname": "p_heading_1.png" },
+				{ "type": "image", "x": 134, "y": 485, "width": 219, "height": 32, "defaultname": "p_title_1.png", "specialname": "p_title_1.png" },
+				{ "type": "image", "x": 212, "y": 444, "width": 61, "height": 20, "defaultname": "p_tip_info_1.png", "specialname": "p_tip_info_1.png" },
+				{ "type": "image", "x": 354, "y": 572, "width": 32, "height": 20, "defaultname": "p_zi_1.png", "specialname": "p_zi_1.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" },
+				{ "type": "image", "x": 266, "y": 608, "width": 50, "height": 55, "defaultname": "p_shou.png", "specialname": "p_shou.png" }
+			]
+		},
+		{ 
+			"id": 37,
+			"elements": [
+				{ "type": "image", "x": 11, "y": 343, "width": 459, "height": 241, "defaultname": "p_bg2.png", "specialname": "p_bg2.png" },
+				{ "type": "image", "x": 401, "y": 556, "width": 57, "height": 19, "defaultname": "p_tip_info_2.png", "specialname": "p_tip_info_2.png" },
+				{ "type": "image", "x": 430, "y": 520, "width": 32, "height": 20, "defaultname": "p_zi_2.png", "specialname": "p_zi_1.png" },
+				{ "type": "confirmbutton", "x": 162, "y": 482, "width": 275, "height": 56, "defaultname": "p_kown_up.png", "specialname": "p_kown_up.png" },
+				{ "type": "cancelbutton", "x": 20, "y": 350, "width": 16, "height": 18, "defaultname": "p_cancel_up_2.png", "specialname": "p_cancel_down_2.png" }
+			]
+		},
+		{ 
+			"id": 38,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_2.png", "specialname": "p_tip_goods_2.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_2.png", "specialname": "p_heading_2.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 80, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 39,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_3.png", "specialname": "p_tip_goods_3.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_3.png", "specialname": "p_heading_3.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 380, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 40,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_4.png", "specialname": "p_tip_goods_4.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 352, "y": 574, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 41,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg4.png", "specialname": "p_bg4.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 334, "y": 311, "width": 61, "height": 20, "defaultname": "p_tip_info_4.png", "specialname": "p_tip_info_4.png" },
+				{ "type": "image", "x": 350, "y": 571, "width": 32, "height": 20, "defaultname": "p_zi_4.png", "specialname": "p_zi_4.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 42,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg5.png", "specialname": "p_bg5.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 78, "y": 306, "width": 61, "height": 20, "defaultname": "p_tip_info_5w.png", "specialname": "p_tip_info_5.png" },
+				{ "type": "image", "x": 97, "y": 569, "width": 32, "height": 20, "defaultname": "p_zi_5.png", "specialname": "p_zi_5.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 43,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg1.png", "specialname": "p_bg1.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_1.png", "specialname": "p_tip_goods_1.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_1.png", "specialname": "p_heading_1.png" },
+				{ "type": "image", "x": 134, "y": 485, "width": 219, "height": 32, "defaultname": "p_title_1.png", "specialname": "p_title_1.png" },
+				{ "type": "image", "x": 212, "y": 444, "width": 61, "height": 20, "defaultname": "p_tip_info_1.png", "specialname": "p_tip_info_1.png" },
+				{ "type": "image", "x": 354, "y": 572, "width": 32, "height": 20, "defaultname": "p_zi_1.png", "specialname": "p_zi_1.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" },
+				{ "type": "image", "x": 266, "y": 608, "width": 50, "height": 55, "defaultname": "p_shou.png", "specialname": "p_shou.png" }
+			]
+		},
+		{ 
+			"id": 44,
+			"elements": [
+				{ "type": "image", "x": 11, "y": 343, "width": 459, "height": 241, "defaultname": "p_bg2.png", "specialname": "p_bg2.png" },
+				{ "type": "image", "x": 401, "y": 556, "width": 57, "height": 19, "defaultname": "p_tip_info_2.png", "specialname": "p_tip_info_2.png" },
+				{ "type": "image", "x": 430, "y": 520, "width": 32, "height": 20, "defaultname": "p_zi_2.png", "specialname": "p_zi_1.png" },
+				{ "type": "confirmbutton", "x": 162, "y": 482, "width": 275, "height": 56, "defaultname": "p_kown_up.png", "specialname": "p_kown_up.png" },
+				{ "type": "cancelbutton", "x": 20, "y": 350, "width": 16, "height": 18, "defaultname": "p_cancel_up_2.png", "specialname": "p_cancel_down_2.png" }
+			]
+		},
+		{ 
+			"id": 45,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_2.png", "specialname": "p_tip_goods_2.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_2.png", "specialname": "p_heading_2.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 80, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 46,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_3.png", "specialname": "p_tip_goods_3.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_3.png", "specialname": "p_heading_3.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 380, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 47,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_4.png", "specialname": "p_tip_goods_4.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 352, "y": 574, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 48,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg4.png", "specialname": "p_bg4.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 334, "y": 311, "width": 61, "height": 20, "defaultname": "p_tip_info_4.png", "specialname": "p_tip_info_4.png" },
+				{ "type": "image", "x": 350, "y": 571, "width": 32, "height": 20, "defaultname": "p_zi_4.png", "specialname": "p_zi_4.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 49,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg5.png", "specialname": "p_bg5.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 78, "y": 306, "width": 61, "height": 20, "defaultname": "p_tip_info_5w.png", "specialname": "p_tip_info_5.png" },
+				{ "type": "image", "x": 97, "y": 569, "width": 32, "height": 20, "defaultname": "p_zi_5.png", "specialname": "p_zi_5.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 50,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg1.png", "specialname": "p_bg1.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_1.png", "specialname": "p_tip_goods_1.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_1.png", "specialname": "p_heading_1.png" },
+				{ "type": "image", "x": 134, "y": 485, "width": 219, "height": 32, "defaultname": "p_title_1.png", "specialname": "p_title_1.png" },
+				{ "type": "image", "x": 212, "y": 444, "width": 61, "height": 20, "defaultname": "p_tip_info_1.png", "specialname": "p_tip_info_1.png" },
+				{ "type": "image", "x": 354, "y": 572, "width": 32, "height": 20, "defaultname": "p_zi_1.png", "specialname": "p_zi_1.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" },
+				{ "type": "image", "x": 266, "y": 608, "width": 50, "height": 55, "defaultname": "p_shou.png", "specialname": "p_shou.png" }
+			]
+		},
+		{ 
+			"id": 51,
+			"elements": [
+				{ "type": "image", "x": 11, "y": 343, "width": 459, "height": 241, "defaultname": "p_bg2.png", "specialname": "p_bg2.png" },
+				{ "type": "image", "x": 401, "y": 556, "width": 57, "height": 19, "defaultname": "p_tip_info_2.png", "specialname": "p_tip_info_2.png" },
+				{ "type": "image", "x": 430, "y": 520, "width": 32, "height": 20, "defaultname": "p_zi_2.png", "specialname": "p_zi_1.png" },
+				{ "type": "confirmbutton", "x": 162, "y": 482, "width": 275, "height": 56, "defaultname": "p_kown_up.png", "specialname": "p_kown_up.png" },
+				{ "type": "cancelbutton", "x": 20, "y": 350, "width": 16, "height": 18, "defaultname": "p_cancel_up_2.png", "specialname": "p_cancel_down_2.png" }
+			]
+		},
+		{ 
+			"id": 52,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_2.png", "specialname": "p_tip_goods_2.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_2.png", "specialname": "p_heading_2.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 80, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 53,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_3.png", "specialname": "p_tip_goods_3.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_3.png", "specialname": "p_heading_3.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 380, "y": 306, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 54,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg3.png", "specialname": "p_bg3.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 341, "height": 284, "defaultname": "p_tip_goods_4.png", "specialname": "p_tip_goods_4.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 60, "y": 334, "width": 57, "height": 27, "defaultname": "p_tip_info_3.png", "specialname": "p_tip_info_3.png" },
+				{ "type": "image", "x": 352, "y": 574, "width": 32, "height": 20, "defaultname": "p_zi_3.png", "specialname": "p_zi_3.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 55,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg4.png", "specialname": "p_bg4.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 334, "y": 311, "width": 61, "height": 20, "defaultname": "p_tip_info_4.png", "specialname": "p_tip_info_4.png" },
+				{ "type": "image", "x": 350, "y": 571, "width": 32, "height": 20, "defaultname": "p_zi_4.png", "specialname": "p_zi_4.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 79, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 56,
+			"elements": [
+				{ "type": "image", "x": 0, "y": 188, "width": 480, "height": 428, "defaultname": "p_bg5.png", "specialname": "p_bg5.png" },
+				{ "type": "image", "x": 58, "y": 275, "width": 363, "height": 323, "defaultname": "p_tip_goods_5.png", "specialname": "p_tip_goods_5.png" },
+				{ "type": "image", "x": 136, "y": 182, "width": 210, "height": 66, "defaultname": "p_heading_4.png", "specialname": "p_heading_4.png" },
+				{ "type": "image", "x": 186, "y": 467, "width": 113, "height": 39, "defaultname": "p_title_2.png", "specialname": "p_title_2.png" },
+				{ "type": "image", "x": 78, "y": 306, "width": 61, "height": 20, "defaultname": "p_tip_info_5w.png", "specialname": "p_tip_info_5.png" },
+				{ "type": "image", "x": 97, "y": 569, "width": 32, "height": 20, "defaultname": "p_zi_5.png", "specialname": "p_zi_5.png" },
+				{ "type": "image", "x": 109, "y": 522, "width": 262, "height": 33, "defaultname": "p_phone.png", "specialname": "p_phone.png" },
+				{ "type": "confirmbutton", "x": 126, "y": 562, "width": 227, "height": 82, "defaultname": "p_confirm_up.png", "specialname": "p_confirm_down.png" },
+				{ "type": "cancelbutton", "x": 396, "y": 302, "width": 19, "height": 21, "defaultname": "p_cancel_up.png", "specialname": "p_cancel_down.png" }
+			]
+		},
+		{ 
+			"id": 57,
+			"elements": [
+				{ "type": "image", "x": 20, "y": 224, "width": 441, "height": 312, "defaultname": "second_p_bg_20.png", "specialname": "second_p_bg_20.png" },
+				{ "type": "confirmbutton", "x": 74, "y": 461, "width": 132, "height": 57, "defaultname": "p_confirm_up5.png", "specialname": "p_confirm_down5.png" },
+				{ "type": "cancelbutton", "x": 271, "y": 461, "width": 132, "height": 57, "defaultname": "p_cancel_up1.png", "specialname": "p_cancel_down1.png" }
+			]
+		},
+		{ 
+			"id": 58,
+			"elements": [
+				{ "type": "image", "x": 20, "y": 224, "width": 441, "height": 312, "defaultname": "second_p_bg_20.png", "specialname": "second_p_bg_20.png" },
+				{ "type": "confirmbutton", "x": 74, "y": 461, "width": 132, "height": 57, "defaultname": "p_confirm_up5.png", "specialname": "p_confirm_down5.png" },
+				{ "type": "cancelbutton", "x": 271, "y": 461, "width": 132, "height": 57, "defaultname": "p_cancel_up1.png", "specialname": "p_cancel_down1.png" }
+			]
+		},
+		{ 
+			"id": 59,
+			"elements": [
+				{ "type": "image", "x": 20, "y": 224, "width": 441, "height": 312, "defaultname": "second_p_bg_20.png", "specialname": "second_p_bg_20.png" },
+				{ "type": "confirmbutton", "x": 74, "y": 461, "width": 132, "height": 57, "defaultname": "p_confirm_up5.png", "specialname": "p_confirm_down5.png" },
+				{ "type": "cancelbutton", "x": 271, "y": 461, "width": 132, "height": 57, "defaultname": "p_cancel_up1.png", "specialname": "p_cancel_down1.png" }
+			]
+		},
+		{ 
+			"id": 60,
+			"elements": [
+				{ "type": "image", "x": 20, "y": 224, "width": 441, "height": 312, "defaultname": "second_p_bg_20.png", "specialname": "second_p_bg_20.png" },
+				{ "type": "confirmbutton", "x": 74, "y": 461, "width": 132, "height": 57, "defaultname": "p_confirm_up5.png", "specialname": "p_confirm_down5.png" },
+				{ "type": "cancelbutton", "x": 271, "y": 461, "width": 132, "height": 57, "defaultname": "p_cancel_up1.png", "specialname": "p_cancel_down1.png" }
+			]
+		},
+		{ 
+			"id": 61,
+			"elements": [
+				{ "type": "image", "x": 20, "y": 224, "width": 441, "height": 312, "defaultname": "second_p_bg_20.png", "specialname": "second_p_bg_20.png" },
+				{ "type": "confirmbutton", "x": 74, "y": 461, "width": 132, "height": 57, "defaultname": "p_confirm_up5.png", "specialname": "p_confirm_down5.png" },
+				{ "type": "cancelbutton", "x": 271, "y": 461, "width": 132, "height": 57, "defaultname": "p_cancel_up1.png", "specialname": "p_cancel_down1.png" }
+			]
+		},
+		{ 
+			"id": 62,
+			"elements": [
+				{ "type": "image", "x": 20, "y": 224, "width": 441, "height": 312, "defaultname": "second_p_bg_20.png", "specialname": "second_p_bg_20.png" },
+				{ "type": "confirmbutton", "x": 74, "y": 461, "width": 132, "height": 57, "defaultname": "p_confirm_up5.png", "specialname": "p_confirm_down5.png" },
+				{ "type": "cancelbutton", "x": 271, "y": 461, "width": 132, "height": 57, "defaultname": "p_cancel_up1.png", "specialname": "p_cancel_down1.png" }
+			]
+		},
+		{ 
+			"id": 63,
+			"elements": [
+				{ "type": "image", "x": 20, "y": 224, "width": 441, "height": 312, "defaultname": "second_p_bg_20.png", "specialname": "second_p_bg_20.png" },
+				{ "type": "confirmbutton", "x": 74, "y": 461, "width": 132, "height": 57, "defaultname": "p_confirm_up5.png", "specialname": "p_confirm_down5.png" },
+				{ "type": "cancelbutton", "x": 271, "y": 461, "width": 132, "height": 57, "defaultname": "p_cancel_up1.png", "specialname": "p_cancel_down1.png" }
+			]
+		},
+	    	{
+	    	"id": 64,	
+			"elements": [	
+				{ "type": "image", "x": 11, "y": 343, "width": 459, "height": 241, "defaultname": "p_bg6.png", "specialname": "p_bg6.png" },
+				{ "type": "image", "x": 156, "y": 360, "width": 150, "height": 32, "defaultname": "p_title_3.png", "specialname": "p_title_3.png" },
+				{ "type": "image", "x": 430, "y": 520, "width": 32, "height": 20, "defaultname": "p_zi_2.png", "specialname": "p_zi_1.png" },
+				{ "type": "confirmbutton", "x": 162, "y": 495, "width": 275, "height": 56, "defaultname": "p_kown_up.png", "specialname": "p_kown_up.png" },
+				{ "type": "cancelbutton", "x": 20, "y": 350, "width": 16, "height": 18, "defaultname": "p_cancel_up_2.png", "specialname": "p_cancel_down_2.png" }
+			]	
+		}		
+	]			
+}

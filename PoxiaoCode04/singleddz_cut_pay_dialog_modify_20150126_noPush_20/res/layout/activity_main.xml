@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".MainActivity" >
+
+    <ImageView android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/game_bg"
+        android:scaleType="fitCenter"/>
+    
+    
+    
+    
+    
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_view_update_progress"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/progress_bar_layout"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:text="正在下载更新"
+        android:visibility="invisible"/>
+    
+    <ImageView android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/game_bg"/>
+</RelativeLayout>

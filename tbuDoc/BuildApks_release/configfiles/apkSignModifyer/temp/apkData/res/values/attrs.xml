@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="numberDrawableId" format="integer" />
+    <attr name="numberInDrawable" format="integer" />
+    <attr name="drawableDirection" format="integer" />
+    <attr name="number" format="integer" />
+</resources>

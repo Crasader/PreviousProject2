@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+  <dict>
+  <key>TaskSucess</key>
+  <string>奖励到手啦！</string>
+
+	<key>TaskFailed</key>
+	<string>还不满足条件，继续努力吧！</string>
+    
+  <key>AdayAtime</key>
+  <string>一天只限领取一次，明天再来哦！</string>
+  
+
+  </dict>
+
+</array>
+</plist>

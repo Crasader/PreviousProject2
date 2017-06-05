@@ -1,0 +1,163 @@
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-verbose
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*,!method/removal/*
+-keepattributes *Annotation*,Signature
+-keepattributes EnclosingMethod
+
+-dontwarn android.support.v4.**    
+-keep class android.support.v4.** { *; }  
+-keep interface android.support.v4.app.** { *; }  
+-keep public class * extends android.support.v4.**  
+-keep public class * extends android.app.Fragment
+
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class * extends android.view.View{*;}
+-keep public class com.android.vending.licensing.ILicensingService
+-keep class * implements java.io.Serializable
+
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+    public static *** v(...);
+    public static *** i(...);
+}
+
+-keepclassmembers class *{
+	public void *(android.view.View);
+}
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclasseswithmembernames class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembernames class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+
+# view AndroidManifest.xml #generated:50
+-keep class com.breakingdawn.canvasgame.service.GameConstantsService { <init>(...); }
+
+# view AndroidManifest.xml #generated:51
+-keep class com.breakingdawn.canvasgame.service.MusicService { <init>(...); }
+
+# view AndroidManifest.xml #generated:30
+-keep class com.breakingdawn.futonddz.FutonDdzApplication { <init>(...); }
+
+# view AndroidManifest.xml #generated:42
+-keep class com.breakingdawn.futonddz.activitys.GameActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:45
+-keep class com.breakingdawn.futonddz.activitys.Hurdles9Activity { <init>(...); }
+
+# view AndroidManifest.xml #generated:39
+-keep class com.breakingdawn.futonddz.activitys.LobbyActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:31
+-keep class com.breakingdawn.futonddz.activitys.SplashActivity { <init>(...); }
+
+# view res/layout/activity_game.xml #generated:7
+-keep class com.breakingdawn.futonddz.view.DdzGameView { <init>(...); }
+
+# view res/layout/activity_lobby.xml #generated:42
+# view res/layout/dialog_game_result.xml #generated:109
+# view res/layout/dialog_game_result.xml #generated:131
+# view res/layout/dialog_game_result.xml #generated:142
+# view res/layout/dialog_game_result.xml #generated:169
+# view res/layout/dialog_game_result.xml #generated:187
+# view res/layout/dialog_game_result.xml #generated:63
+# view res/layout/dialog_game_result.xml #generated:86
+-keep class com.breakingdawn.futonddz.view.ImageNumberView { <init>(...); }
+
+# view AndroidManifest.xml #generated:70
+-keep class com.skymobi.pay.common.service.PayCtrlService { <init>(...); }
+
+# view AndroidManifest.xml #generated:52
+-keep class com.skymobi.pay.sdk.SkyPayActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:72
+-keep class com.skymobi.pay.services.SkyPayRemoteService { <init>(...); }
+
+# view AndroidManifest.xml #generated:80
+-keep class com.skymobi.pay.sms.receiver.BootReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:103
+-keep class com.skymobi.pay.sms.receiver.NetworkReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:98
+-keep class com.skymobi.pay.sms.receiver.SmsReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:66
+-keep class com.skymobi.pay.sms.service.SmsService { <init>(...); }
+
+# view AndroidManifest.xml #generated:68
+-keep class com.skymobi.pay.sms.service.SynService { <init>(...); }
+
+# view AndroidManifest.xml #generated:54
+-keep class com.skymobi.pay.third.activity.impl.EnterChargeCenter { <init>(...); }
+
+# view AndroidManifest.xml #generated:64
+-keep class com.skymobi.pay.third.activity.impl.HelpActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:62
+-keep class com.skymobi.pay.third.activity.impl.QueryChargeResultActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:78
+-keep class com.skymobi.pay.third.service.CheckResultBackgroundService { <init>(...); }
+
+# onClick res/layout/activity_lobby.xml #generated:1
+-keepclassmembers class * { *** closeLobbyHint(...); }
+
+# onClick res/layout/activity_9hurdles.xml #generated:117
+-keepclassmembers class * { *** onBack(...); }
+
+# onClick res/layout/activity_lobby.xml #generated:21
+-keepclassmembers class * { *** onGetPrizeGameClick(...); }
+
+# onClick res/layout/activity_lobby.xml #generated:14
+-keepclassmembers class * { *** onNormalGameClick(...); }
+
+# onClick res/layout/activity_lobby.xml #generated:93
+-keepclassmembers class * { *** onShowBlanket(...); }
+
+# onClick res/layout/activity_lobby.xml #generated:50
+-keepclassmembers class * { *** onShowCharge(...); }
+
+# onClick res/layout/activity_9hurdles.xml #generated:73
+-keepclassmembers class * { *** onShowGameRule(...); }
+
+# onClick res/layout/activity_lobby.xml #generated:86
+-keepclassmembers class * { *** onShowSetting(...); }
+
+-keep public class com.skymobi.pay.**{*;}
+-keep class com.google.gson.**{*;}
+-keep public class com.skymobi.payment.android.model.*.*{*;}
+-dontwarn android.support.**
+
+-keep class com.lyhtgh.pay.** { *; }
+-keep class com.unicom.dcLoader.** { *; }
+-keep class com.android.said.adapter.** { *; }
+-keep class com.n0stop.n0base.** { *; }
+-keep class com.popgame.popcentersdk.** { *; }
+-keep class com.popgame.view.** { *; }

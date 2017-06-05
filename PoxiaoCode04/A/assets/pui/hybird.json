@@ -1,0 +1,10 @@
+{
+"unicomeuis":[
+		{ 
+			"id": 1,
+			"type": "1",
+			"images": [
+				{ "imagename": "load.png","x": 3, "y": 211 , "width": 475, "height": 370}
+			]
+		}]
+}

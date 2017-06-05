@@ -1,0 +1,8 @@
+{
+	"gameinfo":[{"avos_app_id": "M5mU7LDqSKIOY9tNBAqsJ1mV-gzGzoHsz", "avos_app_key": "QQMe57DjcqmAzMxWspjrtTGz", "output_name": "xttby", "game_show_version": "1.1.0", "package_name_no_push": "com.kx.byno", "screen_orientation": 1, "success_setting": 1, "avos_master_key": "oP3kWHw3KUJVMufbUI38kkra", "show_app_name": "\u5929\u5929\u6355\u9c7c", "tbu_id": 201609, "package_name_push": "com.kx.byno", "id": 25, "game_version": 2}],
+	"poxiao":[{"game_id": 9939, "id": 21, "tbu_id": 201609}],
+	"zhimeng":[{"app_id": 7012341, "id": 22, "tbu_id": 201609}],
+	"letu":[{"show_ui_key": "c320365de788bb4f93a2c41b78e8ab3b", "app_id": 3030048, "id": 134, "package_name": "com.kx.byno", "tbu_id": 201609}, {"show_ui_key": "c320365de788bb4f93a2c41b78e8ab3b", "app_id": 3030048, "id": 137, "package_name": "com.gddzh.buy", "tbu_id": 201609}, {"show_ui_key": "c320365de788bb4f93a2c41b78e8ab3b", "app_id": 3030048, "id": 141, "package_name": "com.gddzh.buy.xlj", "tbu_id": 201609}],
+	"zhang":[{"app_id": 2167, "id": 13, "key": "263D976E94BF49F7B4C26771FC9ACD07", "tbu_id": 201609}],
+	"uucpay":[]
+}

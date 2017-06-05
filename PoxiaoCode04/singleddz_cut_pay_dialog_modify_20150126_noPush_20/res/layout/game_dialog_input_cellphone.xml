@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/input_cell_phone_bg" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView android:id="@+id/image_view_dialog_bg"
+        android:src="@drawable/input_cell_phone_dialog_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+    
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/image_view_dialog_bg"
+        android:layout_alignBottom="@+id/image_view_dialog_bg"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:id="@+id/layout_input_cell_phone">
+        <ImageView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_cell_phone_num"/>
+        <EditText  android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:hint="	请输入手机号码	"
+        android:textColor="#FF877A6A"
+        android:id="@+id/edit_text_cell_phone"
+        android:background="@drawable/input_bg"/>
+    </LinearLayout>
+
+    
+    <ImageView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/text_input_cell_phone_hint"
+        android:layout_alignTop="@+id/image_view_dialog_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"/>
+
+
+    <ImageView android:id="@+id/image_view_dialog_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/image_view_dialog_bg"
+        android:layout_alignRight="@+id/image_view_dialog_bg"
+        android:src="@drawable/pay_dialog_close"/>
+    
+    
+    <ImageButton android:background="@drawable/submit_btn_xml"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/image_view_dialog_bg"
+        android:layout_marginBottom="-18dp"
+        android:id="@+id/image_btn_submit"
+        android:layout_centerHorizontal="true"
+        />
+</RelativeLayout>

@@ -1,0 +1,15 @@
+	<!-- wechat config start -->
+        <activity
+            android:name="com.kxdoudizhu.yes.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+
+        <receiver
+            android:name="com.kxdoudizhu.yes.AppRegister"
+            android:permission="com.tencent.mm.plugin.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+        
+         <!-- wechat config end -->

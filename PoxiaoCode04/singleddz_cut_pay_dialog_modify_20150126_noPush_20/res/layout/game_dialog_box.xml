@@ -1,0 +1,113 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+	
+    <ImageView android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/dialog_border_center_repeat"
+        android:layout_toRightOf="@+id/image_view_dialog_border_left_top"
+        android:layout_toLeftOf="@+id/image_view_dialog_border_right_top"
+        android:layout_below="@+id/image_view_dialog_border_left_top"
+        android:layout_above="@+id/image_view_dialog_border_left_bottom"/>
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_border_top_repeat"
+        
+        android:layout_toRightOf="@+id/image_view_dialog_border_left_top"
+        android:layout_toLeftOf="@+id/image_view_dialog_border_top_banner"
+        />
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_border_top_repeat"
+        
+        android:layout_toRightOf="@+id/image_view_dialog_border_top_banner"
+        android:layout_toLeftOf="@+id/image_view_dialog_border_right_top"
+        />
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_border_bottom_repeat"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/image_view_dialog_border_left_bottom"
+        android:layout_toLeftOf="@+id/image_view_dialog_border_bottom_banner"
+        />
+
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_border_bottom_repeat"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/image_view_dialog_border_bottom_banner"
+        android:layout_toLeftOf="@+id/image_view_dialog_border_right_bottom"
+        />
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_view_dialog_border_top_banner"
+        android:src="@drawable/dialog_border_top_banner"
+        android:layout_centerHorizontal="true"
+        />
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_view_dialog_border_bottom_banner"
+        android:src="@drawable/dialog_border_bottom_banner"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        />
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_border_left_repeat"
+        android:layout_above="@+id/image_view_dialog_border_left_bottom"
+        android:layout_below="@+id/image_view_dialog_border_left_top"
+        />
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/dialog_border_right_repeat"
+        android:layout_above="@+id/image_view_dialog_border_right_bottom"
+        android:layout_below="@+id/image_view_dialog_border_right_top"
+        />
+    
+    
+    
+    <ImageView
+        android:id="@+id/image_view_dialog_border_left_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:src="@drawable/dialog_border_left_top" />
+    
+    <ImageView
+        android:id="@+id/image_view_dialog_border_left_bottom" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        
+        android:src="@drawable/dialog_border_left_bottom"/>
+    
+    <ImageView 
+        android:id="@+id/image_view_dialog_border_right_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/dialog_border_right_top"/>
+    
+    <ImageView 
+        android:id="@+id/image_view_dialog_border_right_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:layout_alignParentRight="true" 
+         android:layout_alignParentBottom="true"
+        android:src="@drawable/dialog_border_right_bottom"/>
+</merge>

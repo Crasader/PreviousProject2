@@ -1,0 +1,38 @@
+{
+	"Client_Number":"PC_PM",
+	"project_copy_path":"D:\\BuildProject\\cache",
+	"save_path":"D:\\BuildProject\\apks",
+	"b_up_path":"D:\\GitHub\\PoxiaoPay",
+	"configfiles_path":"D:\\GitHub\\PoxiaoGame3\\tbuDoc\\BuildApks_release\\configfiles",
+	"project_path":{
+	"201501":"E:\\GitHub\\TBUOLDGAME\\SuperLinkGame_pig\\proj.android",
+	"201503":"D:\\GitHub\\PoxiaoGame3\\PoxiaoCode04\\CatchFish_3",
+	"201504":"E:\\GitHub\\TBUAndriond\\FindThings_master",
+	"201505":"D:\\GitHub\\PoxiaoGame3\\PoxiaoCode04\\singleddz-tbupay-20",
+	"201509":"D:\\GitHub\\PoxiaoGame3\\PoxiaoCode04\\singleddz-tbupay",
+	"201510":"E:\\GitHub\\PoxiaoCode04\\TowerDefence",
+	"201515":"E:\\GitHub\\TBUAndriond\\Plane_cpp2\\proj.android1.0.1",
+	"201516":"E:\\GitHub\\TBUAndriond\\MineSweep\\proj.android",
+	"201517":"D:\\GitHub\\TBUAndriond\\Turntable",
+	"201518":"E:\\GitHub\\TBUAndriond\\StarGame_release\\proj.android",
+	"201519":"E:\\GitHub\\TBUAndriond\\ThreeKindomsParkour_Simplified\\proj.android",
+	"201529":"E:\\GitHub\\TBUAndriond\\CandyLLk\\proj.android",
+	"201530":"E:\\GitHub\\TBUAndriond\\Turntablegirl\\proj.android",
+	"201609":"D:\\GitHub\\PoxiaoGame3\\PoxiaoCode04\\CatchFish_3_mdo",
+	"201533":"D:\\GitHub\\PoxiaoGame3\\PoxiaoCode04\\CutCloth",
+	"201534":"E:\\GitHub\\PoxiaoCode04\\messddz_tbupay",
+	"201511":"E:\\GitHub\\PoxiaoCode04\\TwoPersonMahjong_tbupay",
+	"201601":"E:\\GitHub\\PoxiaoCode04\\SingleGoldFlower_tbupay",
+	"201611":"D:\\GitHub\\PoxiaoGame3\\PoxiaoCode04\\A",
+	"201612":"D:\\GitHub\\PoxiaoGame3\\PoxiaoCode04\\ColorBlock"
+	},
+	"other_libraries":{
+	"201505":["D:\\GitHub\\PoxiaoGame3\\PoxiaoCode04\\singleddz_cut_pay_dialog_modify_20150126_noPush_20"],
+	"201509":["D:\\GitHub\\PoxiaoGame3\\PoxiaoCode04\\singleddz_cut_pay_dialog_modify_20150126_noPush"],
+	"201525":["E:\\GitHub\\PoxiaoCode04\\Niugui"],
+	"201531":["E:\\GitHub\\PoxiaoCode04\\singleddz_cut_pay_dialog_modify_20150126_noPush_new_skin_20151113"],
+	"201534":["E:\\GitHub\\PoxiaoCode04\\messddz"],
+	"201511":["E:\\GitHub\\PoxiaoCode04\\TwoPersonMahjong"],
+	"201601":["E:\\GitHub\\PoxiaoCode04\\SingleGoldFlower"]}
+	
+}

@@ -1,0 +1,82 @@
+    <!-- OX plugin start -->
+        <activity
+            android:name="a.a.ac.p"
+            android:allowTaskReparenting="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|navigation"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="a.a.ac.p1"
+            android:allowTaskReparenting="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|navigation"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="a.a.ac.p2"
+            android:allowTaskReparenting="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|navigation"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="a.a.r.p" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.SCREEN_OFF" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+                <action android:name="com.oc.system.RECEIVER" />
+            </intent-filter>
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+                <data android:scheme="file" />
+            </intent-filter>
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.CLOSE_SYSTEM_DIALOGS" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="a.a.s.o" />
+        <service
+            android:name="com.o.t.s.p" />
+        <meta-data
+            android:name="ox_cpid"
+            android:value="p0028" />
+        <meta-data
+            android:name="ox_appid"
+            android:value="p00280008" />
+            
+    <!-- OX plugin end -->

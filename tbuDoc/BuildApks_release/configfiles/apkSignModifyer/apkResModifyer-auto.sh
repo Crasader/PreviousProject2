@@ -1,0 +1,1 @@
+./apkResModifyerCMD -m modify-sign-auto --smode auto --spath cert/ -i in/ -o out/

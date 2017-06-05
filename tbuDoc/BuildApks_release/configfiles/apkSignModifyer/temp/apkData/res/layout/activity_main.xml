@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/game_bg" android:scaleType="fitCenter" />
+    <TextView android:textSize="12.0sp" android:textColor="@android:color/black" android:id="@id/text_view_update_progress" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="正在下载更新" android:layout_above="@id/progress_bar_layout" android:layout_centerHorizontal="true" />
+    <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/game_bg" />
+</RelativeLayout>

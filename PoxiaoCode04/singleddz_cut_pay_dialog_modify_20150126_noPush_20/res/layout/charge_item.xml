@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.poxiao.ddz.standalone"
+    android:layout_width="166dp"
+    android:layout_height="55dp"
+    android:background="@drawable/charge_item_bg"
+    android:orientation="vertical"
+    
+    android:gravity="center" >
+
+    <TextView
+        android:id="@+id/text_view_charge_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="短信：2元充15000银币"
+        android:textColor="@android:color/white"
+        android:textSize="13sp"
+        android:layout_gravity="center_horizontal"
+         />
+
+    <TextView
+        android:id="@+id/text_view_charge_sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加送500银币"
+        android:textSize="13sp"
+        android:textColor="#F0C600" />
+
+</LinearLayout>

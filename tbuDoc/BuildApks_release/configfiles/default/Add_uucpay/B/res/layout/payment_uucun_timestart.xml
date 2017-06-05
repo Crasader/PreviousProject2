@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+	
+    <!-- 支付信息界面  -->
+
+    <RelativeLayout  
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_below="@+id/myTime" >
+
+        <WebView
+            android:id="@+id/payment_uucun_advert_webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <RelativeLayout              
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:id="@+id/myTime">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTime"
+            android:layout_toLeftOf="@+id/returnbt"
+            android:background="@drawable/gg_tb"
+            android:gravity="center"
+            android:textColor="#FF0000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/returnbt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textTime"
+            android:layout_alignParentRight="true" 
+           	android:visibility="invisible"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/gg_close" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/myTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/gg_tb"
+        android:gravity="center"
+        android:text="看广告，免费得道具！"
+        android:textColor="#FF0000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
