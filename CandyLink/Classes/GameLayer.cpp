@@ -34,9 +34,6 @@ bool GameLayer::init(){
 	GAMEDATA::getInstance()->needResetMap = false;
 	GAMEDATA::getInstance()->needTipPos = false;
 
-	 
-
-	//����touch�¼�����
 	setTouchEnabled(true);
 	setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
 	auto listener = EventListenerTouchOneByOne::create();
@@ -108,15 +105,7 @@ void  GameLayer::drawMapBg(){
 
 }
 void GameLayer::resetMap(){
-	//for (auto itema : items)
-	//{
-	//	itema->stopAllActions();
-	//}
 	if (tipPos.size()>1 && tipPos[0] != tipPos[1]){
-		//����ʾ
-		//lights.at(0)->removeFromParent();
-		//lights.at(1)->removeFromParent();
-		//lights.clear();
 		allElements.at(tipPos[0])->stopAllActions();
 		allElements.at(tipPos[1])->stopAllActions();
 
@@ -153,9 +142,7 @@ void GameLayer:: newMap(float dt){
 }
 
 void GameLayer::startGame(float dt){
-	//������Ϸ��ʼǰ�Ʒѵ㵯���¼�
 	if (GAMEDATA::getInstance()->getFirstPay()){
-		//��ʾ�û�û�и���
 		if (GAMEDATA::getInstance()->getTimes() == 1){
 			CallAndroidMethod::getInstance()->requestEvent(1);
 		}

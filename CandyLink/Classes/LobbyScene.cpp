@@ -60,92 +60,43 @@ bool LobbyScene::init()
 	Sprite* lobby_bg = Sprite::create("lobby_bg.jpg");
 	lobby_bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(lobby_bg, -1);
-
-
-
-
 	//add start menu to layer
 	int val = getDayCnt("PayMonthFlag");
 	if (val == 0)
 	{
 		if (GAMEDATA::getInstance()->getMonthCard()){
 			GAMEDATA::getInstance()->setTipNum(GAMEDATA::getInstance()->getTipNum() + 2);
-			//TODO:SHOWï¿½ï¿½toast
 			CallAndroidMethod::getInstance()->showMonthCardToast();
 			addDayCnt("PayMonthFlag");
 		}
 		
 	}
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID ||CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	if(GAMEDATA::getInstance()->getLoginTimes()==0){
 		GAMEDATA::getInstance()->setLoginTimes(1);
 	}else{
 		if (!CallAndroidMethod::getInstance()->isSignToday()&&!GAMEDATA::getInstance()->getisfirsttimegame()){
-			//TODO:ï¿½ï¿½Ê¾ï¿½Â¿ï¿½ï¿½ï¿½Ê¾
-
-				//TODO:sign in		
-
-				Size visibleSize = Director::getInstance()->getVisibleSize();
+//                Size visibleSize = Director::getInstance()->getVisibleSize();
 				Node* pause_layer1 = SignInLayer::create();
 				pause_layer1->setPosition(Point::ZERO);
 				this->addChild(pause_layer1, 2);
-		
-
 		}
-
 	}
-
 #endif
 
-
-	/*
-	GAMEDATA::getInstance()->setDay(GAMEDATA::getInstance()->getCurrentTime());
-	int a =  GAMEDATA::getInstance()->getDay();
-	int n =  GAMEDATA::getInstance()->getCurrentTime();
-	int m= GAMEDATA::getInstance()->getLoginTimes();
-	if (a == n&&m==0){
-		
-	}
-	if (n == a + 1){
-		GAMEDATA::getInstance()->setTimes(GAMEDATA::getInstance()->getTimes() + 1);
-		GAMEDATA::getInstance()->setLoginTimes(0);
-		if(m==0){
-			GAMEDATA::getInstance()->setDay(GAMEDATA::getInstance()->getCurrentTime());
-			GAMEDATA::getInstance()->setLoginTimes(GAMEDATA::getInstance()->getLoginTimes() + 1);
-			Size visibleSize = Director::getInstance()->getVisibleSize();
-			Node* pause_layer1 = SignInLayer::create();
-			pause_layer1->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-			this->addChild(pause_layer1, 2);
-		}
-	}
-		if (n-a>1)
-		{
-			GAMEDATA::getInstance()->setLoginTimes(0);
-			if(m==0){
-			GAMEDATA::getInstance()->setTimes(0);
-			GAMEDATA::getInstance()->setLoginTimes(GAMEDATA::getInstance()->getLoginTimes() + 1);
-			Size visibleSize = Director::getInstance()->getVisibleSize();
-			Node* pause_layer1 = SignInLayer::create();
-			pause_layer1->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-			this->addChild(pause_layer1, 2);
-			GAMEDATA::getInstance()->setDay(GAMEDATA::getInstance()->getCurrentTime());
-			}
-	}
-	*/
-
 	//add music
-	CCMenuItemImage *open = CCMenuItemImage::create("open.png", "open.png");
-	CCMenuItemImage *close = CCMenuItemImage::create("close.png", "close.png");
+	MenuItemImage *open = MenuItemImage::create("open.png", "open.png");
+	MenuItemImage *close = MenuItemImage::create("close.png", "close.png");
 	if (GAMEDATA::getInstance()->getMusicState()){
-		CCMenuItemToggle *close1 = CCMenuItemToggle::createWithTarget(this, menu_selector(LobbyScene::musicCallback), open, close, NULL);
+		CCMenuItemToggle *close1 = MenuItemToggle::createWithTarget(this, menu_selector(LobbyScene::musicCallback), open, close, NULL);
 		close1->setPosition(ccp(-190, -353));
-		CCMenu* itemToggleMenu = CCMenu::create(close1, NULL);
+		Menu* itemToggleMenu = Menu::create(close1, NULL);
 		this->addChild(itemToggleMenu, 1);
 	}
 	else{
-		CCMenuItemToggle *close1 = CCMenuItemToggle::createWithTarget(this, menu_selector(LobbyScene::musicCallback), close, open, NULL);
+		MenuItemToggle *close1 = MenuItemToggle::createWithTarget(this, menu_selector(LobbyScene::musicCallback), close, open, NULL);
 		close1->setPosition(ccp(-190,-353));
-		CCMenu* itemToggleMenu = CCMenu::create(close1, NULL);
+		Menu* itemToggleMenu = Menu::create(close1, NULL);
 		this->addChild(itemToggleMenu, 1);
 	}
 
@@ -175,39 +126,6 @@ bool LobbyScene::init()
 		tehui->setPosition(Point(0, 0));
 		this->addChild(tehui);
 	}
-	////Ð¡Çò
-	//auto ball1 = Sprite::create("ball_1.png");
-	//ball1->setPosition(46, 154);
-	//ball1->setTag(20);
-	//balls.pushBack(ball1);
-	//addChild(ball1);
-
-	//auto ball2 = Sprite::create("ball_2.png");
-	//ball2->setPosition(133, 102);
-	//ball2->setTag(21);
-	//balls.pushBack(ball2);
-	//addChild(ball2);
-
-	//auto ball3 = Sprite::create("ball_3.png");
-	//ball3->setPosition(230, 88);
-	//ball3->setTag(22);
-	//balls.pushBack(ball3);
-	//addChild(ball3);
-
-	//auto ball4 = Sprite::create("ball_4.png");
-	//ball4->setPosition(358, 97);
-	//ball4->setTag(23);
-	//balls.pushBack(ball4);
-	//addChild(ball4);
-
-	//auto ball5 = Sprite::create("ball_5.png");
-	//ball5->setPosition(438, 155);
-	//ball5->setTag(24);
-	//balls.pushBack(ball5);
-	//addChild(ball5);
-
-	
-
 
 	if (GAMEDATA::getInstance()->getisfirsttimegame())
 	{
@@ -257,10 +175,6 @@ void LobbyScene::startGame(){
 	GAMEDATA::getInstance()->setisfirsttimegame(false);
 	GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Ready;
 
-
-	//Node* pause_layer1 = SignInLayer::create();
-	//pause_layer1->setPosition(Point::ZERO);
-	//this->addChild(pause_layer1, 5);
 }
 
 
@@ -328,39 +242,6 @@ void LobbyScene::ShowAni(float dt)
 		Title->runAction(Sequence::create(dealy, Spawn::create(moveto, scaleto1, nullptr), scaleto2, scaleto3, scaleto4, scaleto6, nullptr));
 	}
 
-	////Ð¡Çò
-	//{
-	//	auto scaleani = Sequence::create(ScaleTo::create(0.08, 1.1, 0.9),
-	//	ScaleTo::create(0.08, 0.9, 1.1), ScaleTo::create(0.08, 1.0, 1.0), ScaleTo::create(0.08, 1.1, 0.9), ScaleTo::create(0.08, 0.9, 1.1), ScaleTo::create(0.08, 1.0, 1.0)/*, CallFuncN::create(this, callfuncN_selector(LobbyScene::BallAniCallback))*/, nullptr);
-	//	
-	//	for (int i = 0; i < 5; i++)
-	//	{
-	//		auto node = getChildByTag(i + 20);
-	//		switch (i+20)
-	//		{
-	//			case 20:
-	//				node->runAction(/*Sequence::create(DelayTime::create(0.0f),*/ RepeatForever::create(Sequence::create(scaleani, DelayTime::create(2.0f),nullptr))/*,nullptr)*/);
-	//				break;
-	//			case 21:
-	//				node->runAction(Sequence::create(DelayTime::create(0.48f), RepeatForever::create(Sequence::create(scaleani, DelayTime::create(2.0f), nullptr)), nullptr));
-	//				break;
-	//			case 22:
-	//				node->runAction(Sequence::create(DelayTime::create(0.96f), RepeatForever::create(Sequence::create(scaleani, DelayTime::create(2.0f), nullptr)), nullptr));
-	//				break;
-	//			case 23:
-	//				node->runAction(Sequence::create(DelayTime::create(1.44f), RepeatForever::create(Sequence::create(scaleani, DelayTime::create(2.0f), nullptr)), nullptr));
-	//				break;
-	//			case 24:
-	//				node->runAction(Sequence::create(DelayTime::create(1.92f), RepeatForever::create(Sequence::create(scaleani, DelayTime::create(2.0f), nullptr)), nullptr));
-	//				break;
-	//		default:
-	//			break;
-	//		}
-
-	//	}
-	//}
-	//Ð¡Çò
-	/*this->schedule(CC_SCHEDULE_SELECTOR(LobbyScene::ballani), 0, kRepeatForever, 2.0f);*/
 	ballani(1);
 
 }
