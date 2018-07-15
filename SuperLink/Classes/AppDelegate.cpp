@@ -30,24 +30,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		glview = GLViewImpl::create("SuperLinkGame");
 		director->setOpenGLView(glview);
 	}
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32||CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	glview->setFrameSize(480, 800);
 	glview->setDesignResolutionSize(480, 800, ResolutionPolicy::EXACT_FIT);
 #endif
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	if (visibleSize.width / visibleSize.height > 800.0 / 480.0){//竖屏方向拉伸变形
-		//拉伸变形，铺满屏幕
-		//假设：屏幕分辨率（fWidth，fHeight） ； 设计分辨率（dWidth，dHeight）。
-		//放缩因子：k1 = fWidth/dWidth ； k2 = fHeight/dHeight。
-		//EXACT_FIT= dWidth * k1, dHeight * k2 
-		glview->setDesignResolutionSize(480, 800, ResolutionPolicy::EXACT_FIT);
-	}
-	else{
-		//全屏展示，不留黑边
-		//NO_BORDER: dWidth * max(k1,k2) , dHeight * max(k1,k2)
-		glview->setDesignResolutionSize(480, 800, ResolutionPolicy::EXACT_FIT);
-	}
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+//    Size visibleSize = Director::getInstance()->getVisibleSize();
+	glview->setDesignResolutionSize(480, 800, ResolutionPolicy::EXACT_FIT);
 #endif
 	// turn on display FPS
 	director->setDisplayStats(false);

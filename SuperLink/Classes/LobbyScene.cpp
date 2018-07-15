@@ -119,18 +119,18 @@ bool LobbyScene::init()
 	start_game1->setPosition(420, 750);
 
 	this->addChild(start_game1);
-	CCMenuItemImage *open = CCMenuItemImage::create("open.png", "open.png");
-	CCMenuItemImage *close = CCMenuItemImage::create("close.png", "close.png");
+	MenuItemImage *open = MenuItemImage::create("open.png", "open.png");
+	MenuItemImage *close = MenuItemImage::create("close.png", "close.png");
 	if (GAMEDATA::getInstance()->getMusicState()){
-		CCMenuItemToggle *close1 = CCMenuItemToggle::createWithTarget(this, menu_selector(LobbyScene::musicCallback), open, close, NULL);
+		MenuItemToggle *close1 = MenuItemToggle::createWithTarget(this, menu_selector(LobbyScene::musicCallback), open, close, NULL);
 		close1->setPosition(ccp(182, 353));
-		CCMenu* itemToggleMenu = CCMenu::create(close1, NULL);
+		Menu* itemToggleMenu = Menu::create(close1, NULL);
 		this->addChild(itemToggleMenu, 1);
 	}
 	else{
-		CCMenuItemToggle *close1 = CCMenuItemToggle::createWithTarget(this, menu_selector(LobbyScene::musicCallback), close, open, NULL);
+		MenuItemToggle *close1 = MenuItemToggle::createWithTarget(this, menu_selector(LobbyScene::musicCallback), close, open, NULL);
 		close1->setPosition(ccp(182, 353));
-		CCMenu* itemToggleMenu = CCMenu::create(close1, NULL);
+		Menu* itemToggleMenu = Menu::create(close1, NULL);
 		this->addChild(itemToggleMenu, 1);
 	}
 

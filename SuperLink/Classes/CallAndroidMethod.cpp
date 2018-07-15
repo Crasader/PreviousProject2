@@ -1,5 +1,4 @@
 #include "CallAndroidMethod.h"
-#include "platform\android\jni\JniHelper.h"
 #include "GameData.h"
 #include "GameLayer.h"
 #include"GameGuiLayer.h"
