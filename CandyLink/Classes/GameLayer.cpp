@@ -8,6 +8,7 @@
 #include "GameResultScene.h"
 #include "GameConfig.h"
 #include "DebugTasterTime.h"
+#include "DreamLayer.h"
 bool GameLayer::init(){
     if (!Layer::init())
     {
@@ -140,43 +141,45 @@ void GameLayer:: newMap(float dt){
 }
 
 void GameLayer::startGame(float dt){
-    if (GAMEDATA::getInstance()->getFirstPay()){
-        if (GAMEDATA::getInstance()->getTimes() == 1){
-            CallAndroidMethod::getInstance()->requestEvent(1);
-        }
-        else if (GAMEDATA::getInstance()->getTimes() == 2){
-            CallAndroidMethod::getInstance()->requestEvent(2);
-        }
-        else if (GAMEDATA::getInstance()->getTimes() == 3){
-            CallAndroidMethod::getInstance()->requestEvent(3);
-        }
-        else if (GAMEDATA::getInstance()->getTimes() == 4){
-            CallAndroidMethod::getInstance()->requestEvent(5);
-        }
-        else if (GAMEDATA::getInstance()->getTimes() == 8){
-            CallAndroidMethod::getInstance()->requestEvent(6);
-        }
-        else if (GAMEDATA::getInstance()->getTimes() == 12){
-            CallAndroidMethod::getInstance()->requestEvent(7);
-        }else if (GAMEDATA::getInstance()->getTimes() >= 16 && GAMEDATA::getInstance()->getTimes() % 4 == 0){
-            int num = (GAMEDATA::getInstance()->getTimes()/4) % 3 + 25;
-            CallAndroidMethod::getInstance()->requestEvent(num);
-        }
-        else{
-            CallAndroidMethod::getInstance()->requestEvent(18);
-        }
-    }
-    else{
-        if (GAMEDATA::getInstance()->getTimes() == 10){
-            CallAndroidMethod::getInstance()->requestEvent(28);
-        }else if (GAMEDATA::getInstance()->getTimes() >= 20 && GAMEDATA::getInstance()->getTimes() % 10 == 0){
-            int num = (GAMEDATA::getInstance()->getTimes()/10) % 3 + 29;
-            CallAndroidMethod::getInstance()->requestEvent(num);
-        }else{
-            //Start game
-            CallAndroidMethod::getInstance()->requestEvent(18);
-        }
-    }
+    auto dr = DreamLayer::create(1);
+    getParent()->addChild(dr,10);
+//    if (GAMEDATA::getInstance()->getFirstPay()){
+//        if (GAMEDATA::getInstance()->getTimes() == 1){
+//            CallAndroidMethod::getInstance()->requestEvent(1);
+//        }
+//        else if (GAMEDATA::getInstance()->getTimes() == 2){
+//            CallAndroidMethod::getInstance()->requestEvent(2);
+//        }
+//        else if (GAMEDATA::getInstance()->getTimes() == 3){
+//            CallAndroidMethod::getInstance()->requestEvent(3);
+//        }
+//        else if (GAMEDATA::getInstance()->getTimes() == 4){
+//            CallAndroidMethod::getInstance()->requestEvent(5);
+//        }
+//        else if (GAMEDATA::getInstance()->getTimes() == 8){
+//            CallAndroidMethod::getInstance()->requestEvent(6);
+//        }
+//        else if (GAMEDATA::getInstance()->getTimes() == 12){
+//            CallAndroidMethod::getInstance()->requestEvent(7);
+//        }else if (GAMEDATA::getInstance()->getTimes() >= 16 && GAMEDATA::getInstance()->getTimes() % 4 == 0){
+//            int num = (GAMEDATA::getInstance()->getTimes()/4) % 3 + 25;
+//            CallAndroidMethod::getInstance()->requestEvent(num);
+//        }
+//        else{
+//            CallAndroidMethod::getInstance()->requestEvent(18);
+//        }
+//    }
+//    else{
+//        if (GAMEDATA::getInstance()->getTimes() == 10){
+//            CallAndroidMethod::getInstance()->requestEvent(28);
+//        }else if (GAMEDATA::getInstance()->getTimes() >= 20 && GAMEDATA::getInstance()->getTimes() % 10 == 0){
+//            int num = (GAMEDATA::getInstance()->getTimes()/10) % 3 + 29;
+//            CallAndroidMethod::getInstance()->requestEvent(num);
+//        }else{
+//            //Start game
+//            CallAndroidMethod::getInstance()->requestEvent(18);
+//        }
+//    }
 }
 
 void GameLayer::showMatrix(float dt){

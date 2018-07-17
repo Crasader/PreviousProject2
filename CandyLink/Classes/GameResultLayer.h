@@ -18,7 +18,7 @@ private:
 	void quitGame();
 	void showMoreGame();
 	void showRankNum(float dt);
-	int getScoreRank();//返回名次信息
-	int getScorePacent();//返回百分比信息
+	int getScoreRank();
+	int getScorePacent();
 };
 #endif
