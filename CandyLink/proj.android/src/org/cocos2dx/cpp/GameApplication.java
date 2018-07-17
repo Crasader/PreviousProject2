@@ -1,11 +1,11 @@
 package org.cocos2dx.cpp;
 
+import com.b.a.AppApplication;
+
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 
-
-import com.tallbigup.android.AppApplication;
 
 
 public class GameApplication extends AppApplication{

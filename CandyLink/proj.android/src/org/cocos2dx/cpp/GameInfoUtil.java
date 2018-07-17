@@ -67,11 +67,12 @@ public class GameInfoUtil{
 	}
 	
 	public String getPlayerId(){
-		if(sp == null){
-			return DeviceInfo.imsi;
-		}else{
-			return sp.getString(GameInfoUtil.PLAYER_ID, DeviceInfo.imsi);
-		}
+//		if(sp == null){
+//			return DeviceInfo.imsi;
+//		}else{
+//			return sp.getString(GameInfoUtil.PLAYER_ID, DeviceInfo.imsi);
+//		}
+		return "yang";
 	}
 	
 	public boolean setNickName(String nickName){
@@ -81,10 +82,11 @@ public class GameInfoUtil{
 	}
 	
 	public String getNickName(){
-		if(sp == null){
-			return DeviceInfo.product + DeviceInfo.imei.substring(DeviceInfo.imei.length()-4, DeviceInfo.imei.length());
-		}else{
-			return sp.getString(GameInfoUtil.NICK_NAME, DeviceInfo.product + DeviceInfo.imei.substring(DeviceInfo.imei.length()-4, DeviceInfo.imei.length()));
-		}
+//		if(sp == null){
+//			return DeviceInfo.product + DeviceInfo.imei.substring(DeviceInfo.imei.length()-4, DeviceInfo.imei.length());
+//		}else{
+//			return sp.getString(GameInfoUtil.NICK_NAME, DeviceInfo.product + DeviceInfo.imei.substring(DeviceInfo.imei.length()-4, DeviceInfo.imei.length()));
+//		}
+		return "nick_yang";
 	}
 }

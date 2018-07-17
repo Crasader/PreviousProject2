@@ -161,7 +161,6 @@ void GameLayer::startGame(float dt){
 		else if (GAMEDATA::getInstance()->getTimes() == 12){
 			CallAndroidMethod::getInstance()->requestEvent(7);
 		}else if (GAMEDATA::getInstance()->getTimes() >= 16 && GAMEDATA::getInstance()->getTimes() % 4 == 0){
-			//���¼���25��26��27
 			int num = (GAMEDATA::getInstance()->getTimes()/4) % 3 + 25;
 			CallAndroidMethod::getInstance()->requestEvent(num);
 		}
@@ -173,7 +172,6 @@ void GameLayer::startGame(float dt){
 		if (GAMEDATA::getInstance()->getTimes() == 10){
 			CallAndroidMethod::getInstance()->requestEvent(28);
 		}else if (GAMEDATA::getInstance()->getTimes() >= 20 && GAMEDATA::getInstance()->getTimes() % 10 == 0){
-			//�����¼���29��30��31
 			int num = (GAMEDATA::getInstance()->getTimes()/10) % 3 + 29;
 			CallAndroidMethod::getInstance()->requestEvent(num);
 		}else{

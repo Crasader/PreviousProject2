@@ -5,12 +5,12 @@
 #define BACKGORUNDMUSIC "raw/play.ogg"
 
 #define CLICK "raw/game_item_click.ogg"
-#define ELECTRICITY "raw/game_conn_shine.ogg"//电流声
+#define ELECTRICITY "raw/game_conn_shine.ogg"
 #define TIMEOVER "raw/time_over.mp3"
 #define readyGo "raw/game_go.wav"
 #define HITITEM "raw/paddle_hit.wav"
 
-#define CONN_1 "raw/game_conn_1.ogg"//对应连击数
+#define CONN_1 "raw/game_conn_1.ogg"
 #define CONN_2 "raw/game_conn_2.ogg"
 #define CONN_3 "raw/game_conn_3.ogg"
 #define CONN_4 "raw/game_conn_4.ogg"

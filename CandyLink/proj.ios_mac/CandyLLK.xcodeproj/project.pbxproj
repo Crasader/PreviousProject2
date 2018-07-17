@@ -116,6 +116,8 @@
 		D24E5D3320FAE77700D29221 /* pauselayer in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1820FAE77700D29221 /* pauselayer */; };
 		D24E5D3420FAE77700D29221 /* zmfiles in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1920FAE77700D29221 /* zmfiles */; };
 		D24E5D3520FAE77700D29221 /* zmfiles in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1920FAE77700D29221 /* zmfiles */; };
+		D2F4C27D20FE1A5700666483 /* DreamLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */; };
+		D2F4C27E20FE1A5700666483 /* DreamLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
@@ -261,6 +263,8 @@
 		D24E5D1720FAE77700D29221 /* Config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Config.json; sourceTree = "<group>"; };
 		D24E5D1820FAE77700D29221 /* pauselayer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pauselayer; sourceTree = "<group>"; };
 		D24E5D1920FAE77700D29221 /* zmfiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = zmfiles; sourceTree = "<group>"; };
+		D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DreamLayer.cpp; sourceTree = "<group>"; };
+		D2F4C27C20FE1A5700666483 /* DreamLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DreamLayer.h; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -429,6 +433,8 @@
 				D24E5CDC20FAE74D00D29221 /* GameConfig.h */,
 				D24E5CC020FAE74B00D29221 /* GameData.cpp */,
 				D24E5CD620FAE74C00D29221 /* GameData.h */,
+				D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */,
+				D2F4C27C20FE1A5700666483 /* DreamLayer.h */,
 				D24E5CDB20FAE74D00D29221 /* GameGuiLayer.cpp */,
 				D24E5CE120FAE74D00D29221 /* GameGuiLayer.h */,
 				D24E5CC520FAE74B00D29221 /* GameLayer.cpp */,
@@ -679,6 +685,7 @@
 				D24E5D0620FAE74E00D29221 /* GameResultLayer.cpp in Sources */,
 				D24E5D0220FAE74E00D29221 /* GameGuiLayer.cpp in Sources */,
 				D24E5D0820FAE74E00D29221 /* AnimationUtil.cpp in Sources */,
+				D2F4C27D20FE1A5700666483 /* DreamLayer.cpp in Sources */,
 				D24E5CEE20FAE74E00D29221 /* Matrix.cpp in Sources */,
 				D24E5CF220FAE74E00D29221 /* MenuScenePayHandler.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
@@ -716,6 +723,7 @@
 				D24E5CF520FAE74E00D29221 /* GamePauseLayer.cpp in Sources */,
 				D24E5D0520FAE74E00D29221 /* GameResultScene.cpp in Sources */,
 				D24E5D0B20FAE74E00D29221 /* AppDelegate.cpp in Sources */,
+				D2F4C27E20FE1A5700666483 /* DreamLayer.cpp in Sources */,
 				D24E5CFF20FAE74E00D29221 /* DebugTasterTime.cpp in Sources */,
 				D24E5CF920FAE74E00D29221 /* GamePauseScene.cpp in Sources */,
 				D24E5CF120FAE74E00D29221 /* GameScene.cpp in Sources */,

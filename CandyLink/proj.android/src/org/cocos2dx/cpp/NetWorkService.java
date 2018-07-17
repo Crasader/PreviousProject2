@@ -3,16 +3,16 @@ package org.cocos2dx.cpp;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.app.Activity;
-import android.view.Gravity;
-import android.widget.Toast;
-
-import com.tallbigup.android.AppApplication;
-import com.tbu.analysis.TbuAnalysis;
+import com.b.a.AppApplication;
+import com.d.analysis.TbuAnalysis;
+import com.d.extend.quitgame.ExitGameInterface;
 import com.tbu.android.moreapp.MoreGameManager;
 import com.tbu.android.moreapp.domain.MoreAppCallback;
 import com.tbu.androidtools.Debug;
-import com.tbu.extend.quitgame.ExitGameInterface;
+
+import android.app.Activity;
+import android.view.Gravity;
+import android.widget.Toast;
 
 public class NetWorkService {
 
@@ -21,9 +21,9 @@ public class NetWorkService {
 
 	public static void init(final Activity activity) {
 		NetWorkService.activity = activity;
-		
-		setTehui(true);//特惠开关默认false
-		
+
+		setTehui(true);// 特惠开关默认false
+
 		MoreGameManager.init(activity, new MoreAppCallback() {
 			@Override
 			public void result(boolean changed) {
@@ -35,7 +35,7 @@ public class NetWorkService {
 				setOpenMoreGame();
 			}
 		});
-		
+
 	}
 
 	public static void showMoreGame() {
@@ -45,57 +45,55 @@ public class NetWorkService {
 	public static void quit() {
 		AppApplication.quitGame(activity, new ExitGameInterface() {
 
-			
 			@Override
 			public void quitGame() {
-				//LOG EVENT		
+				// LOG EVENT
 				TimerTask timetask = new TimerTask() {
-					
+
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 						GameApplication.getInstance().fullExitApplication();
 					}
-				};	
+				};
 				JniPayCallbackHelper.GameQuitLogEvent();
-				final Timer timer=new Timer(); 
+				final Timer timer = new Timer();
 				timer.schedule(timetask, 500);
 
-				}
-			
+			}
+
 		});
 	}
 
 	public static void setOpenMoreGame() {
-		Debug.e("openMoreGame="+openMoreGame);
+		Debug.e("openMoreGame=" + openMoreGame);
 		JniPayCallbackHelper.showMoreGameNative(openMoreGame);
 	}
-	
+
 	/**
 	 * 是否开放特惠礼包按钮
 	 */
-	
+
 	public static void setTehui(boolean open) {
 		JniPayCallbackHelper.showTehui(open);
 	}
-	
-	public static void showMonthCardToast(){
-		activity.runOnUiThread(new Runnable(){
+
+	public static void showMonthCardToast() {
+		activity.runOnUiThread(new Runnable() {
 
 			@Override
 			public void run() {
-				Toast toast = Toast.makeText(activity,
-					     "获得提示道具2个", Toast.LENGTH_LONG);
+				Toast toast = Toast.makeText(activity, "获得提示道具2个", Toast.LENGTH_LONG);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.show();
-				
+
 			}
-			
+
 		});
 	}
-	public  static void  logevent(String event,
-			String eventExtend, String sessionTime){
-		
-		TbuAnalysis.uploadAnalysis(activity, event, eventExtend, sessionTime);
-		}
+
+	public static void logevent(String event, String eventExtend, String sessionTime) {
+
+//		TbuAnalysis.uploadAnalysis(activity, event, eventExtend, sessionTime);
+	}
 }

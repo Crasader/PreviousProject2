@@ -1,12 +1,12 @@
 package org.cocos2dx.cpp;
 
+import com.b.a.AppApplication;
+import com.d.event.EventCallBack;
+import com.d.event.EventResult;
+import com.tbu.androidtools.Debug;
+
 import android.app.Activity;
 import android.util.Log;
-
-import com.tallbigup.android.AppApplication;
-import com.tbu.androidtools.Debug;
-import com.tbu.event.EventCallBack;
-import com.tbu.event.EventResult;
 
 public class PayService {
 	
@@ -18,12 +18,13 @@ public class PayService {
 
 	public static void pay(final int id) {
 		Debug.e("event id="+id);
-		boolean result=AppApplication.getInstance().doPayEvent(activity, id+"", new EventCallBack(){
+//		JniPayCallbackHelper.eventSuccess(id);
+		boolean result=AppApplication.getInstance().doPEvent(activity, id+"", new EventCallBack(){
 			@Override
 			public void setEventResult(EventResult eventResult) {
 				// TODO Auto-generated method stub
-				Log.i("LLK",eventResult.getPayResult()?"true":"false");
-				if(eventResult.getPayResult()){
+				Log.i("LLK",eventResult.getPResult()?"true":"false");
+				if(eventResult.getPResult()){
 					if(eventResult.getReward()==null){
 						Log.i("LLK","getReward is null");
 					}else{
@@ -43,7 +44,7 @@ public class PayService {
 					JniPayCallbackHelper.eventFail(id);
 				}
 		}});
-//				
+				
 		if(!result){
 			Debug.e("event pay is close id="+id);
 			JniPayCallbackHelper.eventClose(id);
