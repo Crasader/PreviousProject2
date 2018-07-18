@@ -96,7 +96,6 @@ void MenuScenePayHandler::dealEventSuccess(int eventId, int propIds[], int propN
 	}
 	else if (eventId == 4 || eventId == 14 || eventId == 15 || eventId == 16 || eventId == 17){
 		GAMEDATA::getInstance()->setReviveNum(GAMEDATA::getInstance()->getReviveNum() - 1);
-		//�ָ���Ϸʱ��
 		if (GAMEDATA::getInstance()->getLevel() == 1){
 			GAMEDATA::getInstance()->settime(10);
 		}
@@ -124,8 +123,6 @@ void MenuScenePayHandler::dealEventSuccess(int eventId, int propIds[], int propN
 		else{
 			GAMEDATA::getInstance()->settime(20);
 		}
-
-		//������Ϸ
 		GAMEDATA::getInstance()->levelvector.push_back(GAMEDATA::getInstance()->getLevel());
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
 		GAMEDATA::getInstance()->updateTimeInfo = true;

@@ -89,6 +89,40 @@ void DreamLayer::doConfirmEvent(Ref* ref) {
     if(id == 1){
         GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
         GAMEDATA::getInstance()->settime(20);
+    }else if(id ==2){
+        GAMEDATA::getInstance()->setReviveNum(GAMEDATA::getInstance()->getReviveNum() + 4);
+//        GAMEDATA::getInstance()->setReviveNum(GAMEDATA::getInstance()->getReviveNum() - 1);
+        if (GAMEDATA::getInstance()->getLevel() == 1){
+            GAMEDATA::getInstance()->settime(10);
+        }
+        else if (GAMEDATA::getInstance()->getLevel() == 2){
+            GAMEDATA::getInstance()->settime(15);
+        }
+        else if (GAMEDATA::getInstance()->getLevel() == 3){
+            GAMEDATA::getInstance()->settime(20);
+        }
+        else if (GAMEDATA::getInstance()->getLevel() == 4){
+            GAMEDATA::getInstance()->settime(20);
+        }
+        else if (GAMEDATA::getInstance()->getLevel() == 5){
+            GAMEDATA::getInstance()->settime(25);
+        }
+        else if (GAMEDATA::getInstance()->getLevel() == 6){
+            GAMEDATA::getInstance()->settime(20);
+        }
+        else if (GAMEDATA::getInstance()->getLevel() == 7){
+            GAMEDATA::getInstance()->settime(30);
+        }
+        else if (GAMEDATA::getInstance()->getLevel() == 8){
+            GAMEDATA::getInstance()->settime(25);
+        }
+        else{
+            GAMEDATA::getInstance()->settime(20);
+        }
+        GAMEDATA::getInstance()->levelvector.push_back(GAMEDATA::getInstance()->getLevel());
+        GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
+        GAMEDATA::getInstance()->updateTimeInfo = true;
+        GAMEDATA::getInstance()->updateProcess = true;
     }
 	removeFromParent();
 }
