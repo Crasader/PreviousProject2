@@ -17,37 +17,37 @@ void CallAndroidMethod::showMoreGame(){
 	CCLOG(">>>>>>>>>>>>>>showMoreGame");
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
 	    CCLOG("android platform");
-		JniMethodInfo methodInfo;
-		bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/NetWorkService","showMoreGame","()V");
-		if(isHave){
-			JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID,methodInfo.methodID);
-		}
+//        JniMethodInfo methodInfo;
+//        bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/NetWorkService","showMoreGame","()V");
+//        if(isHave){
+//            JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID,methodInfo.methodID);
+//        }
 	#endif
 }
 
 void CallAndroidMethod::quit(){
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		CCLOG("android platform");
-		JniMethodInfo methodInfo;
-		bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/NetWorkService","quit","()V");
-		if(isHave){
-			JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID,methodInfo.methodID);
-		}
+//        CCLOG("android platform");
+//        JniMethodInfo methodInfo;
+//        bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/NetWorkService","quit","()V");
+//        if(isHave){
+//            JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID,methodInfo.methodID);
+//        }
 	#endif
 }
 
 void CallAndroidMethod::requestEvent(int eventId){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Pause;
-		JniMethodInfo methodInfo;
-		bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/PayService","pay","(I)V");
-		jint pay_point = eventId;
-		//jint reviveNum = GAMEDATA::getInstance()->getReviveNum();
-		if(isHave){
-			jobject jobj;
-			JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID,methodInfo.methodID,pay_point);
-		}
-#endif	
+//        GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Pause;
+//        JniMethodInfo methodInfo;
+//        bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/PayService","pay","(I)V");
+//        jint pay_point = eventId;
+//        //jint reviveNum = GAMEDATA::getInstance()->getReviveNum();
+//        if(isHave){
+//            jobject jobj;
+//            JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID,methodInfo.methodID,pay_point);
+//        }
+#endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Pause;
@@ -59,14 +59,14 @@ void CallAndroidMethod::requestEvent(int eventId){
 bool CallAndroidMethod::isSignToday(){
 	CCLOG(">>>>>>>>>>>>>>isSignToday");
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
-	    CCLOG("android platform");
-		JniMethodInfo methodInfo;
-		bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/SignInService","isSignToday","()Z");
-		if(isHave){
-			return JniHelper::getEnv()->CallStaticBooleanMethod(methodInfo.classID,methodInfo.methodID);
-		}else{
-			return false;
-		}
+//        CCLOG("android platform");
+//        JniMethodInfo methodInfo;
+//        bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/SignInService","isSignToday","()Z");
+//        if(isHave){
+//            return JniHelper::getEnv()->CallStaticBooleanMethod(methodInfo.classID,methodInfo.methodID);
+//        }else{
+//            return false;
+//        }
 	#endif
 		return false;
 }
@@ -76,14 +76,14 @@ bool CallAndroidMethod::isSignToday(){
 bool CallAndroidMethod::notSignToday(){
 	CCLOG(">>>>>>>>>>>>>>notSignToday");
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	    CCLOG("android platform");
-		JniMethodInfo methodInfo;
-		bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/SignInService","notSignToday","()Z");
-		if(isHave){
-			return JniHelper::getEnv()->CallStaticBooleanMethod(methodInfo.classID,methodInfo.methodID);
-		}else{
-			return false;
-		}
+//        CCLOG("android platform");
+//        JniMethodInfo methodInfo;
+//        bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/SignInService","notSignToday","()Z");
+//        if(isHave){
+//            return JniHelper::getEnv()->CallStaticBooleanMethod(methodInfo.classID,methodInfo.methodID);
+//        }else{
+//            return false;
+//        }
 	#endif
 		return false;
 }
@@ -91,14 +91,14 @@ bool CallAndroidMethod::notSignToday(){
 int CallAndroidMethod::getCurrentSignDayas(){
 	CCLOG(">>>>>>>>>>>>>>getCurrentSignDayas");
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
-	    CCLOG("android platform");
-		JniMethodInfo methodInfo;
-		bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/SignInService","getCurrentSignDays","()I");
-		if(isHave){
-			return JniHelper::getEnv()->CallStaticIntMethod(methodInfo.classID,methodInfo.methodID);
-		}else{
-			return 0;
-		}
+//        CCLOG("android platform");
+//        JniMethodInfo methodInfo;
+//        bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/SignInService","getCurrentSignDays","()I");
+//        if(isHave){
+//            return JniHelper::getEnv()->CallStaticIntMethod(methodInfo.classID,methodInfo.methodID);
+//        }else{
+//            return 0;
+//        }
 	#endif
 		return 4;
 }
@@ -106,23 +106,23 @@ int CallAndroidMethod::getCurrentSignDayas(){
 void CallAndroidMethod::sign(){
 	CCLOG(">>>>>>>>>>>>>>sign");
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
-	    CCLOG("android platform");
-		JniMethodInfo methodInfo;
-		bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/SignInService","sign","()V");
-		if(isHave){
-			JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID,methodInfo.methodID);
-		}
+//        CCLOG("android platform");
+//        JniMethodInfo methodInfo;
+//        bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/SignInService","sign","()V");
+//        if(isHave){
+//            JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID,methodInfo.methodID);
+//        }
 	#endif
 }
 
 void CallAndroidMethod::showMonthCardToast(){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
-	CCLOG("android platform");
-	JniMethodInfo methodInfo;
-	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/cpp/NetWorkService", "showMonthCardToast", "()V");
-	if (isHave){
-		JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
-	}
+//    CCLOG("android platform");
+//    JniMethodInfo methodInfo;
+//    bool isHave = JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/cpp/NetWorkService", "showMonthCardToast", "()V");
+//    if (isHave){
+//        JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+//    }
 #endif
 }
 
@@ -130,15 +130,15 @@ void CallAndroidMethod::logevent(std::string event, std::string eventExtend, std
 {
 	log("logevent");
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	JniMethodInfo methodInfo;
-	bool isHave = JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/cpp/NetWorkService", "logevent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-	jstring jevent = methodInfo.env->NewStringUTF(event.c_str());
-	jstring jeventExtend = methodInfo.env->NewStringUTF(eventExtend.c_str());
-	jstring jsessionTime = methodInfo.env->NewStringUTF(sessionTime.c_str());
-	if (isHave){
-		log("logevent");
-		jobject jobj;
-		JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, jevent, jeventExtend, jsessionTime);
-	}
+//    JniMethodInfo methodInfo;
+//    bool isHave = JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/cpp/NetWorkService", "logevent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+//    jstring jevent = methodInfo.env->NewStringUTF(event.c_str());
+//    jstring jeventExtend = methodInfo.env->NewStringUTF(eventExtend.c_str());
+//    jstring jsessionTime = methodInfo.env->NewStringUTF(sessionTime.c_str());
+//    if (isHave){
+//        log("logevent");
+//        jobject jobj;
+//        JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, jevent, jeventExtend, jsessionTime);
+//    }
 #endif
 }

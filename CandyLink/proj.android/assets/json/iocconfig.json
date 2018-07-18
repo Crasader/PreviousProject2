@@ -1,5 +1,5 @@
 {
-	"applicationImpl":"com.tallbigup.android.base.BApplication",
-	"payImpl":{"className":"com.tallbigup.android.base.GamePayImpl","function":"getInstance"}
+	"applicationImpl":"com.tallbigup.android.impl.BApplication",
+	"payImpl":{"className":"com.tallbigup.android.impl.GamePayImpl","function":"getInstance"}
 	
 }
