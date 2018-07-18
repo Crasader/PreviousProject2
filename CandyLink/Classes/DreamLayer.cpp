@@ -103,6 +103,18 @@ void DreamLayer::doConfirmEvent(Ref* ref) {
         int a[1] = {1};
         int b[1] = {5};
         MenuScenePayHandler::getInstance()->dealEventSuccess(4, a , b, 1);
+    }else if(id ==3){
+        int a[1] = {4};
+        int b[1] = {10};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(8, a , b, 1);
+    }else if(id ==4){
+        int a[1] = {2};
+        int b[1] = {10};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(9, a , b, 1);
+    }else if(id == 5){
+        int a[1] = {3};
+        int b[1] = {10};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(10, a , b, 1);
     }else if(id ==8 || id ==9 ||id ==10 || id ==11){
         int a[1] = {0};
         int b[1] = {0};
@@ -123,4 +135,5 @@ void DreamLayer::closeView(Ref* ref) {
     }
 	removeFromParent();
 }
+//Tip_click.png
 

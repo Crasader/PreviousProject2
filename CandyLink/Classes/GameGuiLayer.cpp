@@ -3,9 +3,10 @@
 #include"GameData.h"
 #include"Matrix.h"
 #include"Audio.h"
-#include "CallAndroidMethod.h"
 #include "LobbyScene.h"
 #include "GameConfig.h"
+#include "CallAndroidMethod.h"
+#include "DreamLayer.h"
 
 GameGuiLayer * GameGuiLayer::_instance = nullptr;
 
@@ -114,7 +115,6 @@ bool GameGuiLayer::init(){
 	Ascore->setScale(0.7);
 	this->addChild(Ascore);
 
-	//��ʾ������
 	right = ProgressTimer::create(Sprite::create("progressbar.png"));
 	right->setType(ProgressTimer::Type::BAR);
 	right->setScaleY(0.95f);
@@ -191,7 +191,7 @@ void GameGuiLayer::updateTime(float delta){
 void GameGuiLayer:: updateScore(){
 	//add Ascore
 	int Ascores = GAMEDATA::getInstance()->getAchievescore();
-	int count = 0;//����λ��
+	int count = 0;
 	int i = 1;
 	do
 	{
@@ -215,14 +215,14 @@ void GameGuiLayer::pauseGame(){
 }
 
 void GameGuiLayer::updateBtnInfo(){
-	//��ʾ���߸���-��ʱ
+
 	char* num_char = new char[100];
 	sprintf(num_char, "%d", GAMEDATA::getInstance()->getTimeNum());
 	label->setString(num_char);
-	//��ʾ
+
 	sprintf(num_char, "%d", GAMEDATA::getInstance()->getTipNum());
 	label1->setString(num_char);
-	//����
+
 	sprintf(num_char, "%d", GAMEDATA::getInstance()->getResetNum());
 	label2->setString(num_char);
 }
@@ -330,29 +330,29 @@ void GameGuiLayer::addTimeBtn(){
 		GAMEDATA::getInstance()->setTimeNum(GAMEDATA::getInstance()->getTimeNum() - 1);
 		//addTime = true;
 		GAMEDATA::getInstance()->settime(GAMEDATA::getInstance()->gettime() + 10);
-
 		auto to4 = ProgressTo::create(GAMEDATA::getInstance()->gettime(), 0);
 		right->setPercentage(GAMEDATA::getInstance()->gettime() * 10);
 		right->runAction(to4);
 		updateTime(0);
-		//��ʾ���߸���-��ʱ
 		char* num_char = new char[100];
 		sprintf(num_char, "%d", GAMEDATA::getInstance()->getTimeNum());
 		label->setString(num_char);
 	}
 	else{
 	//	addTime = false;
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
-		CallAndroidMethod::getInstance()->requestEvent(10);
-#endif
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
-		GAMEDATA::getInstance()->settime(GAMEDATA::getInstance()->gettime() + 10);
-		auto to4 = ProgressTo::create(GAMEDATA::getInstance()->gettime(), 0);
-		right->setPercentage(GAMEDATA::getInstance()->gettime() * 10);
-		right->runAction(to4);
-		updateTime(0);
-		GAMEDATA::getInstance()->setTimeNum(GAMEDATA::getInstance()->getTimeNum() +5);
-#endif
+        DreamLayer* de = DreamLayer::create(5);
+        addChild(de,1000);
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+//        CallAndroidMethod::getInstance()->requestEvent(10);
+//#endif
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+//        GAMEDATA::getInstance()->settime(GAMEDATA::getInstance()->gettime() + 10);
+//        auto to4 = ProgressTo::create(GAMEDATA::getInstance()->gettime(), 0);
+//        right->setPercentage(GAMEDATA::getInstance()->gettime() * 10);
+//        right->runAction(to4);
+//        updateTime(0);
+//        GAMEDATA::getInstance()->setTimeNum(GAMEDATA::getInstance()->getTimeNum() +5);
+//#endif
 		
 	}
 }
@@ -368,14 +368,17 @@ void GameGuiLayer::helpTip(){
 		
 	}
 	else{
-		
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
-		CallAndroidMethod::getInstance()->requestEvent(8);
-#endif
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
-		GAMEDATA::getInstance()->needTipPos = true;
-		GAMEDATA::getInstance()->setTipNum(GAMEDATA::getInstance()->getTipNum() +5);
-#endif
+        DreamLayer* de = DreamLayer::create(3);
+        addChild(de,1000);
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+////        CallAndroidMethod::getInstance()->requestEvent(8);
+//        DreamLayer* de = DreamLayer::create(3);
+//        addChild(de);
+//#endif
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+//        GAMEDATA::getInstance()->needTipPos = true;
+//        GAMEDATA::getInstance()->setTipNum(GAMEDATA::getInstance()->getTipNum() +5);
+//#endif
 		
 	}
 }
@@ -394,20 +397,19 @@ void GameGuiLayer::refreshBtn(){
 		addChild(sprite, 2);
 		sprite->runAction(sp);
 		GAMEDATA::getInstance()->needResetMap = true;
-		//��ʾ���߸���-����
 		char* num_char = new char[100];
 		sprintf(num_char, "%d", GAMEDATA::getInstance()->getResetNum());
 		label2->setString(num_char);
 	} else{
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
-		CallAndroidMethod::getInstance()->requestEvent(9);
-#endif
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
-		GAMEDATA::getInstance()->needResetMap = true;
-		GAMEDATA::getInstance()->setResetNum(GAMEDATA::getInstance()->getResetNum() + 5);
-#endif
-		
+        DreamLayer* de = DreamLayer::create(4);
+        addChild(de,1000);
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+//        CallAndroidMethod::getInstance()->requestEvent(9);
+//#endif
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+//        GAMEDATA::getInstance()->needResetMap = true;
+//        GAMEDATA::getInstance()->setResetNum(GAMEDATA::getInstance()->getResetNum() + 5);
+//#endif
 	}
 
 }
