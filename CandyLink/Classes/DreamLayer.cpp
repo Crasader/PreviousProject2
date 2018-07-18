@@ -42,13 +42,32 @@ void DreamLayer::loadContent(int id) {
     addChild(title);
     if(id == 1){
         title->setTexture("pay_title_1.png");
+    }else if(id == 2){
+         title->setTexture("pay_title_2.png");
+    }else if(id == 3){
+        title->setTexture("pay_title_3.png");
+    }else if(id == 4){
+        title->setTexture("pay_title_4.png");
+    }else if(id == 5){
+        title->setTexture("pay_title_5.png");
+    }else if(id == 6){
+        title->setTexture("pay_title_6 .png");
     }
     
 	auto box = Sprite::create();
 	box->setPosition(visiblieSize.width / 2, visiblieSize.height / 2-30 );
 	addChild(box);
-    if(id == 1){
+    if(id == 1||id ==3){
         box->setTexture("pay_tip_goods_1.png");
+    }else if(id ==2||id == 7||id == 8||id == 9||id == 10){
+          box->setTexture("pay_tip_goods_2.png");
+    }else if(id == 4){
+        box->setTexture("pay_tip_goods_3.png");
+    }else if(id == 5){
+        box->setTexture("pay_tip_goods_4.png");
+    }
+    if(id == 6 || id == 12 ||id == 13 ||id == 14){
+        box->setVisible(false);
     }
 
 	auto confirm = MenuItemImage::create("payui/pay_confirm_up.png","payui/pay_confirm_down.png",CC_CALLBACK_1(DreamLayer::doConfirmEvent,this));
