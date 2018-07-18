@@ -198,35 +198,35 @@ void GameLayer::showMatrix(float dt){
     }
     else if (GAMEDATA::getInstance()->getLevel() == 2){
         GAMEDATA::getInstance()->settime(20);
-        CallAndroidMethod::getInstance()->requestEvent(19);
+//        CallAndroidMethod::getInstance()->requestEvent(19);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 3){
         GAMEDATA::getInstance()->settime(20);
-        CallAndroidMethod::getInstance()->requestEvent(12);
+//        CallAndroidMethod::getInstance()->requestEvent(12);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 4){
         GAMEDATA::getInstance()->settime(20);
-        CallAndroidMethod::getInstance()->requestEvent(20);
+//        CallAndroidMethod::getInstance()->requestEvent(20);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 5){
         GAMEDATA::getInstance()->settime(25);
-        CallAndroidMethod::getInstance()->requestEvent(21);
+//        CallAndroidMethod::getInstance()->requestEvent(21);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 6){
         GAMEDATA::getInstance()->settime(30);
-        CallAndroidMethod::getInstance()->requestEvent(13);
+//        CallAndroidMethod::getInstance()->requestEvent(13);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 7){
         GAMEDATA::getInstance()->settime(30);
-        CallAndroidMethod::getInstance()->requestEvent(22);
+//        CallAndroidMethod::getInstance()->requestEvent(22);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 8){
         GAMEDATA::getInstance()->settime(30);
-        CallAndroidMethod::getInstance()->requestEvent(23);
+//        CallAndroidMethod::getInstance()->requestEvent(23);
     }
     else {
         GAMEDATA::getInstance()->settime(25);
-        CallAndroidMethod::getInstance()->requestEvent(24);
+//        CallAndroidMethod::getInstance()->requestEvent(24);
     }
     
     
@@ -285,20 +285,22 @@ void GameLayer::update(float dt){
             Audio::getInstance()->playSound(TIMEOVER);
             
             if (GAMEDATA::getInstance()->getReviveNum() == 0){
-                CallAndroidMethod::getInstance()->requestEvent(4);
+//                CallAndroidMethod::getInstance()->requestEvent(4);
+                DreamLayer* la = DreamLayer::create(2);
+                getParent()->addChild(la);
             }
-            else if (GAMEDATA::getInstance()->getReviveNum() == 1){
-                CallAndroidMethod::getInstance()->requestEvent(17);
-            }
-            else if (GAMEDATA::getInstance()->getReviveNum() == 2){
-                CallAndroidMethod::getInstance()->requestEvent(16);
-            }
-            else if (GAMEDATA::getInstance()->getReviveNum() == 3){
-                CallAndroidMethod::getInstance()->requestEvent(15);
-            }
-            else if(GAMEDATA::getInstance()->getReviveNum() == 4){
-                CallAndroidMethod::getInstance()->requestEvent(14);
-            }
+//            else if (GAMEDATA::getInstance()->getReviveNum() == 1){
+//                CallAndroidMethod::getInstance()->requestEvent(17);
+//            }
+//            else if (GAMEDATA::getInstance()->getReviveNum() == 2){
+//                CallAndroidMethod::getInstance()->requestEvent(16);
+//            }
+//            else if (GAMEDATA::getInstance()->getReviveNum() == 3){
+//                CallAndroidMethod::getInstance()->requestEvent(15);
+//            }
+//            else if(GAMEDATA::getInstance()->getReviveNum() == 4){
+//                CallAndroidMethod::getInstance()->requestEvent(14);
+//            }
             else{
                 GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Ready;
                 this->unscheduleAllCallbacks();

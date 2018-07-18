@@ -204,7 +204,6 @@ void LobbyScene::musicCallback(CCObject* pSender)
 void LobbyScene::ShowAni(float dt)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	//¿ªÊ¼°´Å¥
 	{
 		auto scaleto1 = ScaleTo::create(0.1f, 1.5f, 1.0f);
 		auto moveto1 = MoveTo::create(0.1f, Vec2(visibleSize.width *0.45, visibleSize.height * 0.3));
