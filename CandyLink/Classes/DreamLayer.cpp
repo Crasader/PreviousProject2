@@ -1,5 +1,6 @@
 #include "DreamLayer.h"
 #include "GameData.h"
+#include "MenuScenePayHandler.h"
 USING_NS_CC;
 
 DreamLayer* DreamLayer::create(int dreamId) {
@@ -51,7 +52,15 @@ void DreamLayer::loadContent(int id) {
     }else if(id == 5){
         title->setTexture("pay_title_5.png");
     }else if(id == 6){
-        title->setTexture("pay_title_6 .png");
+        title->setTexture("pay_title_6.png");
+    }else if(id == 8){
+        title->setTexture("pay_title_7.png");
+    }else if(id == 9){
+        title->setTexture("pay_title_8.png");
+    }else if(id == 10){
+        title->setTexture("pay_title_9.png");
+    }else if(id == 11){
+        title->setTexture("pay_title_10.png");
     }
     
 	auto box = Sprite::create();
@@ -87,42 +96,17 @@ void DreamLayer::doConfirmEvent(Ref* ref) {
 	MenuItem* tem = (MenuItem*)ref;
 	int id = tem->getTag();
     if(id == 1){
-        GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
-        GAMEDATA::getInstance()->settime(20);
+        int a[1] = {8};
+        int b[1] = {20};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
     }else if(id ==2){
-        GAMEDATA::getInstance()->setReviveNum(GAMEDATA::getInstance()->getReviveNum() + 4);
-//        GAMEDATA::getInstance()->setReviveNum(GAMEDATA::getInstance()->getReviveNum() - 1);
-        if (GAMEDATA::getInstance()->getLevel() == 1){
-            GAMEDATA::getInstance()->settime(10);
-        }
-        else if (GAMEDATA::getInstance()->getLevel() == 2){
-            GAMEDATA::getInstance()->settime(15);
-        }
-        else if (GAMEDATA::getInstance()->getLevel() == 3){
-            GAMEDATA::getInstance()->settime(20);
-        }
-        else if (GAMEDATA::getInstance()->getLevel() == 4){
-            GAMEDATA::getInstance()->settime(20);
-        }
-        else if (GAMEDATA::getInstance()->getLevel() == 5){
-            GAMEDATA::getInstance()->settime(25);
-        }
-        else if (GAMEDATA::getInstance()->getLevel() == 6){
-            GAMEDATA::getInstance()->settime(20);
-        }
-        else if (GAMEDATA::getInstance()->getLevel() == 7){
-            GAMEDATA::getInstance()->settime(30);
-        }
-        else if (GAMEDATA::getInstance()->getLevel() == 8){
-            GAMEDATA::getInstance()->settime(25);
-        }
-        else{
-            GAMEDATA::getInstance()->settime(20);
-        }
-        GAMEDATA::getInstance()->levelvector.push_back(GAMEDATA::getInstance()->getLevel());
-        GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
-        GAMEDATA::getInstance()->updateTimeInfo = true;
-        GAMEDATA::getInstance()->updateProcess = true;
+        int a[1] = {1};
+        int b[1] = {5};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(4, a , b, 1);
+    }else if(id ==8 || id ==9 ||id ==10 || id ==11){
+        int a[1] = {0};
+        int b[1] = {0};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(14, a , b, 0);
     }
 	removeFromParent();
 }
@@ -131,8 +115,11 @@ void DreamLayer::closeView(Ref* ref) {
 	MenuItemImage* tem = (MenuItemImage*)ref;
 	int id = tem->getTag();
     if(id == 1){
-        GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
-        GAMEDATA::getInstance()->settime(20);
+        int a[1] = {8};
+        int b[1] = {20};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
+    }else if(id ==8 || id ==9 ||id ==10 || id ==11){
+        MenuScenePayHandler::getInstance()->dealEventFail(4);
     }
 	removeFromParent();
 }

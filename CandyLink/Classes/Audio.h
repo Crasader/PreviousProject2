@@ -1,6 +1,6 @@
 #ifndef _AUDIO_H_
 #define _AUDIO_H_
-#include <string>
+#include "cocos2d.h"
 
 #define BACKGORUNDMUSIC "raw/play.ogg"
 
@@ -30,7 +30,7 @@ public:
 	void playReadyGo();
 	void playBtnEffect();
 	void cleanitem();
-	void playSound(char* soundName);
+	void playSound(std::string soundName);
 	void prepare();
 	void hititems();
 	void timeover();

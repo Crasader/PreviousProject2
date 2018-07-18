@@ -53,10 +53,9 @@ void Audio::timeover(){
     }
 }
 
-void Audio::playSound(char* soundName){
+void Audio::playSound(std::string soundName){
     if(GAMEDATA::getInstance()->getMusicState()){
-        CCLOG(soundName);
-        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(soundName,false);
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(soundName.c_str(),false);
     }
 }
 

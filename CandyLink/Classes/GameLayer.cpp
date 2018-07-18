@@ -143,43 +143,43 @@ void GameLayer:: newMap(float dt){
 void GameLayer::startGame(float dt){
     auto dr = DreamLayer::create(1);
     getParent()->addChild(dr,10);
-//    if (GAMEDATA::getInstance()->getFirstPay()){
-//        if (GAMEDATA::getInstance()->getTimes() == 1){
-//            CallAndroidMethod::getInstance()->requestEvent(1);
-//        }
-//        else if (GAMEDATA::getInstance()->getTimes() == 2){
-//            CallAndroidMethod::getInstance()->requestEvent(2);
-//        }
-//        else if (GAMEDATA::getInstance()->getTimes() == 3){
-//            CallAndroidMethod::getInstance()->requestEvent(3);
-//        }
-//        else if (GAMEDATA::getInstance()->getTimes() == 4){
-//            CallAndroidMethod::getInstance()->requestEvent(5);
-//        }
-//        else if (GAMEDATA::getInstance()->getTimes() == 8){
-//            CallAndroidMethod::getInstance()->requestEvent(6);
-//        }
-//        else if (GAMEDATA::getInstance()->getTimes() == 12){
-//            CallAndroidMethod::getInstance()->requestEvent(7);
-//        }else if (GAMEDATA::getInstance()->getTimes() >= 16 && GAMEDATA::getInstance()->getTimes() % 4 == 0){
-//            int num = (GAMEDATA::getInstance()->getTimes()/4) % 3 + 25;
-//            CallAndroidMethod::getInstance()->requestEvent(num);
-//        }
-//        else{
-//            CallAndroidMethod::getInstance()->requestEvent(18);
-//        }
-//    }
-//    else{
-//        if (GAMEDATA::getInstance()->getTimes() == 10){
-//            CallAndroidMethod::getInstance()->requestEvent(28);
-//        }else if (GAMEDATA::getInstance()->getTimes() >= 20 && GAMEDATA::getInstance()->getTimes() % 10 == 0){
-//            int num = (GAMEDATA::getInstance()->getTimes()/10) % 3 + 29;
-//            CallAndroidMethod::getInstance()->requestEvent(num);
-//        }else{
-//            //Start game
-//            CallAndroidMethod::getInstance()->requestEvent(18);
-//        }
-//    }
+    //    if (GAMEDATA::getInstance()->getFirstPay()){
+    //        if (GAMEDATA::getInstance()->getTimes() == 1){
+    //            CallAndroidMethod::getInstance()->requestEvent(1);
+    //        }
+    //        else if (GAMEDATA::getInstance()->getTimes() == 2){
+    //            CallAndroidMethod::getInstance()->requestEvent(2);
+    //        }
+    //        else if (GAMEDATA::getInstance()->getTimes() == 3){
+    //            CallAndroidMethod::getInstance()->requestEvent(3);
+    //        }
+    //        else if (GAMEDATA::getInstance()->getTimes() == 4){
+    //            CallAndroidMethod::getInstance()->requestEvent(5);
+    //        }
+    //        else if (GAMEDATA::getInstance()->getTimes() == 8){
+    //            CallAndroidMethod::getInstance()->requestEvent(6);
+    //        }
+    //        else if (GAMEDATA::getInstance()->getTimes() == 12){
+    //            CallAndroidMethod::getInstance()->requestEvent(7);
+    //        }else if (GAMEDATA::getInstance()->getTimes() >= 16 && GAMEDATA::getInstance()->getTimes() % 4 == 0){
+    //            int num = (GAMEDATA::getInstance()->getTimes()/4) % 3 + 25;
+    //            CallAndroidMethod::getInstance()->requestEvent(num);
+    //        }
+    //        else{
+    //            CallAndroidMethod::getInstance()->requestEvent(18);
+    //        }
+    //    }
+    //    else{
+    //        if (GAMEDATA::getInstance()->getTimes() == 10){
+    //            CallAndroidMethod::getInstance()->requestEvent(28);
+    //        }else if (GAMEDATA::getInstance()->getTimes() >= 20 && GAMEDATA::getInstance()->getTimes() % 10 == 0){
+    //            int num = (GAMEDATA::getInstance()->getTimes()/10) % 3 + 29;
+    //            CallAndroidMethod::getInstance()->requestEvent(num);
+    //        }else{
+    //            //Start game
+    //            CallAndroidMethod::getInstance()->requestEvent(18);
+    //        }
+    //    }
 }
 
 void GameLayer::showMatrix(float dt){
@@ -198,45 +198,46 @@ void GameLayer::showMatrix(float dt){
     }
     else if (GAMEDATA::getInstance()->getLevel() == 2){
         GAMEDATA::getInstance()->settime(20);
-//        CallAndroidMethod::getInstance()->requestEvent(19);
+        //        CallAndroidMethod::getInstance()->requestEvent(19);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 3){
         GAMEDATA::getInstance()->settime(20);
-//        CallAndroidMethod::getInstance()->requestEvent(12);
+        //        CallAndroidMethod::getInstance()->requestEvent(12);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 4){
         GAMEDATA::getInstance()->settime(20);
-//        CallAndroidMethod::getInstance()->requestEvent(20);
+        //        CallAndroidMethod::getInstance()->requestEvent(20);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 5){
         GAMEDATA::getInstance()->settime(25);
-//        CallAndroidMethod::getInstance()->requestEvent(21);
+        //        CallAndroidMethod::getInstance()->requestEvent(21);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 6){
         GAMEDATA::getInstance()->settime(30);
-//        CallAndroidMethod::getInstance()->requestEvent(13);
+        //        CallAndroidMethod::getInstance()->requestEvent(13);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 7){
         GAMEDATA::getInstance()->settime(30);
-//        CallAndroidMethod::getInstance()->requestEvent(22);
+        //        CallAndroidMethod::getInstance()->requestEvent(22);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 8){
         GAMEDATA::getInstance()->settime(30);
-//        CallAndroidMethod::getInstance()->requestEvent(23);
+        //        CallAndroidMethod::getInstance()->requestEvent(23);
     }
     else {
         GAMEDATA::getInstance()->settime(25);
-//        CallAndroidMethod::getInstance()->requestEvent(24);
+        //        CallAndroidMethod::getInstance()->requestEvent(24);
     }
     
     
 }
+
 Vec2 GameLayer::getPosByPostion(int postion){
     int x = Matrix::getInstance()->getXByCellPosition(postion);
     int y = Matrix::getInstance()->getYByCellPosition(postion);
     float pos_x = x * ELEMENT_WIDTH + MARGIN_LEFT + ELEMENT_WIDTH/2;
     float pos_y = y * ELEMENT_WIDTH + MARGIN_BOTTOM + ELEMENT_WIDTH / 2;
-    return ccp(pos_x, pos_y);
+    return Vec2(pos_x, pos_y);
 }
 
 void GameLayer::doItemSelectAnima(/*Vec2 pos*/int index){
@@ -284,23 +285,31 @@ void GameLayer::update(float dt){
             GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::End;
             Audio::getInstance()->playSound(TIMEOVER);
             
-            if (GAMEDATA::getInstance()->getReviveNum() == 0){
-//                CallAndroidMethod::getInstance()->requestEvent(4);
+            
+            if (GAMEDATA::getInstance()->getReviveNum() == 4){
+                DreamLayer* la = DreamLayer::create(8);
+                getParent()->addChild(la);
+                //CallAndroidMethod::getInstance()->requestEvent(17);
+            }
+            else if (GAMEDATA::getInstance()->getReviveNum() == 3){
+                //CallAndroidMethod::getInstance()->requestEvent(16);
+                DreamLayer* la = DreamLayer::create(9);
+                getParent()->addChild(la);
+            }
+            else if (GAMEDATA::getInstance()->getReviveNum() == 2){
+                //CallAndroidMethod::getInstance()->requestEvent(15);
+                DreamLayer* la = DreamLayer::create(10);
+                getParent()->addChild(la);
+            }
+            else if(GAMEDATA::getInstance()->getReviveNum() == 1){
+                //CallAndroidMethod::getInstance()->requestEvent(14);
+                DreamLayer* la = DreamLayer::create(11);
+                getParent()->addChild(la);
+            }else if (GAMEDATA::getInstance()->getReviveNum() == 0){
+                //CallAndroidMethod::getInstance()->requestEvent(4);
                 DreamLayer* la = DreamLayer::create(2);
                 getParent()->addChild(la);
             }
-//            else if (GAMEDATA::getInstance()->getReviveNum() == 1){
-//                CallAndroidMethod::getInstance()->requestEvent(17);
-//            }
-//            else if (GAMEDATA::getInstance()->getReviveNum() == 2){
-//                CallAndroidMethod::getInstance()->requestEvent(16);
-//            }
-//            else if (GAMEDATA::getInstance()->getReviveNum() == 3){
-//                CallAndroidMethod::getInstance()->requestEvent(15);
-//            }
-//            else if(GAMEDATA::getInstance()->getReviveNum() == 4){
-//                CallAndroidMethod::getInstance()->requestEvent(14);
-//            }
             else{
                 GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Ready;
                 this->unscheduleAllCallbacks();
@@ -783,14 +792,11 @@ void  GameLayer::dealConnectANim(){
                                    MoveBy::create(1.0f, Vec2(0, 100)), FadeOut::create(0), nullptr);
     sprite2->runAction(action);
     clean.pushBack(sprite2);
-    //int ת string
-    CCString* ns = CCString::createWithFormat("%d", doubleHitCount);
-    string s = ns->_string;
     
+    std::string s = StringUtils::format("%d", doubleHitCount);
     auto sprite_num = LabelAtlas::create(s, "game_conn_txt.png", 41, 47, '0');
     sprite_num->setPosition(280+49, 375);
-    auto action2 = Sequence::create(
-                                    MoveBy::create(1.0f, Vec2(0, 100)), FadeOut::create(0),
+    auto action2 = Sequence::create(MoveBy::create(1.0f, Vec2(0, 100)), FadeOut::create(0),
                                     nullptr);
     sprite_num->runAction(action2);
     clean.pushBack(sprite_num);
