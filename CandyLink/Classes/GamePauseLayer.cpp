@@ -5,6 +5,7 @@
 #include"LobbyScene.h"
 #include"Audio.h"
 #include"CallAndroidMethod.h"
+#include "DreamLayer.h"
 using namespace cocos2d;
 GamePauseLayer* GamePauseLayer::create(){
 	GamePauseLayer* ret = new GamePauseLayer();
@@ -109,20 +110,36 @@ void GamePauseLayer::getGift(){
 	switch (i)
 	{
 	case 0:
-		CallAndroidMethod::getInstance()->requestEvent(11);
+            //        CallAndroidMethod::getInstance()->requestEvent(11);
+        {
+            DreamLayer* ly = DreamLayer::create(3);
+            getParent()->addChild(ly,100);
+        }
 		break;
 	case 1:
-		CallAndroidMethod::getInstance()->requestEvent(34);
+//        CallAndroidMethod::getInstance()->requestEvent(34);
+        {
+            DreamLayer* ly = DreamLayer::create(4);
+            getParent()->addChild(ly,100);
+        }
 		break;
 	case 2:
-		CallAndroidMethod::getInstance()->requestEvent(35);
+//        CallAndroidMethod::getInstance()->requestEvent(35);
+        {
+            DreamLayer* ly = DreamLayer::create(5);
+            getParent()->addChild(ly,100);
+        }
 		break;
 	default:
-		CallAndroidMethod::getInstance()->requestEvent(11);
+//        CallAndroidMethod::getInstance()->requestEvent(11);
+        {
+            DreamLayer* ly = DreamLayer::create(3);
+            getParent()->addChild(ly,100);
+        }
 		break;
 	}
 	
-	//this->removeFromParentAndCleanup(true);
+    this->removeFromParentAndCleanup(true);
 }
 void GamePauseLayer::goBack(){
 	Audio::getInstance()->playBtnEffect();
@@ -139,15 +156,17 @@ void GamePauseLayer::delayTen(){
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
 	}
 	else{
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
-		CallAndroidMethod::getInstance()->requestEvent(10);
-#endif
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) 
-		
-		GAMEDATA::getInstance()->setTimeNum(GAMEDATA::getInstance()->getTimeNum()+5);
-		GAMEDATA::getInstance()->useAddProps = true;
-		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
-#endif
+        DreamLayer* ly = DreamLayer::create(5);
+        getParent()->addChild(ly,100);
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+//        CallAndroidMethod::getInstance()->requestEvent(10);
+//#endif
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+//
+//        GAMEDATA::getInstance()->setTimeNum(GAMEDATA::getInstance()->getTimeNum()+5);
+//        GAMEDATA::getInstance()->useAddProps = true;
+//        GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
+//#endif
 	}
 
 

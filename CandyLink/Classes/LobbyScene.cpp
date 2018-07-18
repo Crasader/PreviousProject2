@@ -115,16 +115,16 @@ bool LobbyScene::init()
 	//more game btn
 	start_btn->runAction(RepeatForever::create(scaleani));
 	if (GAMEDATA::getInstance()->openTehui){
-		auto tehui = Menu::create();
-		auto spriteNormal_tehui = Sprite::create("te_hui.png");
-		Rect _rect1 = Rect(spriteNormal_tehui->getPositionX(), spriteNormal_tehui->getPositionY(), spriteNormal_tehui->getContentSize().width, spriteNormal_tehui->getContentSize().height);
-		auto spriteSelected_tehui = Sprite::createWithTexture(spriteNormal_tehui->getTexture(), _rect1, false);
-		spriteSelected_tehui->setScale(1.1);
-		settingBtnOkItem_tehui = MenuItemSprite::create(spriteNormal_tehui, spriteSelected_tehui, nullptr, CC_CALLBACK_0(LobbyScene::payTehui, this));
-		settingBtnOkItem_tehui->setPosition(Point(visibleSize.width * 0.9, visibleSize.height*0.47));
-		tehui->addChild(settingBtnOkItem_tehui);
-		tehui->setPosition(Point(0, 0));
-		this->addChild(tehui);
+//        auto tehui = Menu::create();
+//        auto spriteNormal_tehui = Sprite::create("te_hui.png");
+//        Rect _rect1 = Rect(spriteNormal_tehui->getPositionX(), spriteNormal_tehui->getPositionY(), spriteNormal_tehui->getContentSize().width, spriteNormal_tehui->getContentSize().height);
+//        auto spriteSelected_tehui = Sprite::createWithTexture(spriteNormal_tehui->getTexture(), _rect1, false);
+//        spriteSelected_tehui->setScale(1.1);
+//        settingBtnOkItem_tehui = MenuItemSprite::create(spriteNormal_tehui, spriteSelected_tehui, nullptr, CC_CALLBACK_0(LobbyScene::payTehui, this));
+//        settingBtnOkItem_tehui->setPosition(Point(visibleSize.width * 0.9, visibleSize.height*0.47));
+//        tehui->addChild(settingBtnOkItem_tehui);
+//        tehui->setPosition(Point(0, 0));
+//        this->addChild(tehui);
 	}
 
 	if (GAMEDATA::getInstance()->getisfirsttimegame())
@@ -145,22 +145,20 @@ bool LobbyScene::init()
 
 	this->schedule(schedule_selector(LobbyScene::ShowPayPoints), 0.0f);
 	this->scheduleUpdate();
-	auto phone = Sprite::create("phonenum.png");
-	phone->setPosition(visibleSize.width / 2, visibleSize.height*0.05);
-	addChild(phone);
+//    auto phone = Sprite::create("phonenum.png");
+//    phone->setPosition(visibleSize.width / 2, visibleSize.height*0.05);
+//    addChild(phone);
 
 	return true;
 }
 
 void LobbyScene::showMoreGame(){
 	Audio::getInstance()->playBtnEffect();
-	//TODO:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï?
 	CallAndroidMethod::getInstance()->showMoreGame();
 }
 
 void LobbyScene::payTehui(){
 	Audio::getInstance()->playBtnEffect();
-	//ï¿½Ø»ï¿½ï¿½ï¿½ï¿?
 	CallAndroidMethod::getInstance()->requestEvent(32);
 }
 
