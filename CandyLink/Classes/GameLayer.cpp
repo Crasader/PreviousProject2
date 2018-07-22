@@ -4,11 +4,13 @@
 #include"Audio.h"
 #include"math.h"
 #include "GameGuiLayer.h"
-#include "CallAndroidMethod.h"
+//#include "CallAndroidMethod.h"
 #include "GameResultScene.h"
 #include "GameConfig.h"
 #include "DebugTasterTime.h"
 #include "DreamLayer.h"
+#include "MenuScenePayHandler.h"
+
 bool GameLayer::init(){
     if (!Layer::init())
     {
@@ -19,7 +21,7 @@ bool GameLayer::init(){
     GAMEDATA::getInstance()->setAchievescore(0);
     GAMEDATA::getInstance()->levelvector.push_back(1);
     auto lvstr = String::createWithFormat("%d", GAMEDATA::getInstance()->getLevel())->getCString();
-    CallAndroidMethod::getInstance()->logevent("EnterLevel", lvstr, "NA");
+    //    CallAndroidMethod::getInstance()->logevent("EnterLevel", lvstr, "NA");
     
     
     GAMEDATA::getInstance()->setTimes(GAMEDATA::getInstance()->getTimes()+1);
@@ -141,8 +143,7 @@ void GameLayer:: newMap(float dt){
 }
 
 void GameLayer::startGame(float dt){
-    auto dr = DreamLayer::create(1);
-    getParent()->addChild(dr,10);
+  
     //    if (GAMEDATA::getInstance()->getFirstPay()){
     //        if (GAMEDATA::getInstance()->getTimes() == 1){
     //            CallAndroidMethod::getInstance()->requestEvent(1);
@@ -194,38 +195,64 @@ void GameLayer::showMatrix(float dt){
     Audio::getInstance()->playSound(readyGo);
     if (GAMEDATA::getInstance()->getLevel()==1){
         GAMEDATA::getInstance()->settime(20);
-        schedule(schedule_selector(GameLayer::startGame), 1.0f, 0, 0);
+//        schedule(schedule_selector(GameLayer::startGame), 1.0f, 0, 0);
+        auto dr = DreamLayer::create(1);
+        getParent()->addChild(dr,10);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 2){
         GAMEDATA::getInstance()->settime(20);
+        int a[1] = {8};
+        int b[1] = {20};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
         //        CallAndroidMethod::getInstance()->requestEvent(19);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 3){
         GAMEDATA::getInstance()->settime(20);
+        int a[1] = {8};
+        int b[1] = {20};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
         //        CallAndroidMethod::getInstance()->requestEvent(12);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 4){
         GAMEDATA::getInstance()->settime(20);
+        int a[1] = {8};
+        int b[1] = {20};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
         //        CallAndroidMethod::getInstance()->requestEvent(20);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 5){
         GAMEDATA::getInstance()->settime(25);
+        int a[1] = {8};
+        int b[1] = {25};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
         //        CallAndroidMethod::getInstance()->requestEvent(21);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 6){
         GAMEDATA::getInstance()->settime(30);
+        int a[1] = {8};
+        int b[1] = {30};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
         //        CallAndroidMethod::getInstance()->requestEvent(13);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 7){
         GAMEDATA::getInstance()->settime(30);
+        int a[1] = {8};
+        int b[1] = {30};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
         //        CallAndroidMethod::getInstance()->requestEvent(22);
     }
     else if (GAMEDATA::getInstance()->getLevel() == 8){
         GAMEDATA::getInstance()->settime(30);
+        int a[1] = {8};
+        int b[1] = {30};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
         //        CallAndroidMethod::getInstance()->requestEvent(23);
     }
     else {
         GAMEDATA::getInstance()->settime(25);
+        int a[1] = {8};
+        int b[1] = {25};
+        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
         //        CallAndroidMethod::getInstance()->requestEvent(24);
     }
     
@@ -489,7 +516,7 @@ void GameLayer::onTouchEnded(Touch*touch, Event*event){
                 schedule(schedule_selector(GameLayer::nextMap),0.5f, 0, 0);
                 auto event = String::createWithFormat("level_%d", GAMEDATA::getInstance()->getLevel());
                 auto sessionTime = String::createWithFormat("%d", DebugTime::getInstance()->getGameTaserTime() / 1000);
-                CallAndroidMethod::getInstance()->logevent(event->getCString(), "success", sessionTime->getCString());
+                //                CallAndroidMethod::getInstance()->logevent(event->getCString(), "success", sessionTime->getCString());
                 
             }
             else{

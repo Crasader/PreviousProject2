@@ -102,14 +102,14 @@ bool GameResultLayer::init(){
 	menu1->setPosition(Point(0, 0));
 	this->addChild(menu1);
 
-	if (GAMEDATA::getInstance()->openMoreGame){
-		auto menu2 = Menu::create();
-		auto settingBtnOkItem2 = MenuItemImage::create("menu_normal.png", "menu_click.png", CC_CALLBACK_0(GameResultLayer::showMoreGame, this));
-		settingBtnOkItem2->setPosition(Point(430, 100));
-		menu2->addChild(settingBtnOkItem2);
-		menu2->setPosition(Point(0, 0));
-		this->addChild(menu2);
-	}
+//    if (GAMEDATA::getInstance()->openMoreGame){
+//        auto menu2 = Menu::create();
+//        auto settingBtnOkItem2 = MenuItemImage::create("menu_normal.png", "menu_click.png", CC_CALLBACK_0(GameResultLayer::showMoreGame, this));
+//        settingBtnOkItem2->setPosition(Point(430, 100));
+//        menu2->addChild(settingBtnOkItem2);
+//        menu2->setPosition(Point(0, 0));
+//        this->addChild(menu2);
+//    }
 	
 
 	this->scheduleUpdate();

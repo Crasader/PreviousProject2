@@ -130,7 +130,7 @@ void DreamLayer::closeView(Ref* ref) {
         int a[1] = {8};
         int b[1] = {20};
         MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
-    }else if(id ==8 || id ==9 ||id ==10 || id ==11){
+    }else if(id ==2 || id ==8 || id ==9 ||id ==10 || id ==11){
         MenuScenePayHandler::getInstance()->dealEventFail(4);
     }
 	removeFromParent();

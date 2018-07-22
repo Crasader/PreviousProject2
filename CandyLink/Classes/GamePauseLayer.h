@@ -13,6 +13,7 @@ private :
 	void delayTen();
 	void getGift();
 	void goBack();
+    void quitGame();
 	void scene(CCRenderTexture* sqr);
 	bool  onTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
 };

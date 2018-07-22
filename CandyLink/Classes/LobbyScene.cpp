@@ -3,8 +3,8 @@
 #include"Audio.h"
 #include"GameData.h"
 #include "SimpleAudioEngine.h"
-#include"SignInLayer.h"
-#include"CallAndroidMethod.h"
+//#include"SignInLayer.h"
+//#include"CallAndroidMethod.h"
 #include "GameConfig.h"
 Scene* LobbyScene::createScene()
 {
@@ -35,12 +35,12 @@ bool LobbyScene::init()
 		case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-			if (!GAMEDATA::getInstance()->getisautobegin())
-			{
-				LogEventOnExit();
-				CallAndroidMethod::getInstance()->quit();
-			}
-			
+//            if (!GAMEDATA::getInstance()->getisautobegin())
+//            {
+//                LogEventOnExit();
+//                CallAndroidMethod::getInstance()->quit();
+//            }
+                exit(0);//quit game
 			break;
 		}
 	};
@@ -66,7 +66,7 @@ bool LobbyScene::init()
 	{
 		if (GAMEDATA::getInstance()->getMonthCard()){
 			GAMEDATA::getInstance()->setTipNum(GAMEDATA::getInstance()->getTipNum() + 2);
-			CallAndroidMethod::getInstance()->showMonthCardToast();
+//            CallAndroidMethod::getInstance()->showMonthCardToast();
 			addDayCnt("PayMonthFlag");
 		}
 		
@@ -75,12 +75,12 @@ bool LobbyScene::init()
 	if(GAMEDATA::getInstance()->getLoginTimes()==0){
 		GAMEDATA::getInstance()->setLoginTimes(1);
 	}else{
-		if (!CallAndroidMethod::getInstance()->isSignToday()&&!GAMEDATA::getInstance()->getisfirsttimegame()){
+//        if (!CallAndroidMethod::getInstance()->isSignToday()&&!GAMEDATA::getInstance()->getisfirsttimegame()){
 //                Size visibleSize = Director::getInstance()->getVisibleSize();
-				Node* pause_layer1 = SignInLayer::create();
-				pause_layer1->setPosition(Point::ZERO);
-				this->addChild(pause_layer1, 2);
-		}
+//                Node* pause_layer1 = SignInLayer::create();
+//                pause_layer1->setPosition(Point::ZERO);
+//                this->addChild(pause_layer1, 2);
+//        }
 	}
 #endif
 
@@ -127,10 +127,10 @@ bool LobbyScene::init()
 //        this->addChild(tehui);
 	}
 
-	if (GAMEDATA::getInstance()->getisfirsttimegame())
-	{
-		CallAndroidMethod::getInstance()->logevent("IconToGame", "NA", "NA");
-	}
+//    if (GAMEDATA::getInstance()->getisfirsttimegame())
+//    {
+//        CallAndroidMethod::getInstance()->logevent("IconToGame", "NA", "NA");
+//    }
 
 	GameConfig::getInstance()->LoadConfig();
 	
@@ -154,12 +154,12 @@ bool LobbyScene::init()
 
 void LobbyScene::showMoreGame(){
 	Audio::getInstance()->playBtnEffect();
-	CallAndroidMethod::getInstance()->showMoreGame();
+//    CallAndroidMethod::getInstance()->showMoreGame();
 }
 
 void LobbyScene::payTehui(){
 	Audio::getInstance()->playBtnEffect();
-	CallAndroidMethod::getInstance()->requestEvent(32);
+//    CallAndroidMethod::getInstance()->requestEvent(32);
 }
 
 void LobbyScene::startGame(){
@@ -263,15 +263,15 @@ void LobbyScene::ShowPayPoints(float dt)
 
 		GAMEDATA::getInstance()->setispaythiscount(true);
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Paying;
-		if (GAMEDATA::getInstance()->getTimes()==0)
-		{
-			CallAndroidMethod::getInstance()->requestEvent(33);
-
-		}
-		else
-		{
-			CallAndroidMethod::getInstance()->requestEvent(36);
-		}
+//        if (GAMEDATA::getInstance()->getTimes()==0)
+//        {
+//            CallAndroidMethod::getInstance()->requestEvent(33);
+//
+//        }
+//        else
+//        {
+//            CallAndroidMethod::getInstance()->requestEvent(36);
+//        }
 
 	}
 
@@ -309,7 +309,7 @@ void LobbyScene::LogEventOnExit()
 		{
 			str.append(String::createWithFormat("%d", k)->getCString());
 		}
-		CallAndroidMethod::getInstance()->logevent("Game_quit", str.getCString(), "0");
+//        CallAndroidMethod::getInstance()->logevent("Game_quit", str.getCString(), "0");
 		GAMEDATA::getInstance()->levelvector.clear();
 	}
 
