@@ -66,10 +66,6 @@ bool GameResultLayer::init(){
 	AnimationUtil::getInstance()->addAnimationBySpriteName("rabbit", "rabbitdance", 0.5f, 2);
 	touxiang->runAction(RepeatForever::create(AnimationUtil::getInstance()->getAnimate("rabbitdance")));
 
-
-
-
-
 	auto sprite4 = Sprite::create("game_result_shine.png");
 	sprite4->setPosition(Vec2(visibleSize.width / 2 + origin.x + 90, visibleSize.height / 2 + origin.y));
 	auto action4 = FadeIn::create(5.0f);
@@ -102,16 +98,6 @@ bool GameResultLayer::init(){
 	menu1->setPosition(Point(0, 0));
 	this->addChild(menu1);
 
-//    if (GAMEDATA::getInstance()->openMoreGame){
-//        auto menu2 = Menu::create();
-//        auto settingBtnOkItem2 = MenuItemImage::create("menu_normal.png", "menu_click.png", CC_CALLBACK_0(GameResultLayer::showMoreGame, this));
-//        settingBtnOkItem2->setPosition(Point(430, 100));
-//        menu2->addChild(settingBtnOkItem2);
-//        menu2->setPosition(Point(0, 0));
-//        this->addChild(menu2);
-//    }
-	
-
 	this->scheduleUpdate();
 	return true;
 }
@@ -120,7 +106,6 @@ void GameResultLayer::showRankNum(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	// add a label shows "number"
-	//获得排名
 	int number = getScoreRank();
 	int count = 0;
 	int temp = 1;
@@ -128,7 +113,7 @@ void GameResultLayer::showRankNum(float dt){
 		temp = temp * 10;
 		count++;
 	}
-	CCLabelAtlas* labelnumber1 = LabelAtlas::create(String::createWithFormat("%d", number)->_string, "rank_num.png", 19, 22, '0');
+	LabelAtlas* labelnumber1 = LabelAtlas::create(StringUtils::format("%d", number), "rank_num.png", 19, 22, '0');
 	labelnumber1->setAnchorPoint(Point(0.5, 0.5));
 	labelnumber1->setPosition(Vec2(origin.x + visibleSize.width / 2,
 		origin.y + visibleSize.height / 2 - 150));
@@ -149,10 +134,7 @@ void GameResultLayer::showRankNum(float dt){
 	auto act1 = Sequence::create(DelayTime::create(0), ScaleTo::create(0.5, 1), nullptr);
 	sprite->runAction(act1);
 
-
-	//获得百分比
-
-	CCLabelAtlas* rank_percent = LabelAtlas::create(String::createWithFormat("%d", getScorePacent())->_string, "rank_num.png", 19, 22, '0');
+	LabelAtlas* rank_percent = LabelAtlas::create(StringUtils::format("%d", getScorePacent()), "rank_num.png", 19, 22, '0');
 	rank_percent->setAnchorPoint(Point(0.5, 0.5));
 	rank_percent->setPosition(Vec2(origin.x + visibleSize.width / 2 + 70,
 		origin.y + visibleSize.height *0.25));
@@ -175,7 +157,7 @@ void GameResultLayer::update(float delta){
 		if (scoreNum > score){
 			scoreNum = score;
 		}
-		labelnumber->setString(cocos2d::String::createWithFormat("%d", (int)scoreNum)->_string);
+		labelnumber->setString(StringUtils::format("%d", (int)scoreNum));
 	}
 	if (animTime >= 40){
 
@@ -197,8 +179,7 @@ void GameResultLayer::quitGame(){
 }
 void GameResultLayer::showMoreGame(){
 	Audio::getInstance()->playBtnEffect();
-	//TODO:接入更多游戏
-	CallAndroidMethod::getInstance()->showMoreGame();
+//    CallAndroidMethod::getInstance()->showMoreGame();
 }
 
 int  GameResultLayer::getScoreRank(){

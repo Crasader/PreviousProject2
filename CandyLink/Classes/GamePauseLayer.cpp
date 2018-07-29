@@ -35,10 +35,7 @@ bool GamePauseLayer::init(){
     listener->onTouchEnded = CC_CALLBACK_2(GamePauseLayer::onTouchEnded, this);
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-    setTouchEnabled(true);
     //add sprite to this scene
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    
     
     auto bg = Sprite::create("pay_bg.png");
     bg->setAnchorPoint(Vec2(0.5, 0.5));
@@ -158,8 +155,7 @@ void GamePauseLayer::getGift(){
 void GamePauseLayer::goBack(){
     Audio::getInstance()->playBtnEffect();
     this->removeFromParentAndCleanup(true);
-    auto lvstr = String::createWithFormat("%d", GAMEDATA::getInstance()->getLevel())->getCString();
-    CallAndroidMethod::getInstance()->logevent("ExitLevel", lvstr, "NA");
+    auto lvstr = StringUtils::format("%d", GAMEDATA::getInstance()->getLevel());
     Director::getInstance()->replaceScene(TransitionFade::create(1, LobbyScene::createScene()));
 }
 

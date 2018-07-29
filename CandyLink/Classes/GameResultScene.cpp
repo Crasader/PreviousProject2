@@ -5,31 +5,25 @@
 #include "GameData.h"
 Scene* GameResultScene::createScene()
 {
-	auto scene = Scene::create();
-
-	auto layer = GameResultScene::create();
-
-	scene->addChild(layer);
-
-	return scene;
+    auto scene = Scene::create();
+    
+    auto layer = GameResultScene::create();
+    
+    scene->addChild(layer);
+    
+    return scene;
 }
 
 bool GameResultScene::init(){
-if ( !Scene::init() )
-	{
-		return false;
-	}
-  //add layers to this scene
-	Audio::getInstance()->playSound(GAME_FAIL);
-
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Layer* result_result = GameResultLayer::create();
-	result_result->setAnchorPoint(ccp(0, 0));
-	result_result->setPosition(ccp(0, 0));
-	this->addChild(result_result);
-
-
-	auto event = String::createWithFormat("level_%d", GAMEDATA::getInstance()->getLevel());
-	CallAndroidMethod::getInstance()->logevent(event->getCString(), "failed", "NA");
-	return true;
+    if ( !Scene::init() )
+    {
+        return false;
+    }
+    //add layers to this scene
+    Audio::getInstance()->playSound(GAME_FAIL);
+    Layer* result_result = GameResultLayer::create();
+    result_result->setAnchorPoint(Vec2(0, 0));
+    result_result->setPosition(Vec2(0, 0));
+    this->addChild(result_result);
+    return true;
 }

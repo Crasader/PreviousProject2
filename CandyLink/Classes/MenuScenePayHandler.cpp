@@ -21,18 +21,18 @@ void  MenuScenePayHandler::dealRewardProp(int propId, int propNum){
 #endif
 	switch (propId)
 	{
-	case 1://�������?
+	case 1:
 		GAMEDATA::getInstance()->setReviveNum(GAMEDATA::getInstance()->getReviveNum() + propNum);
 		break;
-	case 2://���ŵ���
+	case 2:
 		GAMEDATA::getInstance()->setResetNum(GAMEDATA::getInstance()->getResetNum() + propNum);
 		GAMEDATA::getInstance()->updateBtnInfo = true;
 		break;
-	case 3://��ʱ����
+	case 3:
 		GAMEDATA::getInstance()->setTimeNum(GAMEDATA::getInstance()->getTimeNum() + propNum);
 		GAMEDATA::getInstance()->updateBtnInfo = true;
 		break;
-	case 4://��ʾ����
+	case 4:
 		GAMEDATA::getInstance()->setTipNum(GAMEDATA::getInstance()->getTipNum() + propNum);
 		GAMEDATA::getInstance()->updateBtnInfo = true;
 		break;
@@ -40,7 +40,6 @@ void  MenuScenePayHandler::dealRewardProp(int propId, int propNum){
 		GAMEDATA::getInstance()->settime(GAMEDATA::getInstance()->gettime() + propNum);
 		break;
 	case 7:
-		//�����¿�
 		GAMEDATA::getInstance()->setTipNum(GAMEDATA::getInstance()->getTipNum() + propNum);
 		GAMEDATA::getInstance()->updateBtnInfo = true;
 		GAMEDATA::getInstance()->setMonthCard(true);
@@ -59,7 +58,6 @@ void  MenuScenePayHandler::dealEventClose(int eventId){
 #endif
 	if (eventId == 1 || eventId == 2 || eventId == 3 || eventId == 5 || eventId == 6 || eventId == 7 ||
 		eventId == 25 || eventId == 26 || eventId == 27 || eventId == 28 || eventId == 29 || eventId == 30 || eventId == 31){
-		CallAndroidMethod::getInstance()->requestEvent(18);
 	}else if (eventId == 4 || eventId == 14 || eventId == 15 || eventId == 16 || eventId == 17){
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Over;
 	}
@@ -76,23 +74,18 @@ void  MenuScenePayHandler::dealEventClose(int eventId){
 	}
 }
 void MenuScenePayHandler::dealEventSuccess(int eventId, int propIds[], int propNums[], int count){
-	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) 
-	CCLog("dealEventSuccess eventId=%d", eventId);
-#endif
-	CCLOG("dealEventSuccess eventId=" + eventId);
 	for (int i = 0; i < count; i++){
 		dealRewardProp(propIds[i], propNums[i]);
 	}
 
 	if (eventId == 1 || eventId == 2){
 		
-		CallAndroidMethod::getInstance()->requestEvent(18);
+//        CallAndroidMethod::getInstance()->requestEvent(18);
 	}else if( eventId == 3 || eventId == 5 || eventId == 6 || eventId == 7 ||
 		eventId == 25 || eventId == 26 || eventId == 27 || eventId == 28 || eventId == 29|| eventId ==30|| eventId == 31){
 
 		GAMEDATA::getInstance()->setFirstPay(false);
-		CallAndroidMethod::getInstance()->requestEvent(18);
+//        CallAndroidMethod::getInstance()->requestEvent(18);
 	}
 	else if (eventId == 4 || eventId == 14 || eventId == 15 || eventId == 16 || eventId == 17){
 		GAMEDATA::getInstance()->setReviveNum(GAMEDATA::getInstance()->getReviveNum() - 1);
@@ -131,19 +124,18 @@ void MenuScenePayHandler::dealEventSuccess(int eventId, int propIds[], int propN
 	else if (eventId == 12 || eventId == 13|| eventId == 18 || eventId == 19 || eventId == 20 ||
 		eventId == 21 || eventId == 22 || eventId == 23 || eventId == 24){
 		if (eventId == 12 || eventId == 13){
-			//����ʹ��һ�μ�ʱ��,���ѼƷѵ�
 			/*GAMEDATA::getInstance()->settime(GAMEDATA::getInstance()->gettime()+20);*/
 			GAMEDATA::getInstance()->updateBtnInfo = true;
 			GAMEDATA::getInstance()->updateProcess = true;
 		}
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
-	}else  if (eventId == 8 ){//������ʾ,����ʹ��һ��
+	}else  if (eventId == 8 ){
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
 		GAMEDATA::getInstance()->useTipProp = true;
-	}else  if (eventId == 9){//��������,����ʹ��һ��
+	}else  if (eventId == 9){
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
 		GAMEDATA::getInstance()->useResetProp = true;
-	}else  if (eventId == 10){//������?����ʹ��һ��
+	}else  if (eventId == 10){
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;
 		GAMEDATA::getInstance()->useAddProps = true;
 	}
@@ -171,7 +163,7 @@ void MenuScenePayHandler::dealEventFail(int eventId){
 #endif
 	if (eventId == 1 || eventId == 2 || eventId == 3 || eventId == 5 || eventId == 6 || eventId == 7 ||
 		eventId == 25 || eventId == 26 || eventId == 27 || eventId == 28 || eventId == 29 || eventId == 30 || eventId == 31){
-		CallAndroidMethod::getInstance()->requestEvent(18);
+//        CallAndroidMethod::getInstance()->requestEvent(18);
 	}else if (eventId == 4 || eventId == 14 || eventId == 15 || eventId == 16 || eventId == 17){
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Over;
 	}
@@ -185,7 +177,6 @@ void MenuScenePayHandler::dealEventFail(int eventId){
 	}
 	else{
 		if (eventId == 12 || eventId == 13){
-			//����ʹ��һ�μ�ʱ��
 			GAMEDATA::getInstance()->updateProcess = true;
 		}
 		GAMEDATA::getInstance()->gameState = GAMEDATA::GameState::Playing;

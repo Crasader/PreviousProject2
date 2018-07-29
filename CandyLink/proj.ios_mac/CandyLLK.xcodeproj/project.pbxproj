@@ -76,8 +76,6 @@
 		D24E5CFD20FAE74E00D29221 /* GameConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E5CD820FAE74C00D29221 /* GameConfig.cpp */; };
 		D24E5CFE20FAE74E00D29221 /* DebugTasterTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E5CD920FAE74C00D29221 /* DebugTasterTime.cpp */; };
 		D24E5CFF20FAE74E00D29221 /* DebugTasterTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E5CD920FAE74C00D29221 /* DebugTasterTime.cpp */; };
-		D24E5D0020FAE74E00D29221 /* SignInLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E5CDA20FAE74C00D29221 /* SignInLayer.cpp */; };
-		D24E5D0120FAE74E00D29221 /* SignInLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E5CDA20FAE74C00D29221 /* SignInLayer.cpp */; };
 		D24E5D0220FAE74E00D29221 /* GameGuiLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E5CDB20FAE74D00D29221 /* GameGuiLayer.cpp */; };
 		D24E5D0320FAE74E00D29221 /* GameGuiLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E5CDB20FAE74D00D29221 /* GameGuiLayer.cpp */; };
 		D24E5D0420FAE74E00D29221 /* GameResultScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E5CDD20FAE74D00D29221 /* GameResultScene.cpp */; };
@@ -202,7 +200,6 @@
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D24E5CC020FAE74B00D29221 /* GameData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameData.cpp; sourceTree = "<group>"; };
-		D24E5CC120FAE74B00D29221 /* SignInLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInLayer.h; sourceTree = "<group>"; };
 		D24E5CC220FAE74B00D29221 /* CallAndroidMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallAndroidMethod.h; sourceTree = "<group>"; };
 		D24E5CC320FAE74B00D29221 /* Cell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cell.cpp; sourceTree = "<group>"; };
 		D24E5CC420FAE74B00D29221 /* LobbyScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LobbyScene.cpp; sourceTree = "<group>"; };
@@ -227,7 +224,6 @@
 		D24E5CD720FAE74C00D29221 /* MenuScenePayHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScenePayHandler.h; sourceTree = "<group>"; };
 		D24E5CD820FAE74C00D29221 /* GameConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameConfig.cpp; sourceTree = "<group>"; };
 		D24E5CD920FAE74C00D29221 /* DebugTasterTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DebugTasterTime.cpp; sourceTree = "<group>"; };
-		D24E5CDA20FAE74C00D29221 /* SignInLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignInLayer.cpp; sourceTree = "<group>"; };
 		D24E5CDB20FAE74D00D29221 /* GameGuiLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameGuiLayer.cpp; sourceTree = "<group>"; };
 		D24E5CDC20FAE74D00D29221 /* GameConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		D24E5CDD20FAE74D00D29221 /* GameResultScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameResultScene.cpp; sourceTree = "<group>"; };
@@ -402,7 +398,6 @@
 				D29C02B9210D94C700643F99 /* pause */,
 				D29C02B8210D94B900643F99 /* result */,
 				D29C02B7210D94A800643F99 /* game */,
-				D29C02B6210D949600643F99 /* sign */,
 				D29C02B5210D948400643F99 /* tools */,
 				D29C02B3210D93FA00643F99 /* lobby */,
 				D24E5CE420FAE74D00D29221 /* AppDelegate.cpp */,
@@ -477,15 +472,6 @@
 				D24E5CD320FAE74C00D29221 /* AnimationUtil.h */,
 			);
 			name = tools;
-			sourceTree = "<group>";
-		};
-		D29C02B6210D949600643F99 /* sign */ = {
-			isa = PBXGroup;
-			children = (
-				D24E5CDA20FAE74C00D29221 /* SignInLayer.cpp */,
-				D24E5CC120FAE74B00D29221 /* SignInLayer.h */,
-			);
-			name = sign;
 			sourceTree = "<group>";
 		};
 		D29C02B7210D94A800643F99 /* game */ = {
@@ -725,7 +711,6 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				D24E5CEA20FAE74D00D29221 /* LobbyScene.cpp in Sources */,
 				D24E5CF420FAE74E00D29221 /* GamePauseLayer.cpp in Sources */,
-				D24E5D0020FAE74E00D29221 /* SignInLayer.cpp in Sources */,
 				D24E5CE620FAE74D00D29221 /* GameData.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
@@ -751,7 +736,6 @@
 				D24E5CED20FAE74E00D29221 /* GameLayer.cpp in Sources */,
 				D24E5CE920FAE74D00D29221 /* Cell.cpp in Sources */,
 				D24E5CF320FAE74E00D29221 /* MenuScenePayHandler.cpp in Sources */,
-				D24E5D0120FAE74E00D29221 /* SignInLayer.cpp in Sources */,
 				D24E5CF720FAE74E00D29221 /* Audio.cpp in Sources */,
 				D24E5CEB20FAE74E00D29221 /* LobbyScene.cpp in Sources */,
 				D24E5CF520FAE74E00D29221 /* GamePauseLayer.cpp in Sources */,

@@ -36,5 +36,6 @@ private:
     MenuItemSprite* settingBtnOkItem_tehui;
     Sprite*     Title;
     Vector<Sprite*> balls;
+    void quitGame();
 };
 #endif
