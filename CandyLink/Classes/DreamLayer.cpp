@@ -1,5 +1,6 @@
 #include "DreamLayer.h"
 #include "GameData.h"
+#include "CallAndroidMethod.h"
 #include "MenuScenePayHandler.h"
 USING_NS_CC;
 
@@ -96,25 +97,17 @@ void DreamLayer::doConfirmEvent(Ref* ref) {
 	MenuItem* tem = (MenuItem*)ref;
 	int id = tem->getTag();
     if(id == 1){
-        int a[1] = {8};
-        int b[1] = {20};
-        MenuScenePayHandler::getInstance()->dealEventSuccess(18, a , b, 1);
+        CallAndroidMethod::getInstance()->dream(1);
     }else if(id ==2){
-        int a[1] = {1};
-        int b[1] = {5};
-        MenuScenePayHandler::getInstance()->dealEventSuccess(4, a , b, 1);
+        CallAndroidMethod::getInstance()->dream(2);
     }else if(id ==3){
-        int a[1] = {4};
-        int b[1] = {10};
-        MenuScenePayHandler::getInstance()->dealEventSuccess(8, a , b, 1);
+         CallAndroidMethod::getInstance()->dream(3);
     }else if(id ==4){
-        int a[1] = {2};
-        int b[1] = {10};
-        MenuScenePayHandler::getInstance()->dealEventSuccess(9, a , b, 1);
+
+          CallAndroidMethod::getInstance()->dream(4);
     }else if(id == 5){
-        int a[1] = {3};
-        int b[1] = {10};
-        MenuScenePayHandler::getInstance()->dealEventSuccess(10, a , b, 1);
+
+        CallAndroidMethod::getInstance()->dream(5);
     }else if(id ==8 || id ==9 ||id ==10 || id ==11){
         int a[1] = {0};
         int b[1] = {0};

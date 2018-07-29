@@ -104,6 +104,8 @@
 		D24E5D3120FAE77700D29221 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1720FAE77700D29221 /* Config.json */; };
 		D24E5D3220FAE77700D29221 /* pauselayer in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1820FAE77700D29221 /* pauselayer */; };
 		D24E5D3320FAE77700D29221 /* pauselayer in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1820FAE77700D29221 /* pauselayer */; };
+		D2DBE0C5210DBA5200F10559 /* DreamCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DBE0C4210DBA5200F10559 /* DreamCallback.cpp */; };
+		D2DBE0C6210DBA5200F10559 /* DreamCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DBE0C4210DBA5200F10559 /* DreamCallback.cpp */; };
 		D2F4C27D20FE1A5700666483 /* DreamLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */; };
 		D2F4C27E20FE1A5700666483 /* DreamLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
@@ -244,6 +246,8 @@
 		D24E5D1420FAE77600D29221 /* sign */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sign; sourceTree = "<group>"; };
 		D24E5D1720FAE77700D29221 /* Config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Config.json; sourceTree = "<group>"; };
 		D24E5D1820FAE77700D29221 /* pauselayer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pauselayer; sourceTree = "<group>"; };
+		D2DBE0C2210DBA5200F10559 /* DreamCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DreamCallback.h; sourceTree = "<group>"; };
+		D2DBE0C4210DBA5200F10559 /* DreamCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DreamCallback.cpp; sourceTree = "<group>"; };
 		D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DreamLayer.cpp; sourceTree = "<group>"; };
 		D2F4C27C20FE1A5700666483 /* DreamLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DreamLayer.h; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -529,6 +533,8 @@
 		D29C02BB210D94F200643F99 /* dream */ = {
 			isa = PBXGroup;
 			children = (
+				D2DBE0C4210DBA5200F10559 /* DreamCallback.cpp */,
+				D2DBE0C2210DBA5200F10559 /* DreamCallback.h */,
 				D24E5CD520FAE74C00D29221 /* CallAndroidMethod.cpp */,
 				D24E5CC220FAE74B00D29221 /* CallAndroidMethod.h */,
 				D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */,
@@ -714,6 +720,7 @@
 				D24E5CE620FAE74D00D29221 /* GameData.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				D2DBE0C5210DBA5200F10559 /* DreamCallback.cpp in Sources */,
 				D24E5CF620FAE74E00D29221 /* Audio.cpp in Sources */,
 				D24E5CFA20FAE74E00D29221 /* CallAndroidMethod.cpp in Sources */,
 				D24E5CEC20FAE74E00D29221 /* GameLayer.cpp in Sources */,
@@ -745,6 +752,7 @@
 				D24E5CFF20FAE74E00D29221 /* DebugTasterTime.cpp in Sources */,
 				D24E5CF920FAE74E00D29221 /* GamePauseScene.cpp in Sources */,
 				D24E5CF120FAE74E00D29221 /* GameScene.cpp in Sources */,
+				D2DBE0C6210DBA5200F10559 /* DreamCallback.cpp in Sources */,
 				D24E5D0320FAE74E00D29221 /* GameGuiLayer.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				D24E5CE720FAE74D00D29221 /* GameData.cpp in Sources */,

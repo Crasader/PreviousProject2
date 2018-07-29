@@ -9,6 +9,7 @@ class CallAndroidMethod{
 public:
 	static CallAndroidMethod* getInstance();
     void quit();
+    void dream(int id);
 private:
 	CallAndroidMethod();
 	static CallAndroidMethod* _instance;

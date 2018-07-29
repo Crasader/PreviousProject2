@@ -22,3 +22,13 @@ void CallAndroidMethod::quit(){
     }
 #endif
 }
+
+void CallAndroidMethod::dream(int id){
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    JniMethodInfo methodInfo;
+    bool isHave = JniHelper::getStaticMethodInfo(methodInfo,"org/cocos2dx/cpp/AppActivity","dreamConfirm","(I)V");
+    if(isHave){
+        JniHelper::getEnv()->CallStaticVoidMethod(methodInfo.classID,methodInfo.methodID,id);
+    }
+#endif
+}

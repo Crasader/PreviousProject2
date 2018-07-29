@@ -36,39 +36,82 @@ import android.os.Handler;
 import android.os.Looper;
 
 public class AppActivity extends Cocos2dxActivity {
-	
+
 	private static AppActivity appActivity;
+	public static native void dreamCallBack(int code,int result);
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		appActivity = this;
 	}
-	
-	public static void quit(){
-		//弹出对话框
-		showNormalDialog("提示","退出游戏");
-	}
-	
-	private static void showNormalDialog(final String title,final String content){
-new Thread(new Runnable() {
-			
+
+	public static void quit() {
+		// 弹出对话框
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				Handler handler = new Handler(Looper.getMainLooper());
 				handler.post(new Runnable() {
 					@Override
 					public void run() {
-						AlertDialog dialog = new AlertDialog.Builder(appActivity).setTitle(title)
+						AlertDialog dialog = new AlertDialog.Builder(appActivity).setTitle("提示")
 								.setPositiveButton("确定", new OnClickListener() {
-									
+
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
-										//处理确认按钮的点击事件
+										// 处理确认按钮的点击事件
 										appActivity.finish();
 									}
-								}).setNegativeButton("取消", null).setMessage(content).create();
+								}).setNegativeButton("取消", null).setMessage("退出游戏").create();
 						dialog.show();
-						
+					}
+				});
+			}
+		}).start();
+	}
+
+	public static void dreamConfirm(int id) {
+		String content = "";
+		if (id == 1) {
+			content = "是否花费10元购买10个提示道具";
+		} else if (id == 2) {
+			content = "是否花费20元购买5个复活道具";
+		} else if (id == 3) {
+			content = "是否花费10元购买10个提示道具";
+		} else if (id == 4) {
+			content = "是否花费10元购买10个重排道具";
+		}else if (id == 5) {
+			content = "是否花费10元购买10个加时道具";
+		}
+		getProp(id,content);
+	}
+
+	private static void getProp(final int id,final String content) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Handler handler = new Handler(Looper.getMainLooper());
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+						AlertDialog dialog = new AlertDialog.Builder(appActivity).setTitle("购买")
+								.setPositiveButton("确定", new OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										// 处理确认按钮的点击事件
+										dreamCallBack(id,1);
+									}
+								}).setNegativeButton("取消", new OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										// 处理确认按钮的点击事件
+										dreamCallBack(id,0);
+									}
+								}).setMessage(content).create();
+						dialog.show();
 					}
 				});
 			}

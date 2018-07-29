@@ -1,7 +1,7 @@
 #include <memory>
-
 #include <android/log.h>
 #include <jni.h>
+#include "DreamCallback.h"
 
 #include "AppDelegate.h"
 
@@ -15,4 +15,10 @@ std::unique_ptr<AppDelegate> appDelegate;
 void cocos_android_app_init(JNIEnv* env) {
     LOGD("cocos_android_app_init");
     appDelegate.reset(new AppDelegate());
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_org_cocos2dx_cpp_AppActivity_dreamCallBack(JNIEnv* env,jclass jcl,jint code,jint result)
+{
+	DreamCallback::getInstance()->jniCallBack(code,result);
 }
