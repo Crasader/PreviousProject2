@@ -90,8 +90,6 @@
 		D24E5D0B20FAE74E00D29221 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D24E5CE420FAE74D00D29221 /* AppDelegate.cpp */; };
 		D24E5D1A20FAE77700D29221 /* payui in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D0C20FAE77600D29221 /* payui */; };
 		D24E5D1B20FAE77700D29221 /* payui in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D0C20FAE77600D29221 /* payui */; };
-		D24E5D1C20FAE77700D29221 /* ZYF_ChannelID in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D0D20FAE77600D29221 /* ZYF_ChannelID */; };
-		D24E5D1D20FAE77700D29221 /* ZYF_ChannelID in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D0D20FAE77600D29221 /* ZYF_ChannelID */; };
 		D24E5D1E20FAE77700D29221 /* LobbyScene in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D0E20FAE77600D29221 /* LobbyScene */; };
 		D24E5D1F20FAE77700D29221 /* LobbyScene in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D0E20FAE77600D29221 /* LobbyScene */; };
 		D24E5D2020FAE77700D29221 /* gamescene in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D0F20FAE77600D29221 /* gamescene */; };
@@ -102,20 +100,12 @@
 		D24E5D2520FAE77700D29221 /* resultscene in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1120FAE77600D29221 /* resultscene */; };
 		D24E5D2620FAE77700D29221 /* json in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1220FAE77600D29221 /* json */; };
 		D24E5D2720FAE77700D29221 /* json in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1220FAE77600D29221 /* json */; };
-		D24E5D2820FAE77700D29221 /* ZM_ChannelID in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1320FAE77600D29221 /* ZM_ChannelID */; };
-		D24E5D2920FAE77700D29221 /* ZM_ChannelID in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1320FAE77600D29221 /* ZM_ChannelID */; };
 		D24E5D2A20FAE77700D29221 /* sign in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1420FAE77600D29221 /* sign */; };
 		D24E5D2B20FAE77700D29221 /* sign in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1420FAE77600D29221 /* sign */; };
-		D24E5D2C20FAE77700D29221 /* phonenum.png in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1520FAE77700D29221 /* phonenum.png */; };
-		D24E5D2D20FAE77700D29221 /* phonenum.png in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1520FAE77700D29221 /* phonenum.png */; };
-		D24E5D2E20FAE77700D29221 /* skymobi_a in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1620FAE77700D29221 /* skymobi_a */; };
-		D24E5D2F20FAE77700D29221 /* skymobi_a in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1620FAE77700D29221 /* skymobi_a */; };
 		D24E5D3020FAE77700D29221 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1720FAE77700D29221 /* Config.json */; };
 		D24E5D3120FAE77700D29221 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1720FAE77700D29221 /* Config.json */; };
 		D24E5D3220FAE77700D29221 /* pauselayer in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1820FAE77700D29221 /* pauselayer */; };
 		D24E5D3320FAE77700D29221 /* pauselayer in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1820FAE77700D29221 /* pauselayer */; };
-		D24E5D3420FAE77700D29221 /* zmfiles in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1920FAE77700D29221 /* zmfiles */; };
-		D24E5D3520FAE77700D29221 /* zmfiles in Resources */ = {isa = PBXBuildFile; fileRef = D24E5D1920FAE77700D29221 /* zmfiles */; };
 		D2F4C27D20FE1A5700666483 /* DreamLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */; };
 		D2F4C27E20FE1A5700666483 /* DreamLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
@@ -250,19 +240,14 @@
 		D24E5CE420FAE74D00D29221 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D24E5CE520FAE74D00D29221 /* LobbyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyScene.h; sourceTree = "<group>"; };
 		D24E5D0C20FAE77600D29221 /* payui */ = {isa = PBXFileReference; lastKnownFileType = folder; path = payui; sourceTree = "<group>"; };
-		D24E5D0D20FAE77600D29221 /* ZYF_ChannelID */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZYF_ChannelID; sourceTree = "<group>"; };
 		D24E5D0E20FAE77600D29221 /* LobbyScene */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LobbyScene; sourceTree = "<group>"; };
 		D24E5D0F20FAE77600D29221 /* gamescene */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gamescene; sourceTree = "<group>"; };
 		D24E5D1020FAE77600D29221 /* raw */ = {isa = PBXFileReference; lastKnownFileType = folder; path = raw; sourceTree = "<group>"; };
 		D24E5D1120FAE77600D29221 /* resultscene */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resultscene; sourceTree = "<group>"; };
 		D24E5D1220FAE77600D29221 /* json */ = {isa = PBXFileReference; lastKnownFileType = folder; path = json; sourceTree = "<group>"; };
-		D24E5D1320FAE77600D29221 /* ZM_ChannelID */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZM_ChannelID; sourceTree = "<group>"; };
 		D24E5D1420FAE77600D29221 /* sign */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sign; sourceTree = "<group>"; };
-		D24E5D1520FAE77700D29221 /* phonenum.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phonenum.png; sourceTree = "<group>"; };
-		D24E5D1620FAE77700D29221 /* skymobi_a */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skymobi_a; sourceTree = "<group>"; };
 		D24E5D1720FAE77700D29221 /* Config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Config.json; sourceTree = "<group>"; };
 		D24E5D1820FAE77700D29221 /* pauselayer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pauselayer; sourceTree = "<group>"; };
-		D24E5D1920FAE77700D29221 /* zmfiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = zmfiles; sourceTree = "<group>"; };
 		D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DreamLayer.cpp; sourceTree = "<group>"; };
 		D2F4C27C20FE1A5700666483 /* DreamLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DreamLayer.h; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -401,14 +386,9 @@
 				D24E5D0E20FAE77600D29221 /* LobbyScene */,
 				D24E5D1820FAE77700D29221 /* pauselayer */,
 				D24E5D0C20FAE77600D29221 /* payui */,
-				D24E5D1520FAE77700D29221 /* phonenum.png */,
 				D24E5D1020FAE77600D29221 /* raw */,
 				D24E5D1120FAE77600D29221 /* resultscene */,
 				D24E5D1420FAE77600D29221 /* sign */,
-				D24E5D1620FAE77700D29221 /* skymobi_a */,
-				D24E5D1320FAE77600D29221 /* ZM_ChannelID */,
-				D24E5D1920FAE77700D29221 /* zmfiles */,
-				D24E5D0D20FAE77600D29221 /* ZYF_ChannelID */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -417,46 +397,16 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D24E5CE320FAE74D00D29221 /* AnimationUtil.cpp */,
-				D24E5CD320FAE74C00D29221 /* AnimationUtil.h */,
+				D29C02BB210D94F200643F99 /* dream */,
+				D29C02BA210D94DD00643F99 /* audio */,
+				D29C02B9210D94C700643F99 /* pause */,
+				D29C02B8210D94B900643F99 /* result */,
+				D29C02B7210D94A800643F99 /* game */,
+				D29C02B6210D949600643F99 /* sign */,
+				D29C02B5210D948400643F99 /* tools */,
+				D29C02B3210D93FA00643F99 /* lobby */,
 				D24E5CE420FAE74D00D29221 /* AppDelegate.cpp */,
 				D24E5CC620FAE74B00D29221 /* AppDelegate.h */,
-				D24E5CD020FAE74C00D29221 /* Audio.cpp */,
-				D24E5CD220FAE74C00D29221 /* Audio.h */,
-				D24E5CD520FAE74C00D29221 /* CallAndroidMethod.cpp */,
-				D24E5CC220FAE74B00D29221 /* CallAndroidMethod.h */,
-				D24E5CC320FAE74B00D29221 /* Cell.cpp */,
-				D24E5CCC20FAE74B00D29221 /* Cell.h */,
-				D24E5CD920FAE74C00D29221 /* DebugTasterTime.cpp */,
-				D24E5CD120FAE74C00D29221 /* DebugTasterTime.h */,
-				D24E5CD820FAE74C00D29221 /* GameConfig.cpp */,
-				D24E5CDC20FAE74D00D29221 /* GameConfig.h */,
-				D24E5CC020FAE74B00D29221 /* GameData.cpp */,
-				D24E5CD620FAE74C00D29221 /* GameData.h */,
-				D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */,
-				D2F4C27C20FE1A5700666483 /* DreamLayer.h */,
-				D24E5CDB20FAE74D00D29221 /* GameGuiLayer.cpp */,
-				D24E5CE120FAE74D00D29221 /* GameGuiLayer.h */,
-				D24E5CC520FAE74B00D29221 /* GameLayer.cpp */,
-				D24E5CE220FAE74D00D29221 /* GameLayer.h */,
-				D24E5CCF20FAE74C00D29221 /* GamePauseLayer.cpp */,
-				D24E5CDE20FAE74D00D29221 /* GamePauseLayer.h */,
-				D24E5CD420FAE74C00D29221 /* GamePauseScene.cpp */,
-				D24E5CDF20FAE74D00D29221 /* GamePauseScene.h */,
-				D24E5CE020FAE74D00D29221 /* GameResultLayer.cpp */,
-				D24E5CCD20FAE74C00D29221 /* GameResultLayer.h */,
-				D24E5CDD20FAE74D00D29221 /* GameResultScene.cpp */,
-				D24E5CC720FAE74B00D29221 /* GameResultScene.h */,
-				D24E5CCA20FAE74B00D29221 /* GameScene.cpp */,
-				D24E5CCE20FAE74C00D29221 /* GameScene.h */,
-				D24E5CC420FAE74B00D29221 /* LobbyScene.cpp */,
-				D24E5CE520FAE74D00D29221 /* LobbyScene.h */,
-				D24E5CC820FAE74B00D29221 /* Matrix.cpp */,
-				D24E5CC920FAE74B00D29221 /* Matrix.h */,
-				D24E5CCB20FAE74B00D29221 /* MenuScenePayHandler.cpp */,
-				D24E5CD720FAE74C00D29221 /* MenuScenePayHandler.h */,
-				D24E5CDA20FAE74C00D29221 /* SignInLayer.cpp */,
-				D24E5CC120FAE74B00D29221 /* SignInLayer.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -508,6 +458,100 @@
 			name = Icons;
 			path = ios;
 			sourceTree = SOURCE_ROOT;
+		};
+		D29C02B3210D93FA00643F99 /* lobby */ = {
+			isa = PBXGroup;
+			children = (
+				D24E5CC420FAE74B00D29221 /* LobbyScene.cpp */,
+				D24E5CE520FAE74D00D29221 /* LobbyScene.h */,
+			);
+			name = lobby;
+			sourceTree = "<group>";
+		};
+		D29C02B5210D948400643F99 /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				D24E5CD920FAE74C00D29221 /* DebugTasterTime.cpp */,
+				D24E5CD120FAE74C00D29221 /* DebugTasterTime.h */,
+				D24E5CE320FAE74D00D29221 /* AnimationUtil.cpp */,
+				D24E5CD320FAE74C00D29221 /* AnimationUtil.h */,
+			);
+			name = tools;
+			sourceTree = "<group>";
+		};
+		D29C02B6210D949600643F99 /* sign */ = {
+			isa = PBXGroup;
+			children = (
+				D24E5CDA20FAE74C00D29221 /* SignInLayer.cpp */,
+				D24E5CC120FAE74B00D29221 /* SignInLayer.h */,
+			);
+			name = sign;
+			sourceTree = "<group>";
+		};
+		D29C02B7210D94A800643F99 /* game */ = {
+			isa = PBXGroup;
+			children = (
+				D24E5CD820FAE74C00D29221 /* GameConfig.cpp */,
+				D24E5CDC20FAE74D00D29221 /* GameConfig.h */,
+				D24E5CC020FAE74B00D29221 /* GameData.cpp */,
+				D24E5CD620FAE74C00D29221 /* GameData.h */,
+				D24E5CDB20FAE74D00D29221 /* GameGuiLayer.cpp */,
+				D24E5CE120FAE74D00D29221 /* GameGuiLayer.h */,
+				D24E5CC820FAE74B00D29221 /* Matrix.cpp */,
+				D24E5CC920FAE74B00D29221 /* Matrix.h */,
+				D24E5CC520FAE74B00D29221 /* GameLayer.cpp */,
+				D24E5CE220FAE74D00D29221 /* GameLayer.h */,
+				D24E5CC320FAE74B00D29221 /* Cell.cpp */,
+				D24E5CCC20FAE74B00D29221 /* Cell.h */,
+				D24E5CCA20FAE74B00D29221 /* GameScene.cpp */,
+				D24E5CCE20FAE74C00D29221 /* GameScene.h */,
+			);
+			name = game;
+			sourceTree = "<group>";
+		};
+		D29C02B8210D94B900643F99 /* result */ = {
+			isa = PBXGroup;
+			children = (
+				D24E5CE020FAE74D00D29221 /* GameResultLayer.cpp */,
+				D24E5CCD20FAE74C00D29221 /* GameResultLayer.h */,
+				D24E5CDD20FAE74D00D29221 /* GameResultScene.cpp */,
+				D24E5CC720FAE74B00D29221 /* GameResultScene.h */,
+			);
+			name = result;
+			sourceTree = "<group>";
+		};
+		D29C02B9210D94C700643F99 /* pause */ = {
+			isa = PBXGroup;
+			children = (
+				D24E5CCF20FAE74C00D29221 /* GamePauseLayer.cpp */,
+				D24E5CDE20FAE74D00D29221 /* GamePauseLayer.h */,
+				D24E5CD420FAE74C00D29221 /* GamePauseScene.cpp */,
+				D24E5CDF20FAE74D00D29221 /* GamePauseScene.h */,
+			);
+			name = pause;
+			sourceTree = "<group>";
+		};
+		D29C02BA210D94DD00643F99 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				D24E5CD020FAE74C00D29221 /* Audio.cpp */,
+				D24E5CD220FAE74C00D29221 /* Audio.h */,
+			);
+			name = audio;
+			sourceTree = "<group>";
+		};
+		D29C02BB210D94F200643F99 /* dream */ = {
+			isa = PBXGroup;
+			children = (
+				D24E5CD520FAE74C00D29221 /* CallAndroidMethod.cpp */,
+				D24E5CC220FAE74B00D29221 /* CallAndroidMethod.h */,
+				D2F4C27A20FE1A5700666483 /* DreamLayer.cpp */,
+				D2F4C27C20FE1A5700666483 /* DreamLayer.h */,
+				D24E5CCB20FAE74B00D29221 /* MenuScenePayHandler.cpp */,
+				D24E5CD720FAE74C00D29221 /* MenuScenePayHandler.h */,
+			);
+			name = dream;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -617,10 +661,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D24E5D2620FAE77700D29221 /* json in Resources */,
-				D24E5D3420FAE77700D29221 /* zmfiles in Resources */,
-				D24E5D2E20FAE77700D29221 /* skymobi_a in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
-				D24E5D2820FAE77700D29221 /* ZM_ChannelID in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				D24E5D1A20FAE77700D29221 /* payui in Resources */,
 				D24E5D2020FAE77700D29221 /* gamescene in Resources */,
@@ -630,7 +671,6 @@
 				D24E5D2220FAE77700D29221 /* raw in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
-				D24E5D1C20FAE77700D29221 /* ZYF_ChannelID in Resources */,
 				D24E5D3220FAE77700D29221 /* pauselayer in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
@@ -645,7 +685,6 @@
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				D24E5D2A20FAE77700D29221 /* sign in Resources */,
-				D24E5D2C20FAE77700D29221 /* phonenum.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);
@@ -657,19 +696,14 @@
 			files = (
 				D24E5D2520FAE77700D29221 /* resultscene in Resources */,
 				D24E5D1F20FAE77700D29221 /* LobbyScene in Resources */,
-				D24E5D2920FAE77700D29221 /* ZM_ChannelID in Resources */,
-				D24E5D3520FAE77700D29221 /* zmfiles in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				D24E5D2120FAE77700D29221 /* gamescene in Resources */,
 				D24E5D2320FAE77700D29221 /* raw in Resources */,
-				D24E5D2D20FAE77700D29221 /* phonenum.png in Resources */,
-				D24E5D2F20FAE77700D29221 /* skymobi_a in Resources */,
 				D24E5D3120FAE77700D29221 /* Config.json in Resources */,
 				D24E5D1B20FAE77700D29221 /* payui in Resources */,
 				D24E5D2B20FAE77700D29221 /* sign in Resources */,
 				D24E5D3320FAE77700D29221 /* pauselayer in Resources */,
 				D24E5D2720FAE77700D29221 /* json in Resources */,
-				D24E5D1D20FAE77700D29221 /* ZYF_ChannelID in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

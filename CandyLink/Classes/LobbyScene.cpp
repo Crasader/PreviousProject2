@@ -134,7 +134,6 @@ bool LobbyScene::init()
 
 	GameConfig::getInstance()->LoadConfig();
 	
-	/*this->scheduleOnce(schedule_selector(LobbyScene::ShowAni), 0.3f);*/
 	auto state = GAMEDATA::getInstance()->gameState;
 	if (state == GAMEDATA::GameState::Start&&!GAMEDATA::getInstance()->getispaythiscount() && !GAMEDATA::getInstance()->getispay())
 	{

@@ -9,7 +9,7 @@ public:
 	~MenuScenePayHandler() {};  
 	void dealEventSuccess(int eventId, int propIds[], int propNums[], int count);
 	void dealEventFail(int eventId);
-	void dealRewardProp(int propId, int propNum);//����֧����õ���
+	void dealRewardProp(int propId, int propNum);
 	void dealEventClose(int eventId);
 	static MenuScenePayHandler* getInstance();
 	void setMoreGameState(bool isOpen);
