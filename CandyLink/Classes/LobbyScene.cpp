@@ -35,7 +35,7 @@ bool LobbyScene::init()
             case cocos2d::EventKeyboard::KeyCode::KEY_NONE:
                 break;
             case cocos2d::EventKeyboard::KeyCode::KEY_BACK:
-                exit(0);//quit game
+               quitGame();//quit game
                 break;
             default:
                 break;
@@ -71,8 +71,9 @@ bool LobbyScene::init()
     MenuItemImage *open = MenuItemImage::create("open.png", "open.png");
     MenuItemImage *close = MenuItemImage::create("close.png", "close.png");
     MenuItemToggle *music = MenuItemToggle::createWithCallback(CC_CALLBACK_1(LobbyScene::musicCallback, this), open, close, NULL);
-    music->setPosition(Vec2(-190, -353));
+   
     Menu* itemToggleMenu = Menu::create(music, NULL);
+    itemToggleMenu->setPosition(Vec2(430, 50));
     this->addChild(itemToggleMenu, 1);
     if (!GAMEDATA::getInstance()->getMusicState()){
         music->setSelectedIndex(1);
@@ -81,8 +82,7 @@ bool LobbyScene::init()
     //add quit btn
     auto quitImg = MenuItemImage::create("back_normal.png", "back_click.png",  CC_CALLBACK_0(LobbyScene::quitGame, this));
     auto quitMenu = Menu::create(quitImg,NULL);
-    quitMenu->setPosition(Point(70, 100));
-    quitMenu->setPosition(Point(0, 0));
+    quitMenu->setPosition(Vec2(50, 50));
     this->addChild(quitMenu);
     
     

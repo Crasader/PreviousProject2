@@ -32,12 +32,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 public class AppActivity extends Cocos2dxActivity {
 	
+	private static AppActivity appActivity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		appActivity = this;
 	}
 	
 	public static void quit(){
@@ -45,15 +49,29 @@ public class AppActivity extends Cocos2dxActivity {
 		showNormalDialog("提示","退出游戏");
 	}
 	
-	private static void showNormalDialog(String title,String content){
-		AlertDialog dialog = new AlertDialog.Builder(AppActivity.getContext()).setTitle(title)
-				.setNegativeButton("确定", new OnClickListener() {
-					
+	private static void showNormalDialog(final String title,final String content){
+new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Handler handler = new Handler(Looper.getMainLooper());
+				handler.post(new Runnable() {
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						//处理确认按钮的点击事件
+					public void run() {
+						AlertDialog dialog = new AlertDialog.Builder(appActivity).setTitle(title)
+								.setPositiveButton("确定", new OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										//处理确认按钮的点击事件
+										appActivity.finish();
+									}
+								}).setNegativeButton("取消", null).setMessage(content).create();
+						dialog.show();
+						
 					}
-				}).setNegativeButton("取消", null).setMessage(content).create();
-		dialog.show();
+				});
+			}
+		}).start();
 	}
 }
