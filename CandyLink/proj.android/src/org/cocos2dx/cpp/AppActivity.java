@@ -28,5 +28,32 @@ package org.cocos2dx.cpp;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.os.Bundle;
+
 public class AppActivity extends Cocos2dxActivity {
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+	
+	public static void quit(){
+		//弹出对话框
+		showNormalDialog("提示","退出游戏");
+	}
+	
+	private static void showNormalDialog(String title,String content){
+		AlertDialog dialog = new AlertDialog.Builder(AppActivity.getContext()).setTitle(title)
+				.setNegativeButton("确定", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						//处理确认按钮的点击事件
+					}
+				}).setNegativeButton("取消", null).setMessage(content).create();
+		dialog.show();
+	}
 }

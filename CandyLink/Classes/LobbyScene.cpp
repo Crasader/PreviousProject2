@@ -1,9 +1,11 @@
 #include "LobbyScene.h"
-#include "GameScene.h"
 #include"Audio.h"
 #include"GameData.h"
-#include "SimpleAudioEngine.h"
+#include "GameScene.h"
 #include "GameConfig.h"
+#include "SimpleAudioEngine.h"
+#include "CallAndroidMethod.h"
+
 Scene* LobbyScene::createScene()
 {
     auto scene = Scene::create();
@@ -105,7 +107,7 @@ bool LobbyScene::init()
 }
 
 void LobbyScene::quitGame(){
-    
+    CallAndroidMethod::getInstance()->quit();
 }
 
 void LobbyScene::showMoreGame(){
